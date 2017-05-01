@@ -1,0 +1,134 @@
+﻿@using InsuranceBackoffice.Models
+@using InsuranceSocialNetworkDTO.Garage
+@model GaragesViewModel
+
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+<div class="content animate-panel">
+    <div class="row">
+        <div class="col-lg-12 text-center m-t-md">
+            <h2>
+                @Resources.Resources.GarageManagement
+            </h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="hpanel">
+                <div class="panel-heading">
+                    <div class="panel-tools">
+                        <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+                        <a class="closebox"><i class="fa fa-times"></i></a>
+                    </div>
+                    @Resources.Resources.Garages
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        @(Html.Kendo().Grid<GarageDTO>()
+                            .Name("grid")
+                            .Columns(columns =>
+                            {
+                                columns.Bound(c => c.Name);
+                                columns.Bound(c => c.Active);
+                            })
+                            .EnableCustomBinding(true)
+                            .AutoBind(true)
+                            .HtmlAttributes(new { style = "height: 550px;" })
+                            .Scrollable()
+                            //.Groupable()
+                            .Sortable()
+                            .Pageable(pageable => pageable
+                                .Refresh(true)
+                                .PageSizes(true)
+                                .ButtonCount(5))
+                            .DataSource(dataSource => dataSource
+                                .Ajax()
+                                .Model(m=>m.Id(p=>p.ID))
+                                .Read(read => read.Action("Garages_Read", "Dashboard"))
+                                .PageSize(20)
+                            )
+                        )
+                    </div>
+                </div>
+                @*<div class="panel-footer">
+                    <span class="pull-right">
+                        You have two new messages from <a href="">Monica Bolt</a>
+                    </span>
+                    Last update: 21.05.2015
+                </div>*@
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@*@section Scripts {
+    @Scripts.Render("~/bundles/flot/js")
+
+    <script type="text/javascript">
+
+            $(function () {
+
+                /**
+                 * Flot charts data and options
+                 */
+                var data1 = [ [0, 55], [1, 48], [2, 40], [3, 36], [4, 40], [5, 60], [6, 50], [7, 51] ];
+                var data2 = [ [0, 56], [1, 49], [2, 41], [3, 38], [4, 46], [5, 67], [6, 57], [7, 59] ];
+
+                var chartUsersOptions = {
+                    series: {
+                        splines: {
+                            show: true,
+                            tension: 0.4,
+                            lineWidth: 1,
+                            fill: 0.4
+                        },
+                    },
+                    grid: {
+                        tickColor: "#f0f0f0",
+                        borderWidth: 1,
+                        borderColor: 'f0f0f0',
+                        color: '#6a6c6f'
+                    },
+                    colors: [ "#62cb31", "#efefef"],
+                };
+
+                $.plot($("#flot-line-chart"), [data1, data2], chartUsersOptions);
+
+                /**
+                 * Flot charts 2 data and options
+                 */
+                var chartIncomeData = [
+                    {
+                        label: "line",
+                        data: [ [1, 10], [2, 26], [3, 16], [4, 36], [5, 32], [6, 51] ]
+                    }
+                ];
+
+                var chartIncomeOptions = {
+                    series: {
+                        lines: {
+                            show: true,
+                            lineWidth: 0,
+                            fill: true,
+                            fillColor: "#64cc34"
+
+                        }
+                    },
+                    colors: ["#62cb31"],
+                    grid: {
+                        show: false
+                    },
+                    legend: {
+                        show: false
+                    }
+                };
+
+                $.plot($("#flot-income-chart"), chartIncomeData, chartIncomeOptions);
+
+
+        });
+    </script>
+}*@

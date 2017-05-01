@@ -1,0 +1,422 @@
+﻿@using InsuranceWebsite.Models
+@model HomeViewModel
+
+<!-- left content-->
+
+<div class="col-md-3">
+
+    <div class="profile-nav">
+
+        <div class="panel">
+
+            <div class="user-heading">
+
+                <a href="#">
+
+                    <img src="~/Content/images/no_logo_img.png" alt="">
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- friends -->
+
+    <div class="widget panel-groups">
+
+        <div class="widget-header">
+
+            <h3 class="widget-caption">@Resources.Resources.Feed</h3>
+
+        </div>
+
+        <div class="widget-body bordered-top bordered-sky text-center">
+
+            <ul class="friends">
+
+                <li>
+
+                    <a href="#">
+
+                        <img src="~/Content/images/no_photo_img.jpg" title="Jhoanath matew" class="img-responsive tip">
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a href="#">
+
+                        <img src="~/Content/images/no_photo_img.jpg" title="Martha creawn" class="img-responsive tip">
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a href="#">
+
+                        <img src="~/Content/images/no_photo_img.jpg" title="Jeferh smith" class="img-responsive tip">
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a href="#">
+
+                        <img src="~/Content/images/no_photo_img.jpg" title="Linda palma" class="img-responsive tip">
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a href="#">
+
+                        <img src="~/Content/images/no_photo_img.jpg" title="Lindo polmo" class="img-responsive tip">
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a href="#">
+
+                        <img src="~/Content/images/no_photo_img.jpg" title="andrew cartson" class="img-responsive tip">
+
+                    </a>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+    <!-- end friends -->
+    <!-- photos -->
+    @*<div class="widget">
+
+        <div class="widget-header">
+
+            <h3 class="widget-caption">Photos</h3>
+
+        </div>
+
+        <div class="widget-body bordered-top bordered-sky text-center">
+
+            <ul class="photos">
+
+                <li>
+
+                    <a href="#">
+
+                        <img src="img/Photos/5.jpg" alt="photo 1" class="img-responsive show-in-modal">
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a href="#">
+
+                        <img src="img/Photos/2.jpg" alt="photo 2" class="img-responsive show-in-modal">
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a href="#">
+
+                        <img src="img/Photos/3.jpg" alt="photo 3" class="img-responsive show-in-modal">
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a href="#">
+
+                        <img src="img/Photos/7.jpg" alt="photo 4" class="img-responsive show-in-modal">
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a href="#">
+
+                        <img src="img/Photos/5.jpg" alt="photo 5" class="img-responsive show-in-modal">
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a href="#">
+
+                        <img src="img/Photos/4.jpg" alt="photo 6" class="img-responsive show-in-modal">
+
+                    </a>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>*@
+    <!-- end photos-->
+    <!-- likes -->
+    @*<div class="widget panel-likes">
+
+        <div class="widget-header">
+
+            <h3 class="widget-caption"><i class="fa fa-thumbs-o-up"></i>&nbsp;Likes</h3>
+
+        </div>
+
+        <div class="widget-body bordered-top bordered-sky">
+
+            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="">
+
+                <!-- Indicators -->
+
+                <ol class="carousel-indicators">
+
+                    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+
+                    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+
+                </ol>
+
+
+
+                <!-- Wrapper for slides -->
+
+                <div class="carousel-inner" role="listbox-likes">
+
+                    <div class="item active">
+
+                        <div class="row">
+
+                            <div class="col-md-6 col-sm-6 col-xs-3"><a href="#" class="thumbnail"><img src="img/Likes/likes-5.png" alt="Like"></a></div>
+
+                            <div class="col-md-6 col-sm-6 col-xs-3"><a href="#" class="thumbnail"><img src="img/Likes/likes-6.png" alt="Like"></a></div>
+
+                            <div class="col-md-6 col-sm-6 col-xs-3"><a href="#" class="thumbnail"><img src="img/Likes/likes-1.png" alt="Like"></a></div>
+
+                            <div class="col-md-6 col-sm-6 col-xs-3"><a href="#" class="thumbnail"><img src="img/Likes/likes-2.png" alt="Like"></a></div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="item">
+
+                        <div class="row">
+
+                            <div class="col-md-6 col-sm-6 col-xs-3"><a href="#" class="thumbnail"><img src="img/Likes/likes-3.png" class="show-in-modal" alt="Like"></a></div>
+
+                            <div class="col-md-6 col-sm-6 col-xs-3"><a href="#" class="thumbnail"><img src="img/Likes/likes-4.png" class="show-in-modal" alt="Like"></a></div>
+
+                            <div class="col-md-6 col-sm-6 col-xs-3"><a href="#" class="thumbnail"><img src="img/Likes/likes-5.png" class="show-in-modal" alt="Like"></a></div>
+
+                            <div class="col-md-6 col-sm-6 col-xs-3"><a href="#" class="thumbnail"><img src="img/Likes/likes-6.png" class="show-in-modal" alt="Like"></a></div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Controls -->
+
+                <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+
+                    <span class="sr-only">Previous</span>
+
+                </a>
+
+                <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+
+                    <span class="sr-only">Next</span>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>*@
+    <!-- en likes -->
+    <!-- groups -->
+
+    <div class="widget panel-groups">
+
+        <div class="widget-header">
+
+            <h3 class="widget-caption">@Resources.Resources.ChatGroups</h3>
+
+        </div>
+
+        <div class="widget-body bordered-top bordered-sky">
+
+            <div class="card">
+
+                <div class="header">
+
+                    <h4 class="title">Team Members</h4>
+
+                </div>
+
+                <div class="content">
+
+                    <ul class="list-unstyled team-members">
+
+                        <li>
+
+                            <div class="row">
+
+                                <div class="col-xs-3">
+
+                                    <div class="avatar">
+
+                                        <img src="~/Content/images/no_photo_img.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-xs-6">
+
+                                    Git in action
+
+                                </div>
+
+
+
+                                <div class="col-xs-3 text-right">
+
+                                    <btn class="btn btn-sm btn-info btn-icon"><i class="fa fa-share"></i></btn>
+
+                                </div>
+
+                            </div>
+
+                        </li>
+
+                        <li>
+
+                            <div class="row">
+
+                                <div class="col-xs-3">
+
+                                    <div class="avatar">
+
+                                        <img src="~/Content/images/no_photo_img.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-xs-6">
+
+                                    Bootdey
+
+                                </div>
+
+
+
+                                <div class="col-xs-3 text-right">
+
+                                    <btn class="btn btn-sm btn-info btn-icon"><i class="fa fa-share"></i></btn>
+
+                                </div>
+
+                            </div>
+
+                        </li>
+
+                        <li>
+
+                            <div class="row">
+
+                                <div class="col-xs-3">
+
+                                    <div class="avatar">
+
+                                        <img src="~/Content/images/no_photo_img.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-xs-6">
+
+                                    Html 5 live
+
+                                </div>
+
+
+
+                                <div class="col-xs-3 text-right">
+
+                                    <btn class="btn btn-sm btn-info btn-icon"><i class="fa fa-share"></i></btn>
+
+                                </div>
+
+                            </div>
+
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- end groups-->
+
+    <!-- Businesses -->
+
+    <div class="widget panel-groups">
+
+        <div class="widget-header">
+
+            <h3 class="widget-caption">@Resources.Resources.MyBusinesses</h3>
+
+        </div>
+
+        <div class="widget-body bordered-top bordered-sky">
+        </div>
+    </div>
+
+    <!-- end Businesses -->
+
+</div><!-- end left content-->

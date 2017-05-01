@@ -1,0 +1,30 @@
+﻿@using InsuranceWebsite.Models
+@model ProfileViewModel
+
+<footer class="welcome-footer">
+
+    <div class="container" style="text-align:center">
+
+        <p>
+
+            <div class="footer-links">
+
+                <a href="@Url.Action("TermsConditions", "Home")">@Resources.Resources.TermsOfUse</a> |
+
+                <a href="@Url.Action("PrivacyPolicy", "Home")">@Resources.Resources.PrivacyPolicy</a> |
+
+                <a href="#">@Resources.Resources.Developers</a> |
+
+                <a href="@Url.Action("Contact", "Home")">@Resources.Resources.Contact</a> |
+
+                <a href="@Url.Action("About", "Home")">@Resources.Resources.About</a>
+
+            </div>
+
+            Copyright &copy; Company - All rights reserved
+
+        </p>
+
+    </div>
+
+</footer>

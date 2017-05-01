@@ -1,0 +1,100 @@
+﻿@using InsuranceWebsite.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+}
+
+@{
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+
+<!-- register and login form-->
+
+<div class="welcome-inputs">
+
+    <div class="widget panel-inputs panel-home animated fadeInUp">
+
+        <div class="widget-header">
+
+            <h3 class="widget-caption">
+
+                <span class="pull-right">
+
+                    @Html.ActionLink(Resources.Resources.Register, "Register", "Account", new { @class = "btn btn-info btn-xs btn-panel-home" })
+
+                </span>
+
+            </h3>
+
+        </div>
+
+        <div class="widget-body">
+
+            <div class="row" style="margin-left: 0px;">
+
+                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @*<form action="" method="POST" autocomplete="off">*@
+
+                    @*<input type="text" id="short" name="" placeholder="Username or email">
+
+                        <input type="password" id="short" name="" placeholder="Password">*@
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = Resources.Resources.Email, @id = "short" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = Resources.Resources.Password, @id = "short" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            @Html.ValidationSummary("", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                                <!--<input type="checkbox" name="remember" value="1">-->
+
+                    @*<a type="submit" href="profile.html" name="login" class="btn btn-info">Login</a>*@
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="@Resources.Resources.Login" class="btn btn-info" />
+                        </div>
+                    </div>
+
+                    <span class="forgot-password-link">
+
+                        <a href="#">@Resources.Resources.ForgotYourPassword</a><br>
+
+                    </span>
+
+                    @*</form>*@
+                }
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div><!-- end register and login form -->
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script type="text/javascript">
+    $(".btn-panel-home").click(function () {
+        $(".panel-home").toggleClass("hidden");
+        $(".panel-home").toggleClass("animated");
+        $(".panel-home").toggleClass("fadeInUp");
+    });
+</script>

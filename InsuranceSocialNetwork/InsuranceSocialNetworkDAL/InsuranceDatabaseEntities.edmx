@@ -1,0 +1,1378 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="InsurancePortal_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Garage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="ContactEmail" Type="nvarchar" MaxLength="256" />
+          <Property Name="MobilePhone_1" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="MobilePhone_2" Type="nvarchar" MaxLength="20" />
+          <Property Name="Telephone_1" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Telephone_2" Type="nvarchar" MaxLength="20" />
+          <Property Name="Address" Type="nvarchar" MaxLength="256" />
+          <Property Name="ID_PostalCode" Type="bigint" />
+          <Property Name="LogoPhoto" Type="nchar" MaxLength="10" />
+          <Property Name="CreateDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="LastChangeDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="DeleteDate" Type="datetime2" Precision="7" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MedicalClinic">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="ContactEmail" Type="nvarchar" MaxLength="256" />
+          <Property Name="MobilePhone_1" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="MobilePhone_2" Type="nvarchar" MaxLength="20" />
+          <Property Name="Telephone_1" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Telephone_2" Type="nvarchar" MaxLength="20" />
+          <Property Name="Address" Type="nvarchar" MaxLength="256" />
+          <Property Name="ID_PostalCode" Type="bigint" />
+          <Property Name="LogoPhoto" Type="nchar" MaxLength="10" />
+          <Property Name="CreateDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="LastChangeDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="DeleteDate" Type="datetime2" Precision="7" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Notification">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_User" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ID_NotificationType" Type="bigint" Nullable="false" />
+          <Property Name="Text" Type="nvarchar" MaxLength="64" />
+          <Property Name="URL" Type="nvarchar" MaxLength="256" />
+          <Property Name="CreateDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="ReadDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="Read" Type="bit" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="NotificationType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Token" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Post">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_User" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ID_PostType" Type="bigint" Nullable="false" />
+          <Property Name="ID_PostSubject" Type="bigint" Nullable="false" />
+          <Property Name="Text" Type="nvarchar" MaxLength="64" />
+          <Property Name="Video" Type="nvarchar" MaxLength="256" />
+          <Property Name="URL" Type="nvarchar" MaxLength="256" />
+          <Property Name="CreateDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="LastChangeDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="DeleteDate" Type="datetime2" Precision="7" />
+          <Property Name="Sticky" Type="bit" Nullable="false" />
+          <Property Name="Sponsored" Type="bit" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PostalCode">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Codigo_Postal" Type="int" Nullable="false" />
+          <Property Name="Extensao" Type="int" Nullable="false" />
+          <Property Name="Designacao_Postal" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Localidade" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Codigo_Arteria" Type="int" />
+          <Property Name="Tipo_Arteria" Type="nvarchar" MaxLength="256" />
+          <Property Name="Prep1" Type="nvarchar" MaxLength="10" />
+          <Property Name="Titulo_Arteria" Type="nvarchar" MaxLength="256" />
+          <Property Name="Prep2" Type="nvarchar" MaxLength="10" />
+          <Property Name="Nome_Arteria" Type="nvarchar" MaxLength="256" />
+          <Property Name="Local_Arteria" Type="nvarchar" MaxLength="256" />
+          <Property Name="Troco" Type="nvarchar" MaxLength="256" />
+          <Property Name="Porta" Type="int" />
+        </EntityType>
+        <EntityType Name="PostComment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_User" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ID_Post" Type="bigint" Nullable="false" />
+          <Property Name="Text" Type="nvarchar" MaxLength="1024" Nullable="false" />
+          <Property Name="Date" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PostCommentLike">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_User" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ID_Comment" Type="bigint" Nullable="false" />
+          <Property Name="Date" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PostImage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Post" Type="bigint" Nullable="false" />
+          <Property Name="Image" Type="image" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="8" Nullable="false" />
+          <Property Name="Date" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PostLike">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_User" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ID_Post" Type="bigint" Nullable="false" />
+          <Property Name="Date" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PostSubject">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Token" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PostType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Token" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Profile">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_User" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="128" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="128" />
+          <Property Name="ContactEmail" Type="nvarchar" MaxLength="256" />
+          <Property Name="Birthdate" Type="datetime2" Precision="7" />
+          <Property Name="MobilePhone_1" Type="nvarchar" MaxLength="20" />
+          <Property Name="MobilePhone_2" Type="nvarchar" MaxLength="20" />
+          <Property Name="Telephone_1" Type="nvarchar" MaxLength="20" />
+          <Property Name="Telephone_2" Type="nvarchar" MaxLength="20" />
+          <Property Name="Address" Type="nvarchar" MaxLength="256" />
+          <Property Name="ID_PostalCode" Type="bigint" />
+          <Property Name="ProfilePhoto" Type="nchar" MaxLength="10" />
+          <Property Name="CreateDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="LastChangeDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="DeleteDate" Type="datetime2" Precision="7" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Garage_PostalCode">
+          <End Role="PostalCode" Type="Self.PostalCode" Multiplicity="0..1" />
+          <End Role="Garage" Type="Self.Garage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PostalCode">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Garage">
+              <PropertyRef Name="ID_PostalCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedicalClinic_PostalCode">
+          <End Role="PostalCode" Type="Self.PostalCode" Multiplicity="0..1" />
+          <End Role="MedicalClinic" Type="Self.MedicalClinic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PostalCode">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MedicalClinic">
+              <PropertyRef Name="ID_PostalCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notification_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Notification">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notification_NotificationType">
+          <End Role="NotificationType" Type="Self.NotificationType" Multiplicity="1" />
+          <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NotificationType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Notification">
+              <PropertyRef Name="ID_NotificationType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Post_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Post" Type="Self.Post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Post">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Post_PostSubject">
+          <End Role="PostSubject" Type="Self.PostSubject" Multiplicity="1" />
+          <End Role="Post" Type="Self.Post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PostSubject">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Post">
+              <PropertyRef Name="ID_PostSubject" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Post_PostType">
+          <End Role="PostType" Type="Self.PostType" Multiplicity="1" />
+          <End Role="Post" Type="Self.Post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PostType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Post">
+              <PropertyRef Name="ID_PostType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PostComment_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="PostComment" Type="Self.PostComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PostComment">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PostComment_Post">
+          <End Role="Post" Type="Self.Post" Multiplicity="1" />
+          <End Role="PostComment" Type="Self.PostComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PostComment">
+              <PropertyRef Name="ID_Post" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PostCommentLike_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="PostCommentLike" Type="Self.PostCommentLike" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PostCommentLike">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PostCommentLike_Comment">
+          <End Role="PostComment" Type="Self.PostComment" Multiplicity="1" />
+          <End Role="PostCommentLike" Type="Self.PostCommentLike" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PostComment">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PostCommentLike">
+              <PropertyRef Name="ID_Comment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PostImage_Post">
+          <End Role="Post" Type="Self.Post" Multiplicity="1" />
+          <End Role="PostImage" Type="Self.PostImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PostImage">
+              <PropertyRef Name="ID_Post" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PostLike_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="PostLike" Type="Self.PostLike" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PostLike">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PostLike_Post">
+          <End Role="Post" Type="Self.Post" Multiplicity="1" />
+          <End Role="PostLike" Type="Self.PostLike" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PostLike">
+              <PropertyRef Name="ID_Post" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Profile_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Profile" Type="Self.Profile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Profile">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Profile_PostalCode">
+          <End Role="PostalCode" Type="Self.PostalCode" Multiplicity="0..1" />
+          <End Role="Profile" Type="Self.Profile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PostalCode">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Profile">
+              <PropertyRef Name="ID_PostalCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="InsurancePortal_dbModelStoreContainer">
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Garage" EntityType="Self.Garage" Schema="Insurance" store:Type="Tables" />
+          <EntitySet Name="MedicalClinic" EntityType="Self.MedicalClinic" Schema="Insurance" store:Type="Tables" />
+          <EntitySet Name="Notification" EntityType="Self.Notification" Schema="Insurance" store:Type="Tables" />
+          <EntitySet Name="NotificationType" EntityType="Self.NotificationType" Schema="Insurance" store:Type="Tables" />
+          <EntitySet Name="Post" EntityType="Self.Post" Schema="Insurance" store:Type="Tables" />
+          <EntitySet Name="PostalCode" EntityType="Self.PostalCode" Schema="Insurance" store:Type="Tables" />
+          <EntitySet Name="PostComment" EntityType="Self.PostComment" Schema="Insurance" store:Type="Tables" />
+          <EntitySet Name="PostCommentLike" EntityType="Self.PostCommentLike" Schema="Insurance" store:Type="Tables" />
+          <EntitySet Name="PostImage" EntityType="Self.PostImage" Schema="Insurance" store:Type="Tables" />
+          <EntitySet Name="PostLike" EntityType="Self.PostLike" Schema="Insurance" store:Type="Tables" />
+          <EntitySet Name="PostSubject" EntityType="Self.PostSubject" Schema="Insurance" store:Type="Tables" />
+          <EntitySet Name="PostType" EntityType="Self.PostType" Schema="Insurance" store:Type="Tables" />
+          <EntitySet Name="Profile" EntityType="Self.Profile" Schema="Insurance" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Garage_PostalCode" Association="Self.FK_Garage_PostalCode">
+            <End Role="PostalCode" EntitySet="PostalCode" />
+            <End Role="Garage" EntitySet="Garage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedicalClinic_PostalCode" Association="Self.FK_MedicalClinic_PostalCode">
+            <End Role="PostalCode" EntitySet="PostalCode" />
+            <End Role="MedicalClinic" EntitySet="MedicalClinic" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notification_AspNetUsers" Association="Self.FK_Notification_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Notification" EntitySet="Notification" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notification_NotificationType" Association="Self.FK_Notification_NotificationType">
+            <End Role="NotificationType" EntitySet="NotificationType" />
+            <End Role="Notification" EntitySet="Notification" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Post_AspNetUsers" Association="Self.FK_Post_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Post" EntitySet="Post" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Post_PostSubject" Association="Self.FK_Post_PostSubject">
+            <End Role="PostSubject" EntitySet="PostSubject" />
+            <End Role="Post" EntitySet="Post" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Post_PostType" Association="Self.FK_Post_PostType">
+            <End Role="PostType" EntitySet="PostType" />
+            <End Role="Post" EntitySet="Post" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PostComment_AspNetUsers" Association="Self.FK_PostComment_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="PostComment" EntitySet="PostComment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PostComment_Post" Association="Self.FK_PostComment_Post">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="PostComment" EntitySet="PostComment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PostCommentLike_AspNetUsers" Association="Self.FK_PostCommentLike_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="PostCommentLike" EntitySet="PostCommentLike" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PostCommentLike_Comment" Association="Self.FK_PostCommentLike_Comment">
+            <End Role="PostComment" EntitySet="PostComment" />
+            <End Role="PostCommentLike" EntitySet="PostCommentLike" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PostImage_Post" Association="Self.FK_PostImage_Post">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="PostImage" EntitySet="PostImage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PostLike_AspNetUsers" Association="Self.FK_PostLike_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="PostLike" EntitySet="PostLike" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PostLike_Post" Association="Self.FK_PostLike_Post">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="PostLike" EntitySet="PostLike" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Profile_AspNetUsers" Association="Self.FK_Profile_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Profile" EntitySet="Profile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Profile_PostalCode" Association="Self.FK_Profile_PostalCode">
+            <End Role="PostalCode" EntitySet="PostalCode" />
+            <End Role="Profile" EntitySet="Profile" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="InsurancePortal_dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="InsurancePortal_dbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AspNetRoles" EntityType="InsurancePortal_dbModel.AspNetRoles" />
+          <EntitySet Name="AspNetUserLogins" EntityType="InsurancePortal_dbModel.AspNetUserLogins" />
+          <EntitySet Name="Notification" EntityType="InsurancePortal_dbModel.Notification" />
+          <EntitySet Name="NotificationType" EntityType="InsurancePortal_dbModel.NotificationType" />
+          <AssociationSet Name="FK_Notification_NotificationType" Association="InsurancePortal_dbModel.FK_Notification_NotificationType">
+            <End Role="NotificationType" EntitySet="NotificationType" />
+            <End Role="Notification" EntitySet="Notification" />
+          </AssociationSet>
+          <EntitySet Name="PostComment" EntityType="InsurancePortal_dbModel.PostComment" />
+          <EntitySet Name="PostLike" EntityType="InsurancePortal_dbModel.PostLike" />
+          <EntitySet Name="PostSubject" EntityType="InsurancePortal_dbModel.PostSubject" />
+          <EntitySet Name="PostType" EntityType="InsurancePortal_dbModel.PostType" />
+          <EntitySet Name="AspNetUsers" EntityType="InsurancePortal_dbModel.AspNetUsers" />
+          <EntitySet Name="Profile" EntityType="InsurancePortal_dbModel.Profile" />
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="InsurancePortal_dbModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notification_AspNetUsers" Association="InsurancePortal_dbModel.FK_Notification_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Notification" EntitySet="Notification" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PostComment_AspNetUsers" Association="InsurancePortal_dbModel.FK_PostComment_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="PostComment" EntitySet="PostComment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PostLike_AspNetUsers" Association="InsurancePortal_dbModel.FK_PostLike_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="PostLike" EntitySet="PostLike" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Profile_AspNetUsers" Association="InsurancePortal_dbModel.FK_Profile_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Profile" EntitySet="Profile" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="InsurancePortal_dbModel.AspNetUserRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <EntitySet Name="Garage" EntityType="InsurancePortal_dbModel.Garage" />
+          <EntitySet Name="MedicalClinic" EntityType="InsurancePortal_dbModel.MedicalClinic" />
+          <EntitySet Name="PostalCode" EntityType="InsurancePortal_dbModel.PostalCode" />
+          <EntitySet Name="PostCommentLike" EntityType="InsurancePortal_dbModel.PostCommentLike" />
+          <AssociationSet Name="FK_PostCommentLike_AspNetUsers" Association="InsurancePortal_dbModel.FK_PostCommentLike_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="PostCommentLike" EntitySet="PostCommentLike" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Garage_PostalCode" Association="InsurancePortal_dbModel.FK_Garage_PostalCode">
+            <End Role="PostalCode" EntitySet="PostalCode" />
+            <End Role="Garage" EntitySet="Garage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedicalClinic_PostalCode" Association="InsurancePortal_dbModel.FK_MedicalClinic_PostalCode">
+            <End Role="PostalCode" EntitySet="PostalCode" />
+            <End Role="MedicalClinic" EntitySet="MedicalClinic" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Profile_PostalCode" Association="InsurancePortal_dbModel.FK_Profile_PostalCode">
+            <End Role="PostalCode" EntitySet="PostalCode" />
+            <End Role="Profile" EntitySet="Profile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PostCommentLike_Comment" Association="InsurancePortal_dbModel.FK_PostCommentLike_Comment">
+            <End Role="PostComment" EntitySet="PostComment" />
+            <End Role="PostCommentLike" EntitySet="PostCommentLike" />
+          </AssociationSet>
+          <EntitySet Name="Post" EntityType="InsurancePortal_dbModel.Post" />
+          <AssociationSet Name="FK_Post_AspNetUsers" Association="InsurancePortal_dbModel.FK_Post_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Post" EntitySet="Post" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Post_PostSubject" Association="InsurancePortal_dbModel.FK_Post_PostSubject">
+            <End Role="PostSubject" EntitySet="PostSubject" />
+            <End Role="Post" EntitySet="Post" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Post_PostType" Association="InsurancePortal_dbModel.FK_Post_PostType">
+            <End Role="PostType" EntitySet="PostType" />
+            <End Role="Post" EntitySet="Post" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PostComment_Post" Association="InsurancePortal_dbModel.FK_PostComment_Post">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="PostComment" EntitySet="PostComment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PostLike_Post" Association="InsurancePortal_dbModel.FK_PostLike_Post">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="PostLike" EntitySet="PostLike" />
+          </AssociationSet>
+          <EntitySet Name="PostImage" EntityType="InsurancePortal_dbModel.PostImage" />
+          <AssociationSet Name="FK_PostImage_Post" Association="InsurancePortal_dbModel.FK_PostImage_Post">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="PostImage" EntitySet="PostImage" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="InsurancePortal_dbModel.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="InsurancePortal_dbModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="Notification">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_User" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ID_NotificationType" Type="Int64" Nullable="false" />
+          <Property Name="Text" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="URL" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="ReadDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="Read" Type="Boolean" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="NotificationType" Relationship="InsurancePortal_dbModel.FK_Notification_NotificationType" FromRole="Notification" ToRole="NotificationType" />
+          <NavigationProperty Name="AspNetUsers" Relationship="InsurancePortal_dbModel.FK_Notification_AspNetUsers" FromRole="Notification" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="NotificationType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Token" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Notification" Relationship="InsurancePortal_dbModel.FK_Notification_NotificationType" FromRole="NotificationType" ToRole="Notification" />
+        </EntityType>
+        <Association Name="FK_Notification_NotificationType">
+          <End Type="InsurancePortal_dbModel.NotificationType" Role="NotificationType" Multiplicity="1" />
+          <End Type="InsurancePortal_dbModel.Notification" Role="Notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NotificationType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Notification">
+              <PropertyRef Name="ID_NotificationType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="PostComment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_User" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ID_Post" Type="Int64" Nullable="false" />
+          <Property Name="Text" Type="String" Nullable="false" MaxLength="1024" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="InsurancePortal_dbModel.FK_PostComment_AspNetUsers" FromRole="PostComment" ToRole="AspNetUsers" />
+          <NavigationProperty Name="PostCommentLike" Relationship="InsurancePortal_dbModel.FK_PostCommentLike_Comment" FromRole="PostComment" ToRole="PostCommentLike" />
+          <NavigationProperty Name="Post" Relationship="InsurancePortal_dbModel.FK_PostComment_Post" FromRole="PostComment" ToRole="Post" />
+        </EntityType>
+        <EntityType Name="PostLike">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_User" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ID_Post" Type="Int64" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="InsurancePortal_dbModel.FK_PostLike_AspNetUsers" FromRole="PostLike" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Post" Relationship="InsurancePortal_dbModel.FK_PostLike_Post" FromRole="PostLike" ToRole="Post" />
+        </EntityType>
+        <EntityType Name="PostSubject">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Token" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Post" Relationship="InsurancePortal_dbModel.FK_Post_PostSubject" FromRole="PostSubject" ToRole="Post" />
+        </EntityType>
+        <EntityType Name="PostType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Token" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Post" Relationship="InsurancePortal_dbModel.FK_Post_PostType" FromRole="PostType" ToRole="Post" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="InsurancePortal_dbModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="Notification" Relationship="InsurancePortal_dbModel.FK_Notification_AspNetUsers" FromRole="AspNetUsers" ToRole="Notification" />
+          <NavigationProperty Name="PostComment" Relationship="InsurancePortal_dbModel.FK_PostComment_AspNetUsers" FromRole="AspNetUsers" ToRole="PostComment" />
+          <NavigationProperty Name="PostLike" Relationship="InsurancePortal_dbModel.FK_PostLike_AspNetUsers" FromRole="AspNetUsers" ToRole="PostLike" />
+          <NavigationProperty Name="Profile" Relationship="InsurancePortal_dbModel.FK_Profile_AspNetUsers" FromRole="AspNetUsers" ToRole="Profile" />
+          <NavigationProperty Name="AspNetRoles" Relationship="InsurancePortal_dbModel.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+          <NavigationProperty Name="PostCommentLike" Relationship="InsurancePortal_dbModel.FK_PostCommentLike_AspNetUsers" FromRole="AspNetUsers" ToRole="PostCommentLike" />
+          <NavigationProperty Name="Post" Relationship="InsurancePortal_dbModel.FK_Post_AspNetUsers" FromRole="AspNetUsers" ToRole="Post" />
+        </EntityType>
+        <EntityType Name="Profile">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_User" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ContactEmail" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Birthdate" Type="DateTime" Precision="7" />
+          <Property Name="MobilePhone_1" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="MobilePhone_2" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Telephone_1" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Telephone_2" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="ID_PostalCode" Type="Int64" />
+          <Property Name="ProfilePhoto" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="LastChangeDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="DeleteDate" Type="DateTime" Precision="7" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="InsurancePortal_dbModel.FK_Profile_AspNetUsers" FromRole="Profile" ToRole="AspNetUsers" />
+          <NavigationProperty Name="PostalCode" Relationship="InsurancePortal_dbModel.FK_Profile_PostalCode" FromRole="Profile" ToRole="PostalCode" />
+        </EntityType>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="InsurancePortal_dbModel.AspNetUserLogins" Role="AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notification_AspNetUsers">
+          <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="InsurancePortal_dbModel.Notification" Role="Notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Notification">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PostComment_AspNetUsers">
+          <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="InsurancePortal_dbModel.PostComment" Role="PostComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PostComment">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PostLike_AspNetUsers">
+          <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="InsurancePortal_dbModel.PostLike" Role="PostLike" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PostLike">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Profile_AspNetUsers">
+          <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="InsurancePortal_dbModel.Profile" Role="Profile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Profile">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Type="InsurancePortal_dbModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
+          <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Garage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="ContactEmail" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="MobilePhone_1" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="MobilePhone_2" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Telephone_1" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Telephone_2" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="ID_PostalCode" Type="Int64" />
+          <Property Name="LogoPhoto" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="LastChangeDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="DeleteDate" Type="DateTime" Precision="7" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="PostalCode" Relationship="InsurancePortal_dbModel.FK_Garage_PostalCode" FromRole="Garage" ToRole="PostalCode" />
+        </EntityType>
+        <EntityType Name="MedicalClinic">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="ContactEmail" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="MobilePhone_1" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="MobilePhone_2" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Telephone_1" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Telephone_2" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="ID_PostalCode" Type="Int64" />
+          <Property Name="LogoPhoto" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="LastChangeDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="DeleteDate" Type="DateTime" Precision="7" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="PostalCode" Relationship="InsurancePortal_dbModel.FK_MedicalClinic_PostalCode" FromRole="MedicalClinic" ToRole="PostalCode" />
+        </EntityType>
+        <EntityType Name="PostalCode">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo_Postal" Type="Int32" Nullable="false" />
+          <Property Name="Extensao" Type="Int32" Nullable="false" />
+          <Property Name="Designacao_Postal" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Localidade" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Codigo_Arteria" Type="Int32" />
+          <Property Name="Tipo_Arteria" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Prep1" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Titulo_Arteria" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Prep2" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Nome_Arteria" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Local_Arteria" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Troco" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Porta" Type="Int32" />
+          <NavigationProperty Name="Garage" Relationship="InsurancePortal_dbModel.FK_Garage_PostalCode" FromRole="PostalCode" ToRole="Garage" />
+          <NavigationProperty Name="MedicalClinic" Relationship="InsurancePortal_dbModel.FK_MedicalClinic_PostalCode" FromRole="PostalCode" ToRole="MedicalClinic" />
+          <NavigationProperty Name="Profile" Relationship="InsurancePortal_dbModel.FK_Profile_PostalCode" FromRole="PostalCode" ToRole="Profile" />
+        </EntityType>
+        <EntityType Name="PostCommentLike">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_User" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ID_Comment" Type="Int64" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="InsurancePortal_dbModel.FK_PostCommentLike_AspNetUsers" FromRole="PostCommentLike" ToRole="AspNetUsers" />
+          <NavigationProperty Name="PostComment" Relationship="InsurancePortal_dbModel.FK_PostCommentLike_Comment" FromRole="PostCommentLike" ToRole="PostComment" />
+        </EntityType>
+        <Association Name="FK_PostCommentLike_AspNetUsers">
+          <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="InsurancePortal_dbModel.PostCommentLike" Role="PostCommentLike" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PostCommentLike">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Garage_PostalCode">
+          <End Type="InsurancePortal_dbModel.PostalCode" Role="PostalCode" Multiplicity="0..1" />
+          <End Type="InsurancePortal_dbModel.Garage" Role="Garage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PostalCode">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Garage">
+              <PropertyRef Name="ID_PostalCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedicalClinic_PostalCode">
+          <End Type="InsurancePortal_dbModel.PostalCode" Role="PostalCode" Multiplicity="0..1" />
+          <End Type="InsurancePortal_dbModel.MedicalClinic" Role="MedicalClinic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PostalCode">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MedicalClinic">
+              <PropertyRef Name="ID_PostalCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Profile_PostalCode">
+          <End Type="InsurancePortal_dbModel.PostalCode" Role="PostalCode" Multiplicity="0..1" />
+          <End Type="InsurancePortal_dbModel.Profile" Role="Profile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PostalCode">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Profile">
+              <PropertyRef Name="ID_PostalCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PostCommentLike_Comment">
+          <End Type="InsurancePortal_dbModel.PostComment" Role="PostComment" Multiplicity="1" />
+          <End Type="InsurancePortal_dbModel.PostCommentLike" Role="PostCommentLike" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PostComment">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PostCommentLike">
+              <PropertyRef Name="ID_Comment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Post">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_User" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ID_PostType" Type="Int64" Nullable="false" />
+          <Property Name="ID_PostSubject" Type="Int64" Nullable="false" />
+          <Property Name="Text" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="Video" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="URL" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="LastChangeDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="DeleteDate" Type="DateTime" Precision="7" />
+          <Property Name="Sticky" Type="Boolean" Nullable="false" />
+          <Property Name="Sponsored" Type="Boolean" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="InsurancePortal_dbModel.FK_Post_AspNetUsers" FromRole="Post" ToRole="AspNetUsers" />
+          <NavigationProperty Name="PostSubject" Relationship="InsurancePortal_dbModel.FK_Post_PostSubject" FromRole="Post" ToRole="PostSubject" />
+          <NavigationProperty Name="PostType" Relationship="InsurancePortal_dbModel.FK_Post_PostType" FromRole="Post" ToRole="PostType" />
+          <NavigationProperty Name="PostComment" Relationship="InsurancePortal_dbModel.FK_PostComment_Post" FromRole="Post" ToRole="PostComment" />
+          <NavigationProperty Name="PostLike" Relationship="InsurancePortal_dbModel.FK_PostLike_Post" FromRole="Post" ToRole="PostLike" />
+          <NavigationProperty Name="PostImage" Relationship="InsurancePortal_dbModel.FK_PostImage_Post" FromRole="Post" ToRole="PostImage" />
+        </EntityType>
+        <Association Name="FK_Post_AspNetUsers">
+          <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="InsurancePortal_dbModel.Post" Role="Post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Post">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Post_PostSubject">
+          <End Type="InsurancePortal_dbModel.PostSubject" Role="PostSubject" Multiplicity="1" />
+          <End Type="InsurancePortal_dbModel.Post" Role="Post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PostSubject">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Post">
+              <PropertyRef Name="ID_PostSubject" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Post_PostType">
+          <End Type="InsurancePortal_dbModel.PostType" Role="PostType" Multiplicity="1" />
+          <End Type="InsurancePortal_dbModel.Post" Role="Post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PostType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Post">
+              <PropertyRef Name="ID_PostType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PostComment_Post">
+          <End Type="InsurancePortal_dbModel.Post" Role="Post" Multiplicity="1" />
+          <End Type="InsurancePortal_dbModel.PostComment" Role="PostComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PostComment">
+              <PropertyRef Name="ID_Post" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PostLike_Post">
+          <End Type="InsurancePortal_dbModel.Post" Role="Post" Multiplicity="1" />
+          <End Type="InsurancePortal_dbModel.PostLike" Role="PostLike" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PostLike">
+              <PropertyRef Name="ID_Post" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="PostImage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Post" Type="Int64" Nullable="false" />
+          <Property Name="Image" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Post" Relationship="InsurancePortal_dbModel.FK_PostImage_Post" FromRole="PostImage" ToRole="Post" />
+        </EntityType>
+        <Association Name="FK_PostImage_Post">
+          <End Type="InsurancePortal_dbModel.Post" Role="Post" Multiplicity="1" />
+          <End Type="InsurancePortal_dbModel.PostImage" Role="PostImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PostImage">
+              <PropertyRef Name="ID_Post" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="InsurancePortal_dbModelStoreContainer" CdmEntityContainer="InsurancePortal_dbEntities">
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="InsurancePortal_dbModel.AspNetRoles">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="InsurancePortal_dbModel.AspNetUserLogins">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notification">
+            <EntityTypeMapping TypeName="InsurancePortal_dbModel.Notification">
+              <MappingFragment StoreEntitySet="Notification">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Read" ColumnName="Read" />
+                <ScalarProperty Name="ReadDate" ColumnName="ReadDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="ID_NotificationType" ColumnName="ID_NotificationType" />
+                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NotificationType">
+            <EntityTypeMapping TypeName="InsurancePortal_dbModel.NotificationType">
+              <MappingFragment StoreEntitySet="NotificationType">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Token" ColumnName="Token" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PostComment">
+            <EntityTypeMapping TypeName="InsurancePortal_dbModel.PostComment">
+              <MappingFragment StoreEntitySet="PostComment">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="ID_Post" ColumnName="ID_Post" />
+                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PostLike">
+            <EntityTypeMapping TypeName="InsurancePortal_dbModel.PostLike">
+              <MappingFragment StoreEntitySet="PostLike">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="ID_Post" ColumnName="ID_Post" />
+                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PostSubject">
+            <EntityTypeMapping TypeName="InsurancePortal_dbModel.PostSubject">
+              <MappingFragment StoreEntitySet="PostSubject">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Token" ColumnName="Token" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PostType">
+            <EntityTypeMapping TypeName="InsurancePortal_dbModel.PostType">
+              <MappingFragment StoreEntitySet="PostType">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Token" ColumnName="Token" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="InsurancePortal_dbModel.AspNetUsers">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Profile">
+            <EntityTypeMapping TypeName="InsurancePortal_dbModel.Profile">
+              <MappingFragment StoreEntitySet="Profile">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="DeleteDate" ColumnName="DeleteDate" />
+                <ScalarProperty Name="LastChangeDate" ColumnName="LastChangeDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="ProfilePhoto" ColumnName="ProfilePhoto" />
+                <ScalarProperty Name="ID_PostalCode" ColumnName="ID_PostalCode" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Telephone_2" ColumnName="Telephone_2" />
+                <ScalarProperty Name="Telephone_1" ColumnName="Telephone_1" />
+                <ScalarProperty Name="MobilePhone_2" ColumnName="MobilePhone_2" />
+                <ScalarProperty Name="MobilePhone_1" ColumnName="MobilePhone_1" />
+                <ScalarProperty Name="Birthdate" ColumnName="Birthdate" />
+                <ScalarProperty Name="ContactEmail" ColumnName="ContactEmail" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="InsurancePortal_dbModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetUsers">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="AspNetRoles">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="Garage">
+            <EntityTypeMapping TypeName="InsurancePortal_dbModel.Garage">
+              <MappingFragment StoreEntitySet="Garage">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="DeleteDate" ColumnName="DeleteDate" />
+                <ScalarProperty Name="LastChangeDate" ColumnName="LastChangeDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="LogoPhoto" ColumnName="LogoPhoto" />
+                <ScalarProperty Name="ID_PostalCode" ColumnName="ID_PostalCode" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Telephone_2" ColumnName="Telephone_2" />
+                <ScalarProperty Name="Telephone_1" ColumnName="Telephone_1" />
+                <ScalarProperty Name="MobilePhone_2" ColumnName="MobilePhone_2" />
+                <ScalarProperty Name="MobilePhone_1" ColumnName="MobilePhone_1" />
+                <ScalarProperty Name="ContactEmail" ColumnName="ContactEmail" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MedicalClinic">
+            <EntityTypeMapping TypeName="InsurancePortal_dbModel.MedicalClinic">
+              <MappingFragment StoreEntitySet="MedicalClinic">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="DeleteDate" ColumnName="DeleteDate" />
+                <ScalarProperty Name="LastChangeDate" ColumnName="LastChangeDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="LogoPhoto" ColumnName="LogoPhoto" />
+                <ScalarProperty Name="ID_PostalCode" ColumnName="ID_PostalCode" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Telephone_2" ColumnName="Telephone_2" />
+                <ScalarProperty Name="Telephone_1" ColumnName="Telephone_1" />
+                <ScalarProperty Name="MobilePhone_2" ColumnName="MobilePhone_2" />
+                <ScalarProperty Name="MobilePhone_1" ColumnName="MobilePhone_1" />
+                <ScalarProperty Name="ContactEmail" ColumnName="ContactEmail" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PostalCode">
+            <EntityTypeMapping TypeName="InsurancePortal_dbModel.PostalCode">
+              <MappingFragment StoreEntitySet="PostalCode">
+                <ScalarProperty Name="Porta" ColumnName="Porta" />
+                <ScalarProperty Name="Troco" ColumnName="Troco" />
+                <ScalarProperty Name="Local_Arteria" ColumnName="Local_Arteria" />
+                <ScalarProperty Name="Nome_Arteria" ColumnName="Nome_Arteria" />
+                <ScalarProperty Name="Prep2" ColumnName="Prep2" />
+                <ScalarProperty Name="Titulo_Arteria" ColumnName="Titulo_Arteria" />
+                <ScalarProperty Name="Prep1" ColumnName="Prep1" />
+                <ScalarProperty Name="Tipo_Arteria" ColumnName="Tipo_Arteria" />
+                <ScalarProperty Name="Codigo_Arteria" ColumnName="Codigo_Arteria" />
+                <ScalarProperty Name="Localidade" ColumnName="Localidade" />
+                <ScalarProperty Name="Designacao_Postal" ColumnName="Designacao_Postal" />
+                <ScalarProperty Name="Extensao" ColumnName="Extensao" />
+                <ScalarProperty Name="Codigo_Postal" ColumnName="Codigo_Postal" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PostCommentLike">
+            <EntityTypeMapping TypeName="InsurancePortal_dbModel.PostCommentLike">
+              <MappingFragment StoreEntitySet="PostCommentLike">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="ID_Comment" ColumnName="ID_Comment" />
+                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Post">
+            <EntityTypeMapping TypeName="InsurancePortal_dbModel.Post">
+              <MappingFragment StoreEntitySet="Post">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Sponsored" ColumnName="Sponsored" />
+                <ScalarProperty Name="Sticky" ColumnName="Sticky" />
+                <ScalarProperty Name="DeleteDate" ColumnName="DeleteDate" />
+                <ScalarProperty Name="LastChangeDate" ColumnName="LastChangeDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="Video" ColumnName="Video" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="ID_PostSubject" ColumnName="ID_PostSubject" />
+                <ScalarProperty Name="ID_PostType" ColumnName="ID_PostType" />
+                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PostImage">
+            <EntityTypeMapping TypeName="InsurancePortal_dbModel.PostImage">
+              <MappingFragment StoreEntitySet="PostImage">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="ID_Post" ColumnName="ID_Post" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

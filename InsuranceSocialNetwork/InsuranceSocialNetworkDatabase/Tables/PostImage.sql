@@ -1,0 +1,13 @@
+﻿CREATE TABLE [Insurance].[PostImage]
+(
+	[ID] BIGINT IDENTITY NOT NULL,
+	--[ID_User] NVARCHAR(128) NOT NULL,
+	[ID_Post] BIGINT NOT NULL,
+	[Image] IMAGE NOT NULL,
+	[Type] NVARCHAR(8) NOT NULL,
+	[Date] DATETIME2 NOT NULL,
+	[Active] BIT NOT NULL DEFAULT 1,	
+    CONSTRAINT [PK_PostImage] PRIMARY KEY CLUSTERED ([ID] ASC),
+	--CONSTRAINT [FK_PostImage_AspNetUsers] FOREIGN KEY([ID_User]) REFERENCES [dbo].[AspNetUsers] ([Id]),
+	CONSTRAINT [FK_PostImage_Post] FOREIGN KEY([ID_Post]) REFERENCES [Insurance].[Post] ([ID])
+)

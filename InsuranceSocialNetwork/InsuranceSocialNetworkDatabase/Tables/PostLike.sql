@@ -1,0 +1,11 @@
+﻿CREATE TABLE [Insurance].[PostLike]
+(
+	[ID] BIGINT IDENTITY NOT NULL,
+	[ID_User] NVARCHAR(128) NOT NULL,
+	[ID_Post] BIGINT NOT NULL,
+	[Date] DATETIME2 NOT NULL,
+	[Active] BIT NOT NULL DEFAULT 1,	
+    CONSTRAINT [PK_PostLike] PRIMARY KEY CLUSTERED ([ID] ASC),
+	CONSTRAINT [FK_PostLike_AspNetUsers] FOREIGN KEY([ID_User]) REFERENCES [dbo].[AspNetUsers] ([Id]),
+	CONSTRAINT [FK_PostLike_Post] FOREIGN KEY([ID_Post]) REFERENCES [Insurance].[Post] ([ID])
+)

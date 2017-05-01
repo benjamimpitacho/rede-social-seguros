@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="c94b67b9-5d84-49b1-b066-91555abfefbd" ChangeDateTime="08/29/2016 17:05:38">
+    <Property Name="ElementName" Value="[Insurance].[Profile].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[Insurance].[Profile]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="2d6fa7d2-9352-418e-a75e-b2d0845e93b2" ChangeDateTime="09/18/2016 10:31:03">
+    <Property Name="ElementName" Value="[dbo].[PostalCode].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[PostalCode]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="24357c11-8aef-4565-9d82-c36311386a01" ChangeDateTime="01/17/2017 21:31:21">
+    <Property Name="ElementName" Value="[Insurance].[PostImage].[Text]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[Insurance].[PostImage]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Image" />
+  </Operation>
+</Operations>

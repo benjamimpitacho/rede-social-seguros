@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4ad3967af0064543bc009e66a511e24c" Name="Diagram1" ZoomLevel="86">
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.AspNetRoles" Width="1.5" PointX="0.75" PointY="11.75" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.AspNetUserLogins" Width="1.5" PointX="5.25" PointY="26.5" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.Notification" Width="1.5" PointX="8.25" PointY="10.875" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.NotificationType" Width="1.5" PointX="6" PointY="16.5" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_Notification_NotificationType" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.PostComment" Width="1.5" PointX="13.5" PointY="8.625" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.PostLike" Width="1.5" PointX="10.5" PointY="4.875" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.PostSubject" Width="1.5" PointX="6" PointY="1.875" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.PostType" Width="1.5" PointX="6" PointY="5.125" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.AspNetUsers" Width="1.5" PointX="3" PointY="10" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.Profile" Width="1.5" PointX="5.25" PointY="10.125" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_Notification_AspNetUsers" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_PostComment_AspNetUsers" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_PostLike_AspNetUsers" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_Profile_AspNetUsers" />
+        <AssociationConnector Association="InsurancePortal_dbModel.AspNetUserRoles" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.Garage" Width="1.5" PointX="5.25" PointY="20.25" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.MedicalClinic" Width="1.5" PointX="5.25" PointY="29.875" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.PostalCode" Width="1.5" PointX="3" PointY="4.375" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.PostCommentLike" Width="1.5" PointX="15.75" PointY="10.625" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_PostCommentLike_AspNetUsers" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_Garage_PostalCode" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_MedicalClinic_PostalCode" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_Profile_PostalCode" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_PostCommentLike_Comment" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.Post" Width="1.5" PointX="8.25" PointY="5.125" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_Post_AspNetUsers" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_Post_PostSubject" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_Post_PostType" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_PostComment_Post" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_PostLike_Post" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.PostImage" Width="1.5" PointX="10.5" PointY="8.25" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_PostImage_Post" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

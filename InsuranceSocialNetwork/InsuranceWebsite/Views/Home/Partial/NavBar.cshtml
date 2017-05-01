@@ -1,0 +1,153 @@
+﻿@using InsuranceWebsite.Models
+@model ProfileViewModel
+
+<!-- Fixed navbar -->
+
+<nav class="navbar navbar-default navbar-fixed-top navbar-principal">
+
+    <div class="container">
+
+        <div class="navbar-header">
+
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+
+                <span class="sr-only">Toggle navigation</span>
+
+                <span class="icon-bar"></span>
+
+                <span class="icon-bar"></span>
+
+                <span class="icon-bar"></span>
+
+            </button>
+
+            <a class="navbar-brand" href="index.html">
+
+                <b>BookPost</b>
+
+            </a>
+
+        </div>
+
+        <div id="navbar" class="collapse navbar-collapse">
+
+            <div class="col-md-5 col-sm-4">
+
+                <form class="navbar-form">
+
+                    <div class="form-group" style="display:inline;">
+
+                        <div class="input-group" style="display:table;">
+
+                            <input class="form-control" name="search" placeholder="Search..." autocomplete="off" type="text">
+
+                            <span class="input-group-addon" style="width:1%;">
+
+                                <span class="glyphicon glyphicon-search"></span>
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+            <ul class="nav navbar-nav navbar-right">
+
+                <li class="active">
+
+                    <a href="@Url.Action("Index", "ProfileInfo")">
+
+                        <img src="~/Content/images/no_photo_img.jpg" class="img-nav">
+
+                        @Model.Profile.FirstName
+
+                    </a>
+
+                </li>
+
+                <li><a href="@Url.Action("Index", "Home")"><i class="fa fa-bars"></i>&nbsp;@Resources.Resources.Home</a></li>
+
+                <li><a href="@Url.Action("Messages", "Home")"><i class="fa fa-comments"></i></a></li>
+
+                <li class="dropdown">
+
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        Pages
+
+                        <span class="caret"></span>
+
+                    </a>
+
+                    <ul class="dropdown-menu">
+
+                        <li><a href="cover_profile.html">Cover profile</a></li>
+
+                        <li><a href="profile_wall.html">Profile wall</a></li>
+
+                        <li><a href="user_detail.html">User detail</a></li>
+
+                        <li><a href="list_users.html">List users</a></li>
+
+                        <li><a href="file_manager.html">File manager</a></li>
+
+                        <li><a href="profile_settings.html">Profile settings</a></li>
+
+                        <li><a href="photos.html">Photos</a></li>
+
+                        <li><a href="friends.html">Friends</a></li>
+
+                        <li><a href="About.html">About</a></li>
+
+                        <li><a href="edit_profile.html">Edit profile</a></li>
+
+                        <li><a href="notifications.html">Notifications</a></li>
+
+                        <li><a href="blank-cover.html">Blank cover</a></li>
+
+                        <li><a href="registration_email.html">Registration email</a></li>
+
+                        <li><a href="error404.html">Error 404</a></li>
+
+                        <li><a href="error500.html">Error 500</a></li>
+
+                        <li><a href="recover_password.html">Recover password</a></li>
+
+                    </ul>
+
+                </li>
+
+                <li><a href="#" class="nav-controller"><i class="fa fa-user"></i></a></li>
+
+                @*<li><a href="#" class="nav-controller"><i class="fa fa-bell-o"></i>@if( Model.TotalUnreadNotifications > 0 ) { <span id="spanCountAlerts">@Model.TotalUnreadNotifications</span> } </a></li>*@
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell-o"></i>@if( Model.TotalUnreadNotifications > 0 ) { <span id="spanCountAlerts">@Model.TotalUnreadNotifications</span> } </a>
+                    
+                    <ul class="dropdown-menu">
+                        @foreach (InsuranceSocialNetworkDTO.Notification.NotificationDTO notification in Model.Notifications)
+                        {
+                            <li><a href="">@notification.TextToNotificationList</a></li>
+                        }
+
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gears"></i></a>
+                    
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Logout", "LogOff", "Account")</li>
+                    </ul>
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</nav>

@@ -1,0 +1,207 @@
+﻿@using InsuranceSocialNetworkDTO.Post;
+@model InsuranceWebsite.Models.PostItemsViewModel
+
+@Html.HiddenFor(m => m.Items)
+@Html.HiddenFor(m => m.Profile)
+
+<div>
+    @foreach (PostDTO post in Model.Items)
+    {
+        <div class="panel panel-white post panel-shadow">
+
+            <div class="post-heading">
+
+                <div class="pull-left image">
+
+                    <img src="~/Content/images/no_photo_img.jpg" class="avatar" alt="user profile image">
+
+                </div>
+
+                <div class="pull-left meta">
+
+                    <div class="title h5">
+
+                        <a href="#" class="post-user-name">@post.PostOwner.FirstName</a>
+
+                        @switch (post.PostType.Token)
+                        {
+                            case "IMAGE_POST":
+                                @Resources.Resources.UploadedPhoto;
+                                break;
+                            case "TEXT_POST":
+                                @Resources.Resources.MadePost;
+                                break;
+                            case "LINK_POST":
+                                @Resources.Resources.MadePost;
+                                break;
+                            case "VIDEO_POST":
+                                @Resources.Resources.UploadedVideo;
+                                break;
+                            default:
+                                break;
+                        }
+
+                    </div>
+
+
+                    @if (DateTime.Now.Subtract(post.CreateDate).TotalMinutes < 1)
+                    {
+                        <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(post.CreateDate).TotalSeconds, 0) @Resources.Resources.SecondsAgo</h6>
+                    }
+                    else if (DateTime.Now.Subtract(post.CreateDate).TotalHours < 1)
+                    {
+                        <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(post.CreateDate).TotalMinutes, 0) @Resources.Resources.MinutesAgo</h6>
+                    }
+                    else if (DateTime.Now.Subtract(post.CreateDate).TotalDays < 1)
+                    {
+                        <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(post.CreateDate).TotalHours, 0) @Resources.Resources.HoursAgo</h6>
+                    }
+                    else if (DateTime.Now.Subtract(post.CreateDate).TotalDays < 5)
+                    {
+                        <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(post.CreateDate).TotalDays, 0) @Resources.Resources.DaysAgo</h6>
+                    }
+                    else
+                    {
+                        <h6 class="text-muted time">@post.CreateDate.ToShortDateString()</h6>
+                    }
+
+                </div>
+
+            </div>
+
+            @if (post.PostType.Token == InsuranceSocialNetworkCore.Enums.PostTypeEnum.IMAGE_POST.ToString())
+            {
+
+                <div class="post-image">
+
+                    <img src="@post.ImageSource" class="image show-in-modal" alt="image post">
+
+                </div>
+            }
+
+            <div class="post-description">
+
+                <p>
+                    @post.Text
+                </p>
+
+                <div class="stats">
+
+                    @if (null != post.PostLike && post.PostLike.Count > 0 && post.PostLike.Exists(i => i.ID_User == Model.Profile.ID_User))
+                    {
+                        <a href="@Url.Action("UnlikePost", "Home", new { postId = post.ID, userId = Model.Profile.ID_User })" class="stat-item" style="color:#11a9cc">
+
+                            <i class="fa fa-thumbs-up icon"></i>@post.PostLike.Count
+
+                        </a>
+                    }
+                    else if (null != post.PostLike && post.PostLike.Count > 0)
+                    {
+                        <a href="@Url.Action("LikePost", "Home", new { postId = post.ID, userId = Model.Profile.ID_User })" class="stat-item">
+
+                            <i class="fa fa-thumbs-up icon"></i>@post.PostLike.Count
+
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("LikePost", "Home", new { postId = post.ID, userId = Model.Profile.ID_User })" class="stat-item">
+
+                            <i class="fa fa-thumbs-up icon"></i>
+
+                        </a>
+                    }
+
+                    <a href="#" class="stat-item">
+
+                        <i class="fa fa-retweet icon"></i>12
+
+                    </a>
+
+                    <a href="#" class="stat-item">
+
+                        <i class="fa fa-comments-o icon"></i>3
+
+                    </a>
+
+                </div>
+
+            </div>
+
+            @if (post.PostSubject.Token != InsuranceSocialNetworkCore.Enums.PostSubjectEnum.SPONSORED_POST.ToString())
+            {
+                <div class="post-footer">
+
+                    @using (Html.BeginForm("NewComment", "Home", FormMethod.Post))
+                    {
+                        <input type="hidden" id="postId" name="postId" value="@post.ID" />
+                        <input id="postNewComment" name="postNewComment" class="form-control add-comment-input" placeholder="@Resources.Resources.AddComment" type="text" />
+                    }
+
+                    <ul class="comments-list">
+
+                        @foreach (PostCommentDTO comment in post.PostComment)
+                        {
+                            <li class="comment">
+
+                                <a class="pull-left" href="#">
+
+                                    <img class="avatar" src="~/Content/images/no_photo_img.jpg" alt="avatar">
+
+                                </a>
+
+                                <div class="comment-body">
+
+                                    <div class="comment-heading">
+
+                                        <h4 class="comment-user-name"><a href="#">@comment.CommentOwner.FirstName</a></h4>
+
+                                        @if (DateTime.Now.Subtract(comment.Date).TotalMinutes < 1)
+                                        {
+                                            <h5 class="time">@Math.Round(DateTime.Now.Subtract(comment.Date).TotalSeconds, 0) @Resources.Resources.SecondsAgo</h5>
+                                        }
+                                        else if (DateTime.Now.Subtract(comment.Date).TotalHours < 1)
+                                        {
+                                            <h5 class="time">@Math.Round(DateTime.Now.Subtract(comment.Date).TotalMinutes, 0) @Resources.Resources.MinutesAgo</h5>
+                                        }
+                                        else if (DateTime.Now.Subtract(comment.Date).TotalDays < 1)
+                                        {
+                                            <h5 class="time">@Math.Round(DateTime.Now.Subtract(comment.Date).TotalHours, 0) @Resources.Resources.HoursAgo</h5>
+                                        }
+                                        else if (DateTime.Now.Subtract(comment.Date).TotalDays < 5)
+                                        {
+                                            <h5 class="time">@Math.Round(DateTime.Now.Subtract(comment.Date).TotalDays, 0) @Resources.Resources.DaysAgo</h5>
+                                        }
+                                        else
+                                        {
+                                            <h5 class="time">@comment.Date.ToShortDateString()</h5>
+                                        }
+
+                                    </div>
+
+                                    <p>@comment.Text</p>
+
+                                </div>
+
+                            </li>
+                        }
+
+                    </ul>
+
+                </div>
+            }
+
+        </div>
+    }
+</div>
+
+<script type="text/javascript">
+    function KeypressHandler(e) {
+        alert('key pressed!');
+        if (e.which == 13) {
+            e.preventDefault(); //stops default action: submitting form
+            $(this).blur();
+            $('#SubmitButton').focus().click();//give your submit an ID
+        }
+    }
+</script>

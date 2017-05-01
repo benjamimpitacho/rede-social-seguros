@@ -1,0 +1,550 @@
+﻿@using System.Linq;
+@using InsuranceWebsite.Models
+@model HomeViewModel
+
+
+<div class="profile-info col-md-6  animated fadeInUp" style="margin-left:18px">
+
+    <div class="panel">
+
+        @using (Html.BeginForm("NewPost", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.HiddenFor(m => m.Profile.ID_User)
+            @Html.HiddenFor(m => m.Profile.ID)
+
+            <textarea placeholder="@Resources.Resources.WhatsInYourMindToday" rows="2" class="form-control input-lg p-text-area" id="postContentTextarea" name="postContentTextarea"></textarea>
+
+            <img id="imgPlaceholder" src="#" alt="" style="visibility:hidden;position:absolute" />
+
+            <div class="panel-footer">
+
+                <button class="btn btn-info pull-right">Post</button>
+
+                <ul class="nav nav-pills">
+
+                    <li>
+                        <input type='file' id="imgUpload" style="visibility:hidden;position:absolute" name="imgUpload" />
+                        <a href="javascript:$('#imgUpload').click()"><i class="fa fa-camera"></i></a>
+
+                    </li>
+
+                    @*<li>
+
+                        <a href="#"><i class="fa fa-film"></i></a>
+
+                    </li>*@
+
+                </ul>
+
+            </div>
+        }
+
+    </div>
+
+    @*<div class="panel">
+        <div class="_4zoz  _4cw _4-u3"><div id="js_1nn"><span><div class="_1y-n"><div class="_1y-o"><span class="_1y-p"><em class="_4qba" data-intl-translation="Drag link/photos/video here" data-intl-trid=""><!-- react-text: 10 -->Drag link/photos/video here<!-- /react-text --></em></span><span class="_1y-q"><em class="_4qba" data-intl-translation="Drop link" data-intl-trid=""><!-- react-text: 13 -->Drop link<!-- /react-text --></em></span><span class="_1y-r"><em class="_4qba" data-intl-translation="Drop photo/video" data-intl-trid=""><!-- react-text: 16 -->Drop photo/video<!-- /react-text --></em></span><span class="_1y-s"><em class="_4qba" data-intl-translation="Drop photos" data-intl-trid=""><!-- react-text: 19 -->Drop photos<!-- /react-text --></em></span></div></div><!-- react-empty: 20 --></span><div class=" _i-o"><div class="clearfix _ikh"><div class="_q-v _4bl7"><a aria-label="Profile of Benjamim Pitacho" class="_3hvt" href="https://www.facebook.com/benjamimpitacho"><img class="_bth img" src="https://scontent-lhr3-1.xx.fbcdn.net/v/t1.0-1/c0.9.40.40/p40x40/13516598_10153953933908071_4155124392738723856_n.jpg?oh=04c3d334aabad90c99f2abd3d9d50712&amp;oe=58E2CFAD" height="40" width="40" alt=""></a></div><div class="_4bl9"><div><div class="_1mwp _395  _4c_p _5bu_ _34nd _5yk1" role="presentation"><div class="_5yk2" tabindex="-2"><div class="_5rp7"><div class="_1p1t"><div class="_1p1v" id="placeholder-fdoqj">What's on your mind?</div></div><div class="_5rpb"><div aria-autocomplete="list" aria-describedby="placeholder-fdoqj" aria-expanded="false" aria-haspopup="false" aria-owns="js_1nm" class="_5rpu" contenteditable="true" data-testid="status-attachment-mentions-input" role="combobox" spellcheck="true" style="outline: none; white-space: pre-wrap; word-wrap: break-word;"><div data-contents="true"><div class="" data-block="true" data-editor="fdoqj" data-offset-key="70d9b-0-0"><div data-offset-key="70d9b-0-0" class="_1mf _1mj"><span data-offset-key="70d9b-0-0"><br data-text="true"></span></div></div></div></div></div></div></div></div></div></div></div><div data-testid="attachment-preview"></div><div class="_3o1x"></div><!-- react-empty: 42 --></div><div class="_1j2v"><div class="_5f24"><noscript></noscript><noscript></noscript><noscript></noscript></div><div class="_16ve"><div class="_16vf"></div><div class="_16vg"><div class="_5xmp"><div class="_m _5g_r _6a"><a rel="ignore"><div class="_m_1 _1pnt" role="tab" aria-selected="false" data-tooltip-delay="500" data-tooltip-content="Photo/Video" data-hover="tooltip"><i class="_4a0a img sp_WEcKEyz7olH sx_75e4b8" alt=""></i><div class="_2aha">Photo/Video</div></div><div class="_3jk"><input type="file" accept="video/*,  video/x-m4v, video/webm, video/x-ms-wmv, video/x-msvideo, video/3gpp, video/flv, video/x-flv, video/mp4, video/quicktime, video/mpeg, video/ogv, image/*" multiple="" name="composer_photo[]" display="inline-block" role="button" tabindex="0" data-testid="media-sprout" class="_n _5f0v" id="js_1no"></div></a></div></div><div class="_5xmp"><span display="inline"><a class="_3ih _5g_r _m" href="#" id="u_b_3" rel="ignore" ajaxify="/album/uploader/?application=html5&amp;xapplication=web_html5&amp;owner_id=789813070&amp;session_id=u_b_3&amp;qn=782a4c4ee9fd56266f1ec6b5f7181403&amp;ref=react_composer&amp;av=789813070" tabindex="-1" role="button"><div class="_1r52"><a data-reactroot="" href="#"><div class="_m_1 _1pnu" role="tab" aria-selected="false" data-tooltip-delay="500" data-tooltip-content="Photo Album" data-hover="tooltip"><i class="_4a0a img sp_WEcKEyz7olH sx_134de4" alt=""></i><div class="_2aha">Photo Album</div></div></a></div><div class="_3jk"><label class="accessible_elem" for="js_7j">Choose a file to upload</label><input type="file" class="_n" accept="video/*,  video/x-m4v, video/webm, video/x-ms-wmv, video/x-msvideo, video/3gpp, video/flv, video/x-flv, video/mp4, video/quicktime, video/mpeg, video/ogv, image/*" multiple="" title="Choose a file to upload" id="js_7j"></div></a></span></div><div class="_5xmp"><a href="#"><div class="_m_1 _1gr3" role="tab" aria-selected="false" data-tooltip-delay="500"><i class="_4a0a img sp_WEcKEyz7olH sx_9e2d83" alt=""></i><div class="_2aha"></div></div></a></div></div></div><div class="_2dck _4-u3  _57d8"><div class="clearfix"><div class="_ohe lfloat"></div><div class="_ohf rfloat"><div class="_2ph- _4-u3"><div class="_5dd8"><div class="composerAudienceWrapper stat_elem _ej0"><div class="_6a _43_1 _3h0d _21p0" id="u_0_18"><div class="_6a uiPopover" id="u_0_1c"><a data-hover="tooltip" data-tooltip-content="Public" data-tooltip-alignh="right" class="_42ft _4jy0 _55pi _5vto _55_p _2agf _p _4jy3 _517h _51sy" role="button" href="#" style="max-width:200px;" aria-label="Shared with Public" aria-haspopup="true" aria-expanded="false" rel="toggle" id="u_0_1d" data-testid="privacy_selector_0"><span class="_55pe" style="max-width:186px;"><i class="mrs _21or img sp_ykn5DugO1sZ sx_e1fe0e"></i><span class="img _55ym _55yn _55yo hidden_elem _3__n" aria-busy="true" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuetext="Loading..." id="u_0_1e"></span><i class="hidden_elem _3__n img sp_ykn5DugO1sZ sx_1c237e" id="u_0_1f"></i><i class="hidden_elem _3__n img sp_ykn5DugO1sZ sx_5bdc3b" id="u_0_1g"></i>Public</span><i class="_3-99 img sp_mr0ZuUe13_6 sx_c7b834"></i></a></div><input type="hidden" autocomplete="off" name="privacyx" value="300645083384735" id="u_0_1b"></div></div></div><button class="_1mf7 _4jy0 _4jy3 _4jy1 _51sy selected _42ft" data-testid="react-composer-post-button" type="submit" value="1"><img alt="" class="_3-8_ _5gm4 img" src="https://www.facebook.com/rsrc.php/v3/yb/r/GsNJNwuI-UM.gif" data-testid="react-composer-throbber" width="16" height="11"><span class=""><em class="_4qba" data-intl-translation="Post" data-intl-trid=""><!-- react-text: 75 -->Post<!-- /react-text --></em></span></button></div></div></div></div></div></div><!-- react-empty: 76 --><!-- react-empty: 77 --></div>
+    </div>*@
+    
+    <div class="news">
+        <div class="partialContents" data-url="/home/posts">
+            <div style="text-align:center">
+                <img src="~/Content/images/waiting.gif" /> Loading ...
+            </div>
+        </div>
+    </div>    
+
+    @*Html.Partial("PostsControl", Model.Posts)*@
+    
+
+    <!-- first post-->
+
+    <div class="panel panel-white post panel-shadow">
+
+        <div class="post-heading">
+
+            <div class="pull-left image">
+
+                <img src="img/Friends/guy-3.jpg" class="avatar" alt="user profile image">
+
+            </div>
+
+            <div class="pull-left meta">
+
+                <div class="title h5">
+
+                    <a href="#" class="post-user-name">Jonathan Smith</a>
+
+                    uploaded a photo.
+
+                </div>
+
+                <h6 class="text-muted time">5 seconds ago</h6>
+
+            </div>
+
+        </div>
+
+        <div class="post-image">
+
+            <img src="img/Post/manok.png" class="image show-in-modal" alt="image post">
+
+        </div>
+
+        <div class="post-description">
+
+            <p>This is a short description</p>
+
+            <div class="stats">
+
+                <a href="#" class="stat-item">
+
+                    <i class="fa fa-thumbs-up icon"></i>228
+
+                </a>
+
+                <a href="#" class="stat-item">
+
+                    <i class="fa fa-retweet icon"></i>128
+
+                </a>
+
+                <a href="#" class="stat-item">
+
+                    <i class="fa fa-comments-o icon"></i>3
+
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="post-footer">
+
+            <input class="form-control add-comment-input" placeholder="Add a comment..." type="text">
+
+            <ul class="comments-list">
+
+                <li class="comment">
+
+                    <a class="pull-left" href="#">
+
+                        <img class="avatar" src="img/Friends/guy-3.jpg" alt="avatar">
+
+                    </a>
+
+                    <div class="comment-body">
+
+                        <div class="comment-heading">
+
+                            <h4 class="comment-user-name"><a href="#">Antony andrew lobghi</a></h4>
+
+                            <h5 class="time">7 minutes ago</h5>
+
+                        </div>
+
+                        <p>This is a comment bla bla bla</p>
+
+                    </div>
+
+                </li>
+
+                <li class="comment">
+
+                    <a class="pull-left" href="#">
+
+                        <img class="avatar" src="img/Friends/guy-2.jpg" alt="avatar">
+
+                    </a>
+
+                    <div class="comment-body">
+
+                        <div class="comment-heading">
+
+                            <h4 class="comment-user-name"><a href="#">Jeferh Smith</a></h4>
+
+                            <h5 class="time">3 minutes ago</h5>
+
+                        </div>
+
+                        <p>This is another comment bla bla bla</p>
+
+                    </div>
+
+                </li>
+
+                <li class="comment">
+
+                    <a class="pull-left" href="#">
+
+                        <img class="avatar" src="img/Friends/woman-2.jpg" alt="avatar">
+
+                    </a>
+
+                    <div class="comment-body">
+
+                        <div class="comment-heading">
+
+                            <h4 class="comment-user-name"><a href="#">Maria fernanda coronel</a></h4>
+
+                            <h5 class="time">10 seconds ago</h5>
+
+                        </div>
+
+                        <p>Wow! so cool my friend</p>
+
+                    </div>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div><!-- first post-->
+    <!-- second post -->
+
+    <div class="panel panel-white post panel-shadow">
+
+        <div class="post-heading">
+
+            <div class="pull-left image">
+
+                <img src="img/Friends/guy-3.jpg" class="avatar" alt="user profile image">
+
+            </div>
+
+            <div class="pull-left meta">
+
+                <div class="title h5">
+
+                    <a href="#" class="post-user-name">Jonathan Smith</a>
+
+                    made a post.
+
+                </div>
+
+                <h6 class="text-muted time">1 minute ago</h6>
+
+            </div>
+
+        </div>
+
+        <div class="post-description">
+
+            <p>
+                Bootdey is a gallery of free snippets resources templates and utilities
+
+                for bootstrap css hmtl js framework. Codes for developers and web designers
+            </p>
+
+            <div class="stats">
+
+                <a href="#" class="stat-item">
+
+                    <i class="fa fa-thumbs-up icon"></i>2
+
+                </a>
+
+                <a href="#" class="stat-item">
+
+                    <i class="fa fa-retweet icon"></i>12
+
+                </a>
+
+                <a href="#" class="stat-item">
+
+                    <i class="fa fa-comments-o icon"></i>3
+
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="post-footer">
+
+            <input class="form-control add-comment-input" placeholder="Add a comment..." type="text">
+
+            <ul class="comments-list">
+
+                <li class="comment">
+
+                    <a class="pull-left" href="#">
+
+                        <img class="avatar" src="img/Friends/guy-8.jpg" alt="avatar">
+
+                    </a>
+
+                    <div class="comment-body">
+
+                        <div class="comment-heading">
+
+                            <h4 class="comment-user-name"><a href="#">Gavhin dahg martb</a></h4>
+
+                            <h5 class="time">5 minutes ago</h5>
+
+                        </div>
+
+                        <p>This is a first comment</p>
+
+                    </div>
+
+                    <ul class="comments-list">
+
+                        <li class="comment">
+
+                            <a class="pull-left" href="#">
+
+                                <img class="avatar" src="img/Friends/woman-5.jpg" alt="avatar">
+
+                            </a>
+
+                            <div class="comment-body">
+
+                                <div class="comment-heading">
+
+                                    <h4 class="comment-user-name"><a href="#">Ryanah Haywofd</a></h4>
+
+                                    <h5 class="time">3 minutes ago</h5>
+
+                                </div>
+
+                                <p>Relax my friend</p>
+
+                            </div>
+
+                        </li>
+
+                        <li class="comment">
+
+                            <a class="pull-left" href="#">
+
+                                <img class="avatar" src="img/Friends/woman-7.jpg" alt="avatar">
+
+                            </a>
+
+                            <div class="comment-body">
+
+                                <div class="comment-heading">
+
+                                    <h4 class="comment-user-name"><a href="#">Maria dh heart</a></h4>
+
+                                    <h5 class="time">3 minutes ago</h5>
+
+                                </div>
+
+                                <p>Ok, cool.</p>
+
+                            </div>
+
+                        </li>
+
+                    </ul>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div><!-- end second post -->
+    <!-- third post -->
+
+    <div class="panel panel-white post panel-shadow">
+
+        <div class="post-heading">
+
+            <div class="pull-left image">
+
+                <img src="img/Friends/guy-3.jpg" class="avatar" alt="user profile image">
+
+            </div>
+
+            <div class="pull-left meta">
+
+                <div class="title h5">
+
+                    <a href="#" class="post-user-name">Jonathan Smith</a>
+
+                    made a post.
+
+                </div>
+
+                <h6 class="text-muted time">1 minute ago</h6>
+
+            </div>
+
+        </div>
+
+        <div class="post-image">
+
+            <img src="img/Post/place1-full.jpg" class="image show-in-modal" alt="image post">
+
+        </div>
+
+        <div class="post-description">
+
+            <p>This is my new awesome photo, ok relax with my style, so cray</p>
+
+            <div class="stats">
+
+                <a href="#" class="stat-item">
+
+                    <i class="fa fa-thumbs-up icon"></i>2
+
+                </a>
+
+                <a href="#" class="stat-item">
+
+                    <i class="fa fa-retweet icon"></i>12
+
+                </a>
+
+                <a href="#" class="stat-item">
+
+                    <i class="fa fa-comments-o icon"></i>3
+
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="post-footer">
+
+            <input class="form-control add-comment-input" placeholder="Add a comment..." type="text">
+
+            <ul class="comments-list">
+
+                <li class="comment">
+
+                    <a class="pull-left" href="#">
+
+                        <img class="avatar" src="img/Friends/guy-8.jpg" alt="avatar">
+
+                    </a>
+
+                    <div class="comment-body">
+
+                        <div class="comment-heading">
+
+                            <h4 class="comment-user-name"><a href="#">Gavhin dahg martb</a></h4>
+
+                            <h5 class="time">5 minutes ago</h5>
+
+                        </div>
+
+                        <p>This is a first comment</p>
+
+                    </div>
+
+                    <ul class="comments-list">
+
+                        <li class="comment">
+
+                            <a class="pull-left" href="#">
+
+                                <img class="avatar" src="img/Friends/woman-5.jpg" alt="avatar">
+
+                            </a>
+
+                            <div class="comment-body">
+
+                                <div class="comment-heading">
+
+                                    <h4 class="comment-user-name"><a href="#">Ryanah Haywofd</a></h4>
+
+                                    <h5 class="time">3 minutes ago</h5>
+
+                                </div>
+
+                                <p>Relax my friend</p>
+
+                            </div>
+
+                        </li>
+
+                        <li class="comment">
+
+                            <a class="pull-left" href="#">
+
+                                <img class="avatar" src="img/Friends/woman-7.jpg" alt="avatar">
+
+                            </a>
+
+                            <div class="comment-body">
+
+                                <div class="comment-heading">
+
+                                    <h4 class="comment-user-name"><a href="#">Maria dh heart</a></h4>
+
+                                    <h5 class="time">3 minutes ago</h5>
+
+                                </div>
+
+                                <p>Ok, cool.</p>
+
+                            </div>
+
+                        </li>
+
+                    </ul>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div><!-- end third post -->
+
+    <div class="panel panel-white post-load-more panel-shadow text-center">
+
+        <button class="btn btn-info">
+
+            <i class="fa fa-refresh"></i>Load More...
+
+        </button>
+
+    </div>
+
+</div><!--end right  content-->
+
+
+<script type="text/javascript">
+
+    var site = site || {};
+    site.baseUrl = site.baseUrl || "";
+
+    $(document).ready(function () {
+
+        // locate each partial section.
+        // if it has a URL set, load the contents into the area.
+        $(".partialContents").each(function (index, item) {
+            var url = site.baseUrl + $(item).data("url");
+            if (url && url.length > 0) {
+                $(item).load(url);
+            }
+        });
+
+        $("#imgUpload").change(function () {
+            readURL(this);
+        });
+    });
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#imgPlaceholder').attr('style', '');
+                $('#imgPlaceholder').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    
+
+</script>
