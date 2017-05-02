@@ -22,6 +22,18 @@ namespace InsuranceWebsite.Commons
             }
         }
 
+        public static int SmtpPort
+        {
+            get
+            {
+                int port;
+                bool parseTry = Int32.TryParse(ConfigurationManager.AppSettings["SmtpPort"], out port);
+                if (parseTry)
+                    return port;
+                return 587;
+            }
+        }
+
         public static string SmtpUsername
         {
             get

@@ -126,6 +126,9 @@
   <data name="ChatGroups" xml:space="preserve">
     <value>Grupos de Conversa</value>
   </data>
+  <data name="CheckYourEmailToGetAccess" xml:space="preserve">
+    <value>Verifique o seu e-mail para confirmar o registo e ativar o acesso ao portal.</value>
+  </data>
   <data name="Code" xml:space="preserve">
     <value>Código</value>
   </data>
@@ -186,6 +189,9 @@
   <data name="Notifications" xml:space="preserve">
     <value>Notificações</value>
   </data>
+  <data name="NotificationsPageTitle" xml:space="preserve">
+    <value>Notificações</value>
+  </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>
   </data>
@@ -215,6 +221,9 @@
   </data>
   <data name="TermsOfUse" xml:space="preserve">
     <value>Termos de Utilização</value>
+  </data>
+  <data name="ThanksForRegister" xml:space="preserve">
+    <value>Obrigado pelo seu registo no portal Falar Seguros.</value>
   </data>
   <data name="UploadedPhoto" xml:space="preserve">
     <value>publicou uma foto</value>

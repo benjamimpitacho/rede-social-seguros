@@ -107,6 +107,11 @@ namespace InsuranceSocialNetworkBusiness
             return UserProfileRepository.CreateDefaultProfile(AutoMapper.Mapper.Map<Profile>(new UserProfileDTO() { ID_User = Id, ContactEmail = Email, FirstName = firstName, LastName = lastName}));
         }
 
+        public bool DeleteUserProfile(long userId)
+        {
+            return UserProfileRepository.DeleteUserProfile(userId);
+        }
+
         #endregion Profile
 
         #region Notifications

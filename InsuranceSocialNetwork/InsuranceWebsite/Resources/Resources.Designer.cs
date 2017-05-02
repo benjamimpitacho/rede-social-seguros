@@ -88,6 +88,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Verifique o seu e-mail para confirmar o registo e ativar o acesso ao portal..
+        /// </summary>
+        public static string CheckYourEmailToGetAccess {
+            get {
+                return ResourceManager.GetString("CheckYourEmailToGetAccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Código.
         /// </summary>
         public static string Code {
@@ -268,6 +277,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Notificações.
+        /// </summary>
+        public static string NotificationsPageTitle {
+            get {
+                return ResourceManager.GetString("NotificationsPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>
         public static string Password {
@@ -354,6 +372,15 @@ namespace Resources {
         public static string TermsOfUse {
             get {
                 return ResourceManager.GetString("TermsOfUse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Obrigado pelo seu registo no portal Falar Seguros..
+        /// </summary>
+        public static string ThanksForRegister {
+            get {
+                return ResourceManager.GetString("ThanksForRegister", resourceCulture);
             }
         }
         

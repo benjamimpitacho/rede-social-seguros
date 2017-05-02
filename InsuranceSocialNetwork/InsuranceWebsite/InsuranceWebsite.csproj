@@ -204,6 +204,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\NotificationItemsViewModel.cs" />
     <Compile Include="Models\ProfileViewModels.cs" />
     <Compile Include="Models\HomeViewModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -365,6 +366,9 @@
     <Content Include="Views\Home\Partial\PostsControl.cshtml" />
     <Content Include="Views\Home\ProfileInfo.cshtml" />
     <Content Include="Views\Home\Partial\SideNavBar.cshtml" />
+    <Content Include="Views\Home\Notifications.cshtml" />
+    <Content Include="Views\Home\Partial\NotificationsControl.cshtml" />
+    <Content Include="Views\Home\Partial\Notifications.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

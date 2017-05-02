@@ -184,12 +184,13 @@ namespace InsuranceWebsite.Controllers
                 user.EmailConfirmed = false;
                 var result = await UserManager.CreateAsync(user, model.Password);
 
+                long userId = -1;
                 if (result.Succeeded)
                 {
                     try
                     {
                         // Register default profile information!
-                        InsuranceBusiness.BusinessLayer.CreateDefaultUserProfile(user.Id, user.UserName, user.Email, model.Name);
+                        userId = InsuranceBusiness.BusinessLayer.CreateDefaultUserProfile(user.Id, user.UserName, user.Email, model.Name);
                     }
                     catch (Exception ex)
                     {
@@ -200,9 +201,17 @@ namespace InsuranceWebsite.Controllers
 
                 if (result.Succeeded)
                 {
-                    InsuranceBusiness.BusinessLayer.CreateNotification(user.Id, NotificationTypeEnum.COMPLETE_PROFILE_INFO);
-    
-                    await SendConfirmationEmail(user, model.Name);
+                    try
+                    {
+                        InsuranceBusiness.BusinessLayer.CreateNotification(user.Id, NotificationTypeEnum.COMPLETE_PROFILE_INFO);
+
+                        await SendConfirmationEmail(user, model.Name);
+                    }
+                    catch (Exception ex)
+                    {
+                        InsuranceBusiness.BusinessLayer.DeleteUserProfile(userId);
+                        return View(model);
+                    }
                     //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
@@ -213,6 +222,7 @@ namespace InsuranceWebsite.Controllers
 
                     return View("RegisterToConfirm", model);
                 }
+
                 AddErrors(result);
             }
 
@@ -223,16 +233,18 @@ namespace InsuranceWebsite.Controllers
         private async Task<bool> SendConfirmationEmail(ApplicationUser user, string name)
         {
             var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-            
+
             System.Net.Mail.MailMessage m = new System.Net.Mail.MailMessage(
                 new System.Net.Mail.MailAddress(ConfigurationSettings.AppEmailAddress, "Web Registration"),
                 new System.Net.Mail.MailAddress(user.Email));
             m.Subject = "Email confirmation";
             m.Body = string.Format("Dear {0}<BR/>Thank you for your registration, please click on the below link to comlete your registration: <a href=\"{1}\" title=\"User Email Confirm\">{1}</a>", user.UserName, Url.Action("ConfirmEmail", "Account", new { token = code, code = user.Id }, Request.Url.Scheme));
             m.IsBodyHtml = true;
-            System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient(ConfigurationSettings.SmtpHost);
-            smtp.Credentials = new System.Net.NetworkCredential(ConfigurationSettings.SmtpUsername, ConfigurationSettings.SmtpPassword);
-            smtp.EnableSsl = true;
+            System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient(ConfigurationSettings.SmtpHost, ConfigurationSettings.SmtpPort)
+            {
+                Credentials = new System.Net.NetworkCredential(ConfigurationSettings.SmtpUsername, ConfigurationSettings.SmtpPassword),
+                EnableSsl = true
+            };
             smtp.Send(m);
 
             return true;

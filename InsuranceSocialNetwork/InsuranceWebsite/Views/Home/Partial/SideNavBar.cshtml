@@ -2,32 +2,48 @@
 @model ProfileViewModel
 
 <!-- Fixed navbar -->
-
 @*<nav class="navbar navbar-default navbar-fixed-top navbar-principal">*@
 
-    <div class="left">
-        <div class="item no-hover">
-            <img src="~/Content/images/no_logo_img.png" alt="" class="item-logo">
-        </div>
-        <div class="item no-hover">
-            <img src="~/Content/images/no_photo_img.jpg" class="item-photo">
-        </div>
-        <div class="item">
-            <a href="@Url.Action("Index", "Home")" title="@Resources.Resources.Home"><span class="glyphicon glyphicon-home"></span></a>
-        </div>
-        <div class="item active">
-            <a href="@Url.Action("Messages", "Home")" title="@Resources.Resources.Messages"><span class="glyphicon glyphicon-comment"></span></a>
-        </div>
-        <div class="item">
-            <a href="@Url.Action("ProfileInfo", "Home")" title="@Resources.Resources.UserProfile"><span class="glyphicon glyphicon-user"></span></a>
-        </div>
-        <div class="item">
-            <a href="@Url.Action("Notifications", "Home")" title="@Resources.Resources.Notifications"><span class="glyphicon glyphicon-bell"></span></a>
-        </div>
-        <div class="item">
-            <a href="@Url.Action("Settings", "Home")" title="@Resources.Resources.Settings"><span class="glyphicon glyphicon-cog"></span></a>
-        </div>
+<div class="left">
+    <div class="item no-hover" style="padding-bottom:0px;">
+        <img src="~/Content/images/no_logo_img.png" alt="" class="item-logo">
     </div>
+    <div class="item no-hover">
+        <img src="~/Content/images/no_photo_img.jpg" class="item-photo">
+    </div>
+    <div class="item">
+        <a href="@Url.Action("Index", "Home")" title="@Resources.Resources.Home"><span class="glyphicon glyphicon-home"></span></a>
+    </div>
+    <div class="item active">
+        <a href="@Url.Action("Messages", "Home")" title="@Resources.Resources.Messages"><span class="glyphicon glyphicon-comment"></span></a>
+    </div>
+    <div class="item">
+        <a href="@Url.Action("ProfileInfo", "Home")" title="@Resources.Resources.UserProfile"><span class="glyphicon glyphicon-user"></span></a>
+    </div>
+    <div class="item">
+        @*<a href="@Url.Action("Notifications", "Home")" title="@Resources.Resources.Notifications"><span class="glyphicon glyphicon-bell"></span></a>*@
+        <a href="@Url.Action("Notifications", "Home")">
+            <span class="glyphicon glyphicon-bell"></span>
+        </a>
+        <span class="badge badge-notify">@Model.TotalUnreadNotifications</span>
+        @*<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <i class="fa fa-bell-o"></i>
+            @if (Model.TotalUnreadNotifications > 0)
+            { <span id="spanCountAlerts">@Model.TotalUnreadNotifications</span> }
+        </a>
+
+        <ul class="dropdown-menu">
+            @foreach (InsuranceSocialNetworkDTO.Notification.NotificationDTO notification in Model.Notifications)
+            {
+                <li><a href="">@notification.TextToNotificationList</a></li>
+            }
+
+        </ul>*@
+    </div>
+    <div class="item">
+        <a href="@Url.Action("Settings", "Home")" title="@Resources.Resources.Settings"><span class="glyphicon glyphicon-cog"></span></a>
+    </div>
+</div>
 
 @*</nav>*@
 
@@ -45,7 +61,7 @@
         background: #337ab7;
         display: inline-block;
         white-space: nowrap;
-        width: 50px;
+        width: 60px;
         transition: width 1s;
     }
 
@@ -64,11 +80,12 @@
 
     .item:hover {
         background-color: #ccc;
+        border-radius: 40px;
     }
 
-    .item.no-hover:hover
-    {
+    .item.no-hover:hover {
         background-color: #337ab7;
+        border-radius: 40px;
     }
 
     .left .glyphicon {
@@ -90,17 +107,19 @@
         height: 50px;
         overflow: hidden;
         color: #fff;
+        font-size: 25px;
+        padding-bottom: 60px;
     }
 
-    .item > a {
-        display: block;
-        height: 100%;
-        width: 100%;
-    }
+        .item > a {
+            display: block;
+            height: 100%;
+            width: 100%;
+        }
 
     .item-photo {
         padding: 10px;
-        border-radius: 30px;
+        border-radius: 17px;
     }
 
     .item-logo {
@@ -162,5 +181,12 @@
         margin: 0;
         color: #aaa !important;
         font-size: 12px;
+    }
+
+    .badge-notify{
+       background:red;
+       position:relative;
+       top: -6px;
+       left: 33px;
     }
 </style>

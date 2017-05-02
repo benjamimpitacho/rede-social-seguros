@@ -1,3 +1,4 @@
+
 body{
   font-family: 'Roboto', sans-serif !important;
   background: #fff;
@@ -207,7 +208,9 @@ footer {
 .welcome-inner {
     padding: 10px;
     overflow: auto;
-    margin-top: 150px;
+    margin-top: 100px;
+    border-radius: 20px;
+    background-color: #ffffff
 }
 
 .welcome-message {
@@ -243,14 +246,14 @@ footer {
 .welcome-inputs form {
     padding: 10px 0px 0px 10px;
     width: 100%;
-    max-width: 300px;
+    max-width: 350px;
     /*overflow: auto;*/
     margin-right: 20px;
     float: right;
 }
 
 .welcome-inputs input {
-    width: 80%;
+    width: 90%;
     /*padding: 10px;*/
     margin-bottom: 10px;
     font-size: 14px;
@@ -278,7 +281,7 @@ footer {
 }
 
 .forgot-password-link a{
-  color: #fff;
+  color: #337ab7;
 }
 
 .welcome-full {
@@ -341,18 +344,6 @@ footer {
 
 .welcome-text-shadow{
   text-shadow: 0 0 3px rgba(0,0,0,0.2);
-}
-
-@media all and (max-width: 580px) { 
-  .welcome-title {
-    font-size: 40px; 
-  }
-  .welcome-desc {
-      font-size: 18px;
-  }
-  .welcome-about {
-      font-size: 19px;
-  }    
 }
 
 /*==================== User Detail ==================*/
@@ -2513,4 +2504,75 @@ a:hover, a:active, a:focus {
 
 .input-validation-error {
     border-color: green !important;
+}
+
+@media (max-width:481px)  { 
+    .welcome-title {
+        font-size: 40px; 
+    }
+
+    .welcome-desc {
+        font-size: 18px;
+    }
+
+    .welcome-about {
+        font-size: 19px;
+    }
+
+    .welcome-message {
+        width: 100%;
+    }
+
+    .welcome-inputs{
+        width: 80%;
+        margin-left: 10%;
+        float:none;
+        padding-top: 10%;
+    }
+
+    .welcome-inputs form {
+        padding: 10px 0px 0px 10px;
+        width: 100%;
+        max-width: 300px;
+        /*overflow: auto;*/
+        margin-right: 20px;
+        float: right;
+    }
+
+    .welcome-inputs input {
+        width: 80%;
+        font-size: 14px;
+        background: #fff;
+        color: #777;
+        border: 1px solid #1975A3;
+        outline: 0;
+        border-radius: 5px;
+        -moz-box-shadow: 0px 1px 1px rgba(255, 255, 255, 0.1);
+        -webkit-box-shadow: 0px 1px 1px rgba(255, 255, 255, 0.1);
+        box-shadow: 0px 1px 1px rgba(255, 255, 255, 0.1);
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        float: right;
+    }
+
+    .welcome-inner{
+        margin-top:10px;
+    }
+
+    .form-group {
+        margin-bottom: 0px;
+    }
+}
+
+@media (min-width:641px)  {
+}
+
+@media (min-width:961px)  {
+}
+
+@media (min-width:1025px) { 
+}
+
+@media (min-width:1281px) { 
 }

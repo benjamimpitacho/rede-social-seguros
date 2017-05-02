@@ -21,9 +21,13 @@ namespace InsuranceWebsite.Controllers
         {
         }
 
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(HomeViewModel model)
         {
-            var model = new HomeViewModel();
+            if (null == model)
+            {
+                model = new HomeViewModel();
+            }
+
             if(null != this.User && this.User.Identity.IsAuthenticated)
             {
                 var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
@@ -82,6 +86,81 @@ namespace InsuranceWebsite.Controllers
             return View(model);
         }
 
+        public async Task<ActionResult> Notifications(HomeViewModel model)
+        {
+            try
+            {
+                if (null == model)
+                {
+                    model = new HomeViewModel();
+                }
+
+                if (null != this.User && this.User.Identity.IsAuthenticated)
+                {
+                    var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                    var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
+                    if (null != user)
+                    {
+                        FillModel(model, user.Id);
+                    }
+                    else
+                    {
+                        return RedirectToAction("LogOff", "Account");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException();
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult LoadNotifications()
+        {
+            try
+            {
+                NotificationItemsViewModel model = new NotificationItemsViewModel();
+                model.Profile = CurrentUser;
+                model.Items = InsuranceBusiness.BusinessLayer.GetUserNotifications(CurrentUser.ID_User);
+                return PartialView("Partial/NotificationsControl", model);
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException();
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        //public async Task<ActionResult> Notifications()
+        //{
+        //    var model = new HomeViewModel();
+        //    if (null != this.User && this.User.Identity.IsAuthenticated)
+        //    {
+        //        var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+        //        var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
+        //        if (null != user)
+        //        {
+        //            model.Profile = InsuranceBusiness.BusinessLayer.GetUserProfile(user.Id);
+        //            model.Notifications = InsuranceBusiness.BusinessLayer.GetUserNotifications(user.Id);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        return RedirectToAction("Login", "Account");
+        //    }
+
+        //    return View(model);
+        //}
+
         [HttpPost]
         public ActionResult NewPost(HomeViewModel model, string postContentTextarea, HttpPostedFileBase imgUpload)
         {
@@ -94,7 +173,7 @@ namespace InsuranceWebsite.Controllers
                     LastChangeDate = DateTime.Now,
                     ID_User = model.Profile.ID_User,
                     Text = postContentTextarea,
-                    Type = InsuranceSocialNetworkCore.Enums.PostTypeEnum.IMAGE_POST,
+                    Type = null == imgUpload ? InsuranceSocialNetworkCore.Enums.PostTypeEnum.TEXT_POST : InsuranceSocialNetworkCore.Enums.PostTypeEnum.IMAGE_POST,
                     Subject = InsuranceSocialNetworkCore.Enums.PostSubjectEnum.PERSONAL_POST
                 };
 
@@ -187,7 +266,12 @@ namespace InsuranceWebsite.Controllers
             model.Profile = InsuranceBusiness.BusinessLayer.GetUserProfile(userId);
             CurrentUser = model.Profile;
             model.Notifications = InsuranceBusiness.BusinessLayer.GetUserNotifications(userId);
-            //model.Posts = InsuranceBusiness.BusinessLayer.GetUserPosts(userId);
+            if (model is HomeViewModel)
+            {
+                ((HomeViewModel)model).Posts = InsuranceBusiness.BusinessLayer.GetUserPosts(userId);
+                ((HomeViewModel)model).Notifications = InsuranceBusiness.BusinessLayer.GetUserNotifications(userId);
+
+            }
         }
     }
 }
