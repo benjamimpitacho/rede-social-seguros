@@ -1,6 +1,7 @@
 ﻿using InsuranceSocialNetworkBusiness;
 using InsuranceSocialNetworkDTO.Post;
 using InsuranceSocialNetworkDTO.UserProfile;
+using InsuranceWebsite.Commons;
 using InsuranceWebsite.Models;
 using Microsoft.AspNet.Identity.Owin;
 using System;
@@ -28,7 +29,7 @@ namespace InsuranceWebsite.Controllers
                 model = new HomeViewModel();
             }
 
-            if(null != this.User && this.User.Identity.IsAuthenticated)
+            if (null != this.User && this.User.Identity.IsAuthenticated)
             {
                 var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
                 var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
@@ -272,6 +273,12 @@ namespace InsuranceWebsite.Controllers
                 ((HomeViewModel)model).Notifications = InsuranceBusiness.BusinessLayer.GetUserNotifications(userId);
 
             }
+        }
+
+        [FunctionalityAutorizeAttribute("USERS_MANAGEMENT")]
+        public ActionResult UsersManagement()
+        {
+            return null;
         }
     }
 }

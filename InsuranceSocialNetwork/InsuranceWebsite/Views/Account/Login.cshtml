@@ -15,7 +15,7 @@
 
     <div class="widget panel-inputs panel-home animated fadeInUp">
 
-        <div class="widget-header">
+        @*<div class="widget-header">
 
             <h3 class="widget-caption">
 
@@ -27,7 +27,7 @@
 
             </h3>
 
-        </div>
+        </div>*@
 
         <div class="widget-body">
 
@@ -55,11 +55,6 @@
                             @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = Resources.Resources.Password, @id = "short" })
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="col-md-12">
-                            @Html.ValidationSummary("", new { @class = "text-danger" })
-                        </div>
-                    </div>
 
                                 <!--<input type="checkbox" name="remember" value="1">-->
 
@@ -69,10 +64,21 @@
                             <input type="submit" value="@Resources.Resources.Login" class="btn btn-info" />
                         </div>
                     </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            @Html.ActionLink(Resources.Resources.Register, "Register", "Account", new { @class = "btn btn-info welcomebutton" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            @Html.ValidationSummary("", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
                     <span class="forgot-password-link">
 
-                        <a href="#">@Resources.Resources.ForgotYourPassword</a><br>
+                        <a href="@Url.Action("ForgotPassword", "Account")">@Resources.Resources.ForgotYourPassword</a><br>
 
                     </span>
 
@@ -98,3 +104,25 @@
         $(".panel-home").toggleClass("fadeInUp");
     });
 </script>
+
+<style type="text/css">
+
+.register_button {
+    width: 90%;
+    /*padding: 10px;*/
+    margin-bottom: 10px;
+    font-size: 14px;
+    background: #fff;
+    color: #777;
+    border: 1px solid #1975A3;
+    outline: 0;
+    border-radius: 5px;
+    -moz-box-shadow: 0px 1px 1px rgba(255, 255, 255, 0.1);
+    -webkit-box-shadow: 0px 1px 1px rgba(255, 255, 255, 0.1);
+    box-shadow: 0px 1px 1px rgba(255, 255, 255, 0.1);
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    float: right;
+}
+</style>

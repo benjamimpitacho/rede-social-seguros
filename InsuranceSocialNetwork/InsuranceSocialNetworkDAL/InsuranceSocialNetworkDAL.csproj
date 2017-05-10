@@ -56,6 +56,9 @@
     <Compile Include="AspNetRoles.cs">
       <DependentUpon>InsuranceDatabaseEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="AspNetRolesFunctionalities.cs">
+      <DependentUpon>InsuranceDatabaseEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="AspNetUserLogins.cs">
       <DependentUpon>InsuranceDatabaseEntities.tt</DependentUpon>
     </Compile>

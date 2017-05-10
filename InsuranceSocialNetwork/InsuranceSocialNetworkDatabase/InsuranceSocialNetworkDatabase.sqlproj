@@ -83,6 +83,8 @@
     <Build Include="Tables\PostImage.sql" />
     <Build Include="Tables\Garage.sql" />
     <Build Include="Tables\MedicalClinic.sql" />
+    <Build Include="Tables\AspNetRolesFunctionalities.sql" />
+    <None Include="InitData\AspNetRolesFunctionalities.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="InsuranceSocialNetworkDatabase.refactorlog" />

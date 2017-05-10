@@ -79,6 +79,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Associado ou Premium.
+        /// </summary>
+        public static string ASSOCIATED_PREMIUM {
+            get {
+                return ResourceManager.GetString("ASSOCIATED_PREMIUM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Grupos de Conversa.
         /// </summary>
         public static string ChatGroups {
@@ -102,6 +111,15 @@ namespace Resources {
         public static string Code {
             get {
                 return ResourceManager.GetString("Code", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Código é obrigatório.
+        /// </summary>
+        public static string CodeRequired {
+            get {
+                return ResourceManager.GetString("CodeRequired", resourceCulture);
             }
         }
         
@@ -151,6 +169,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to E-mail é obrigatório.
+        /// </summary>
+        public static string EmailRequired {
+            get {
+                return ResourceManager.GetString("EmailRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insira o seu e-mail.
+        /// </summary>
+        public static string EnterYourEmail {
+            get {
+                return ResourceManager.GetString("EnterYourEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Feed.
         /// </summary>
         public static string Feed {
@@ -192,6 +228,15 @@ namespace Resources {
         public static string HoursAgo {
             get {
                 return ResourceManager.GetString("HoursAgo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profissional de Seguros.
+        /// </summary>
+        public static string INSURANCE_PROFESSIONAL {
+            get {
+                return ResourceManager.GetString("INSURANCE_PROFESSIONAL", resourceCulture);
             }
         }
         
@@ -268,6 +313,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nome é obrigatório.
+        /// </summary>
+        public static string NameRequired {
+            get {
+                return ResourceManager.GetString("NameRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Utilizador Comum.
+        /// </summary>
+        public static string NORMAL_USER {
+            get {
+                return ResourceManager.GetString("NORMAL_USER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Notificações.
         /// </summary>
         public static string Notifications {
@@ -291,6 +354,15 @@ namespace Resources {
         public static string Password {
             get {
                 return ResourceManager.GetString("Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password é obrigatória.
+        /// </summary>
+        public static string PasswordRequired {
+            get {
+                return ResourceManager.GetString("PasswordRequired", resourceCulture);
             }
         }
         
@@ -349,11 +421,38 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Perfil é obrigatório.
+        /// </summary>
+        public static string RoleRequired {
+            get {
+                return ResourceManager.GetString("RoleRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gestão de Perfis.
+        /// </summary>
+        public static string RolesManagement {
+            get {
+                return ResourceManager.GetString("RolesManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to segundos atrás.
         /// </summary>
         public static string SecondsAgo {
             get {
                 return ResourceManager.GetString("SecondsAgo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;Seleccione o perfil&gt;.
+        /// </summary>
+        public static string SelectRole {
+            get {
+                return ResourceManager.GetString("SelectRole", resourceCulture);
             }
         }
         
@@ -408,6 +507,24 @@ namespace Resources {
         public static string UserProfile {
             get {
                 return ResourceManager.GetString("UserProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Perfil.
+        /// </summary>
+        public static string UserRole {
+            get {
+                return ResourceManager.GetString("UserRole", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gestão de Utilizadores.
+        /// </summary>
+        public static string UsersManagement {
+            get {
+                return ResourceManager.GetString("UsersManagement", resourceCulture);
             }
         }
         

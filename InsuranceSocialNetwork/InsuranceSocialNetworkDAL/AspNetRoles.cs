@@ -18,6 +18,7 @@ namespace InsuranceSocialNetworkDAL
         public AspNetRoles()
         {
             this.AspNetUsers = new HashSet<AspNetUsers>();
+            this.AspNetRolesFunctionalities = new HashSet<AspNetRolesFunctionalities>();
         }
     
         public string Id { get; set; }
@@ -25,5 +26,7 @@ namespace InsuranceSocialNetworkDAL
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetUsers> AspNetUsers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AspNetRolesFunctionalities> AspNetRolesFunctionalities { get; set; }
     }
 }

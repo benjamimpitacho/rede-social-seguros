@@ -123,6 +123,9 @@
   <data name="AddComment" xml:space="preserve">
     <value>Adicione um comentário...</value>
   </data>
+  <data name="ASSOCIATED_PREMIUM" xml:space="preserve">
+    <value>Associado ou Premium</value>
+  </data>
   <data name="ChatGroups" xml:space="preserve">
     <value>Grupos de Conversa</value>
   </data>
@@ -162,6 +165,9 @@
   <data name="HoursAgo" xml:space="preserve">
     <value>horas atrás</value>
   </data>
+  <data name="INSURANCE_PROFESSIONAL" xml:space="preserve">
+    <value>Profissional de Seguros</value>
+  </data>
   <data name="InvalidLoginAttempt" xml:space="preserve">
     <value>Tentativa de login inválida!</value>
   </data>
@@ -185,6 +191,9 @@
   </data>
   <data name="Name" xml:space="preserve">
     <value>Nome</value>
+  </data>
+  <data name="NORMAL_USER" xml:space="preserve">
+    <value>Utilizador Comum</value>
   </data>
   <data name="Notifications" xml:space="preserve">
     <value>Notificações</value>
@@ -213,6 +222,9 @@
   <data name="RememberThisBrowser" xml:space="preserve">
     <value>Lembrar-se deste browser?</value>
   </data>
+  <data name="RolesManagement" xml:space="preserve">
+    <value>Gestão de Perfis</value>
+  </data>
   <data name="SecondsAgo" xml:space="preserve">
     <value>segundos atrás</value>
   </data>
@@ -234,6 +246,12 @@
   <data name="UserProfile" xml:space="preserve">
     <value>Perfil de Utilizador</value>
   </data>
+  <data name="UserRole" xml:space="preserve">
+    <value>Perfil</value>
+  </data>
+  <data name="UsersManagement" xml:space="preserve">
+    <value>Gestão de Utilizadores</value>
+  </data>
   <data name="Welcome" xml:space="preserve">
     <value>Benvindo</value>
   </data>
@@ -245,5 +263,26 @@
   </data>
   <data name="WhatsInYourMindToday" xml:space="preserve">
     <value>O que pretende publicar hoje?</value>
+  </data>
+  <data name="SelectRole" xml:space="preserve">
+    <value>&lt;Seleccione o perfil&gt;</value>
+  </data>
+  <data name="EnterYourEmail" xml:space="preserve">
+    <value>Insira o seu e-mail</value>
+  </data>
+  <data name="CodeRequired" xml:space="preserve">
+    <value>Código é obrigatório</value>
+  </data>
+  <data name="EmailRequired" xml:space="preserve">
+    <value>E-mail é obrigatório</value>
+  </data>
+  <data name="NameRequired" xml:space="preserve">
+    <value>Nome é obrigatório</value>
+  </data>
+  <data name="PasswordRequired" xml:space="preserve">
+    <value>Password é obrigatória</value>
+  </data>
+  <data name="RoleRequired" xml:space="preserve">
+    <value>Perfil é obrigatório</value>
   </data>
 </root>

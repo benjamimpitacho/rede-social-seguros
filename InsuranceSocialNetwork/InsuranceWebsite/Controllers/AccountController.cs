@@ -14,6 +14,8 @@ using InsuranceSocialNetworkDTO.UserProfile;
 using InsuranceWebsite.Commons;
 using System.Collections.Generic;
 using InsuranceSocialNetworkCore.Enums;
+using System.Resources;
+using InsuranceSocialNetworkDTO.Role;
 
 namespace InsuranceWebsite.Controllers
 {
@@ -160,6 +162,16 @@ namespace InsuranceWebsite.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            SelectList rolesList = new SelectList(InsuranceBusiness.BusinessLayer.GetRegisterRoles().ToList(), "Id", "Name");
+            
+            ResourceManager rm = Resources.Resources.ResourceManager;
+            foreach (RoleDTO role in rolesList.Items)
+            {
+                role.Name = rm.GetString(role.Name);
+            }
+
+            ViewBag.Name = rolesList;
+
             return View();
         }
 
@@ -184,6 +196,20 @@ namespace InsuranceWebsite.Controllers
                 user.EmailConfirmed = false;
                 var result = await UserManager.CreateAsync(user, model.Password);
 
+                if (result.Succeeded)
+                {
+                    try
+                    {
+                        RoleDTO role = InsuranceBusiness.BusinessLayer.GetRoles().FirstOrDefault(i => i.Id == model.UserRole);
+                        result = await UserManager.AddToRoleAsync(user.Id, role.Name);
+                    }
+                    catch (Exception ex)
+                    {
+                        await UserManager.DeleteAsync(user);
+                        return View(model);
+                    }
+                }
+                
                 long userId = -1;
                 if (result.Succeeded)
                 {
@@ -210,6 +236,8 @@ namespace InsuranceWebsite.Controllers
                     catch (Exception ex)
                     {
                         InsuranceBusiness.BusinessLayer.DeleteUserProfile(userId);
+                        await UserManager.DeleteAsync(user);
+
                         return View(model);
                     }
                     //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);

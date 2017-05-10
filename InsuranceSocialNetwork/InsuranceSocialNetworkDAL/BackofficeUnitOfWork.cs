@@ -15,6 +15,7 @@ namespace InsuranceSocialNetworkDAL
         private IRepository<NotificationType> notificationTypeRepository;
         private IRepository<AspNetRoles> aspNetRolesRepository;
         private IRepository<AspNetUsers> aspNetUsersRepository;
+        private IRepository<AspNetRolesFunctionalities> aspNetRolesFunctionalitiesRepository;
         private IRepository<Post> postRepository;
         private IRepository<PostType> postTypeRepository;
         private IRepository<PostSubject> postSubjectRepository;
@@ -94,6 +95,19 @@ namespace InsuranceSocialNetworkDAL
                         new Repository<InsurancePortal_dbEntities, AspNetRoles>(DataContext, AutoDetectChangesEnabled);
                 }
                 return aspNetRolesRepository;
+            }
+        }
+
+        public IRepository<AspNetRolesFunctionalities> AspNetRolesFunctionalities
+        {
+            get
+            {
+                if (this.aspNetRolesFunctionalitiesRepository == null)
+                {
+                    this.aspNetRolesFunctionalitiesRepository =
+                        new Repository<InsurancePortal_dbEntities, AspNetRolesFunctionalities>(DataContext, AutoDetectChangesEnabled);
+                }
+                return aspNetRolesFunctionalitiesRepository;
             }
         }
 

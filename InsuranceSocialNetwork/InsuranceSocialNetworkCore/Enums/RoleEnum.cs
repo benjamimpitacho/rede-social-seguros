@@ -8,7 +8,14 @@ namespace InsuranceSocialNetworkCore.Enums
 {
     public enum RoleEnum
     {
-        USER,
-        ADMINISTRATOR
+        ADMINISTRATOR,
+        NORMAL_USER,
+        INSURANCE_PROFESSIONAL,
+        ASSOCIATED_PREMIUM
+    }
+
+    public enum Functionality
+    {
+        USERS_MANAGEMENT
     }
 }

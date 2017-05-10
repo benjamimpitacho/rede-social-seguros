@@ -78,6 +78,18 @@ namespace InsuranceSocialNetworkBusiness
             return AutoMapper.Mapper.Map<List<RoleDTO>>(roles);
         }
 
+        public List<RoleDTO> GetRegisterRoles()
+        {
+            List<string> registerRoles = new List<string>()
+            {
+                "NORMAL_USER"
+                //,"INSURANCE_PROFESSIONAL"
+                //,"ASSOCIATED_PREMIUM"
+            };
+            List<AspNetRoles> roles = RoleRepository.GetRoles().Where(i => registerRoles.Contains(i.Name)).OrderBy(i => i.Id).ToList();
+            return AutoMapper.Mapper.Map<List<RoleDTO>>(roles);
+        }
+
         #endregion Roles
 
         #region Profile
@@ -86,6 +98,17 @@ namespace InsuranceSocialNetworkBusiness
         {
             Profile item = UserProfileRepository.GetProfile(Id);
             return AutoMapper.Mapper.Map<UserProfileDTO>(item);
+        }
+
+        //public UserProfileDTO GetUser(string username)
+        //{
+        //    AspNetUsers user = UserProfileRepository.GetUser(username);
+        //    return AutoMapper.Mapper.Map<List<UserProfileDTO>>(users);
+        //}
+
+        public bool IsUserAuthorizedToFunctionality(string username, string functionality)
+        {
+            return UserProfileRepository.IsUserAuthorizedToFunctionality(username, functionality);
         }
 
         public List<UserProfileDTO> GetUsers()

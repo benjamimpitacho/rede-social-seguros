@@ -44,8 +44,8 @@ namespace InsuranceSocialNetworkDAL
 
                 context.Profile.Create(profile);
 
-                AspNetUsers user = context.AspNetUsers.Get(profile.ID_User);
-                user.AspNetRoles.Add(RoleRepository.GetRole(context, InsuranceSocialNetworkCore.Enums.RoleEnum.USER));
+                //AspNetUsers user = context.AspNetUsers.Get(profile.ID_User);
+                //user.AspNetRoles.Add(RoleRepository.GetRole(context, InsuranceSocialNetworkCore.Enums.RoleEnum.USER));
                 
                 context.Save();
 
@@ -68,6 +68,44 @@ namespace InsuranceSocialNetworkDAL
 
                 return true;
             }
+        }
+
+        public static AspNetUsers GetUser(string username)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                return context
+                    .AspNetUsers
+                    .Fetch()
+                    .Include(i => i.AspNetRoles)
+                    .FirstOrDefault(i => i.UserName == username);
+            }
+        }
+
+        public static bool IsUserAuthorizedToFunctionality(string username, string functionality)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                var user = context
+                    .AspNetUsers
+                    .Fetch()
+                    .Include(i => i.AspNetRoles)
+                    .FirstOrDefault(i => i.UserName == username);
+
+                if (null == user)
+                    return false;
+
+                var rolesIDs = user.AspNetRoles.Select(i => i.Id).ToList();
+
+                List<string> functionalityRolesAllowed = context.AspNetRolesFunctionalities.Fetch().Where(i => i.Token == functionality && i.Active).Select(i => i.RoleId).ToList();
+
+                foreach(var role in user.AspNetRoles)
+                {
+                    if (functionalityRolesAllowed.Contains(role.Id))
+                        return true;
+                }
+            }
+            return false;
         }
     }
 }

@@ -12,6 +12,15 @@
           <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
+        <EntityType Name="AspNetRolesFunctionalities">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Token" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="AspNetUserLogins">
           <Key>
             <PropertyRef Name="LoginProvider" />
@@ -269,6 +278,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_dbo_AspNetUserRolesFunctionalities_dbo_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetRolesFunctionalities" Type="Self.AspNetRolesFunctionalities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetRolesFunctionalities">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Garage_PostalCode">
           <End Role="PostalCode" Type="Self.PostalCode" Multiplicity="0..1" />
           <End Role="Garage" Type="Self.Garage" Multiplicity="*" />
@@ -463,6 +486,7 @@
         </Association>
         <EntityContainer Name="InsurancePortal_dbModelStoreContainer">
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRolesFunctionalities" EntityType="Self.AspNetRolesFunctionalities" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
@@ -490,6 +514,10 @@
           <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRolesFunctionalities_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRolesFunctionalities_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetRolesFunctionalities" EntitySet="AspNetRolesFunctionalities" />
           </AssociationSet>
           <AssociationSet Name="FK_Garage_PostalCode" Association="Self.FK_Garage_PostalCode">
             <End Role="PostalCode" EntitySet="PostalCode" />
@@ -649,6 +677,11 @@
             <End Role="Post" EntitySet="Post" />
             <End Role="PostImage" EntitySet="PostImage" />
           </AssociationSet>
+          <EntitySet Name="AspNetRolesFunctionalities" EntityType="InsurancePortal_dbModel.AspNetRolesFunctionalities" />
+          <AssociationSet Name="FK_dbo_AspNetUserRolesFunctionalities_dbo_AspNetRoles_RoleId" Association="InsurancePortal_dbModel.FK_dbo_AspNetUserRolesFunctionalities_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetRolesFunctionalities" EntitySet="AspNetRolesFunctionalities" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="AspNetRoles">
           <Key>
@@ -657,6 +690,7 @@
           <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetUsers" Relationship="InsurancePortal_dbModel.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetRolesFunctionalities" Relationship="InsurancePortal_dbModel.FK_dbo_AspNetUserRolesFunctionalities_dbo_AspNetRoles_RoleId" FromRole="AspNetRoles" ToRole="AspNetRolesFunctionalities" />
         </EntityType>
         <EntityType Name="AspNetUserLogins">
           <Key>
@@ -1110,6 +1144,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="AspNetRolesFunctionalities">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Token" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AspNetRoles" Relationship="InsurancePortal_dbModel.FK_dbo_AspNetUserRolesFunctionalities_dbo_AspNetRoles_RoleId" FromRole="AspNetRolesFunctionalities" ToRole="AspNetRoles" />
+        </EntityType>
+        <Association Name="FK_dbo_AspNetUserRolesFunctionalities_dbo_AspNetRoles_RoleId">
+          <End Type="InsurancePortal_dbModel.AspNetRoles" Role="AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="InsurancePortal_dbModel.AspNetRolesFunctionalities" Role="AspNetRolesFunctionalities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetRolesFunctionalities">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1349,6 +1407,16 @@
                 <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="ID_Post" ColumnName="ID_Post" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRolesFunctionalities">
+            <EntityTypeMapping TypeName="InsurancePortal_dbModel.AspNetRolesFunctionalities">
+              <MappingFragment StoreEntitySet="AspNetRolesFunctionalities">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Token" ColumnName="Token" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
