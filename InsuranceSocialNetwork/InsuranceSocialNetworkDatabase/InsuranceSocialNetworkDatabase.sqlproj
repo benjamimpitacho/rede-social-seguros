@@ -60,6 +60,7 @@
     <Folder Include="Tables" />
     <Folder Include="Schema" />
     <Folder Include="InitData" />
+    <Folder Include="Stored Procedures" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\AspNetRoles.sql" />
@@ -96,5 +97,8 @@
     <None Include="InitData\NotificationType.sql" />
     <None Include="InitData\AspNetRoles.sql" />
     <PostDeploy Include="PostDeploymentScript.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="InitData\AspNetUsers.sql" />
   </ItemGroup>
 </Project>

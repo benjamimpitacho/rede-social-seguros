@@ -79,6 +79,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Gestão de Alertas.
+        /// </summary>
+        public static string AlertsManagement {
+            get {
+                return ResourceManager.GetString("AlertsManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Associado ou Premium.
         /// </summary>
         public static string ASSOCIATED_PREMIUM {

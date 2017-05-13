@@ -16,6 +16,8 @@ namespace InsuranceSocialNetworkCore.Enums
 
     public enum Functionality
     {
-        USERS_MANAGEMENT
+        USERS_MANAGEMENT,
+        ROLES_MANAGEMENT,
+        ALERTS_MANAGEMENT
     }
 }

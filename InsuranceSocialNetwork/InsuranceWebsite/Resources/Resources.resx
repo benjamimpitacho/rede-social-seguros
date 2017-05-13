@@ -285,4 +285,7 @@
   <data name="RoleRequired" xml:space="preserve">
     <value>Perfil é obrigatório</value>
   </data>
+  <data name="AlertsManagement" xml:space="preserve">
+    <value>Gestão de Alertas</value>
+  </data>
 </root>

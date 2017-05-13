@@ -14,3 +14,5 @@ Post-Deployment Script Template
 :r .\InitData\NotificationType.sql
 :r .\InitData\PostSubject.sql
 :r .\InitData\PostType.sql
+:r .\InitData\AspNetRolesFunctionalities.sql
+:r .\InitData\AspNetUsers.sql

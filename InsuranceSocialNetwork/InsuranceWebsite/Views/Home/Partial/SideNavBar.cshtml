@@ -45,6 +45,18 @@
             <a href = "@Url.Action("UsersManagement", "Home")" title="@Resources.Resources.UsersManagement"><span class="glyphicon glyphicon-cog"></span></a>
         </div>
     }
+    @if (InsuranceBusiness.BusinessLayer.IsUserAuthorizedToFunctionality(this.User.Identity.Name, Functionality.ROLES_MANAGEMENT.ToString()))
+    {
+        <div class="item">
+            <a href="@Url.Action("RolesManagement", "Home")" title="@Resources.Resources.RolesManagement"><span class="glyphicon glyphicon-cog"></span></a>
+        </div>
+    }
+    @if (InsuranceBusiness.BusinessLayer.IsUserAuthorizedToFunctionality(this.User.Identity.Name, Functionality.ALERTS_MANAGEMENT.ToString()))
+    {
+        <div class="item">
+            <a href="@Url.Action("AlertsManagement", "Home")" title="@Resources.Resources.AlertsManagement"><span class="glyphicon glyphicon-cog"></span></a>
+        </div>
+    }
 </div>
 
 @*</nav>*@
