@@ -32,7 +32,11 @@ namespace InsuranceWebsite
                       /*"~/Content/bookpost/jquery.1.11.1.min.js",*/
                       "~/Content/bookpost/bootstrap.min.js",
                       "~/Content/bookpost/custom.js"));
-            
+
+            bundles.Add(new ScriptBundle("~/Scripts/jsGrid").Include(
+                      /*"~/Content/bookpost/jquery.1.11.1.min.js",*/
+                      "~/Content/jsGrid/jsgrid.min.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bookpost/css/bootstrap.min.css",
                       "~/Content/bookpost/css/animate.min.css",
@@ -46,6 +50,10 @@ namespace InsuranceWebsite
                       "~/Content/Facebook/css/MebYOZ-gq9c.css",
                       "~/Content/Facebook/css/n_s5vQ0E5ir.css",
                       "~/Content/Facebook/css/tigqm6m_uPB.css"*/));
+
+            bundles.Add(new StyleBundle("~/Content/jsGrid").Include(
+                      "~/Content/jsGrid/jsgrid.min.css",
+                      "~/Content/jsGrid/jsgrid-theme.min.css"));
         }
     }
 }

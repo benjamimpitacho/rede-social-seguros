@@ -42,7 +42,7 @@
     @if (InsuranceBusiness.BusinessLayer.IsUserAuthorizedToFunctionality(this.User.Identity.Name, Functionality.USERS_MANAGEMENT.ToString()))
     {
         <div class="item">
-            <a href = "@Url.Action("UsersManagement", "Home")" title="@Resources.Resources.UsersManagement"><span class="glyphicon glyphicon-cog"></span></a>
+            <a href = "@Url.Action("Index", "UsersManagement")" title="@Resources.Resources.UsersManagement"><span class="glyphicon glyphicon-cog"></span></a>
         </div>
     }
     @if (InsuranceBusiness.BusinessLayer.IsUserAuthorizedToFunctionality(this.User.Identity.Name, Functionality.ROLES_MANAGEMENT.ToString()))

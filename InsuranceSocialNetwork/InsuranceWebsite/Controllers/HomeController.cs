@@ -278,7 +278,9 @@ namespace InsuranceWebsite.Controllers
         [FunctionalityAutorizeAttribute("USERS_MANAGEMENT")]
         public ActionResult UsersManagement()
         {
-            return null;
+            UsersManagementViewModel model = new UsersManagementViewModel();
+
+            return View(model);
         }
     }
 }
