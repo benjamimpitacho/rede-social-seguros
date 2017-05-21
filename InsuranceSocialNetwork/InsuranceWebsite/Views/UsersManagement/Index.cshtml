@@ -1,4 +1,5 @@
 ﻿@using InsuranceWebsite.Models
+@using MVCGrid.Web
 @model UsersManagementViewModel
 
 @{
@@ -28,7 +29,9 @@
                         <div class="container container-timeline" style="margin-top:15px;">
                             <div class="col-md-11 no-paddin-xs">
 
-                                <div id="jsGrid"></div>
+                                @*<div id="jsGrid"></div>*@
+
+                                @Html.MVCGrid("UsersManagementGrid")
 
                             </div>
                         </div>
@@ -49,18 +52,32 @@
 <script>
     
     $("#jsGrid").jsGrid({
-        width: "100%",
+        //width: "100%",
         height: "400px",
 
         filtering: true,
         inserting: true,
-        editing: true,
+        editing: false,
         sorting: true,
         paging: true,
         autoload: true,
 
-        pageSize: 15,
+        loadIndication: true,
+        loadIndicationDelay: 100,
+        loadMessage: "Por favor, aguarde...",
+        loadShading: true,
+
+        pagerContainer: null,
+        pageIndex: 1,
+        pageSize: 20,
         pageButtonCount: 5,
+        pagerFormat: "Pages: {first} {prev} {pages} {next} {last}    {pageIndex} of {pageCount}",
+        pagePrevText: "Prev",
+        pageNextText: "Next",
+        pageFirstText: "First",
+        pageLastText: "Last",
+        pageNavigatorNextText: "...",
+        pageNavigatorPrevText: "...",
 
         deleteConfirm: "Do you really want to delete the user?",
 
@@ -83,14 +100,14 @@
                 });
             },
 
-            updateItem: function (item) {
-                return $.ajax({
-                    type: "PUT",
-                    url: "/api/data/" + item.ID,
-                    data: item,
-                    dataType: "json"
-                });
-            },
+            //updateItem: function (item) {
+            //    return $.ajax({
+            //        type: "PUT",
+            //        url: "/api/data/" + item.ID,
+            //        data: item,
+            //        dataType: "json"
+            //    });
+            //},
 
             deleteItem: function (item) {
                 return $.ajax({
@@ -102,10 +119,20 @@
         },
 
         fields: [
-            { name: "FirstName", type: "text", width: 150, validate: "required" },
-            { name: "CreateDate", type: "date", width: 50, formatter: "date", formoptions: { rowpos: 3, colpos: 1 }, formatoptions: { srcformat: "ISO8601Long", newformat: "m/d/Y h:i A" } },
+            { name: "User.UserName", type: "text", validate: "required", title: "@Resources.Resources.Username" },
+            { name: "FirstName", type: "text", validate: "required" },
+            { name: "LastName", type: "text", validate: "required" },
+            //{ name: "CreateDate", type: "date", width: 50, formatter: "date", formoptions: { rowpos: 3, colpos: 1 }, formatoptions: { srcformat: "ISO8601Long", newformat: "m/d/Y h:i A" } },
             { name: "Active", type: "checkbox", title: "Active", sorting: false },
-            { type: "control" }
+            { type: "control",
+                itemTemplate: function(value, item) {
+                    var $result = $([]);
+
+                    $result = $result.add(this._createDeleteButton(item));
+        
+                    return $result;
+                } 
+            }
         ]
     });
 </script>

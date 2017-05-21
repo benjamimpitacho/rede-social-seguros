@@ -288,4 +288,7 @@
   <data name="AlertsManagement" xml:space="preserve">
     <value>Gestão de Alertas</value>
   </data>
+  <data name="Username" xml:space="preserve">
+    <value>Username</value>
+  </data>
 </root>

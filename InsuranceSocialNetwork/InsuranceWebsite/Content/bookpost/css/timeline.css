@@ -2603,14 +2603,39 @@ a:hover, a:active, a:focus {
     }
 }
 
+.jsgrid
+{
+    overflow:inherit !important;
+}
+
 @media (min-width:641px)  {
+    .jsgrid
+    {
+        width:100% !important;
+        overflow:hidden !important;
+    }
 }
 
 @media (min-width:961px)  {
+    .jsgrid
+    {
+        width:100% !important;
+        overflow:hidden !important;
+    }
 }
 
 @media (min-width:1025px) { 
+    .jsgrid
+    {
+        width:100% !important;
+        overflow:hidden !important;
+    }
 }
 
 @media (min-width:1281px) { 
+    .jsgrid
+    {
+        width:100% !important;
+        overflow:hidden !important;
+    }
 }
