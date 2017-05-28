@@ -3,9 +3,9 @@
 @model HomeViewModel
 
 
-<div class="profile-info col-md-6  animated fadeInUp" style="margin-left:18px">
+<div class="profile-info col-md-6  animated fadeInUp">
 
-    <div class="panel">
+    <div class="panel topPanel">
 
         @using (Html.BeginForm("NewPost", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {

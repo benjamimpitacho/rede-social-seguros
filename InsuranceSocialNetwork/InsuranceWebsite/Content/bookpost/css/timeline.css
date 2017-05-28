@@ -2608,11 +2608,35 @@ a:hover, a:active, a:focus {
     overflow:inherit !important;
 }
 
+.left {
+        display: inline-block;
+    }
+
+@media (max-device-width: 480px)
+{
+    .left{
+        display:none;
+    }
+
+    element.style {
+        margin-left: 0px;
+    }
+
+    .topPanel 
+    {
+        margin-top: 60px;
+    }
+}
+
 @media (min-width:641px)  {
     .jsgrid
     {
         width:100% !important;
         overflow:hidden !important;
+    }
+
+    .navbar {
+        visibility : hidden;
     }
 }
 
@@ -2622,6 +2646,10 @@ a:hover, a:active, a:focus {
         width:100% !important;
         overflow:hidden !important;
     }
+
+    .navbar {
+        visibility : hidden;
+    }
 }
 
 @media (min-width:1025px) { 
@@ -2630,6 +2658,10 @@ a:hover, a:active, a:focus {
         width:100% !important;
         overflow:hidden !important;
     }
+
+    .navbar {
+        visibility : hidden;
+    }
 }
 
 @media (min-width:1281px) { 
@@ -2637,5 +2669,9 @@ a:hover, a:active, a:focus {
     {
         width:100% !important;
         overflow:hidden !important;
+    }
+
+    .navbar {
+        visibility : hidden;
     }
 }

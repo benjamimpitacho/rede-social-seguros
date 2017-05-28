@@ -26,11 +26,19 @@
                     <div class="row">
 
                         <!-- Timeline content -->
-                        <div class="container container-timeline" style="margin-top:15px;">
-                            <div class="col-md-11 no-paddin-xs">
+                        <div class="container container-timeline" style="margin:15px;">
+                            <div class="col-md-11 no-paddin-xs" style="background-color:white; padding:20px">
 
                                 @*<div id="jsGrid"></div>*@
 
+                                @Html.Partial("_MVCGridToolbar", new MVCGridToolbarModel()
+                                {
+                                    MVCGridName = "UsersManagementGrid",
+                                    PageSize = true,
+                                    ColumnVisibility = true,
+                                    Export = true,
+                                    GlobalSearch = true
+                                })
                                 @Html.MVCGrid("UsersManagementGrid")
 
                             </div>
