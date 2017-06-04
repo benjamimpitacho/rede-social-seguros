@@ -182,7 +182,7 @@
           <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ID_Post" Type="bigint" Nullable="false" />
           <Property Name="Image" Type="image" Nullable="false" />
-          <Property Name="Type" Type="nvarchar" MaxLength="8" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="8" />
           <Property Name="Date" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
@@ -672,15 +672,15 @@
             <End Role="Post" EntitySet="Post" />
             <End Role="PostLike" EntitySet="PostLike" />
           </AssociationSet>
-          <EntitySet Name="PostImage" EntityType="InsurancePortal_dbModel.PostImage" />
-          <AssociationSet Name="FK_PostImage_Post" Association="InsurancePortal_dbModel.FK_PostImage_Post">
-            <End Role="Post" EntitySet="Post" />
-            <End Role="PostImage" EntitySet="PostImage" />
-          </AssociationSet>
           <EntitySet Name="AspNetRolesFunctionalities" EntityType="InsurancePortal_dbModel.AspNetRolesFunctionalities" />
           <AssociationSet Name="FK_dbo_AspNetUserRolesFunctionalities_dbo_AspNetRoles_RoleId" Association="InsurancePortal_dbModel.FK_dbo_AspNetUserRolesFunctionalities_dbo_AspNetRoles_RoleId">
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetRolesFunctionalities" EntitySet="AspNetRolesFunctionalities" />
+          </AssociationSet>
+          <EntitySet Name="PostImage" EntityType="InsurancePortal_dbModel.PostImage" />
+          <AssociationSet Name="FK_PostImage_Post" Association="InsurancePortal_dbModel.FK_PostImage_Post">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="PostImage" EntitySet="PostImage" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="AspNetRoles">
@@ -1120,30 +1120,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="PostImage">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ID_Post" Type="Int64" Nullable="false" />
-          <Property Name="Image" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
-          <Property Name="Type" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="true" />
-          <Property Name="Date" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="Active" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Post" Relationship="InsurancePortal_dbModel.FK_PostImage_Post" FromRole="PostImage" ToRole="Post" />
-        </EntityType>
-        <Association Name="FK_PostImage_Post">
-          <End Type="InsurancePortal_dbModel.Post" Role="Post" Multiplicity="1" />
-          <End Type="InsurancePortal_dbModel.PostImage" Role="PostImage" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Post">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="PostImage">
-              <PropertyRef Name="ID_Post" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="AspNetRolesFunctionalities">
           <Key>
             <PropertyRef Name="Id" />
@@ -1165,6 +1141,30 @@
             </Principal>
             <Dependent Role="AspNetRolesFunctionalities">
               <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="PostImage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Post" Type="Int64" Nullable="false" />
+          <Property Name="Image" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="Type" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Post" Relationship="InsurancePortal_dbModel.FK_PostImage_Post" FromRole="PostImage" ToRole="Post" />
+        </EntityType>
+        <Association Name="FK_PostImage_Post">
+          <End Type="InsurancePortal_dbModel.Post" Role="Post" Multiplicity="1" />
+          <End Type="InsurancePortal_dbModel.PostImage" Role="PostImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PostImage">
+              <PropertyRef Name="ID_Post" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1398,6 +1398,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRolesFunctionalities">
+            <EntityTypeMapping TypeName="InsurancePortal_dbModel.AspNetRolesFunctionalities">
+              <MappingFragment StoreEntitySet="AspNetRolesFunctionalities">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Token" ColumnName="Token" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="PostImage">
             <EntityTypeMapping TypeName="InsurancePortal_dbModel.PostImage">
               <MappingFragment StoreEntitySet="PostImage">
@@ -1407,16 +1417,6 @@
                 <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="ID_Post" ColumnName="ID_Post" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AspNetRolesFunctionalities">
-            <EntityTypeMapping TypeName="InsurancePortal_dbModel.AspNetRolesFunctionalities">
-              <MappingFragment StoreEntitySet="AspNetRolesFunctionalities">
-                <ScalarProperty Name="Active" ColumnName="Active" />
-                <ScalarProperty Name="Token" ColumnName="Token" />
-                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

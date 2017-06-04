@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\bdm\MEOCloud\DEVELOPMENT\FalarSeguros\InsuranceSocialNetwork\InsuranceSocialNetworkDAL\InsuranceDatabaseEntities.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Work\InsuranceSocialNetwork\InsuranceSocialNetwork\InsuranceSocialNetworkDAL\InsuranceDatabaseEntities.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

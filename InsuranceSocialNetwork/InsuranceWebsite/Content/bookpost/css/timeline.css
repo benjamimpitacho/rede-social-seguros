@@ -2544,6 +2544,16 @@ a:hover, a:active, a:focus {
     border-color: green !important;
 }
 
+.cover-container {
+    height: 250px;
+    background: #3ca2e0;
+    /*margin-top: 53px;*/
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1140px;
+}
+
+
 @media (max-width:481px)  { 
     .welcome-title {
         font-size: 40px; 

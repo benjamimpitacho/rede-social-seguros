@@ -26,7 +26,12 @@
         <a href="@Url.Action("Notifications", "Home")">
             <span class="glyphicon glyphicon-bell"></span>
         </a>
-        <span class="badge badge-notify">@Model.TotalUnreadNotifications</span>
+        @if (Model.TotalUnreadNotifications > 0)
+        {
+            
+            <span class="badge badge-notify">@Model.TotalUnreadNotifications</span>
+        }
+
         @*
         <ul class="dropdown-menu">
             @foreach (InsuranceSocialNetworkDTO.Notification.NotificationDTO notification in Model.Notifications)

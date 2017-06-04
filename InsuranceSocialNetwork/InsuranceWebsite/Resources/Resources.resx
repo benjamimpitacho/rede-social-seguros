@@ -291,4 +291,16 @@
   <data name="Username" xml:space="preserve">
     <value>Username</value>
   </data>
+  <data name="RegisterDate" xml:space="preserve">
+    <value>Data de registo</value>
+  </data>
+  <data name="Activate" xml:space="preserve">
+    <value>Ativar</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Remover</value>
+  </data>
+  <data name="Deactivate" xml:space="preserve">
+    <value>Desativar</value>
+  </data>
 </root>

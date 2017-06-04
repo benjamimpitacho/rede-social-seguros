@@ -37,10 +37,10 @@
         <AssociationConnector Association="InsurancePortal_dbModel.FK_Post_PostType" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_PostComment_Post" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_PostLike_Post" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.PostImage" Width="1.5" PointX="10.5" PointY="8.25" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_PostImage_Post" />
         <EntityTypeShape EntityType="InsurancePortal_dbModel.AspNetRolesFunctionalities" Width="1.5" PointX="3" PointY="15.625" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_dbo_AspNetUserRolesFunctionalities_dbo_AspNetRoles_RoleId" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.PostImage" Width="1.5" PointX="10.5" PointY="8.25" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_PostImage_Post" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

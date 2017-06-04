@@ -37,18 +37,21 @@ namespace InsuranceSocialNetworkDAL
                 post.Active = true;
                 post.CreateDate = DateTime.Now;
 
-                using (var transaction = new TransactionScope())
-                {
-                    context.Post.Create(post);
-                    context.Save();
+                context.Post.Create(post);
+                context.Save();
 
-                    if(null != post.PostImage && post.PostImage.Count > 0)
-                    {
-                        
-                    }
+                //using (var transaction = new TransactionScope())
+                //{
+                //    context.Post.Create(post);
+                //    context.Save();
 
-                    transaction.Complete();
-                }
+                //    if(null != post.PostImage && post.PostImage.Count > 0)
+                //    {
+
+                //    }
+
+                //    transaction.Complete();
+                //}
 
                 return post.ID > 0;
             }

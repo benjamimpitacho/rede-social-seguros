@@ -181,7 +181,7 @@ namespace InsuranceWebsite.Controllers
                 if (null != imgUpload)
                 {
                     newPost.Type = InsuranceSocialNetworkCore.Enums.PostTypeEnum.IMAGE_POST;
-                    newPost.Image = InsuranceSocialNetworkCore.Utils.ConvertionUtils.ReadFully(imgUpload.InputStream);
+                    newPost.Image = InsuranceSocialNetworkCore.Utils.ConvertionUtils.ScaleImage(InsuranceSocialNetworkCore.Utils.ConvertionUtils.ReadFully(imgUpload.InputStream), 1024, 1024);
                 }
 
                 InsuranceBusiness.BusinessLayer.CreatePost(newPost);

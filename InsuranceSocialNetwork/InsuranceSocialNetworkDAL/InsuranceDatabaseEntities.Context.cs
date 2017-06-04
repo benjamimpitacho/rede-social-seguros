@@ -40,7 +40,7 @@ namespace InsuranceSocialNetworkDAL
         public virtual DbSet<PostalCode> PostalCode { get; set; }
         public virtual DbSet<PostCommentLike> PostCommentLike { get; set; }
         public virtual DbSet<Post> Post { get; set; }
-        public virtual DbSet<PostImage> PostImage { get; set; }
         public virtual DbSet<AspNetRolesFunctionalities> AspNetRolesFunctionalities { get; set; }
+        public virtual DbSet<PostImage> PostImage { get; set; }
     }
 }
