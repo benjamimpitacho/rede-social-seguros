@@ -10,17 +10,11 @@
     <div class="item no-hover" style="padding-bottom:0px;">
         <img src="~/Content/images/no_logo_img.png" alt="" class="item-logo">
     </div>
-    <div class="item no-hover">
+    @*<div class="item no-hover">
         <img src="~/Content/images/no_photo_img.jpg" class="item-photo">
-    </div>
+    </div>*@
     <div class="item">
-        <a href="@Url.Action("Index", "Home")" title="@Resources.Resources.Home"><span class="glyphicon glyphicon-home"></span></a>
-    </div>
-    <div class="item active">
-        <a href="@Url.Action("Messages", "Home")" title="@Resources.Resources.Messages"><span class="glyphicon glyphicon-comment"></span></a>
-    </div>
-    <div class="item">
-        <a href="@Url.Action("ProfileInfo", "Home")" title="@Resources.Resources.UserProfile"><span class="glyphicon glyphicon-user"></span></a>
+        <a href="@Url.Action("ProfileInfo", "Home")" title="@Resources.Resources.UserProfile"><img src="~/Content/images/no_photo_img.jpg" class="item-photo"></a>
     </div>
     <div class="item">
         <a href="@Url.Action("Notifications", "Home")">
@@ -28,21 +22,24 @@
         </a>
         @if (Model.TotalUnreadNotifications > 0)
         {
-            
+
             <span class="badge badge-notify">@Model.TotalUnreadNotifications</span>
         }
-
-        @*
-        <ul class="dropdown-menu">
-            @foreach (InsuranceSocialNetworkDTO.Notification.NotificationDTO notification in Model.Notifications)
-            {
-                <li><a href="">@notification.TextToNotificationList</a></li>
-            }
-
-        </ul>*@
+    </div>
+    <div class="item active">
+        <a href="@Url.Action("Search", "Home")" title="@Resources.Resources.Search"><span class="glyphicon glyphicon-search"></span></a>
+    </div>
+    @*<div class="item">
+        <a href="@Url.Action("Index", "Home")" title="@Resources.Resources.Home"><span class="glyphicon glyphicon-home"></span></a>
+    </div>*@
+    <div class="item active">
+        <a href="@Url.Action("Messages", "Home")" title="@Resources.Resources.Messages"><span class="glyphicon glyphicon-comment"></span></a>
     </div>
     <div class="item">
-        <a href="@Url.Action("Settings", "Home")" title="@Resources.Resources.Settings"><span class="glyphicon glyphicon-cog"></span></a>
+        <a href="@Url.Action("Friends", "Home")" title="@Resources.Resources.Friends"><span class="glyphicon glyphicon-user"></span></a>
+    </div>
+    <div class="item">
+        <a href="@Url.Action("Settings", "Home")" title="@Resources.Resources.Settings"><span class="glyphicon glyphicon-option-horizontal"></span></a>
     </div>
     @if (InsuranceBusiness.BusinessLayer.IsUserAuthorizedToFunctionality(this.User.Identity.Name, Functionality.USERS_MANAGEMENT.ToString()))
     {
@@ -53,15 +50,17 @@
     @if (InsuranceBusiness.BusinessLayer.IsUserAuthorizedToFunctionality(this.User.Identity.Name, Functionality.ROLES_MANAGEMENT.ToString()))
     {
         <div class="item">
-            <a href="@Url.Action("RolesManagement", "Home")" title="@Resources.Resources.RolesManagement"><span class="glyphicon glyphicon-cog"></span></a>
+            <a href="@Url.Action("RolesManagement", "Home")" title="@Resources.Resources.RolesManagement"><span class="glyphicon glyphicon-lock"></span></a>
         </div>
     }
     @if (InsuranceBusiness.BusinessLayer.IsUserAuthorizedToFunctionality(this.User.Identity.Name, Functionality.ALERTS_MANAGEMENT.ToString()))
     {
         <div class="item">
-            <a href="@Url.Action("AlertsManagement", "Home")" title="@Resources.Resources.AlertsManagement"><span class="glyphicon glyphicon-cog"></span></a>
+            <a href="@Url.Action("AlertsManagement", "Home")" title="@Resources.Resources.AlertsManagement"><span class="glyphicon glyphicon-warning-sign"></span></a>
         </div>
     }
+
+    
 </div>
 
 @*</nav>*@
@@ -73,13 +72,12 @@
 
     .left, .right {
         float: left;
-        height: 100vh;
     }
 
     .left {
-        background: #337ab7;
+        background: #4A5B67;
         white-space: nowrap;
-        width: 60px;
+        width: 80px;
         transition: width 1s;
     }
 
@@ -107,9 +105,15 @@
     }*/
 
     .left .glyphicon {
-        margin: 18px;
+        margin: 20px;
         width: 20px;
-        color: #fff;
+        color: #05C0DE;
+        border-color: #05C0DE;
+        border-style: solid;
+        border-width: medium;
+        width: 40px;
+        padding: 6px;
+        border-radius: 32px;
     }
 
     .right .glyphicon {
@@ -126,7 +130,7 @@
         overflow: hidden;
         color: #fff;
         font-size: 25px;
-        padding-bottom: 60px;
+        padding-bottom: 80px;
     }
 
         .item > a {
@@ -136,8 +140,8 @@
         }
 
     .item-photo {
-        padding: 10px;
-        border-radius: 17px;
+        padding: 18px;
+        border-radius: 50px;
     }
 
     .item-logo {

@@ -241,6 +241,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Amigos.
+        /// </summary>
+        public static string Friends {
+            get {
+                return ResourceManager.GetString("Friends", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Home.
         /// </summary>
         public static string Home {
@@ -480,6 +489,15 @@ namespace Resources {
         public static string RolesManagement {
             get {
                 return ResourceManager.GetString("RolesManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pesquisa.
+        /// </summary>
+        public static string Search {
+            get {
+                return ResourceManager.GetString("Search", resourceCulture);
             }
         }
         
