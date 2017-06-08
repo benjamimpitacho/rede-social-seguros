@@ -309,4 +309,7 @@
   <data name="Friends" xml:space="preserve">
     <value>Amigos</value>
   </data>
+  <data name="SearchPageTitle" xml:space="preserve">
+    <value>Pesquisa</value>
+  </data>
 </root>

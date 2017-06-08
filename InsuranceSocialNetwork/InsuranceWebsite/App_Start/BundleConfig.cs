@@ -10,7 +10,8 @@ namespace InsuranceWebsite
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
-                        "~/Scripts/jquery-ui-{version}.js"));
+                        "~/Scripts/jquery-ui-{version}.js",
+                        "~/Scripts/images-grid.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -43,7 +44,8 @@ namespace InsuranceWebsite
                       "~/Content/bookpost/css/animate.min.css",
                       "~/Content/bookpost/css/font-awesome.min.css",
                       "~/Content/bookpost/css/timeline.css",
-                      "~/Content/Site.css"/*,
+                      "~/Content/Site.css",
+                      "~/Content/images-grid.css"/*,
                       "~/Content/Facebook/css/AtR00FcnuUe.css",
                       "~/Content/Facebook/css/gNs_8jOawWE.css",
                       "~/Content/Facebook/css/AvCSouKPVJu.css",

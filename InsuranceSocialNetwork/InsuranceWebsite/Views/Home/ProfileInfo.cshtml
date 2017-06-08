@@ -12,11 +12,14 @@
 
 <!-- Timeline content -->
 <div class="container">
-    
+
     <div class="col-md-12 no-paddin-xs" style="background-color:ghostwhite">
-        <div class="row">
-            
-            <div class="col-md-12  animated fadeInLeft">
+
+        <div class="row" style="display:flex">
+
+            @Html.Partial("~/Views/Home/Partial/SideNavBar.cshtml", Model)
+
+            <div class="profile-info col-md-12 animated fadeInUp">
                 @*<div class="profile-header-background">
                     <img src="~/Content/images/default_profile_header.png" alt="Profile Header Background">
                 </div>*@
@@ -325,6 +328,5 @@
     </div>
 
 </div><!-- end timeline content-->
-<!-- Online users sidebar content-->
 
 @Html.Partial("~/Views/Home/Partial/Footer.cshtml", Model)

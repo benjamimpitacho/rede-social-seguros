@@ -141,26 +141,42 @@ namespace InsuranceWebsite.Controllers
             return RedirectToAction("Index");
         }
 
-        //public async Task<ActionResult> Notifications()
-        //{
-        //    var model = new HomeViewModel();
-        //    if (null != this.User && this.User.Identity.IsAuthenticated)
-        //    {
-        //        var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-        //        var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
-        //        if (null != user)
-        //        {
-        //            model.Profile = InsuranceBusiness.BusinessLayer.GetUserProfile(user.Id);
-        //            model.Notifications = InsuranceBusiness.BusinessLayer.GetUserNotifications(user.Id);
-        //        }
-        //    }
-        //    else
-        //    {
-        //        return RedirectToAction("Login", "Account");
-        //    }
+        public async Task<ActionResult> Search(HomeViewModel model)
+        {
+            try
+            {
+                if (null == model)
+                {
+                    model = new HomeViewModel();
+                }
 
-        //    return View(model);
-        //}
+                if (null != this.User && this.User.Identity.IsAuthenticated)
+                {
+                    var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                    var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
+                    if (null != user)
+                    {
+                        FillModel(model, user.Id);
+                    }
+                    else
+                    {
+                        return RedirectToAction("LogOff", "Account");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException();
+            }
+
+            return RedirectToAction("Index");
+        }
 
         [HttpPost]
         public ActionResult NewPost(HomeViewModel model, string postContentTextarea, HttpPostedFileBase imgUpload)
@@ -271,7 +287,6 @@ namespace InsuranceWebsite.Controllers
             {
                 ((HomeViewModel)model).Posts = InsuranceBusiness.BusinessLayer.GetUserPosts(userId);
                 ((HomeViewModel)model).Notifications = InsuranceBusiness.BusinessLayer.GetUserNotifications(userId);
-
             }
         }
 

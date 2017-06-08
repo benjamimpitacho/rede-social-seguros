@@ -259,6 +259,7 @@
     <Content Include="Content\Facebook\css\MebYOZ-gq9c.css" />
     <Content Include="Content\Facebook\css\n_s5vQ0E5ir.css" />
     <Content Include="Content\Facebook\css\tigqm6m_uPB.css" />
+    <Content Include="Content\images-grid.css" />
     <Content Include="Content\images\default_profile_header.png" />
     <Content Include="Content\images\home-bg.jpg" />
     <Content Include="Content\images\no_logo_img.png" />
@@ -380,6 +381,7 @@
     <None Include="Properties\PublishProfiles\InsurancePortalWebsite.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="Scripts\images-grid.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.js" />
@@ -451,6 +453,7 @@
     <Content Include="Views\Home\Partial\Notifications.cshtml" />
     <Content Include="Views\UsersManagement\Index.cshtml" />
     <Content Include="Views\Shared\_MVCGridToolbar.cshtml" />
+    <Content Include="Views\Home\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

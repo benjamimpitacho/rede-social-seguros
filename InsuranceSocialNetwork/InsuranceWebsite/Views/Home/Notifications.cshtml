@@ -2,21 +2,22 @@
 @model HomeViewModel
 
 @{
-    ViewBag.Title = Resources.Resources.HomePageTitle;
+    ViewBag.Title = Resources.Resources.NotificationsPageTitle;
 }
 
-@*@Html.Partial("~/Views/Home/Partial/NavBar.cshtml", Model)*@
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+
+@Html.Partial("~/Views/Home/Partial/NavBar.cshtml", Model)
 
 <!-- Timeline content -->
+<div class="container">
 
-<div class="container" @*style="margin-top:50px;"*@>
+    <div class="col-md-12 no-paddin-xs" style="background-color:ghostwhite">
 
-    <div class="col-md-12 no-paddin-xs" style="background-color:gainsboro">
-
-        <div class="row">
+        <div class="row" style="display:flex">
 
             @Html.Partial("~/Views/Home/Partial/SideNavBar.cshtml", Model)
-            @*@Html.Partial("~/Views/Home/Partial/LeftBar.cshtml", Model)*@
 
             <!-- right  content-->
 

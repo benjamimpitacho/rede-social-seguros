@@ -69,21 +69,45 @@
 
             </div>
 
-            @if (post.PostType.Token == InsuranceSocialNetworkCore.Enums.PostTypeEnum.IMAGE_POST.ToString())
-            {
-
-                <div class="post-image">
-
-                    <img src="@post.ImageSource" class="image show-in-modal" alt="image post">
-
-                </div>
-            }
-
             <div class="post-description">
 
                 <p>
                     @post.Text
                 </p>
+
+            </div>
+
+            @if (post.PostType.Token == InsuranceSocialNetworkCore.Enums.PostTypeEnum.IMAGE_POST.ToString())
+                {
+
+                <div class="post-image">
+
+                    @*<img src="@post.ImageSource" class="image show-in-modal" alt="image post">*@
+
+                    <div id="gallery_@post.ID" class="image show-in-modal"></div>
+
+                    <script>
+
+                        $(function () {
+
+                            $('#gallery_'+@post.ID).imagesGrid({
+                                images: [
+                                    {
+                                        src: '@post.ImageSource'
+                                    }
+                                ],
+                                align: true,
+                                getViewAllText: function (imgsCount) { return 'View all' }
+                            });
+
+                        });
+
+                    </script>
+
+                </div>
+            }
+
+            <div class="post-description">
 
                 <div class="stats">
 
@@ -129,7 +153,7 @@
             </div>
 
             @if (post.PostSubject.Token != InsuranceSocialNetworkCore.Enums.PostSubjectEnum.SPONSORED_POST.ToString())
-            {
+                {
                 <div class="post-footer">
 
                     @using (Html.BeginForm("NewComment", "Home", FormMethod.Post))
