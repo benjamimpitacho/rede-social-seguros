@@ -278,6 +278,30 @@ namespace InsuranceWebsite.Controllers
             return View(model);
         }
 
+        public async Task<ActionResult> Friends()
+        {
+            var model = new FriendsViewModel();
+            if (null != this.User && this.User.Identity.IsAuthenticated)
+            {
+                var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
+                if (null != user)
+                {
+                    FillModel(model, user.Id);
+                }
+                else
+                {
+                    return RedirectToAction("LogOff", "Account");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            return View(model);
+        }
+
         private void FillModel(ProfileViewModel model, string userId)
         {
             model.Profile = InsuranceBusiness.BusinessLayer.GetUserProfile(userId);
