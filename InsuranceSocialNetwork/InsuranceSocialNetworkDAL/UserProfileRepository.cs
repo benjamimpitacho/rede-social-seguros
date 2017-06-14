@@ -21,6 +21,17 @@ namespace InsuranceSocialNetworkDAL
                     .FirstOrDefault(i => i.ID_User == Id);
             }
         }
+        public static Profile GetProfile(long Id)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                return context
+                    .Profile
+                    .Fetch()
+                    .Include(i => i.AspNetUsers)
+                    .FirstOrDefault(i => i.ID == Id);
+            }
+        }
 
         public static List<Profile> GetProfiles()
         {
@@ -31,6 +42,51 @@ namespace InsuranceSocialNetworkDAL
                     .Fetch()
                     .Include(i => i.AspNetUsers)
                     .Select(i => i).OrderBy(i => i.AspNetUsers.UserName).ToList();
+            }
+        }
+
+        public static List<Profile> SearchProfiles(string searchTerm, long currentUserId)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                return context
+                    .Profile
+                    .Fetch()
+                    .Include(i => i.AspNetUsers)
+                    .Where(i => i.ID != currentUserId
+                        && (
+                            i.FirstName.ToLower().Contains(searchTerm.ToLower())
+                            || i.LastName.ToLower().Contains(searchTerm.ToLower())
+                            || i.AspNetUsers.UserName.ToLower().Contains(searchTerm.ToLower())
+                        )
+                    )
+                    .Select(i => i).OrderBy(i => i.AspNetUsers.UserName).ToList();
+            }
+        }
+
+        public static List<long> GetUserFriendsIDs(long currentUserId)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                List<long> friends1 = context
+                    .Friend
+                    .Fetch()
+                    .Include(i => i.AspNetUsers)
+                    .Include(i => i.AspNetUsers.Profile)
+                    .Where(i => i.AspNetUsers.Profile.FirstOrDefault().ID == currentUserId)
+                    .Select(i => i.AspNetUsers1.Profile.FirstOrDefault().ID)
+                    .ToList();
+
+                List<long> friends2 = context
+                    .Friend
+                    .Fetch()
+                    .Include(i => i.AspNetUsers)
+                    .Include(i => i.AspNetUsers.Profile)
+                    .Where(i => i.AspNetUsers1.Profile.FirstOrDefault().ID == currentUserId)
+                    .Select(i => i.AspNetUsers.Profile.FirstOrDefault().ID)
+                    .ToList();
+
+                return friends1.Concat(friends2).ToList();
             }
         }
 

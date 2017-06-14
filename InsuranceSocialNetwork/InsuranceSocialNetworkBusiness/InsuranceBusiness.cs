@@ -100,6 +100,11 @@ namespace InsuranceSocialNetworkBusiness
             return AutoMapper.Mapper.Map<UserProfileDTO>(item);
         }
 
+        public string GetUserIdFromProfileId(long profileId)
+        {
+            return UserProfileRepository.GetProfile(profileId).ID_User;
+        }
+
         //public UserProfileDTO GetUser(string username)
         //{
         //    AspNetUsers user = UserProfileRepository.GetUser(username);
@@ -228,6 +233,30 @@ namespace InsuranceSocialNetworkBusiness
         }
 
         #endregion Comments
+
+        #region Search Users
+
+        public List<UserProfileDTO> SearchUsers(string searchTerm, long currentUserId)
+        {
+            List<Profile> users = UserProfileRepository.SearchProfiles(searchTerm, currentUserId);
+            return AutoMapper.Mapper.Map<List<UserProfileDTO>>(users);
+        }
+
+        #endregion Search Users
+
+        #region Friends
+
+        public List<long> GetFriendsIDs(long currentUserId)
+        {
+            return UserProfileRepository.GetUserFriendsIDs(currentUserId);
+        }
+
+        public bool AddFriend(long currentUserId, long newFriendId)
+        {
+            return FriendsRepository.AddFriend(currentUserId, newFriendId);
+        }
+
+        #endregion Friends
 
         #region Garages
 

@@ -312,4 +312,25 @@
   <data name="SearchPageTitle" xml:space="preserve">
     <value>Pesquisa</value>
   </data>
+  <data name="Add" xml:space="preserve">
+    <value>Adicionar</value>
+  </data>
+  <data name="AddFriend" xml:space="preserve">
+    <value>Adicionar Amigo</value>
+  </data>
+  <data name="SearchClinics" xml:space="preserve">
+    <value>Pesquisar clínicas</value>
+  </data>
+  <data name="SearchConstructionCompanies" xml:space="preserve">
+    <value>Pesquisar empresas de construção/remodelação</value>
+  </data>
+  <data name="SearchGarages" xml:space="preserve">
+    <value>Pesquisar oficinas</value>
+  </data>
+  <data name="SearchHomeApplianceRepair" xml:space="preserve">
+    <value>Pesquisar reparadores de electrodomésticos</value>
+  </data>
+  <data name="SearchInsuranceContacts" xml:space="preserve">
+    <value>Pesquisar contactos de seguradoras</value>
+  </data>
 </root>

@@ -69,6 +69,12 @@
     <Compile Include="Core\IRepository.cs" />
     <Compile Include="Core\Repository.cs" />
     <Compile Include="Core\UnitOfWork.cs" />
+    <Compile Include="Friend.cs">
+      <DependentUpon>InsuranceDatabaseEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FriendStatus.cs">
+      <DependentUpon>InsuranceDatabaseEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Garage.cs">
       <DependentUpon>InsuranceDatabaseEntities.tt</DependentUpon>
     </Compile>
@@ -129,6 +135,7 @@
     <Compile Include="RoleRepository.cs" />
     <Compile Include="NotificationRepository.cs" />
     <Compile Include="GarageRepository.cs" />
+    <Compile Include="FriendsRepository.cs" />
     <Compile Include="UserProfileRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

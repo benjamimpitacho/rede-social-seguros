@@ -25,6 +25,8 @@ namespace InsuranceSocialNetworkDAL
             this.AspNetRoles = new HashSet<AspNetRoles>();
             this.PostCommentLike = new HashSet<PostCommentLike>();
             this.Post = new HashSet<Post>();
+            this.Friend = new HashSet<Friend>();
+            this.Friend1 = new HashSet<Friend>();
         }
     
         public string Id { get; set; }
@@ -56,5 +58,9 @@ namespace InsuranceSocialNetworkDAL
         public virtual ICollection<PostCommentLike> PostCommentLike { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Post> Post { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Friend> Friend { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Friend> Friend1 { get; set; }
     }
 }

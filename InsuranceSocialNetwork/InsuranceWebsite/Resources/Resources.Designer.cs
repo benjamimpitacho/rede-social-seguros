@@ -79,11 +79,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Adicionar.
+        /// </summary>
+        public static string Add {
+            get {
+                return ResourceManager.GetString("Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Adicione um comentário....
         /// </summary>
         public static string AddComment {
             get {
                 return ResourceManager.GetString("AddComment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adicionar Amigo.
+        /// </summary>
+        public static string AddFriend {
+            get {
+                return ResourceManager.GetString("AddFriend", resourceCulture);
             }
         }
         
@@ -498,6 +516,51 @@ namespace Resources {
         public static string Search {
             get {
                 return ResourceManager.GetString("Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pesquisar clínicas.
+        /// </summary>
+        public static string SearchClinics {
+            get {
+                return ResourceManager.GetString("SearchClinics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pesquisar empresas de construção/remodelação.
+        /// </summary>
+        public static string SearchConstructionCompanies {
+            get {
+                return ResourceManager.GetString("SearchConstructionCompanies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pesquisar oficinas.
+        /// </summary>
+        public static string SearchGarages {
+            get {
+                return ResourceManager.GetString("SearchGarages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pesquisar reparadores de electrodomésticos.
+        /// </summary>
+        public static string SearchHomeApplianceRepair {
+            get {
+                return ResourceManager.GetString("SearchHomeApplianceRepair", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pesquisar contactos de seguradoras.
+        /// </summary>
+        public static string SearchInsuranceContacts {
+            get {
+                return ResourceManager.GetString("SearchInsuranceContacts", resourceCulture);
             }
         }
         

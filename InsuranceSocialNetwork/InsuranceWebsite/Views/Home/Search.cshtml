@@ -1,5 +1,6 @@
 ﻿@using InsuranceWebsite.Models
-@model HomeViewModel
+@using InsuranceSocialNetworkDTO.UserProfile;
+@model SearchViewModel
 
 @{
     ViewBag.Title = Resources.Resources.SearchPageTitle;
@@ -7,6 +8,8 @@
 
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/jqueryval")
+
+<link href="~/Content/bookpost/css/friends.css" rel="stylesheet">
 
 @Html.Partial("~/Views/Home/Partial/NavBar.cshtml", Model)
 
@@ -21,36 +24,128 @@
 
             <!-- right  content-->
 
-            <div class="profile-info col-md-6 animated fadeInUp">
+            <div class="profile-info col-md-12 animated fadeInUp">
 
                 <div class="panel topPanel">
 
-                    <form class="navbar-form">
+                    @using (Html.BeginForm("SearchUsers", "Home", FormMethod.Post, new { id = "searchForm" }))
+                    {
+
+                        @*<form class="navbar-form">*@
 
                         <div class="form-group" style="display:inline;">
 
                             <div class="input-group" style="display:table;">
 
-                                <input class="form-control" name="search" placeholder="Search..." autocomplete="off" type="text">
+                                @Html.TextBoxFor(m => m.SearchTerm, new { @class = "form-control", @placeholder = Resources.Resources.Search + "..." })
+                                @*<input class="form-control" name="search" placeholder="@Resources.Resources.Search..." autocomplete="off" type="text">*@
 
-                                <span class="input-group-addon" style="width:1%;">
+                                @*<span class="input-group-addon" style="width:1%;">
 
+                                        <span class="glyphicon glyphicon-search"></span>
+
+                                    </span>*@
+
+                                <a href="#" onclick="document.getElementById('searchForm').submit();" class="input-group-addon" style="width:1%;">
                                     <span class="glyphicon glyphicon-search"></span>
-
-                                </span>
+                                </a>
 
                             </div>
 
                         </div>
 
-                    </form>
+                        @*</form>*@
+
+                    }
 
                 </div>
+
+                @if (null != Model && null != Model.Users)
+                {
+                    foreach (UserProfileDTO profile in Model.Users)
+                    {
+                        <div class="col-md-3">
+
+                            <div class="panel widget">
+
+                                <div class="widget-header bg-purple">
+
+                                    <img class="widget-bg img-responsive" src="~/Content/images/default_profile_header.png" alt="Image">
+
+                                </div>
+
+                                <div class="widget-body text-center" style="border-radius: 0px">
+
+                                    <img alt="Profile Picture" class="widget-img img-border-light" src="~/Content/images/no_photo_img.jpg">
+
+                                    @*<h4 class="mar-no">@profile.User.UserName</h4>*@
+
+                                    <p class="text-muted mar-btm">@profile.FirstName @profile.LastName</p>
+
+                                    <div class="action-buttons">
+                                        <div class="row">
+                                            <div class="col-xs-6">
+                                                @if (!Model.AlreadyFriends.Contains(profile.ID))
+                                                {
+                                                    @Html.ActionLink(Resources.Resources.Add, "AddFriend", new { id = profile.ID, searchTerm = Model.SearchTerm }, new { @class="btn btn-success btn-block", @style="border-radius:3px" })
+                                                    @*<a href="@Url.Action("AddFriend?id=" + profile.ID, "Home")" class="btn btn-success btn-block" style="border-radius:3px"><i class="fa fa-plus-round"></i>Add Friend</a>*@
+                                                }
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <a href="#" class="btn btn-primary btn-block" style="border-radius:3px"><i class="fa fa-android-mail"></i>Message</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <ul class="list-unstyled text-center pad-top mar-no clearfix">
+
+                                        <li class="col-xs-4">
+
+                                            <span class="text-lg">1,345</span>
+
+                                            <p class="text-muted text-uppercase">
+
+                                                <small>Following</small>
+
+                                            </p>
+
+                                        </li>
+
+                                        <li class="col-xs-4">
+
+                                            <span class="text-lg">23,456</span>
+
+                                            <p class="text-muted text-uppercase">
+
+                                                <small>Followers</small>
+
+                                            </p>
+
+                                        </li>
+
+                                        <li class="col-xs-4">
+
+                                            <span class="text-lg">52,678</span>
+
+                                            <p class="text-muted text-uppercase">
+
+                                                <small>Likes</small>
+
+                                            </p>
+
+                                        </li>
+
+                                    </ul>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    }
+                }
+
             </div>
-
-            <!--end right  content-->
-
-            @Html.Partial("~/Views/Home/Partial/RightBar.cshtml", Model)
 
         </div>
 

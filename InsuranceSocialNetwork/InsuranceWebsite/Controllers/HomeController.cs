@@ -1,4 +1,5 @@
 ﻿using InsuranceSocialNetworkBusiness;
+using InsuranceSocialNetworkCore.Enums;
 using InsuranceSocialNetworkDTO.Post;
 using InsuranceSocialNetworkDTO.UserProfile;
 using InsuranceWebsite.Commons;
@@ -141,13 +142,13 @@ namespace InsuranceWebsite.Controllers
             return RedirectToAction("Index");
         }
 
-        public async Task<ActionResult> Search(HomeViewModel model)
+        public async Task<ActionResult> Search(SearchViewModel model)
         {
             try
             {
                 if (null == model)
                 {
-                    model = new HomeViewModel();
+                    model = new SearchViewModel();
                 }
 
                 if (null != this.User && this.User.Identity.IsAuthenticated)
@@ -169,6 +170,91 @@ namespace InsuranceWebsite.Controllers
                 }
 
                 return View(model);
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException();
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        //[HttpPost]
+        public async Task<ActionResult> SearchUsers(SearchViewModel model)
+        {
+            try
+            {
+                if(null == model)
+                {
+                    model = new SearchViewModel();
+                }
+
+                if (null != this.User && this.User.Identity.IsAuthenticated)
+                {
+                    var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                    var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
+                    if (null != user)
+                    {
+                        FillModel(model, user.Id);
+                    }
+                    else
+                    {
+                        return RedirectToAction("LogOff", "Account");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+
+                model.Users = InsuranceBusiness.BusinessLayer.SearchUsers(model.SearchTerm, CurrentUser.ID);
+                model.AlreadyFriends = InsuranceBusiness.BusinessLayer.GetFriendsIDs(CurrentUser.ID);
+
+                return View("Search", model);
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException();
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        public async Task<ActionResult> AddFriend(long id, string searchTerm)
+        {
+            try
+            {
+                SearchViewModel model = new SearchViewModel();
+                model.SearchTerm = searchTerm;
+
+                if (null != this.User && this.User.Identity.IsAuthenticated)
+                {
+                    var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                    var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
+                    if (null != user)
+                    {
+                        FillModel(model, user.Id);
+                    }
+                    else
+                    {
+                        return RedirectToAction("LogOff", "Account");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+
+                if(InsuranceBusiness.BusinessLayer.AddFriend(CurrentUser.ID, id))
+                {
+                    string friendId = InsuranceBusiness.BusinessLayer.GetUserIdFromProfileId(id);
+                    InsuranceBusiness.BusinessLayer.CreateNotification(friendId, NotificationTypeEnum.FRIEND_REQUEST_RECEIVED);
+                }
+
+                model.Users = InsuranceBusiness.BusinessLayer.SearchUsers(model.SearchTerm, CurrentUser.ID);
+                model.AlreadyFriends = InsuranceBusiness.BusinessLayer.GetFriendsIDs(CurrentUser.ID);
+
+                return View("Search", model);
             }
             catch (Exception ex)
             {

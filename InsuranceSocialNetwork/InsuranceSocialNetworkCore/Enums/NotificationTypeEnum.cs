@@ -11,6 +11,8 @@ namespace InsuranceSocialNetworkCore.Enums
         COMPLETE_PROFILE_INFO,
         NEW_POST_LIKE,
         NEW_POST_COMMENT,
-        NEW_MESSAGE_RECEIVED
+        NEW_MESSAGE_RECEIVED,
+        FRIEND_REQUEST_RECEIVED,
+        FRIEND_REUQEST_ACCEPTED
     }
 }

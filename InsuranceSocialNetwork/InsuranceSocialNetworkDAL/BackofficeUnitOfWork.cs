@@ -23,6 +23,8 @@ namespace InsuranceSocialNetworkDAL
         private IRepository<PostComment> postCommentRepository;
         private IRepository<Garage> garageRepository;
         private IRepository<MedicalClinic> medicalClinicRepository;
+        private IRepository<Friend> friendRepository;
+        private IRepository<FriendStatus> friendStatusRepository;
 
         private bool AutoDetectChangesEnabled;
         private int DatabaseTimeout;
@@ -225,6 +227,32 @@ namespace InsuranceSocialNetworkDAL
                         new Repository<InsurancePortal_dbEntities, MedicalClinic>(DataContext, AutoDetectChangesEnabled);
                 }
                 return medicalClinicRepository;
+            }
+        }
+
+        public IRepository<Friend> Friend
+        {
+            get
+            {
+                if (this.friendRepository == null)
+                {
+                    this.friendRepository =
+                        new Repository<InsurancePortal_dbEntities, Friend>(DataContext, AutoDetectChangesEnabled);
+                }
+                return friendRepository;
+            }
+        }
+
+        public IRepository<FriendStatus> FriendStatus
+        {
+            get
+            {
+                if (this.friendStatusRepository == null)
+                {
+                    this.friendStatusRepository =
+                        new Repository<InsurancePortal_dbEntities, FriendStatus>(DataContext, AutoDetectChangesEnabled);
+                }
+                return friendStatusRepository;
             }
         }
     }
