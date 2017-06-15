@@ -1,0 +1,36 @@
+﻿@using InsuranceWebsite.Models
+@model HomeViewModel
+
+
+<div class="profile-info col-md-6 animated fadeInUp">
+
+    <div class="panel topPanel">       
+
+        @if(Model.IsSearchGarages)
+        {
+            <h3>Pesquisa de Garagens</h3>
+        }
+
+        @if (Model.IsSearchClinics)
+        {
+            <h3>Pesquisa de Clinicas</h3>
+        }
+
+        @if (Model.IsSearchConstructionCompanies)
+        {
+            <h3>Pesquisa de Empresas de Construção</h3>
+        }
+
+        @if (Model.IsSearchHomeApplianceRepair)
+        {
+            <h3>Pesquisa de Reparadores de Electrodomésticos</h3>
+        }
+
+        @if (Model.IsSearchInsuranceContacts)
+        {
+            <h3>Pesquisa de Contactos Seguradoras</h3>
+        }
+
+    </div>
+
+</div><!--end right  content-->

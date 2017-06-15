@@ -333,4 +333,37 @@
   <data name="SearchInsuranceContacts" xml:space="preserve">
     <value>Pesquisar contactos de seguradoras</value>
   </data>
+  <data name="ClinicName" xml:space="preserve">
+    <value>Nome da clínica</value>
+  </data>
+  <data name="ConstructionCompanyName" xml:space="preserve">
+    <value>Nome da empresa de construção</value>
+  </data>
+  <data name="District" xml:space="preserve">
+    <value>Distrito</value>
+  </data>
+  <data name="GarageName" xml:space="preserve">
+    <value>Nome da oficina</value>
+  </data>
+  <data name="HomeApplianceRepairName" xml:space="preserve">
+    <value>Nome do reparador de electrodomésticos</value>
+  </data>
+  <data name="InsuranceContactName" xml:space="preserve">
+    <value>Nome da seguradora</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Concelho</value>
+  </data>
+  <data name="NoNotifications" xml:space="preserve">
+    <value>Não existem notificações</value>
+  </data>
+  <data name="OfficialAgent" xml:space="preserve">
+    <value>Agente oficial</value>
+  </data>
+  <data name="Partnerships" xml:space="preserve">
+    <value>Parcerias</value>
+  </data>
+  <data name="Services" xml:space="preserve">
+    <value>Serviços</value>
+  </data>
 </root>

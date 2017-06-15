@@ -2561,15 +2561,27 @@ a:hover, a:active, a:focus {
 #accordion h5
 {
     background-color: white;
-    padding: 10px;
+    padding: 20px 10px 20px 10px;
     margin-top: 3px;
     margin-bottom: 0px;
     cursor:pointer;
+    font-weight: bold;
+    clear:left;
 }
 
 #accordion div
 {
     background-color: white;
+    display: table-cell;
+    padding-bottom: 20px;
+    padding-top: 5px;
+}
+
+#accordion div input {
+    margin-left: 20px;
+    margin-bottom: 6px;
+    font-size: 12px;
+    padding: 4px;
 }
 
 

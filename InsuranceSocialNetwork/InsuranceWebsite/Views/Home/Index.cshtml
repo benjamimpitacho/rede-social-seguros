@@ -20,7 +20,14 @@
             @Html.Partial("~/Views/Home/Partial/SideNavBar.cshtml", Model)
 
             <!-- right  content-->
-            @Html.Partial("~/Views/Home/Partial/Timeline.cshtml", Model)
+            @if (Model.IsPostsView)
+            {
+                @Html.Partial("~/Views/Home/Partial/Timeline.cshtml", Model)
+            }
+            else if (Model.IsSearchView)
+            {
+                @Html.Partial("~/Views/Home/Partial/SearchResult.cshtml", Model)
+            }
 
             @*@if (Model.IsNotificationsView)
             {

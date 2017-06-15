@@ -262,11 +262,17 @@
     <Content Include="Content\Facebook\css\MebYOZ-gq9c.css" />
     <Content Include="Content\Facebook\css\n_s5vQ0E5ir.css" />
     <Content Include="Content\Facebook\css\tigqm6m_uPB.css" />
+    <Content Include="Content\icons\car-with-wrench.svg" />
+    <Content Include="Content\icons\doctor-stethoscope.svg" />
+    <Content Include="Content\icons\telephone.svg" />
+    <Content Include="Content\icons\washing-machine.svg" />
+    <Content Include="Content\icons\wheelbarrow.svg" />
     <Content Include="Content\images-grid.css" />
     <Content Include="Content\images\default_profile_header.png" />
     <Content Include="Content\images\home-bg.jpg" />
     <Content Include="Content\images\no_logo_img.png" />
     <Content Include="Content\images\no_photo_img.jpg" />
+    <Content Include="Content\images\portugal_mapa.png" />
     <Content Include="Content\images\waiting.gif" />
     <Content Include="Content\jsGrid\i18n\jsgrid-de.js" />
     <Content Include="Content\jsGrid\i18n\jsgrid-es.js" />
@@ -471,6 +477,8 @@
     <Content Include="Views\Shared\_MVCGridToolbar.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\Home\Friends.cshtml" />
+    <Content Include="Views\Home\Partial\SearchResult.cshtml" />
+    <Content Include="Views\Home\Settings.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

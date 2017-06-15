@@ -8,94 +8,119 @@
             activeHeader: "ui-icon-circle-arrow-s"
         };
 
-      $("#accordion").accordion({
-          collapsible: true,
-          icons: icons
-      });
+        $("#accordion").accordion({
+            collapsible: true,
+            icons: icons
+        });
 
-      $("#toggle").button().on("click", function () {
-          if ($("#accordion").accordion("option", "icons")) {
-              $("#accordion").accordion("option", "icons", null);
-          } else {
-              $("#accordion").accordion("option", "icons", icons);
-          }
-      });
-  } );
+        $("#toggle").button().on("click", function () {
+            if ($("#accordion").accordion("option", "icons")) {
+                $("#accordion").accordion("option", "icons", null);
+            } else {
+                $("#accordion").accordion("option", "icons", icons);
+            }
+        });
+    });
 </script>
 
 <!-- left content-->
 
-<div class="col-md-5" @*style="float:right"*@>
+<div class="col-md-6" style="padding-left:10px; padding-right:10px;">
 
     <div class="profile-nav">
 
         <div class="panel" style="background-color:transparent; box-shadow:none">
 
             <div id="accordion">
-                <h5>@Resources.Resources.SearchGarages</h5>
+                <h5><img src="~/Content/icons/car-with-wrench.svg" width="25px" height="25px" style="margin-left:10px; margin-right:10px;" />@Resources.Resources.SearchGarages</h5>
                 <div>
-                    <p>
-                        Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer
-                        ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit
-                        amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut
-                        odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.
-                    </p>
+                    @using (Html.BeginForm("SearchGarages", "Home", FormMethod.Post, new { id = "searchGaragesForm" }))
+                    {
+                        <img src="~/Content/images/portugal_mapa.png" style="height:294px; float:right" />
+                        @Html.TextBoxFor(m => m.GarageName, new { @class = "col-md-6", @style = "margin-top: 6px;", @placeholder = Resources.Resources.GarageName })
+                        @Html.TextBoxFor(m => m.GarageDistrict, new { @class = "col-md-6", @placeholder = Resources.Resources.District })
+                        @Html.TextBoxFor(m => m.GarageLocation, new { @class = "col-md-6", @placeholder = Resources.Resources.Location })
+                        @Html.TextBoxFor(m => m.GarageService, new { @class = "col-md-6", @placeholder = Resources.Resources.Services })
+                        @Html.TextBoxFor(m => m.GaragePartnership, new { @class = "col-md-6", @placeholder = Resources.Resources.Partnerships })
+                        @Html.TextBoxFor(m => m.GarageOfficialAgent, new { @class = "col-md-6", @placeholder = Resources.Resources.OfficialAgent })
+
+                        <div class="col-md-6" style="margin-left:20px; margin-bottom: 30px; padding: 0px;">
+                            <a class="btn btn-warning pull-right" href="#" onclick="document.getElementById('searchGaragesForm').submit();" style="width:100%">@Resources.Resources.SearchGarages</a>
+                        </div>
+                    }
                 </div>
-                <h5>@Resources.Resources.SearchClinics</h5>
+                <h5><img src="~/Content/icons/doctor-stethoscope.svg" width="25px" height="25px" style="margin-left:10px; margin-right:10px;" />@Resources.Resources.SearchClinics</h5>
                 <div>
-                    <p>
-                        Sed non urna. Donec et ante. Phasellus eu ligula. Vestibulum sit amet
-                        purus. Vivamus hendrerit, dolor at aliquet laoreet, mauris turpis porttitor
-                        velit, faucibus interdum tellus libero ac justo. Vivamus non quam. In
-                        suscipit faucibus urna.
-                    </p>
+                    @using (Html.BeginForm("SearchClinics", "Home", FormMethod.Post, new { id = "searchClinicsForm" }))
+                    {
+                        <img src="~/Content/images/portugal_mapa.png" style="height:294px; float:right" />
+                        @Html.TextBoxFor(m => m.ClinicName, new { @class = "col-md-6", @style = "margin-top: 6px;", @placeholder = Resources.Resources.ClinicName })
+                        @Html.TextBoxFor(m => m.ClinicDistrict, new { @class = "col-md-6", @placeholder = Resources.Resources.District })
+                        @Html.TextBoxFor(m => m.ClinicLocation, new { @class = "col-md-6", @placeholder = Resources.Resources.Location })
+                        @Html.TextBoxFor(m => m.ClinicService, new { @class = "col-md-6", @placeholder = Resources.Resources.Services })
+                        @Html.TextBoxFor(m => m.ClinicPartnership, new { @class = "col-md-6", @placeholder = Resources.Resources.Partnerships })
+                        @Html.TextBoxFor(m => m.ClinicOfficialAgent, new { @class = "col-md-6", @placeholder = Resources.Resources.OfficialAgent })
+
+                        <div class="col-md-6" style="margin-left:20px; margin-bottom: 30px; padding: 0px;">
+                            <a class="btn btn-warning pull-right" href="#" onclick="document.getElementById('searchClinicsForm').submit();" style="width:100%">@Resources.Resources.SearchClinics</a>
+                        </div>
+                    }
                 </div>
-                <h5>@Resources.Resources.SearchConstructionCompanies</h5>
+                <h5><img src="~/Content/icons/wheelbarrow.svg" width="25px" height="25px" style="margin-left:10px; margin-right:10px;" />@Resources.Resources.SearchConstructionCompanies</h5>
                 <div>
-                    <p>
-                        Nam enim risus, molestie et, porta ac, aliquam ac, risus. Quisque lobortis.
-                        Phasellus pellentesque purus in massa. Aenean in pede. Phasellus ac libero
-                        ac tellus pellentesque semper. Sed ac felis. Sed commodo, magna quis
-                        lacinia ornare, quam ante aliquam nisi, eu iaculis leo purus venenatis dui.
-                    </p>
-                    <ul>
-                        <li>List item one</li>
-                        <li>List item two</li>
-                        <li>List item three</li>
-                    </ul>
+                    @using (Html.BeginForm("SearchConstructionCompanies", "Home", FormMethod.Post, new { id = "searchConstructionCompaniesForm" }))
+                    {
+                        <img src="~/Content/images/portugal_mapa.png" style="height:294px; float:right" />
+                        @Html.TextBoxFor(m => m.ConstructionCompanyName, new { @class = "col-md-6", @style = "margin-top: 6px;", @placeholder = Resources.Resources.ConstructionCompanyName })
+                        @Html.TextBoxFor(m => m.ConstructionCompanyDistrict, new { @class = "col-md-6", @placeholder = Resources.Resources.District })
+                        @Html.TextBoxFor(m => m.ConstructionCompanyLocation, new { @class = "col-md-6", @placeholder = Resources.Resources.Location })
+                        @Html.TextBoxFor(m => m.ConstructionCompanyService, new { @class = "col-md-6", @placeholder = Resources.Resources.Services })
+                        @Html.TextBoxFor(m => m.ConstructionCompanyPartnership, new { @class = "col-md-6", @placeholder = Resources.Resources.Partnerships })
+                        @Html.TextBoxFor(m => m.ConstructionCompanyOfficialAgent, new { @class = "col-md-6", @placeholder = Resources.Resources.OfficialAgent })
+
+                        <div class="col-md-6" style="margin-left:20px; margin-bottom: 30px; padding: 0px;">
+                            <a class="btn btn-warning pull-right" href="#" onclick="document.getElementById('searchConstructionCompaniesForm').submit();" style="width:100%">@Resources.Resources.SearchConstructionCompanies</a>
+                        </div>
+                    }
                 </div>
-                <h5>@Resources.Resources.SearchHomeApplianceRepair</h5>
+                <h5><img src="~/Content/icons/washing-machine.svg" width="25px" height="25px" style="margin-left:10px; margin-right:10px;" />@Resources.Resources.SearchHomeApplianceRepair</h5>
                 <div>
-                    <p>
-                        Cras dictum. Pellentesque habitant morbi tristique senectus et netus
-                        et malesuada fames ac turpis egestas. Vestibulum ante ipsum primis in
-                        faucibus orci luctus et ultrices posuere cubilia Curae; Aenean lacinia
-                        mauris vel est.
-                    </p>
-                    <p>
-                        Suspendisse eu nisl. Nullam ut libero. Integer dignissim consequat lectus.
-                        Class aptent taciti sociosqu ad litora torquent per conubia nostra, per
-                        inceptos himenaeos.
-                    </p>
+                    @using (Html.BeginForm("SearchHomeApplianceRepair", "Home", FormMethod.Post, new { id = "searchHomeApplianceRepairForm" }))
+                    {
+                        <img src="~/Content/images/portugal_mapa.png" style="height:294px; float:right" />
+                        @Html.TextBoxFor(m => m.HomeApplianceRepairName, new { @class = "col-md-6", @style = "margin-top: 6px;", @placeholder = Resources.Resources.HomeApplianceRepairName })
+                        @Html.TextBoxFor(m => m.HomeApplianceRepairDistrict, new { @class = "col-md-6", @placeholder = Resources.Resources.District })
+                        @Html.TextBoxFor(m => m.HomeApplianceRepairLocation, new { @class = "col-md-6", @placeholder = Resources.Resources.Location })
+                        @Html.TextBoxFor(m => m.HomeApplianceRepairService, new { @class = "col-md-6", @placeholder = Resources.Resources.Services })
+                        @Html.TextBoxFor(m => m.HomeApplianceRepairPartnership, new { @class = "col-md-6", @placeholder = Resources.Resources.Partnerships })
+                        @Html.TextBoxFor(m => m.HomeApplianceRepairOfficialAgent, new { @class = "col-md-6", @placeholder = Resources.Resources.OfficialAgent })
+
+                        <div class="col-md-6" style="margin-left:20px; margin-bottom: 30px; padding: 0px;">
+                            <a class="btn btn-warning pull-right" href="#" onclick="document.getElementById('searchHomeApplianceRepairForm').submit();" style="width:100%">@Resources.Resources.SearchHomeApplianceRepair</a>
+                        </div>
+                    }
                 </div>
-                <h5>@Resources.Resources.SearchInsuranceContacts</h5>
+                <h5><img src="~/Content/icons/telephone.svg" width="25px" height="25px" style="margin-left:10px; margin-right:10px;" />@Resources.Resources.SearchInsuranceContacts</h5>
                 <div>
-                    <p>
-                        Cras dictum. Pellentesque habitant morbi tristique senectus et netus
-                        et malesuada fames ac turpis egestas. Vestibulum ante ipsum primis in
-                        faucibus orci luctus et ultrices posuere cubilia Curae; Aenean lacinia
-                        mauris vel est.
-                    </p>
-                    <p>
-                        Suspendisse eu nisl. Nullam ut libero. Integer dignissim consequat lectus.
-                        Class aptent taciti sociosqu ad litora torquent per conubia nostra, per
-                        inceptos himenaeos.
-                    </p>
+                    @using (Html.BeginForm("SearchInsuranceContacts", "Home", FormMethod.Post, new { id = "searchInsuranceContactsForm" }))
+                    {
+                        <img src="~/Content/images/portugal_mapa.png" style="height:294px; float:right" />
+                        @Html.TextBoxFor(m => m.InsuranceContactName, new { @class = "col-md-6", @style = "margin-top: 6px;", @placeholder = Resources.Resources.InsuranceContactName })
+                        @Html.TextBoxFor(m => m.InsuranceContactDistrict, new { @class = "col-md-6", @placeholder = Resources.Resources.District })
+                        @Html.TextBoxFor(m => m.InsuranceContactLocation, new { @class = "col-md-6", @placeholder = Resources.Resources.Location })
+                        @Html.TextBoxFor(m => m.InsuranceContactService, new { @class = "col-md-6", @placeholder = Resources.Resources.Services })
+                        @Html.TextBoxFor(m => m.InsuranceContactPartnership, new { @class = "col-md-6", @placeholder = Resources.Resources.Partnerships })
+                        @Html.TextBoxFor(m => m.InsuranceContactOfficialAgent, new { @class = "col-md-6", @placeholder = Resources.Resources.OfficialAgent })
+
+                        <div class="col-md-6" style="margin-left:20px; margin-bottom: 30px; padding: 0px;">
+                            <a class="btn btn-warning pull-right" href="#" onclick="document.getElementById('searchInsuranceContactsForm').submit();" style="width:100%">@Resources.Resources.SearchInsuranceContacts</a>
+                        </div>
+                    }
                 </div>
             </div>
 
         </div>
 
     </div>
-    
+
 </div><!-- end left content-->

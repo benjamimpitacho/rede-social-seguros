@@ -184,7 +184,7 @@ namespace InsuranceWebsite.Controllers
         {
             try
             {
-                if(null == model)
+                if (null == model)
                 {
                     model = new SearchViewModel();
                 }
@@ -245,7 +245,7 @@ namespace InsuranceWebsite.Controllers
                     return RedirectToAction("Login", "Account");
                 }
 
-                if(InsuranceBusiness.BusinessLayer.AddFriend(CurrentUser.ID, id))
+                if (InsuranceBusiness.BusinessLayer.AddFriend(CurrentUser.ID, id))
                 {
                     string friendId = InsuranceBusiness.BusinessLayer.GetUserIdFromProfileId(id);
                     InsuranceBusiness.BusinessLayer.CreateNotification(friendId, NotificationTypeEnum.FRIEND_REQUEST_RECEIVED);
@@ -395,7 +395,10 @@ namespace InsuranceWebsite.Controllers
             model.Notifications = InsuranceBusiness.BusinessLayer.GetUserNotifications(userId);
             if (model is HomeViewModel)
             {
-                ((HomeViewModel)model).Posts = InsuranceBusiness.BusinessLayer.GetUserPosts(userId);
+                if (((HomeViewModel)model).IsPostsView)
+                {
+                    ((HomeViewModel)model).Posts = InsuranceBusiness.BusinessLayer.GetUserPosts(userId);
+                }
                 ((HomeViewModel)model).Notifications = InsuranceBusiness.BusinessLayer.GetUserNotifications(userId);
             }
         }
@@ -405,6 +408,112 @@ namespace InsuranceWebsite.Controllers
         {
             UsersManagementViewModel model = new UsersManagementViewModel();
 
+            return View(model);
+        }
+
+        #region Search Operations
+
+        public ActionResult SearchGarages(HomeViewModel model)
+        {
+            try
+            {
+                model.IsPostsView = model.IsMessagesView = model.IsNotificationsView = false;
+                model.IsSearchView = true;
+                model.IsSearchGarages = true;
+
+                // Perform Search
+
+                FillModel(model, CurrentUser.ID_User);
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException();
+            }
+            return View("Index", model);
+        }
+
+        public ActionResult SearchClinics(HomeViewModel model)
+        {
+            try
+            {
+                model.IsPostsView = model.IsMessagesView = model.IsNotificationsView = false;
+                model.IsSearchView = true;
+                model.IsSearchClinics = true;
+
+                // Perform Search
+
+                FillModel(model, CurrentUser.ID_User);
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException();
+            }
+            return View("Index", model);
+        }
+
+        public ActionResult SearchConstructionCompanies(HomeViewModel model)
+        {
+            try
+            {
+                model.IsPostsView = model.IsMessagesView = model.IsNotificationsView = false;
+                model.IsSearchView = true;
+                model.IsSearchConstructionCompanies = true;
+
+                // Perform Search
+
+                FillModel(model, CurrentUser.ID_User);
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException();
+            }
+            return View("Index", model);
+        }
+
+        public ActionResult SearchHomeApplianceRepair(HomeViewModel model)
+        {
+            try
+            {
+                model.IsPostsView = model.IsMessagesView = model.IsNotificationsView = false;
+                model.IsSearchView = true;
+                model.IsSearchHomeApplianceRepair = true;
+
+                // Perform Search
+
+                FillModel(model, CurrentUser.ID_User);
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException();
+            }
+            return View("Index", model);
+        }
+
+        public ActionResult SearchInsuranceContacts(HomeViewModel model)
+        {
+            try
+            {
+                model.IsPostsView = model.IsMessagesView = model.IsNotificationsView = false;
+                model.IsSearchView = true;
+                model.IsSearchInsuranceContacts = true;
+
+                // Perform Search
+
+                FillModel(model, CurrentUser.ID_User);
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException();
+            }
+            return View("Index", model);
+        }
+
+        #endregion Search Operations
+
+        public ActionResult Settings()
+        {
+            HomeViewModel model = new HomeViewModel();
+            FillModel(model, CurrentUser.ID_User);
             return View(model);
         }
     }

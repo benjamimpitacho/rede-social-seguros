@@ -142,6 +142,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nome da clínica.
+        /// </summary>
+        public static string ClinicName {
+            get {
+                return ResourceManager.GetString("ClinicName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Código.
         /// </summary>
         public static string Code {
@@ -165,6 +174,15 @@ namespace Resources {
         public static string ConfirmPassword {
             get {
                 return ResourceManager.GetString("ConfirmPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nome da empresa de construção.
+        /// </summary>
+        public static string ConstructionCompanyName {
+            get {
+                return ResourceManager.GetString("ConstructionCompanyName", resourceCulture);
             }
         }
         
@@ -210,6 +228,15 @@ namespace Resources {
         public static string Developers {
             get {
                 return ResourceManager.GetString("Developers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Distrito.
+        /// </summary>
+        public static string District {
+            get {
+                return ResourceManager.GetString("District", resourceCulture);
             }
         }
         
@@ -268,11 +295,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nome da oficina.
+        /// </summary>
+        public static string GarageName {
+            get {
+                return ResourceManager.GetString("GarageName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Home.
         /// </summary>
         public static string Home {
             get {
                 return ResourceManager.GetString("Home", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nome do reparador de electrodomésticos.
+        /// </summary>
+        public static string HomeApplianceRepairName {
+            get {
+                return ResourceManager.GetString("HomeApplianceRepairName", resourceCulture);
             }
         }
         
@@ -304,11 +349,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nome da seguradora.
+        /// </summary>
+        public static string InsuranceContactName {
+            get {
+                return ResourceManager.GetString("InsuranceContactName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tentativa de login inválida!.
         /// </summary>
         public static string InvalidLoginAttempt {
             get {
                 return ResourceManager.GetString("InvalidLoginAttempt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Concelho.
+        /// </summary>
+        public static string Location {
+            get {
+                return ResourceManager.GetString("Location", resourceCulture);
             }
         }
         
@@ -385,6 +448,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Não existem notificações.
+        /// </summary>
+        public static string NoNotifications {
+            get {
+                return ResourceManager.GetString("NoNotifications", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Utilizador Comum.
         /// </summary>
         public static string NORMAL_USER {
@@ -408,6 +480,24 @@ namespace Resources {
         public static string NotificationsPageTitle {
             get {
                 return ResourceManager.GetString("NotificationsPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Agente oficial.
+        /// </summary>
+        public static string OfficialAgent {
+            get {
+                return ResourceManager.GetString("OfficialAgent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parcerias.
+        /// </summary>
+        public static string Partnerships {
+            get {
+                return ResourceManager.GetString("Partnerships", resourceCulture);
             }
         }
         
@@ -588,6 +678,15 @@ namespace Resources {
         public static string SelectRole {
             get {
                 return ResourceManager.GetString("SelectRole", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Serviços.
+        /// </summary>
+        public static string Services {
+            get {
+                return ResourceManager.GetString("Services", resourceCulture);
             }
         }
         

@@ -4,13 +4,22 @@
 
 
 <div class="col-md-6 no-paddin-xs">
+    <div class="row">
         <div class="row">
-            <div class="row">
 
 
-                <!-- Timeline content -->
-                <div class="container container-timeline" style="margin-top:15px;">
-                    <div class="col-md-10 no-paddin-xs">
+            <!-- Timeline content -->
+            <div class="container container-timeline" style="margin-top:15px;">
+                <div class="col-md-10 no-paddin-xs">
+
+                    @if (null == Model.Notifications || Model.Notifications.Count == 0)
+                    {
+                        <div class="col-md-7 alert alert-warning">
+                            @Resources.Resources.NoNotifications
+                        </div>
+                    }
+                    else
+                    {
 
                         <!-- notification list-->
                         <div class="col-md-7 no-paddin-xs">
@@ -24,7 +33,7 @@
                             </div>
 
                             @*Html.Partial("PostsControl", Model.Posts)*@
-                            
+
                             <div class="panel panel-white post-load-more panel-shadow text-center">
 
                                 <button class="btn btn-info">
@@ -36,11 +45,15 @@
                             </div>
 
                         </div><!--end right  content-->
-                    </div>
+
+                    }
+
                 </div>
             </div>
+
         </div>
     </div>
+</div>
 
 
 
