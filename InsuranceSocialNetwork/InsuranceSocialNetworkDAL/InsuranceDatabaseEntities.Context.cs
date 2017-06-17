@@ -42,7 +42,7 @@ namespace InsuranceSocialNetworkDAL
         public virtual DbSet<Post> Post { get; set; }
         public virtual DbSet<AspNetRolesFunctionalities> AspNetRolesFunctionalities { get; set; }
         public virtual DbSet<PostImage> PostImage { get; set; }
-        public virtual DbSet<Friend> Friend { get; set; }
         public virtual DbSet<FriendStatus> FriendStatus { get; set; }
+        public virtual DbSet<Friend> Friend { get; set; }
     }
 }

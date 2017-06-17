@@ -36,10 +36,10 @@ VALUES
 	1, 
 	1, 
 	NULL, 
-	N'APyxnVe8q6Jg5S6N4QpDb8OYU5ommCD2rxv5NSXMRGvjdkSWZ9CZNT9Dr6/7ejADqQ==', 
+	N'AAGUbgyLIPaeECvgdADYyv1OQFRxCUcKWGIizG4OpgaQe3BXuKHDOEHqB+joV8lEDA==', 
 	NULL, 
 	0, 
-	N'c85f3301-03a8-42f1-b190-9d8469f1b652', 
+	N'c10e3574-b1ca-434a-a984-8d592a6bd4d1', 
 	0, 
 	N'admin@falarseguros.pt'
 )
@@ -72,10 +72,10 @@ VALUES
 	1, 
 	1, 
 	NULL, 
-	N'APyxnVe8q6Jg5S6N4QpDb8OYU5ommCD2rxv5NSXMRGvjdkSWZ9CZNT9Dr6/7ejADqQ==', 
+	N'AAGUbgyLIPaeECvgdADYyv1OQFRxCUcKWGIizG4OpgaQe3BXuKHDOEHqB+joV8lEDA==', 
 	NULL, 
 	0, 
-	N'c85f3301-03a8-42f1-b190-9d8469f1b652', 
+	N'c10e3574-b1ca-434a-a984-8d592a6bd4d1', 
 	0, 
 	N'user1@falarseguros.pt'
 )
@@ -108,10 +108,10 @@ VALUES
 	1, 
 	1, 
 	NULL, 
-	N'APyxnVe8q6Jg5S6N4QpDb8OYU5ommCD2rxv5NSXMRGvjdkSWZ9CZNT9Dr6/7ejADqQ==', 
+	N'AAGUbgyLIPaeECvgdADYyv1OQFRxCUcKWGIizG4OpgaQe3BXuKHDOEHqB+joV8lEDA==', 
 	NULL, 
 	0, 
-	N'c85f3301-03a8-42f1-b190-9d8469f1b652', 
+	N'c10e3574-b1ca-434a-a984-8d592a6bd4d1', 
 	0, 
 	N'user2@falarseguros.pt'
 )
@@ -144,10 +144,10 @@ VALUES
 	1, 
 	1, 
 	NULL, 
-	N'APyxnVe8q6Jg5S6N4QpDb8OYU5ommCD2rxv5NSXMRGvjdkSWZ9CZNT9Dr6/7ejADqQ==', 
+	N'AAGUbgyLIPaeECvgdADYyv1OQFRxCUcKWGIizG4OpgaQe3BXuKHDOEHqB+joV8lEDA==', 
 	NULL, 
 	0, 
-	N'c85f3301-03a8-42f1-b190-9d8469f1b652', 
+	N'c10e3574-b1ca-434a-a984-8d592a6bd4d1', 
 	0, 
 	N'user3@falarseguros.pt'
 )
@@ -180,10 +180,10 @@ VALUES
 	1, 
 	1, 
 	NULL, 
-	N'APyxnVe8q6Jg5S6N4QpDb8OYU5ommCD2rxv5NSXMRGvjdkSWZ9CZNT9Dr6/7ejADqQ==', 
+	N'AAGUbgyLIPaeECvgdADYyv1OQFRxCUcKWGIizG4OpgaQe3BXuKHDOEHqB+joV8lEDA==', 
 	NULL, 
 	0, 
-	N'c85f3301-03a8-42f1-b190-9d8469f1b652', 
+	N'c10e3574-b1ca-434a-a984-8d592a6bd4d1', 
 	0, 
 	N'user4@falarseguros.pt'
 )
@@ -216,10 +216,10 @@ VALUES
 	1, 
 	1, 
 	NULL, 
-	N'APyxnVe8q6Jg5S6N4QpDb8OYU5ommCD2rxv5NSXMRGvjdkSWZ9CZNT9Dr6/7ejADqQ==', 
+	N'AAGUbgyLIPaeECvgdADYyv1OQFRxCUcKWGIizG4OpgaQe3BXuKHDOEHqB+joV8lEDA==', 
 	NULL, 
 	0, 
-	N'c85f3301-03a8-42f1-b190-9d8469f1b652', 
+	N'c10e3574-b1ca-434a-a984-8d592a6bd4d1', 
 	0, 
 	N'user5@falarseguros.pt'
 )

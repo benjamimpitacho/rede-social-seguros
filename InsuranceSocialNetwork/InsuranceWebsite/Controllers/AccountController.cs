@@ -231,7 +231,7 @@ namespace InsuranceWebsite.Controllers
                     {
                         InsuranceBusiness.BusinessLayer.CreateNotification(user.Id, NotificationTypeEnum.COMPLETE_PROFILE_INFO);
 
-                        await SendConfirmationEmail(user, model.Name);
+                        //await SendConfirmationEmail(user, model.Name);
                     }
                     catch (Exception ex)
                     {

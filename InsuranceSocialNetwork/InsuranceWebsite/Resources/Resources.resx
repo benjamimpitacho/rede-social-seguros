@@ -354,6 +354,9 @@
   <data name="Location" xml:space="preserve">
     <value>Concelho</value>
   </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Terminar Sessão</value>
+  </data>
   <data name="NoNotifications" xml:space="preserve">
     <value>Não existem notificações</value>
   </data>

@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Garage\GarageDTO.cs" />
     <Compile Include="MedicalClinic\MedicalClinicDTO.cs" />
+    <Compile Include="Notification\NotificationTypeDTO.cs" />
     <Compile Include="Notification\NotificationDTO.cs" />
     <Compile Include="Post\PostCommentDTO.cs" />
     <Compile Include="Post\PostImageDTO.cs" />

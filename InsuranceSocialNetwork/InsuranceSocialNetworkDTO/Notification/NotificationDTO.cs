@@ -19,6 +19,8 @@ namespace InsuranceSocialNetworkDTO.Notification
         public bool Read { get; set; }
         public bool Active { get; set; }
 
+        public NotificationTypeDTO NotificationType { get; set; }
+
         public NotificationTypeEnum Type { get; set; }
 
         public string TextToNotificationList

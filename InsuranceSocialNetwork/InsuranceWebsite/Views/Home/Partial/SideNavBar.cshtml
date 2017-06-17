@@ -41,6 +41,9 @@
     <div class="item">
         <a href="@Url.Action("Settings", "Home")" title="@Resources.Resources.Settings"><span class="glyphicon glyphicon-option-horizontal"></span></a>
     </div>
+    <div class="item">
+        <a href="@Url.Action("LogOff", "Account")" title="@Resources.Resources.Logout"><span class="glyphicon glyphicon-log-out"></span></a>
+    </div>
     @if (InsuranceBusiness.BusinessLayer.IsUserAuthorizedToFunctionality(this.User.Identity.Name, Functionality.USERS_MANAGEMENT.ToString()))
     {
         <div class="item">
@@ -211,7 +214,7 @@
     .badge-notify{
        background:red;
        position:relative;
-       top: -6px;
-       left: 33px;
+       top: 10px;
+       left: 50px;
     }
 </style>

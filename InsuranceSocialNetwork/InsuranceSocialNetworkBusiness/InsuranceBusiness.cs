@@ -32,6 +32,9 @@ namespace InsuranceSocialNetworkBusiness
                 cfg.CreateMap<Notification, NotificationDTO>();
                 cfg.CreateMap<NotificationDTO, Notification>();
 
+                cfg.CreateMap<NotificationType, NotificationTypeDTO>();
+                cfg.CreateMap<NotificationTypeDTO, NotificationType>();
+
                 cfg.CreateMap<Post, PostDTO>()
                     .ForMember(dest => dest.PostOwner,
                        opts => opts.MapFrom(src => src.AspNetUsers.Profile.FirstOrDefault()));

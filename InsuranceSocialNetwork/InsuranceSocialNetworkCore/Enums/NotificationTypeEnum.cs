@@ -13,6 +13,6 @@ namespace InsuranceSocialNetworkCore.Enums
         NEW_POST_COMMENT,
         NEW_MESSAGE_RECEIVED,
         FRIEND_REQUEST_RECEIVED,
-        FRIEND_REUQEST_ACCEPTED
+        FRIEND_REQUEST_ACCEPTED
     }
 }

@@ -21,8 +21,6 @@ namespace InsuranceSocialNetworkDAL
         public System.DateTime CreateDate { get; set; }
         public System.DateTime LastChangeDate { get; set; }
         public Nullable<System.DateTime> DeleteDate { get; set; }
-        public bool Sticky { get; set; }
-        public bool Sponsored { get; set; }
         public bool Active { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }

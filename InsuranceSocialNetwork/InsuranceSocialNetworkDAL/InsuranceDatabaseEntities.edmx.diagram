@@ -41,8 +41,8 @@
         <AssociationConnector Association="InsurancePortal_dbModel.FK_dbo_AspNetUserRolesFunctionalities_dbo_AspNetRoles_RoleId" />
         <EntityTypeShape EntityType="InsurancePortal_dbModel.PostImage" Width="1.5" PointX="10.5" PointY="8.25" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_PostImage_Post" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.Friend" Width="1.5" PointX="8.25" PointY="14.875" />
         <EntityTypeShape EntityType="InsurancePortal_dbModel.FriendStatus" Width="1.5" PointX="6" PointY="34.625" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.Friend" Width="1.5" PointX="8.25" PointY="21.75" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_FriendUser_AspNetUsers" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_FriendUserFriend_AspNetUsers" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_FriendStatus_FriendStatus" />

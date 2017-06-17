@@ -67,8 +67,6 @@
           <Property Name="CreateDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="LastChangeDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="DeleteDate" Type="datetime2" Precision="7" />
-          <Property Name="Sticky" Type="bit" Nullable="false" />
-          <Property Name="Sponsored" Type="bit" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="FriendStatus">
@@ -756,8 +754,8 @@
             <End Role="Post" EntitySet="Post" />
             <End Role="PostImage" EntitySet="PostImage" />
           </AssociationSet>
-          <EntitySet Name="Friend" EntityType="InsurancePortal_dbModel.Friend" />
           <EntitySet Name="FriendStatus" EntityType="InsurancePortal_dbModel.FriendStatus" />
+          <EntitySet Name="Friend" EntityType="InsurancePortal_dbModel.Friend" />
           <AssociationSet Name="FK_FriendUser_AspNetUsers" Association="InsurancePortal_dbModel.FK_FriendUser_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Friend" EntitySet="Friend" />
@@ -770,7 +768,7 @@
             <End Role="FriendStatus" EntitySet="FriendStatus" />
             <End Role="Friend" EntitySet="Friend" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="Id" />
@@ -901,7 +899,7 @@
           <NavigationProperty Name="Post" Relationship="InsurancePortal_dbModel.FK_Post_AspNetUsers" FromRole="AspNetUsers" ToRole="Post" />
           <NavigationProperty Name="Friend" Relationship="InsurancePortal_dbModel.FK_FriendUser_AspNetUsers" FromRole="AspNetUsers" ToRole="Friend" />
           <NavigationProperty Name="Friend1" Relationship="InsurancePortal_dbModel.FK_FriendUserFriend_AspNetUsers" FromRole="AspNetUsers" ToRole="Friend" />
-        </EntityType>
+          </EntityType>
         <EntityType Name="Profile">
           <Key>
             <PropertyRef Name="ID" />
@@ -1258,6 +1256,16 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="FriendStatus">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Token" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Friend" Relationship="InsurancePortal_dbModel.FK_FriendStatus_FriendStatus" FromRole="FriendStatus" ToRole="Friend" />
+        </EntityType>
         <EntityType Name="Friend">
           <Key>
             <PropertyRef Name="ID" />
@@ -1269,22 +1277,10 @@
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="LastChangeDate" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="DeleteDate" Type="DateTime" Precision="7" />
-          <Property Name="Sticky" Type="Boolean" Nullable="false" />
-          <Property Name="Sponsored" Type="Boolean" Nullable="false" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="AspNetUsers" Relationship="InsurancePortal_dbModel.FK_FriendUser_AspNetUsers" FromRole="Friend" ToRole="AspNetUsers" />
           <NavigationProperty Name="AspNetUsers1" Relationship="InsurancePortal_dbModel.FK_FriendUserFriend_AspNetUsers" FromRole="Friend" ToRole="AspNetUsers" />
           <NavigationProperty Name="FriendStatus" Relationship="InsurancePortal_dbModel.FK_FriendStatus_FriendStatus" FromRole="Friend" ToRole="FriendStatus" />
-        </EntityType>
-        <EntityType Name="FriendStatus">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Token" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="Active" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Friend" Relationship="InsurancePortal_dbModel.FK_FriendStatus_FriendStatus" FromRole="FriendStatus" ToRole="Friend" />
         </EntityType>
         <Association Name="FK_FriendUser_AspNetUsers">
           <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
@@ -1322,7 +1318,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -1574,28 +1570,26 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Friend">
-            <EntityTypeMapping TypeName="InsurancePortal_dbModel.Friend">
-              <MappingFragment StoreEntitySet="Friend">
-                <ScalarProperty Name="Active" ColumnName="Active" />
-                <ScalarProperty Name="Sponsored" ColumnName="Sponsored" />
-                <ScalarProperty Name="Sticky" ColumnName="Sticky" />
-                <ScalarProperty Name="DeleteDate" ColumnName="DeleteDate" />
-                <ScalarProperty Name="LastChangeDate" ColumnName="LastChangeDate" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="ID_FriendStatus" ColumnName="ID_FriendStatus" />
-                <ScalarProperty Name="ID_User_Friend" ColumnName="ID_User_Friend" />
-                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="FriendStatus">
             <EntityTypeMapping TypeName="InsurancePortal_dbModel.FriendStatus">
               <MappingFragment StoreEntitySet="FriendStatus">
                 <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Token" ColumnName="Token" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Friend">
+            <EntityTypeMapping TypeName="InsurancePortal_dbModel.Friend">
+              <MappingFragment StoreEntitySet="Friend">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="DeleteDate" ColumnName="DeleteDate" />
+                <ScalarProperty Name="LastChangeDate" ColumnName="LastChangeDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="ID_FriendStatus" ColumnName="ID_FriendStatus" />
+                <ScalarProperty Name="ID_User_Friend" ColumnName="ID_User_Friend" />
+                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
