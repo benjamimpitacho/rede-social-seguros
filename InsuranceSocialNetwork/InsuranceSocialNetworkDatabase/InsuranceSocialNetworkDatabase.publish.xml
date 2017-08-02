@@ -5,7 +5,7 @@
     <TargetDatabaseName>InsurancePortal_db</TargetDatabaseName>
     <DeployScriptFileName>InsuranceSocialNetworkDatabase.sql</DeployScriptFileName>
     <ProfileVersionNumber>1</ProfileVersionNumber>
-    <TargetConnectionString>Data Source=insuranceportaldbserver.database.windows.net,1433;Persist Security Info=True;User ID=benjamim;Pooling=False</TargetConnectionString>
+    <TargetConnectionString>Data Source=insuranceportaldbserver.database.windows.net,1433;Persist Security Info=True;User ID=benjamim;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True</TargetConnectionString>
     <ScriptDatabaseOptions>True</ScriptDatabaseOptions>
     <BlockOnPossibleDataLoss>True</BlockOnPossibleDataLoss>
     <DropConstraintsNotInSource>False</DropConstraintsNotInSource>
@@ -13,5 +13,6 @@
     <DropExtendedPropertiesNotInSource>False</DropExtendedPropertiesNotInSource>
     <DropIndexesNotInSource>False</DropIndexesNotInSource>
     <DropStatisticsNotInSource>False</DropStatisticsNotInSource>
+    <CreateNewDatabase>True</CreateNewDatabase>
   </PropertyGroup>
 </Project>

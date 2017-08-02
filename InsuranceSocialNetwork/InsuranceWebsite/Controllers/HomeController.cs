@@ -11,6 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Services;
 
 namespace InsuranceWebsite.Controllers
 {
@@ -67,6 +68,7 @@ namespace InsuranceWebsite.Controllers
             return View();
         }
 
+        [FunctionalityAutorizeAttribute("MESSAGES_FUNCTIONALITY")]
         public async Task<ActionResult> Messages()
         {
             var model = new HomeViewModel();
@@ -88,6 +90,7 @@ namespace InsuranceWebsite.Controllers
             return View(model);
         }
 
+        [FunctionalityAutorizeAttribute("NOTIFICATIONS_FUNCTIONALITY")]
         public async Task<ActionResult> Notifications(HomeViewModel model)
         {
             try
@@ -125,6 +128,7 @@ namespace InsuranceWebsite.Controllers
             return RedirectToAction("Index");
         }
 
+        [FunctionalityAutorizeAttribute("NOTIFICATIONS_FUNCTIONALITY")]
         public ActionResult LoadNotifications()
         {
             try
@@ -220,51 +224,106 @@ namespace InsuranceWebsite.Controllers
             return RedirectToAction("Index");
         }
 
-        public async Task<ActionResult> AddFriend(long id, string searchTerm)
+        //[FunctionalityAutorizeAttribute("ADD_FRIEND_FUNCTIONALITY")]
+        //public async Task<ActionResult> AddFriend(long id, string searchTerm)
+        //{
+        //    try
+        //    {
+        //        SearchViewModel model = new SearchViewModel();
+        //        model.SearchTerm = searchTerm;
+
+        //        if (null != this.User && this.User.Identity.IsAuthenticated)
+        //        {
+        //            var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+        //            var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
+        //            if (null != user)
+        //            {
+        //                FillModel(model, user.Id);
+        //            }
+        //            else
+        //            {
+        //                return RedirectToAction("LogOff", "Account");
+        //            }
+        //        }
+        //        else
+        //        {
+        //            return RedirectToAction("Login", "Account");
+        //        }
+
+        //        if (InsuranceBusiness.BusinessLayer.AddFriend(CurrentUser.ID, id))
+        //        {
+        //            string friendId = InsuranceBusiness.BusinessLayer.GetUserIdFromProfileId(id);
+        //            InsuranceBusiness.BusinessLayer.CreateNotification(friendId, NotificationTypeEnum.FRIEND_REQUEST_RECEIVED);
+        //        }
+
+        //        model.Users = InsuranceBusiness.BusinessLayer.SearchUsers(model.SearchTerm, CurrentUser.ID);
+        //        model.AlreadyFriends = InsuranceBusiness.BusinessLayer.GetFriendsIDs(CurrentUser.ID);
+
+        //        return View("Search", model);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new NotImplementedException();
+        //    }
+
+        //    return RedirectToAction("Index");
+        //}
+
+        //[HttpPost]
+        //public JsonResult AddFriend()
+        //{
+        //    return Json(new { ok = false, message = "" });
+        //}
+
+        [HttpPost]
+        public JsonResult AddFriend(long id)
         {
             try
             {
-                SearchViewModel model = new SearchViewModel();
-                model.SearchTerm = searchTerm;
+                //SearchViewModel model = new SearchViewModel();
+                //model.SearchTerm = searchTerm;
 
                 if (null != this.User && this.User.Identity.IsAuthenticated)
                 {
                     var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-                    var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
-                    if (null != user)
-                    {
-                        FillModel(model, user.Id);
-                    }
-                    else
-                    {
-                        return RedirectToAction("LogOff", "Account");
-                    }
+                    var user = UserManager.FindByNameAsync(this.User.Identity.Name);
+                    //if (null != user)
+                    //{
+                    //    FillModel(model, user.Id);
+                    //}
+                    //else
+                    //{
+                    //    return RedirectToAction("LogOff", "Account");
+                    //}
                 }
                 else
                 {
-                    return RedirectToAction("Login", "Account");
+                    //return RedirectToAction("Login", "Account");
+                    return Json(new { ok = false, message = "" });
                 }
 
                 if (InsuranceBusiness.BusinessLayer.AddFriend(CurrentUser.ID, id))
                 {
                     string friendId = InsuranceBusiness.BusinessLayer.GetUserIdFromProfileId(id);
                     InsuranceBusiness.BusinessLayer.CreateNotification(friendId, NotificationTypeEnum.FRIEND_REQUEST_RECEIVED);
+                    return Json(new { ok = true, mydata = friendId, message = "" });
                 }
 
-                model.Users = InsuranceBusiness.BusinessLayer.SearchUsers(model.SearchTerm, CurrentUser.ID);
-                model.AlreadyFriends = InsuranceBusiness.BusinessLayer.GetFriendsIDs(CurrentUser.ID);
+                //model.Users = InsuranceBusiness.BusinessLayer.SearchUsers(model.SearchTerm, CurrentUser.ID);
+                //model.AlreadyFriends = InsuranceBusiness.BusinessLayer.GetFriendsIDs(CurrentUser.ID);
 
-                return View("Search", model);
+                //return View("Search", model);
             }
             catch (Exception ex)
             {
-                throw new NotImplementedException();
+                return Json(new { ok = false, message = ex.Message });
             }
 
-            return RedirectToAction("Index");
+            return Json(new { ok = false, message = "" });
         }
 
         [HttpPost]
+        [FunctionalityAutorizeAttribute("NEW_POST_FUNCTIONALITY")]
         public ActionResult NewPost(HomeViewModel model, string postContentTextarea, HttpPostedFileBase imgUpload)
         {
             try
@@ -296,6 +355,7 @@ namespace InsuranceWebsite.Controllers
             return RedirectToAction("Index");
         }
 
+        [FunctionalityAutorizeAttribute("LIKE_POST_FUNCTIONALITY")]
         public ActionResult LikePost(HomeViewModel model, long postId, string userId)
         {
             InsuranceBusiness.BusinessLayer.LikePost(postId, userId);
@@ -303,6 +363,7 @@ namespace InsuranceWebsite.Controllers
             return RedirectToAction("Index");
         }
 
+        [FunctionalityAutorizeAttribute("LIKE_POST_FUNCTIONALITY")]
         public ActionResult UnlikePost(HomeViewModel model, long postId, string userId)
         {
             InsuranceBusiness.BusinessLayer.UnlikePost(postId, userId);
@@ -310,6 +371,7 @@ namespace InsuranceWebsite.Controllers
             return RedirectToAction("Index");
         }
 
+        [FunctionalityAutorizeAttribute("TIMELINE_FUNCTIONALITY")]
         public ActionResult Posts()
         {
             PostItemsViewModel model = new PostItemsViewModel();
@@ -319,6 +381,7 @@ namespace InsuranceWebsite.Controllers
         }
 
         [HttpPost]
+        [FunctionalityAutorizeAttribute("COMMENT_POST_FUNCTIONALITY")]
         public ActionResult NewComment(long postId, string postNewComment)
         {
             try
@@ -340,6 +403,7 @@ namespace InsuranceWebsite.Controllers
             return RedirectToAction("Index");
         }
 
+        [FunctionalityAutorizeAttribute("PROFILE_INFO_FUNCTIONALITY")]
         public async Task<ActionResult> ProfileInfo()
         {
             var model = new ProfileViewModel();
@@ -364,6 +428,7 @@ namespace InsuranceWebsite.Controllers
             return View(model);
         }
 
+        [FunctionalityAutorizeAttribute("FRIENDS_FUNCTIONALITY")]
         public async Task<ActionResult> Friends()
         {
             var model = new FriendsViewModel();
@@ -413,6 +478,7 @@ namespace InsuranceWebsite.Controllers
 
         #region Search Operations
 
+        [FunctionalityAutorizeAttribute("SEARCH_GARAGES_FUNCTIONALITY")]
         public ActionResult SearchGarages(HomeViewModel model)
         {
             try
@@ -432,6 +498,7 @@ namespace InsuranceWebsite.Controllers
             return View("Index", model);
         }
 
+        [FunctionalityAutorizeAttribute("SEARCH_CLINICS_FUNCTIONALITY")]
         public ActionResult SearchClinics(HomeViewModel model)
         {
             try
@@ -451,6 +518,7 @@ namespace InsuranceWebsite.Controllers
             return View("Index", model);
         }
 
+        [FunctionalityAutorizeAttribute("SEARCH_CONSTRUCTIONCOMPANIES_FUNCTIONALITY")]
         public ActionResult SearchConstructionCompanies(HomeViewModel model)
         {
             try
@@ -470,6 +538,7 @@ namespace InsuranceWebsite.Controllers
             return View("Index", model);
         }
 
+        [FunctionalityAutorizeAttribute("SEARCH_APPLIANCEREPAIR_FUNCTIONALITY")]
         public ActionResult SearchHomeApplianceRepair(HomeViewModel model)
         {
             try
@@ -489,6 +558,7 @@ namespace InsuranceWebsite.Controllers
             return View("Index", model);
         }
 
+        [FunctionalityAutorizeAttribute("SEARCH_INSURANCECONTACTS_FUNCTIONALITY")]
         public ActionResult SearchInsuranceContacts(HomeViewModel model)
         {
             try
@@ -510,6 +580,7 @@ namespace InsuranceWebsite.Controllers
 
         #endregion Search Operations
 
+        [FunctionalityAutorizeAttribute("SETTINGS_FUNCTIONALITY")]
         public ActionResult Settings()
         {
             HomeViewModel model = new HomeViewModel();

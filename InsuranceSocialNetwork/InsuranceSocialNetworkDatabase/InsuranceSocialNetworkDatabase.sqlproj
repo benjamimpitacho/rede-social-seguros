@@ -95,6 +95,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="InsuranceSocialNetworkDatabase.publish.xml" />
+    <None Include="InitData\dummy_data.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="InitData\NotificationType.sql" />

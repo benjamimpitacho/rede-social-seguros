@@ -53,7 +53,7 @@
     @if (InsuranceBusiness.BusinessLayer.IsUserAuthorizedToFunctionality(this.User.Identity.Name, Functionality.ROLES_MANAGEMENT.ToString()))
     {
         <div class="item">
-            <a href="@Url.Action("RolesManagement", "Home")" title="@Resources.Resources.RolesManagement"><span class="glyphicon glyphicon-lock"></span></a>
+            <a href="@Url.Action("Index", "RolesManagement")" title="@Resources.Resources.RolesManagement"><span class="glyphicon glyphicon-lock"></span></a>
         </div>
     }
     @if (InsuranceBusiness.BusinessLayer.IsUserAuthorizedToFunctionality(this.User.Identity.Name, Functionality.ALERTS_MANAGEMENT.ToString()))
@@ -109,14 +109,15 @@
 
     .left .glyphicon {
         margin: 20px;
-        width: 20px;
         color: #05C0DE;
         border-color: #05C0DE;
         border-style: solid;
         border-width: medium;
         width: 40px;
-        padding: 6px;
+        height: 40px;
+        padding: 7px;
         border-radius: 32px;
+        font-size: smaller;
     }
 
     .right .glyphicon {

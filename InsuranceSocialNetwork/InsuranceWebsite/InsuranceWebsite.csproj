@@ -207,6 +207,7 @@
     <Compile Include="Commons\CommonUtils.cs" />
     <Compile Include="Commons\ConfigurationSettings.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\RolesManagementController.cs" />
     <Compile Include="Controllers\UsersManagementController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -216,6 +217,7 @@
     <Compile Include="Models\FriendsViewModels.cs" />
     <Compile Include="Models\SearchViewModels.cs" />
     <Compile Include="Models\MVCGridToolbarModel.cs" />
+    <Compile Include="Models\RolesManagementViewModels.cs" />
     <Compile Include="Models\UsersManagementViewModels.cs" />
     <Compile Include="Models\NotificationItemsViewModel.cs" />
     <Compile Include="Models\ProfileViewModels.cs" />
@@ -479,6 +481,7 @@
     <Content Include="Views\Home\Friends.cshtml" />
     <Content Include="Views\Home\Partial\SearchResult.cshtml" />
     <Content Include="Views\Home\Settings.cshtml" />
+    <Content Include="Views\RolesManagement\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

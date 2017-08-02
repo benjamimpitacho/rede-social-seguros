@@ -18,7 +18,6 @@ namespace InsuranceWebsite.Controllers
     [Authorize]
     public class UsersManagementController : Controller
     {
-        public static UserProfileDTO CurrentUser;
         MapperConfiguration mapperConfiguration = new MapperConfiguration(cfg =>
         {
             cfg.CreateMap<UserProfileDTO, UserProfileModelObject>();
@@ -33,20 +32,20 @@ namespace InsuranceWebsite.Controllers
         }
 
         [FunctionalityAutorizeAttribute("USERS_MANAGEMENT")]
-        public ActionResult Index(UsersManagementViewModel model)
-        {
-            model = new UsersManagementViewModel();
-
-            return View(model);
-        }
-
-        [FunctionalityAutorizeAttribute("USERS_MANAGEMENT")]
-        public ActionResult UsersManagement()
+        public ActionResult Index()
         {
             UsersManagementViewModel model = new UsersManagementViewModel();
 
             return View(model);
         }
+
+        //[FunctionalityAutorizeAttribute("USERS_MANAGEMENT")]
+        //public ActionResult UsersManagement()
+        //{
+        //    UsersManagementViewModel model = new UsersManagementViewModel();
+
+        //    return View(model);
+        //}
 
         [FunctionalityAutorizeAttribute("USERS_MANAGEMENT")]
         public JsonResult Get()

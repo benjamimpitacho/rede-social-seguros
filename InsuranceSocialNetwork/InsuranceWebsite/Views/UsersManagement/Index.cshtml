@@ -27,7 +27,7 @@
 
                         <!-- Timeline content -->
                         <div class="container container-timeline" style="margin:15px;">
-                            <div class="col-md-11 no-paddin-xs" style="background-color:white; padding:20px">
+                            <div class="col-md-11 no-paddin-xs" style="background-color:white; padding:20px;width:90%">
 
                                 @*<div id="jsGrid"></div>*@
 
@@ -86,6 +86,11 @@
         pageLastText: "Last",
         pageNavigatorNextText: "...",
         pageNavigatorPrevText: "...",
+
+        rowClick: function (args) {
+            var $row = this.rowByItem(args.item);
+            $row.toggleClass("highlight");
+        },
 
         deleteConfirm: "Do you really want to delete the user?",
 

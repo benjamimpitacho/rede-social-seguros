@@ -87,8 +87,14 @@
                                             <div class="col-xs-6">
                                                 @if (!Model.AlreadyFriends.Contains(profile.ID))
                                                 {
-                                                    @Html.ActionLink(Resources.Resources.Add, "AddFriend", new { id = profile.ID, searchTerm = Model.SearchTerm }, new { @class="btn btn-success btn-block", @style="border-radius:3px" })
+                                                    @*@Html.ActionLink(Resources.Resources.Add, "AddFriend", new { id = profile.ID, searchTerm = Model.SearchTerm }, new { @class="btn btn-success btn-block", @style="border-radius:3px" })*@
                                                     @*<a href="@Url.Action("AddFriend?id=" + profile.ID, "Home")" class="btn btn-success btn-block" style="border-radius:3px"><i class="fa fa-plus-round"></i>Add Friend</a>*@
+                                                    @*@Ajax.ActionLink("Test", "AddFriend", new AjaxOptions { HttpMethod = "Post", Url = Url.Action("AddFriend") })*@
+                                                    <a class="btn btn-success btn-block" style="border-radius:3px" id="btnAddFriend" onclick="addFriendFunction(this, @profile.ID)"><i class="fa fa-plus-round"></i>Add Friend</a>
+                                                    @*@Ajax.BeginForm("AddFriend", "Home", null, new AjaxOptions { HttpMethod="POST" }, new { id = profile.ID })
+                                                    {
+                                                        <input type="submit" value="Button" />
+                                                    }*@
                                                 }
                                             </div>
                                             <div class="col-xs-6">
@@ -152,5 +158,21 @@
     </div>
 
 </div><!-- end timeline content-->
+
+<script type="text/javascript">
+
+    function addFriendFunction(object, userId) {
+        object.style.display = "none";
+
+        jQuery.post('@Url.Action("AddFriend", "Home")',
+                { id: userId }
+            )
+            .done(function (data) {})
+            .fail(function () {
+                object.style.display = "block";
+            });
+    }
+
+</script>
 
 @Html.Partial("~/Views/Home/Partial/Footer.cshtml", Model)

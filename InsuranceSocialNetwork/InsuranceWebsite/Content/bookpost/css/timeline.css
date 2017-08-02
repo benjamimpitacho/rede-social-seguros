@@ -2335,11 +2335,14 @@ hr {
 .table thead > tr > th {
   border-bottom: 1px solid #C2C2C2;
   padding-bottom: 0;
+  background-color: #008fac;
+  color: white;
+  height: 50px;
 }
 .table tbody > tr > td {
   font-size: 0.875em;
-  background: #f5f5f5;
-  border-top: 10px solid #fff;
+  /*background: #f5f5f5;*/
+  /*border-top: 10px solid #fff;*/
   vertical-align: middle;
   padding: 12px 8px;
 }
@@ -2584,6 +2587,26 @@ a:hover, a:active, a:focus {
     padding: 4px;
 }
 
+.controlCell {
+    width: 200px;
+    text-align: center;
+}
+
+.dateCell {
+    width: 120px;
+    text-align: center;
+}
+
+.glyphicon {
+    /*color: #05C0DE;
+    border-color: #05C0DE;*/
+    border-style: solid;
+    border-width: medium;
+    width: 30px;
+    height: 30px;
+    padding: 7px;
+    border-radius: 32px;
+}
 
 @media (max-width:481px)  { 
     .welcome-title {

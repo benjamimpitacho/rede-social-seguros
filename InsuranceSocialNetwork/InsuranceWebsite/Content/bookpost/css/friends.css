@@ -48,6 +48,7 @@
     left: 50%;
     margin-left: -32px;
     top: -32px;
+    border-radius: 35px;
 }
 .img-md {
     width: 64px;
