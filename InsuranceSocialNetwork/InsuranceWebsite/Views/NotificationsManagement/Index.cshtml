@@ -1,0 +1,48 @@
+﻿@using InsuranceWebsite.Models
+@using MVCGrid.Web
+@model RolesManagementViewModel
+
+@{
+    ViewBag.Title = Resources.Resources.HomePageTitle;
+}
+
+@Styles.Render("~/Content/jsGrid")
+@Scripts.Render("~/Scripts/jsGrid")
+
+@*@Html.Partial("~/Views/Home/Partial/NavBar.cshtml", Model)*@
+
+<!-- Timeline content -->
+
+<div class="container" @*style="margin-top:50px;"*@>
+
+    <div class="col-md-12 no-paddin-xs" style="background-color:gainsboro">
+
+        <div class="row">
+
+            @Html.Partial("~/Views/Home/Partial/SideNavBar.cshtml", Model)
+
+            <div class="col-md-6 no-paddin-xs">
+                <div class="row">
+                    <div class="row">
+
+                        <!-- Timeline content -->
+                        <div class="container container-timeline" style="margin:15px;">
+                            <div class="col-md-11 no-paddin-xs" style="background-color:white; padding:20px;width:90%">
+
+                                @Html.MVCGrid("RolesManagementGrid")
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--end right  content-->
+
+        </div>
+
+    </div>
+
+</div><!-- end timeline content-->
+
+@Html.Partial("~/Views/Home/Partial/Footer.cshtml", Model)

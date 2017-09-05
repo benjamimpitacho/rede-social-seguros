@@ -89,6 +89,9 @@
     <Build Include="Tables\Friend.sql" />
     <Build Include="Tables\FriendStatus.sql" />
     <None Include="InitData\FriendStatus.sql" />
+    <Build Include="Tables\Chat.sql" />
+    <Build Include="Tables\ChatMessage.sql" />
+    <Build Include="Tables\ChatMember.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="InsuranceSocialNetworkDatabase.refactorlog" />

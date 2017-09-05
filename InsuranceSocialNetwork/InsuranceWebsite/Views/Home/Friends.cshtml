@@ -1,4 +1,5 @@
 ﻿@using InsuranceWebsite.Models
+@using InsuranceSocialNetworkDTO.UserProfile
 @model FriendsViewModel
 
 @{
@@ -23,537 +24,78 @@
 
             <div class="profile-info col-md-12 animated fadeInUp">
 
-                <div class="alert alert-info">
+                @*<div class="alert alert-info">
                     <strong>Info:</strong> Esta página ainda está em desenvolvimento.
-                </div>
+                </div>*@
 
-                <div class="col-md-3">
+                @foreach (UserProfileDTO friend in Model.Friends)
+                {
+                    <div class="col-md-3">
 
-                    <div class="panel widget">
+                        <div class="panel widget">
 
-                        <div class="widget-header bg-purple">
+                            <div class="widget-header bg-purple">
 
-                            <img class="widget-bg img-responsive" src="img/Photos/1.jpg" alt="Image">
+                                <img class="widget-bg img-responsive" src="img/Photos/1.jpg" alt="Image">
 
-                        </div>
+                            </div>
 
-                        <div class="widget-body text-center">
+                            <div class="widget-body text-center">
 
-                            <img alt="Profile Picture" class="widget-img img-border-light" src="img/Friends/woman-1.jpg">
+                                <img alt="Profile Picture" class="widget-img img-border-light" src="img/Friends/woman-1.jpg">
 
-                            <h4 class="mar-no">Lucy Moon</h4>
+                                <h4 class="mar-no">@friend.FirstName @friend.LastName</h4>
 
-                            <p class="text-muted mar-btm">Art Designer</p>
+                                <p class="text-muted mar-btm">@friend.User.UserName</p>
 
 
 
-                            <ul class="list-unstyled text-center pad-top mar-no clearfix">
+                                <ul class="list-unstyled text-center pad-top mar-no clearfix">
 
-                                <li class="col-xs-4">
+                                    <li class="col-xs-4">
 
-                                    <span class="text-lg">1,345</span>
+                                        <span class="text-lg">1,345</span>
 
-                                    <p class="text-muted text-uppercase">
+                                        <p class="text-muted text-uppercase">
 
-                                        <small>Following</small>
+                                            <small>Following</small>
 
-                                    </p>
+                                        </p>
 
-                                </li>
+                                    </li>
 
-                                <li class="col-xs-4">
+                                    <li class="col-xs-4">
 
-                                    <span class="text-lg">23,456</span>
+                                        <span class="text-lg">23,456</span>
 
-                                    <p class="text-muted text-uppercase">
+                                        <p class="text-muted text-uppercase">
 
-                                        <small>Followers</small>
+                                            <small>Followers</small>
 
-                                    </p>
+                                        </p>
 
-                                </li>
+                                    </li>
 
-                                <li class="col-xs-4">
+                                    <li class="col-xs-4">
 
-                                    <span class="text-lg">52,678</span>
+                                        <span class="text-lg">52,678</span>
 
-                                    <p class="text-muted text-uppercase">
+                                        <p class="text-muted text-uppercase">
 
-                                        <small>Likes</small>
+                                            <small>Likes</small>
 
-                                    </p>
+                                        </p>
 
-                                </li>
+                                    </li>
 
-                            </ul>
+                                </ul>
+
+                            </div>
 
                         </div>
 
                     </div>
-
-                </div>
-
-                <div class="col-md-3">
-
-                    <div class="panel widget">
-
-                        <div class="widget-header bg-purple">
-
-                            <img class="widget-bg img-responsive" src="img/Photos/2.jpg" alt="Image">
-
-                        </div>
-
-                        <div class="widget-body text-center">
-
-                            <img alt="Profile Picture" class="widget-img img-border-light" src="img/Friends/woman-2.jpg">
-
-                            <h4 class="mar-no">Lucy Moon</h4>
-
-                            <p class="text-muted mar-btm">Art Designer</p>
-
-
-
-                            <ul class="list-unstyled text-center pad-top mar-no clearfix">
-
-                                <li class="col-xs-4">
-
-                                    <span class="text-lg">1,345</span>
-
-                                    <p class="text-muted text-uppercase">
-
-                                        <small>Following</small>
-
-                                    </p>
-
-                                </li>
-
-                                <li class="col-xs-4">
-
-                                    <span class="text-lg">23,456</span>
-
-                                    <p class="text-muted text-uppercase">
-
-                                        <small>Followers</small>
-
-                                    </p>
-
-                                </li>
-
-                                <li class="col-xs-4">
-
-                                    <span class="text-lg">52,678</span>
-
-                                    <p class="text-muted text-uppercase">
-
-                                        <small>Likes</small>
-
-                                    </p>
-
-                                </li>
-
-                            </ul>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="col-md-3">
-
-                    <div class="panel widget">
-
-                        <div class="widget-header bg-purple">
-
-                            <img class="widget-bg img-responsive" src="img/Photos/3.jpg" alt="Image">
-
-                        </div>
-
-                        <div class="widget-body text-center">
-
-                            <img alt="Profile Picture" class="widget-img img-border-light" src="img/Friends/woman-3.jpg">
-
-                            <h4 class="mar-no">Lucy Moon</h4>
-
-                            <p class="text-muted mar-btm">Art Designer</p>
-
-
-
-                            <ul class="list-unstyled text-center pad-top mar-no clearfix">
-
-                                <li class="col-xs-4">
-
-                                    <span class="text-lg">1,345</span>
-
-                                    <p class="text-muted text-uppercase">
-
-                                        <small>Following</small>
-
-                                    </p>
-
-                                </li>
-
-                                <li class="col-xs-4">
-
-                                    <span class="text-lg">23,456</span>
-
-                                    <p class="text-muted text-uppercase">
-
-                                        <small>Followers</small>
-
-                                    </p>
-
-                                </li>
-
-                                <li class="col-xs-4">
-
-                                    <span class="text-lg">52,678</span>
-
-                                    <p class="text-muted text-uppercase">
-
-                                        <small>Likes</small>
-
-                                    </p>
-
-                                </li>
-
-                            </ul>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="col-md-3">
-
-                    <div class="panel widget">
-
-                        <div class="widget-header bg-purple">
-
-                            <img class="widget-bg img-responsive" src="img/Photos/4.jpg" alt="Image">
-
-                        </div>
-
-                        <div class="widget-body text-center">
-
-                            <img alt="Profile Picture" class="widget-img img-border-light" src="img/Friends/woman-4.jpg">
-
-                            <h4 class="mar-no">Lucy Moon</h4>
-
-                            <p class="text-muted mar-btm">Art Designer</p>
-
-
-
-                            <ul class="list-unstyled text-center pad-top mar-no clearfix">
-
-                                <li class="col-xs-4">
-
-                                    <span class="text-lg">1,345</span>
-
-                                    <p class="text-muted text-uppercase">
-
-                                        <small>Following</small>
-
-                                    </p>
-
-                                </li>
-
-                                <li class="col-xs-4">
-
-                                    <span class="text-lg">23,456</span>
-
-                                    <p class="text-muted text-uppercase">
-
-                                        <small>Followers</small>
-
-                                    </p>
-
-                                </li>
-
-                                <li class="col-xs-4">
-
-                                    <span class="text-lg">52,678</span>
-
-                                    <p class="text-muted text-uppercase">
-
-                                        <small>Likes</small>
-
-                                    </p>
-
-                                </li>
-
-                            </ul>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="col-md-3">
-
-                    <div class="panel widget">
-
-                        <div class="widget-header bg-purple">
-
-                            <img class="widget-bg img-responsive" src="img/Photos/5.jpg" alt="Image">
-
-                        </div>
-
-                        <div class="widget-body text-center">
-
-                            <img alt="Profile Picture" class="widget-img img-border-light" src="img/Friends/woman-5.jpg">
-
-                            <h4 class="mar-no">Lucy Moon</h4>
-
-                            <p class="text-muted mar-btm">Art Designer</p>
-
-
-
-                            <ul class="list-unstyled text-center pad-top mar-no clearfix">
-
-                                <li class="col-xs-4">
-
-                                    <span class="text-lg">1,345</span>
-
-                                    <p class="text-muted text-uppercase">
-
-                                        <small>Following</small>
-
-                                    </p>
-
-                                </li>
-
-                                <li class="col-xs-4">
-
-                                    <span class="text-lg">23,456</span>
-
-                                    <p class="text-muted text-uppercase">
-
-                                        <small>Followers</small>
-
-                                    </p>
-
-                                </li>
-
-                                <li class="col-xs-4">
-
-                                    <span class="text-lg">52,678</span>
-
-                                    <p class="text-muted text-uppercase">
-
-                                        <small>Likes</small>
-
-                                    </p>
-
-                                </li>
-
-                            </ul>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="col-md-3">
-
-                    <div class="panel widget">
-
-                        <div class="widget-header bg-purple">
-
-                            <img class="widget-bg img-responsive" src="img/Photos/6.jpg" alt="Image">
-
-                        </div>
-
-                        <div class="widget-body text-center">
-
-                            <img alt="Profile Picture" class="widget-img img-border-light" src="img/Friends/woman-6.jpg">
-
-                            <h4 class="mar-no">Lucy Moon</h4>
-
-                            <p class="text-muted mar-btm">Art Designer</p>
-
-
-
-                            <ul class="list-unstyled text-center pad-top mar-no clearfix">
-
-                                <li class="col-xs-4">
-
-                                    <span class="text-lg">1,345</span>
-
-                                    <p class="text-muted text-uppercase">
-
-                                        <small>Following</small>
-
-                                    </p>
-
-                                </li>
-
-                                <li class="col-xs-4">
-
-                                    <span class="text-lg">23,456</span>
-
-                                    <p class="text-muted text-uppercase">
-
-                                        <small>Followers</small>
-
-                                    </p>
-
-                                </li>
-
-                                <li class="col-xs-4">
-
-                                    <span class="text-lg">52,678</span>
-
-                                    <p class="text-muted text-uppercase">
-
-                                        <small>Likes</small>
-
-                                    </p>
-
-                                </li>
-
-                            </ul>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="col-md-3">
-
-                    <div class="panel widget">
-
-                        <div class="widget-header bg-purple">
-
-                            <img class="widget-bg img-responsive" src="img/Photos/7.jpg" alt="Image">
-
-                        </div>
-
-                        <div class="widget-body text-center">
-
-                            <img alt="Profile Picture" class="widget-img img-border-light" src="img/Friends/woman-7.jpg">
-
-                            <h4 class="mar-no">Lucy Moon</h4>
-
-                            <p class="text-muted mar-btm">Art Designer</p>
-
-
-
-                            <ul class="list-unstyled text-center pad-top mar-no clearfix">
-
-                                <li class="col-xs-4">
-
-                                    <span class="text-lg">1,345</span>
-
-                                    <p class="text-muted text-uppercase">
-
-                                        <small>Following</small>
-
-                                    </p>
-
-                                </li>
-
-                                <li class="col-xs-4">
-
-                                    <span class="text-lg">23,456</span>
-
-                                    <p class="text-muted text-uppercase">
-
-                                        <small>Followers</small>
-
-                                    </p>
-
-                                </li>
-
-                                <li class="col-xs-4">
-
-                                    <span class="text-lg">52,678</span>
-
-                                    <p class="text-muted text-uppercase">
-
-                                        <small>Likes</small>
-
-                                    </p>
-
-                                </li>
-
-                            </ul>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="col-md-3">
-
-                    <div class="panel widget">
-
-                        <div class="widget-header bg-purple">
-
-                            <img class="widget-bg img-responsive" src="img/Photos/8.jpg" alt="Image">
-
-                        </div>
-
-                        <div class="widget-body text-center">
-
-                            <img alt="Profile Picture" class="widget-img img-border-light" src="img/Friends/woman-8.jpg">
-
-                            <h4 class="mar-no">Lucy Moon</h4>
-
-                            <p class="text-muted mar-btm">Art Designer</p>
-
-
-
-                            <ul class="list-unstyled text-center pad-top mar-no clearfix">
-
-                                <li class="col-xs-4">
-
-                                    <span class="text-lg">1,345</span>
-
-                                    <p class="text-muted text-uppercase">
-
-                                        <small>Following</small>
-
-                                    </p>
-
-                                </li>
-
-                                <li class="col-xs-4">
-
-                                    <span class="text-lg">23,456</span>
-
-                                    <p class="text-muted text-uppercase">
-
-                                        <small>Followers</small>
-
-                                    </p>
-
-                                </li>
-
-                                <li class="col-xs-4">
-
-                                    <span class="text-lg">52,678</span>
-
-                                    <p class="text-muted text-uppercase">
-
-                                        <small>Likes</small>
-
-                                    </p>
-
-                                </li>
-
-                            </ul>
-
-                        </div>
-
-                    </div>
-
-                </div>
+                }
 
             </div>
 

@@ -842,6 +842,7 @@ small, .small {
 
 .chat-message {
   padding: 60px 20px 115px;
+  width: inherit;
 }
 
 .chat {
@@ -1228,7 +1229,7 @@ div.about-tab div.about-tab-content:not(.active){
 /*======== Profile page ================================*/
 
 .profile-nav, .profile-info{
-    margin-top:15px;   
+    margin-top:15px;
 }
 
 .profile-nav .user-heading {
@@ -2549,7 +2550,7 @@ a:hover, a:active, a:focus {
 }
 
 .input-validation-error {
-    border-color: green !important;
+    border-color: red !important;
 }
 
 .cover-container {

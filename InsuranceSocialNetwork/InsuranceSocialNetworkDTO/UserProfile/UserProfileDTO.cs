@@ -20,7 +20,9 @@ namespace InsuranceSocialNetworkDTO.UserProfile
         public string Telephone_2 { get; set; }
         public string Address { get; set; }
         public Nullable<long> ID_PostalCode { get; set; }
-        public string ProfilePhoto { get; set; }
+        public byte[] ProfilePhoto { get; set; }
+        public string Website { get; set; }
+        public string AboutMe { get; set; }
         public System.DateTime CreateDate { get; set; }
         public System.DateTime LastChangeDate { get; set; }
         public Nullable<System.DateTime> DeleteDate { get; set; }

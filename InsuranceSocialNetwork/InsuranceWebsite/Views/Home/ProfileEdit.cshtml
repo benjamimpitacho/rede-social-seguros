@@ -1,0 +1,301 @@
+﻿@using InsuranceWebsite.Models
+@model ProfileEditModel
+
+@{
+    ViewBag.Title = Resources.Resources.ProfilePageTitle;
+
+    var base64 = Convert.ToBase64String(Model.ProfilePhoto);
+    var imgSrc = String.Format("data:image/png;base64,{0}", base64);
+}
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+
+@Html.Partial("~/Views/Home/Partial/NavBar.cshtml", Model)
+
+<!-- Timeline content -->
+<div class="container">
+
+    <div class="col-md-12 no-paddin-xs" style="background-color:ghostwhite">
+
+        <div class="row" style="display:flex">
+
+            @Html.Partial("~/Views/Home/Partial/SideNavBar.cshtml", Model)
+
+            <div class="col-md-12 animated fadeInUp">
+
+                <div class="row" style="margin-top: 20px;">
+                    <div class="col-md-12">
+                        <div class="main-content animated fadeInUp">
+                            <ul class="nav nav-tabs nav-tabs-custom-colored tabs-iconized">
+                                <li class="active">
+                                    <a href="#profile-tab" data-toggle="tab" aria-expanded="false">
+                                        <i class="fa fa-user"></i> @Resources.Resources.UserProfile
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a href="#settings-tab" data-toggle="tab" aria-expanded="false">
+                                        <i class="fa fa-gear"></i> @Resources.Resources.Settings
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="tab-content profile-page">
+                                <div class="tab-pane profile active" id="profile-tab">
+                                    @using (Html.BeginForm("ProfileSave", "Home", FormMethod.Post, new { @class = "", enctype = "multipart/form-data" }))
+                                    {
+                                        @Html.HiddenFor(i => i.ID)
+                                        <div class="row">
+                                            <div class="col-md-3">
+
+                                                <div class="user-info-left">
+                                                    <input type="file" name="fileUploaderControl" id="fileUploaderControl" style="display:none;">
+                                                    @if (null == Model.ProfilePhoto || Model.ProfilePhoto.Length == 0)
+                                                    {
+                                                        <img src="~/Content/images/no_photo_img.jpg" class="avatar img-circle">
+                                                    }
+                                                    else
+                                                    {
+                                                        <img src="@imgSrc" class="avatar img-circle">
+                                                    }
+
+                                                    <h2>@Model.Profile.FirstName @Model.Profile.LastName <i class="fa fa-circle green-font online-icon"></i><sup class="sr-only">online</sup></h2>
+                                                    <div class="contact">
+                                                        <div class="action-buttons">
+                                                            <div class="row" style="margin-left:20%;margin-right:20%">
+                                                                <div class="col-xs-12">
+                                                                    <input type="submit" class="btn btn-success btn-block" value="@Resources.Resources.Save" />
+                                                                    @Html.ActionLink(Resources.Resources.Cancel, "ProfileInfo", new { id = Model.Profile.ID }, new { @class = "btn btn-default btn-block" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <ul class="list-inline social">
+                                                            <li><a href="#" title="Facebook"><i class="fa fa-facebook-square"></i></a></li>
+                                                            <li><a href="#" title="Twitter"><i class="fa fa-twitter-square"></i></a></li>
+                                                            <li><a href="#" title="Google Plus"><i class="fa fa-google-plus-square"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-9">
+
+                                                <div class="user-info-right">
+                                                    <div class="basic-info">
+                                                        <h3><i class="fa fa-square"></i> @Resources.Resources.BasicInformation</h3>
+                                                        <p class="data-row">
+                                                            <span class="data-name">@Resources.Resources.FirstName</span>
+                                                            @Html.TextBoxFor(i => i.FirstName, new { @class = "form-control" })
+                                                            @Html.ValidationMessageFor(i => i.FirstName)
+                                                        </p>
+                                                        <p class="data-row">
+                                                            <span class="data-name">@Resources.Resources.LastName</span>
+                                                            @Html.TextBoxFor(i => i.LastName, new { @class = "form-control" })
+                                                            @Html.ValidationMessageFor(i => i.LastName)
+                                                        </p>
+                                                        <p class="data-row">
+                                                            <span class="data-name">@Resources.Resources.BirthDate</span>
+                                                            @Html.TextBoxFor(i => i.Birthdate, new { @class = "form-control" })
+                                                        </p>
+                                                        <p class="data-row">
+                                                            <span class="data-name">@Resources.Resources.DateJoined</span>
+                                                            <label class="form-control">@Html.DisplayTextFor(i => i.Profile.CreateDate)</label>
+                                                        </p>
+                                                    </div>
+                                                    <div class="contact_info">
+                                                        <h3><i class="fa fa-square"></i> @Resources.Resources.ContactInformation</h3>
+                                                        <p class="data-row">
+                                                            <span class="data-name">@Resources.Resources.ContactEmail</span>
+                                                            @Html.TextBoxFor(i => i.ContactEmail, new { @class = "form-control" })
+                                                            @Html.ValidationMessageFor(i => i.ContactEmail)
+                                                        </p>
+                                                        <p class="data-row">
+                                                            <span class="data-name">@Resources.Resources.Website</span>
+                                                            @Html.TextBoxFor(i => i.Website, new { @class = "form-control" })
+                                                            @Html.ValidationMessageFor(i => i.Website)
+                                                        </p>
+                                                        <p class="data-row">
+                                                            <span class="data-name">@Resources.Resources.Telephone_1</span>
+                                                            @Html.TextBoxFor(i => i.Telephone_1, new { @class = "form-control" })
+                                                        </p>
+                                                        <p class="data-row">
+                                                            <span class="data-name">@Resources.Resources.Telephone_2</span>
+                                                            @Html.TextBoxFor(i => i.Telephone_2, new { @class = "form-control" })
+                                                        </p>
+                                                        <p class="data-row">
+                                                            <span class="data-name">@Resources.Resources.MobilePhone_1</span>
+                                                            @Html.TextBoxFor(i => i.MobilePhone_1, new { @class = "form-control" })
+                                                        </p>
+                                                        <p class="data-row">
+                                                            <span class="data-name">@Resources.Resources.MobilePhone_2</span>
+                                                            @Html.TextBoxFor(i => i.MobilePhone_2, new { @class = "form-control" })
+                                                        </p>
+                                                        <p class="data-row">
+                                                            <span class="data-name">@Resources.Resources.Address</span>
+                                                            @Html.TextBoxFor(i => i.Address, new { @class = "form-control" })
+                                                        </p>
+                                                    </div>
+                                                    <div class="about">
+                                                        <h3><i class="fa fa-square"></i> @Resources.Resources.AboutMe</h3>
+                                                        @Html.TextAreaFor(i => i.AboutMe, new { @class = "form-control aboutme" })
+                                                        <p></p>
+                                                    </div>
+                                                    <div class="about">
+                                                        <h3><i class="fa fa-square"></i> @Resources.Resources.Statistics</h3>
+                                                        <p><span class="badge">332</span> Following</p>
+                                                        <p><span class="badge">124</span> Followers</p>
+                                                        <p><span class="badge">620</span> Likes</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                                <div class="tab-pane settings" id="settings-tab">
+                                    @using (Html.BeginForm("ProfileSettingsSave", "Home", FormMethod.Post, new { @class = "" }))
+                                    {
+                                        @Html.HiddenFor(i => i.ID)
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+
+                                                <div class="user-info-right">
+                                                    <div class="password-info">
+                                                        <h3><i class="fa fa-square"></i> @Resources.Resources.ChangePassword</h3>
+                                                        <p class="data-row">
+                                                            <span class="data-name">@Resources.Resources.OldPassword</span>
+                                                            @Html.TextBoxFor(i => i.Settings.OldPassword, new { @class = "form-control" })
+                                                            @Html.ValidationMessageFor(i => i.Settings.OldPassword)
+                                                        </p>
+                                                        <p class="data-row">
+                                                            <span class="data-name">@Resources.Resources.NewPassword</span>
+                                                            @Html.TextBoxFor(i => i.Settings.NewPassword, new { @class = "form-control" })
+                                                            @Html.ValidationMessageFor(i => i.Settings.NewPassword)
+                                                        </p>
+                                                        <p class="data-row">
+                                                            <span class="data-name">@Resources.Resources.RepeatPassword</span>
+                                                            @Html.TextBoxFor(i => i.Settings.RepeatPassword, new { @class = "form-control" })
+                                                            @Html.ValidationMessageFor(i => i.Settings.RepeatPassword)
+                                                        </p>
+                                                    </div>
+                                                    <div class="privacy_info">
+                                                        <h3><i class="fa fa-square"></i> @Resources.Resources.Privacy</h3>
+                                                        <p class="data-row">
+                                                            <span class="data-name">@Resources.Resources.ShowDisplayName</span>
+                                                            @Html.CheckBoxFor(i => i.Settings.ShowDisplayName, new { @class = "form-control" })
+                                                        </p>
+                                                        <p class="data-row">
+                                                            <span class="data-name">@Resources.Resources.ShowBirthDate</span>
+                                                            @Html.CheckBoxFor(i => i.Settings.ShowBirthDate, new { @class = "form-control" })
+                                                        </p>
+                                                        <p class="data-row">
+                                                            <span class="data-name">@Resources.Resources.ShowContactInformation</span>
+                                                            @Html.CheckBoxFor(i => i.Settings.ShowContactInformation, new { @class = "form-control" })
+                                                        </p>
+                                                        <p class="data-row">
+                                                            <span class="data-name">@Resources.Resources.ShowOnlineStatus</span>
+                                                            @Html.CheckBoxFor(i => i.Settings.ShowOnlineStatus, new { @class = "form-control" })
+                                                        </p>
+                                                    </div>
+                                                    <div class="notifications_info">
+                                                        <h3><i class="fa fa-square"></i> @Resources.Resources.Notifications</h3>
+                                                        <p class="data-row">
+                                                            <span class="data-name">@Resources.Resources.LikesOnYourPosts</span>
+                                                            @Html.CheckBoxFor(i => i.Settings.LikesOnYourPosts, new { @class = "form-control" })
+                                                        </p>
+                                                        <p class="data-row">
+                                                            <span class="data-name">@Resources.Resources.CommentsOnYourPosts</span>
+                                                            @Html.CheckBoxFor(i => i.Settings.CommentsOnYourPosts, new { @class = "form-control" })
+                                                        </p>
+                                                        <p></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="action-buttons">
+                                            <div class="row" style="margin-left:30%;margin-right:30%">
+                                                <div class="col-xs-12">
+                                                    <input type="submit" class="btn btn-success btn-block" value="@Resources.Resources.Save" />
+                                                    @Html.ActionLink(Resources.Resources.Cancel, "ProfileInfo", new { id = Model.Profile.ID }, new { @class = "btn btn-default btn-block" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div><!-- end timeline content-->
+
+<script type="text/javascript">
+
+    //Hooking the click of the fileupload control with Image.
+    $(document).ready(function () {
+        $('#profileImage').click(function () {
+            $('#fileUploaderControl').click();
+        });
+    });
+
+    //Using FileReader to convert the image as dataurl.
+    $(document).ready(function () {
+        $("#fileUploaderControl").change(function () {
+            var file = document.getElementById("fileUploaderControl").files[0];
+            var readImg = new FileReader();
+            readImg.readAsDataURL(file);
+            readImg.onload = function (e) {
+                $('#profileImage').attr('src', e.target.result).fadeIn();
+            }
+        });
+    });
+
+</script>
+
+<style>
+    #container .modal.fade {
+        left: -25%;
+        -webkit-transition: opacity 0.3s linear, left 0.3s ease-out;
+        -moz-transition: opacity 0.3s linear, left 0.3s ease-out;
+        -o-transition: opacity 0.3s linear, left 0.3s ease-out;
+        transition: opacity 0.3s linear, left 0.3s ease-out;
+    }
+
+        #container .modal.fade.in {
+            left: 50%;
+        }
+
+    #container .modal-body {
+        max-height: 50px;
+    }
+
+    #article-editor {
+        width: 600px;
+        margin-left: -300px;
+        margin-right: -300px;
+    }
+
+    .data-row .data-name {
+        padding: 10px 5px 10px 5px;
+    }
+
+    .form-control {
+        max-width: 30%;
+        display: inline-flex;
+    }
+
+    .aboutme {
+        max-width: 100%;
+        max-height: 200px;
+    }
+
+    label.form-control {
+        font-weight: 500;
+    }
+</style>
+
+@Html.Partial("~/Views/Home/Partial/Footer.cshtml", Model)

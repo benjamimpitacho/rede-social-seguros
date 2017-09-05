@@ -66,6 +66,15 @@
       <DependentUpon>InsuranceDatabaseEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="BackofficeUnitOfWork.cs" />
+    <Compile Include="Chat.cs">
+      <DependentUpon>InsuranceDatabaseEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ChatMember.cs">
+      <DependentUpon>InsuranceDatabaseEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ChatMessage.cs">
+      <DependentUpon>InsuranceDatabaseEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Core\IRepository.cs" />
     <Compile Include="Core\Repository.cs" />
     <Compile Include="Core\UnitOfWork.cs" />
@@ -110,6 +119,7 @@
     <Compile Include="PostImage.cs">
       <DependentUpon>InsuranceDatabaseEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="ChatRepository.cs" />
     <Compile Include="PostRepository.cs" />
     <Compile Include="NotificationType.cs">
       <DependentUpon>InsuranceDatabaseEntities.tt</DependentUpon>

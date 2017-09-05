@@ -21,12 +21,15 @@ namespace InsuranceSocialNetworkDAL
             this.Notification = new HashSet<Notification>();
             this.PostComment = new HashSet<PostComment>();
             this.PostLike = new HashSet<PostLike>();
-            this.Profile = new HashSet<Profile>();
             this.AspNetRoles = new HashSet<AspNetRoles>();
             this.PostCommentLike = new HashSet<PostCommentLike>();
             this.Post = new HashSet<Post>();
             this.Friend = new HashSet<Friend>();
             this.Friend1 = new HashSet<Friend>();
+            this.Chat = new HashSet<Chat>();
+            this.ChatMember = new HashSet<ChatMember>();
+            this.ChatMessage = new HashSet<ChatMessage>();
+            this.Profile = new HashSet<Profile>();
         }
     
         public string Id { get; set; }
@@ -51,8 +54,6 @@ namespace InsuranceSocialNetworkDAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PostLike> PostLike { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Profile> Profile { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetRoles> AspNetRoles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PostCommentLike> PostCommentLike { get; set; }
@@ -62,5 +63,13 @@ namespace InsuranceSocialNetworkDAL
         public virtual ICollection<Friend> Friend { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Friend> Friend1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Chat> Chat { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ChatMember> ChatMember { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ChatMessage> ChatMessage { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Profile> Profile { get; set; }
     }
 }

@@ -15,5 +15,55 @@ namespace InsuranceWebsite.Models
 
         public int TotalUnreadNotifications { get { return null == Notifications ? 0 : Notifications.Count(i => !i.Read); } }
 
+        public bool OwnProfile { get; set; }
+    }
+
+    public class ProfileEditModel : ProfileViewModel
+    {
+        public long ID { get; set; }
+        public string ID_User { get; set; }
+        [Required]
+        public string FirstName { get; set; }
+        [Required]
+        public string LastName { get; set; }
+        [EmailAddress]
+        public string ContactEmail { get; set; }
+        public System.DateTime? Birthdate { get; set; }
+        public string MobilePhone_1 { get; set; }
+        public string MobilePhone_2 { get; set; }
+        public string Telephone_1 { get; set; }
+        public string Telephone_2 { get; set; }
+        public string Address { get; set; }
+        public long? ID_PostalCode { get; set; }
+        public byte[] ProfilePhoto { get; set; }
+        [Url]
+        public string Website { get; set; }
+        public string AboutMe { get; set; }
+        public System.DateTime CreateDate { get; set; }
+        public System.DateTime LastChangeDate { get; set; }
+        public bool Active { get; set; }
+
+        public ProfileSettingsModel Settings { get; set; }
+    }
+
+    public class ProfileSettingsModel
+    {
+        #region Password
+        public string OldPassword { get; set; }
+        public string NewPassword { get; set; }
+        public string RepeatPassword { get; set; }
+        #endregion Password
+
+        #region Privacy
+        public bool ShowDisplayName { get; set; }
+        public bool ShowBirthDate { get; set; }
+        public bool ShowContactInformation { get; set; }
+        public bool ShowOnlineStatus { get; set; }
+        #endregion Privacy
+
+        #region Notifications
+        public bool LikesOnYourPosts { get; set; }
+        public bool CommentsOnYourPosts { get; set; }
+        #endregion Notifications
     }
 }

@@ -40,6 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Chat\ChatMemberDTO.cs" />
+    <Compile Include="Chat\ChatMessageDTO.cs" />
+    <Compile Include="Chat\ChatDTO.cs" />
     <Compile Include="Garage\GarageDTO.cs" />
     <Compile Include="MedicalClinic\MedicalClinicDTO.cs" />
     <Compile Include="Notification\NotificationTypeDTO.cs" />

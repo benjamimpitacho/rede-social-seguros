@@ -3,7 +3,12 @@
 
 @{
     ViewBag.Title = Resources.Resources.ProfilePageTitle;
+
+    var base64 = Convert.ToBase64String(Model.Profile.ProfilePhoto);
+    var imgSrc = String.Format("data:image/png;base64,{0}", base64);
 }
+
+
 
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/jqueryval")
@@ -19,312 +24,204 @@
 
             @Html.Partial("~/Views/Home/Partial/SideNavBar.cshtml", Model)
 
-            <div class="profile-info col-md-12 animated fadeInUp">
+            <div class="col-md-12 animated fadeInUp">
 
-                <div class="alert alert-info">
-                    <strong>Info:</strong> Esta página ainda está em desenvolvimento.
-                </div>
-
-                @*<div class="profile-header-background">
-                    <img src="~/Content/images/default_profile_header.png" alt="Profile Header Background">
-                </div>*@
                 <div class="row" style="margin-top: 20px;">
-                    <div class="col-md-4">
-                        <div class="profile-info-left">
-                            <div class="text-center">
-                                <img src="~/Content/images/no_photo_img.jpg" alt="Avatar" class="avatar img-circle">
-                                <h2>@Model.Profile.FirstName @Model.Profile.LastName</h2>
-                            </div>
-                            <div class="action-buttons">
-                                <div class="row">
-                                    <div class="col-xs-6">
-                                        <a href="#" class="btn btn-success btn-block"><i class="fa fa-plus-round"></i> Add Friend</a>
-                                    </div>
-                                    <div class="col-xs-6">
-                                        <a href="#" class="btn btn-primary btn-block"><i class="fa fa-android-mail"></i> Message</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="section">
-                                <h3>About Me</h3>
-                                <p>Energistically administrate 24/7 portals and enabled catalysts for change. Objectively revolutionize client-centered e-commerce via covalent scenarios. Continually envisioneer.</p>
-                            </div>
-                            <div class="section">
-                                <h3>Statistics</h3>
-                                <p><span class="badge">332</span> Following</p>
-                                <p><span class="badge">124</span> Followers</p>
-                                <p><span class="badge">620</span> Likes</p>
-                            </div>
-                            <div class="section">
-                                <h3>Social</h3>
-                                <ul class="list-unstyled list-social">
-                                    <li><a href="#"><i class="fa fa-twitter"></i> jackbay</a></li>
-                                    <li><a href="#"><i class="fa fa-facebook"></i> Jack Bay</a></li>
-                                    <li><a href="#"><i class="fa fa-dribbble"></i> jackdribs</a></li>
-                                    <li><a href="#"><i class="fa fa-linkedin"></i> Jack Bay</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-8">
-                        <div class="profile-info-right">
-                            @*<ul class="nav nav-pills nav-pills-custom-minimal custom-minimal-bottom">
-                                <li class="active"><a href="#activities" data-toggle="tab">ACTIVITIES</a></li>
-                                <li><a href="#followers" data-toggle="tab">FOLLOWERS</a></li>
-                                <li><a href="#following" data-toggle="tab">FOLLOWING</a></li>
-                            </ul>*@
-                            <div class="tab-content">
-                                <!-- activities -->
-                                <div class="tab-pane fade in active" id="activities">
-                                    <div class="media activity-item">
-                                        <a href="#" class="pull-left">
-                                            <img src="img/Friends/guy-2.jpg" alt="Avatar" class="media-object avatar">
+                    <div class="col-md-12">
+                        <div class="main-content animated fadeInUp">
+                            <ul class="nav nav-tabs nav-tabs-custom-colored tabs-iconized">
+                                <li class="active">
+                                    <a href="#profile-tab" data-toggle="tab" aria-expanded="false">
+                                        <i class="fa fa-user"></i> @Resources.Resources.UserProfile
+                                    </a>
+                                </li>
+                                @if (Model.OwnProfile)
+                                {
+                                    <li class="">
+                                        <a href="#settings-tab" data-toggle="tab" aria-expanded="true">
+                                            <i class="fa fa-gear"></i> @Resources.Resources.Settings
                                         </a>
-                                        <div class="media-body">
-                                            <p class="activity-title"><a href="#">Antonius</a> started following <a href="#">Jack Bay</a> <small class="text-muted">- 2m ago</small></p>
-                                            <small class="text-muted">Today 08:30 am - 02.05.2014</small>
-                                        </div>
-                                        <div class="btn-group pull-right activity-actions">
-                                            <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown">
-                                                <i class="fa fa-th"></i>
-                                                <span class="sr-only">Toggle Dropdown</span>
-                                            </button>
-                                            <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                                                <li><a href="#">I don't want to see this</a></li>
-                                                <li><a href="#">Unfollow Antonius</a></li>
-                                                <li class="divider"></li>
-                                                <li><a href="#">Get Notification</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="media activity-item">
-                                        <a href="#" class="pull-left">
-                                            <img src="img/Friends/guy-2.jpg" alt="Avatar" class="media-object avatar">
-                                        </a>
-                                        <div class="media-body">
-                                            <p class="activity-title"><a href="#">Jane Doe</a> likes <a href="#">Jack Bay</a> <small class="text-muted">- 36m ago</small></p>
-                                            <small class="text-muted">Today 07:23 am - 02.05.2014</small>
-                                        </div>
-                                        <div class="btn-group pull-right activity-actions">
-                                            <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown">
-                                                <i class="fa fa-th"></i>
-                                                <span class="sr-only">Toggle Dropdown</span>
-                                            </button>
-                                            <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                                                <li><a href="#">I don't want to see this</a></li>
-                                                <li><a href="#">Unfollow Jane Doe</a></li>
-                                                <li class="divider"></li>
-                                                <li><a href="#">Get Notification</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="media activity-item">
-                                        <a href="#" class="pull-left">
-                                            <img src="img/Friends/guy-2.jpg" alt="Avatar" class="media-object avatar">
-                                        </a>
-                                        <div class="media-body">
-                                            <p class="activity-title"><a href="#">Michael</a> posted something for <a href="#">Jack Bay</a> <small class="text-muted">- 1h ago</small></p>
-                                            <small class="text-muted">Today 07:23 am - 02.05.2014</small>
-                                            <div class="activity-attachment">
-                                                <div class="well well-sm">
-                                                    Professionally evolve corporate services without ethical leadership. Proactively re-engineer client-focused infrastructures before alternative potentialities. Competently predominate just in time e-tailers for leveraged solutions. Intrinsicly initiate end-to-end collaboration and idea-sharing after 24/365 ROI. Rapidiously.
+                                    </li>
+                                }
+                                @*<li class="">
+                                    <a href="#activity-tab" data-toggle="tab" aria-expanded="true">
+                                        <i class="fa fa-rss"></i> Recent Activity
+                                    </a>
+                                </li>*@
+                            </ul>
+                            <div class="tab-content profile-page">
+                                <div class="tab-pane profile active" id="profile-tab">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            
+                                            <div class="user-info-left">
+                                                @if (null == Model.Profile.ProfilePhoto || Model.Profile.ProfilePhoto.Length == 0)
+                                                {
+                                                    <img src="~/Content/images/no_photo_img.jpg" class="avatar img-circle">
+                                                }
+                                                else
+                                                {
+                                                    <img src="@imgSrc" class="avatar img-circle">
+                                                }
+                                                
+                                                <h2>@Model.Profile.FirstName @Model.Profile.LastName <i class="fa fa-circle green-font online-icon"></i><sup class="sr-only">online</sup></h2>
+                                                <div class="contact">
+                                                    @if (!Model.OwnProfile)
+                                                    {
+                                                        <div class="action-buttons">
+                                                            <div class="row" style="margin-left:20%;margin-right:20%">
+                                                                <div class="col-xs-6">
+                                                                    <a class="btn btn-success btn-block" onclick="addFriendFunction(this, @Model.Profile.ID)"><i class="fa fa-plus-round"></i>@Resources.Resources.AddFriend</a>
+                                                                </div>
+                                                                <div class="col-xs-6">
+                                                                    @Html.ActionLink(Resources.Resources.SendMessage, "SendMessage", new { id = Model.Profile.ID }, new { @class = "btn btn-primary btn-block" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="action-buttons">
+                                                            <div class="row" style="margin-left:20%;margin-right:20%">
+                                                                <div class="col-xs-12">
+                                                                    @Html.ActionLink(Resources.Resources.Edit, "ProfileEdit", new { id = Model.Profile.ID }, new { @class = "btn btn-success btn-block" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    <ul class="list-inline social">
+                                                        <li><a href="#" title="Facebook"><i class="fa fa-facebook-square"></i></a></li>
+                                                        <li><a href="#" title="Twitter"><i class="fa fa-twitter-square"></i></a></li>
+                                                        <li><a href="#" title="Google Plus"><i class="fa fa-google-plus-square"></i></a></li>
+                                                    </ul>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="btn-group pull-right activity-actions">
-                                            <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown">
-                                                <i class="fa fa-th"></i>
-                                                <span class="sr-only">Toggle Dropdown</span>
-                                            </button>
-                                            <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                                                <li><a href="#">I don't want to see this</a></li>
-                                                <li><a href="#">Unfollow Michael</a></li>
-                                                <li class="divider"></li>
-                                                <li><a href="#">Get Notification</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="media activity-item">
-                                        <a href="#" class="pull-left">
-                                            <img src="img/Friends/guy-2.jpg" alt="Avatar" class="media-object avatar">
-                                        </a>
-                                        <div class="media-body">
-                                            <p class="activity-title"><a href="#">Jack Bay</a> has uploaded two photos <small class="text-muted">- Yesterday</small></p>
-                                            <small class="text-muted">Yesterday 06:42 pm - 01.05.2014</small>
-                                            <div class="activity-attachment">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <a href="#" class="thumbnail">
-                                                            <img src="img/Friends/guy-2.jpg" alt="Uploaded photo">
-                                                        </a>
-                                                    </div>
+                                        <div class="col-md-9">
+                                            
+                                            <div class="user-info-right">
+                                                <div class="basic-info">
+                                                    <h3><i class="fa fa-square"></i> @Resources.Resources.BasicInformation</h3>
+                                                    <p class="data-row">
+                                                        <span class="data-name">@Resources.Resources.FirstName</span>
+                                                        <label class="form-control">@Html.DisplayTextFor(i => i.Profile.FirstName)</label>
+                                                    </p>
+                                                    <p class="data-row">
+                                                        <span class="data-name">@Resources.Resources.LastName</span>
+                                                        <label class="form-control">@Html.DisplayTextFor(i => i.Profile.LastName)</label>
+                                                    </p>
+                                                    <p class="data-row">
+                                                        <span class="data-name">@Resources.Resources.BirthDate</span>
+                                                        <label class="form-control">@Html.DisplayTextFor(i => i.Profile.Birthdate)</label>
+                                                    </p>
+                                                    <p class="data-row">
+                                                        <span class="data-name">@Resources.Resources.DateJoined</span>
+                                                        <label class="form-control">@Html.DisplayTextFor(i => i.Profile.CreateDate)</label>
+                                                    </p>
+                                                </div>
+                                                <div class="contact_info">
+                                                    <h3><i class="fa fa-square"></i> @Resources.Resources.ContactInformation</h3>
+                                                    <p class="data-row">
+                                                        <span class="data-name">@Resources.Resources.ContactEmail</span>
+                                                        <label class="form-control"><a href="mailto:@Html.DisplayTextFor(i => i.Profile.ContactEmail)" target="_blank">@Html.DisplayTextFor(i => i.Profile.ContactEmail)</a></label>
+                                                    </p>
+                                                    <p class="data-row">
+                                                        <span class="data-name">@Resources.Resources.Website</span>
+                                                        <label class="form-control"><a href="@Html.DisplayTextFor(i => i.Profile.Website)" target="_blank">@Html.DisplayTextFor(i => i.Profile.Website)</a></label>
+                                                    </p>
+                                                    <p class="data-row">
+                                                        <span class="data-name">@Resources.Resources.Telephone_1</span>
+                                                        <label class="form-control">@Html.DisplayTextFor(i => i.Profile.Telephone_1)</label>
+                                                    </p>
+                                                    <p class="data-row">
+                                                        <span class="data-name">@Resources.Resources.Telephone_2</span>
+                                                        <label class="form-control">@Html.DisplayTextFor(i => i.Profile.Telephone_2)</label>
+                                                    </p>
+                                                    <p class="data-row">
+                                                        <span class="data-name">@Resources.Resources.MobilePhone_1</span>
+                                                        <label class="form-control">@Html.DisplayTextFor(i => i.Profile.MobilePhone_1)</label>
+                                                    </p>
+                                                    <p class="data-row">
+                                                        <span class="data-name">@Resources.Resources.MobilePhone_2</span>
+                                                        <label class="form-control">@Html.DisplayTextFor(i => i.Profile.MobilePhone_2)</label>
+                                                    </p>
+                                                    <p class="data-row">
+                                                        <span class="data-name">@Resources.Resources.Address</span>
+                                                        <label class="form-control">@Html.DisplayTextFor(i => i.Profile.Address)</label>
+                                                    </p>
+                                                </div>
+                                                <div class="about">
+                                                    <h3><i class="fa fa-square"></i> @Resources.Resources.AboutMe</h3>
+                                                    @Html.TextAreaFor(i => i.Profile.AboutMe, new { @class = "form-control aboutme", @disabled="disabled" })
+                                                    <p></p>
+                                                </div>
+                                                <div class="about">
+                                                    <h3><i class="fa fa-square"></i> @Resources.Resources.Statistics</h3>
+                                                    <p><span class="badge">332</span> Following</p>
+                                                    <p><span class="badge">124</span> Followers</p>
+                                                    <p><span class="badge">620</span> Likes</p>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="btn-group pull-right activity-actions">
-                                            <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown">
-                                                <i class="fa fa-th"></i>
-                                                <span class="sr-only">Toggle Dropdown</span>
-                                            </button>
-                                            <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                                                <li><a href="#">I don't want to see this</a></li>
-                                                <li><a href="#">Unfollow Jack Bay</a></li>
-                                                <li class="divider"></li>
-                                                <li><a href="#">Get Notification</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="media activity-item">
-                                        <a href="#" class="pull-left">
-                                            <img src="img/Friends/guy-2.jpg" alt="Avatar" class="media-object avatar">
-                                        </a>
-                                        <div class="media-body">
-                                            <p class="activity-title"><a href="#">Jack Bay</a> has changed his profile picture <small class="text-muted">- 2 days ago</small></p>
-                                            <small class="text-muted">2 days ago 05:42 pm - 30.04.2014</small>
-                                            <div class="activity-attachment">
-                                                <a href="#" class="thumbnail">
-                                                    <img src="img/Friends/guy-2.jpg" alt="Uploaded photo">
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="btn-group pull-right activity-actions">
-                                            <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown">
-                                                <i class="fa fa-th"></i>
-                                                <span class="sr-only">Toggle Dropdown</span>
-                                            </button>
-                                            <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                                                <li><a href="#">I don't want to see this</a></li>
-                                                <li><a href="#">Unfollow Jack Bay</a></li>
-                                                <li class="divider"></li>
-                                                <li><a href="#">Get Notification</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <button type="button" class="btn btn-default center-block"><i class="fa fa-refresh"></i> Load more activities</button>
-                                </div>
-                                <!-- end activities -->
-                                <!-- followers -->
-                                <div class="tab-pane fade" id="followers">
-                                    <div class="media user-follower">
-                                        <img src="img/Friends/guy-2.jpg" alt="User Avatar" class="media-object pull-left">
-                                        <div class="media-body">
-                                            <a href="#">Antonius<br><span class="text-muted username">mrantonius</span></a>
-                                            <button type="button" class="btn btn-sm btn-toggle-following pull-right"><i class="fa fa-checkmark-round"></i> <span>Following</span></button>
-                                        </div>
-                                    </div>
-                                    <div class="media user-follower">
-                                        <img src="img/Friends/guy-2.jpg" alt="User Avatar" class="media-object pull-left">
-                                        <div class="media-body">
-                                            <a href="#">Michael<br><span class="text-muted username">iamichael</span></a>
-                                            <button type="button" class="btn btn-sm btn-default pull-right"><i class="fa fa-plus"></i> Follow</button>
-                                        </div>
-                                    </div>
-                                    <div class="media user-follower">
-                                        <img src="img/Friends/guy-2.jpg" alt="User Avatar" class="media-object pull-left">
-                                        <div class="media-body">
-                                            <a href="#">Stella<br><span class="text-muted username">stella</span></a>
-                                            <button type="button" class="btn btn-sm btn-default pull-right"><i class="fa fa-plus"></i> Follow</button>
-                                        </div>
-                                    </div>
-                                    <div class="media user-follower">
-                                        <img src="img/Friends/guy-2.jpg" alt="User Avatar" class="media-object pull-left">
-                                        <div class="media-body">
-                                            <a href="#">Jane Doe<br><span class="text-muted username">janed</span></a>
-                                            <button type="button" class="btn btn-sm btn-toggle-following pull-right"><i class="fa fa-checkmark-round"></i> <span>Following</span></button>
-                                        </div>
-                                    </div>
-                                    <div class="media user-follower">
-                                        <img src="img/Friends/guy-2.jpg" alt="User Avatar" class="media-object pull-left">
-                                        <div class="media-body">
-                                            <a href="#">John Simmons<br><span class="text-muted username">jsimm</span></a>
-                                            <button type="button" class="btn btn-sm btn-default pull-right"><i class="fa fa-plus"></i> Follow</button>
-                                        </div>
-                                    </div>
-                                    <div class="media user-follower">
-                                        <img src="img/Friends/guy-2.jpg" alt="User Avatar" class="media-object pull-left">
-                                        <div class="media-body">
-                                            <a href="#">Antonius<br><span class="text-muted username">mrantonius</span></a>
-                                            <button type="button" class="btn btn-sm btn-toggle-following pull-right"><i class="fa fa-checkmark-round"></i> <span>Following</span></button>
-                                        </div>
-                                    </div>
-                                    <div class="media user-follower">
-                                        <img src="img/Friends/guy-2.jpg" alt="User Avatar" class="media-object pull-left">
-                                        <div class="media-body">
-                                            <a href="#">Michael<br><span class="text-muted username">iamichael</span></a>
-                                            <button type="button" class="btn btn-sm btn-default pull-right"><i class="fa fa-plus"></i> Follow</button>
-                                        </div>
-                                    </div>
-                                    <div class="media user-follower">
-                                        <img src="img/Friends/guy-2.jpg" alt="User Avatar" class="media-object pull-left">
-                                        <div class="media-body">
-                                            <a href="#">Stella<br><span class="text-muted username">stella</span></a>
-                                            <button type="button" class="btn btn-sm btn-default pull-right"><i class="fa fa-plus"></i> Follow</button>
-                                        </div>
-                                    </div>
-                                    <div class="media user-follower">
-                                        <img src="img/Friends/guy-2.jpg" alt="User Avatar" class="media-object pull-left">
-                                        <div class="media-body">
-                                            <a href="#">Jane Doe<br><span class="text-muted username">janed</span></a>
-                                            <button type="button" class="btn btn-sm btn-toggle-following pull-right"><i class="fa fa-checkmark-round"></i> <span>Following</span></button>
-                                        </div>
-                                    </div>
-                                    <div class="media user-follower">
-                                        <img src="img/Friends/guy-2.jpg" alt="User Avatar" class="media-object pull-left">
-                                        <div class="media-body">
-                                            <a href="#">John Simmons<br><span class="text-muted username">jsimm</span></a>
-                                            <button type="button" class="btn btn-sm btn-default pull-right"><i class="fa fa-plus"></i> Follow</button>
-                                        </div>
                                     </div>
                                 </div>
-                                <!-- end followers -->
-                                <!-- following -->
-                                <div class="tab-pane fade" id="following">
-                                    <div class="media user-following">
-                                        <img src="img/Friends/guy-2.jpg" alt="User Avatar" class="media-object pull-left">
-                                        <div class="media-body">
-                                            <a href="#">Stella<br><span class="text-muted username">stella</span></a>
-                                            <button type="button" class="btn btn-sm btn-danger pull-right"><i class="fa fa-close-round"></i> Unfollow</button>
-                                        </div>
-                                    </div>
-                                    <div class="media user-following">
-                                        <img src="img/Friends/guy-2.jpg" alt="User Avatar" class="media-object pull-left">
-                                        <div class="media-body">
-                                            <a href="#">Jane Doe<br><span class="text-muted username">janed</span></a>
-                                            <button type="button" class="btn btn-sm btn-danger pull-right"><i class="fa fa-close-round"></i> Unfollow</button>
-                                        </div>
-                                    </div>
-                                    <div class="media user-following">
-                                        <img src="img/Friends/guy-2.jpg" alt="User Avatar" class="media-object pull-left">
-                                        <div class="media-body">
-                                            <a href="#">John Simmons<br><span class="text-muted username">jsimm</span></a>
-                                            <button type="button" class="btn btn-sm btn-danger pull-right"><i class="fa fa-close-round"></i> Unfollow</button>
-                                        </div>
-                                    </div>
-                                    <div class="media user-following">
-                                        <img src="img/Friends/guy-2.jpg" alt="User Avatar" class="media-object pull-left">
-                                        <div class="media-body">
-                                            <a href="#">Antonius<br><span class="text-muted username">mrantonius</span></a>
-                                            <button type="button" class="btn btn-sm btn-danger pull-right"><i class="fa fa-close-round"></i> Unfollow</button>
-                                        </div>
-                                    </div>
-                                    <div class="media user-following">
-                                        <img src="img/Friends/guy-2.jpg" alt="User Avatar" class="media-object pull-left">
-                                        <div class="media-body">
-                                            <a href="#">Michael<br><span class="text-muted username">iamichael</span></a>
-                                            <button type="button" class="btn btn-sm btn-danger pull-right"><i class="fa fa-close-round"></i> Unfollow</button>
-                                        </div>
-                                    </div>
-                                    <div class="media user-following">
-                                        <img src="img/Friends/guy-2.jpg" alt="User Avatar" class="media-object pull-left">
-                                        <div class="media-body">
-                                            <a href="#">Stella<br><span class="text-muted username">stella</span></a>
-                                            <button type="button" class="btn btn-sm btn-danger pull-right"><i class="fa fa-close-round"></i> Unfollow</button>
-                                        </div>
-                                    </div>
+                                <div class="tab-pane activity" id="activity-tab">
+                                    <ul class="list-unstyled activity-list">
+                                        <li>
+                                            <i class="fa fa-shopping-cart activity-icon pull-left"></i>
+                                            <p>
+                                                <a href="#">Jonathan</a> commented on <a href="#">Special Deal 2013</a> <span class="timestamp">12 minutes ago</span>
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-pencil activity-icon pull-left"></i>
+                                            <p>
+                                                <a href="#">Jonathan</a> posted <a href="#">a new blog post</a> <span class="timestamp">4 hours ago</span>
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-user activity-icon pull-left"></i>
+                                            <p>
+                                                <a href="#">Jonathan</a> edited his profile <span class="timestamp">11 hours ago</span>
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-pencil activity-icon pull-left"></i>
+                                            <p>
+                                                <a href="#">Jonathan</a> has added review on <a href="#">jQuery Complete Guide</a> book <span class="timestamp">Yesterday</span>
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-thumbs-up activity-icon pull-left"></i>
+                                            <p>
+                                                <a href="#">Jonathan</a> liked <a href="#">a post</a> <span class="timestamp">December 12</span>
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-tasks activity-icon pull-left"></i>
+                                            <p>
+                                                <a href="#">Jonathan</a> has completed one task <span class="timestamp">December 11</span>
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-picture-o activity-icon pull-left"></i>
+                                            <p>
+                                                <a href="#">Jonathan</a> uploaded <a href="#">new photos</a> <span class="timestamp">December 5</span>
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-credit-card activity-icon pull-left"></i>
+                                            <p>
+                                                <a href="#">Jonathan</a> has updated his credit card info <span class="timestamp">September 28</span>
+                                            </p>
+                                        </li>
+                                    </ul>
+                                    <p class="text-center more"><a href="#" class="btn btn-custom-primary">View more <i class="fa fa-long-arrow-right"></i></a></p>
                                 </div>
-                                <!-- end following -->
                             </div>
                         </div>
+
+
                     </div>
                 </div>
             </div>
@@ -333,5 +230,72 @@
     </div>
 
 </div><!-- end timeline content-->
+
+<script type="text/javascript">
+
+    function addFriendFunction(object, userId) {
+        object.style.display = "none";
+
+        jQuery.post('@Url.Action("AddFriend", "Home")',
+                { id: userId }
+            )
+            .done(function (data) { })
+            .fail(function () {
+                object.style.display = "block";
+            });
+    }
+
+</script>
+
+<style>
+    #container .modal.fade {
+        left: -25%;
+        -webkit-transition: opacity 0.3s linear, left 0.3s ease-out;
+        -moz-transition: opacity 0.3s linear, left 0.3s ease-out;
+        -o-transition: opacity 0.3s linear, left 0.3s ease-out;
+        transition: opacity 0.3s linear, left 0.3s ease-out;
+    }
+
+        #container .modal.fade.in {
+            left: 50%;
+        }
+
+    #container .modal-body {
+        max-height: 50px;
+    }
+
+    #article-editor {
+        width: 600px;
+        margin-left: -300px;
+        margin-right: -300px;
+    }
+
+    .data-row .data-name
+    {
+        padding: 10px 5px 10px 5px;
+    }
+
+    .form-control
+    {
+        max-width:30%;
+        display:inline-flex;
+    }
+
+    .aboutme
+    {
+        max-width: 100%;
+        max-height: 200px;
+    }
+
+    label.form-control
+    {
+        font-weight:500;
+    }
+
+    .data-row .data-name 
+    {
+        width: 20em;
+    }
+</style>
 
 @Html.Partial("~/Views/Home/Partial/Footer.cshtml", Model)

@@ -3,10 +3,15 @@
 @using InsuranceSocialNetworkCore.Enums
 @model ProfileViewModel
 
+@{
+    var base64 = Convert.ToBase64String(Model.Profile.ProfilePhoto);
+    var imgSrc = String.Format("data:image/png;base64,{0}", base64);
+}
+
 <!-- Fixed navbar -->
 @*<nav class="navbar navbar-default navbar-fixed-top navbar-principal">*@
 
-<div class="left">
+<div class="left" id="sideNavBar">
     <div class="item no-hover" style="padding-bottom:0px;margin-top: 10px;margin-bottom: 10px;">
         <img src="~/Content/images/no_logo_img.png" alt="" class="item-logo">
     </div>
@@ -14,7 +19,16 @@
         <img src="~/Content/images/no_photo_img.jpg" class="item-photo">
     </div>*@
     <div class="item">
-        <a href="@Url.Action("ProfileInfo", "Home")" title="@Resources.Resources.UserProfile"><img src="~/Content/images/no_photo_img.jpg" class="item-photo"></a>
+        <a href="@Url.Action("ProfileInfo", "Home")" title="@Resources.Resources.UserProfile">
+            @if (null == Model.Profile.ProfilePhoto || Model.Profile.ProfilePhoto.Length == 0)
+            {
+                <img src="~/Content/images/no_photo_img.jpg" class="item-photo">
+            }
+            else
+            {
+                <img src="@imgSrc" class="item-photo">
+            }
+        </a>
     </div>
     <div class="item">
         <a href="@Url.Action("Notifications", "Home")">
@@ -59,7 +73,7 @@
     @if (InsuranceBusiness.BusinessLayer.IsUserAuthorizedToFunctionality(this.User.Identity.Name, Functionality.ALERTS_MANAGEMENT.ToString()))
     {
         <div class="item">
-            <a href="@Url.Action("AlertsManagement", "Home")" title="@Resources.Resources.AlertsManagement"><span class="glyphicon glyphicon-warning-sign"></span></a>
+            <a href="@Url.Action("Index", "NotificationsManagement")" title="@Resources.Resources.AlertsManagement"><span class="glyphicon glyphicon-warning-sign"></span></a>
         </div>
     }
 
@@ -73,18 +87,18 @@
         vertical-align: middle !important;
     }
 
-    .left, .right {
+    div#sideNavBar.left, div#sideNavBar.right {
         float: left;
     }
 
-    .left {
+    div#sideNavBar.left {
         background: #4A5B67;
         white-space: nowrap;
         width: 80px;
         transition: width 1s;
     }
 
-    .right {
+    div#sideNavBar.right {
         background: #fff;
         width: 350px;
         transition: width 1s;
@@ -107,7 +121,7 @@
         border-radius: 40px;
     }*/
 
-    .left .glyphicon {
+    div#sideNavBar.left .glyphicon {
         margin: 20px;
         color: #05C0DE;
         border-color: #05C0DE;
@@ -120,7 +134,7 @@
         font-size: smaller;
     }
 
-    .right .glyphicon {
+    div#sideNavBar.right .glyphicon {
         color: #a9a9a9;
     }
 
@@ -137,11 +151,11 @@
         padding-bottom: 80px;
     }
 
-        .item > a {
-            display: block;
-            height: 100%;
-            width: 100%;
-        }
+    .item > a {
+        display: block;
+        height: 100%;
+        width: 100%;
+    }
 
     .item-photo {
         padding: 18px;

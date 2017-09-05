@@ -369,4 +369,94 @@
   <data name="Services" xml:space="preserve">
     <value>Serviços</value>
   </data>
+  <data name="SendMessage" xml:space="preserve">
+    <value>Enviar Mensagem</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Editar</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Gravar</value>
+  </data>
+  <data name="AboutMe" xml:space="preserve">
+    <value>Sobre mim</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Morada</value>
+  </data>
+  <data name="BasicInformation" xml:space="preserve">
+    <value>Informação Básica</value>
+  </data>
+  <data name="BirthDate" xml:space="preserve">
+    <value>Data de nascimento</value>
+  </data>
+  <data name="ContactEmail" xml:space="preserve">
+    <value>E-mail de contacto</value>
+  </data>
+  <data name="ContactInformation" xml:space="preserve">
+    <value>Informação de Contacto</value>
+  </data>
+  <data name="DateJoined" xml:space="preserve">
+    <value>Data de registo</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Apelido</value>
+  </data>
+  <data name="MobilePhone_1" xml:space="preserve">
+    <value>Telemovel #1</value>
+  </data>
+  <data name="MobilePhone_2" xml:space="preserve">
+    <value>Telemovel #2</value>
+  </data>
+  <data name="Statistics" xml:space="preserve">
+    <value>Estatisticas</value>
+  </data>
+  <data name="Telephone_1" xml:space="preserve">
+    <value>Telefone #1</value>
+  </data>
+  <data name="Telephone_2" xml:space="preserve">
+    <value>Telefone #2</value>
+  </data>
+  <data name="Website" xml:space="preserve">
+    <value>Website</value>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Alterar password</value>
+  </data>
+  <data name="CommentsOnYourPosts" xml:space="preserve">
+    <value>Comentários nas suas publicações</value>
+  </data>
+  <data name="LikesOnYourPosts" xml:space="preserve">
+    <value>Gostos nas suas publicações</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>Nova password</value>
+  </data>
+  <data name="OldPassword" xml:space="preserve">
+    <value>Password antiga</value>
+  </data>
+  <data name="Privacy" xml:space="preserve">
+    <value>Privacidade</value>
+  </data>
+  <data name="RepeatPassword" xml:space="preserve">
+    <value>Repetir password</value>
+  </data>
+  <data name="ShowBirthDate" xml:space="preserve">
+    <value>Mostrar data de nascimento</value>
+  </data>
+  <data name="ShowContactInformation" xml:space="preserve">
+    <value>Mostrar informação de contacto</value>
+  </data>
+  <data name="ShowDisplayName" xml:space="preserve">
+    <value>Mostrar o nome de utilizador</value>
+  </data>
+  <data name="ShowOnlineStatus" xml:space="preserve">
+    <value>Mostrar estado online</value>
+  </data>
 </root>

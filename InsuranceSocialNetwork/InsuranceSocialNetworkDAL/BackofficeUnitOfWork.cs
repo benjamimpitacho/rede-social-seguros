@@ -25,6 +25,9 @@ namespace InsuranceSocialNetworkDAL
         private IRepository<MedicalClinic> medicalClinicRepository;
         private IRepository<Friend> friendRepository;
         private IRepository<FriendStatus> friendStatusRepository;
+        private IRepository<Chat> chatRepository;
+        private IRepository<ChatMember> chatMemberRepository;
+        private IRepository<ChatMessage> chatMessageRepository;
 
         private bool AutoDetectChangesEnabled;
         private int DatabaseTimeout;
@@ -60,6 +63,45 @@ namespace InsuranceSocialNetworkDAL
         }
 
         #endregion Constructors
+        
+        public IRepository<Chat> Chat
+        {
+            get
+            {
+                if (this.chatRepository == null)
+                {
+                    this.chatRepository =
+                        new Repository<InsurancePortal_dbEntities, Chat>(DataContext, AutoDetectChangesEnabled);
+                }
+                return chatRepository;
+            }
+        }
+
+        public IRepository<ChatMessage> ChatMessage
+        {
+            get
+            {
+                if (this.chatMessageRepository == null)
+                {
+                    this.chatMessageRepository =
+                        new Repository<InsurancePortal_dbEntities, ChatMessage>(DataContext, AutoDetectChangesEnabled);
+                }
+                return chatMessageRepository;
+            }
+        }
+
+        public IRepository<ChatMember> ChatMember
+        {
+            get
+            {
+                if (this.chatMemberRepository == null)
+                {
+                    this.chatMemberRepository =
+                        new Repository<InsurancePortal_dbEntities, ChatMember>(DataContext, AutoDetectChangesEnabled);
+                }
+                return chatMemberRepository;
+            }
+        }
 
         public IRepository<Profile> Profile
         {

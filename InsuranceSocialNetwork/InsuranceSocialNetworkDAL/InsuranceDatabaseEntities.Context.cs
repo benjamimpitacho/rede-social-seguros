@@ -34,7 +34,6 @@ namespace InsuranceSocialNetworkDAL
         public virtual DbSet<PostSubject> PostSubject { get; set; }
         public virtual DbSet<PostType> PostType { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
-        public virtual DbSet<Profile> Profile { get; set; }
         public virtual DbSet<Garage> Garage { get; set; }
         public virtual DbSet<MedicalClinic> MedicalClinic { get; set; }
         public virtual DbSet<PostalCode> PostalCode { get; set; }
@@ -44,5 +43,9 @@ namespace InsuranceSocialNetworkDAL
         public virtual DbSet<PostImage> PostImage { get; set; }
         public virtual DbSet<FriendStatus> FriendStatus { get; set; }
         public virtual DbSet<Friend> Friend { get; set; }
+        public virtual DbSet<Chat> Chat { get; set; }
+        public virtual DbSet<ChatMember> ChatMember { get; set; }
+        public virtual DbSet<ChatMessage> ChatMessage { get; set; }
+        public virtual DbSet<Profile> Profile { get; set; }
     }
 }

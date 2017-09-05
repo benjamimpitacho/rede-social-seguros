@@ -1,6 +1,7 @@
 ﻿//using AutoMapper;
 using InsuranceSocialNetworkCore.Enums;
 using InsuranceSocialNetworkDAL;
+using InsuranceSocialNetworkDTO.Chat;
 using InsuranceSocialNetworkDTO.Garage;
 using InsuranceSocialNetworkDTO.MedicalClinic;
 using InsuranceSocialNetworkDTO.Notification;
@@ -63,6 +64,15 @@ namespace InsuranceSocialNetworkBusiness
                 cfg.CreateMap<AspNetUsers, UserDTO>();
                 cfg.CreateMap<UserDTO, AspNetUsers>();
 
+                cfg.CreateMap<Chat, ChatDTO>();
+                cfg.CreateMap<ChatDTO, Chat>();
+
+                cfg.CreateMap<ChatMember, ChatMemberDTO>();
+                cfg.CreateMap<ChatMemberDTO, ChatMember>();
+
+                cfg.CreateMap<ChatMessage, ChatMessageDTO>();
+                cfg.CreateMap<ChatMessageDTO, ChatMessage>();
+
                 cfg.CreateMap<Garage, GarageDTO>();
                 cfg.CreateMap<GarageDTO, Garage>();
 
@@ -112,6 +122,12 @@ namespace InsuranceSocialNetworkBusiness
             return AutoMapper.Mapper.Map<UserProfileDTO>(item);
         }
 
+        public UserProfileDTO GetUserProfile(long Id)
+        {
+            Profile item = UserProfileRepository.GetProfile(Id);
+            return AutoMapper.Mapper.Map<UserProfileDTO>(item);
+        }
+
         public string GetUserIdFromProfileId(long profileId)
         {
             return UserProfileRepository.GetProfile(profileId).ID_User;
@@ -149,6 +165,11 @@ namespace InsuranceSocialNetworkBusiness
             return UserProfileRepository.CreateDefaultProfile(AutoMapper.Mapper.Map<Profile>(new UserProfileDTO() { ID_User = Id, ContactEmail = Email, FirstName = firstName, LastName = lastName}));
         }
 
+        public bool UpdateProfile(UserProfileDTO profile)
+        {
+            return UserProfileRepository.UpdateUserProfile(AutoMapper.Mapper.Map<Profile>(profile));
+        }
+
         public bool DeleteUserProfile(long userId)
         {
             return UserProfileRepository.DeleteUserProfile(userId);
@@ -156,7 +177,41 @@ namespace InsuranceSocialNetworkBusiness
 
         #endregion Profile
 
-        #region Notifications
+        #region Messages / Chats
+
+        public ChatDTO GetChat(string userId, string userId2)
+        {
+            Chat chat = ChatRepository.GetChat(userId, userId2);
+
+            if (null == chat)
+            {
+                DateTime currentTime = DateTime.Now;
+                chat = new Chat()
+                {
+                    ID_ChatCreator_User = userId,
+                    CreateDate = currentTime,
+                    LastChangeDate = currentTime,
+                    ChatMember = new List<ChatMember>()
+                        {
+                            new ChatMember() {ID_User = userId, CreateDate=currentTime, LastChangeDate = currentTime, Active = true },
+                            new ChatMember() {ID_User = userId2, CreateDate=currentTime, LastChangeDate = currentTime, Active = true }
+                        }
+                };
+
+                ChatRepository.CreateChat(chat);
+            }
+
+            return AutoMapper.Mapper.Map<ChatDTO>(chat);
+        }
+
+        public List<ChatDTO> GetChats(string userId)
+        {
+            return AutoMapper.Mapper.Map<List<ChatDTO>>(ChatRepository.GetChats(userId));
+        }
+
+        #endregion Messages / Chats
+
+            #region Notifications
 
         public List<NotificationDTO> GetUserNotifications(string Id)
         {
@@ -263,6 +318,12 @@ namespace InsuranceSocialNetworkBusiness
         public List<long> GetFriendsIDs(long currentUserId)
         {
             return UserProfileRepository.GetUserFriendsIDs(currentUserId);
+        }
+
+        public List<UserProfileDTO> GetFriends(string currentUserId)
+        {
+            List<Profile> friends = UserProfileRepository.GetUserFriends(currentUserId);
+            return AutoMapper.Mapper.Map<List<UserProfileDTO>>(friends);
         }
 
         public bool AddFriend(long currentUserId, long newFriendId)

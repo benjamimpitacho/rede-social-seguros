@@ -90,6 +90,53 @@ namespace InsuranceSocialNetworkDAL
             }
         }
 
+        public static List<Profile> GetUserFriends(string currentUserId)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                List<string> friends1Ids = context.Friend.Fetch().Where(j => j.AspNetUsers1.Id == currentUserId).Select(j => j.AspNetUsers.Id).ToList();
+                List<string> friends2Ids = context.Friend.Fetch().Where(j => j.AspNetUsers.Id == currentUserId).Select(j => j.AspNetUsers.Id).ToList();
+                friends1Ids = friends1Ids.Concat(friends2Ids).ToList();
+
+                List<Profile> friends = context
+                    .Profile
+                    .Fetch()
+                    .Include(i => i.AspNetUsers)
+                    .Where(i => friends1Ids.Contains(i.AspNetUsers.Id))
+                    .Select(i => i)
+                    .ToList();
+
+                //List<Profile> friends2 = context
+                //    .Profile
+                //    .Fetch()
+                //    .Include(i => i.AspNetUsers)
+                //    .Where(i => context.Friend.Fetch().Where(j => j.AspNetUsers.Id == currentUserId).Select(j => j.AspNetUsers1.Id).ToList().Contains(i.AspNetUsers.Id))
+                //    .Select(i => i)
+                //    .ToList();
+
+                //List<Profile> friends1 = context
+                //    .Friend
+                //    .Fetch()
+                //    .Include(i => i.AspNetUsers)
+                //    .Include(i => i.AspNetUsers.Profile)
+                //    .Where(i => i.AspNetUsers.Profile.FirstOrDefault().ID_User == currentUserId)
+                //    .Select(i => i.AspNetUsers1.Profile.FirstOrDefault())
+                //    .ToList();
+
+                //List<Profile> friends2 = context
+                //    .Friend
+                //    .Fetch()
+                //    .Include(i => i.AspNetUsers)
+                //    .Include(i => i.AspNetUsers.Profile)
+                //    .Where(i => i.AspNetUsers1.Profile.FirstOrDefault().ID_User == currentUserId)
+                //    .Select(i => i.AspNetUsers.Profile.FirstOrDefault())
+                //    .ToList();
+
+                //return friends1.Concat(friends2).ToList();
+                return friends;
+            }
+        }
+
         public static long CreateDefaultProfile(Profile profile)
         {
             using (var context = new BackofficeUnitOfWork())
@@ -106,6 +153,18 @@ namespace InsuranceSocialNetworkDAL
                 context.Save();
 
                 return profile.ID;
+            }
+        }
+
+        public static bool UpdateUserProfile(Profile profile)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                profile.LastChangeDate = DateTime.Now;
+                context.Profile.Update(profile);
+                context.Save();
+
+                return true;
             }
         }
 

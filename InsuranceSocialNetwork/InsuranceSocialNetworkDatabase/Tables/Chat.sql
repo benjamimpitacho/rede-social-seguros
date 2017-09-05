@@ -1,0 +1,14 @@
+﻿CREATE TABLE [Insurance].[Chat]
+(
+	[ID] BIGINT IDENTITY NOT NULL,
+	[ID_Chat] NVARCHAR(128) NOT NULL,
+	[ID_ChatCreator_User] NVARCHAR(128) NOT NULL,
+	[ChatTitle] NVARCHAR(128) NULL,
+	[ChatLogo] IMAGE NULL,
+	[CreateDate] DATETIME2 NOT NULL,
+	[LastChangeDate] DATETIME2 NOT NULL,
+	[DeleteDate] DATETIME2,
+	[Active] BIT NOT NULL DEFAULT 1,	
+    CONSTRAINT [PK_Chat] PRIMARY KEY CLUSTERED ([ID] ASC),
+	CONSTRAINT [FK_Chat_AspNetUsers] FOREIGN KEY([ID_ChatCreator_User]) REFERENCES [dbo].[AspNetUsers] ([Id])
+)

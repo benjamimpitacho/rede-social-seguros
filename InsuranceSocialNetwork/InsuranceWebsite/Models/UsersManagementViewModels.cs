@@ -31,7 +31,7 @@ namespace InsuranceWebsite.Models
         public string Telephone_2 { get; set; }
         public string Address { get; set; }
         public long? ID_PostalCode { get; set; }
-        public string ProfilePhoto { get; set; }
+        public byte[] ProfilePhoto { get; set; }
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public System.DateTime CreateDate { get; set; }
