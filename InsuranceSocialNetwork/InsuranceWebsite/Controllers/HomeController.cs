@@ -1,5 +1,6 @@
 ﻿using InsuranceSocialNetworkBusiness;
 using InsuranceSocialNetworkCore.Enums;
+using InsuranceSocialNetworkCore.Utils;
 using InsuranceSocialNetworkDTO.Post;
 using InsuranceSocialNetworkDTO.UserProfile;
 using InsuranceWebsite.Commons;
@@ -7,6 +8,7 @@ using InsuranceWebsite.Models;
 using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -95,14 +97,17 @@ namespace InsuranceWebsite.Controllers
                 var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
                 if (null != user)
                 {
-                    model.Profile = InsuranceBusiness.BusinessLayer.GetUserProfile(user.Id);
-                    model.Notifications = InsuranceBusiness.BusinessLayer.GetUserNotifications(user.Id);
+                    FillModel(model, user.Id);
+                    //model.Profile = InsuranceBusiness.BusinessLayer.GetUserProfile(user.Id);
+                    //model.Notifications = InsuranceBusiness.BusinessLayer.GetUserNotifications(user.Id);
                 }
             }
             else
             {
                 return RedirectToAction("Login", "Account");
             }
+
+            //model.Chats = InsuranceBusiness.BusinessLayer.GetChats(CurrentUser.ID_User);
 
             return View(model);
         }
@@ -115,29 +120,48 @@ namespace InsuranceWebsite.Controllers
         [FunctionalityAutorizeAttribute("MESSAGES_FUNCTIONALITY")]
         public async Task<ActionResult> SendMessage(long id)
         {
-            var model = new MessagesViewModel();
-            if (null != this.User && this.User.Identity.IsAuthenticated)
+            try
             {
-                var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-                var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
-                if (null != user)
+                var model = new MessagesViewModel();
+                if (null != this.User && this.User.Identity.IsAuthenticated)
                 {
-                    FillModel(model, user.Id);
+                    var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                    var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
+                    if (null != user)
+                    {
+                        FillModel(model, user.Id);
+                    }
+                    else
+                    {
+                        return RedirectToAction("LogOff", "Account");
+                    }
                 }
                 else
                 {
-                    return RedirectToAction("LogOff", "Account");
+                    return RedirectToAction("Login", "Account");
                 }
+
+                string secondUserId = InsuranceBusiness.BusinessLayer.GetUserIdFromProfileId(id);
+                model.Chats = InsuranceBusiness.BusinessLayer.GetChats(CurrentUser.ID_User);
+                model.ActiveChat = InsuranceBusiness.BusinessLayer.GetChat(model.Profile.User.Id, secondUserId);
+
+                return View("Messages", model);
             }
-            else
+            catch (Exception ex)
             {
-                return RedirectToAction("Login", "Account");
+                throw new NotImplementedException();
             }
+        }
 
-            string secondUserId = InsuranceBusiness.BusinessLayer.GetUserIdFromProfileId(id);
-            model.ActiveChat = InsuranceBusiness.BusinessLayer.GetChat(model.Profile.User.Id, secondUserId);
+        [FunctionalityAutorizeAttribute("MESSAGES_FUNCTIONALITY")]
+        public ActionResult LoadChat(long id, string chatId)
+        {
+            ChatViewModel model = new ChatViewModel();
 
-            return View("Messages", model);
+            model.Profile = CurrentUser;
+            model.Chat = InsuranceBusiness.BusinessLayer.GetChat(id);
+
+            return PartialView("Partial/ChatSectionView", model);
         }
 
         [FunctionalityAutorizeAttribute("NOTIFICATIONS_FUNCTIONALITY")]
@@ -174,8 +198,6 @@ namespace InsuranceWebsite.Controllers
             {
                 throw new NotImplementedException();
             }
-
-            return RedirectToAction("Index");
         }
 
         [FunctionalityAutorizeAttribute("NOTIFICATIONS_FUNCTIONALITY")]
@@ -186,23 +208,22 @@ namespace InsuranceWebsite.Controllers
                 NotificationItemsViewModel model = new NotificationItemsViewModel();
                 model.Profile = CurrentUser;
                 model.Items = InsuranceBusiness.BusinessLayer.GetUserNotifications(CurrentUser.ID_User);
+
                 return PartialView("Partial/NotificationsControl", model);
             }
             catch (Exception ex)
             {
                 throw new NotImplementedException();
             }
-
-            return RedirectToAction("Index");
         }
 
-        public async Task<ActionResult> Search(SearchViewModel model)
+        public async Task<ActionResult> Search(HomeViewModel model)
         {
             try
             {
                 if (null == model)
                 {
-                    model = new SearchViewModel();
+                    model = new HomeViewModel();
                 }
 
                 if (null != this.User && this.User.Identity.IsAuthenticated)
@@ -229,18 +250,16 @@ namespace InsuranceWebsite.Controllers
             {
                 throw new NotImplementedException();
             }
-
-            return RedirectToAction("Index");
         }
 
-        //[HttpPost]
-        public async Task<ActionResult> SearchUsers(SearchViewModel model)
+        [HttpPost]
+        public async Task<ActionResult> SearchUsers(HomeViewModel model)
         {
             try
             {
                 if (null == model)
                 {
-                    model = new SearchViewModel();
+                    model = new HomeViewModel();
                 }
 
                 if (null != this.User && this.User.Identity.IsAuthenticated)
@@ -261,17 +280,18 @@ namespace InsuranceWebsite.Controllers
                     return RedirectToAction("Login", "Account");
                 }
 
-                model.Users = InsuranceBusiness.BusinessLayer.SearchUsers(model.SearchTerm, CurrentUser.ID);
-                model.AlreadyFriends = InsuranceBusiness.BusinessLayer.GetFriendsIDs(CurrentUser.ID);
+                model.SearchModel.Users = InsuranceBusiness.BusinessLayer.SearchUsers(model.SearchModel.SearchTerm, CurrentUser.ID);
+                model.SearchModel.AlreadyFriends = InsuranceBusiness.BusinessLayer.GetFriendsIDs(CurrentUser.ID);
+                model.IsProfileSearchView = true;
 
-                return View("Search", model);
+                //return View("Search", model);
+                return View("Index", model);
+                //return PartialView("~/Views/Home/Partial/SearchResult.cshtml", model);
             }
             catch (Exception ex)
             {
                 throw new NotImplementedException();
             }
-
-            return RedirectToAction("Index");
         }
 
         //[FunctionalityAutorizeAttribute("ADD_FRIEND_FUNCTIONALITY")]
@@ -567,11 +587,15 @@ namespace InsuranceWebsite.Controllers
             profile.MobilePhone_2 = model.MobilePhone_2;
             if(null!= fileUploaderControl)
             {
-                using (var binaryReader = new BinaryReader(fileUploaderControl.InputStream))
-                {
-                    profile.ProfilePhoto = binaryReader.ReadBytes(fileUploaderControl.ContentLength);
-                    model.ProfilePhoto = profile.ProfilePhoto;
-                }
+                Bitmap resizedImage = ImageUtils.ResizeImage(Bitmap.FromStream(fileUploaderControl.InputStream), 250, 250);
+                profile.ProfilePhoto = ImageUtils.ImageToByte(resizedImage);
+                model.ProfilePhoto = profile.ProfilePhoto;
+                model.Profile.ProfilePhoto = profile.ProfilePhoto;
+                //using (var binaryReader = new BinaryReader(fileUploaderControl.InputStream))
+                //{
+                //    profile.ProfilePhoto = binaryReader.ReadBytes(fileUploaderControl.ContentLength);
+                //    model.ProfilePhoto = profile.ProfilePhoto;
+                //}
             }
             profile.Telephone_1 = model.Telephone_1;
             profile.Telephone_2 = model.Telephone_2;
@@ -817,10 +841,29 @@ namespace InsuranceWebsite.Controllers
         #endregion Search Operations
 
         [FunctionalityAutorizeAttribute("SETTINGS_FUNCTIONALITY")]
-        public ActionResult Settings()
+        public async Task<ActionResult> Settings()
         {
-            HomeViewModel model = new HomeViewModel();
-            FillModel(model, CurrentUser.ID_User);
+            var model = new ProfileEditModel();
+            if (null != this.User && this.User.Identity.IsAuthenticated)
+            {
+                var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
+                if (null != user)
+                {
+                    FillModel(model, user.Id);
+                }
+                else
+                {
+                    return RedirectToAction("LogOff", "Account");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            model.OwnProfile = true;
+
             return View(model);
         }
     }

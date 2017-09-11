@@ -763,6 +763,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remover Amigo.
+        /// </summary>
+        public static string RemoveFriend {
+            get {
+                return ResourceManager.GetString("RemoveFriend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Repetir password.
         /// </summary>
         public static string RepeatPassword {

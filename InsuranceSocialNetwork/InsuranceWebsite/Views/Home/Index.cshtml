@@ -28,6 +28,14 @@
             {
                 @Html.Partial("~/Views/Home/Partial/SearchResult.cshtml", Model)
             }
+            else if (Model.IsProfileSearchView)
+            {
+                @Html.Partial("~/Views/Home/Partial/SearchUsersResult.cshtml", Model)
+            }
+            else
+            {
+                <h1>APANHOU OUTRA VIEW QUALQUER...</h1>
+            }
 
             @*@if (Model.IsNotificationsView)
             {

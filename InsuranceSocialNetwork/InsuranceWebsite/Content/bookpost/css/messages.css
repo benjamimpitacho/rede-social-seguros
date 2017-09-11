@@ -154,6 +154,7 @@
     padding: 0 58px 0 0;
     text-align: right;
     float: right;
+    margin-right: 10px;
 }
 
 .chat-body .answer.right .avatar {

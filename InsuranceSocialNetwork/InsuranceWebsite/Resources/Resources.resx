@@ -459,4 +459,7 @@
   <data name="ShowOnlineStatus" xml:space="preserve">
     <value>Mostrar estado online</value>
   </data>
+  <data name="RemoveFriend" xml:space="preserve">
+    <value>Remover Amigo</value>
+  </data>
 </root>

@@ -62,7 +62,10 @@ namespace InsuranceSocialNetworkBusiness
                 cfg.CreateMap<RoleDTO, AspNetRoles>();
 
                 cfg.CreateMap<AspNetUsers, UserDTO>();
-                cfg.CreateMap<UserDTO, AspNetUsers>();
+                cfg.CreateMap<UserDTO, AspNetUsers>()
+                    .ForMember(dto => dto.Chat, opt => opt.Ignore())
+                    .ForMember(dto => dto.ChatMember, opt => opt.Ignore())
+                    .ForMember(dto => dto.ChatMessage, opt => opt.Ignore());
 
                 cfg.CreateMap<Chat, ChatDTO>();
                 cfg.CreateMap<ChatDTO, Chat>();
@@ -181,37 +184,86 @@ namespace InsuranceSocialNetworkBusiness
 
         public ChatDTO GetChat(string userId, string userId2)
         {
-            Chat chat = ChatRepository.GetChat(userId, userId2);
-
-            if (null == chat)
+            using (var context = new BackofficeUnitOfWork())
             {
-                DateTime currentTime = DateTime.Now;
-                chat = new Chat()
+                Chat chat = ChatRepository.GetChat(context, userId, userId2);
+
+                if (null == chat)
                 {
-                    ID_ChatCreator_User = userId,
-                    CreateDate = currentTime,
-                    LastChangeDate = currentTime,
-                    ChatMember = new List<ChatMember>()
+                    DateTime currentTime = DateTime.Now;
+                    chat = new Chat()
+                    {
+                        ID_ChatCreator_User = userId,
+                        CreateDate = currentTime,
+                        LastChangeDate = currentTime,
+                        ChatMember = new List<ChatMember>()
                         {
                             new ChatMember() {ID_User = userId, CreateDate=currentTime, LastChangeDate = currentTime, Active = true },
                             new ChatMember() {ID_User = userId2, CreateDate=currentTime, LastChangeDate = currentTime, Active = true }
                         }
-                };
+                    };
 
-                ChatRepository.CreateChat(chat);
+                    ChatRepository.CreateChat(context, chat);
+                }
+
+                return AutoMapper.Mapper.Map<ChatDTO>(chat);
             }
+        }
 
-            return AutoMapper.Mapper.Map<ChatDTO>(chat);
+        public ChatDTO GetChat(long chatId)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                Chat chat = ChatRepository.GetChat(context, chatId);
+
+                return AutoMapper.Mapper.Map<ChatDTO>(chat);
+            }
         }
 
         public List<ChatDTO> GetChats(string userId)
         {
-            return AutoMapper.Mapper.Map<List<ChatDTO>>(ChatRepository.GetChats(userId));
+            using (var context = new BackofficeUnitOfWork())
+            {
+                List<Chat> chats = ChatRepository.GetChats(context, userId);
+
+                return AutoMapper.Mapper.Map<List<ChatDTO>>(chats);
+            }
+        }
+
+        public void SaveMessage(string userId, string chatId, string message)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                DateTime currentTime = DateTime.Now;
+
+                Chat chat = context.Chat.Fetch().FirstOrDefault(i => i.ID_Chat == chatId);
+
+                if (null == chat)
+                    return;
+
+                AspNetUsers user = context.AspNetUsers.Fetch().FirstOrDefault(i => i.Id == userId);
+
+                if (null == user)
+                    return;
+
+                ChatMessage chatMessage = new ChatMessage()
+                {
+                    Active = true,
+                    ID_Chat = chat.ID,
+                    ID_User = user.Id,
+                    CreateDate = currentTime,
+                    LastChangeDate = currentTime,
+                    Text = message
+                };
+
+                context.ChatMessage.Create(chatMessage);
+                context.Save();
+            }
         }
 
         #endregion Messages / Chats
 
-            #region Notifications
+        #region Notifications
 
         public List<NotificationDTO> GetUserNotifications(string Id)
         {

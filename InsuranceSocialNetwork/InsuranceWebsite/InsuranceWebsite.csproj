@@ -225,6 +225,7 @@
     </Compile>
     <Compile Include="Hubs\ChatHub.cs" />
     <Compile Include="Models\FriendsViewModels.cs" />
+    <Compile Include="Models\ChatViewModel.cs" />
     <Compile Include="Models\MessagesViewModels.cs" />
     <Compile Include="Models\SearchViewModels.cs" />
     <Compile Include="Models\MVCGridToolbarModel.cs" />
@@ -252,6 +253,16 @@
     <Compile Include="Utils\BusinessItemsLists.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ChatScripts\angular.min.js" />
+    <Content Include="ChatScripts\App.js" />
+    <Content Include="ChatScripts\Controlers.js" />
+    <Content Include="ChatScripts\ControlersBackup.js" />
+    <Content Include="ChatScripts\Directives.js" />
+    <Content Include="ChatScripts\Factories.js" />
+    <Content Include="ChatScripts\Filter.js" />
+    <Content Include="ChatScripts\headerController.js" />
+    <Content Include="ChatScripts\Template.js" />
+    <Content Include="ChatScripts\underscore-min.js" />
     <Content Include="Content\bookpost\bootstrap.js" />
     <Content Include="Content\bookpost\bootstrap.min.js" />
     <Content Include="Content\bookpost\css\animate.min.css" />
@@ -411,6 +422,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff2">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ChatScripts\angular.min.js.map" />
     <None Include="Properties\PublishProfiles\InsurancePortalWebsite - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\InsurancePortalWebsite - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\InsurancePortalWebsite - Web Deploy.pubxml" />
@@ -500,6 +512,8 @@
     <Content Include="Views\Home\PrivacyPolicy.cshtml" />
     <Content Include="Views\NotificationsManagement\Index.cshtml" />
     <Content Include="Views\Home\ProfileEdit.cshtml" />
+    <Content Include="Views\Home\Partial\SearchUsersResult.cshtml" />
+    <Content Include="Views\Home\Partial\ChatSectionView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

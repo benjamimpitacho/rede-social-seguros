@@ -1,0 +1,88 @@
+﻿@using InsuranceWebsite.Models
+@using InsuranceSocialNetworkDTO.UserProfile;
+@model HomeViewModel
+
+
+<div class="directory-info-row profile-info col-md-6 animated fadeInUp">
+
+    <div class="panel topPanel">
+
+        @using (Html.BeginForm("SearchUsers", "Home", FormMethod.Post, new { id = "searchForm" }))
+        {
+            <div class="form-group" style="display:inline;">
+                <div class="input-group" style="display:table;">
+
+                    @Html.TextBoxFor(m => m.SearchModel.SearchTerm, new { @class = "form-control", @placeholder = Resources.Resources.Search + "..." })
+
+                    @*<input type="submit" id="submitButton" hidden="hidden" />*@
+                    <a href="#" onclick="document.getElementById('searchForm').submit();" class="input-group-addon" style="width:1%;padding:3px 12px">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="news">       
+
+        @if (null != Model && null != Model.SearchModel && null != Model.SearchModel.Users)
+        {
+            foreach (UserProfileDTO profile in Model.SearchModel.Users)
+            {
+
+                <div class="col-md-4 col-sm-4">
+                    <div class="panel">
+                        <div class="panel-body">
+                            <div class="media">
+                                <a class="pull-left" href="#">
+                                    @if (null == profile.ProfilePhoto || profile.ProfilePhoto.Length == 0)
+                                    {
+                                        <img class="thumb media-object" src="~/Content/images/no_photo_img.jpg" alt="" style="border-radius:100px;">
+                                    }
+                                    else
+                                    {
+                                        <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(profile.ProfilePhoto))" class="thumb media-object" style="border-radius:100px;">
+                                    }
+                                </a>
+                                <div class="media-body">
+                                    <h5 style="text-align:center">@profile.FirstName @profile.LastName</h5>
+                                    <ul class="social-links">
+                                        @if (!Model.SearchModel.AlreadyFriends.Contains(profile.ID))
+                                        {
+                                            <li><a title="" data-placement="top" data-toggle="tooltip" class="tooltips" onclick="addFriendFunction(this, @profile.ID)" data-original-title="@Resources.Resources.AddFriend"><i class="fa fa-user-plus"></i></a></li>
+                                        }
+                                        else
+                                        {
+                                            <li><a title="" data-placement="top" data-toggle="tooltip" class="tooltips" data-original-title="@Resources.Resources.RemoveFriend"><i class="fa fa-user-times"></i></a></li>
+                                        }
+                                        <li><a href="@Url.Action("SendMessage",new { id= profile.ID })" title="" data-placement="top" data-toggle="tooltip" class="tooltips" data-original-title="@Resources.Resources.SendMessage"><i class="fa fa-comments"></i></a></li>
+                                        <li><a href="@Html.DisplayTextFor(i => i.Profile.Website)" target="_blank" title="" data-placement="top" data-toggle="tooltip" class="tooltips" data-original-title="@Resources.Resources.Website"><i class="fa fa-globe"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+            }
+        }
+
+    </div>
+
+</div><!--end right  content-->
+
+<script type="text/javascript">
+
+    function addFriendFunction(object, userId) {
+        
+        object.innerHTML = "<i class=\"fa fa-check\"></i>";
+
+        jQuery.post('@Url.Action("AddFriend", "Home")',
+                { id: userId }
+            )
+            .done(function (data) {})
+            .fail(function () {
+                object.innerHTML = "<i class=\"fa fa-user-plus\"></i>";
+            });
+    }
+
+</script>

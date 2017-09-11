@@ -12,14 +12,34 @@ namespace InsuranceWebsite.Models
         public HomeViewModel()
         {
             this.IsPostsView = true;
-            this.IsMessagesView = false;
-            this.IsNotificationsView = false;
-            this.IsSearchView = false;
+            this.SearchModel = new SearchViewModel();
         }
-        public bool IsPostsView { get; set; }
-        public bool IsMessagesView { get; set; }
-        public bool IsNotificationsView { get; set; }
-        public bool IsSearchView { get; set; }
+
+        public bool IsPostsView
+        {
+            get { return _isPostsView; }
+            set { _isPostsView = value; _isMessagesView = false; _isNotificationsView = false; _isProfileSearchView = false; _isSearchView = false; }
+        }
+        public bool IsMessagesView
+        {
+            get { return _isMessagesView; }
+            set { _isPostsView = false; _isMessagesView = value; _isNotificationsView = false; _isProfileSearchView = false; _isSearchView = false; }
+        }
+        public bool IsNotificationsView
+        {
+            get { return _isNotificationsView; }
+            set { _isPostsView = false; _isMessagesView = false; _isNotificationsView = value; _isProfileSearchView = false; _isSearchView = false; }
+        }
+        public bool IsSearchView
+        {
+            get { return _isSearchView; }
+            set { _isPostsView = false; _isMessagesView = false; _isNotificationsView = false; _isProfileSearchView = false; _isSearchView = true; }
+        }
+        public bool IsProfileSearchView
+        {
+            get { return _isProfileSearchView; }
+            set { _isPostsView = false; _isMessagesView = false; _isNotificationsView = false; _isProfileSearchView = true; _isSearchView = false; }
+        }
 
         public bool IsSearchGarages { get; set; }
         public bool IsSearchClinics { get; set; }
@@ -28,6 +48,8 @@ namespace InsuranceWebsite.Models
         public bool IsSearchInsuranceContacts { get; set; }
 
         public List<PostDTO> Posts { get; set; }
+
+        public SearchViewModel SearchModel { get; set; }
 
         #region Search Fields
 
@@ -88,5 +110,14 @@ namespace InsuranceWebsite.Models
 
         #endregion Search Fields
 
+        #region Private Properties
+
+        private bool _isPostsView { get; set; }
+        private bool _isMessagesView { get; set; }
+        private bool _isNotificationsView { get; set; }
+        private bool _isSearchView { get; set; }
+        private bool _isProfileSearchView { get; set; }
+
+        #endregion Private Properties
     }
 }

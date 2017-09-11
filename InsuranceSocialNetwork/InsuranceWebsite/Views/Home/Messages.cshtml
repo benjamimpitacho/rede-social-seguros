@@ -22,24 +22,16 @@
 
                 <div class="col-md-4 bg-white ">
 
-                    @*<div class="alert alert-info">
-                        <strong>Info:</strong> Esta página ainda está em desenvolvimento.
-                    </div>*@
-
-                    <!-- member list -->
-                    <div class="row border-bottom padding-sm" style="height: 40px;">
-
-                    </div>
                     <ul class="friend-list">
                         @foreach (ChatDTO chat in Model.Chats)
                         {
                             if (null != Model.ActiveChat && Model.ActiveChat.ID == chat.ID)
                             {
                                 <li class="active bounceInDown">
-                                    <a href="#" class="clearfix">
-                                        <img src="img/Friends/guy-2.jpg" alt="" class="img-circle">
+                                    <a href="#" class="clearfix" onclick="loadChat('@chat.ID_Chat')">
+                                        <img src="~/Content/images/no_photo_img.jpg" alt="" class="img-circle">
                                         <div class="friend-name">
-                                            <strong>@chat.ChatMember.Where(i=>i.ID_User!=chat.ID_ChatCreator_User).FirstOrDefault().AspNetUsers.UserName</strong>
+                                            <strong>@chat.ChatMember.Where(i => i.ID_User != chat.ID_ChatCreator_User).FirstOrDefault().AspNetUsers.UserName</strong>
                                         </div>
                                         <div class="last-message text-muted">Hello, Are you there?</div>
                                         <small class="time text-muted">@chat.LastChangeDate.ToShortDateString()</small>
@@ -50,112 +42,25 @@
                             else
                             {
                                 <li>
-                                    <a href="#" class="clearfix">
-                                        <img src="img/Friends/woman-10.jpg" alt="" class="img-circle">
+                                    <a href="#" class="clearfix" onclick="$('#messageListPanel').load('@Url.Action("LoadChat","Home", new { id = chat.ID, chatId = chat.ID_Chat })')">
+                                        <img src="~/Content/images/no_photo_img.jpg" alt="" class="img-circle">
                                         <div class="friend-name">
                                             <strong>@chat.ChatMember.Where(i => i.ID_User != chat.ID_ChatCreator_User).FirstOrDefault().AspNetUsers.UserName</strong>
                                         </div>
                                         <div class="last-message text-muted">Lorem ipsum dolor sit amet.</div>
-                                        <small class="time text-muted">>@chat.LastChangeDate.ToShortDateString()</small>
+                                        <small class="time text-muted">@chat.LastChangeDate.ToShortDateString()</small>
                                         <small class="chat-alert text-muted"><i class="fa fa-check"></i></small>
                                     </a>
                                 </li>
                             }
                         }
-                        @*<li class="active bounceInDown">
-                            <a href="#" class="clearfix">
-                                <img src="img/Friends/guy-2.jpg" alt="" class="img-circle">
-                                <div class="friend-name">
-                                    <strong>John Doe</strong>
-                                </div>
-                                <div class="last-message text-muted">Hello, Are you there?</div>
-                                <small class="time text-muted">Just now</small>
-                                <small class="chat-alert label label-danger">1</small>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="clearfix">
-                                <img src="img/Friends/woman-10.jpg" alt="" class="img-circle">
-                                <div class="friend-name">
-                                    <strong>Jane Doe</strong>
-                                </div>
-                                <div class="last-message text-muted">Lorem ipsum dolor sit amet.</div>
-                                <small class="time text-muted">5 mins ago</small>
-                                <small class="chat-alert text-muted"><i class="fa fa-check"></i></small>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="clearfix">
-                                <img src="img/Friends/woman-3.jpg" alt="" class="img-circle">
-                                <div class="friend-name">
-                                    <strong>Kate Doe</strong>
-                                </div>
-                                <div class="last-message text-muted">Lorem ipsum dolor sit amet.</div>
-                                <small class="time text-muted">Yesterday</small>
-                                <small class="chat-alert text-muted"><i class="fa fa-reply"></i></small>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="clearfix">
-                                <img src="img/Friends/woman-4.jpg" alt="" class="img-circle">
-                                <div class="friend-name">
-                                    <strong>Martha Doe</strong>
-                                </div>
-                                <div class="last-message text-muted">Lorem ipsum dolor sit amet.</div>
-                                <small class="time text-muted">Yesterday</small>
-                                <small class="chat-alert text-muted"><i class="fa fa-reply"></i></small>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="clearfix">
-                                <img src="img/Friends/woman-5.jpg" alt="" class="img-circle">
-                                <div class="friend-name">
-                                    <strong>Katherin Doe</strong>
-                                </div>
-                                <div class="last-message text-muted">Lorem ipsum dolor sit amet.</div>
-                                <small class="time text-muted">Yesterday</small>
-                                <small class="chat-alert text-muted"><i class="fa fa-reply"></i></small>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="clearfix">
-                                <img src="img/Friends/woman-6.jpg" alt="" class="img-circle">
-                                <div class="friend-name">
-                                    <strong>Camila crut</strong>
-                                </div>
-                                <div class="last-message text-muted">Lorem ipsum dolor sit amet.</div>
-                                <small class="time text-muted">Yesterday</small>
-                                <small class="chat-alert text-muted"><i class="fa fa-reply"></i></small>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="clearfix">
-                                <img src="img/Friends/woman-7.jpg" alt="" class="img-circle">
-                                <div class="friend-name">
-                                    <strong>Marian Grey</strong>
-                                </div>
-                                <div class="last-message text-muted">Lorem ipsum dolor sit amet.</div>
-                                <small class="time text-muted">Yesterday</small>
-                                <small class="chat-alert text-muted"><i class="fa fa-reply"></i></small>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="clearfix">
-                                <img src="img/Friends/woman-8.jpg" alt="" class="img-circle">
-                                <div class="friend-name">
-                                    <strong>Jane Doe</strong>
-                                </div>
-                                <div class="last-message text-muted">Lorem ipsum dolor sit amet.</div>
-                                <small class="time text-muted">5 mins ago</small>
-                                <small class="chat-alert text-muted"><i class="fa fa-check"></i></small>
-                            </a>
-                        </li>*@
+                        
                     </ul><!-- end member list -->
                 </div>
 
                 <!-- selected chat content -->
-                <div class="col-md-8 bg-white" style="height:100vh;position:relative" id="messageListPanel">
-                    <div class="panel message-list panel-danger chat-body" style="width:100%" id="discussion">
+                <div class="col-md-8 bg-white chat" style="height:100vh;position:relative" id="messageListPanel">
+                    @*<div class="panel message-list panel-danger chat-body" style="width:100%" id="discussion">
                         
                     </div>
                     <div class="message-list-footer">
@@ -168,7 +73,7 @@
                                 <li><a href="#"><i class="fa fa-camera"></i></a></li>
                             </ul>
                         </div>
-                    </div>
+                    </div>*@
                     <!-- end add post form-->
                 </div><!-- selected chat content -->
             </div><!-- end chat content -->
@@ -176,60 +81,3 @@
 </div>
 
 @Html.Partial("~/Views/Home/Partial/Footer.cshtml", Model)
-
-
-@section scripts {
-    <!--Script references. -->
-    <!--The jQuery library is required and is referenced by default in _Layout.cshtml. -->
-    <!--Reference the SignalR library. -->
-    <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
-    <!--Reference the autogenerated SignalR hub script. -->
-    <script src="~/signalr/hubs"></script>
-    <!--SignalR script to update the chat page and send messages.-->
-    <script>
-        $(function () {
-            // Reference the auto-generated proxy for the hub.
-            var chat = $.connection.chatHub;
-            // Create a function that the hub can call back to display messages.
-            chat.client.addNewMessageToPage = function (name, message) {
-                // Add the message to the page.
-                //$('#discussion').append('<li class="right clearfix"><span class="chat-img pull-right"><img src="img/Friends/guy-3.jpg" alt="User Avatar"></span>'
-                //    + '<div class="chat-body clearfix"><div class="header"><strong class="primary-font">'
-                //    + htmlEncode(name)
-                //    + '</strong><small class="pull-right text-muted"><i class="fa fa-clock-o"></i> 13 mins ago</small></div><p>'
-                //    + htmlEncode(message)
-                //    + '</p></div></li>');
-                //alert($('#messageListPanel').height());
-                $('#discussion').append('<div class="answer right"><div class="avatar">'
-                    + '<img src="img/Friends/woman-1.jpg" alt="User name"><div class="status offline"></div></div>'
-                    + '<div class="name">'
-                    + htmlEncode(name)
-                    + '</div><div class="text">'
-                    + htmlEncode(message)
-                    + '</div><div class="time">5 min ago</div></div>');
-                //alert($('#messageListPanel').height());
-                $('#discussion')[0].scrollTop = $('#discussion')[0].scrollHeight;
-                //$('#discussion').scrollTop($('#discussion').scrollHeight);
-                //$('#messageListPanel').scrollTop($('#messageListPanel').scrollHeight);
-            };
-            // Get the user name and store it to prepend to messages.
-            //$('#displayname').val(prompt('Enter your name:', ''));
-            // Set initial focus to message input box.
-            $('#message').focus();
-            // Start the connection.
-            $.connection.hub.start().done(function () {
-                $('#sendmessage').click(function () {
-                    // Call the Send method on the hub.
-                    chat.server.send($('#displayname').val(), $('#message').val());
-                    // Clear text box and reset focus for next comment.
-                    $('#message').val('').focus();
-                });
-            });
-        });
-        // This optional function html-encodes messages for display in the page.
-        function htmlEncode(value) {
-            var encodedValue = $('<div />').text(value).html();
-            return encodedValue;
-        }
-    </script>
-}

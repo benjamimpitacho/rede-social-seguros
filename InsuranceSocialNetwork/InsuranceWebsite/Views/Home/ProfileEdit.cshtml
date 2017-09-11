@@ -51,11 +51,11 @@
                                                     <input type="file" name="fileUploaderControl" id="fileUploaderControl" style="display:none;">
                                                     @if (null == Model.ProfilePhoto || Model.ProfilePhoto.Length == 0)
                                                     {
-                                                        <img src="~/Content/images/no_photo_img.jpg" class="avatar img-circle">
+                                                        <img src="~/Content/images/no_photo_img.jpg" class="avatar img-circle" id="profileImage">
                                                     }
                                                     else
                                                     {
-                                                        <img src="@imgSrc" class="avatar img-circle">
+                                                        <img src="@imgSrc" class="avatar img-circle" id="profileImage">
                                                     }
 
                                                     <h2>@Model.Profile.FirstName @Model.Profile.LastName <i class="fa fa-circle green-font online-icon"></i><sup class="sr-only">online</sup></h2>

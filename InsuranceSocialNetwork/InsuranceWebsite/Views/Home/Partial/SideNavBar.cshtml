@@ -13,20 +13,22 @@
 
 <div class="left" id="sideNavBar">
     <div class="item no-hover" style="padding-bottom:0px;margin-top: 10px;margin-bottom: 10px;">
-        <img src="~/Content/images/no_logo_img.png" alt="" class="item-logo">
+        <a href="@Url.Action("Index", "Home")" title="@Resources.Resources.Home" style="height:inherit">
+            <img src="~/Content/images/no_logo_img.png" alt="" class="item-logo">
+        </a>
     </div>
     @*<div class="item no-hover">
         <img src="~/Content/images/no_photo_img.jpg" class="item-photo">
     </div>*@
     <div class="item">
-        <a href="@Url.Action("ProfileInfo", "Home")" title="@Resources.Resources.UserProfile">
+        <a href="@Url.Action("ProfileInfo", "Home")" title="@Resources.Resources.UserProfile" style="height:inherit">
             @if (null == Model.Profile.ProfilePhoto || Model.Profile.ProfilePhoto.Length == 0)
             {
-                <img src="~/Content/images/no_photo_img.jpg" class="item-photo">
+                <img src="~/Content/images/no_photo_img.jpg" class="mini-avatar item-photo">
             }
             else
             {
-                <img src="@imgSrc" class="item-photo">
+                <img src="@imgSrc" class="mini-avatar item-photo" style="padding:10px">
             }
         </a>
     </div>
