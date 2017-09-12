@@ -9,11 +9,11 @@
 @Html.HiddenFor(i => i.Profile.FirstName, new { id = "firstName" })
 @Html.HiddenFor(i => i.Profile.LastName, new { id = "lastName" })
 
-<div class="panel message-list panel-danger chat-body" style="width:100%" id="discussion">
+<div class="col-inside-lg decor-default" style="width:100%">
     @*<h6>Chat with @string.Join(",", Model.Chat.ChatMember.Where(i => i.ID_User != Model.Profile.ID_User).Select(i => i.AspNetUsers.Email).ToArray())</h6>*@
 
     @*<ul>*@
-    <div class="chat-body">
+    <div class="chat-body" id="discussion">
         <h6>Mini Chat</h6>
         @foreach (ChatMessageDTO message in Model.Chat.ChatMessage)
         {
@@ -30,7 +30,26 @@
                     <div class="text">
                         @message.Text
                     </div>
-                    <div class="time">5 min ago</div>
+                    @if (DateTime.Now.Subtract(message.CreateDate).TotalMinutes < 1)
+                    {
+                        <div class="time">@Math.Round(DateTime.Now.Subtract(message.CreateDate).TotalSeconds, 0) @Resources.Resources.SecondsAgo</div>
+                    }
+                    else if (DateTime.Now.Subtract(message.CreateDate).TotalHours < 1)
+                    {
+                        <div class="time">@Math.Round(DateTime.Now.Subtract(message.CreateDate).TotalMinutes, 0) @Resources.Resources.MinutesAgo</div>
+                    }
+                    else if (DateTime.Now.Subtract(message.CreateDate).TotalDays < 1)
+                    {
+                        <div class="time">@Math.Round(DateTime.Now.Subtract(message.CreateDate).TotalHours, 0) @Resources.Resources.HoursAgo</div>
+                    }
+                    else if (DateTime.Now.Subtract(message.CreateDate).TotalDays < 5)
+                    {
+                        <div class="time">@Math.Round(DateTime.Now.Subtract(message.CreateDate).TotalDays, 0) @Resources.Resources.DaysAgo</div>
+                    }
+                    else
+                    {
+                        <div class="time">@message.CreateDate.ToShortDateString()</div>
+                    }
                 </div>
             }
             else
@@ -46,7 +65,26 @@
                     <div class="text">
                         @message.Text
                     </div>
-                    <div class="time">5 min ago</div>
+                    @if (DateTime.Now.Subtract(message.CreateDate).TotalMinutes < 1)
+                    {
+                        <div class="time">@Math.Round(DateTime.Now.Subtract(message.CreateDate).TotalSeconds, 0) @Resources.Resources.SecondsAgo</div>
+                    }
+                    else if (DateTime.Now.Subtract(message.CreateDate).TotalHours < 1)
+                    {
+                        <div class="time">@Math.Round(DateTime.Now.Subtract(message.CreateDate).TotalMinutes, 0) @Resources.Resources.MinutesAgo</div>
+                    }
+                    else if (DateTime.Now.Subtract(message.CreateDate).TotalDays < 1)
+                    {
+                        <div class="time">@Math.Round(DateTime.Now.Subtract(message.CreateDate).TotalHours, 0) @Resources.Resources.HoursAgo</div>
+                    }
+                    else if (DateTime.Now.Subtract(message.CreateDate).TotalDays < 5)
+                    {
+                        <div class="time">@Math.Round(DateTime.Now.Subtract(message.CreateDate).TotalDays, 0) @Resources.Resources.DaysAgo</div>
+                    }
+                    else
+                    {
+                        <div class="time">@message.CreateDate.ToShortDateString()</div>
+                    }
                 </div>
             }
 
@@ -64,10 +102,16 @@
                 </div>
             </li>*@
         }
+
+        <div class="answer-add" id="sendMessageDiv">
+            <input placeholder="Write a message" id="message">
+            @*<span class="answer-btn answer-btn-1"></span>*@
+            <span class="answer-btn answer-btn-2" id="sendmessage"></span>
+        </div>
     @*</ul>*@
 
 </div>
-<div class="message-list-footer">
+@*<div class="message-list-footer">
     <form>
         <textarea class="form-control input-lg p-text-area" rows="3" placeholder="Write a message..." id="message" style="resize: none;"></textarea>
     </form>
@@ -77,7 +121,7 @@
             <li><a href="#"><i class="fa fa-camera"></i></a></li>
         </ul>
     </div>
-</div>
+</div>*@
 </div>
 
 
@@ -103,15 +147,23 @@
             //    + '</p></div></li>');
             //alert($('#messageListPanel').height());
             if (connectionid == $('#chatId').val()) {
-                $('#discussion').append('<div class="answer right"><div class="avatar">'
-                    + '<img src="~/Content/images/no_photo_img.jpg" alt="User name"><div class="status offline"></div></div>'
+                $('#sendMessageDiv').before('<div class="answer right"><div class="avatar">'
+                    + '<img src="/Content/images/no_photo_img.jpg" alt="User name"><div class="status offline"></div></div>'
                     + '<div class="name">'
                     + htmlEncode(name)
                     + '</div><div class="text">'
                     + htmlEncode(message)
                     + '</div><div class="time">5 min ago</div></div>');
+                //$('#discussion').append('<div class="answer right"><div class="avatar">'
+                //    + '<img src="~/Content/images/no_photo_img.jpg" alt="User name"><div class="status offline"></div></div>'
+                //    + '<div class="name">'
+                //    + htmlEncode(name)
+                //    + '</div><div class="text">'
+                //    + htmlEncode(message)
+                //    + '</div><div class="time">5 min ago</div></div>');
                 //alert($('#messageListPanel').height());
                 $('#discussion')[0].scrollTop = $('#discussion')[0].scrollHeight;
+                $('#messageListPanel')[0].scrollTop = $('#messageListPanel')[0].scrollHeight;
                 //$('#discussion').scrollTop($('#discussion').scrollHeight);
                 //$('#messageListPanel').scrollTop($('#messageListPanel').scrollHeight);
             }

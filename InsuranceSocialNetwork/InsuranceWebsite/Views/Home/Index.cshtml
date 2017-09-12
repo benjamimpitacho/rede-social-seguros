@@ -19,7 +19,7 @@
 
             @Html.Partial("~/Views/Home/Partial/SideNavBar.cshtml", Model)
 
-            <!-- right  content-->
+            <!-- left  content-->
             @if (Model.IsPostsView)
             {
                 @Html.Partial("~/Views/Home/Partial/Timeline.cshtml", Model)
@@ -36,12 +36,7 @@
             {
                 <h1>APANHOU OUTRA VIEW QUALQUER...</h1>
             }
-
-            @*@if (Model.IsNotificationsView)
-            {
-                @Html.Partial("~/Views/Home/Partial/Notifications.cshtml", Model)
-            }*@
-            <!--end right  content-->
+            <!--end left  content-->
 
             @Html.Partial("~/Views/Home/Partial/RightBar.cshtml", Model)
 

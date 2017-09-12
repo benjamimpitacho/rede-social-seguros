@@ -95,7 +95,7 @@ namespace InsuranceSocialNetworkDAL
             using (var context = new BackofficeUnitOfWork())
             {
                 List<string> friends1Ids = context.Friend.Fetch().Where(j => j.AspNetUsers1.Id == currentUserId).Select(j => j.AspNetUsers.Id).ToList();
-                List<string> friends2Ids = context.Friend.Fetch().Where(j => j.AspNetUsers.Id == currentUserId).Select(j => j.AspNetUsers.Id).ToList();
+                List<string> friends2Ids = context.Friend.Fetch().Where(j => j.AspNetUsers.Id == currentUserId).Select(j => j.AspNetUsers1.Id).ToList();
                 friends1Ids = friends1Ids.Concat(friends2Ids).ToList();
 
                 List<Profile> friends = context

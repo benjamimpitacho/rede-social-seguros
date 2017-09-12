@@ -29,6 +29,35 @@ namespace InsuranceSocialNetworkDAL
                     .ToList();
             }
         }
+        public static List<Post> GetUserRelatedPosts(BackofficeUnitOfWork context, string Id)
+        {
+            List<string> friendsUserIds = context.Friend.Fetch().Where(i => i.ID_User == Id).Select(i => i.ID_User_Friend).ToList();
+            List<string> auxFriendsUserIds = context.Friend.Fetch().Where(i => i.ID_User_Friend == Id).Select(i => i.ID_User).ToList();
+            friendsUserIds = friendsUserIds.Concat(auxFriendsUserIds).ToList();
+
+            List<Post> postList = context.Post
+                .Fetch()
+                .Include(i => i.AspNetUsers.Profile)
+                .Include(i => i.PostType)
+                .Include(i => i.PostSubject)
+                .Include(i => i.PostLike)
+                .Include(i => i.PostComment)
+                //.Include(i => i.ChatMessage.OrderByDescending(j => j.CreateDate).Take(20))
+                .Include(i => i.PostImage)
+                .Where(i => (
+                    i.ID_User == Id
+                    || friendsUserIds.Contains(i.ID_User)
+                    )
+                    && i.Active)
+                .OrderByDescending(i => i.Sticky)
+                .ThenByDescending(i => i.CreateDate)
+                .ToList();
+
+            postList.ForEach(p => p.PostComment = p.PostComment.Where(c => c.Active).Select(c => c).OrderBy(i => i.Date).ToList());
+            postList.ForEach(p => p.PostImage = p.PostImage.Where(c => c.Active).Select(c => c).ToList());
+
+            return postList;
+        }
 
         public static bool CreatePost(Post post)
         {
@@ -77,6 +106,11 @@ namespace InsuranceSocialNetworkDAL
         {
             using (var context = new BackofficeUnitOfWork())
             {
+                if(context.PostLike.Fetch().Count(i => i.ID_Post == postId && i.ID_User == userId)>0)
+                {
+                    return false;
+                }
+
                 PostLike like = new PostLike()
                 {
                     Active = true,

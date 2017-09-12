@@ -14,69 +14,64 @@
 <div class="container">
     <div class="col-md-12 no-paddin-xs" style="background-color:ghostwhite">
 
+        <!--  chat content -->
+        <div class="row" style="display:flex">
 
-            <!--  chat content -->
-            <div class="row" style="display:flex">
+            @Html.Partial("~/Views/Home/Partial/SideNavBar.cshtml", Model)
 
-                @Html.Partial("~/Views/Home/Partial/SideNavBar.cshtml", Model)
+            <div class="container">
+                @*<div class="col-md-4 bg-white ">*@
 
-                <div class="col-md-4 bg-white ">
+                <div class="row">
 
-                    <ul class="friend-list">
-                        @foreach (ChatDTO chat in Model.Chats)
-                        {
-                            if (null != Model.ActiveChat && Model.ActiveChat.ID == chat.ID)
-                            {
-                                <li class="active bounceInDown">
-                                    <a href="#" class="clearfix" onclick="loadChat('@chat.ID_Chat')">
-                                        <img src="~/Content/images/no_photo_img.jpg" alt="" class="img-circle">
-                                        <div class="friend-name">
-                                            <strong>@chat.ChatMember.Where(i => i.ID_User != chat.ID_ChatCreator_User).FirstOrDefault().AspNetUsers.UserName</strong>
-                                        </div>
-                                        <div class="last-message text-muted">Hello, Are you there?</div>
-                                        <small class="time text-muted">@chat.LastChangeDate.ToShortDateString()</small>
-                                        <small class="chat-alert label label-danger">1</small>
-                                    </a>
-                                </li>
-                            }
-                            else
-                            {
-                                <li>
-                                    <a href="#" class="clearfix" onclick="$('#messageListPanel').load('@Url.Action("LoadChat","Home", new { id = chat.ID, chatId = chat.ID_Chat })')">
-                                        <img src="~/Content/images/no_photo_img.jpg" alt="" class="img-circle">
-                                        <div class="friend-name">
-                                            <strong>@chat.ChatMember.Where(i => i.ID_User != chat.ID_ChatCreator_User).FirstOrDefault().AspNetUsers.UserName</strong>
-                                        </div>
-                                        <div class="last-message text-muted">Lorem ipsum dolor sit amet.</div>
-                                        <small class="time text-muted">@chat.LastChangeDate.ToShortDateString()</small>
-                                        <small class="chat-alert text-muted"><i class="fa fa-check"></i></small>
-                                    </a>
-                                </li>
-                            }
-                        }
-                        
-                    </ul><!-- end member list -->
-                </div>
+                    <div class="col-md-10 animated fadeInUp">
 
-                <!-- selected chat content -->
-                <div class="col-md-8 bg-white chat" style="height:100vh;position:relative" id="messageListPanel">
-                    @*<div class="panel message-list panel-danger chat-body" style="width:100%" id="discussion">
-                        
-                    </div>
-                    <div class="message-list-footer">
-                        <form>
-                            <textarea class="form-control input-lg p-text-area" rows="3" placeholder="Write a message..." id="message" style="resize: none;"></textarea>
-                        </form>
-                        <div class="panel-footer">
-                            <button type="button" class="btn btn-info pull-right" id="sendmessage">Send</button>
-                            <ul class="nav nav-pills">
-                                <li><a href="#"><i class="fa fa-camera"></i></a></li>
-                            </ul>
+                        <div class="row row-broken">
+
+                            <div class="col-sm-4 col-xs-12">
+
+                                <div class="col-inside-lg decor-default chat" style="overflow-x: hidden; overflow-y: scroll; outline: none;" tabindex="5000">
+
+                                    <div class="chat-users">
+
+                                        <h6>Online</h6>
+
+                                        @foreach (ChatDTO chat in Model.Chats)
+                                        {
+                                            <div class="user" onclick="$('#messageListPanel').load('@Url.Action("LoadChat", "Home", new { id= chat.ID})');">
+
+                                                <div class="avatar">
+
+                                                    <img src="~/Content/images/no_photo_img.jpg" alt="User name">
+
+                                                    <div class="status online"></div>
+
+                                                </div>
+
+                                                <div class="name">@string.Join(",", chat.ChatMember.Where(i => i.ID_User != Model.Profile.ID_User).Select(i => i.AspNetUsers.Email).ToArray())</div>
+
+                                                @if (null != chat.ChatMessage && chat.ChatMessage.Count > 0)
+                                                {
+                                                    <div class="mood">@chat.ChatMessage[0].Text</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="mood"><p></p></div>
+                                                }
+
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-8 col-xs-12 chat" style="overflow-x: hidden; overflow-y: scroll; outline: none;" tabindex="5001" id="messageListPanel">
+                            </div>
                         </div>
-                    </div>*@
-                    <!-- end add post form-->
-                </div><!-- selected chat content -->
-            </div><!-- end chat content -->
+                    </div>
+                </div>
+            </div>
+        </div><!-- end chat content -->
     </div>
 </div>
 

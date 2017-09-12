@@ -309,6 +309,20 @@ namespace InsuranceSocialNetworkBusiness
             return AutoMapper.Mapper.Map<List<PostDTO>>(list);
         }
 
+        public List<PostDTO> GetUserRelatedPosts(string Id)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                List<Post> list = PostRepository.GetUserRelatedPosts(context, Id);
+
+                //list.ForEach(p => p.PostComment = p.PostComment.Where(c => c.Active).Select(c => c).ToList());
+                //list.ForEach(p => p.PostImage = p.PostImage.Where(c => c.Active).Select(c => c).ToList());
+
+
+                return AutoMapper.Mapper.Map<List<PostDTO>>(list);
+            }
+        }
+
         public bool CreatePost(PostDTO item)
         {
             Post post = AutoMapper.Mapper.Map<Post>(item);

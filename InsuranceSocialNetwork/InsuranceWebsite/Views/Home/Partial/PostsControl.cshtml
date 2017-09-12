@@ -113,38 +113,33 @@
 
                     @if (null != post.PostLike && post.PostLike.Count > 0 && post.PostLike.Exists(i => i.ID_User == Model.Profile.ID_User))
                     {
-                        <a href="@Url.Action("UnlikePost", "Home", new { postId = post.ID, userId = Model.Profile.ID_User })" class="stat-item" style="color:#11a9cc">
-
+                        <a onclick="UnlikePost(this, @post.ID, @post.PostLike.Count)" class="stat-item" id="unlikePost" style="color:#11a9cc">
                             <i class="fa fa-thumbs-up icon"></i>@post.PostLike.Count
-
                         </a>
                     }
                     else if (null != post.PostLike && post.PostLike.Count > 0)
                     {
-                        <a href="@Url.Action("LikePost", "Home", new { postId = post.ID, userId = Model.Profile.ID_User })" class="stat-item">
-
+                        <a onclick="LikePost(this, @post.ID, @post.PostLike.Count)" class="stat-item" id="likePost">
                             <i class="fa fa-thumbs-up icon"></i>@post.PostLike.Count
-
                         </a>
                     }
                     else
                     {
-                        <a href="@Url.Action("LikePost", "Home", new { postId = post.ID, userId = Model.Profile.ID_User })" class="stat-item">
-
+                        @*<a href="@Url.Action("LikePost", "Home", new { postId = post.ID, userId = Model.Profile.ID_User })" class="stat-item">*@
+                        <a onclick="LikePost(this, @post.ID, @post.PostLike.Count)" class="stat-item">
                             <i class="fa fa-thumbs-up icon"></i>
-
                         </a>
                     }
 
-                    <a href="#" class="stat-item">
+                    @*<a href="#" class="stat-item">
 
                         <i class="fa fa-retweet icon"></i>12
 
-                    </a>
+                    </a>*@
 
-                    <a href="#" class="stat-item">
+                    <a class="stat-item">
 
-                        <i class="fa fa-comments-o icon"></i>3
+                        <i class="fa fa-comments-o icon"></i>@post.PostComment.Count
 
                     </a>
 
@@ -174,7 +169,7 @@
 
                                 </a>
 
-                                <div class="comment-body">
+                                <div class="comment-body" style="font-size:12px">
 
                                     <div class="comment-heading">
 
@@ -228,4 +223,66 @@
             $('#SubmitButton').focus().click();//give your submit an ID
         }
     }
+
+    function LikePost(object, postId, likesCount) {
+        object.style.color = "#11a9cc";
+        object.innerHTML = "<i class=\"fa fa-thumbs-up icon\"></i>" + (likesCount+1);
+        object.onclick = function() { UnlikePost(object, postId, likesCount); }
+
+        jQuery.post('@Url.Action("LikePost", "Home")',
+                { postId: postId }
+            )
+            .done(function (data) {
+            })
+            .fail(function () {
+            });
+    }
+
+    function UnlikePost(object, postId, likesCount) {
+        object.style.color = "#7f7f7f";
+        if(likesCount <= 1)
+        {
+            object.innerHTML = "<i class=\"fa fa-thumbs-up icon\"></i>";
+        }
+        else
+        {
+            object.innerHTML = "<i class=\"fa fa-thumbs-up icon\"></i>" + (likesCount-1);
+        }        
+        object.onclick = function() { LikePost(object, postId, likesCount); }
+
+        jQuery.post('@Url.Action("UnlikePost", "Home")',
+                { postId: postId }
+            )
+            .done(function (data) {
+            })
+            .fail(function () {
+            });
+    }
+
+    @*function LikePost(postId)
+    {
+        //$('#likePost').click(function (e) {
+        alert(postId);
+
+        $.ajax({
+            url: '@Url.Action("LikePost", "Home")',
+            type: "POST",
+            data: JSON.stringify({ 'postId': postId }),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            traditional: true,
+            //contentType: false,
+            //processData: false,
+            success: function (result) {
+                alert("sucesso!!");
+                //$("#div_Results").html(data);
+            },
+            error: function (result) {
+                alert(result);
+                //$("#div_Results").html(data);
+            }
+        });
+
+        //e.preventDefault();
+    }*@
 </script>

@@ -27,6 +27,34 @@ namespace InsuranceWebsite.Controllers
         {
         }
 
+        public async Task<ActionResult> TestView(HomeViewModel model)
+        {
+            if (null == model)
+            {
+                model = new HomeViewModel();
+            }
+
+            if (null != this.User && this.User.Identity.IsAuthenticated)
+            {
+                var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
+                if (null != user)
+                {
+                    FillModel(model, user.Id);
+                }
+                else
+                {
+                    return RedirectToAction("LogOff", "Account");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            return View(model);
+        }
+
         public async Task<ActionResult> Index(HomeViewModel model)
         {
             if (null == model)
@@ -154,7 +182,7 @@ namespace InsuranceWebsite.Controllers
         }
 
         [FunctionalityAutorizeAttribute("MESSAGES_FUNCTIONALITY")]
-        public ActionResult LoadChat(long id, string chatId)
+        public ActionResult LoadChat(long id)
         {
             ChatViewModel model = new ChatViewModel();
 
@@ -217,13 +245,13 @@ namespace InsuranceWebsite.Controllers
             }
         }
 
-        public async Task<ActionResult> Search(HomeViewModel model)
+        public async Task<ActionResult> Search(SearchViewModel model)
         {
             try
             {
                 if (null == model)
                 {
-                    model = new HomeViewModel();
+                    model = new SearchViewModel();
                 }
 
                 if (null != this.User && this.User.Identity.IsAuthenticated)
@@ -426,19 +454,21 @@ namespace InsuranceWebsite.Controllers
         }
 
         [FunctionalityAutorizeAttribute("LIKE_POST_FUNCTIONALITY")]
-        public ActionResult LikePost(HomeViewModel model, long postId, string userId)
+        public JsonResult LikePost(/*HomeViewModel model, */long postId/*, string userId*/)
         {
-            InsuranceBusiness.BusinessLayer.LikePost(postId, userId);
+            InsuranceBusiness.BusinessLayer.LikePost(postId, CurrentUser.ID_User);
 
-            return RedirectToAction("Index");
+            //return RedirectToAction("Index");
+            return Json(new { ok = true, message = "" });
         }
 
         [FunctionalityAutorizeAttribute("LIKE_POST_FUNCTIONALITY")]
-        public ActionResult UnlikePost(HomeViewModel model, long postId, string userId)
+        public JsonResult UnlikePost(/*HomeViewModel model,*/ long postId/*, string userId*/)
         {
-            InsuranceBusiness.BusinessLayer.UnlikePost(postId, userId);
+            InsuranceBusiness.BusinessLayer.UnlikePost(postId, CurrentUser.ID_User);
 
-            return RedirectToAction("Index");
+            //return RedirectToAction("Index");
+            return Json(new { ok = true, message = "" });
         }
 
         [FunctionalityAutorizeAttribute("TIMELINE_FUNCTIONALITY")]
@@ -446,7 +476,7 @@ namespace InsuranceWebsite.Controllers
         {
             PostItemsViewModel model = new PostItemsViewModel();
             model.Profile = CurrentUser;
-            model.Items = InsuranceBusiness.BusinessLayer.GetUserPosts(CurrentUser.ID_User);
+            model.Items = InsuranceBusiness.BusinessLayer.GetUserRelatedPosts(CurrentUser.ID_User);
             return PartialView("Partial/PostsControl", model);
         }
 
@@ -714,7 +744,7 @@ namespace InsuranceWebsite.Controllers
             {
                 if (((HomeViewModel)model).IsPostsView)
                 {
-                    ((HomeViewModel)model).Posts = InsuranceBusiness.BusinessLayer.GetUserPosts(userId);
+                    ((HomeViewModel)model).Posts = InsuranceBusiness.BusinessLayer.GetUserRelatedPosts(userId);
                 }
                 //((HomeViewModel)model).Notifications = InsuranceBusiness.BusinessLayer.GetUserNotifications(userId);
             }

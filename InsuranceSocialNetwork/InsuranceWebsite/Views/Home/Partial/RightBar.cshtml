@@ -10,13 +10,17 @@
 
         $("#accordion").accordion({
             collapsible: true,
+            active:false,
             icons: icons
         });
 
         $("#toggle").button().on("click", function () {
-            if ($("#accordion").accordion("option", "icons")) {
+            if ($("#accordion").accordion("option", "icons"))
+            {
                 $("#accordion").accordion("option", "icons", null);
-            } else {
+            }
+            else
+            {
                 $("#accordion").accordion("option", "icons", icons);
             }
         });
