@@ -148,13 +148,13 @@
     <value>Desenvolvimento</value>
   </data>
   <data name="Email" xml:space="preserve">
-    <value>Email</value>
+    <value>E-mail</value>
   </data>
   <data name="Feed" xml:space="preserve">
     <value>Feed</value>
   </data>
   <data name="ForgotYourPassword" xml:space="preserve">
-    <value>Esqueceu a sua palavra-passe?</value>
+    <value>Esqueceste-te da tua conta?</value>
   </data>
   <data name="Home" xml:space="preserve">
     <value>Home</value>
@@ -172,7 +172,7 @@
     <value>Tentativa de login inválida!</value>
   </data>
   <data name="Login" xml:space="preserve">
-    <value>Entrar</value>
+    <value>Iniciar sessão</value>
   </data>
   <data name="MadePost" xml:space="preserve">
     <value>publicou um novo post</value>
@@ -202,7 +202,7 @@
     <value>Notificações</value>
   </data>
   <data name="Password" xml:space="preserve">
-    <value>Password</value>
+    <value>Palavra-passe</value>
   </data>
   <data name="PrivacyPolicy" xml:space="preserve">
     <value>Politica de Privacidade</value>
@@ -211,10 +211,10 @@
     <value>Falar Seguros - Perfil</value>
   </data>
   <data name="Regist" xml:space="preserve">
-    <value>Registar</value>
+    <value>Registo</value>
   </data>
   <data name="Register" xml:space="preserve">
-    <value>Registo</value>
+    <value>Regista-te</value>
   </data>
   <data name="RememberMe" xml:space="preserve">
     <value>Lembrar-se de mim?</value>
@@ -280,7 +280,7 @@
     <value>Nome é obrigatório</value>
   </data>
   <data name="PasswordRequired" xml:space="preserve">
-    <value>Password é obrigatória</value>
+    <value>Palavra-passe é obrigatória</value>
   </data>
   <data name="RoleRequired" xml:space="preserve">
     <value>Perfil é obrigatório</value>
@@ -355,10 +355,10 @@
     <value>Concelho</value>
   </data>
   <data name="Logout" xml:space="preserve">
-    <value>Terminar Sessão</value>
+    <value>Terminar sessão</value>
   </data>
   <data name="NoNotifications" xml:space="preserve">
-    <value>Não existem notificações</value>
+    <value>De momento não possui notificações</value>
   </data>
   <data name="OfficialAgent" xml:space="preserve">
     <value>Agente oficial</value>
@@ -436,10 +436,10 @@
     <value>Gostos nas suas publicações</value>
   </data>
   <data name="NewPassword" xml:space="preserve">
-    <value>Nova password</value>
+    <value>Nova palavra-passe</value>
   </data>
   <data name="OldPassword" xml:space="preserve">
-    <value>Password antiga</value>
+    <value>Palavra-passe anterior</value>
   </data>
   <data name="Privacy" xml:space="preserve">
     <value>Privacidade</value>
@@ -491,5 +491,41 @@
   </data>
   <data name="EditBanner" xml:space="preserve">
     <value>Editar banner</value>
+  </data>
+  <data name="SiteTitle" xml:space="preserve">
+    <value>Portal FalarSeguros</value>
+  </data>
+  <data name="CookieUsagePolicy" xml:space="preserve">
+    <value>Utilização de Cookies</value>
+  </data>
+  <data name="DataPolicy" xml:space="preserve">
+    <value>Politica de Dados</value>
+  </data>
+  <data name="Terms" xml:space="preserve">
+    <value>Termos</value>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>Aguarde</value>
+  </data>
+  <data name="Sponsored" xml:space="preserve">
+    <value>Publicidade</value>
+  </data>
+  <data name="InDiscussion" xml:space="preserve">
+    <value>Em discussão</value>
+  </data>
+  <data name="APROSE" xml:space="preserve">
+    <value>APROSE</value>
+  </data>
+  <data name="APS" xml:space="preserve">
+    <value>APS</value>
+  </data>
+  <data name="ASF" xml:space="preserve">
+    <value>ASF</value>
+  </data>
+  <data name="HRInsurances" xml:space="preserve">
+    <value>RH Seguros</value>
+  </data>
+  <data name="SafeBusinesses" xml:space="preserve">
+    <value>Negócios Seguros</value>
   </data>
 </root>

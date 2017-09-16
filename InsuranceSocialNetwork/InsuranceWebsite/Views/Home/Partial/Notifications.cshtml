@@ -14,7 +14,7 @@
 
                     @if (null == Model.Notifications || Model.Notifications.Count == 0)
                     {
-                        <div class="col-md-7 alert alert-warning">
+                        <div class="col-md-7 alert alert-warning" style="text-align:center">
                             @Resources.Resources.NoNotifications
                         </div>
                     }
@@ -27,7 +27,7 @@
                             <div class="news">
                                 <div class="partialContents" data-url="/home/loadnotifications">
                                     <div style="text-align:center">
-                                        <img src="~/Content/images/waiting.gif" /> Loading ...
+                                        <img src="~/Content/images/waiting.gif" />@Resources.Resources.Loading...
                                     </div>
                                 </div>
                             </div>

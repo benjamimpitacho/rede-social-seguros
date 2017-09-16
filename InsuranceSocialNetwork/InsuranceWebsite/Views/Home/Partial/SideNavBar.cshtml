@@ -49,7 +49,14 @@
         <a href="@Url.Action("Index", "Home")" title="@Resources.Resources.Home"><span class="glyphicon glyphicon-home"></span></a>
     </div>*@
     <div class="item active">
-        <a href="@Url.Action("Messages", "Home")" title="@Resources.Resources.Messages"><span class="glyphicon glyphicon-comment"></span></a>
+        <a href="@Url.Action("Messages", "Home")" title="@Resources.Resources.Messages">
+            <span class="glyphicon glyphicon-comment"></span>
+        </a>
+        @if (Model.TotalUnreadMessages > 0)
+        {
+
+            <span class="badge badge-notify">@Model.TotalUnreadMessages</span>
+        }
     </div>
     <div class="item">
         <a href="@Url.Action("Friends", "Home")" title="@Resources.Resources.Friends"><span class="glyphicon glyphicon-user"></span></a>
@@ -139,7 +146,7 @@
         height: 40px;
         padding: 7px;
         border-radius: 32px;
-        font-size: smaller;
+        font-size: 21px;
     }
 
     div#sideNavBar.right .glyphicon {
@@ -235,9 +242,14 @@
     }
 
     .badge-notify{
-       background:red;
+       background:#fff;
        position:relative;
        top: 10px;
        left: 50px;
+       color: #00C1DE;
+       padding: 3px;
+       min-width: 20px;
+       min-height: 20px;
+       text-align: center;
     }
 </style>

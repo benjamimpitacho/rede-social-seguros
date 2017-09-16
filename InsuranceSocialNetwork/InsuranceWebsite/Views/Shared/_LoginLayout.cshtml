@@ -16,7 +16,7 @@
     <script src="~/Content/bookpost/bootstrap.min.js"></script>
     <script src="~/Content/bookpost/custom.js"></script>
     -->
-    <title>@ViewBag.Title - Anonymous User</title>
+    <title>@Resources.Resources.SiteTitle</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
@@ -43,7 +43,7 @@
 
                 <!-- welcome message -->
 
-                <div class="welcome-message welcome-text-shadow">
+                @*<div class="welcome-message welcome-text-shadow">
 
                     <div class="welcome-title">
 
@@ -63,7 +63,7 @@
 
                     </div>
 
-                </div><!-- end welcome message-->
+                </div>*@<!-- end welcome message-->
 
                 @RenderBody()
 
@@ -71,67 +71,14 @@
 
         </div>
 
+        <div style="color: darkgray;font-weight: 600;text-align: center;width: 100%;position: fixed;bottom: 30px;font-size: 12px;">
+            Ao clicar em Regista-te, concordas com os nossos <a href="@Url.Action("TermsConditions", "Home")">@Resources.Resources.Terms</a> e concordas que leste a nossa <a href="@Url.Action("DataPolicy", "Home")">@Resources.Resources.DataPolicy</a>, incluindo a nossa <a href="@Url.Action("CookieUsagePolicy", "Home")">@Resources.Resources.CookieUsagePolicy</a>.
+        </div>
+
     </div>
 
-    @Html.Partial("~/Views/Home/Partial/Footer.cshtml", new HomeViewModel())
+    @*@Html.Partial("~/Views/Home/Partial/Footer.cshtml", new HomeViewModel())*@
 
-    @*<footer class="welcome-footer">
-
-        <div class="container">
-
-            <p>
-
-                <div class="footer-links">
-
-                    <a href="#">Terms of Use</a> |
-
-                    <a href="#">Privacy Policy</a> |
-
-                    <a href="#">Developers</a> |
-
-                    <a href="#">Contact</a> |
-
-                    @Html.ActionLink("About", "About", "Home")
-
-                </div>
-
-                Copyright &copy; Company - All rights reserved
-
-            </p>
-
-        </div>
-
-    </footer>*@
-
-    @*
-        <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                        <li>@Html.ActionLink("About", "About", "Home")</li>
-                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    </ul>
-                    @Html.Partial("_LoginPartial")
-                </div>
-            </div>
-        </div>
-        <div class="container body-content">
-            @RenderBody()
-            <hr />
-            <footer>
-                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-            </footer>
-        </div>
-    *@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>

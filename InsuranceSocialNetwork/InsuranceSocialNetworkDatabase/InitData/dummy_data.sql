@@ -228,4 +228,15 @@ INSERT [Insurance].[Post] ([ID_User],[ID_PostType],[ID_PostSubject],[Text],[Crea
 	VALUES (@userId,@postTypeId,@postSubjectId,'Este post é um teste dummy - #10!!',GETDATE(),GETDATE());
 
 
+-- Posts for Administrator
 
+INSERT [Insurance].[Post] ([ID_User],[ID_PostType],[ID_PostSubject],[Text],[CreateDate],[LastChangeDate])
+	VALUES ((SELECT [Id] FROM [dbo].[AspNetUsers] WHERE [Email]='admin@falarseguros.pt'),@postTypeId,@postSubjectId,'Este post é um teste dummy - #admin1!!',GETDATE(),GETDATE());
+
+INSERT [Insurance].[Post] ([ID_User],[ID_PostType],[ID_PostSubject],[Text],[CreateDate],[LastChangeDate])
+	VALUES ((SELECT [Id] FROM [dbo].[AspNetUsers] WHERE [Email]='admin@falarseguros.pt'),@postTypeId,@postSubjectId,'Este post é um teste dummy - #admin2!!',GETDATE(),GETDATE());
+
+SELECT @postSubjectId = Id FROM [Insurance].[PostSubject] WHERE Token='SPONSORED_POST';
+
+INSERT [Insurance].[Post] ([ID_User],[ID_PostType],[ID_PostSubject],[Text],[CreateDate],[LastChangeDate])
+	VALUES ((SELECT [Id] FROM [dbo].[AspNetUsers] WHERE [Email]='admin@falarseguros.pt'),@postTypeId,@postSubjectId,'Este post é um teste sponsor dummy - #admin3!!',GETDATE(),GETDATE());

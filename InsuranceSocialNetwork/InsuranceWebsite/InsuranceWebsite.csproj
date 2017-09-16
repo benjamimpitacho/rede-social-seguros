@@ -296,6 +296,7 @@
     <Content Include="Content\icons\wheelbarrow.svg" />
     <Content Include="Content\images-grid.css" />
     <Content Include="Content\images\default_profile_header.png" />
+    <Content Include="Content\images\falarseguros_logo.png" />
     <Content Include="Content\images\home-bg.jpg" />
     <Content Include="Content\images\no_logo_img.png" />
     <Content Include="Content\images\no_photo_img.jpg" />

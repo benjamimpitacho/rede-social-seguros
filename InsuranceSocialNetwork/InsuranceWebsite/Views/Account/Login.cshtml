@@ -15,57 +15,32 @@
 
     <div class="widget panel-inputs panel-home animated fadeInUp">
 
-        @*<div class="widget-header">
-
-            <h3 class="widget-caption">
-
-                <span class="pull-right">
-
-                    @Html.ActionLink(Resources.Resources.Register, "Register", "Account", new { @class = "btn btn-info btn-xs btn-panel-home" })
-
-                </span>
-
-            </h3>
-
-        </div>*@
-
         <div class="widget-body">
 
-            <div class="row" style="margin-left: 15px;">
+            <div class="row" style="margin-left: 15px;padding-top:0px">
 
                 @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                 {
                     @Html.AntiForgeryToken()
-                    @*<form action="" method="POST" autocomplete="off">*@
-
-                    @*<input type="text" id="short" name="" placeholder="Username or email">
-
-                        <input type="password" id="short" name="" placeholder="Password">*@
 
                     <div class="form-group">
-                        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
+                        <img src="~/Content/images/falarseguros_logo.png" style="padding: 30px 50px;" />
+                    </div>
+
+                    <div class="form-group">
+                        @*@Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })*@
+                        
+                        <div class="col-md-12">
+                            <span class="glyphicon glyphicon-user"></span>
                             @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = Resources.Resources.Email, @id = "short" })
                         </div>
                     </div>
                     <div class="form-group">
-                        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
+                        @*@Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })*@
+                        
+                        <div class="col-md-12">
+                            <span class="glyphicon glyphicon-lock"></span>
                             @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = Resources.Resources.Password, @id = "short" })
-                        </div>
-                    </div>
-
-                                <!--<input type="checkbox" name="remember" value="1">-->
-
-                    @*<a type="submit" href="profile.html" name="login" class="btn btn-info">Login</a>*@
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="@Resources.Resources.Login" class="btn btn-info" />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            @Html.ActionLink(Resources.Resources.Register, "Register", "Account", new { @class = "btn btn-info welcomebutton" })
                         </div>
                     </div>
 
@@ -75,13 +50,23 @@
                         </div>
                     </div>
 
-                    <span class="forgot-password-link">
+                    <div class="form-group forgot-password-link">
 
                         <a href="@Url.Action("ForgotPassword", "Account")">@Resources.Resources.ForgotYourPassword</a><br>
 
-                    </span>
+                    </div>
 
-                    @*</form>*@
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10" style="margin-left: 0px; padding-left: 70px;">
+                            @Html.ActionLink(Resources.Resources.Register.ToUpper(), "Register", "Account", new { @class = "" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10" style="margin-left: 0px">
+                            <input type="submit" value="@Resources.Resources.Login" class="btn btn-info" />
+                        </div>
+                    </div>
                 }
 
             </div>
@@ -106,9 +91,8 @@
 
 <style type="text/css">
 
-.register_button {
+/*.register_button {
     width: 90%;
-    /*padding: 10px;*/
     margin-bottom: 10px;
     font-size: 14px;
     background: #fff;
@@ -123,5 +107,18 @@
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     float: right;
+}*/
+
+.glyphicon {
+    /*color: #00C1DE;
+    border-color: #00C1DE;*/
+    border-style: solid;
+    border-width: medium;
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+    border-radius: 32px;
+    font-size: 20px;
+    color: darkgrey;
 }
 </style>

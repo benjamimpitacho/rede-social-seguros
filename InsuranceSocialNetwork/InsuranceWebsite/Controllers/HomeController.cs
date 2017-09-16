@@ -571,7 +571,7 @@ namespace InsuranceWebsite.Controllers
             model.Birthdate = model.Profile.Birthdate;
             model.ContactEmail = model.Profile.ContactEmail;
             model.ProfilePhoto = model.Profile.ProfilePhoto;
-            model.Website = model.Profile.Website.ToLower();
+            model.Website = string.IsNullOrEmpty(model.Profile.Website) ? model.Profile.Website : model.Profile.Website.ToLower();
             model.AboutMe = model.Profile.AboutMe;
 
             return View(model);

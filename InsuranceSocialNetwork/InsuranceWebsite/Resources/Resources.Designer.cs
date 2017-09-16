@@ -142,6 +142,33 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to APROSE.
+        /// </summary>
+        public static string APROSE {
+            get {
+                return ResourceManager.GetString("APROSE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to APS.
+        /// </summary>
+        public static string APS {
+            get {
+                return ResourceManager.GetString("APS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ASF.
+        /// </summary>
+        public static string ASF {
+            get {
+                return ResourceManager.GetString("ASF", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Associado ou Premium.
         /// </summary>
         public static string ASSOCIATED_PREMIUM {
@@ -313,11 +340,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Utilização de Cookies.
+        /// </summary>
+        public static string CookieUsagePolicy {
+            get {
+                return ResourceManager.GetString("CookieUsagePolicy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Criar novo banner.
         /// </summary>
         public static string CreateNewBanner {
             get {
                 return ResourceManager.GetString("CreateNewBanner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Politica de Dados.
+        /// </summary>
+        public static string DataPolicy {
+            get {
+                return ResourceManager.GetString("DataPolicy", resourceCulture);
             }
         }
         
@@ -412,7 +457,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Email.
+        ///   Looks up a localized string similar to E-mail.
         /// </summary>
         public static string Email {
             get {
@@ -457,7 +502,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Esqueceu a sua palavra-passe?.
+        ///   Looks up a localized string similar to Esqueceste-te da tua conta?.
         /// </summary>
         public static string ForgotYourPassword {
             get {
@@ -520,6 +565,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to RH Seguros.
+        /// </summary>
+        public static string HRInsurances {
+            get {
+                return ResourceManager.GetString("HRInsurances", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Em discussão.
+        /// </summary>
+        public static string InDiscussion {
+            get {
+                return ResourceManager.GetString("InDiscussion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Profissional de Seguros.
         /// </summary>
         public static string INSURANCE_PROFESSIONAL {
@@ -565,6 +628,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Aguarde.
+        /// </summary>
+        public static string Loading {
+            get {
+                return ResourceManager.GetString("Loading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Concelho.
         /// </summary>
         public static string Location {
@@ -574,7 +646,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Entrar.
+        ///   Looks up a localized string similar to Iniciar sessão.
         /// </summary>
         public static string Login {
             get {
@@ -583,7 +655,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Terminar Sessão.
+        ///   Looks up a localized string similar to Terminar sessão.
         /// </summary>
         public static string Logout {
             get {
@@ -673,7 +745,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nova password.
+        ///   Looks up a localized string similar to Nova palavra-passe.
         /// </summary>
         public static string NewPassword {
             get {
@@ -682,7 +754,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Não existem notificações.
+        ///   Looks up a localized string similar to De momento não possui notificações.
         /// </summary>
         public static string NoNotifications {
             get {
@@ -727,7 +799,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Password antiga.
+        ///   Looks up a localized string similar to Palavra-passe anterior.
         /// </summary>
         public static string OldPassword {
             get {
@@ -745,7 +817,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Password.
+        ///   Looks up a localized string similar to Palavra-passe.
         /// </summary>
         public static string Password {
             get {
@@ -754,7 +826,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Password é obrigatória.
+        ///   Looks up a localized string similar to Palavra-passe é obrigatória.
         /// </summary>
         public static string PasswordRequired {
             get {
@@ -790,7 +862,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Registar.
+        ///   Looks up a localized string similar to Registo.
         /// </summary>
         public static string Regist {
             get {
@@ -799,7 +871,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Registo.
+        ///   Looks up a localized string similar to Regista-te.
         /// </summary>
         public static string Register {
             get {
@@ -867,6 +939,15 @@ namespace Resources {
         public static string RolesManagement {
             get {
                 return ResourceManager.GetString("RolesManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Negócios Seguros.
+        /// </summary>
+        public static string SafeBusinesses {
+            get {
+                return ResourceManager.GetString("SafeBusinesses", resourceCulture);
             }
         }
         
@@ -1024,6 +1105,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Portal FalarSeguros.
+        /// </summary>
+        public static string SiteTitle {
+            get {
+                return ResourceManager.GetString("SiteTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Publicidade.
+        /// </summary>
+        public static string Sponsored {
+            get {
+                return ResourceManager.GetString("Sponsored", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Data inicio.
         /// </summary>
         public static string StartDate {
@@ -1056,6 +1155,15 @@ namespace Resources {
         public static string Telephone_2 {
             get {
                 return ResourceManager.GetString("Telephone_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Termos.
+        /// </summary>
+        public static string Terms {
+            get {
+                return ResourceManager.GetString("Terms", resourceCulture);
             }
         }
         
