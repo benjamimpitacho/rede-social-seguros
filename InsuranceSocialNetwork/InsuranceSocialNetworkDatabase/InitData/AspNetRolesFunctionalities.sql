@@ -3,6 +3,7 @@
 INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('1','USERS_MANAGEMENT',1);
 INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('1','ROLES_MANAGEMENT',1);
 INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('1','ALERTS_MANAGEMENT',1);
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('1','BANNERS_MANAGEMENT',1);
 INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('1','MESSAGES_FUNCTIONALITY',1);
 INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('1','NOTIFICATIONS_FUNCTIONALITY',1);
 INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('1','ADD_FRIEND_FUNCTIONALITY',1);

@@ -229,7 +229,7 @@ namespace InsuranceWebsite.Controllers
                 {
                     try
                     {
-                        InsuranceBusiness.BusinessLayer.CreateNotification(user.Id, NotificationTypeEnum.COMPLETE_PROFILE_INFO);
+                        InsuranceBusiness.BusinessLayer.CreateNotification(user.Id, null, NotificationTypeEnum.COMPLETE_PROFILE_INFO);
 
                         //await SendConfirmationEmail(user, model.Name);
                     }

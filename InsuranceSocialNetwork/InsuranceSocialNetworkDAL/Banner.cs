@@ -12,21 +12,19 @@ namespace InsuranceSocialNetworkDAL
     using System;
     using System.Collections.Generic;
     
-    public partial class Notification
+    public partial class Banner
     {
         public long ID { get; set; }
-        public string ToUserID { get; set; }
-        public string FromUserID { get; set; }
-        public long ID_NotificationType { get; set; }
-        public string Text { get; set; }
-        public string URL { get; set; }
+        public long ID_Banner_Type { get; set; }
+        public string Description { get; set; }
+        public byte[] Image { get; set; }
         public System.DateTime CreateDate { get; set; }
-        public System.DateTime ReadDate { get; set; }
-        public bool Read { get; set; }
+        public Nullable<System.DateTime> DueDate { get; set; }
+        public Nullable<System.DateTime> DeleteDate { get; set; }
         public bool Active { get; set; }
+        public System.DateTime StartDate { get; set; }
+        public System.DateTime LastChangeDate { get; set; }
     
-        public virtual AspNetUsers AspNetUsers { get; set; }
-        public virtual AspNetUsers AspNetUsers1 { get; set; }
-        public virtual NotificationType NotificationType { get; set; }
+        public virtual BannerType BannerType { get; set; }
     }
 }

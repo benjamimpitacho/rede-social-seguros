@@ -403,7 +403,7 @@ namespace InsuranceWebsite.Controllers
                 if (InsuranceBusiness.BusinessLayer.AddFriend(CurrentUser.ID, id))
                 {
                     string friendId = InsuranceBusiness.BusinessLayer.GetUserIdFromProfileId(id);
-                    InsuranceBusiness.BusinessLayer.CreateNotification(friendId, NotificationTypeEnum.FRIEND_REQUEST_RECEIVED);
+                    InsuranceBusiness.BusinessLayer.CreateNotification(friendId, CurrentUser.ID_User, NotificationTypeEnum.FRIEND_REQUEST_RECEIVED);
                     return Json(new { ok = true, mydata = friendId, message = "" });
                 }
 

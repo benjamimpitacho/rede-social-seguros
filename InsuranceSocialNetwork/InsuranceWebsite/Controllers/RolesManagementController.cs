@@ -30,9 +30,27 @@ namespace InsuranceWebsite.Controllers
         }
 
         [FunctionalityAutorizeAttribute("ROLES_MANAGEMENT")]
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             RolesManagementViewModel model = new RolesManagementViewModel();
+
+            if (null != this.User && this.User.Identity.IsAuthenticated)
+            {
+                var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
+                if (null != user)
+                {
+                    model.Profile = InsuranceBusiness.BusinessLayer.GetUserProfile(user.Id);
+                }
+                else
+                {
+                    return RedirectToAction("LogOff", "Account");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
 
             try
             {

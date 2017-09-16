@@ -462,4 +462,34 @@
   <data name="RemoveFriend" xml:space="preserve">
     <value>Remover Amigo</value>
   </data>
+  <data name="Description" xml:space="preserve">
+    <value>Descrição</value>
+  </data>
+  <data name="DueDate" xml:space="preserve">
+    <value>Data limite</value>
+  </data>
+  <data name="BannersManagement" xml:space="preserve">
+    <value>Gestão de Banners</value>
+  </data>
+  <data name="BannerType" xml:space="preserve">
+    <value>Tipo de banner</value>
+  </data>
+  <data name="StartDate" xml:space="preserve">
+    <value>Data inicio</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Tipo</value>
+  </data>
+  <data name="AddNewBanner" xml:space="preserve">
+    <value>Adicionar Banner</value>
+  </data>
+  <data name="Banner" xml:space="preserve">
+    <value>Banner</value>
+  </data>
+  <data name="CreateNewBanner" xml:space="preserve">
+    <value>Criar novo banner</value>
+  </data>
+  <data name="EditBanner" xml:space="preserve">
+    <value>Editar banner</value>
+  </data>
 </root>

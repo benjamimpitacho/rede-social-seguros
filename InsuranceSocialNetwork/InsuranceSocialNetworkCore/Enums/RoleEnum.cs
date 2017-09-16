@@ -18,6 +18,7 @@ namespace InsuranceSocialNetworkCore.Enums
     {
         USERS_MANAGEMENT,
         ROLES_MANAGEMENT,
-        ALERTS_MANAGEMENT
+        ALERTS_MANAGEMENT,
+        BANNERS_MANAGEMENT
     }
 }

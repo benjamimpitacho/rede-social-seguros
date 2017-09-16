@@ -27,7 +27,6 @@ namespace InsuranceSocialNetworkDAL
     
         public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
-        public virtual DbSet<Notification> Notification { get; set; }
         public virtual DbSet<NotificationType> NotificationType { get; set; }
         public virtual DbSet<PostComment> PostComment { get; set; }
         public virtual DbSet<PostLike> PostLike { get; set; }
@@ -47,5 +46,8 @@ namespace InsuranceSocialNetworkDAL
         public virtual DbSet<ChatMember> ChatMember { get; set; }
         public virtual DbSet<ChatMessage> ChatMessage { get; set; }
         public virtual DbSet<Profile> Profile { get; set; }
+        public virtual DbSet<Banner> Banner { get; set; }
+        public virtual DbSet<BannerType> BannerType { get; set; }
+        public virtual DbSet<Notification> Notification { get; set; }
     }
 }

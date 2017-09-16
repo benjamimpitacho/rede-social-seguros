@@ -115,6 +115,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Adicionar Banner.
+        /// </summary>
+        public static string AddNewBanner {
+            get {
+                return ResourceManager.GetString("AddNewBanner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Morada.
         /// </summary>
         public static string Address {
@@ -138,6 +147,33 @@ namespace Resources {
         public static string ASSOCIATED_PREMIUM {
             get {
                 return ResourceManager.GetString("ASSOCIATED_PREMIUM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Banner.
+        /// </summary>
+        public static string Banner {
+            get {
+                return ResourceManager.GetString("Banner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gestão de Banners.
+        /// </summary>
+        public static string BannersManagement {
+            get {
+                return ResourceManager.GetString("BannersManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tipo de banner.
+        /// </summary>
+        public static string BannerType {
+            get {
+                return ResourceManager.GetString("BannerType", resourceCulture);
             }
         }
         
@@ -277,6 +313,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Criar novo banner.
+        /// </summary>
+        public static string CreateNewBanner {
+            get {
+                return ResourceManager.GetString("CreateNewBanner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Data de registo.
         /// </summary>
         public static string DateJoined {
@@ -313,6 +358,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Descrição.
+        /// </summary>
+        public static string Description {
+            get {
+                return ResourceManager.GetString("Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Desenvolvimento.
         /// </summary>
         public static string Developers {
@@ -331,11 +385,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Data limite.
+        /// </summary>
+        public static string DueDate {
+            get {
+                return ResourceManager.GetString("DueDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Editar.
         /// </summary>
         public static string Edit {
             get {
                 return ResourceManager.GetString("Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Editar banner.
+        /// </summary>
+        public static string EditBanner {
+            get {
+                return ResourceManager.GetString("EditBanner", resourceCulture);
             }
         }
         
@@ -952,6 +1024,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Data inicio.
+        /// </summary>
+        public static string StartDate {
+            get {
+                return ResourceManager.GetString("StartDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Estatisticas.
         /// </summary>
         public static string Statistics {
@@ -993,6 +1074,15 @@ namespace Resources {
         public static string ThanksForRegister {
             get {
                 return ResourceManager.GetString("ThanksForRegister", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tipo.
+        /// </summary>
+        public static string Type {
+            get {
+                return ResourceManager.GetString("Type", resourceCulture);
             }
         }
         

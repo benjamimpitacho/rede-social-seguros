@@ -6,6 +6,7 @@ using System.Data.Entity;
 using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
+using InsuranceSocialNetworkCore.Enums;
 
 namespace InsuranceSocialNetworkDAL
 {
@@ -31,8 +32,20 @@ namespace InsuranceSocialNetworkDAL
         }
         public static List<Post> GetUserRelatedPosts(BackofficeUnitOfWork context, string Id)
         {
-            List<string> friendsUserIds = context.Friend.Fetch().Where(i => i.ID_User == Id).Select(i => i.ID_User_Friend).ToList();
-            List<string> auxFriendsUserIds = context.Friend.Fetch().Where(i => i.ID_User_Friend == Id).Select(i => i.ID_User).ToList();
+            List<string> friendsUserIds = context
+                .Friend
+                .Fetch()
+                .Include(i=>i.FriendStatus)
+                .Where(i => i.ID_User == Id && i.FriendStatus.Token == FriendStatusEnum.REQUEST_ACCEPTED.ToString())
+                .Select(i => i.ID_User_Friend)
+                .ToList();
+            List<string> auxFriendsUserIds = context
+                .Friend
+                .Fetch()
+                .Include(i => i.FriendStatus)
+                .Where(i => i.ID_User_Friend == Id && i.FriendStatus.Token == FriendStatusEnum.REQUEST_ACCEPTED.ToString())
+                .Select(i => i.ID_User)
+                .ToList();
             friendsUserIds = friendsUserIds.Concat(auxFriendsUserIds).ToList();
 
             List<Post> postList = context.Post

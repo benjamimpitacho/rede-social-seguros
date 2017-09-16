@@ -1,6 +1,7 @@
 ﻿//using AutoMapper;
 using InsuranceSocialNetworkCore.Enums;
 using InsuranceSocialNetworkDAL;
+using InsuranceSocialNetworkDTO.Banner;
 using InsuranceSocialNetworkDTO.Chat;
 using InsuranceSocialNetworkDTO.Garage;
 using InsuranceSocialNetworkDTO.MedicalClinic;
@@ -81,6 +82,11 @@ namespace InsuranceSocialNetworkBusiness
 
                 cfg.CreateMap<MedicalClinic, MedicalClinicDTO>();
                 cfg.CreateMap<MedicalClinicDTO, MedicalClinic>();
+
+                cfg.CreateMap<Banner, BannerDTO>();
+                cfg.CreateMap<BannerDTO, Banner>();
+                cfg.CreateMap<BannerType, BannerTypeDTO>();
+                cfg.CreateMap<BannerTypeDTO, BannerType>();
             });
 
             #endregion
@@ -280,7 +286,7 @@ namespace InsuranceSocialNetworkBusiness
             return NotificationRepository.CreateNotification(notification);
         }
 
-        public bool CreateNotification(string userId, NotificationTypeEnum type)
+        public bool CreateNotification(string toUserId, string fromUserId, NotificationTypeEnum type)
         {
             Notification notification = new Notification()
             {
@@ -288,7 +294,8 @@ namespace InsuranceSocialNetworkBusiness
                 CreateDate = DateTime.Now,
                 Read = false,
                 ID_NotificationType = NotificationRepository.GetNotificationType(type.ToString()).ID,
-                ID_User = userId
+                ToUserID = toUserId,
+                FromUserID = string.IsNullOrEmpty(fromUserId) ? null : fromUserId
             };
 
             return NotificationRepository.CreateNotification(notification);
@@ -368,6 +375,45 @@ namespace InsuranceSocialNetworkBusiness
         }
 
         #endregion Comments
+
+        #region Banners
+
+        public BannerDTO GetBanner(long id)
+        {
+            Banner banner = BannerRepository.GetBanner(id);
+            return AutoMapper.Mapper.Map<BannerDTO>(banner);
+        }
+
+        public List<BannerDTO> GetBanners()
+        {
+            List<Banner> banners = BannerRepository.GetBanners();
+            return AutoMapper.Mapper.Map<List<BannerDTO>>(banners);
+        }
+
+        public List<BannerTypeDTO> GetBannerTypes()
+        {
+            List<BannerType> bannerTypes = BannerRepository.GetBannerTypes();
+            return AutoMapper.Mapper.Map<List<BannerTypeDTO>>(bannerTypes);
+        }
+
+        public bool CreateBanner(BannerDTO item)
+        {
+            Banner banner = AutoMapper.Mapper.Map<Banner>(item);
+            return BannerRepository.CreateBanner(banner);
+        }
+
+        public bool EditBanner(BannerDTO item)
+        {
+            Banner banner = AutoMapper.Mapper.Map<Banner>(item);
+            return BannerRepository.EditBanner(banner);
+        }
+
+        public bool DeleteBanner(long id)
+        {
+            return BannerRepository.DeleteBanner(id);
+        }
+
+        #endregion Banners
 
         #region Search Users
 

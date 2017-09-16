@@ -28,6 +28,8 @@ namespace InsuranceSocialNetworkDAL
         private IRepository<Chat> chatRepository;
         private IRepository<ChatMember> chatMemberRepository;
         private IRepository<ChatMessage> chatMessageRepository;
+        private IRepository<Banner> bannerRepository;
+        private IRepository<BannerType> bannerTypeRepository;
 
         private bool AutoDetectChangesEnabled;
         private int DatabaseTimeout;
@@ -152,6 +154,32 @@ namespace InsuranceSocialNetworkDAL
                         new Repository<InsurancePortal_dbEntities, AspNetRolesFunctionalities>(DataContext, AutoDetectChangesEnabled);
                 }
                 return aspNetRolesFunctionalitiesRepository;
+            }
+        }
+
+        public IRepository<Banner> Banner
+        {
+            get
+            {
+                if (this.bannerRepository == null)
+                {
+                    this.bannerRepository =
+                        new Repository<InsurancePortal_dbEntities, Banner>(DataContext, AutoDetectChangesEnabled);
+                }
+                return bannerRepository;
+            }
+        }
+
+        public IRepository<BannerType> BannerType
+        {
+            get
+            {
+                if (this.bannerTypeRepository == null)
+                {
+                    this.bannerTypeRepository =
+                        new Repository<InsurancePortal_dbEntities, BannerType>(DataContext, AutoDetectChangesEnabled);
+                }
+                return bannerTypeRepository;
             }
         }
 

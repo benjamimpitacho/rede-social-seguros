@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\FriendStatusEnum.cs" />
     <Compile Include="Enums\PostSubjectEnum.cs" />
     <Compile Include="Enums\PostTypeEnum.cs" />
     <Compile Include="Enums\NotificationTypeEnum.cs" />

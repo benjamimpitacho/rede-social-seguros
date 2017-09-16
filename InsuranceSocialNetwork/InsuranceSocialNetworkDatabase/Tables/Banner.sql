@@ -1,0 +1,15 @@
+﻿CREATE TABLE [Insurance].[Banner]
+(
+	[ID] BIGINT IDENTITY NOT NULL,
+	[ID_Banner_Type] BIGINT NOT NULL,
+	[Description] NVARCHAR(128) NOT NULL,
+	[Image] IMAGE NOT NULL,
+	[StartDate] DATETIME2 NOT NULL,
+	[DueDate] DATETIME2 NULL,
+	[CreateDate] DATETIME2 NOT NULL,
+	[LastChangeDate] DATETIME2 NOT NULL,
+	[DeleteDate] DATETIME2 NULL,
+	[Active] BIT NOT NULL DEFAULT 1,	
+    CONSTRAINT [PK_Banner] PRIMARY KEY CLUSTERED ([ID] ASC),
+	CONSTRAINT [FK_Banner_BannerType] FOREIGN KEY([ID_Banner_Type]) REFERENCES [Insurance].[BannerType] ([ID])
+)

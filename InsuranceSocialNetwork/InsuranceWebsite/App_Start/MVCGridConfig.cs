@@ -99,10 +99,10 @@ namespace InsuranceWebsite
                     if (null != globalSearch)
                     {
                         query = query.Where(i =>
-                            i.FirstName.Contains(globalSearch)
-                            || i.LastName.Contains(globalSearch)
-                            || i.User.UserName.Contains(globalSearch)
-                            || i.ContactEmail.Contains(globalSearch)
+                            (null != i.FirstName && i.FirstName.Contains(globalSearch))
+                            || (null != i.LastName && i.LastName.Contains(globalSearch))
+                            || (null != i.User && null != i.User.UserName && i.User.UserName.Contains(globalSearch))
+                            || (null != i.ContactEmail && i.ContactEmail.Contains(globalSearch))
                         ).ToList();
                     }
 

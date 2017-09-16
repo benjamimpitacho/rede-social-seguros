@@ -92,6 +92,9 @@
     <Build Include="Tables\Chat.sql" />
     <Build Include="Tables\ChatMessage.sql" />
     <Build Include="Tables\ChatMember.sql" />
+    <Build Include="Tables\Banner.sql" />
+    <Build Include="Tables\BannerType.sql" />
+    <None Include="InitData\BannerType.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="InsuranceSocialNetworkDatabase.refactorlog" />

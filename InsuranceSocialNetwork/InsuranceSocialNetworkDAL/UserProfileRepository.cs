@@ -174,7 +174,7 @@ namespace InsuranceSocialNetworkDAL
             {
                 Profile profile = context.Profile.Get(userId);
 
-                context.Notification.Delete(i => i.ID_User == profile.ID_User);
+                context.Notification.Delete(i => i.ToUserID == profile.ID_User);
                 context.AspNetUsers.Delete(profile.ID_User);
                 //user.AspNetRoles.Add(RoleRepository.GetRole(context, InsuranceSocialNetworkCore.Enums.RoleEnum.USER));
                 context.Profile.Delete(userId);

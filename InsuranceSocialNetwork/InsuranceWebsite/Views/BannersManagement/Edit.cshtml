@@ -1,0 +1,93 @@
+﻿@using InsuranceWebsite.Models
+@using MVCGrid.Web
+@model BannerModelObject
+
+@{
+    ViewBag.Title = Resources.Resources.HomePageTitle;
+}
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+@*@Scripts.Render("~/bundles/jquery")*@
+@Scripts.Render("~/bundles/jqueryval")
+
+@*@Html.Partial("~/Views/Home/Partial/NavBar.cshtml", Model)*@
+
+<!-- Timeline content -->
+
+@*<style>
+    .datepicker {
+        z-index: 99999 !important;
+    }
+</style>*@
+
+<div id="dialog-form" title="@Resources.Resources.CreateNewBanner">
+
+    @using (Html.BeginForm("Edit", "BannersManagement", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken();
+        @Html.HiddenFor(i => i.ID);
+        <p>
+            @Html.Label(Resources.Resources.Description)
+            @Html.TextBoxFor(i => i.Description, new { @class = "text ui-widget-content ui-corner-all", id = "description" })
+            @Html.ValidationMessageFor(i => i.Description)
+        </p>
+        <p>
+            @Html.Label(Resources.Resources.BannerType)
+            @Html.DropDownListFor(i => i.ID_Banner_Type, Model.BannerTypesList, new { @class = "text ui-widget-content ui-corner-all", id = "bannertype", style = "width:95%;padding:.4em;" })
+            @Html.ValidationMessageFor(i => i.ID_Banner_Type)
+        </p>
+        <p>
+            @Html.Label(Resources.Resources.Banner)
+            <input type="file" name="fileUploaderControl" id="fileUploaderControl" class="text ui-widget-content ui-corner-all">
+        </p>
+        <p>
+            @Html.Label(Resources.Resources.StartDate)
+            @Html.TextBoxFor(model => model.StartDate, "{0:dd/MM/yyyy}", new { @class = "date-picker text ui-widget-content ui-corner-all", id = "startdate" })
+            @Html.ValidationMessageFor(i => i.StartDate)
+        </p>
+        <p>
+            @Html.Label(Resources.Resources.DueDate)
+            @Html.TextBoxFor(model => model.DueDate, "{0:dd/MM/yyyy}", new { @class = "date-picker text ui-widget-content ui-corner-all", id = "duedate" })
+            @Html.ValidationMessageFor(i => i.DueDate)
+        </p>
+
+        @*<input type="submit" class="btn btn-success" value="@Resources.Resources.Save" />
+            <input type="button" class="btn btn-default" id="btncancel" value="@Resources.Resources.Cancel" onclick="closeDialog()" />*@
+    }
+</div>
+
+<script>
+    //$(document).ready(function () {
+    //    alert("document loaded");
+    //    $(".date-picker").datepicker();
+    //});
+
+    $(function () {
+
+        $.validator.addMethod('date', function (value, element) {
+            if (this.optional(element)) {
+                return true;
+            }
+
+            var ok = true;
+            try {
+                $.datepicker.parseDate('dd/mm/yy', value);
+            }
+            catch (err) {
+                ok = false;
+            }
+            return ok;
+        });
+
+        $('.date-picker').datepicker({
+            dateFormat: 'dd/mm/yy'
+        });
+
+        //$("body").delegate(".date-picker", "focusin", function () {
+        //    $(this).datepicker();
+        //});
+
+    } );
+
+</script>

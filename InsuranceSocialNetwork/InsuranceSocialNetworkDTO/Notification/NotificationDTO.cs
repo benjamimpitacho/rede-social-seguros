@@ -10,7 +10,8 @@ namespace InsuranceSocialNetworkDTO.Notification
     public class NotificationDTO
     {
         public long ID { get; set; }
-        public string ID_User { get; set; }
+        public string ToUserID { get; set; }
+        public string FromUserID { get; set; }
         public long ID_NotificationType { get; set; }
         public string Text { get; set; }
         public string URL { get; set; }
