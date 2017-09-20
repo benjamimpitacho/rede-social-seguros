@@ -245,13 +245,13 @@ namespace InsuranceWebsite.Controllers
             }
         }
 
-        public async Task<ActionResult> Search(SearchViewModel model)
+        public async Task<ActionResult> Search(HomeViewModel model)
         {
             try
             {
                 if (null == model)
                 {
-                    model = new SearchViewModel();
+                    model = new HomeViewModel();
                 }
 
                 if (null != this.User && this.User.Identity.IsAuthenticated)
@@ -272,7 +272,13 @@ namespace InsuranceWebsite.Controllers
                     return RedirectToAction("Login", "Account");
                 }
 
-                return View(model);
+                model.SearchModel.Users = InsuranceBusiness.BusinessLayer.SearchUsers(model.SearchModel.SearchTerm, CurrentUser.ID);
+                model.SearchModel.AlreadyFriends = InsuranceBusiness.BusinessLayer.GetFriendsIDs(CurrentUser.ID);
+                model.IsProfileSearchView = true;
+
+                return View("Index", model);
+
+                //return View(model);
             }
             catch (Exception ex)
             {
@@ -713,7 +719,7 @@ namespace InsuranceWebsite.Controllers
         [FunctionalityAutorizeAttribute("FRIENDS_FUNCTIONALITY")]
         public async Task<ActionResult> Friends()
         {
-            var model = new FriendsViewModel();
+            var model = new HomeViewModel();
             if (null != this.User && this.User.Identity.IsAuthenticated)
             {
                 var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
@@ -732,6 +738,8 @@ namespace InsuranceWebsite.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
+            model.Friends = InsuranceBusiness.BusinessLayer.GetFriends(CurrentUser.ID_User);
+
             return View(model);
         }
 
@@ -746,12 +754,13 @@ namespace InsuranceWebsite.Controllers
                 {
                     ((HomeViewModel)model).Posts = InsuranceBusiness.BusinessLayer.GetUserRelatedPosts(userId);
                 }
-                //((HomeViewModel)model).Notifications = InsuranceBusiness.BusinessLayer.GetUserNotifications(userId);
+                ((HomeViewModel)model).TopBanners = InsuranceBusiness.BusinessLayer.GetActiveBanners(BannerTypeEnum.WEB_PRINCIPAL_BANNER);
+                ((HomeViewModel)model).SideBanners = InsuranceBusiness.BusinessLayer.GetActiveBanners(BannerTypeEnum.WEB_SECONDARY_BANNER);
             }
-            else if (model is FriendsViewModel)
-            {
-                ((FriendsViewModel)model).Friends = InsuranceBusiness.BusinessLayer.GetFriends(userId);
-            }
+            //else if (model is HomeViewModel)
+            //{
+            //    ((HomeViewModel)model).Friends = InsuranceBusiness.BusinessLayer.GetFriends(userId);
+            //}
             else if (model is MessagesViewModel)
             {
                 ((MessagesViewModel)model).Chats = InsuranceBusiness.BusinessLayer.GetChats(userId);

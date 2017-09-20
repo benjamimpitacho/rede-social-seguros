@@ -7,13 +7,13 @@ using System.Linq;
 
 namespace InsuranceWebsite.Models
 {
-    public class FriendsViewModel : ProfileViewModel
-    {
-        public FriendsViewModel()
-        {
-        }
+    //public class FriendsViewModel : ProfileViewModel
+    //{
+    //    public FriendsViewModel()
+    //    {
+    //    }
 
-        public List<UserProfileDTO> Friends { get; set; }
+    //    public List<UserProfileDTO> Friends { get; set; }
 
-    }
+    //}
 }

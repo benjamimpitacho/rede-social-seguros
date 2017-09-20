@@ -19,6 +19,7 @@ namespace InsuranceWebsite.Models
 
     public class RoleModelObject
     {
-        public long ID { get; set; }
+        public string Id { get; set; }
+        public string Name { get; set; }
     }
 }

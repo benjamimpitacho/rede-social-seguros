@@ -1,4 +1,5 @@
-﻿using InsuranceSocialNetworkDTO.Notification;
+﻿using InsuranceSocialNetworkDTO.Banner;
+using InsuranceSocialNetworkDTO.Notification;
 using InsuranceSocialNetworkDTO.Post;
 using InsuranceSocialNetworkDTO.UserProfile;
 using System.Collections.Generic;
@@ -48,6 +49,8 @@ namespace InsuranceWebsite.Models
         public bool IsSearchInsuranceContacts { get; set; }
 
         public List<PostDTO> Posts { get; set; }
+
+        public List<UserProfileDTO> Friends { get; set; }
 
         public SearchViewModel SearchModel { get; set; }
 
@@ -109,6 +112,13 @@ namespace InsuranceWebsite.Models
         #endregion InsuranceContact Search
 
         #endregion Search Fields
+
+        #region Banners Fields
+
+        public List<BannerDTO> TopBanners { get; set; }
+        public List<BannerDTO> SideBanners { get; set; }
+
+        #endregion Banners Fields
 
         #region Private Properties
 

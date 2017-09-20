@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InsuranceSocialNetworkDTO.Role;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,6 +29,7 @@ namespace InsuranceSocialNetworkDTO.UserProfile
         public Nullable<System.DateTime> DeleteDate { get; set; }
         public bool Active { get; set; }
         public UserDTO User { get; set; }
+        public RoleDTO Role { get; set; }
     }
 
     public class UserDTO

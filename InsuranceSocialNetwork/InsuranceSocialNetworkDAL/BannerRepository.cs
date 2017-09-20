@@ -41,6 +41,22 @@ namespace InsuranceSocialNetworkDAL
             }
         }
 
+        public static List<Banner> GetActiveBanners(BannerTypeEnum bannerType)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                return context.Banner
+                    .Fetch()
+                    .Include(i => i.BannerType)
+                    .Where(i => i.Active
+                        && i.BannerType.Token == bannerType.ToString()
+                        && i.StartDate < DateTime.Now
+                        && (!i.DueDate.HasValue || i.DueDate.Value > DateTime.Now))
+                    .Select(i => i)
+                    .ToList();
+            }
+        }
+
         public static List<BannerType> GetBannerTypes()
         {
             using (var context = new BackofficeUnitOfWork())

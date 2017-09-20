@@ -13,7 +13,7 @@
 
 <div class="left" id="sideNavBar">
     <div class="item no-hover" style="padding-bottom:0px;margin-top: 10px;margin-bottom: 10px;">
-        <a href="@Url.Action("Index", "Home")" title="@Resources.Resources.Home" style="height:inherit">
+        <a href="@Url.Action("Index", "Home")" title="@Resources.Resources.Home" style="height:inherit;text-align:center;">
             <img src="~/Content/images/no_logo_img.png" alt="" class="item-logo">
         </a>
     </div>
@@ -21,14 +21,14 @@
         <img src="~/Content/images/no_photo_img.jpg" class="item-photo">
     </div>*@
     <div class="item">
-        <a href="@Url.Action("ProfileInfo", "Home")" title="@Resources.Resources.UserProfile" style="height:inherit">
+        <a href="@Url.Action("ProfileInfo", "Home")" title="@Resources.Resources.UserProfile" style="height:inherit;text-align:center;">
             @if (null == Model.Profile || null == Model.Profile.ProfilePhoto || Model.Profile.ProfilePhoto.Length == 0)
             {
                 <img src="~/Content/images/no_photo_img.jpg" class="mini-avatar item-photo">
             }
             else
             {
-                <img src="@imgSrc" class="mini-avatar item-photo" style="padding:10px">
+                <img src="@imgSrc" class="mini-avatar item-photo">
             }
         </a>
     </div>
@@ -42,9 +42,9 @@
             <span class="badge badge-notify">@Model.TotalUnreadNotifications</span>
         }
     </div>
-    @*<div class="item active">
+    <div class="item active">
         <a href="@Url.Action("Search", "Home")" title="@Resources.Resources.Search"><span class="glyphicon glyphicon-search"></span></a>
-    </div>*@
+    </div>
     @*<div class="item">
         <a href="@Url.Action("Index", "Home")" title="@Resources.Resources.Home"><span class="glyphicon glyphicon-home"></span></a>
     </div>*@
@@ -159,11 +159,11 @@
     }
 
     .item {
-        height: 80px;
+        height: 70px;
         overflow: hidden;
         color: #fff;
         font-size: 25px;
-        padding-bottom: 80px;
+        padding-bottom: 70px;
     }
 
     .item > a {

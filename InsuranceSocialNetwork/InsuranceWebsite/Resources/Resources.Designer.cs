@@ -88,6 +88,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Activo.
+        /// </summary>
+        public static string Active {
+            get {
+                return ResourceManager.GetString("Active", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Adicionar.
         /// </summary>
         public static string Add {
@@ -129,6 +138,15 @@ namespace Resources {
         public static string Address {
             get {
                 return ResourceManager.GetString("Address", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Administrador.
+        /// </summary>
+        public static string ADMINISTRATOR {
+            get {
+                return ResourceManager.GetString("ADMINISTRATOR", resourceCulture);
             }
         }
         
@@ -354,6 +372,15 @@ namespace Resources {
         public static string CreateNewBanner {
             get {
                 return ResourceManager.GetString("CreateNewBanner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Criar novo utilizador.
+        /// </summary>
+        public static string CreateNewUser {
+            get {
+                return ResourceManager.GetString("CreateNewUser", resourceCulture);
             }
         }
         
@@ -696,6 +723,24 @@ namespace Resources {
         public static string MinutesAgo {
             get {
                 return ResourceManager.GetString("MinutesAgo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Banner principal (versão mobile).
+        /// </summary>
+        public static string MOBILE_PRINCIPAL_BANNER {
+            get {
+                return ResourceManager.GetString("MOBILE_PRINCIPAL_BANNER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Banner secundário (versão mobile).
+        /// </summary>
+        public static string MOBILE_SECONDARY_BANNER {
+            get {
+                return ResourceManager.GetString("MOBILE_SECONDARY_BANNER", resourceCulture);
             }
         }
         
@@ -1245,6 +1290,24 @@ namespace Resources {
         public static string UsersManagement {
             get {
                 return ResourceManager.GetString("UsersManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Banner principal (versão web).
+        /// </summary>
+        public static string WEB_PRINCIPAL_BANNER {
+            get {
+                return ResourceManager.GetString("WEB_PRINCIPAL_BANNER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Banner secundário (versão web).
+        /// </summary>
+        public static string WEB_SECONDARY_BANNER {
+            get {
+                return ResourceManager.GetString("WEB_SECONDARY_BANNER", resourceCulture);
             }
         }
         

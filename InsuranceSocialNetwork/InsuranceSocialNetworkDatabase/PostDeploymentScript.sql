@@ -17,5 +17,6 @@ Post-Deployment Script Template
 :r .\InitData\AspNetRolesFunctionalities.sql
 :r .\InitData\AspNetUsers.sql
 :r .\InitData\FriendStatus.sql
+:r .\InitData\BannerType.sql
 
 :r .\InitData\dummy_data.sql

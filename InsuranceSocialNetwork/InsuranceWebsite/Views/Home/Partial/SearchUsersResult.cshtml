@@ -5,17 +5,19 @@
 
 <div class="directory-info-row profile-info col-md-6 animated fadeInUp">
 
-    <div class="panel topPanel">
+    @Html.Partial("./Partial/TopBannerPartialView", Model)
+
+    <div class="panel topPanel" style="border:0px;">
 
         @using (Html.BeginForm("SearchUsers", "Home", FormMethod.Post, new { id = "searchForm" }))
         {
             <div class="form-group" style="display:inline;">
                 <div class="input-group" style="display:table;">
 
-                    @Html.TextBoxFor(m => m.SearchModel.SearchTerm, new { @class = "form-control", @placeholder = Resources.Resources.Search + "..." })
+                    @Html.TextBoxFor(m => m.SearchModel.SearchTerm, new { @class = "form-control", @placeholder = Resources.Resources.Search + "...", @style="padding:18px;border-radius:0px;" })
 
                     @*<input type="submit" id="submitButton" hidden="hidden" />*@
-                    <a href="#" onclick="document.getElementById('searchForm').submit();" class="input-group-addon" style="width:1%;padding:3px 12px">
+                    <a href="#" onclick="document.getElementById('searchForm').submit();" class="input-group-addon" style="width:1%;padding:3px 12px;border-radius:0px;">
                         <span class="glyphicon glyphicon-search"></span>
                     </a>
                 </div>

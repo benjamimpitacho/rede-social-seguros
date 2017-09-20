@@ -8,18 +8,7 @@
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-@*@Scripts.Render("~/bundles/jquery")*@
 @Scripts.Render("~/bundles/jqueryval")
-
-@*@Html.Partial("~/Views/Home/Partial/NavBar.cshtml", Model)*@
-
-<!-- Timeline content -->
-
-@*<style>
-    .datepicker {
-        z-index: 99999 !important;
-    }
-</style>*@
 
 <div id="dialog-form" title="@Resources.Resources.CreateNewBanner">
 
@@ -51,17 +40,10 @@
             @Html.TextBoxFor(model => model.DueDate, "{0:dd/MM/yyyy}", new { @class = "date-picker text ui-widget-content ui-corner-all", id = "duedate" })
             @Html.ValidationMessageFor(i => i.DueDate)
         </p>
-
-        @*<input type="submit" class="btn btn-success" value="@Resources.Resources.Save" />
-            <input type="button" class="btn btn-default" id="btncancel" value="@Resources.Resources.Cancel" onclick="closeDialog()" />*@
     }
 </div>
 
 <script>
-    //$(document).ready(function () {
-    //    alert("document loaded");
-    //    $(".date-picker").datepicker();
-    //});
 
     $(function () {
 
@@ -83,10 +65,6 @@
         $('.date-picker').datepicker({
             dateFormat: 'dd/mm/yy'
         });
-
-        //$("body").delegate(".date-picker", "focusin", function () {
-        //    $(this).datepicker();
-        //});
 
     } );
 

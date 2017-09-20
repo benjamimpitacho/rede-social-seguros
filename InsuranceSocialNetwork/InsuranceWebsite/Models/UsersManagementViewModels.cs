@@ -4,6 +4,7 @@ using InsuranceSocialNetworkDTO.UserProfile;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Web.Mvc;
 
 namespace InsuranceWebsite.Models
 {
@@ -19,8 +20,15 @@ namespace InsuranceWebsite.Models
 
     public class UserProfileModelObject
     {
+        public UserProfileModelObject()
+        {
+            _userRolesList = InsuranceSocialNetworkBusiness.InsuranceBusiness.BusinessLayer.GetRoles().Select(i => new ListItemStr() { Id = i.Id, Name = Resources.Resources.ResourceManager.GetString(i.Name) }).ToList();
+        }
+
         public long ID { get; set; }
         public string ID_User { get; set; }
+        //public string ID_Role { get; set; }
+        [Required]
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string ContactEmail { get; set; }
@@ -39,11 +47,19 @@ namespace InsuranceWebsite.Models
         public System.DateTime? DeleteDate { get; set; }
         public bool Active { get; set; }
         public UserModelObject User { get; set; }
+        public RoleModelObject Role { get; set; }
+
+        private List<ListItemStr> _userRolesList;
+        public IEnumerable<SelectListItem> UserRolesList
+        {
+            get { return new SelectList(_userRolesList, "Id", "Name"); }
+        }
     }
 
     public class UserModelObject
     {
         public string Id { get; set; }
+        [Required]
         public string Email { get; set; }
         public bool EmailConfirmed { get; set; }
         public string PasswordHash { get; set; }

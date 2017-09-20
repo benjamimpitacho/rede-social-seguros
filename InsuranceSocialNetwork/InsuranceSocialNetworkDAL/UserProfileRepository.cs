@@ -18,6 +18,7 @@ namespace InsuranceSocialNetworkDAL
                     .Profile
                     .Fetch()
                     .Include(i => i.AspNetUsers)
+                    .Include(i => i.AspNetUsers.AspNetRoles)
                     .FirstOrDefault(i => i.ID_User == Id);
             }
         }
@@ -29,6 +30,7 @@ namespace InsuranceSocialNetworkDAL
                     .Profile
                     .Fetch()
                     .Include(i => i.AspNetUsers)
+                    .Include(i => i.AspNetUsers.AspNetRoles)
                     .FirstOrDefault(i => i.ID == Id);
             }
         }

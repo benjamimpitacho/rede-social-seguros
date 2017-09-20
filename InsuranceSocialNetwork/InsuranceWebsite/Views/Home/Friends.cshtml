@@ -1,6 +1,6 @@
 ﻿@using InsuranceWebsite.Models
 @using InsuranceSocialNetworkDTO.UserProfile
-@model FriendsViewModel
+@model HomeViewModel
 
 @{
     ViewBag.Title = Resources.Resources.ProfilePageTitle;
@@ -22,7 +22,9 @@
 
             <!-- right  content-->
 
-            <div class="profile-info col-md-12 animated fadeInUp">
+            <div class="profile-info col-md-6 animated fadeInUp">
+
+                @Html.Partial("./Partial/TopBannerPartialView", Model)
 
                 @*<div class="alert alert-info">
                     <strong>Info:</strong> Esta página ainda está em desenvolvimento.
@@ -30,7 +32,7 @@
 
                 @foreach (UserProfileDTO friend in Model.Friends)
                 {
-                    <div class="col-md-3 col-sm-3">
+                    <div class="col-md-4 col-sm-3">
                         <div class="panel">
                             <div class="panel-body">
                                 <div class="media">
@@ -65,100 +67,16 @@
                     </div>
                 }
 
-                @*@foreach (UserProfileDTO friend in Model.Friends)
-                {
-                    <div class="col-md-3">
-
-                        <div class="panel widget">
-
-                            <div class="widget-header bg-purple">
-
-                                <img class="widget-bg img-responsive" src="img/Photos/1.jpg" alt="Image">
-
-                            </div>
-
-                            <div class="widget-body text-center">
-
-                                <img alt="Profile Picture" class="widget-img img-border-light" src="img/Friends/woman-1.jpg">
-
-                                <h4 class="mar-no">@friend.FirstName @friend.LastName</h4>
-
-                                <p class="text-muted mar-btm">@friend.User.UserName</p>
-
-
-
-                                <ul class="list-unstyled text-center pad-top mar-no clearfix">
-
-                                    <li class="col-xs-4">
-
-                                        <span class="text-lg">1,345</span>
-
-                                        <p class="text-muted text-uppercase">
-
-                                            <small>Following</small>
-
-                                        </p>
-
-                                    </li>
-
-                                    <li class="col-xs-4">
-
-                                        <span class="text-lg">23,456</span>
-
-                                        <p class="text-muted text-uppercase">
-
-                                            <small>Followers</small>
-
-                                        </p>
-
-                                    </li>
-
-                                    <li class="col-xs-4">
-
-                                        <span class="text-lg">52,678</span>
-
-                                        <p class="text-muted text-uppercase">
-
-                                            <small>Likes</small>
-
-                                        </p>
-
-                                    </li>
-
-                                </ul>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-                }*@
-
             </div>
 
             <!--end right  content-->
+
+            @Html.Partial("~/Views/Home/Partial/RightBar.cshtml", Model)
 
         </div>
 
     </div>
 
 </div><!-- end timeline content-->
-
-<!-- Timeline content -->
-@*<div class="container">
-
-    <div class="col-md-12 no-paddin-xs" style="background-color:ghostwhite">
-
-        <div class="row" style="display:flex">
-
-            <hr>
-
-            
-
-        </div>
-
-    </div>
-
-</div>*@<!--End Timeline content -->
 
 @Html.Partial("~/Views/Home/Partial/Footer.cshtml", Model)

@@ -528,4 +528,25 @@
   <data name="SafeBusinesses" xml:space="preserve">
     <value>Negócios Seguros</value>
   </data>
+  <data name="MOBILE_PRINCIPAL_BANNER" xml:space="preserve">
+    <value>Banner principal (versão mobile)</value>
+  </data>
+  <data name="MOBILE_SECONDARY_BANNER" xml:space="preserve">
+    <value>Banner secundário (versão mobile)</value>
+  </data>
+  <data name="WEB_PRINCIPAL_BANNER" xml:space="preserve">
+    <value>Banner principal (versão web)</value>
+  </data>
+  <data name="WEB_SECONDARY_BANNER" xml:space="preserve">
+    <value>Banner secundário (versão web)</value>
+  </data>
+  <data name="CreateNewUser" xml:space="preserve">
+    <value>Criar novo utilizador</value>
+  </data>
+  <data name="ADMINISTRATOR" xml:space="preserve">
+    <value>Administrador</value>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>Activo</value>
+  </data>
 </root>

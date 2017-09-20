@@ -27,8 +27,7 @@ namespace InsuranceSocialNetworkBusiness
 
             AutoMapper.Mapper.Initialize(cfg => {
                 cfg.CreateMap<Profile, UserProfileDTO>()
-                    .ForMember(dest => dest.User,
-                       opts => opts.MapFrom(src => src.AspNetUsers));
+                    .ForMember(dest => dest.User, opts => opts.MapFrom(src => src.AspNetUsers));
                 cfg.CreateMap<UserProfileDTO, Profile>();
 
                 cfg.CreateMap<Notification, NotificationDTO>();
@@ -38,8 +37,7 @@ namespace InsuranceSocialNetworkBusiness
                 cfg.CreateMap<NotificationTypeDTO, NotificationType>();
 
                 cfg.CreateMap<Post, PostDTO>()
-                    .ForMember(dest => dest.PostOwner,
-                       opts => opts.MapFrom(src => src.AspNetUsers.Profile.FirstOrDefault()));
+                    .ForMember(dest => dest.PostOwner, opts => opts.MapFrom(src => src.AspNetUsers.Profile.FirstOrDefault()));
                 cfg.CreateMap<PostDTO, Post>();
 
                 cfg.CreateMap<PostTypeDTO, PostType>();
@@ -128,13 +126,17 @@ namespace InsuranceSocialNetworkBusiness
         public UserProfileDTO GetUserProfile(string Id)
         {
             Profile item = UserProfileRepository.GetProfile(Id);
-            return AutoMapper.Mapper.Map<UserProfileDTO>(item);
+            UserProfileDTO profile = AutoMapper.Mapper.Map<UserProfileDTO>(item);
+            profile.Role = AutoMapper.Mapper.Map<RoleDTO>(item.AspNetUsers.AspNetRoles.FirstOrDefault());
+            return profile;
         }
 
         public UserProfileDTO GetUserProfile(long Id)
         {
             Profile item = UserProfileRepository.GetProfile(Id);
-            return AutoMapper.Mapper.Map<UserProfileDTO>(item);
+            UserProfileDTO profile = AutoMapper.Mapper.Map<UserProfileDTO>(item);
+            profile.Role = AutoMapper.Mapper.Map<RoleDTO>(item.AspNetUsers.AspNetRoles.FirstOrDefault());
+            return profile;
         }
 
         public string GetUserIdFromProfileId(long profileId)
@@ -161,17 +163,17 @@ namespace InsuranceSocialNetworkBusiness
             return AutoMapper.Mapper.Map<List<UserProfileDTO>>(users);
         }
 
-        public long CreateDefaultUserProfile(string Id, string UserName, string Email, string name)
+        public long CreateDefaultUserProfile(string Id, string UserName, string Email, string fName, string lName)
         {
-            string trimmedName = name.Trim();
-            string firstName = trimmedName;
-            string lastName = string.Empty;
-            if(trimmedName.Contains(" "))
+            string trimmedName = fName.Trim();
+            string firstName = !string.IsNullOrEmpty(fName) ? trimmedName : string.Empty;
+            string lastName = !string.IsNullOrEmpty(lName) ? lName.Trim() : string.Empty;
+            if (trimmedName.Contains(" ") && string.IsNullOrEmpty(lName))
             {
                 firstName = trimmedName.Substring(0, trimmedName.IndexOf(" "));
                 lastName = trimmedName.Substring(trimmedName.IndexOf(" ") + 1);
             }
-            return UserProfileRepository.CreateDefaultProfile(AutoMapper.Mapper.Map<Profile>(new UserProfileDTO() { ID_User = Id, ContactEmail = Email, FirstName = firstName, LastName = lastName}));
+            return UserProfileRepository.CreateDefaultProfile(AutoMapper.Mapper.Map<Profile>(new UserProfileDTO() { ID_User = Id, ContactEmail = Email, FirstName = firstName, LastName = lastName }));
         }
 
         public bool UpdateProfile(UserProfileDTO profile)
@@ -387,6 +389,12 @@ namespace InsuranceSocialNetworkBusiness
         public List<BannerDTO> GetBanners()
         {
             List<Banner> banners = BannerRepository.GetBanners();
+            return AutoMapper.Mapper.Map<List<BannerDTO>>(banners);
+        }
+
+        public List<BannerDTO> GetActiveBanners(BannerTypeEnum bannerType)
+        {
+            List<Banner> banners = BannerRepository.GetActiveBanners(bannerType);
             return AutoMapper.Mapper.Map<List<BannerDTO>>(banners);
         }
 

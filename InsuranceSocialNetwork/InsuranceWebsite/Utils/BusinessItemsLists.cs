@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using InsuranceSocialNetworkDTO.Role;
 
 namespace InsuranceWebsite.Utils
 {
@@ -21,6 +22,9 @@ namespace InsuranceWebsite.Utils
 
                 cfg.CreateMap<UserDTO, UserModelObject>();
                 cfg.CreateMap<UserModelObject, UserDTO>();
+
+                cfg.CreateMap<RoleDTO, RoleModelObject>();
+                cfg.CreateMap<RoleModelObject, RoleDTO>();
             });
 
             var mapper = mapperConfiguration.CreateMapper();
@@ -37,6 +41,9 @@ namespace InsuranceWebsite.Utils
 
                 cfg.CreateMap<UserDTO, UserModelObject>();
                 cfg.CreateMap<UserModelObject, UserDTO>();
+
+                cfg.CreateMap<RoleDTO, RoleModelObject>();
+                cfg.CreateMap<RoleModelObject, RoleDTO>();
             });
 
             var mapper = mapperConfiguration.CreateMapper();

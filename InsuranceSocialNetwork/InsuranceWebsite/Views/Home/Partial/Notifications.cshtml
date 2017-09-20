@@ -4,6 +4,9 @@
 
 
 <div class="col-md-6 no-paddin-xs">
+
+    @Html.Partial("./Partial/TopBannerPartialView", Model)
+
     <div class="row">
         <div class="row">
 
@@ -14,7 +17,7 @@
 
                     @if (null == Model.Notifications || Model.Notifications.Count == 0)
                     {
-                        <div class="col-md-7 alert alert-warning" style="text-align:center">
+                        <div class="col-md-7 alert alert-info" style="text-align:center">
                             @Resources.Resources.NoNotifications
                         </div>
                     }

@@ -18,7 +18,7 @@ namespace InsuranceSocialNetworkDAL
                 return context.Notification
                     .Fetch()
                     .Include(i=>i.NotificationType)
-                    .Where(i => i.ToUserID == Id)
+                    .Where(i => i.Active && i.ToUserID == Id)
                     .OrderByDescending(i => i.CreateDate)
                     .ToList();
             }

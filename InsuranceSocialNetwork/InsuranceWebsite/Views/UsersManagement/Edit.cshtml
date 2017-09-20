@@ -1,0 +1,67 @@
+﻿@using InsuranceWebsite.Models
+@using MVCGrid.Web
+@model UserProfileModelObject
+
+@{
+    ViewBag.Title = Resources.Resources.HomePageTitle;
+}
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+@Scripts.Render("~/bundles/jqueryval")
+
+<div id="dialog-form" title="@Resources.Resources.CreateNewUser">
+
+    @using (Html.BeginForm("Edit", "UsersManagement", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken();
+        @Html.HiddenFor(i => i.ID);
+        <p>
+            @Html.Label(Resources.Resources.FirstName)
+            @Html.TextBoxFor(i => i.FirstName, new { @class = "text ui-widget-content ui-corner-all", id = "firstname" })
+            @Html.ValidationMessageFor(i => i.FirstName)
+        </p>
+        <p>
+            @Html.Label(Resources.Resources.LastName)
+            @Html.TextBoxFor(model => model.LastName, new { @class = "text ui-widget-content ui-corner-all", id = "lastname" })
+            @Html.ValidationMessageFor(i => i.LastName)
+        </p>
+        <p>
+            @Html.Label(Resources.Resources.Email)
+            @Html.TextBoxFor(model => model.User.Email, new { @class = "text ui-widget-content ui-corner-all", id = "lastname", disabled="disabled" })
+            @Html.ValidationMessageFor(i => i.User.Email)
+        </p>
+        <p>
+            @Html.Label(Resources.Resources.UserRole)
+            @Html.DropDownListFor(i => i.ID_Role, Model.UserRolesList, new { @class = "text ui-widget-content ui-corner-all", id = "bannertype", style = "width:95%;padding:.4em;" })
+            @Html.ValidationMessageFor(i => i.ID_Role)
+        </p>
+    }
+</div>
+
+<script>
+
+    $(function () {
+
+        $.validator.addMethod('date', function (value, element) {
+            if (this.optional(element)) {
+                return true;
+            }
+
+            var ok = true;
+            try {
+                $.datepicker.parseDate('dd/mm/yy', value);
+            }
+            catch (err) {
+                ok = false;
+            }
+            return ok;
+        });
+
+        $('.date-picker').datepicker({
+            dateFormat: 'dd/mm/yy'
+        });
+
+    } );
+
+</script>

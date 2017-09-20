@@ -522,6 +522,10 @@
     <Content Include="Views\BannersManagement\AddBanner.cshtml" />
     <Content Include="Views\BannersManagement\Edit.cshtml" />
     <Content Include="Views\BannersManagement\Create.cshtml" />
+    <Content Include="Views\Home\Partial\TopBannerPartialView.cshtml" />
+    <Content Include="Views\Home\Partial\RightBannerPartialView.cshtml" />
+    <Content Include="Views\UsersManagement\Create.cshtml" />
+    <Content Include="Views\UsersManagement\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

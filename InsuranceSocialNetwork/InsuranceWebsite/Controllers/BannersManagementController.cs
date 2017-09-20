@@ -21,12 +21,6 @@ namespace InsuranceWebsite.Controllers
     [Authorize]
     public class BannersManagementController : Controller
     {
-        //MapperConfiguration mapperConfiguration = new MapperConfiguration(cfg =>
-        //{
-        //    cfg.CreateMap<RoleDTO, RoleModelObject>();
-        //    cfg.CreateMap<RoleModelObject, RoleDTO>();
-        //});
-
         public BannersManagementController()
         {
         }
@@ -154,66 +148,12 @@ namespace InsuranceWebsite.Controllers
             return View(model);
         }
 
-        //[FunctionalityAutorizeAttribute("ROLES_MANAGEMENT")]
-        //public ActionResult RolesManagement()
-        //{
-        //    RolesManagementViewModel model = new RolesManagementViewModel();
-
-        //    return View(model);
-        //}
-
         [FunctionalityAutorizeAttribute("BANNERS_MANAGEMENT")]
         public JsonResult Get()
         {
             return Json(BusinessItemsLists.GetBanners().ToArray(), JsonRequestBehavior.AllowGet);
         }
 
-        //[HttpPost]
-        //[FunctionalityAutorizeAttribute("BANNERS_MANAGEMENT")]
-        //public ActionResult CreateBanner(BannerModelObject model, HttpPostedFileBase fileUploaderControl)
-        //{
-        //    try
-        //    {
-        //        MemoryStream target = new MemoryStream();
-        //        fileUploaderControl.InputStream.CopyTo(target);
-        //        byte[] data = target.ToArray();
-
-        //        BannerDTO newBanner = new BannerDTO()
-        //        {
-        //            ID_Banner_Type = model.ID_Banner_Type,
-        //            Description = model.Description,
-        //            StartDate = model.StartDate,
-        //            DueDate = model.DueDate,
-        //            Image = data
-        //        };
-        //        InsuranceBusiness.BusinessLayer.CreateBanner(newBanner);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new NotImplementedException();
-        //    }
-
-        //    return RedirectToAction("Index");
-        //}
-
-        //public ActionResult AddBanner(BannerModelObject model)
-        //{
-        //    try
-        //    {
-        //        model = new BannerModelObject();
-        //        model.StartDate = DateTime.Now;
-
-        //        return View(model);
-
-        //        //InsuranceBusiness.BusinessLayer.CreatePost(newPost);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new NotImplementedException();
-        //    }
-        //}
-
-        // GET: /User/Edit/5
         public ActionResult Create()
         {
             BannerModelObject model = new BannerModelObject()

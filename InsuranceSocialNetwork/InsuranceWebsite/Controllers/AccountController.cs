@@ -216,7 +216,7 @@ namespace InsuranceWebsite.Controllers
                     try
                     {
                         // Register default profile information!
-                        userId = InsuranceBusiness.BusinessLayer.CreateDefaultUserProfile(user.Id, user.UserName, user.Email, model.Name);
+                        userId = InsuranceBusiness.BusinessLayer.CreateDefaultUserProfile(user.Id, user.UserName, user.Email, model.Name, null);
                     }
                     catch (Exception ex)
                     {

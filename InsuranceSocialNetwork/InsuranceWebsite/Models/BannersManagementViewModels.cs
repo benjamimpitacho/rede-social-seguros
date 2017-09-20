@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Resources;
 using System.Web.Mvc;
 
 namespace InsuranceWebsite.Models
@@ -25,7 +26,7 @@ namespace InsuranceWebsite.Models
     {
         public BannerModelObject()
         {
-            _bannerTypes = InsuranceSocialNetworkBusiness.InsuranceBusiness.BusinessLayer.GetBannerTypes().Select(i => new ListItem() { Id = i.ID, Name = i.Description }).ToList();
+            _bannerTypes = InsuranceSocialNetworkBusiness.InsuranceBusiness.BusinessLayer.GetBannerTypes().Select(i => new ListItem() { Id = i.ID, Name = Resources.Resources.ResourceManager.GetString(i.Description) }).ToList();
         }
 
         public long ID { get; set; }
@@ -53,6 +54,12 @@ namespace InsuranceWebsite.Models
     public class ListItem
     {
         public long Id { get; set; }
+        public string Name { get; set; }
+    }
+
+    public class ListItemStr
+    {
+        public string Id { get; set; }
         public string Name { get; set; }
     }
 }
