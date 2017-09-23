@@ -96,35 +96,35 @@ namespace InsuranceWebsite.Controllers
                     cols.Add("CreateDate")
                         .WithHeaderText(Resources.Resources.RegisterDate)
                         .WithCellCssClassExpression(p => "dateCell")
-                        .WithValueExpression(p => p.CreateDate.ToString("dd-MM-yyyy"));
+                        .WithValueExpression(p => p.CreateDate.ToString("dd-MM-yyyy"))
+                        .WithVisibility(true, true);
                     cols.Add("Active").WithHtmlEncoding(false)
                         .WithSorting(false)
                         .WithHeaderText(Resources.Resources.Active)
                         .WithValueExpression((p, c) => p.User.EmailConfirmed ? "checked" : "")
                         .WithValueTemplate("<input type=\"checkbox\" disabled=\"disabled\" {Value}>")
-                        .WithCellCssClassExpression(p => "mvcgrid-cell");
+                        .WithCellCssClassExpression(p => "mvcgrid-cell")
+                        .WithVisibility(true, true);
                     cols.Add("Edit").WithHtmlEncoding(false)
                         .WithSorting(false)
                         .WithHeaderText(" ")
                         .WithValueExpression((p, c) => c.UrlHelper.Action("Edit", "UsersManagement", new { id = p.ID }))
-                        .WithValueTemplate("<a href='{Value}' class='btn btn-warning lnkEdit'>" + Resources.Resources.Edit + "</a>");
+                        .WithValueTemplate("<a href='{Value}' class='btn btn-warning lnkEdit'>" + Resources.Resources.Edit + "</a>")
+                        .WithVisibility(true, false);
                     cols.Add("Delete").WithHtmlEncoding(false)
                         .WithSorting(false)
                         .WithHeaderText(" ")
                         .WithValueExpression((p, c) => c.UrlHelper.Action("Delete", "UsersManagement", new { id = p.ID }))
-                        .WithValueTemplate("<a href='{Value}' class='btn btn-danger lnkDelete' role='button'>" + Resources.Resources.Delete + "</a>");
-                    //cols.Add("Activate")
-                    //    .WithHtmlEncoding(false)
-                    //    .WithSorting(false)
-                    //    .WithHeaderText(" ")
-                    //    .WithCellCssClassExpression(p => "controlCell")
-                    //    //.WithPlainTextValueExpression((p, c) => p.User.EmailConfirmed ? "deactivate" : "activate")
-                    //    .WithValueExpression((p, c) => c.UrlHelper.Action(p.User.EmailConfirmed ? "Deactivate" : "Activate", "UsersManagement", new { id = p.ID }))
-                    //    .WithValueTemplate("<a href='{Value}' class='' role='button' style='margin-right:5px;color:limegreen;'>" + MVCGridConfig.GetActivateCommandCode("{Model.User.EmailConfirmed}") + "</a>" + "<a href='UsersManagement/BlockUser/{Model.ID}' class='' role='button' style='margin-right:5px;color:red'>" + MVCGridConfig.GetBlockCommandCode("{Model.User.EmailConfirmed}") + "</a>");
+                        .WithValueTemplate("<a href='{Value}' class='btn btn-danger lnkDelete' role='button'>" + Resources.Resources.Delete + "</a>")
+                        .WithVisibility(true, false);
                 })
                 .WithAdditionalQueryOptionNames("Search")
                 .WithSorting(true, "FirstName")
                 .WithPaging(paging: true, itemsPerPage: 10, allowChangePageSize: true, maxItemsPerPage: 100)
+                .WithProcessingMessage(Resources.Resources.Loading)
+                .WithNextButtonCaption(Resources.Resources.Next)
+                .WithPreviousButtonCaption(Resources.Resources.Previous)
+                .WithSummaryMessage(Resources.Resources.ShowingGridEntries)
                 .WithRetrieveDataMethod((context) =>
                 {
                     // Query your data here. Obey Ordering, paging and filtering parameters given in the context.QueryOptions.
@@ -366,11 +366,42 @@ namespace InsuranceWebsite.Controllers
             return RedirectToAction("Index");
         }
 
+        [FunctionalityAutorizeAttribute("USERS_MANAGEMENT")]
         public ActionResult Delete(long id)
         {
             try
             {
                 InsuranceBusiness.BusinessLayer.DeleteUserProfile(id);
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException();
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        [FunctionalityAutorizeAttribute("USERS_MANAGEMENT")]
+        public ActionResult Activate(long id)
+        {
+            try
+            {
+                InsuranceBusiness.BusinessLayer.ActivateUser(id);
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException();
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        [FunctionalityAutorizeAttribute("USERS_MANAGEMENT")]
+        public ActionResult Deactivate(long id)
+        {
+            try
+            {
+                InsuranceBusiness.BusinessLayer.DeactivateUser(id);
             }
             catch (Exception ex)
             {

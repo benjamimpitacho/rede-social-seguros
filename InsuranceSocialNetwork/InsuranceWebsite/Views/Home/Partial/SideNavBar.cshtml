@@ -12,9 +12,9 @@
 @*<nav class="navbar navbar-default navbar-fixed-top navbar-principal">*@
 
 <div class="left" id="sideNavBar">
-    <div class="item no-hover" style="padding-bottom:0px;margin-top: 10px;margin-bottom: 10px;">
-        <a href="@Url.Action("Index", "Home")" title="@Resources.Resources.Home" style="height:inherit;text-align:center;">
-            <img src="~/Content/images/no_logo_img.png" alt="" class="item-logo">
+    <div class="item no-hover" style="padding-bottom:0px;background-color:#00C1DE">
+        <a href="@Url.Action("Index", "Home")" title="@Resources.Resources.Home" style="height:inherit;text-align:center;margin-top:10px">
+            <img src="~/Content/logos/cinza_simbolo_falar_seguros.png" alt="" class="item-logo">
         </a>
     </div>
     @*<div class="item no-hover">
@@ -34,7 +34,8 @@
     </div>
     <div class="item">
         <a href="@Url.Action("Notifications", "Home")">
-            <span class="glyphicon glyphicon-bell"></span>
+            @*<span class="glyphicon glyphicon-bell"></span>*@
+            <img src="~/Content/icons/13.png" class="mini-avatar item-photo">
         </a>
         @if (Model.TotalUnreadNotifications > 0)
         {
@@ -43,26 +44,35 @@
         }
     </div>
     <div class="item active">
-        <a href="@Url.Action("Search", "Home")" title="@Resources.Resources.Search"><span class="glyphicon glyphicon-search"></span></a>
+        <a href="@Url.Action("Search", "Home")" title="@Resources.Resources.Search">
+            @*<span class="glyphicon glyphicon-search"></span>*@
+            <img src="~/Content/icons/15.png" class="mini-avatar item-photo">
+        </a>
     </div>
     @*<div class="item">
         <a href="@Url.Action("Index", "Home")" title="@Resources.Resources.Home"><span class="glyphicon glyphicon-home"></span></a>
     </div>*@
     <div class="item active">
         <a href="@Url.Action("Messages", "Home")" title="@Resources.Resources.Messages">
-            <span class="glyphicon glyphicon-comment"></span>
+            @*<span class="glyphicon glyphicon-comment"></span>*@
+            <img src="~/Content/icons/17.png" class="mini-avatar item-photo">
         </a>
         @if (Model.TotalUnreadMessages > 0)
         {
-
             <span class="badge badge-notify">@Model.TotalUnreadMessages</span>
         }
     </div>
     <div class="item">
-        <a href="@Url.Action("Friends", "Home")" title="@Resources.Resources.Friends"><span class="glyphicon glyphicon-user"></span></a>
+        <a href="@Url.Action("Friends", "Home")" title="@Resources.Resources.Friends">
+            @*<span class="glyphicon glyphicon-user"></span>*@
+            <img src="~/Content/icons/19.png" class="mini-avatar item-photo">
+        </a>
     </div>
     <div class="item">
-        <a href="@Url.Action("Settings", "Home")" title="@Resources.Resources.Settings"><span class="glyphicon glyphicon-option-horizontal"></span></a>
+        <a href="@Url.Action("Settings", "Home")" title="@Resources.Resources.Settings">
+            @*<span class="glyphicon glyphicon-option-horizontal"></span>*@
+            <img src="~/Content/icons/111.png" class="mini-avatar item-photo">
+        </a>
     </div>
     <div class="item">
         <a href="@Url.Action("LogOff", "Account")" title="@Resources.Resources.Logout"><span class="glyphicon glyphicon-log-out"></span></a>
@@ -107,7 +117,7 @@
     }
 
     div#sideNavBar.left {
-        background: #4A5B67;
+        background: #4B5C66;
         white-space: nowrap;
         width: 80px;
         transition: width 1s;
@@ -178,7 +188,7 @@
     }
 
     .item-logo {
-        height: 100%;
+        height: 70%;
         margin-left: auto;
         margin-right: auto;
         display: block;

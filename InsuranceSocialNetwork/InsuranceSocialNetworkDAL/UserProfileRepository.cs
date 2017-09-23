@@ -187,6 +187,36 @@ namespace InsuranceSocialNetworkDAL
             }
         }
 
+        public static bool ActivateUser(long profileId)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                Profile profile = context.Profile.Get(profileId);
+
+                profile.AspNetUsers.EmailConfirmed = true;
+                context.Profile.Update(profile);
+
+                context.Save();
+
+                return true;
+            }
+        }
+
+        public static bool DeactivateUser(long profileId)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                Profile profile = context.Profile.Get(profileId);
+
+                profile.AspNetUsers.EmailConfirmed = false;
+                context.Profile.Update(profile);
+
+                context.Save();
+
+                return true;
+            }
+        }
+
         public static AspNetUsers GetUser(string username)
         {
             using (var context = new BackofficeUnitOfWork())

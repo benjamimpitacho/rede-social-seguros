@@ -549,4 +549,37 @@
   <data name="Active" xml:space="preserve">
     <value>Activo</value>
   </data>
+  <data name="AreYouSureToActivateUser" xml:space="preserve">
+    <value>Tem a certeza que pretende activar o utilizador?</value>
+  </data>
+  <data name="AreYouSureToDeactivateUser" xml:space="preserve">
+    <value>Tem a certeza que pretende desactivar o utilizador?</value>
+  </data>
+  <data name="AreYouSureToDelete" xml:space="preserve">
+    <value>Tem a certeza que pretende apagar?</value>
+  </data>
+  <data name="EditUser" xml:space="preserve">
+    <value>Editar Utilizador</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>Exportar</value>
+  </data>
+  <data name="Fields" xml:space="preserve">
+    <value>Campos</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Seguinte</value>
+  </data>
+  <data name="PageSize" xml:space="preserve">
+    <value>Tamanho da página</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Anterior</value>
+  </data>
+  <data name="ShowingGridEntries" xml:space="preserve">
+    <value>Listando registos {0} a {1} de {2}</value>
+  </data>
+  <data name="Now" xml:space="preserve">
+    <value>Agora</value>
+  </data>
 </root>

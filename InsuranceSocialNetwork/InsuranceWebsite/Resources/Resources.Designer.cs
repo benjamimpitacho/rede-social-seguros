@@ -178,6 +178,33 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tem a certeza que pretende activar o utilizador?.
+        /// </summary>
+        public static string AreYouSureToActivateUser {
+            get {
+                return ResourceManager.GetString("AreYouSureToActivateUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tem a certeza que pretende desactivar o utilizador?.
+        /// </summary>
+        public static string AreYouSureToDeactivateUser {
+            get {
+                return ResourceManager.GetString("AreYouSureToDeactivateUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tem a certeza que pretende apagar?.
+        /// </summary>
+        public static string AreYouSureToDelete {
+            get {
+                return ResourceManager.GetString("AreYouSureToDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ASF.
         /// </summary>
         public static string ASF {
@@ -484,6 +511,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Editar Utilizador.
+        /// </summary>
+        public static string EditUser {
+            get {
+                return ResourceManager.GetString("EditUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to E-mail.
         /// </summary>
         public static string Email {
@@ -511,11 +547,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exportar.
+        /// </summary>
+        public static string Export {
+            get {
+                return ResourceManager.GetString("Export", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Feed.
         /// </summary>
         public static string Feed {
             get {
                 return ResourceManager.GetString("Feed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Campos.
+        /// </summary>
+        public static string Fields {
+            get {
+                return ResourceManager.GetString("Fields", resourceCulture);
             }
         }
         
@@ -799,6 +853,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Seguinte.
+        /// </summary>
+        public static string Next {
+            get {
+                return ResourceManager.GetString("Next", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De momento não possui notificações.
         /// </summary>
         public static string NoNotifications {
@@ -835,6 +898,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Agora.
+        /// </summary>
+        public static string Now {
+            get {
+                return ResourceManager.GetString("Now", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Agente oficial.
         /// </summary>
         public static string OfficialAgent {
@@ -849,6 +921,15 @@ namespace Resources {
         public static string OldPassword {
             get {
                 return ResourceManager.GetString("OldPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tamanho da página.
+        /// </summary>
+        public static string PageSize {
+            get {
+                return ResourceManager.GetString("PageSize", resourceCulture);
             }
         }
         
@@ -876,6 +957,15 @@ namespace Resources {
         public static string PasswordRequired {
             get {
                 return ResourceManager.GetString("PasswordRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Anterior.
+        /// </summary>
+        public static string Previous {
+            get {
+                return ResourceManager.GetString("Previous", resourceCulture);
             }
         }
         
@@ -1137,6 +1227,15 @@ namespace Resources {
         public static string ShowDisplayName {
             get {
                 return ResourceManager.GetString("ShowDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Listando registos {0} a {1} de {2}.
+        /// </summary>
+        public static string ShowingGridEntries {
+            get {
+                return ResourceManager.GetString("ShowingGridEntries", resourceCulture);
             }
         }
         

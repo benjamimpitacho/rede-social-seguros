@@ -21,7 +21,7 @@ footer {
 }
 
 a {
-    color: #4B5C67;
+    color: #4B5C66;
 }
 
 .avatar
@@ -629,7 +629,7 @@ a {
   font-size: 14px;
 }
 .post .post-description .stats {
-  /*margin-top: 20px;*/
+  margin-top: 5px;
   margin-bottom: 10px;
   color: #7f7f7f;
 }
@@ -2040,7 +2040,7 @@ ul.summary-list > li:last-child  {
     border-color: #ed4e2a !important;
 }
 .bordered-sky {
-    border-color: #11a9cc !important;
+    border-color: #00C1DE !important;
 }
 .bordered-yellow {
     border-color: #ffce55 !important;
@@ -2198,7 +2198,7 @@ h4, .h4 {
 .btn-rightbar{
     width: 50%;
     background-color: white;
-    padding: 20px 10px 20px 10px;
+    padding: 6px 10px 6px 10px;
     /*margin-top: 0px;
     margin-bottom: 0px;*/
     margin: 2px;
@@ -2660,7 +2660,7 @@ a:hover, a:active, a:focus {
 #accordion h5
 {
     background-color: white;
-    padding: 20px 10px 20px 10px;
+    padding: 6px 10px 6px 10px;
     margin-top: 3px;
     margin-bottom: 0px;
     cursor:pointer;

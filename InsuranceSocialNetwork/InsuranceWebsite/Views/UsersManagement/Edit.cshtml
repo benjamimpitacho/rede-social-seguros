@@ -10,7 +10,7 @@
 
 @Scripts.Render("~/bundles/jqueryval")
 
-<div id="dialog-form" title="@Resources.Resources.CreateNewUser">
+<div id="dialog-form" title="@Resources.Resources.EditUser">
 
     @using (Html.BeginForm("Edit", "UsersManagement", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
     {
@@ -33,9 +33,18 @@
         </p>
         <p>
             @Html.Label(Resources.Resources.UserRole)
-            @Html.DropDownListFor(i => i.ID_Role, Model.UserRolesList, new { @class = "text ui-widget-content ui-corner-all", id = "bannertype", style = "width:95%;padding:.4em;" })
-            @Html.ValidationMessageFor(i => i.ID_Role)
+            @Html.DropDownListFor(i => i.Role.Id, Model.UserRolesList, new { @class = "text ui-widget-content ui-corner-all", id = "bannertype", style = "width:95%;padding:.4em;" })
+            @Html.ValidationMessageFor(i => i.Role.Id)
         </p>
+        
+        if (Model.User.EmailConfirmed)
+        {
+            <p>@Html.ActionLink(Resources.Resources.Deactivate, "Deactivate", "UsersManagement", new { id = Model.ID }, new { @class= "btn btn-danger lnkDeactivate" })</p>
+        }
+        else
+        {
+            <p>@Html.ActionLink(Resources.Resources.Activate, "Activate", "UsersManagement", new { id = Model.ID }, new { @class = "btn btn-success lnkActivate" })</p>
+        }
     }
 </div>
 
@@ -62,6 +71,82 @@
             dateFormat: 'dd/mm/yy'
         });
 
+        $("#dialog-activate").dialog({
+            autoOpen: false,
+            resizable: false,
+            height: 170,
+            width: 350,
+            show: { effect: 'drop', direction: "up" },
+            modal: true,
+            draggable: true,
+            open: function (event, ui) {
+                $(".ui-dialog-titlebar-close").hide();
+
+            },
+            buttons: {
+                "OK": function () {
+                    $(this).dialog("close");
+                    window.location.href = url;
+                },
+                "Cancel": function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+
+        $("#dialog-deactivate").dialog({
+            autoOpen: false,
+            resizable: false,
+            height: 170,
+            width: 350,
+            show: { effect: 'drop', direction: "up" },
+            modal: true,
+            draggable: true,
+            open: function (event, ui) {
+                $(".ui-dialog-titlebar-close").hide();
+
+            },
+            buttons: {
+                "OK": function () {
+                    $(this).dialog("close");
+                    window.location.href = url;
+                },
+                "Cancel": function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+
+        $(".lnkDeactivate").click(function (e) {
+            // e.preventDefault(); use this or return false
+            url = $(this).attr('href');
+            $("#dialog-deactivate").dialog('open');
+
+            return false;
+        });
+
+        $(".lnkActivate").click(function (e) {
+            // e.preventDefault(); use this or return false
+            url = $(this).attr('href');
+            $("#dialog-activate").dialog('open');
+
+            return false;
+        });
+
     } );
 
 </script>
+
+<div id="dialog-activate" style="display: none">
+    <p>
+        <span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>
+        @Resources.Resources.AreYouSureToActivateUser
+    </p>
+</div>
+
+<div id="dialog-deactivate" style="display: none">
+    <p>
+        <span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>
+        @Resources.Resources.AreYouSureToDeactivateUser
+    </p>
+</div>

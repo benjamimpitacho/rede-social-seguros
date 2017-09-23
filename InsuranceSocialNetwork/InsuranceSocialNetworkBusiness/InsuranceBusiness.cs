@@ -181,9 +181,19 @@ namespace InsuranceSocialNetworkBusiness
             return UserProfileRepository.UpdateUserProfile(AutoMapper.Mapper.Map<Profile>(profile));
         }
 
-        public bool DeleteUserProfile(long userId)
+        public bool DeleteUserProfile(long profileId)
         {
-            return UserProfileRepository.DeleteUserProfile(userId);
+            return UserProfileRepository.DeleteUserProfile(profileId);
+        }
+
+        public bool ActivateUser(long profileId)
+        {
+            return UserProfileRepository.ActivateUser(profileId);
+        }
+
+        public bool DeactivateUser(long profileId)
+        {
+            return UserProfileRepository.DeactivateUser(profileId);
         }
 
         #endregion Profile
@@ -369,7 +379,7 @@ namespace InsuranceSocialNetworkBusiness
 
         #region Comments
 
-        public bool CreateComment(PostCommentDTO item)
+        public long CreateComment(PostCommentDTO item)
         {
             PostComment comment = AutoMapper.Mapper.Map<PostComment>(item);
 

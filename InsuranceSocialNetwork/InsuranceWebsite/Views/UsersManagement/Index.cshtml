@@ -166,7 +166,7 @@
         $(".lnkEdit").click(function (e) {
             e.preventDefault(); //use this or return false
             url = $(this).attr('href');
-            $(".ui-dialog-title").html("@Resources.Resources.EditBanner");
+            $(".ui-dialog-title").html("@Resources.Resources.EditUser");
             $("#dialog-edit").dialog('open');
 
             return false;
@@ -208,7 +208,7 @@
 <div id="dialog-confirm" style="display: none">
     <p>
         <span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>
-        Are you sure to delete?
+        @Resources.Resources.AreYouSureToDelete
     </p>
 </div>
 

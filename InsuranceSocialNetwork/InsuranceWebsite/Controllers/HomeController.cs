@@ -9,8 +9,10 @@ using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -25,6 +27,7 @@ namespace InsuranceWebsite.Controllers
 
         public HomeController()
         {
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("pt-PT");
         }
 
         public async Task<ActionResult> TestView(HomeViewModel model)
@@ -486,10 +489,33 @@ namespace InsuranceWebsite.Controllers
             return PartialView("Partial/PostsControl", model);
         }
 
-        [HttpPost]
+        //[HttpPost]
+        //[FunctionalityAutorizeAttribute("COMMENT_POST_FUNCTIONALITY")]
+        //public ActionResult NewComment(long postId, string postNewComment)
+        //{
+        //    try
+        //    {
+        //        PostCommentDTO newComment = new PostCommentDTO()
+        //        {
+        //            ID_Post = postId,
+        //            ID_User = CurrentUser.ID_User,
+        //            Text = postNewComment
+        //        };
+
+        //        InsuranceBusiness.BusinessLayer.CreateComment(newComment);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new NotImplementedException();
+        //    }
+
+        //    return RedirectToAction("Index");
+        //}
+
         [FunctionalityAutorizeAttribute("COMMENT_POST_FUNCTIONALITY")]
-        public ActionResult NewComment(long postId, string postNewComment)
+        public JsonResult NewComment(long postId, string postNewComment)
         {
+            long commentId = -1;
             try
             {
                 PostCommentDTO newComment = new PostCommentDTO()
@@ -499,14 +525,14 @@ namespace InsuranceWebsite.Controllers
                     Text = postNewComment
                 };
 
-                InsuranceBusiness.BusinessLayer.CreateComment(newComment);
+                commentId = InsuranceBusiness.BusinessLayer.CreateComment(newComment);
             }
             catch (Exception ex)
             {
                 throw new NotImplementedException();
             }
-
-            return RedirectToAction("Index");
+            
+            return Json(new { ok = true, message = commentId });
         }
 
         [FunctionalityAutorizeAttribute("PROFILE_INFO_FUNCTIONALITY")]

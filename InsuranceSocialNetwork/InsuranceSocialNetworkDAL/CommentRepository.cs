@@ -10,7 +10,7 @@ namespace InsuranceSocialNetworkDAL
 {
     public class CommentRepository
     {
-        public static bool CreateComment(PostComment comment)
+        public static long CreateComment(PostComment comment)
         {
             using (var context = new BackofficeUnitOfWork())
             {
@@ -20,7 +20,7 @@ namespace InsuranceSocialNetworkDAL
                 context.PostComment.Create(comment);
                 context.Save();
 
-                return comment.ID > 0;
+                return comment.ID;
             }
         }
     }
