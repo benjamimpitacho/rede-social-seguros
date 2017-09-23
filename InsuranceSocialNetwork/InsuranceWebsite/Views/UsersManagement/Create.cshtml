@@ -33,8 +33,8 @@
         </p>
         <p>
             @Html.Label(Resources.Resources.UserRole)
-            @Html.DropDownListFor(i => i.ID_Role, Model.UserRolesList, new { @class = "text ui-widget-content ui-corner-all", id = "bannertype", style = "width:95%;padding:.4em;" })
-            @Html.ValidationMessageFor(i => i.ID_Role)
+            @Html.DropDownListFor(i => i.Role.Id, Model.UserRolesList, new { @class = "text ui-widget-content ui-corner-all", id = "bannertype", style = "width:95%;padding:.4em;" })
+            @Html.ValidationMessageFor(i => i.Role.Id)
         </p>
     }
 </div>

@@ -194,6 +194,7 @@ namespace InsuranceSocialNetworkDAL
                 Profile profile = context.Profile.Get(profileId);
 
                 profile.AspNetUsers.EmailConfirmed = true;
+                profile.LastChangeDate = DateTime.Now;
                 context.Profile.Update(profile);
 
                 context.Save();
@@ -209,6 +210,7 @@ namespace InsuranceSocialNetworkDAL
                 Profile profile = context.Profile.Get(profileId);
 
                 profile.AspNetUsers.EmailConfirmed = false;
+                profile.LastChangeDate = DateTime.Now;
                 context.Profile.Update(profile);
 
                 context.Save();

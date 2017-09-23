@@ -1,0 +1,152 @@
+﻿@using InsuranceWebsite.Models
+@using MVCGrid.Web
+@model CompanyModelObject
+
+@{
+    ViewBag.Title = Resources.Resources.HomePageTitle;
+}
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+@Scripts.Render("~/bundles/jqueryval")
+
+<div id="dialog-form" title="@Resources.Resources.EditCompany">
+
+    @using (Html.BeginForm("Edit", "CompaniesManagement", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken();
+        @Html.HiddenFor(i => i.ID);
+        <p>
+            @Html.Label(Resources.Resources.FirstName)
+            @Html.TextBoxFor(i => i.FirstName, new { @class = "text ui-widget-content ui-corner-all", id = "firstname" })
+            @Html.ValidationMessageFor(i => i.FirstName)
+        </p>
+        <p>
+            @Html.Label(Resources.Resources.LastName)
+            @Html.TextBoxFor(model => model.LastName, new { @class = "text ui-widget-content ui-corner-all", id = "lastname" })
+            @Html.ValidationMessageFor(i => i.LastName)
+        </p>
+        <p>
+            @Html.Label(Resources.Resources.Email)
+            @Html.TextBoxFor(model => model.User.Email, new { @class = "text ui-widget-content ui-corner-all", id = "lastname", disabled="disabled" })
+            @Html.ValidationMessageFor(i => i.User.Email)
+        </p>
+        <p>
+            @Html.Label(Resources.Resources.UserRole)
+            @Html.DropDownListFor(i => i.Role.Id, Model.UserRolesList, new { @class = "text ui-widget-content ui-corner-all", id = "bannertype", style = "width:95%;padding:.4em;" })
+            @Html.ValidationMessageFor(i => i.Role.Id)
+        </p>
+        
+        if (Model.User.EmailConfirmed)
+        {
+            <p>@Html.ActionLink(Resources.Resources.Deactivate, "Deactivate", "CompaniesManagement", new { id = Model.ID }, new { @class= "btn btn-danger lnkDeactivate" })</p>
+        }
+        else
+        {
+            <p>@Html.ActionLink(Resources.Resources.Activate, "Activate", "CompaniesManagement", new { id = Model.ID }, new { @class = "btn btn-success lnkActivate" })</p>
+        }
+    }
+</div>
+
+<script>
+
+    $(function () {
+
+        $.validator.addMethod('date', function (value, element) {
+            if (this.optional(element)) {
+                return true;
+            }
+
+            var ok = true;
+            try {
+                $.datepicker.parseDate('dd/mm/yy', value);
+            }
+            catch (err) {
+                ok = false;
+            }
+            return ok;
+        });
+
+        $('.date-picker').datepicker({
+            dateFormat: 'dd/mm/yy'
+        });
+
+        $("#dialog-activate").dialog({
+            autoOpen: false,
+            resizable: false,
+            height: 170,
+            width: 350,
+            show: { effect: 'drop', direction: "up" },
+            modal: true,
+            draggable: true,
+            open: function (event, ui) {
+                $(".ui-dialog-titlebar-close").hide();
+
+            },
+            buttons: {
+                "OK": function () {
+                    $(this).dialog("close");
+                    window.location.href = url;
+                },
+                "Cancel": function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+
+        $("#dialog-deactivate").dialog({
+            autoOpen: false,
+            resizable: false,
+            height: 170,
+            width: 350,
+            show: { effect: 'drop', direction: "up" },
+            modal: true,
+            draggable: true,
+            open: function (event, ui) {
+                $(".ui-dialog-titlebar-close").hide();
+
+            },
+            buttons: {
+                "OK": function () {
+                    $(this).dialog("close");
+                    window.location.href = url;
+                },
+                "Cancel": function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+
+        $(".lnkDeactivate").click(function (e) {
+            // e.preventDefault(); use this or return false
+            url = $(this).attr('href');
+            $("#dialog-deactivate").dialog('open');
+
+            return false;
+        });
+
+        $(".lnkActivate").click(function (e) {
+            // e.preventDefault(); use this or return false
+            url = $(this).attr('href');
+            $("#dialog-activate").dialog('open');
+
+            return false;
+        });
+
+    } );
+
+</script>
+
+<div id="dialog-activate" style="display: none">
+    <p>
+        <span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>
+        @Resources.Resources.AreYouSureToActivateUser
+    </p>
+</div>
+
+<div id="dialog-deactivate" style="display: none">
+    <p>
+        <span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>
+        @Resources.Resources.AreYouSureToDeactivateUser
+    </p>
+</div>

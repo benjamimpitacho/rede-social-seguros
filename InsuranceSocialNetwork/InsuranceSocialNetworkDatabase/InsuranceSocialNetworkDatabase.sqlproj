@@ -95,6 +95,10 @@
     <Build Include="Tables\Banner.sql" />
     <Build Include="Tables\BannerType.sql" />
     <None Include="InitData\BannerType.sql" />
+    <None Include="InitData\PostalCode.sql" />
+    <Build Include="Tables\ConstructionCompany.sql" />
+    <Build Include="Tables\HomeApplianceRepair.sql" />
+    <Build Include="Tables\InsuranceCompanyContact.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="InsuranceSocialNetworkDatabase.refactorlog" />

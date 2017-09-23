@@ -5,59 +5,65 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="4ad3967af0064543bc009e66a511e24c" Name="Diagram1" ZoomLevel="71">
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.AspNetRoles" Width="1.5" PointX="0.75" PointY="20.375" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.AspNetUserLogins" Width="1.5" PointX="5.25" PointY="42.125" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.NotificationType" Width="1.5" PointX="3" PointY="13.875" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.PostComment" Width="1.5" PointX="10.5" PointY="18.5" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.PostLike" Width="1.5" PointX="5.25" PointY="18.75" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.PostSubject" Width="1.5" PointX="6" PointY="7.5" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.PostType" Width="1.5" PointX="6" PointY="28.25" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.AspNetUsers" Width="1.5" PointX="3" PointY="17" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.AspNetRoles" Width="1.5" PointX="0.75" PointY="20.75" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.AspNetUserLogins" Width="1.5" PointX="5.25" PointY="43.375" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.NotificationType" Width="1.5" PointX="6" PointY="8.375" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.PostComment" Width="1.5" PointX="7.5" PointY="18.875" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.PostLike" Width="1.5" PointX="10.5" PointY="19.125" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.PostSubject" Width="1.5" PointX="3" PointY="29.625" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.PostType" Width="1.5" PointX="3" PointY="27" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.AspNetUsers" Width="1.5" PointX="3" PointY="17.25" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_PostComment_AspNetUsers" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_PostLike_AspNetUsers" />
         <AssociationConnector Association="InsurancePortal_dbModel.AspNetUserRoles" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.Garage" Width="1.5" PointX="5.25" PointY="31.625" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.MedicalClinic" Width="1.5" PointX="5.25" PointY="36.25" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.PostalCode" Width="1.5" PointX="3" PointY="26.75" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.PostCommentLike" Width="1.5" PointX="12.75" PointY="18.75" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.PostalCode" Width="1.5" PointX="3" PointY="10.875" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.PostCommentLike" Width="1.5" PointX="12.75" PointY="19.125" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_PostCommentLike_AspNetUsers" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_Garage_PostalCode" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_MedicalClinic_PostalCode" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_PostCommentLike_Comment" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.Post" Width="1.5" PointX="8.25" PointY="17.5" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.Post" Width="1.5" PointX="5.25" PointY="18" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_Post_AspNetUsers" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_Post_PostSubject" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_Post_PostType" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_PostComment_Post" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_PostLike_Post" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.AspNetRolesFunctionalities" Width="1.5" PointX="3" PointY="23.625" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.AspNetRolesFunctionalities" Width="1.5" PointX="3" PointY="24.125" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_dbo_AspNetUserRolesFunctionalities_dbo_AspNetRoles_RoleId" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.PostImage" Width="1.5" PointX="10.5" PointY="22.75" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.PostImage" Width="1.5" PointX="7.5" PointY="27.125" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_PostImage_Post" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.FriendStatus" Width="1.5" PointX="6" PointY="10.875" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.Friend" Width="1.5" PointX="8.25" PointY="13.375" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.FriendStatus" Width="1.5" PointX="6" PointY="24.375" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.Friend" Width="1.5" PointX="8.25" PointY="22.75" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_FriendUser_AspNetUsers" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_FriendUserFriend_AspNetUsers" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_FriendStatus_FriendStatus" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.Chat" Width="1.5" PointX="5.25" PointY="44.75" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.ChatMember" Width="1.5" PointX="7.5" PointY="31.125" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.ChatMessage" Width="1.5" PointX="10.5" PointY="30.875" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.Chat" Width="1.5" PointX="5.25" PointY="45.875" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.ChatMember" Width="1.5" PointX="7.5" PointY="31.875" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.ChatMessage" Width="1.5" PointX="10.5" PointY="31.75" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_Chat_AspNetUsers" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_ChatMember_AspNetUsers" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_ChatMessage_AspNetUsers" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_ChatMember_Chat" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_ChatMessage_Chat" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.Profile" Width="1.5" PointX="8.25" PointY="23.5" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.Profile" Width="1.5" PointX="5.25" PointY="11.75" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_Profile_AspNetUsers" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_Profile_PostalCode" />
         <EntityTypeShape EntityType="InsurancePortal_dbModel.Banner" Width="1.5" PointX="3" PointY="1" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.BannerType" Width="1.5" PointX="0.75" PointY="1.375" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.BannerType" Width="1.5" PointX="0.75" PointY="1.5" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_Banner_BannerType" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.Notification" Width="1.5" PointX="5.25" PointY="13.625" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.Notification" Width="1.5" PointX="8.25" PointY="14.5" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_NotificationFromUser_AspNetUsers" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_NotificationToUser_AspNetUsers" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_Notification_NotificationType" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.ConstructionCompany" Width="1.5" PointX="5.25" PointY="32.75" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.Garage" Width="1.5" PointX="5.25" PointY="50.375" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.HomeApplianceRepair" Width="1.5" PointX="5.25" PointY="56" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.InsuranceCompanyContact" Width="1.5" PointX="5.25" PointY="61.625" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.MedicalClinic" Width="1.5" PointX="5.25" PointY="27.125" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_ConstructionCompany_PostalCode" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_Garage_PostalCode" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_HomeApplianceRepair_PostalCode" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_InsuranceCompanyContact_PostalCode" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_MedicalClinic_PostalCode" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

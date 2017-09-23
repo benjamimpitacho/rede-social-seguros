@@ -582,4 +582,13 @@
   <data name="Now" xml:space="preserve">
     <value>Agora</value>
   </data>
+  <data name="CreateNewCompany" xml:space="preserve">
+    <value>Criar empresa</value>
+  </data>
+  <data name="EditCompany" xml:space="preserve">
+    <value>Editar empresa</value>
+  </data>
+  <data name="NIF" xml:space="preserve">
+    <value>NIF</value>
+  </data>
 </root>

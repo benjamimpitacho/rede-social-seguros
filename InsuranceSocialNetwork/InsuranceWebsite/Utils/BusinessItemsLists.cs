@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using InsuranceSocialNetworkDTO.Role;
+using InsuranceSocialNetworkDTO.Garage;
 
 namespace InsuranceWebsite.Utils
 {
@@ -51,6 +52,7 @@ namespace InsuranceWebsite.Utils
             var list = InsuranceBusiness.BusinessLayer.GetUsers();
             return mapper.Map<List<UserProfileModelObject>>(list);
         }
+
         public static List<BannerModelObject> GetBanners()
         {
             MapperConfiguration mapperConfiguration = new MapperConfiguration(cfg =>
@@ -63,6 +65,20 @@ namespace InsuranceWebsite.Utils
 
             var list = InsuranceBusiness.BusinessLayer.GetBanners();
             return mapper.Map<List<BannerModelObject>>(list);
+        }
+
+        public static List<CompanyModelObject> GetGarages()
+        {
+            MapperConfiguration mapperConfiguration = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<GarageDTO, CompanyModelObject>();
+                cfg.CreateMap<CompanyModelObject, GarageDTO>();
+            });
+
+            var mapper = mapperConfiguration.CreateMapper();
+
+            var list = InsuranceBusiness.BusinessLayer.GetGarages();
+            return mapper.Map<List<CompanyModelObject>>(list);
         }
     }
 }

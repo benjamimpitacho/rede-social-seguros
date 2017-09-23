@@ -218,6 +218,7 @@
     <Compile Include="Controllers\NotificationsManagementController.cs" />
     <Compile Include="Controllers\BannersManagementController.cs" />
     <Compile Include="Controllers\RolesManagementController.cs" />
+    <Compile Include="Controllers\CompaniesManagementController.cs" />
     <Compile Include="Controllers\UsersManagementController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -225,6 +226,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Hubs\ChatHub.cs" />
+    <Compile Include="Models\CompaniesManagementViewModels.cs" />
     <Compile Include="Models\FriendsViewModels.cs" />
     <Compile Include="Models\ChatViewModel.cs" />
     <Compile Include="Models\MessagesViewModels.cs" />
@@ -580,6 +582,9 @@
     <Content Include="Views\Home\Partial\RightBannerPartialView.cshtml" />
     <Content Include="Views\UsersManagement\Create.cshtml" />
     <Content Include="Views\UsersManagement\Edit.cshtml" />
+    <Content Include="Views\CompaniesManagement\Index.cshtml" />
+    <Content Include="Views\CompaniesManagement\Create.cshtml" />
+    <Content Include="Views\CompaniesManagement\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

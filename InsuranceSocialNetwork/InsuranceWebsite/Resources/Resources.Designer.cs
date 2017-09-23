@@ -403,6 +403,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Criar empresa.
+        /// </summary>
+        public static string CreateNewCompany {
+            get {
+                return ResourceManager.GetString("CreateNewCompany", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Criar novo utilizador.
         /// </summary>
         public static string CreateNewUser {
@@ -507,6 +516,15 @@ namespace Resources {
         public static string EditBanner {
             get {
                 return ResourceManager.GetString("EditBanner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Editar empresa.
+        /// </summary>
+        public static string EditCompany {
+            get {
+                return ResourceManager.GetString("EditCompany", resourceCulture);
             }
         }
         
@@ -858,6 +876,15 @@ namespace Resources {
         public static string Next {
             get {
                 return ResourceManager.GetString("Next", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NIF.
+        /// </summary>
+        public static string NIF {
+            get {
+                return ResourceManager.GetString("NIF", resourceCulture);
             }
         }
         

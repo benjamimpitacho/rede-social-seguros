@@ -33,8 +33,6 @@ namespace InsuranceSocialNetworkDAL
         public virtual DbSet<PostSubject> PostSubject { get; set; }
         public virtual DbSet<PostType> PostType { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
-        public virtual DbSet<Garage> Garage { get; set; }
-        public virtual DbSet<MedicalClinic> MedicalClinic { get; set; }
         public virtual DbSet<PostalCode> PostalCode { get; set; }
         public virtual DbSet<PostCommentLike> PostCommentLike { get; set; }
         public virtual DbSet<Post> Post { get; set; }
@@ -49,5 +47,10 @@ namespace InsuranceSocialNetworkDAL
         public virtual DbSet<Banner> Banner { get; set; }
         public virtual DbSet<BannerType> BannerType { get; set; }
         public virtual DbSet<Notification> Notification { get; set; }
+        public virtual DbSet<ConstructionCompany> ConstructionCompany { get; set; }
+        public virtual DbSet<Garage> Garage { get; set; }
+        public virtual DbSet<HomeApplianceRepair> HomeApplianceRepair { get; set; }
+        public virtual DbSet<InsuranceCompanyContact> InsuranceCompanyContact { get; set; }
+        public virtual DbSet<MedicalClinic> MedicalClinic { get; set; }
     }
 }

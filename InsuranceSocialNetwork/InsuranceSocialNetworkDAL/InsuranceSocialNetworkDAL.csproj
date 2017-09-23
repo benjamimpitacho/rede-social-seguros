@@ -81,6 +81,9 @@
     <Compile Include="ChatMessage.cs">
       <DependentUpon>InsuranceDatabaseEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="ConstructionCompany.cs">
+      <DependentUpon>InsuranceDatabaseEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Core\IRepository.cs" />
     <Compile Include="Core\Repository.cs" />
     <Compile Include="Core\UnitOfWork.cs" />
@@ -91,6 +94,12 @@
       <DependentUpon>InsuranceDatabaseEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Garage.cs">
+      <DependentUpon>InsuranceDatabaseEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HomeApplianceRepair.cs">
+      <DependentUpon>InsuranceDatabaseEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InsuranceCompanyContact.cs">
       <DependentUpon>InsuranceDatabaseEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="MedicalClinic.cs">

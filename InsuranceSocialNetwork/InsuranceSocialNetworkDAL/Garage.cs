@@ -16,6 +16,8 @@ namespace InsuranceSocialNetworkDAL
     {
         public long ID { get; set; }
         public string Name { get; set; }
+        public string Description { get; set; }
+        public string NIF { get; set; }
         public string ContactEmail { get; set; }
         public string MobilePhone_1 { get; set; }
         public string MobilePhone_2 { get; set; }
@@ -23,7 +25,10 @@ namespace InsuranceSocialNetworkDAL
         public string Telephone_2 { get; set; }
         public string Address { get; set; }
         public Nullable<long> ID_PostalCode { get; set; }
-        public string LogoPhoto { get; set; }
+        public byte[] LogoPhoto { get; set; }
+        public string Website { get; set; }
+        public string OficialPartner { get; set; }
+        public string OficialAgent { get; set; }
         public System.DateTime CreateDate { get; set; }
         public System.DateTime LastChangeDate { get; set; }
         public Nullable<System.DateTime> DeleteDate { get; set; }

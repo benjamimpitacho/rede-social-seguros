@@ -120,6 +120,30 @@
           <Property Name="DeleteDate" Type="datetime2" Precision="7" />
           <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="ConstructionCompany">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="256" />
+          <Property Name="NIF" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="ContactEmail" Type="nvarchar" MaxLength="256" />
+          <Property Name="MobilePhone_1" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="MobilePhone_2" Type="nvarchar" MaxLength="20" />
+          <Property Name="Telephone_1" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Telephone_2" Type="nvarchar" MaxLength="20" />
+          <Property Name="Address" Type="nvarchar" MaxLength="256" />
+          <Property Name="ID_PostalCode" Type="bigint" />
+          <Property Name="LogoPhoto" Type="image" />
+          <Property Name="Website" Type="nvarchar" MaxLength="256" />
+          <Property Name="OficialPartner" Type="nvarchar" MaxLength="256" />
+          <Property Name="OficialAgent" Type="nvarchar" MaxLength="256" />
+          <Property Name="CreateDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="LastChangeDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="DeleteDate" Type="datetime2" Precision="7" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="Friend">
           <Key>
             <PropertyRef Name="ID" />
@@ -148,6 +172,8 @@
           </Key>
           <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="256" />
+          <Property Name="NIF" Type="nvarchar" MaxLength="16" Nullable="false" />
           <Property Name="ContactEmail" Type="nvarchar" MaxLength="256" />
           <Property Name="MobilePhone_1" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="MobilePhone_2" Type="nvarchar" MaxLength="20" />
@@ -155,7 +181,58 @@
           <Property Name="Telephone_2" Type="nvarchar" MaxLength="20" />
           <Property Name="Address" Type="nvarchar" MaxLength="256" />
           <Property Name="ID_PostalCode" Type="bigint" />
-          <Property Name="LogoPhoto" Type="nchar" MaxLength="10" />
+          <Property Name="LogoPhoto" Type="image" />
+          <Property Name="Website" Type="nvarchar" MaxLength="256" />
+          <Property Name="OficialPartner" Type="nvarchar" MaxLength="256" />
+          <Property Name="OficialAgent" Type="nvarchar" MaxLength="256" />
+          <Property Name="CreateDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="LastChangeDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="DeleteDate" Type="datetime2" Precision="7" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HomeApplianceRepair">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="256" />
+          <Property Name="NIF" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="ContactEmail" Type="nvarchar" MaxLength="256" />
+          <Property Name="MobilePhone_1" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="MobilePhone_2" Type="nvarchar" MaxLength="20" />
+          <Property Name="Telephone_1" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Telephone_2" Type="nvarchar" MaxLength="20" />
+          <Property Name="Address" Type="nvarchar" MaxLength="256" />
+          <Property Name="ID_PostalCode" Type="bigint" />
+          <Property Name="LogoPhoto" Type="image" />
+          <Property Name="Website" Type="nvarchar" MaxLength="256" />
+          <Property Name="OficialPartner" Type="nvarchar" MaxLength="256" />
+          <Property Name="OficialAgent" Type="nvarchar" MaxLength="256" />
+          <Property Name="CreateDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="LastChangeDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="DeleteDate" Type="datetime2" Precision="7" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="InsuranceCompanyContact">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="256" />
+          <Property Name="NIF" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="ContactEmail" Type="nvarchar" MaxLength="256" />
+          <Property Name="MobilePhone_1" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="MobilePhone_2" Type="nvarchar" MaxLength="20" />
+          <Property Name="Telephone_1" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Telephone_2" Type="nvarchar" MaxLength="20" />
+          <Property Name="Address" Type="nvarchar" MaxLength="256" />
+          <Property Name="ID_PostalCode" Type="bigint" />
+          <Property Name="LogoPhoto" Type="image" />
+          <Property Name="Website" Type="nvarchar" MaxLength="256" />
+          <Property Name="OficialPartner" Type="nvarchar" MaxLength="256" />
+          <Property Name="OficialAgent" Type="nvarchar" MaxLength="256" />
           <Property Name="CreateDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="LastChangeDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="DeleteDate" Type="datetime2" Precision="7" />
@@ -167,6 +244,8 @@
           </Key>
           <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="256" />
+          <Property Name="NIF" Type="nvarchar" MaxLength="16" Nullable="false" />
           <Property Name="ContactEmail" Type="nvarchar" MaxLength="256" />
           <Property Name="MobilePhone_1" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="MobilePhone_2" Type="nvarchar" MaxLength="20" />
@@ -174,7 +253,10 @@
           <Property Name="Telephone_2" Type="nvarchar" MaxLength="20" />
           <Property Name="Address" Type="nvarchar" MaxLength="256" />
           <Property Name="ID_PostalCode" Type="bigint" />
-          <Property Name="LogoPhoto" Type="nchar" MaxLength="10" />
+          <Property Name="LogoPhoto" Type="image" />
+          <Property Name="Website" Type="nvarchar" MaxLength="256" />
+          <Property Name="OficialPartner" Type="nvarchar" MaxLength="256" />
+          <Property Name="OficialAgent" Type="nvarchar" MaxLength="256" />
           <Property Name="CreateDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="LastChangeDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="DeleteDate" Type="datetime2" Precision="7" />
@@ -397,6 +479,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ConstructionCompany_PostalCode">
+          <End Role="PostalCode" Type="Self.PostalCode" Multiplicity="0..1" />
+          <End Role="ConstructionCompany" Type="Self.ConstructionCompany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PostalCode">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ConstructionCompany">
+              <PropertyRef Name="ID_PostalCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -497,6 +591,30 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="Garage">
+              <PropertyRef Name="ID_PostalCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HomeApplianceRepair_PostalCode">
+          <End Role="PostalCode" Type="Self.PostalCode" Multiplicity="0..1" />
+          <End Role="HomeApplianceRepair" Type="Self.HomeApplianceRepair" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PostalCode">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="HomeApplianceRepair">
+              <PropertyRef Name="ID_PostalCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InsuranceCompanyContact_PostalCode">
+          <End Role="PostalCode" Type="Self.PostalCode" Multiplicity="0..1" />
+          <End Role="InsuranceCompanyContact" Type="Self.InsuranceCompanyContact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PostalCode">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="InsuranceCompanyContact">
               <PropertyRef Name="ID_PostalCode" />
             </Dependent>
           </ReferentialConstraint>
@@ -704,9 +822,12 @@
           <EntitySet Name="Chat" EntityType="Self.Chat" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="ChatMember" EntityType="Self.ChatMember" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="ChatMessage" EntityType="Self.ChatMessage" Schema="Insurance" store:Type="Tables" />
+          <EntitySet Name="ConstructionCompany" EntityType="Self.ConstructionCompany" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="Friend" EntityType="Self.Friend" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="FriendStatus" EntityType="Self.FriendStatus" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="Garage" EntityType="Self.Garage" Schema="Insurance" store:Type="Tables" />
+          <EntitySet Name="HomeApplianceRepair" EntityType="Self.HomeApplianceRepair" Schema="Insurance" store:Type="Tables" />
+          <EntitySet Name="InsuranceCompanyContact" EntityType="Self.InsuranceCompanyContact" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="MedicalClinic" EntityType="Self.MedicalClinic" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="Notification" EntityType="Self.Notification" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="NotificationType" EntityType="Self.NotificationType" Schema="Insurance" store:Type="Tables" />
@@ -743,6 +864,10 @@
             <End Role="Chat" EntitySet="Chat" />
             <End Role="ChatMessage" EntitySet="ChatMessage" />
           </AssociationSet>
+          <AssociationSet Name="FK_ConstructionCompany_PostalCode" Association="Self.FK_ConstructionCompany_PostalCode">
+            <End Role="PostalCode" EntitySet="PostalCode" />
+            <End Role="ConstructionCompany" EntitySet="ConstructionCompany" />
+          </AssociationSet>
           <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
@@ -774,6 +899,14 @@
           <AssociationSet Name="FK_Garage_PostalCode" Association="Self.FK_Garage_PostalCode">
             <End Role="PostalCode" EntitySet="PostalCode" />
             <End Role="Garage" EntitySet="Garage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HomeApplianceRepair_PostalCode" Association="Self.FK_HomeApplianceRepair_PostalCode">
+            <End Role="PostalCode" EntitySet="PostalCode" />
+            <End Role="HomeApplianceRepair" EntitySet="HomeApplianceRepair" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InsuranceCompanyContact_PostalCode" Association="Self.FK_InsuranceCompanyContact_PostalCode">
+            <End Role="PostalCode" EntitySet="PostalCode" />
+            <End Role="InsuranceCompanyContact" EntitySet="InsuranceCompanyContact" />
           </AssociationSet>
           <AssociationSet Name="FK_MedicalClinic_PostalCode" Association="Self.FK_MedicalClinic_PostalCode">
             <End Role="PostalCode" EntitySet="PostalCode" />
@@ -869,21 +1002,11 @@
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
-          <EntitySet Name="Garage" EntityType="InsurancePortal_dbModel.Garage" />
-          <EntitySet Name="MedicalClinic" EntityType="InsurancePortal_dbModel.MedicalClinic" />
           <EntitySet Name="PostalCode" EntityType="InsurancePortal_dbModel.PostalCode" />
           <EntitySet Name="PostCommentLike" EntityType="InsurancePortal_dbModel.PostCommentLike" />
           <AssociationSet Name="FK_PostCommentLike_AspNetUsers" Association="InsurancePortal_dbModel.FK_PostCommentLike_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="PostCommentLike" EntitySet="PostCommentLike" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Garage_PostalCode" Association="InsurancePortal_dbModel.FK_Garage_PostalCode">
-            <End Role="PostalCode" EntitySet="PostalCode" />
-            <End Role="Garage" EntitySet="Garage" />
-          </AssociationSet>
-          <AssociationSet Name="FK_MedicalClinic_PostalCode" Association="InsurancePortal_dbModel.FK_MedicalClinic_PostalCode">
-            <End Role="PostalCode" EntitySet="PostalCode" />
-            <End Role="MedicalClinic" EntitySet="MedicalClinic" />
           </AssociationSet>
           <AssociationSet Name="FK_PostCommentLike_Comment" Association="InsurancePortal_dbModel.FK_PostCommentLike_Comment">
             <End Role="PostComment" EntitySet="PostComment" />
@@ -984,6 +1107,31 @@
           <AssociationSet Name="FK_Notification_NotificationType" Association="InsurancePortal_dbModel.FK_Notification_NotificationType">
             <End Role="NotificationType" EntitySet="NotificationType" />
             <End Role="Notification" EntitySet="Notification" />
+          </AssociationSet>
+          <EntitySet Name="ConstructionCompany" EntityType="InsurancePortal_dbModel.ConstructionCompany" />
+          <EntitySet Name="Garage" EntityType="InsurancePortal_dbModel.Garage" />
+          <EntitySet Name="HomeApplianceRepair" EntityType="InsurancePortal_dbModel.HomeApplianceRepair" />
+          <EntitySet Name="InsuranceCompanyContact" EntityType="InsurancePortal_dbModel.InsuranceCompanyContact" />
+          <EntitySet Name="MedicalClinic" EntityType="InsurancePortal_dbModel.MedicalClinic" />
+          <AssociationSet Name="FK_ConstructionCompany_PostalCode" Association="InsurancePortal_dbModel.FK_ConstructionCompany_PostalCode">
+            <End Role="PostalCode" EntitySet="PostalCode" />
+            <End Role="ConstructionCompany" EntitySet="ConstructionCompany" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Garage_PostalCode" Association="InsurancePortal_dbModel.FK_Garage_PostalCode">
+            <End Role="PostalCode" EntitySet="PostalCode" />
+            <End Role="Garage" EntitySet="Garage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HomeApplianceRepair_PostalCode" Association="InsurancePortal_dbModel.FK_HomeApplianceRepair_PostalCode">
+            <End Role="PostalCode" EntitySet="PostalCode" />
+            <End Role="HomeApplianceRepair" EntitySet="HomeApplianceRepair" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InsuranceCompanyContact_PostalCode" Association="InsurancePortal_dbModel.FK_InsuranceCompanyContact_PostalCode">
+            <End Role="PostalCode" EntitySet="PostalCode" />
+            <End Role="InsuranceCompanyContact" EntitySet="InsuranceCompanyContact" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedicalClinic_PostalCode" Association="InsurancePortal_dbModel.FK_MedicalClinic_PostalCode">
+            <End Role="PostalCode" EntitySet="PostalCode" />
+            <End Role="MedicalClinic" EntitySet="MedicalClinic" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="AspNetRoles">
@@ -1135,46 +1283,6 @@
           <End Type="InsurancePortal_dbModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
           <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
         </Association>
-        <EntityType Name="Garage">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="ContactEmail" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="MobilePhone_1" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="MobilePhone_2" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Telephone_1" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Telephone_2" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Address" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="ID_PostalCode" Type="Int64" />
-          <Property Name="LogoPhoto" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="LastChangeDate" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="DeleteDate" Type="DateTime" Precision="7" />
-          <Property Name="Active" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="PostalCode" Relationship="InsurancePortal_dbModel.FK_Garage_PostalCode" FromRole="Garage" ToRole="PostalCode" />
-        </EntityType>
-        <EntityType Name="MedicalClinic">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="ContactEmail" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="MobilePhone_1" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="MobilePhone_2" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Telephone_1" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Telephone_2" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Address" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="ID_PostalCode" Type="Int64" />
-          <Property Name="LogoPhoto" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="LastChangeDate" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="DeleteDate" Type="DateTime" Precision="7" />
-          <Property Name="Active" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="PostalCode" Relationship="InsurancePortal_dbModel.FK_MedicalClinic_PostalCode" FromRole="MedicalClinic" ToRole="PostalCode" />
-        </EntityType>
         <EntityType Name="PostalCode">
           <Key>
             <PropertyRef Name="ID" />
@@ -1193,9 +1301,12 @@
           <Property Name="Local_Arteria" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="Troco" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="Porta" Type="Int32" />
-          <NavigationProperty Name="Garage" Relationship="InsurancePortal_dbModel.FK_Garage_PostalCode" FromRole="PostalCode" ToRole="Garage" />
-          <NavigationProperty Name="MedicalClinic" Relationship="InsurancePortal_dbModel.FK_MedicalClinic_PostalCode" FromRole="PostalCode" ToRole="MedicalClinic" />
           <NavigationProperty Name="Profile" Relationship="InsurancePortal_dbModel.FK_Profile_PostalCode" FromRole="PostalCode" ToRole="Profile" />
+          <NavigationProperty Name="ConstructionCompany" Relationship="InsurancePortal_dbModel.FK_ConstructionCompany_PostalCode" FromRole="PostalCode" ToRole="ConstructionCompany" />
+          <NavigationProperty Name="Garage" Relationship="InsurancePortal_dbModel.FK_Garage_PostalCode" FromRole="PostalCode" ToRole="Garage" />
+          <NavigationProperty Name="HomeApplianceRepair" Relationship="InsurancePortal_dbModel.FK_HomeApplianceRepair_PostalCode" FromRole="PostalCode" ToRole="HomeApplianceRepair" />
+          <NavigationProperty Name="InsuranceCompanyContact" Relationship="InsurancePortal_dbModel.FK_InsuranceCompanyContact_PostalCode" FromRole="PostalCode" ToRole="InsuranceCompanyContact" />
+          <NavigationProperty Name="MedicalClinic" Relationship="InsurancePortal_dbModel.FK_MedicalClinic_PostalCode" FromRole="PostalCode" ToRole="MedicalClinic" />
         </EntityType>
         <EntityType Name="PostCommentLike">
           <Key>
@@ -1218,30 +1329,6 @@
             </Principal>
             <Dependent Role="PostCommentLike">
               <PropertyRef Name="ID_User" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Garage_PostalCode">
-          <End Type="InsurancePortal_dbModel.PostalCode" Role="PostalCode" Multiplicity="0..1" />
-          <End Type="InsurancePortal_dbModel.Garage" Role="Garage" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PostalCode">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Garage">
-              <PropertyRef Name="ID_PostalCode" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_MedicalClinic_PostalCode">
-          <End Type="InsurancePortal_dbModel.PostalCode" Role="PostalCode" Multiplicity="0..1" />
-          <End Type="InsurancePortal_dbModel.MedicalClinic" Role="MedicalClinic" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PostalCode">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="MedicalClinic">
-              <PropertyRef Name="ID_PostalCode" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1700,6 +1787,191 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ConstructionCompany">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="NIF" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="ContactEmail" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="MobilePhone_1" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="MobilePhone_2" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Telephone_1" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Telephone_2" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="ID_PostalCode" Type="Int64" />
+          <Property Name="LogoPhoto" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Website" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="OficialPartner" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="OficialAgent" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="LastChangeDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="DeleteDate" Type="DateTime" Precision="7" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="PostalCode" Relationship="InsurancePortal_dbModel.FK_ConstructionCompany_PostalCode" FromRole="ConstructionCompany" ToRole="PostalCode" />
+        </EntityType>
+        <EntityType Name="Garage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="NIF" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="ContactEmail" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="MobilePhone_1" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="MobilePhone_2" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Telephone_1" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Telephone_2" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="ID_PostalCode" Type="Int64" />
+          <Property Name="LogoPhoto" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Website" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="OficialPartner" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="OficialAgent" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="LastChangeDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="DeleteDate" Type="DateTime" Precision="7" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="PostalCode" Relationship="InsurancePortal_dbModel.FK_Garage_PostalCode" FromRole="Garage" ToRole="PostalCode" />
+        </EntityType>
+        <EntityType Name="HomeApplianceRepair">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="NIF" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="ContactEmail" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="MobilePhone_1" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="MobilePhone_2" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Telephone_1" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Telephone_2" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="ID_PostalCode" Type="Int64" />
+          <Property Name="LogoPhoto" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Website" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="OficialPartner" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="OficialAgent" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="LastChangeDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="DeleteDate" Type="DateTime" Precision="7" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="PostalCode" Relationship="InsurancePortal_dbModel.FK_HomeApplianceRepair_PostalCode" FromRole="HomeApplianceRepair" ToRole="PostalCode" />
+        </EntityType>
+        <EntityType Name="InsuranceCompanyContact">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="NIF" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="ContactEmail" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="MobilePhone_1" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="MobilePhone_2" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Telephone_1" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Telephone_2" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="ID_PostalCode" Type="Int64" />
+          <Property Name="LogoPhoto" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Website" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="OficialPartner" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="OficialAgent" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="LastChangeDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="DeleteDate" Type="DateTime" Precision="7" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="PostalCode" Relationship="InsurancePortal_dbModel.FK_InsuranceCompanyContact_PostalCode" FromRole="InsuranceCompanyContact" ToRole="PostalCode" />
+        </EntityType>
+        <EntityType Name="MedicalClinic">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="NIF" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="ContactEmail" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="MobilePhone_1" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="MobilePhone_2" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Telephone_1" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Telephone_2" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="ID_PostalCode" Type="Int64" />
+          <Property Name="LogoPhoto" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Website" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="OficialPartner" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="OficialAgent" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="LastChangeDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="DeleteDate" Type="DateTime" Precision="7" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="PostalCode" Relationship="InsurancePortal_dbModel.FK_MedicalClinic_PostalCode" FromRole="MedicalClinic" ToRole="PostalCode" />
+        </EntityType>
+        <Association Name="FK_ConstructionCompany_PostalCode">
+          <End Type="InsurancePortal_dbModel.PostalCode" Role="PostalCode" Multiplicity="0..1" />
+          <End Type="InsurancePortal_dbModel.ConstructionCompany" Role="ConstructionCompany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PostalCode">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ConstructionCompany">
+              <PropertyRef Name="ID_PostalCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Garage_PostalCode">
+          <End Type="InsurancePortal_dbModel.PostalCode" Role="PostalCode" Multiplicity="0..1" />
+          <End Type="InsurancePortal_dbModel.Garage" Role="Garage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PostalCode">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Garage">
+              <PropertyRef Name="ID_PostalCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HomeApplianceRepair_PostalCode">
+          <End Type="InsurancePortal_dbModel.PostalCode" Role="PostalCode" Multiplicity="0..1" />
+          <End Type="InsurancePortal_dbModel.HomeApplianceRepair" Role="HomeApplianceRepair" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PostalCode">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="HomeApplianceRepair">
+              <PropertyRef Name="ID_PostalCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InsuranceCompanyContact_PostalCode">
+          <End Type="InsurancePortal_dbModel.PostalCode" Role="PostalCode" Multiplicity="0..1" />
+          <End Type="InsurancePortal_dbModel.InsuranceCompanyContact" Role="InsuranceCompanyContact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PostalCode">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="InsuranceCompanyContact">
+              <PropertyRef Name="ID_PostalCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedicalClinic_PostalCode">
+          <End Type="InsurancePortal_dbModel.PostalCode" Role="PostalCode" Multiplicity="0..1" />
+          <End Type="InsurancePortal_dbModel.MedicalClinic" Role="MedicalClinic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PostalCode">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MedicalClinic">
+              <PropertyRef Name="ID_PostalCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1802,46 +2074,6 @@
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="Garage">
-            <EntityTypeMapping TypeName="InsurancePortal_dbModel.Garage">
-              <MappingFragment StoreEntitySet="Garage">
-                <ScalarProperty Name="Active" ColumnName="Active" />
-                <ScalarProperty Name="DeleteDate" ColumnName="DeleteDate" />
-                <ScalarProperty Name="LastChangeDate" ColumnName="LastChangeDate" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="LogoPhoto" ColumnName="LogoPhoto" />
-                <ScalarProperty Name="ID_PostalCode" ColumnName="ID_PostalCode" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Telephone_2" ColumnName="Telephone_2" />
-                <ScalarProperty Name="Telephone_1" ColumnName="Telephone_1" />
-                <ScalarProperty Name="MobilePhone_2" ColumnName="MobilePhone_2" />
-                <ScalarProperty Name="MobilePhone_1" ColumnName="MobilePhone_1" />
-                <ScalarProperty Name="ContactEmail" ColumnName="ContactEmail" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="MedicalClinic">
-            <EntityTypeMapping TypeName="InsurancePortal_dbModel.MedicalClinic">
-              <MappingFragment StoreEntitySet="MedicalClinic">
-                <ScalarProperty Name="Active" ColumnName="Active" />
-                <ScalarProperty Name="DeleteDate" ColumnName="DeleteDate" />
-                <ScalarProperty Name="LastChangeDate" ColumnName="LastChangeDate" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="LogoPhoto" ColumnName="LogoPhoto" />
-                <ScalarProperty Name="ID_PostalCode" ColumnName="ID_PostalCode" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Telephone_2" ColumnName="Telephone_2" />
-                <ScalarProperty Name="Telephone_1" ColumnName="Telephone_1" />
-                <ScalarProperty Name="MobilePhone_2" ColumnName="MobilePhone_2" />
-                <ScalarProperty Name="MobilePhone_1" ColumnName="MobilePhone_1" />
-                <ScalarProperty Name="ContactEmail" ColumnName="ContactEmail" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="PostalCode">
             <EntityTypeMapping TypeName="InsurancePortal_dbModel.PostalCode">
               <MappingFragment StoreEntitySet="PostalCode">
@@ -2044,6 +2276,131 @@
                 <ScalarProperty Name="ID_NotificationType" ColumnName="ID_NotificationType" />
                 <ScalarProperty Name="FromUserID" ColumnName="FromUserID" />
                 <ScalarProperty Name="ToUserID" ColumnName="ToUserID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ConstructionCompany">
+            <EntityTypeMapping TypeName="InsurancePortal_dbModel.ConstructionCompany">
+              <MappingFragment StoreEntitySet="ConstructionCompany">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="DeleteDate" ColumnName="DeleteDate" />
+                <ScalarProperty Name="LastChangeDate" ColumnName="LastChangeDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="OficialAgent" ColumnName="OficialAgent" />
+                <ScalarProperty Name="OficialPartner" ColumnName="OficialPartner" />
+                <ScalarProperty Name="Website" ColumnName="Website" />
+                <ScalarProperty Name="LogoPhoto" ColumnName="LogoPhoto" />
+                <ScalarProperty Name="ID_PostalCode" ColumnName="ID_PostalCode" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Telephone_2" ColumnName="Telephone_2" />
+                <ScalarProperty Name="Telephone_1" ColumnName="Telephone_1" />
+                <ScalarProperty Name="MobilePhone_2" ColumnName="MobilePhone_2" />
+                <ScalarProperty Name="MobilePhone_1" ColumnName="MobilePhone_1" />
+                <ScalarProperty Name="ContactEmail" ColumnName="ContactEmail" />
+                <ScalarProperty Name="NIF" ColumnName="NIF" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Garage">
+            <EntityTypeMapping TypeName="InsurancePortal_dbModel.Garage">
+              <MappingFragment StoreEntitySet="Garage">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="DeleteDate" ColumnName="DeleteDate" />
+                <ScalarProperty Name="LastChangeDate" ColumnName="LastChangeDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="OficialAgent" ColumnName="OficialAgent" />
+                <ScalarProperty Name="OficialPartner" ColumnName="OficialPartner" />
+                <ScalarProperty Name="Website" ColumnName="Website" />
+                <ScalarProperty Name="LogoPhoto" ColumnName="LogoPhoto" />
+                <ScalarProperty Name="ID_PostalCode" ColumnName="ID_PostalCode" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Telephone_2" ColumnName="Telephone_2" />
+                <ScalarProperty Name="Telephone_1" ColumnName="Telephone_1" />
+                <ScalarProperty Name="MobilePhone_2" ColumnName="MobilePhone_2" />
+                <ScalarProperty Name="MobilePhone_1" ColumnName="MobilePhone_1" />
+                <ScalarProperty Name="ContactEmail" ColumnName="ContactEmail" />
+                <ScalarProperty Name="NIF" ColumnName="NIF" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HomeApplianceRepair">
+            <EntityTypeMapping TypeName="InsurancePortal_dbModel.HomeApplianceRepair">
+              <MappingFragment StoreEntitySet="HomeApplianceRepair">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="DeleteDate" ColumnName="DeleteDate" />
+                <ScalarProperty Name="LastChangeDate" ColumnName="LastChangeDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="OficialAgent" ColumnName="OficialAgent" />
+                <ScalarProperty Name="OficialPartner" ColumnName="OficialPartner" />
+                <ScalarProperty Name="Website" ColumnName="Website" />
+                <ScalarProperty Name="LogoPhoto" ColumnName="LogoPhoto" />
+                <ScalarProperty Name="ID_PostalCode" ColumnName="ID_PostalCode" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Telephone_2" ColumnName="Telephone_2" />
+                <ScalarProperty Name="Telephone_1" ColumnName="Telephone_1" />
+                <ScalarProperty Name="MobilePhone_2" ColumnName="MobilePhone_2" />
+                <ScalarProperty Name="MobilePhone_1" ColumnName="MobilePhone_1" />
+                <ScalarProperty Name="ContactEmail" ColumnName="ContactEmail" />
+                <ScalarProperty Name="NIF" ColumnName="NIF" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InsuranceCompanyContact">
+            <EntityTypeMapping TypeName="InsurancePortal_dbModel.InsuranceCompanyContact">
+              <MappingFragment StoreEntitySet="InsuranceCompanyContact">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="DeleteDate" ColumnName="DeleteDate" />
+                <ScalarProperty Name="LastChangeDate" ColumnName="LastChangeDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="OficialAgent" ColumnName="OficialAgent" />
+                <ScalarProperty Name="OficialPartner" ColumnName="OficialPartner" />
+                <ScalarProperty Name="Website" ColumnName="Website" />
+                <ScalarProperty Name="LogoPhoto" ColumnName="LogoPhoto" />
+                <ScalarProperty Name="ID_PostalCode" ColumnName="ID_PostalCode" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Telephone_2" ColumnName="Telephone_2" />
+                <ScalarProperty Name="Telephone_1" ColumnName="Telephone_1" />
+                <ScalarProperty Name="MobilePhone_2" ColumnName="MobilePhone_2" />
+                <ScalarProperty Name="MobilePhone_1" ColumnName="MobilePhone_1" />
+                <ScalarProperty Name="ContactEmail" ColumnName="ContactEmail" />
+                <ScalarProperty Name="NIF" ColumnName="NIF" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MedicalClinic">
+            <EntityTypeMapping TypeName="InsurancePortal_dbModel.MedicalClinic">
+              <MappingFragment StoreEntitySet="MedicalClinic">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="DeleteDate" ColumnName="DeleteDate" />
+                <ScalarProperty Name="LastChangeDate" ColumnName="LastChangeDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="OficialAgent" ColumnName="OficialAgent" />
+                <ScalarProperty Name="OficialPartner" ColumnName="OficialPartner" />
+                <ScalarProperty Name="Website" ColumnName="Website" />
+                <ScalarProperty Name="LogoPhoto" ColumnName="LogoPhoto" />
+                <ScalarProperty Name="ID_PostalCode" ColumnName="ID_PostalCode" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Telephone_2" ColumnName="Telephone_2" />
+                <ScalarProperty Name="Telephone_1" ColumnName="Telephone_1" />
+                <ScalarProperty Name="MobilePhone_2" ColumnName="MobilePhone_2" />
+                <ScalarProperty Name="MobilePhone_1" ColumnName="MobilePhone_1" />
+                <ScalarProperty Name="ContactEmail" ColumnName="ContactEmail" />
+                <ScalarProperty Name="NIF" ColumnName="NIF" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

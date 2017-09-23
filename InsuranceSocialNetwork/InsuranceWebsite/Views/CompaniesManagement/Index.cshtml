@@ -1,0 +1,221 @@
+﻿@using InsuranceWebsite.Models
+@using MVCGrid.Web
+@model CompaniesManagementViewModel
+
+@{
+    ViewBag.Title = Resources.Resources.HomePageTitle;
+}
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+@Styles.Render("~/Content/jsGrid")
+@Scripts.Render("~/Scripts/jsGrid")
+
+@Scripts.Render("~/bundles/jqueryval")
+
+<!-- Timeline content -->
+
+<div class="container">
+
+    <div class="col-md-12 no-paddin-xs" style="background-color:#E4E7E8">
+
+        <div class="row">
+
+            @Html.Partial("~/Views/Home/Partial/SideNavBar.cshtml", Model)
+
+            <div class="col-md-6 no-paddin-xs">
+                <div class="row">
+                    <div class="row">
+
+                        <!-- Timeline content -->
+                        <div class="container container-timeline" style="margin:15px;">
+                            <div class="col-md-11 no-paddin-xs" style="background-color:white; padding:20px;width:90%">
+
+                                <a href="@Url.Action("Create", "CompaniesManagement")" class='btn btn-success lnkCreate'>@Resources.Resources.CreateNewCompany</a>
+                                <p></p>
+
+                                @Html.Partial("_MVCGridToolbar", new MVCGridToolbarModel()
+                                {
+                                    MVCGridName = "CompaniesManagementGrid",
+                                    PageSize = true,
+                                    ColumnVisibility = true,
+                                    Export = true,
+                                    GlobalSearch = true
+                                })
+                                @Html.MVCGrid("CompaniesManagementGrid")
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--end right  content-->
+
+        </div>
+
+    </div>
+
+</div><!-- end timeline content-->
+
+<script>
+    $(document).ready(function () {
+        var url = "";
+
+        $("#dialog-alert").dialog({
+            autoOpen: false,
+            resizable: false,
+            height: 170,
+            width: 350,
+            show: { effect: 'drop', direction: "up" },
+            modal: true,
+            draggable: true,
+            open: function (event, ui) {
+                $(".ui-dialog-titlebar-close").hide();
+            },
+            buttons: {
+                "OK": function () {
+                    $(this).dialog("close");
+
+                },
+                "Cancel": function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+
+        if ('@TempData["msg"]' != "") {
+            $("#dialog-alert").dialog('open');
+        }
+
+        $("#dialog-edit").dialog({
+            title: 'Create User',
+            autoOpen: false,
+            resizable: false,
+            width: 400,
+            show: { effect: 'drop', direction: "up" },
+            modal: true,
+            draggable: true,
+            open: function (event, ui) {
+                //$(".ui-dialog-titlebar-close").hide();
+                $(this).load(url);
+            },
+            buttons: {
+                "@Resources.Resources.Save": function () { $("#dialog-edit").find("form").submit(); }/*,
+                Cancel: function() {
+                    $("#dialog-edit").dialog("close");
+                }*/
+            },
+            close: function() {
+                form[ 0 ].reset();
+                allFields.removeClass( "ui-state-error" );
+            }
+        });
+
+        $("#dialog-confirm").dialog({
+            autoOpen: false,
+            resizable: false,
+            height: 170,
+            width: 350,
+            show: { effect: 'drop', direction: "up" },
+            modal: true,
+            draggable: true,
+            open: function (event, ui) {
+                $(".ui-dialog-titlebar-close").hide();
+
+            },
+            buttons: {
+                "OK": function () {
+                    $(this).dialog("close");
+                    window.location.href = url;
+                },
+                "Cancel": function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+
+        $("#dialog-detail").dialog({
+            title: 'View User',
+            autoOpen: false,
+            resizable: false,
+            width: 400,
+            show: { effect: 'drop', direction: "up" },
+            modal: true,
+            draggable: true,
+            open: function (event, ui) {
+                $(".ui-dialog-titlebar-close").hide();
+                $(this).load(url);
+            },
+            buttons: {
+                "Close": function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+
+        $(".lnkCreate").click(function (e) {
+            e.preventDefault(); //use this or return false
+            url = $(this).attr('href');
+            $(".ui-dialog-title").html("@Resources.Resources.CreateNewCompany");
+            $("#dialog-edit").dialog('open');
+
+            return false;
+        });
+
+        $(".lnkEdit").click(function (e) {
+            e.preventDefault(); //use this or return false
+            url = $(this).attr('href');
+            $(".ui-dialog-title").html("@Resources.Resources.EditCompany");
+            $("#dialog-edit").dialog('open');
+
+            return false;
+        });
+
+        $(".lnkDelete").click(function (e) {
+            // e.preventDefault(); use this or return false
+            url = $(this).attr('href');
+            $("#dialog-confirm").dialog('open');
+
+            $('.date-picker').datepicker();
+
+            return false;
+        });
+
+        $(".lnkDetail").click(function (e) {
+            // e.preventDefault(); use this or return false
+            url = $(this).attr('href');
+            $("#dialog-detail").dialog('open');
+
+            return false;
+        });
+
+        $("#btncancel").click(function (e) {
+            $("#dialog-edit").dialog("close");
+            return false;
+        });
+
+        $('.date-picker').datepicker();
+    });
+</script>
+
+<div id="dialog-alert" style="display: none">
+    <p>
+        @TempData["msg"]!
+    </p>
+</div>
+
+<div id="dialog-confirm" style="display: none">
+    <p>
+        <span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>
+        @Resources.Resources.AreYouSureToDelete
+    </p>
+</div>
+
+<div id="dialog-edit" style="display: none">
+</div>
+
+<div id="dialog-detail" style="display: none">
+</div>
+
+@Html.Partial("~/Views/Home/Partial/Footer.cshtml", Model)

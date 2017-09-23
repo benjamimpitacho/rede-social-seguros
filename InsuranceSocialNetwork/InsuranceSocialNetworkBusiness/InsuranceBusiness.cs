@@ -85,6 +85,9 @@ namespace InsuranceSocialNetworkBusiness
                 cfg.CreateMap<BannerDTO, Banner>();
                 cfg.CreateMap<BannerType, BannerTypeDTO>();
                 cfg.CreateMap<BannerTypeDTO, BannerType>();
+
+                cfg.CreateMap<Garage, GarageDTO>();
+                cfg.CreateMap<GarageDTO, Garage>();
             });
 
             #endregion
@@ -465,10 +468,43 @@ namespace InsuranceSocialNetworkBusiness
 
         #region Garages
 
+        public GarageDTO GetGarage(long id)
+        {
+            Garage garage = GarageRepository.GetGarage(id);
+            return AutoMapper.Mapper.Map<GarageDTO>(garage);
+        }
+
         public List<GarageDTO> GetGarages()
         {
             List<Garage> items = GarageRepository.GetGarages();
             return AutoMapper.Mapper.Map<List<GarageDTO>>(items);
+        }
+
+        public long CreateGarage(GarageDTO item)
+        {
+            Garage garage = AutoMapper.Mapper.Map<Garage>(item);
+            return GarageRepository.CreateGarage(garage);
+        }
+
+        public bool EditGarage(GarageDTO item)
+        {
+            Garage banner = AutoMapper.Mapper.Map<Garage>(item);
+            return GarageRepository.EditGarage(banner);
+        }
+
+        public bool DeleteGarage(long id)
+        {
+            return GarageRepository.DeleteGarage(id);
+        }
+
+        public bool ActivateGarage(long id)
+        {
+            return GarageRepository.ActivateGarage(id);
+        }
+
+        public bool DeactivateGarage(long id)
+        {
+            return GarageRepository.DeactivateGarage(id);
         }
 
         #endregion Garages
