@@ -278,7 +278,7 @@
     $(function() {
         $(".commentForm").on("submit", function(e) {
             e.preventDefault();  //prevent form from submitting
-            
+
             if($(e.target).parent().children(".comments-list").length == 0)
             {
                 //alert("nao ha comments list");
@@ -303,7 +303,8 @@
 
     function LikePost(object, postId, likesCount) {
         object.style.color = "#00C1DE";
-        object.innerHTML = "<i class=\"glyphicon glyphicon-star icon\"></i>" + (likesCount+1);
+        object.innerHTML = "<i class=\"glyphicon glyphicon-star icon\"></i><span style=\"padding-left: 8px;color:#4B5C66;font-size: 10px;\">" + (likesCount+1) + "</span>";
+        likesCount = likesCount + 1;
         object.onclick = function() { UnlikePost(object, postId, likesCount); }
 
         jQuery.post('@Url.Action("LikePost", "Home")',
@@ -323,7 +324,11 @@
         }
         else
         {
-            object.innerHTML = "<i class=\"glyphicon glyphicon-star icon\"></i>" + (likesCount-1);
+            object.innerHTML = "<i class=\"glyphicon glyphicon-star icon\"></i><span style=\"padding-left: 8px;color:#4B5C66;font-size: 10px;\">" + (likesCount-1) + "</span>";
+        }
+        if(likesCount > 0)
+        {
+            likesCount = likesCount - 1;
         }
         object.onclick = function() { LikePost(object, postId, likesCount); }
 

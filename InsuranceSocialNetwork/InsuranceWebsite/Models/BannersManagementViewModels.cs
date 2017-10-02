@@ -1,4 +1,5 @@
-﻿using InsuranceSocialNetworkDTO.Notification;
+﻿using InsuranceSocialNetworkCore.Types;
+using InsuranceSocialNetworkDTO.Notification;
 using InsuranceSocialNetworkDTO.Post;
 using InsuranceSocialNetworkDTO.UserProfile;
 using System;
@@ -26,7 +27,7 @@ namespace InsuranceWebsite.Models
     {
         public BannerModelObject()
         {
-            _bannerTypes = InsuranceSocialNetworkBusiness.InsuranceBusiness.BusinessLayer.GetBannerTypes().Select(i => new ListItem() { Id = i.ID, Name = Resources.Resources.ResourceManager.GetString(i.Description) }).ToList();
+            _bannerTypes = InsuranceSocialNetworkBusiness.InsuranceBusiness.BusinessLayer.GetBannerTypes().Select(i => new ListItem() { Key = i.ID, Value = Resources.Resources.ResourceManager.GetString(i.Description) }).ToList();
         }
 
         public long ID { get; set; }
@@ -47,19 +48,19 @@ namespace InsuranceWebsite.Models
         private List<ListItem> _bannerTypes;
         public IEnumerable<SelectListItem> BannerTypesList
         {
-            get { return new SelectList(_bannerTypes, "Id", "Name"); }
+            get { return new SelectList(_bannerTypes, "Key", "Value"); }
         }
     }
 
-    public class ListItem
-    {
-        public long Id { get; set; }
-        public string Name { get; set; }
-    }
+    //public class ListItem
+    //{
+    //    public long Id { get; set; }
+    //    public string Name { get; set; }
+    //}
 
-    public class ListItemStr
-    {
-        public string Id { get; set; }
-        public string Name { get; set; }
-    }
+    //public class ListItemStr
+    //{
+    //    public string Id { get; set; }
+    //    public string Name { get; set; }
+    //}
 }

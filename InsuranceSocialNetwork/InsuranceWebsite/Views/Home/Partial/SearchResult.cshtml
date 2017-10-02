@@ -1,14 +1,78 @@
 ﻿@using InsuranceWebsite.Models
+@using InsuranceSocialNetworkDTO.Company;
+@using InsuranceSocialNetworkCore.Enums;
 @model HomeViewModel
 
+<style>
 
-<div class="profile-info col-md-6 animated fadeInUp">
+    .search-sub-title
+    {
+        text-transform: uppercase;
+        color: #00C1DE;
+        font-weight: bold;
+        font-size: 9px;
+        margin-top: 5px;
+    }
 
-    <div class="panel topPanel">       
+    .search-company-logo
+    {
+        max-width: 60px;
+        max-height: 60px;
+    }
 
-        @if(Model.IsSearchGarages)
+    .search-result
+    {
+        padding: 0px 20px 20px 20px;
+        border-bottom: solid 2px lightgray;
+        margin-bottom: 10px;
+        margin-top: 10px;
+    }
+
+    .search-result-title 
+    {
+        display: inline-flex;
+        width: 100%;
+        padding-bottom: 10px;
+    }
+
+    .search-result-contacts
+    {
+        width:100%;
+        display: inline-flex;
+        font-size:9px;
+        padding: 20px 0px;
+        border-top: solid 0.5px lightgrey;
+    }
+
+    .search-result-details
+    {
+        border-top: solid 0.5px lightgrey;
+        font-size:9px;
+    }
+
+    .search-result-icon
+    {
+        max-width: 30px;
+        max-height: 30px;
+    }
+
+</style>
+
+<div class="directory-info-row profile-info col-md-6 animated fadeInUp">
+
+    @Html.Partial("./Partial/TopBannerPartialView", Model)
+
+    <div class="panel topPanel">
+
+        @if (Model.IsSearchGarages)
         {
-            <h3>Pesquisa de Garagens</h3>
+            <h5 class="ui-accordion-header-active" style="font-weight:bold; display:flex;border-bottom: solid 1px lightgrey;padding-bottom:10px;">
+                <div class="img-garages" style="margin-left:10px;margin-right:10px;max-width:50px;width:50px;height:50px;display:inline-flex;padding-bottom: 20px;"></div>
+                <div style="padding-top: 10px;">
+                    @Resources.Resources.SearchGarages
+                    <div class="search-sub-title">@string.Format(Resources.Resources.FoundGarages, Model.SearchCompaniesModel.ResultCompanyItems.Count)</div>
+                </div>
+            </h5>
         }
 
         @if (Model.IsSearchClinics)
@@ -31,8 +95,100 @@
             <h3>Pesquisa de Contactos Seguradoras</h3>
         }
 
-        <h3>Tobias!!</h3>
+        @foreach (CompanyDTO item in Model.SearchCompaniesModel.ResultCompanyItems)
+        {
+            <div class="search-result">
+                <div class="search-result-title">
+                    <img class="search-company-logo" src="~/Content/images/no_photo_img.jpg" />
+                    <div style="display:block;padding: 5px 0px 0px 20px;width:100%;">
+                        <div style="font-weight:bold;">@item.Name</div>
+                        <div style="font-size:12px;">@item.Description</div>
+                    </div>
+                    
+                    @if (item.IsFavorite)
+                    {
+                        <a onclick="RemoveFavorite(this, @item.ID, @(Model.IsSearchGarages ? (int)CompanyTypeEnum.GARAGE : Model.IsSearchClinics ? (int)CompanyTypeEnum.MEDICAL_CLINIC : Model.IsSearchConstructionCompanies ? (int)CompanyTypeEnum.CONSTRUCTION_COMPANY : Model.IsSearchHomeApplianceRepair ? (int)CompanyTypeEnum.HOME_APPLIANCES_REPAIR : Model.IsSearchInsuranceContacts ? (int)CompanyTypeEnum.INSURANCE_COMPANY_CONTACT : -1))" id="removeFavorite">
+                            <img class="search-result-icon" src="~/Content/icons/139.png" />
+                        </a>
+                    }
+                    else
+                    {
+                        <a onclick="AddFavorite(this, @item.ID, @(Model.IsSearchGarages ? (int)CompanyTypeEnum.GARAGE : Model.IsSearchClinics ? (int)CompanyTypeEnum.MEDICAL_CLINIC : Model.IsSearchConstructionCompanies ? (int)CompanyTypeEnum.CONSTRUCTION_COMPANY : Model.IsSearchHomeApplianceRepair ? (int)CompanyTypeEnum.HOME_APPLIANCES_REPAIR : Model.IsSearchInsuranceContacts ? (int)CompanyTypeEnum.INSURANCE_COMPANY_CONTACT : -1))" id="addFavorite">
+                            <img class="search-result-icon" src="~/Content/icons/138.png" />
+                        </a>
+                    }
+                </div>
+                <div class="search-result-contacts">
+                    <div style="width:45%;display:inline-flex;">
+                        <img class="search-result-icon" src="~/Content/icons/141.png" />
+                        <div style="padding-left: 5px;padding-top: 4px;">@item.Address</div>
+                    </div>
+                    <div style="width:25%;display:inline-flex;">
+                        <img class="search-result-icon" src="~/Content/icons/142.png" />
+                        <div style="padding-left: 5px;padding-top: 4px;">
+                            <div>@item.Telephone_1</div>
+                            <div>@item.Telephone_2</div>
+                            <div>@item.MobilePhone_1</div>
+                            <div>@item.MobilePhone_2</div>
+                        </div>
+                    </div>
+                    <div style="width:25%;display:inline-flex;">
+                        <img class="search-result-icon" src="~/Content/icons/143.png" />
+                        <div style="padding-left: 5px;padding-top:4px;">@item.NIF</div>
+                    </div>
+                    <div>
+                        @if (!string.IsNullOrEmpty(item.Website))
+                        {
+                            <a href="@Url.Content(item.Website)" target="_blank">
+                                <img class="search-result-icon" src="~/Content/icons/144.png" />
+                            </a>
+                        }
+                    </div>
+                </div>
+                <div class="search-result-details">
+                    <div style="padding: 10px 0px;">
+                        <div style="font-weight:bold;text-transform: uppercase;">@Resources.Resources.OfficialPartner</div>
+                        <div>@item.OfficialPartner</div>
+                    </div>
+                    <div>
+                        <div style="font-weight:bold;text-transform: uppercase;">@Resources.Resources.OfficialAgent</div>
+                        <div>@item.OfficialAgent</div>
+                    </div>
+                </div>
+                
+            </div>
+        }
 
     </div>
 
 </div><!--end right  content-->
+
+<script type="text/javascript">
+    
+    function AddFavorite(object, companyId, companyTypeId) {
+        object.innerHTML = "<img class=\"search-result-icon\" src=\"/Content/icons/139.png\" />";
+        object.onclick = function () { RemoveFavorite(object, companyId, companyTypeId); }
+
+        jQuery.post('@Url.Action("AddFavorite", "Home")',
+                { companyId: companyId, companyTypeId: companyTypeId }
+            )
+            .done(function (data) {
+            })
+            .fail(function () {
+            });
+    }
+
+    function RemoveFavorite(object, companyId, companyTypeId) {
+        object.innerHTML = "<img class=\"search-result-icon\" src=\"/Content/icons/138.png\" />";
+        object.onclick = function () { AddFavorite(object, companyId, companyTypeId); }
+
+        jQuery.post('@Url.Action("RemoveFavorite", "Home")',
+                { companyId: companyId, companyTypeId: companyTypeId }
+            )
+            .done(function (data) {
+            })
+            .fail(function () {
+            });
+    }
+
+</script>

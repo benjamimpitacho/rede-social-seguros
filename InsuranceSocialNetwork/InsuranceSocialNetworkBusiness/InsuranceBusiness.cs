@@ -1,12 +1,13 @@
 ﻿//using AutoMapper;
 using InsuranceSocialNetworkCore.Enums;
+using InsuranceSocialNetworkCore.Types;
 using InsuranceSocialNetworkDAL;
 using InsuranceSocialNetworkDTO.Banner;
 using InsuranceSocialNetworkDTO.Chat;
-using InsuranceSocialNetworkDTO.Garage;
-using InsuranceSocialNetworkDTO.MedicalClinic;
+using InsuranceSocialNetworkDTO.Company;
 using InsuranceSocialNetworkDTO.Notification;
 using InsuranceSocialNetworkDTO.Post;
+using InsuranceSocialNetworkDTO.PostalCode;
 using InsuranceSocialNetworkDTO.Role;
 using InsuranceSocialNetworkDTO.UserProfile;
 using System;
@@ -75,19 +76,34 @@ namespace InsuranceSocialNetworkBusiness
                 cfg.CreateMap<ChatMessage, ChatMessageDTO>();
                 cfg.CreateMap<ChatMessageDTO, ChatMessage>();
 
-                cfg.CreateMap<Garage, GarageDTO>();
-                cfg.CreateMap<GarageDTO, Garage>();
-
-                cfg.CreateMap<MedicalClinic, MedicalClinicDTO>();
-                cfg.CreateMap<MedicalClinicDTO, MedicalClinic>();
-
                 cfg.CreateMap<Banner, BannerDTO>();
                 cfg.CreateMap<BannerDTO, Banner>();
                 cfg.CreateMap<BannerType, BannerTypeDTO>();
                 cfg.CreateMap<BannerTypeDTO, BannerType>();
 
-                cfg.CreateMap<Garage, GarageDTO>();
-                cfg.CreateMap<GarageDTO, Garage>();
+                cfg.CreateMap<Garage, CompanyDTO>()
+                    .ForMember(dest => dest.IsFavorite,
+                       opts => opts.MapFrom(src => src.GarageFavorite != null && src.GarageFavorite.Count > 0));
+                cfg.CreateMap<CompanyDTO, Garage>();
+                cfg.CreateMap<MedicalClinic, CompanyDTO>()
+                    .ForMember(dest => dest.IsFavorite,
+                       opts => opts.MapFrom(src => src.MedicalClinicFavorite != null && src.MedicalClinicFavorite.Count > 0));
+                cfg.CreateMap<CompanyDTO, MedicalClinic>();
+                cfg.CreateMap<ConstructionCompany, CompanyDTO>()
+                    .ForMember(dest => dest.IsFavorite,
+                       opts => opts.MapFrom(src => src.ConstructionCompanyFavorite != null && src.ConstructionCompanyFavorite.Count > 0));
+                cfg.CreateMap<CompanyDTO, ConstructionCompany>();
+                cfg.CreateMap<HomeApplianceRepair, CompanyDTO>()
+                    .ForMember(dest => dest.IsFavorite,
+                       opts => opts.MapFrom(src => src.HomeApplianceRepairFavorite != null && src.HomeApplianceRepairFavorite.Count > 0));
+                cfg.CreateMap<CompanyDTO, HomeApplianceRepair>();
+                cfg.CreateMap<InsuranceCompanyContact, CompanyDTO>()
+                    .ForMember(dest => dest.IsFavorite,
+                       opts => opts.MapFrom(src => src.InsuranceCompanyContactFavorite != null && src.InsuranceCompanyContactFavorite.Count > 0));
+                cfg.CreateMap<CompanyDTO, InsuranceCompanyContact>();
+
+                cfg.CreateMap<PostalCode, PostalCodeDTO>();
+                cfg.CreateMap<PostalCodeDTO, PostalCode>();
             });
 
             #endregion
@@ -468,25 +484,25 @@ namespace InsuranceSocialNetworkBusiness
 
         #region Garages
 
-        public GarageDTO GetGarage(long id)
+        public CompanyDTO GetGarage(long id)
         {
             Garage garage = GarageRepository.GetGarage(id);
-            return AutoMapper.Mapper.Map<GarageDTO>(garage);
+            return AutoMapper.Mapper.Map<CompanyDTO>(garage);
         }
 
-        public List<GarageDTO> GetGarages()
+        public List<CompanyDTO> GetGarages()
         {
             List<Garage> items = GarageRepository.GetGarages();
-            return AutoMapper.Mapper.Map<List<GarageDTO>>(items);
+            return AutoMapper.Mapper.Map<List<CompanyDTO>>(items);
         }
 
-        public long CreateGarage(GarageDTO item)
+        public long CreateGarage(CompanyDTO item)
         {
             Garage garage = AutoMapper.Mapper.Map<Garage>(item);
             return GarageRepository.CreateGarage(garage);
         }
 
-        public bool EditGarage(GarageDTO item)
+        public bool EditGarage(CompanyDTO item)
         {
             Garage banner = AutoMapper.Mapper.Map<Garage>(item);
             return GarageRepository.EditGarage(banner);
@@ -511,12 +527,148 @@ namespace InsuranceSocialNetworkBusiness
 
         #region Medical Clinics
 
-        public List<MedicalClinicDTO> GetMedicalClinics()
+        public List<CompanyDTO> GetMedicalClinics()
         {
             List<MedicalClinic> items = MedicalClinicRepository.GetMedicalClinics();
-            return AutoMapper.Mapper.Map<List<MedicalClinicDTO>>(items);
+            return AutoMapper.Mapper.Map<List<CompanyDTO>>(items);
         }
 
         #endregion Medical Clinics
+
+        #region Postal Code
+
+        public PostalCodeDTO GetPostalCodeInformation(string postalCode)
+        {
+            int postalCodeValue = -1;
+            int postalSubCodeValue = -1;
+            string[] postalCodeSplitted = postalCode.Trim().Split(new char[] { '-' });
+
+            bool postalCodeParsedCorrectly = true;
+            if (postalCodeSplitted.Length > 1)
+            {
+                postalCodeParsedCorrectly = postalCodeParsedCorrectly && Int32.TryParse(postalCodeSplitted[0], out postalCodeValue);
+                postalCodeParsedCorrectly = postalCodeParsedCorrectly && Int32.TryParse(postalCodeSplitted[1], out postalSubCodeValue);
+
+                if(postalCodeParsedCorrectly)
+                {
+                    PostalCode itemInfo = PostalCodeRepository.GetInformation(postalCodeValue, postalSubCodeValue);
+                    return AutoMapper.Mapper.Map<PostalCodeDTO>(itemInfo);
+                }
+            }
+            else if (postalCodeSplitted.Length == 1)
+            {
+                postalCodeParsedCorrectly = postalCodeParsedCorrectly && Int32.TryParse(postalCodeSplitted[0], out postalCodeValue);
+
+                if (postalCodeParsedCorrectly)
+                {
+                    PostalCode itemInfo = PostalCodeRepository.GetInformation(postalCodeValue, null);
+                    return AutoMapper.Mapper.Map<PostalCodeDTO>(itemInfo);
+                }
+            }
+            else
+            {
+                return null;
+            }
+
+            return null;
+        }
+
+        public List<ListItem> GetDistricts()
+        {
+            return PostalCodeRepository.GetDistrictList();
+        }
+
+        public List<ListItem> GetCountiesByDistrict(long districtId)
+        {
+            return PostalCodeRepository.GetCountyListByDistrict(districtId);
+        }
+
+        #endregion Postal Code
+
+        #region Search Operations
+        
+        public List<CompanyDTO> SearchGarages(CompanySearchFilterDTO searchFilter)
+        {
+            List<Garage> itemsList = CompanyRepository.SearchGarages(searchFilter);
+            itemsList.ForEach(i => i.GarageFavorite = i.GarageFavorite.Where(j => j.ID_User == searchFilter.UserId).ToList());
+            return AutoMapper.Mapper.Map<List<CompanyDTO>>(itemsList);
+        }
+
+        public List<CompanyDTO> SearchMedicalClinis(CompanySearchFilterDTO searchFilter)
+        {
+
+            List<MedicalClinic> itemsList = CompanyRepository.SearchMedicalClinics(searchFilter);
+            return AutoMapper.Mapper.Map<List<CompanyDTO>>(itemsList);
+        }
+
+        public List<CompanyDTO> SearchConstructionCompanies(CompanySearchFilterDTO searchFilter)
+        {
+            List<ConstructionCompany> itemsList = CompanyRepository.SearchConstructionCompanies(searchFilter);
+            return AutoMapper.Mapper.Map<List<CompanyDTO>>(itemsList);
+        }
+
+        public List<CompanyDTO> SearchHomeApplianceRepairs(CompanySearchFilterDTO searchFilter)
+        {
+            List<HomeApplianceRepair> itemsList = CompanyRepository.SearchHomeApplianceRepairs(searchFilter);
+            return AutoMapper.Mapper.Map<List<CompanyDTO>>(itemsList);
+        }
+
+        public List<CompanyDTO> SearchInsuranceCompanyContacts(CompanySearchFilterDTO searchFilter)
+        {
+            List<InsuranceCompanyContact> itemsList = CompanyRepository.SearchInsuranceCompanyContacts(searchFilter);
+            return AutoMapper.Mapper.Map<List<CompanyDTO>>(itemsList);
+        }
+
+        public bool AddFavoriteGarage(long companyId, string userId)
+        {
+            return CompanyRepository.AddFavoriteGarage(companyId, userId);
+        }
+
+        public bool AddFavoriteConstructionCompany(long companyId, string userId)
+        {
+            return CompanyRepository.AddFavoriteConstructionCompany(companyId, userId);
+        }
+
+        public bool AddFavoriteHomeAppliancesRepair(long companyId, string userId)
+        {
+            return CompanyRepository.AddFavoriteHomeApplianceRepair(companyId, userId);
+        }
+
+        public bool AddFavoriteInsuranceCompanyContact(long companyId, string userId)
+        {
+            return CompanyRepository.AddFavoriteInsuranceCompanyContact(companyId, userId);
+        }
+
+        public bool AddFavoriteMedicalClinic(long companyId, string userId)
+        {
+            return CompanyRepository.AddFavoriteMedicalClinic(companyId, userId);
+        }
+
+        public bool RemoveFavoriteGarage(long companyId, string userId)
+        {
+            return CompanyRepository.RemoveFavoriteGarage(companyId, userId);
+        }
+
+        public bool RemoveFavoriteConstructionCompany(long companyId, string userId)
+        {
+            return CompanyRepository.RemoveFavoriteConstructionCompany(companyId, userId);
+        }
+
+        public bool RemoveFavoriteHomeAppliancesRepair(long companyId, string userId)
+        {
+            return CompanyRepository.RemoveFavoriteHomeApplianceRepair(companyId, userId);
+        }
+
+        public bool RemoveFavoriteInsuranceCompanyContact(long companyId, string userId)
+        {
+            return CompanyRepository.RemoveFavoriteInsuranceCompanyContact(companyId, userId);
+        }
+
+        public bool RemoveFavoriteMedicalClinic(long companyId, string userId)
+        {
+            return CompanyRepository.RemoveFavoriteMedicalClinic(companyId, userId);
+        }
+
+        #endregion Search Operations
     }
 }

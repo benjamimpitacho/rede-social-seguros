@@ -23,6 +23,14 @@ namespace InsuranceSocialNetworkDAL
         private IRepository<PostComment> postCommentRepository;
         private IRepository<Garage> garageRepository;
         private IRepository<MedicalClinic> medicalClinicRepository;
+        private IRepository<ConstructionCompany> constructionCompanyRepository;
+        private IRepository<HomeApplianceRepair> homeApplianceRepairRepository;
+        private IRepository<InsuranceCompanyContact> insuranceCompanyContactRepository;
+        private IRepository<GarageFavorite> garageFavoriteRepository;
+        private IRepository<MedicalClinicFavorite> medicalClinicFavoriteRepository;
+        private IRepository<ConstructionCompanyFavorite> constructionCompanyFavoriteRepository;
+        private IRepository<HomeApplianceRepairFavorite> homeApplianceRepairFavoriteRepository;
+        private IRepository<InsuranceCompanyContactFavorite> insuranceCompanyContactFavoriteRepository;
         private IRepository<Friend> friendRepository;
         private IRepository<FriendStatus> friendStatusRepository;
         private IRepository<Chat> chatRepository;
@@ -30,6 +38,10 @@ namespace InsuranceSocialNetworkDAL
         private IRepository<ChatMessage> chatMessageRepository;
         private IRepository<Banner> bannerRepository;
         private IRepository<BannerType> bannerTypeRepository;
+        private IRepository<PostalCode> postalCodeRepository;
+        private IRepository<District> districtRepository;
+        private IRepository<County> countyRepository;
+        private IRepository<Parish> parishRepository;
 
         private bool AutoDetectChangesEnabled;
         private int DatabaseTimeout;
@@ -274,32 +286,6 @@ namespace InsuranceSocialNetworkDAL
             }
         }
 
-        public IRepository<Garage> Garage
-        {
-            get
-            {
-                if (this.garageRepository == null)
-                {
-                    this.garageRepository =
-                        new Repository<InsurancePortal_dbEntities, Garage>(DataContext, AutoDetectChangesEnabled);
-                }
-                return garageRepository;
-            }
-        }
-
-        public IRepository<MedicalClinic> MedicalClinic
-        {
-            get
-            {
-                if (this.medicalClinicRepository == null)
-                {
-                    this.medicalClinicRepository =
-                        new Repository<InsurancePortal_dbEntities, MedicalClinic>(DataContext, AutoDetectChangesEnabled);
-                }
-                return medicalClinicRepository;
-            }
-        }
-
         public IRepository<Friend> Friend
         {
             get
@@ -323,6 +309,188 @@ namespace InsuranceSocialNetworkDAL
                         new Repository<InsurancePortal_dbEntities, FriendStatus>(DataContext, AutoDetectChangesEnabled);
                 }
                 return friendStatusRepository;
+            }
+        }
+
+        public IRepository<PostalCode> PostalCode
+        {
+            get
+            {
+                if (this.postalCodeRepository == null)
+                {
+                    this.postalCodeRepository =
+                        new Repository<InsurancePortal_dbEntities, PostalCode>(DataContext, AutoDetectChangesEnabled);
+                }
+                return postalCodeRepository;
+            }
+        }
+
+        public IRepository<District> District
+        {
+            get
+            {
+                if (this.districtRepository == null)
+                {
+                    this.districtRepository =
+                        new Repository<InsurancePortal_dbEntities, District>(DataContext, AutoDetectChangesEnabled);
+                }
+                return districtRepository;
+            }
+        }
+
+        public IRepository<County> County
+        {
+            get
+            {
+                if (this.countyRepository == null)
+                {
+                    this.countyRepository =
+                        new Repository<InsurancePortal_dbEntities, County>(DataContext, AutoDetectChangesEnabled);
+                }
+                return countyRepository;
+            }
+        }
+
+        public IRepository<Parish> Parish
+        {
+            get
+            {
+                if (this.parishRepository == null)
+                {
+                    this.parishRepository =
+                        new Repository<InsurancePortal_dbEntities, Parish>(DataContext, AutoDetectChangesEnabled);
+                }
+                return parishRepository;
+            }
+        }
+
+        public IRepository<Garage> Garage
+        {
+            get
+            {
+                if (this.garageRepository == null)
+                {
+                    this.garageRepository =
+                        new Repository<InsurancePortal_dbEntities, Garage>(DataContext, AutoDetectChangesEnabled);
+                }
+                return garageRepository;
+            }
+        }
+
+        public IRepository<GarageFavorite> GarageFavorite
+        {
+            get
+            {
+                if (this.garageFavoriteRepository == null)
+                {
+                    this.garageFavoriteRepository =
+                        new Repository<InsurancePortal_dbEntities, GarageFavorite>(DataContext, AutoDetectChangesEnabled);
+                }
+                return garageFavoriteRepository;
+            }
+        }
+
+        public IRepository<MedicalClinic> MedicalClinic
+        {
+            get
+            {
+                if (this.medicalClinicRepository == null)
+                {
+                    this.medicalClinicRepository =
+                        new Repository<InsurancePortal_dbEntities, MedicalClinic>(DataContext, AutoDetectChangesEnabled);
+                }
+                return medicalClinicRepository;
+            }
+        }
+
+        public IRepository<MedicalClinicFavorite> MedicalClinicFavorite
+        {
+            get
+            {
+                if (this.medicalClinicFavoriteRepository == null)
+                {
+                    this.medicalClinicFavoriteRepository =
+                        new Repository<InsurancePortal_dbEntities, MedicalClinicFavorite>(DataContext, AutoDetectChangesEnabled);
+                }
+                return medicalClinicFavoriteRepository;
+            }
+        }
+
+        public IRepository<ConstructionCompany> ConstructionCompany
+        {
+            get
+            {
+                if (this.constructionCompanyRepository == null)
+                {
+                    this.constructionCompanyRepository =
+                        new Repository<InsurancePortal_dbEntities, ConstructionCompany>(DataContext, AutoDetectChangesEnabled);
+                }
+                return constructionCompanyRepository;
+            }
+        }
+
+        public IRepository<ConstructionCompanyFavorite> ConstructionCompanyFavorite
+        {
+            get
+            {
+                if (this.constructionCompanyFavoriteRepository == null)
+                {
+                    this.constructionCompanyFavoriteRepository =
+                        new Repository<InsurancePortal_dbEntities, ConstructionCompanyFavorite>(DataContext, AutoDetectChangesEnabled);
+                }
+                return constructionCompanyFavoriteRepository;
+            }
+        }
+
+        public IRepository<HomeApplianceRepair> HomeApplianceRepair
+        {
+            get
+            {
+                if (this.homeApplianceRepairRepository == null)
+                {
+                    this.homeApplianceRepairRepository =
+                        new Repository<InsurancePortal_dbEntities, HomeApplianceRepair>(DataContext, AutoDetectChangesEnabled);
+                }
+                return homeApplianceRepairRepository;
+            }
+        }
+
+        public IRepository<HomeApplianceRepairFavorite> HomeApplianceRepairFavorite
+        {
+            get
+            {
+                if (this.homeApplianceRepairFavoriteRepository == null)
+                {
+                    this.homeApplianceRepairFavoriteRepository =
+                        new Repository<InsurancePortal_dbEntities, HomeApplianceRepairFavorite>(DataContext, AutoDetectChangesEnabled);
+                }
+                return homeApplianceRepairFavoriteRepository;
+            }
+        }
+
+        public IRepository<InsuranceCompanyContact> InsuranceCompanyContact
+        {
+            get
+            {
+                if (this.insuranceCompanyContactRepository == null)
+                {
+                    this.insuranceCompanyContactRepository =
+                        new Repository<InsurancePortal_dbEntities, InsuranceCompanyContact>(DataContext, AutoDetectChangesEnabled);
+                }
+                return insuranceCompanyContactRepository;
+            }
+        }
+
+        public IRepository<InsuranceCompanyContactFavorite> InsuranceCompanyContactFavorite
+        {
+            get
+            {
+                if (this.insuranceCompanyContactFavoriteRepository == null)
+                {
+                    this.insuranceCompanyContactFavoriteRepository =
+                        new Repository<InsurancePortal_dbEntities, InsuranceCompanyContactFavorite>(DataContext, AutoDetectChangesEnabled);
+                }
+                return insuranceCompanyContactFavoriteRepository;
             }
         }
     }

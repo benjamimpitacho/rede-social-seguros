@@ -34,38 +34,50 @@
 
                                     <div class="chat-users">
 
-                                        <h6>Online</h6>
+                                        <h6>@Resources.Resources.Chats</h6>
 
-                                        @foreach (ChatDTO chat in Model.Chats)
+                                        @if (null == Model.Chats || Model.Chats.Count == 0)
                                         {
-                                            <div class="user" onclick="$('#messageListPanel').load('@Url.Action("LoadChat", "Home", new { id= chat.ID})');">
+                                            <div class="col-md-12 alert alert-info" style="text-align:center">
+                                                @Resources.Resources.NoChats
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            foreach (ChatDTO chat in Model.Chats)
+                                            {
+                                                <div class="user" onclick="$('#messageListPanel').load('@Url.Action("LoadChat", "Home", new { id = chat.ID })');">
 
-                                                <div class="avatar">
+                                                    <div class="avatar">
 
-                                                    <img src="~/Content/images/no_photo_img.jpg" alt="User name">
+                                                        <img src="~/Content/images/no_photo_img.jpg" alt="User name">
 
-                                                    <div class="status online"></div>
+                                                        <div class="status online"></div>
+
+                                                    </div>
+
+                                                    <div class="name">@string.Join(",", chat.ChatMember.Where(i => i.ID_User != Model.Profile.ID_User).Select(i => i.AspNetUsers.Email).ToArray())</div>
+
+                                                    @if (null != chat.ChatMessage && chat.ChatMessage.Count > 0)
+                                                    {
+                                                        <div class="mood">@chat.ChatMessage[0].Text</div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="mood"><p></p></div>
+                                                    }
 
                                                 </div>
-
-                                                <div class="name">@string.Join(",", chat.ChatMember.Where(i => i.ID_User != Model.Profile.ID_User).Select(i => i.AspNetUsers.Email).ToArray())</div>
-
-                                                @if (null != chat.ChatMessage && chat.ChatMessage.Count > 0)
-                                                {
-                                                    <div class="mood">@chat.ChatMessage[0].Text</div>
-                                                }
-                                                else
-                                                {
-                                                    <div class="mood"><p></p></div>
-                                                }
-
-                                            </div>
+                                            }
                                         }
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-sm-8 col-xs-12 chat" style="overflow-x: hidden; overflow-y: scroll; outline: none;" tabindex="5001" id="messageListPanel">
+                                <div class="col-md-12 alert alert-info" style="text-align:center;margin-top: 60px;">
+                                    @Resources.Resources.NoActiveChatSelected
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -75,4 +87,4 @@
     </div>
 </div>
 
-@Html.Partial("~/Views/Home/Partial/Footer.cshtml", Model)
+@*@Html.Partial("~/Views/Home/Partial/Footer.cshtml", Model)*@

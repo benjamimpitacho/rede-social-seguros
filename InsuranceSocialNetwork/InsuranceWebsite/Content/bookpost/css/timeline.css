@@ -71,8 +71,8 @@ a {
 /* ====================== top navbar =============*/
 .navbar-principal {
     background-color:#fff;
-    background-color: #1975A3;
-    border-color:#1975A3;
+    background-color: #00C1DE;
+    border-color:#00C1DE;
     box-shadow: 0 2px 2px -2p xrgba(0, 0, 0, .52);
 }
 
@@ -347,7 +347,7 @@ a {
     font-size: 14px;
     background: #fff;
     color: #777;
-    border: 1px solid #1975A3;
+    border: 1px solid #00C1DE;
     outline: 0;
     border-radius: 5px;
     -moz-box-shadow: 0px 1px 1px rgba(255, 255, 255, 0.1);
@@ -1315,7 +1315,7 @@ div.about-tab div.about-tab-content:not(.active){
 }
 
 .profile-nav .user-heading {
-    background: #1975A3;
+    background: #00C1DE;
     color: #fff;
     border-radius: 4px 4px 0 0;
     -webkit-border-radius: 4px 4px 0 0;
@@ -1370,7 +1370,7 @@ div.about-tab div.about-tab-content:not(.active){
 
 .profile-nav ul > li > a:hover, .profile-nav ul > li > a:focus, .profile-nav ul li.active  a {
     background: #f8f7f5 !important;
-    border-left: 5px solid #1975A3;
+    border-left: 5px solid #00C1DE;
     color: #89817f !important;
 }
 
@@ -2151,12 +2151,12 @@ h4, .h4 {
 
 .card .btn {
     box-sizing: border-box;
-    border: 2px solid #1975A3;
+    border: 2px solid #00C1DE;
     background-color: transparent;
     font-size: 14px;
     font-weight: 500;
     padding: 7px 18px;
-    color: #1975A3;
+    color: #00C1DE;
     -webkit-transition: all 150ms linear;
     -moz-transition: all 150ms linear;
     -o-transition: all 150ms linear;
@@ -2225,7 +2225,7 @@ h4, .h4 {
     border-radius: 24px;
     cursor: pointer;
     box-shadow: 0 4px 5px #d8d8d8;
-    background: #1975A3 url("../../img/icon-edit.png") no-repeat 50% 50%;
+    background: #00C1DE url("../../img/icon-edit.png") no-repeat 50% 50%;
 }
 .contact .controls .icon {
     position: absolute;
@@ -2304,7 +2304,7 @@ h4, .h4 {
 .nav.nav-tabs-custom-colored > li.active > a, 
 .nav.nav-tabs-custom-colored > li.active > a:hover, 
 .nav.nav-tabs-custom-colored > li.active > a:focus {
-  background-color: #1975A3;
+  background-color: #00C1DE;
   color: #fff;
   cursor: pointer;
 }
@@ -2360,9 +2360,9 @@ h4, .h4 {
 }
 
 .data-row .data-name {
-  width: 12em;
+  width: 18em;
   color: #fff;
-  background-color: #1975A3;
+  background-color: #00C1DE;
   border-color: #4cae4c;
   font-size: 0.9em;
   vertical-align: top;
@@ -2623,7 +2623,7 @@ hr {
 }
 
 .color-container{
-  background: #1975A3;
+  background: #00C1DE;
 }
 
 .profile-name{
@@ -2683,6 +2683,13 @@ a:hover, a:active, a:focus {
     padding: 4px;
 }
 
+#accordion div select {
+    margin-left: 20px;
+    margin-bottom: 6px;
+    font-size: 12px;
+    padding: 4px;
+}
+
 .controlCell {
     width: 200px;
     text-align: center;
@@ -2728,6 +2735,66 @@ a:hover, a:active, a:focus {
     text-align:center;
 }
 
+.ui-accordion-header-collapsed .img-garages
+{
+    background-image: url(../../../Content/icons/114.png);
+    background-size: 50px;
+}
+
+.ui-accordion-header-active .img-garages
+{
+    background-image: url(../../../Content/icons/115.png);
+    background-size: 50px;
+}
+
+.ui-accordion-header-collapsed .img-clinics
+{
+    background-image: url(../../../Content/icons/116.png);
+    background-size: 50px;
+}
+
+.ui-accordion-header-active .img-clinics
+{
+    background-image: url(../../../Content/icons/117.png);
+    background-size: 50px;
+}
+
+.ui-accordion-header-collapsed .img-constructioncompanies
+{
+    background-image: url(../../../Content/icons/118.png);
+    background-size: 50px;
+}
+
+.ui-accordion-header-active .img-constructioncompanies
+{
+    background-image: url(../../../Content/icons/119.png);
+    background-size: 50px;
+}
+
+.ui-accordion-header-collapsed .img-homeappliances
+{
+    background-image: url(../../../Content/icons/120.png);
+    background-size: 50px;
+}
+
+.ui-accordion-header-active .img-homeappliances
+{
+    background-image: url(../../../Content/icons/121.png);
+    background-size: 50px;
+}
+
+.ui-accordion-header-collapsed .img-insurancecontacts
+{
+    background-image: url(../../../Content/icons/122.png);
+    background-size: 50px;
+}
+
+.ui-accordion-header-active .img-insurancecontacts
+{
+    background-image: url(../../../Content/icons/123.png);
+    background-size: 50px;
+}
+
 @media (max-width:481px)  { 
     .welcome-title {
         font-size: 40px; 
@@ -2766,7 +2833,7 @@ a:hover, a:active, a:focus {
         font-size: 14px;
         background: #fff;
         color: #777;
-        border: 1px solid #1975A3;
+        border: 1px solid #00C1DE;
         outline: 0;
         border-radius: 5px;
         -moz-box-shadow: 0px 1px 1px rgba(255, 255, 255, 0.1);

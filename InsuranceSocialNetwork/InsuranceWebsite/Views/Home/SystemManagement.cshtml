@@ -1,0 +1,83 @@
+﻿@using InsuranceWebsite.Models
+@using InsuranceSocialNetworkCore.Enums;
+@using MVCGrid.Web
+@model ProfileViewModel
+
+@{
+    ViewBag.Title = Resources.Resources.HomePageTitle;
+}
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+@Styles.Render("~/Content/jsGrid")
+@Scripts.Render("~/Scripts/jsGrid")
+
+@Scripts.Render("~/bundles/jqueryval")
+
+<!-- Timeline content -->
+
+<div class="container">
+
+    <div class="col-md-12 no-paddin-xs" style="background-color:#E4E7E8">
+
+        <div class="row">
+
+            @Html.Partial("~/Views/Home/Partial/SideNavBar.cshtml", Model)
+
+            <div class="col-md-6 no-paddin-xs">
+                <div class="row">
+                    <div class="row">
+
+                        <!-- Timeline content -->
+                        <div class="container container-timeline" style="margin:15px;">
+                            <div class="col-md-11 no-paddin-xs" style="background-color:white; padding:20px;width:90%">
+
+                                @Html.ActionLink(Resources.Resources.UsersManagement, "Index", "UsersManagement", null, new { @class = "btn btn-primary system-btn" })
+
+                                @Html.ActionLink(Resources.Resources.RolesManagement, "Index", "RolesManagement", null, new { @class = "btn btn-primary system-btn" })
+
+                                @Html.ActionLink(Resources.Resources.AlertsManagement, "Index", "NotificationsManagement", null, new { @class = "btn btn-primary system-btn" })
+
+                                @Html.ActionLink(Resources.Resources.BannersManagement, "Index", "BannersManagement", null, new { @class = "btn btn-primary system-btn" })
+
+                                @Html.ActionLink(Resources.Resources.GarageCompaniesManagement, "Index", "CompaniesManagement", new { id = CompanyTypeEnum.GARAGE }, new { @class = "btn btn-primary system-btn" })
+
+                                @Html.ActionLink(Resources.Resources.MedicalClinicCompaniesManagement, "Index", "CompaniesManagement", new { id = CompanyTypeEnum.MEDICAL_CLINIC }, new { @class = "btn btn-primary system-btn" })
+
+                                @Html.ActionLink(Resources.Resources.ConstructionCompaniesManagement, "Index", "CompaniesManagement", new { id = CompanyTypeEnum.CONSTRUCTION_COMPANY }, new { @class = "btn btn-primary system-btn" })
+
+                                @Html.ActionLink(Resources.Resources.HomeApplianceRepairCompaniesManagement, "Index", "CompaniesManagement", new { id = CompanyTypeEnum.HOME_APPLIANCES_REPAIR }, new { @class = "btn btn-primary system-btn" })
+
+                                @Html.ActionLink(Resources.Resources.InsuranceContactCompaniesManagement, "Index", "CompaniesManagement", new { id = CompanyTypeEnum.INSURANCE_COMPANY_CONTACT }, new { @class = "btn btn-primary system-btn" })
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--end right  content-->
+
+        </div>
+
+    </div>
+
+</div><!-- end timeline content-->
+
+
+<style>
+
+    .system-btn
+    {
+        display: inline-block;
+        max-width: 296px;
+        max-height: 150px;
+        height: 90px;
+        padding: 16px;
+        margin: 15px;
+        width: 100%;
+        text-align: center;
+        white-space: pre-line;
+    }
+
+</style>

@@ -18,6 +18,8 @@ namespace InsuranceWebsite.Models
         public int TotalUnreadMessages { get { return 99; } }
 
         public bool OwnProfile { get; set; }
+
+        public ProfileSettingsModel Settings { get; set; }
     }
 
     public class ProfileEditModel : ProfileViewModel
@@ -45,7 +47,7 @@ namespace InsuranceWebsite.Models
         public System.DateTime LastChangeDate { get; set; }
         public bool Active { get; set; }
 
-        public ProfileSettingsModel Settings { get; set; }
+        //public ProfileSettingsModel Settings { get; set; }
     }
 
     public class ProfileSettingsModel

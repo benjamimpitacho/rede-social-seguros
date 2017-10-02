@@ -99,6 +99,17 @@
     <Build Include="Tables\ConstructionCompany.sql" />
     <Build Include="Tables\HomeApplianceRepair.sql" />
     <Build Include="Tables\InsuranceCompanyContact.sql" />
+    <Build Include="Tables\District.sql" />
+    <None Include="InitData\District.sql" />
+    <Build Include="Tables\County.sql" />
+    <None Include="InitData\County.sql" />
+    <Build Include="Tables\Parish.sql" />
+    <None Include="InitData\Parish.sql" />
+    <Build Include="Tables\GarageFavorite.sql" />
+    <Build Include="Tables\MedicalClinicFavorite.sql" />
+    <Build Include="Tables\ConstructionCompanyFavorite.sql" />
+    <Build Include="Tables\InsuranceCompanyContactFavorite.sql" />
+    <Build Include="Tables\HomeApplianceRepairFavorite.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="InsuranceSocialNetworkDatabase.refactorlog" />

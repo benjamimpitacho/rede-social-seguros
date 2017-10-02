@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using InsuranceSocialNetworkDTO.Role;
-using InsuranceSocialNetworkDTO.Garage;
+using InsuranceSocialNetworkDTO.Company;
 
 namespace InsuranceWebsite.Utils
 {
@@ -71,8 +71,8 @@ namespace InsuranceWebsite.Utils
         {
             MapperConfiguration mapperConfiguration = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<GarageDTO, CompanyModelObject>();
-                cfg.CreateMap<CompanyModelObject, GarageDTO>();
+                cfg.CreateMap<CompanyDTO, CompanyModelObject>();
+                cfg.CreateMap<CompanyModelObject, CompanyDTO>();
             });
 
             var mapper = mapperConfiguration.CreateMapper();

@@ -12,9 +12,12 @@ namespace InsuranceSocialNetworkDTO.Notification
         public long ID { get; set; }
         public string ToUserID { get; set; }
         public string FromUserID { get; set; }
+        public string FromUserName { get; set; }
+        public byte[] FromUserPhoto { get; set; }
         public long ID_NotificationType { get; set; }
         public string Text { get; set; }
         public string URL { get; set; }
+        public long? FriendRequestID { get; set; }
         public System.DateTime CreateDate { get; set; }
         public System.DateTime ReadDate { get; set; }
         public bool Read { get; set; }

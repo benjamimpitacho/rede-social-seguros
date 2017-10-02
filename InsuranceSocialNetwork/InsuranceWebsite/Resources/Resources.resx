@@ -591,4 +591,76 @@
   <data name="NIF" xml:space="preserve">
     <value>NIF</value>
   </data>
+  <data name="GarageCompaniesManagement" xml:space="preserve">
+    <value>Gestão de Empresas - Garagens</value>
+  </data>
+  <data name="ConstructionCompaniesManagement" xml:space="preserve">
+    <value>Gestão de Empresas - Empresas de Construção</value>
+  </data>
+  <data name="HomeApplianceRepairCompaniesManagement" xml:space="preserve">
+    <value>Gestão de Empresas - Reparador de Electrodomésticos</value>
+  </data>
+  <data name="InsuranceContactCompaniesManagement" xml:space="preserve">
+    <value>Gestão de Empresas - Contactos de Seguradoras</value>
+  </data>
+  <data name="MedicalClinicCompaniesManagement" xml:space="preserve">
+    <value>Gestão de Empresas - Clinicas Médicas</value>
+  </data>
+  <data name="OfficialPartner" xml:space="preserve">
+    <value>Parceiro oficial</value>
+  </data>
+  <data name="PostalCode" xml:space="preserve">
+    <value>Código postal</value>
+  </data>
+  <data name="AreYouSureToActivateCompany" xml:space="preserve">
+    <value>Tem a certeza que pretende activar a empresa?</value>
+  </data>
+  <data name="AreYouSureToDeactivateCompany" xml:space="preserve">
+    <value>Tem a certeza que pretende desactivar a empresa?</value>
+  </data>
+  <data name="SelectCounty" xml:space="preserve">
+    <value>Seleccione o concelho</value>
+  </data>
+  <data name="SelectDistrict" xml:space="preserve">
+    <value>Seleccione o distrito</value>
+  </data>
+  <data name="County" xml:space="preserve">
+    <value>Concelho</value>
+  </data>
+  <data name="Parish" xml:space="preserve">
+    <value>Freguesia</value>
+  </data>
+  <data name="FoundGarages" xml:space="preserve">
+    <value>Foram encontradas {0} oficinas</value>
+  </data>
+  <data name="FoundMedicalClinics" xml:space="preserve">
+    <value>Foram encontradas {0} clínicas</value>
+  </data>
+  <data name="Administration" xml:space="preserve">
+    <value>Administração</value>
+  </data>
+  <data name="Chats" xml:space="preserve">
+    <value>Conversações</value>
+  </data>
+  <data name="NoActiveChatSelected" xml:space="preserve">
+    <value>Seleccione uma conversação para listar as respectivas mensagens</value>
+  </data>
+  <data name="NoChats" xml:space="preserve">
+    <value>Não existem conversações</value>
+  </data>
+  <data name="NoFriends" xml:space="preserve">
+    <value>De momento não possui amigos</value>
+  </data>
+  <data name="AprosePage" xml:space="preserve">
+    <value>Página da APROSE</value>
+  </data>
+  <data name="ApsPage" xml:space="preserve">
+    <value>Página da APS</value>
+  </data>
+  <data name="AsfPage" xml:space="preserve">
+    <value>Página da ASF</value>
+  </data>
+  <data name="CurrentDiscussions" xml:space="preserve">
+    <value>Em discussão</value>
+  </data>
 </root>

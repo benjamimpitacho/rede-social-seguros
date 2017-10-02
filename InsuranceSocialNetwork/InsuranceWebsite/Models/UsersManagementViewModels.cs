@@ -1,4 +1,5 @@
-﻿using InsuranceSocialNetworkDTO.Notification;
+﻿using InsuranceSocialNetworkCore.Types;
+using InsuranceSocialNetworkDTO.Notification;
 using InsuranceSocialNetworkDTO.Post;
 using InsuranceSocialNetworkDTO.UserProfile;
 using System.Collections.Generic;
@@ -22,7 +23,7 @@ namespace InsuranceWebsite.Models
     {
         public UserProfileModelObject()
         {
-            _userRolesList = InsuranceSocialNetworkBusiness.InsuranceBusiness.BusinessLayer.GetRoles().Select(i => new ListItemStr() { Id = i.Id, Name = Resources.Resources.ResourceManager.GetString(i.Name) }).ToList();
+            _userRolesList = InsuranceSocialNetworkBusiness.InsuranceBusiness.BusinessLayer.GetRoles().Select(i => new ListItemString() { Key = i.Id, Value = Resources.Resources.ResourceManager.GetString(i.Name) }).ToList();
         }
 
         public long ID { get; set; }
@@ -49,10 +50,10 @@ namespace InsuranceWebsite.Models
         public UserModelObject User { get; set; }
         public RoleModelObject Role { get; set; }
 
-        private List<ListItemStr> _userRolesList;
+        private List<ListItemString> _userRolesList;
         public IEnumerable<SelectListItem> UserRolesList
         {
-            get { return new SelectList(_userRolesList, "Id", "Name"); }
+            get { return new SelectList(_userRolesList, "Key", "Value"); }
         }
     }
 

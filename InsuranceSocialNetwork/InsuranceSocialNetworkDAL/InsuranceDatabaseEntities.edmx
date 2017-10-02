@@ -134,15 +134,43 @@
           <Property Name="Telephone_1" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="Telephone_2" Type="nvarchar" MaxLength="20" />
           <Property Name="Address" Type="nvarchar" MaxLength="256" />
-          <Property Name="ID_PostalCode" Type="bigint" />
+          <Property Name="ID_District" Type="bigint" />
+          <Property Name="ID_County" Type="bigint" />
+          <Property Name="ID_Parish" Type="bigint" />
           <Property Name="LogoPhoto" Type="image" />
           <Property Name="Website" Type="nvarchar" MaxLength="256" />
-          <Property Name="OficialPartner" Type="nvarchar" MaxLength="256" />
-          <Property Name="OficialAgent" Type="nvarchar" MaxLength="256" />
+          <Property Name="OfficialPartner" Type="nvarchar" MaxLength="256" />
+          <Property Name="OfficialAgent" Type="nvarchar" MaxLength="256" />
           <Property Name="CreateDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="LastChangeDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="DeleteDate" Type="datetime2" Precision="7" />
           <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ConstructionCompanyFavorite">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_ConstructionCompany" Type="bigint" Nullable="false" />
+          <Property Name="ID_User" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime2" Precision="7" Nullable="false" />
+        </EntityType>
+        <EntityType Name="County">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="District_Code" Type="int" Nullable="false" />
+          <Property Name="Code" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="District">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
         <EntityType Name="Friend">
           <Key>
@@ -180,15 +208,26 @@
           <Property Name="Telephone_1" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="Telephone_2" Type="nvarchar" MaxLength="20" />
           <Property Name="Address" Type="nvarchar" MaxLength="256" />
-          <Property Name="ID_PostalCode" Type="bigint" />
+          <Property Name="ID_District" Type="bigint" />
+          <Property Name="ID_County" Type="bigint" />
+          <Property Name="ID_Parish" Type="bigint" />
           <Property Name="LogoPhoto" Type="image" />
           <Property Name="Website" Type="nvarchar" MaxLength="256" />
-          <Property Name="OficialPartner" Type="nvarchar" MaxLength="256" />
-          <Property Name="OficialAgent" Type="nvarchar" MaxLength="256" />
+          <Property Name="OfficialPartner" Type="nvarchar" MaxLength="256" />
+          <Property Name="OfficialAgent" Type="nvarchar" MaxLength="256" />
           <Property Name="CreateDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="LastChangeDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="DeleteDate" Type="datetime2" Precision="7" />
           <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GarageFavorite">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Garage" Type="bigint" Nullable="false" />
+          <Property Name="ID_User" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
         <EntityType Name="HomeApplianceRepair">
           <Key>
@@ -204,15 +243,26 @@
           <Property Name="Telephone_1" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="Telephone_2" Type="nvarchar" MaxLength="20" />
           <Property Name="Address" Type="nvarchar" MaxLength="256" />
-          <Property Name="ID_PostalCode" Type="bigint" />
+          <Property Name="ID_District" Type="bigint" />
+          <Property Name="ID_County" Type="bigint" />
+          <Property Name="ID_Parish" Type="bigint" />
           <Property Name="LogoPhoto" Type="image" />
           <Property Name="Website" Type="nvarchar" MaxLength="256" />
-          <Property Name="OficialPartner" Type="nvarchar" MaxLength="256" />
-          <Property Name="OficialAgent" Type="nvarchar" MaxLength="256" />
+          <Property Name="OfficialPartner" Type="nvarchar" MaxLength="256" />
+          <Property Name="OfficialAgent" Type="nvarchar" MaxLength="256" />
           <Property Name="CreateDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="LastChangeDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="DeleteDate" Type="datetime2" Precision="7" />
           <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HomeApplianceRepairFavorite">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_HomeApplianceRepair" Type="bigint" Nullable="false" />
+          <Property Name="ID_User" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
         <EntityType Name="InsuranceCompanyContact">
           <Key>
@@ -228,15 +278,26 @@
           <Property Name="Telephone_1" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="Telephone_2" Type="nvarchar" MaxLength="20" />
           <Property Name="Address" Type="nvarchar" MaxLength="256" />
-          <Property Name="ID_PostalCode" Type="bigint" />
+          <Property Name="ID_District" Type="bigint" />
+          <Property Name="ID_County" Type="bigint" />
+          <Property Name="ID_Parish" Type="bigint" />
           <Property Name="LogoPhoto" Type="image" />
           <Property Name="Website" Type="nvarchar" MaxLength="256" />
-          <Property Name="OficialPartner" Type="nvarchar" MaxLength="256" />
-          <Property Name="OficialAgent" Type="nvarchar" MaxLength="256" />
+          <Property Name="OfficialPartner" Type="nvarchar" MaxLength="256" />
+          <Property Name="OfficialAgent" Type="nvarchar" MaxLength="256" />
           <Property Name="CreateDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="LastChangeDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="DeleteDate" Type="datetime2" Precision="7" />
           <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="InsuranceCompanyContactFavorite">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_InsuranceCompanyContact" Type="bigint" Nullable="false" />
+          <Property Name="ID_User" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
         <EntityType Name="MedicalClinic">
           <Key>
@@ -252,15 +313,26 @@
           <Property Name="Telephone_1" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="Telephone_2" Type="nvarchar" MaxLength="20" />
           <Property Name="Address" Type="nvarchar" MaxLength="256" />
-          <Property Name="ID_PostalCode" Type="bigint" />
+          <Property Name="ID_District" Type="bigint" />
+          <Property Name="ID_County" Type="bigint" />
+          <Property Name="ID_Parish" Type="bigint" />
           <Property Name="LogoPhoto" Type="image" />
           <Property Name="Website" Type="nvarchar" MaxLength="256" />
-          <Property Name="OficialPartner" Type="nvarchar" MaxLength="256" />
-          <Property Name="OficialAgent" Type="nvarchar" MaxLength="256" />
+          <Property Name="OfficialPartner" Type="nvarchar" MaxLength="256" />
+          <Property Name="OfficialAgent" Type="nvarchar" MaxLength="256" />
           <Property Name="CreateDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="LastChangeDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="DeleteDate" Type="datetime2" Precision="7" />
           <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MedicalClinicFavorite">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_MedicalClinic" Type="bigint" Nullable="false" />
+          <Property Name="ID_User" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
         <EntityType Name="Notification">
           <Key>
@@ -285,6 +357,16 @@
           <Property Name="Token" Type="nvarchar" MaxLength="64" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="256" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Parish">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="County_Code" Type="int" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="2" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Designation" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
         <EntityType Name="Post">
           <Key>
@@ -479,15 +561,63 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ConstructionCompany_PostalCode">
-          <End Role="PostalCode" Type="Self.PostalCode" Multiplicity="0..1" />
+        <Association Name="FK_ConstructionCompany_County">
+          <End Role="County" Type="Self.County" Multiplicity="0..1" />
           <End Role="ConstructionCompany" Type="Self.ConstructionCompany" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="PostalCode">
+            <Principal Role="County">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="ConstructionCompany">
-              <PropertyRef Name="ID_PostalCode" />
+              <PropertyRef Name="ID_County" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConstructionCompany_District">
+          <End Role="District" Type="Self.District" Multiplicity="0..1" />
+          <End Role="ConstructionCompany" Type="Self.ConstructionCompany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ConstructionCompany">
+              <PropertyRef Name="ID_District" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConstructionCompany_Parish">
+          <End Role="Parish" Type="Self.Parish" Multiplicity="0..1" />
+          <End Role="ConstructionCompany" Type="Self.ConstructionCompany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Parish">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ConstructionCompany">
+              <PropertyRef Name="ID_Parish" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConstructionCompanyFavorite_ConstructionCompany">
+          <End Role="ConstructionCompany" Type="Self.ConstructionCompany" Multiplicity="1" />
+          <End Role="ConstructionCompanyFavorite" Type="Self.ConstructionCompanyFavorite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ConstructionCompany">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ConstructionCompanyFavorite">
+              <PropertyRef Name="ID_ConstructionCompany" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConstructionCompanyFavorite_User">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="ConstructionCompanyFavorite" Type="Self.ConstructionCompanyFavorite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ConstructionCompanyFavorite">
+              <PropertyRef Name="ID_User" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -583,51 +713,243 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Garage_PostalCode">
-          <End Role="PostalCode" Type="Self.PostalCode" Multiplicity="0..1" />
+        <Association Name="FK_Garage_County">
+          <End Role="County" Type="Self.County" Multiplicity="0..1" />
           <End Role="Garage" Type="Self.Garage" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="PostalCode">
+            <Principal Role="County">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="Garage">
-              <PropertyRef Name="ID_PostalCode" />
+              <PropertyRef Name="ID_County" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_HomeApplianceRepair_PostalCode">
-          <End Role="PostalCode" Type="Self.PostalCode" Multiplicity="0..1" />
+        <Association Name="FK_Garage_District">
+          <End Role="District" Type="Self.District" Multiplicity="0..1" />
+          <End Role="Garage" Type="Self.Garage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Garage">
+              <PropertyRef Name="ID_District" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Garage_Parish">
+          <End Role="Parish" Type="Self.Parish" Multiplicity="0..1" />
+          <End Role="Garage" Type="Self.Garage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Parish">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Garage">
+              <PropertyRef Name="ID_Parish" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GarageFavorite_Garage">
+          <End Role="Garage" Type="Self.Garage" Multiplicity="1" />
+          <End Role="GarageFavorite" Type="Self.GarageFavorite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Garage">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GarageFavorite">
+              <PropertyRef Name="ID_Garage" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GarageFavorite_User">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="GarageFavorite" Type="Self.GarageFavorite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GarageFavorite">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HomeApplianceRepair_County">
+          <End Role="County" Type="Self.County" Multiplicity="0..1" />
           <End Role="HomeApplianceRepair" Type="Self.HomeApplianceRepair" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="PostalCode">
+            <Principal Role="County">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="HomeApplianceRepair">
-              <PropertyRef Name="ID_PostalCode" />
+              <PropertyRef Name="ID_County" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_InsuranceCompanyContact_PostalCode">
-          <End Role="PostalCode" Type="Self.PostalCode" Multiplicity="0..1" />
+        <Association Name="FK_HomeApplianceRepair_District">
+          <End Role="District" Type="Self.District" Multiplicity="0..1" />
+          <End Role="HomeApplianceRepair" Type="Self.HomeApplianceRepair" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="HomeApplianceRepair">
+              <PropertyRef Name="ID_District" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HomeApplianceRepair_Parish">
+          <End Role="Parish" Type="Self.Parish" Multiplicity="0..1" />
+          <End Role="HomeApplianceRepair" Type="Self.HomeApplianceRepair" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Parish">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="HomeApplianceRepair">
+              <PropertyRef Name="ID_Parish" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HomeApplianceRepairFavorite_HomeApplianceRepair">
+          <End Role="HomeApplianceRepair" Type="Self.HomeApplianceRepair" Multiplicity="1" />
+          <End Role="HomeApplianceRepairFavorite" Type="Self.HomeApplianceRepairFavorite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HomeApplianceRepair">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="HomeApplianceRepairFavorite">
+              <PropertyRef Name="ID_HomeApplianceRepair" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HomeApplianceRepairFavorite_User">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="HomeApplianceRepairFavorite" Type="Self.HomeApplianceRepairFavorite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HomeApplianceRepairFavorite">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InsuranceCompanyContact_County">
+          <End Role="County" Type="Self.County" Multiplicity="0..1" />
           <End Role="InsuranceCompanyContact" Type="Self.InsuranceCompanyContact" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="PostalCode">
+            <Principal Role="County">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="InsuranceCompanyContact">
-              <PropertyRef Name="ID_PostalCode" />
+              <PropertyRef Name="ID_County" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_MedicalClinic_PostalCode">
-          <End Role="PostalCode" Type="Self.PostalCode" Multiplicity="0..1" />
+        <Association Name="FK_InsuranceCompanyContact_District">
+          <End Role="District" Type="Self.District" Multiplicity="0..1" />
+          <End Role="InsuranceCompanyContact" Type="Self.InsuranceCompanyContact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="InsuranceCompanyContact">
+              <PropertyRef Name="ID_District" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InsuranceCompanyContact_Parish">
+          <End Role="Parish" Type="Self.Parish" Multiplicity="0..1" />
+          <End Role="InsuranceCompanyContact" Type="Self.InsuranceCompanyContact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Parish">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="InsuranceCompanyContact">
+              <PropertyRef Name="ID_Parish" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InsuranceCompanyContactFavorite_InsuranceCompanyContact">
+          <End Role="InsuranceCompanyContact" Type="Self.InsuranceCompanyContact" Multiplicity="1" />
+          <End Role="InsuranceCompanyContactFavorite" Type="Self.InsuranceCompanyContactFavorite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InsuranceCompanyContact">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="InsuranceCompanyContactFavorite">
+              <PropertyRef Name="ID_InsuranceCompanyContact" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InsuranceCompanyContactFavorite_User">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="InsuranceCompanyContactFavorite" Type="Self.InsuranceCompanyContactFavorite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InsuranceCompanyContactFavorite">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedicalClinic_County">
+          <End Role="County" Type="Self.County" Multiplicity="0..1" />
           <End Role="MedicalClinic" Type="Self.MedicalClinic" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="PostalCode">
+            <Principal Role="County">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="MedicalClinic">
-              <PropertyRef Name="ID_PostalCode" />
+              <PropertyRef Name="ID_County" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedicalClinic_District">
+          <End Role="District" Type="Self.District" Multiplicity="0..1" />
+          <End Role="MedicalClinic" Type="Self.MedicalClinic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MedicalClinic">
+              <PropertyRef Name="ID_District" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedicalClinic_Parish">
+          <End Role="Parish" Type="Self.Parish" Multiplicity="0..1" />
+          <End Role="MedicalClinic" Type="Self.MedicalClinic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Parish">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MedicalClinic">
+              <PropertyRef Name="ID_Parish" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedicalClinicFavorite_MedicalClinic">
+          <End Role="MedicalClinic" Type="Self.MedicalClinic" Multiplicity="1" />
+          <End Role="MedicalClinicFavorite" Type="Self.MedicalClinicFavorite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MedicalClinic">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MedicalClinicFavorite">
+              <PropertyRef Name="ID_MedicalClinic" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedicalClinicFavorite_User">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="MedicalClinicFavorite" Type="Self.MedicalClinicFavorite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MedicalClinicFavorite">
+              <PropertyRef Name="ID_User" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -823,14 +1145,22 @@
           <EntitySet Name="ChatMember" EntityType="Self.ChatMember" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="ChatMessage" EntityType="Self.ChatMessage" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="ConstructionCompany" EntityType="Self.ConstructionCompany" Schema="Insurance" store:Type="Tables" />
+          <EntitySet Name="ConstructionCompanyFavorite" EntityType="Self.ConstructionCompanyFavorite" Schema="Insurance" store:Type="Tables" />
+          <EntitySet Name="County" EntityType="Self.County" Schema="Insurance" store:Type="Tables" />
+          <EntitySet Name="District" EntityType="Self.District" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="Friend" EntityType="Self.Friend" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="FriendStatus" EntityType="Self.FriendStatus" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="Garage" EntityType="Self.Garage" Schema="Insurance" store:Type="Tables" />
+          <EntitySet Name="GarageFavorite" EntityType="Self.GarageFavorite" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="HomeApplianceRepair" EntityType="Self.HomeApplianceRepair" Schema="Insurance" store:Type="Tables" />
+          <EntitySet Name="HomeApplianceRepairFavorite" EntityType="Self.HomeApplianceRepairFavorite" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="InsuranceCompanyContact" EntityType="Self.InsuranceCompanyContact" Schema="Insurance" store:Type="Tables" />
+          <EntitySet Name="InsuranceCompanyContactFavorite" EntityType="Self.InsuranceCompanyContactFavorite" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="MedicalClinic" EntityType="Self.MedicalClinic" Schema="Insurance" store:Type="Tables" />
+          <EntitySet Name="MedicalClinicFavorite" EntityType="Self.MedicalClinicFavorite" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="Notification" EntityType="Self.Notification" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="NotificationType" EntityType="Self.NotificationType" Schema="Insurance" store:Type="Tables" />
+          <EntitySet Name="Parish" EntityType="Self.Parish" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="Post" EntityType="Self.Post" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="PostalCode" EntityType="Self.PostalCode" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="PostComment" EntityType="Self.PostComment" Schema="Insurance" store:Type="Tables" />
@@ -864,9 +1194,25 @@
             <End Role="Chat" EntitySet="Chat" />
             <End Role="ChatMessage" EntitySet="ChatMessage" />
           </AssociationSet>
-          <AssociationSet Name="FK_ConstructionCompany_PostalCode" Association="Self.FK_ConstructionCompany_PostalCode">
-            <End Role="PostalCode" EntitySet="PostalCode" />
+          <AssociationSet Name="FK_ConstructionCompany_County" Association="Self.FK_ConstructionCompany_County">
+            <End Role="County" EntitySet="County" />
             <End Role="ConstructionCompany" EntitySet="ConstructionCompany" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConstructionCompany_District" Association="Self.FK_ConstructionCompany_District">
+            <End Role="District" EntitySet="District" />
+            <End Role="ConstructionCompany" EntitySet="ConstructionCompany" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConstructionCompany_Parish" Association="Self.FK_ConstructionCompany_Parish">
+            <End Role="Parish" EntitySet="Parish" />
+            <End Role="ConstructionCompany" EntitySet="ConstructionCompany" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConstructionCompanyFavorite_ConstructionCompany" Association="Self.FK_ConstructionCompanyFavorite_ConstructionCompany">
+            <End Role="ConstructionCompany" EntitySet="ConstructionCompany" />
+            <End Role="ConstructionCompanyFavorite" EntitySet="ConstructionCompanyFavorite" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConstructionCompanyFavorite_User" Association="Self.FK_ConstructionCompanyFavorite_User">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="ConstructionCompanyFavorite" EntitySet="ConstructionCompanyFavorite" />
           </AssociationSet>
           <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -896,21 +1242,85 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Friend" EntitySet="Friend" />
           </AssociationSet>
-          <AssociationSet Name="FK_Garage_PostalCode" Association="Self.FK_Garage_PostalCode">
-            <End Role="PostalCode" EntitySet="PostalCode" />
+          <AssociationSet Name="FK_Garage_County" Association="Self.FK_Garage_County">
+            <End Role="County" EntitySet="County" />
             <End Role="Garage" EntitySet="Garage" />
           </AssociationSet>
-          <AssociationSet Name="FK_HomeApplianceRepair_PostalCode" Association="Self.FK_HomeApplianceRepair_PostalCode">
-            <End Role="PostalCode" EntitySet="PostalCode" />
+          <AssociationSet Name="FK_Garage_District" Association="Self.FK_Garage_District">
+            <End Role="District" EntitySet="District" />
+            <End Role="Garage" EntitySet="Garage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Garage_Parish" Association="Self.FK_Garage_Parish">
+            <End Role="Parish" EntitySet="Parish" />
+            <End Role="Garage" EntitySet="Garage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GarageFavorite_Garage" Association="Self.FK_GarageFavorite_Garage">
+            <End Role="Garage" EntitySet="Garage" />
+            <End Role="GarageFavorite" EntitySet="GarageFavorite" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GarageFavorite_User" Association="Self.FK_GarageFavorite_User">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="GarageFavorite" EntitySet="GarageFavorite" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HomeApplianceRepair_County" Association="Self.FK_HomeApplianceRepair_County">
+            <End Role="County" EntitySet="County" />
             <End Role="HomeApplianceRepair" EntitySet="HomeApplianceRepair" />
           </AssociationSet>
-          <AssociationSet Name="FK_InsuranceCompanyContact_PostalCode" Association="Self.FK_InsuranceCompanyContact_PostalCode">
-            <End Role="PostalCode" EntitySet="PostalCode" />
+          <AssociationSet Name="FK_HomeApplianceRepair_District" Association="Self.FK_HomeApplianceRepair_District">
+            <End Role="District" EntitySet="District" />
+            <End Role="HomeApplianceRepair" EntitySet="HomeApplianceRepair" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HomeApplianceRepair_Parish" Association="Self.FK_HomeApplianceRepair_Parish">
+            <End Role="Parish" EntitySet="Parish" />
+            <End Role="HomeApplianceRepair" EntitySet="HomeApplianceRepair" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HomeApplianceRepairFavorite_HomeApplianceRepair" Association="Self.FK_HomeApplianceRepairFavorite_HomeApplianceRepair">
+            <End Role="HomeApplianceRepair" EntitySet="HomeApplianceRepair" />
+            <End Role="HomeApplianceRepairFavorite" EntitySet="HomeApplianceRepairFavorite" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HomeApplianceRepairFavorite_User" Association="Self.FK_HomeApplianceRepairFavorite_User">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="HomeApplianceRepairFavorite" EntitySet="HomeApplianceRepairFavorite" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InsuranceCompanyContact_County" Association="Self.FK_InsuranceCompanyContact_County">
+            <End Role="County" EntitySet="County" />
             <End Role="InsuranceCompanyContact" EntitySet="InsuranceCompanyContact" />
           </AssociationSet>
-          <AssociationSet Name="FK_MedicalClinic_PostalCode" Association="Self.FK_MedicalClinic_PostalCode">
-            <End Role="PostalCode" EntitySet="PostalCode" />
+          <AssociationSet Name="FK_InsuranceCompanyContact_District" Association="Self.FK_InsuranceCompanyContact_District">
+            <End Role="District" EntitySet="District" />
+            <End Role="InsuranceCompanyContact" EntitySet="InsuranceCompanyContact" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InsuranceCompanyContact_Parish" Association="Self.FK_InsuranceCompanyContact_Parish">
+            <End Role="Parish" EntitySet="Parish" />
+            <End Role="InsuranceCompanyContact" EntitySet="InsuranceCompanyContact" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InsuranceCompanyContactFavorite_InsuranceCompanyContact" Association="Self.FK_InsuranceCompanyContactFavorite_InsuranceCompanyContact">
+            <End Role="InsuranceCompanyContact" EntitySet="InsuranceCompanyContact" />
+            <End Role="InsuranceCompanyContactFavorite" EntitySet="InsuranceCompanyContactFavorite" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InsuranceCompanyContactFavorite_User" Association="Self.FK_InsuranceCompanyContactFavorite_User">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="InsuranceCompanyContactFavorite" EntitySet="InsuranceCompanyContactFavorite" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedicalClinic_County" Association="Self.FK_MedicalClinic_County">
+            <End Role="County" EntitySet="County" />
             <End Role="MedicalClinic" EntitySet="MedicalClinic" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedicalClinic_District" Association="Self.FK_MedicalClinic_District">
+            <End Role="District" EntitySet="District" />
+            <End Role="MedicalClinic" EntitySet="MedicalClinic" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedicalClinic_Parish" Association="Self.FK_MedicalClinic_Parish">
+            <End Role="Parish" EntitySet="Parish" />
+            <End Role="MedicalClinic" EntitySet="MedicalClinic" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedicalClinicFavorite_MedicalClinic" Association="Self.FK_MedicalClinicFavorite_MedicalClinic">
+            <End Role="MedicalClinic" EntitySet="MedicalClinic" />
+            <End Role="MedicalClinicFavorite" EntitySet="MedicalClinicFavorite" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedicalClinicFavorite_User" Association="Self.FK_MedicalClinicFavorite_User">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="MedicalClinicFavorite" EntitySet="MedicalClinicFavorite" />
           </AssociationSet>
           <AssociationSet Name="FK_Notification_NotificationType" Association="Self.FK_Notification_NotificationType">
             <End Role="NotificationType" EntitySet="NotificationType" />
@@ -1108,30 +1518,118 @@
             <End Role="NotificationType" EntitySet="NotificationType" />
             <End Role="Notification" EntitySet="Notification" />
           </AssociationSet>
+          <EntitySet Name="County" EntityType="InsurancePortal_dbModel.County" />
+          <EntitySet Name="District" EntityType="InsurancePortal_dbModel.District" />
+          <EntitySet Name="Parish" EntityType="InsurancePortal_dbModel.Parish" />
           <EntitySet Name="ConstructionCompany" EntityType="InsurancePortal_dbModel.ConstructionCompany" />
           <EntitySet Name="Garage" EntityType="InsurancePortal_dbModel.Garage" />
           <EntitySet Name="HomeApplianceRepair" EntityType="InsurancePortal_dbModel.HomeApplianceRepair" />
           <EntitySet Name="InsuranceCompanyContact" EntityType="InsurancePortal_dbModel.InsuranceCompanyContact" />
           <EntitySet Name="MedicalClinic" EntityType="InsurancePortal_dbModel.MedicalClinic" />
-          <AssociationSet Name="FK_ConstructionCompany_PostalCode" Association="InsurancePortal_dbModel.FK_ConstructionCompany_PostalCode">
-            <End Role="PostalCode" EntitySet="PostalCode" />
+          <AssociationSet Name="FK_ConstructionCompany_County" Association="InsurancePortal_dbModel.FK_ConstructionCompany_County">
+            <End Role="County" EntitySet="County" />
             <End Role="ConstructionCompany" EntitySet="ConstructionCompany" />
           </AssociationSet>
-          <AssociationSet Name="FK_Garage_PostalCode" Association="InsurancePortal_dbModel.FK_Garage_PostalCode">
-            <End Role="PostalCode" EntitySet="PostalCode" />
+          <AssociationSet Name="FK_ConstructionCompany_District" Association="InsurancePortal_dbModel.FK_ConstructionCompany_District">
+            <End Role="District" EntitySet="District" />
+            <End Role="ConstructionCompany" EntitySet="ConstructionCompany" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConstructionCompany_Parish" Association="InsurancePortal_dbModel.FK_ConstructionCompany_Parish">
+            <End Role="Parish" EntitySet="Parish" />
+            <End Role="ConstructionCompany" EntitySet="ConstructionCompany" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Garage_County" Association="InsurancePortal_dbModel.FK_Garage_County">
+            <End Role="County" EntitySet="County" />
             <End Role="Garage" EntitySet="Garage" />
           </AssociationSet>
-          <AssociationSet Name="FK_HomeApplianceRepair_PostalCode" Association="InsurancePortal_dbModel.FK_HomeApplianceRepair_PostalCode">
-            <End Role="PostalCode" EntitySet="PostalCode" />
+          <AssociationSet Name="FK_HomeApplianceRepair_County" Association="InsurancePortal_dbModel.FK_HomeApplianceRepair_County">
+            <End Role="County" EntitySet="County" />
             <End Role="HomeApplianceRepair" EntitySet="HomeApplianceRepair" />
           </AssociationSet>
-          <AssociationSet Name="FK_InsuranceCompanyContact_PostalCode" Association="InsurancePortal_dbModel.FK_InsuranceCompanyContact_PostalCode">
-            <End Role="PostalCode" EntitySet="PostalCode" />
+          <AssociationSet Name="FK_InsuranceCompanyContact_County" Association="InsurancePortal_dbModel.FK_InsuranceCompanyContact_County">
+            <End Role="County" EntitySet="County" />
             <End Role="InsuranceCompanyContact" EntitySet="InsuranceCompanyContact" />
           </AssociationSet>
-          <AssociationSet Name="FK_MedicalClinic_PostalCode" Association="InsurancePortal_dbModel.FK_MedicalClinic_PostalCode">
-            <End Role="PostalCode" EntitySet="PostalCode" />
+          <AssociationSet Name="FK_MedicalClinic_County" Association="InsurancePortal_dbModel.FK_MedicalClinic_County">
+            <End Role="County" EntitySet="County" />
             <End Role="MedicalClinic" EntitySet="MedicalClinic" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Garage_District" Association="InsurancePortal_dbModel.FK_Garage_District">
+            <End Role="District" EntitySet="District" />
+            <End Role="Garage" EntitySet="Garage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HomeApplianceRepair_District" Association="InsurancePortal_dbModel.FK_HomeApplianceRepair_District">
+            <End Role="District" EntitySet="District" />
+            <End Role="HomeApplianceRepair" EntitySet="HomeApplianceRepair" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InsuranceCompanyContact_District" Association="InsurancePortal_dbModel.FK_InsuranceCompanyContact_District">
+            <End Role="District" EntitySet="District" />
+            <End Role="InsuranceCompanyContact" EntitySet="InsuranceCompanyContact" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedicalClinic_District" Association="InsurancePortal_dbModel.FK_MedicalClinic_District">
+            <End Role="District" EntitySet="District" />
+            <End Role="MedicalClinic" EntitySet="MedicalClinic" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Garage_Parish" Association="InsurancePortal_dbModel.FK_Garage_Parish">
+            <End Role="Parish" EntitySet="Parish" />
+            <End Role="Garage" EntitySet="Garage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HomeApplianceRepair_Parish" Association="InsurancePortal_dbModel.FK_HomeApplianceRepair_Parish">
+            <End Role="Parish" EntitySet="Parish" />
+            <End Role="HomeApplianceRepair" EntitySet="HomeApplianceRepair" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InsuranceCompanyContact_Parish" Association="InsurancePortal_dbModel.FK_InsuranceCompanyContact_Parish">
+            <End Role="Parish" EntitySet="Parish" />
+            <End Role="InsuranceCompanyContact" EntitySet="InsuranceCompanyContact" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedicalClinic_Parish" Association="InsurancePortal_dbModel.FK_MedicalClinic_Parish">
+            <End Role="Parish" EntitySet="Parish" />
+            <End Role="MedicalClinic" EntitySet="MedicalClinic" />
+          </AssociationSet>
+          <EntitySet Name="ConstructionCompanyFavorite" EntityType="InsurancePortal_dbModel.ConstructionCompanyFavorite" />
+          <EntitySet Name="GarageFavorite" EntityType="InsurancePortal_dbModel.GarageFavorite" />
+          <EntitySet Name="HomeApplianceRepairFavorite" EntityType="InsurancePortal_dbModel.HomeApplianceRepairFavorite" />
+          <EntitySet Name="InsuranceCompanyContactFavorite" EntityType="InsurancePortal_dbModel.InsuranceCompanyContactFavorite" />
+          <EntitySet Name="MedicalClinicFavorite" EntityType="InsurancePortal_dbModel.MedicalClinicFavorite" />
+          <AssociationSet Name="FK_ConstructionCompanyFavorite_User" Association="InsurancePortal_dbModel.FK_ConstructionCompanyFavorite_User">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="ConstructionCompanyFavorite" EntitySet="ConstructionCompanyFavorite" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GarageFavorite_User" Association="InsurancePortal_dbModel.FK_GarageFavorite_User">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="GarageFavorite" EntitySet="GarageFavorite" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HomeApplianceRepairFavorite_User" Association="InsurancePortal_dbModel.FK_HomeApplianceRepairFavorite_User">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="HomeApplianceRepairFavorite" EntitySet="HomeApplianceRepairFavorite" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InsuranceCompanyContactFavorite_User" Association="InsurancePortal_dbModel.FK_InsuranceCompanyContactFavorite_User">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="InsuranceCompanyContactFavorite" EntitySet="InsuranceCompanyContactFavorite" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedicalClinicFavorite_User" Association="InsurancePortal_dbModel.FK_MedicalClinicFavorite_User">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="MedicalClinicFavorite" EntitySet="MedicalClinicFavorite" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConstructionCompanyFavorite_ConstructionCompany" Association="InsurancePortal_dbModel.FK_ConstructionCompanyFavorite_ConstructionCompany">
+            <End Role="ConstructionCompany" EntitySet="ConstructionCompany" />
+            <End Role="ConstructionCompanyFavorite" EntitySet="ConstructionCompanyFavorite" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GarageFavorite_Garage" Association="InsurancePortal_dbModel.FK_GarageFavorite_Garage">
+            <End Role="Garage" EntitySet="Garage" />
+            <End Role="GarageFavorite" EntitySet="GarageFavorite" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HomeApplianceRepairFavorite_HomeApplianceRepair" Association="InsurancePortal_dbModel.FK_HomeApplianceRepairFavorite_HomeApplianceRepair">
+            <End Role="HomeApplianceRepair" EntitySet="HomeApplianceRepair" />
+            <End Role="HomeApplianceRepairFavorite" EntitySet="HomeApplianceRepairFavorite" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InsuranceCompanyContactFavorite_InsuranceCompanyContact" Association="InsurancePortal_dbModel.FK_InsuranceCompanyContactFavorite_InsuranceCompanyContact">
+            <End Role="InsuranceCompanyContact" EntitySet="InsuranceCompanyContact" />
+            <End Role="InsuranceCompanyContactFavorite" EntitySet="InsuranceCompanyContactFavorite" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedicalClinicFavorite_MedicalClinic" Association="InsurancePortal_dbModel.FK_MedicalClinicFavorite_MedicalClinic">
+            <End Role="MedicalClinic" EntitySet="MedicalClinic" />
+            <End Role="MedicalClinicFavorite" EntitySet="MedicalClinicFavorite" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="AspNetRoles">
@@ -1240,6 +1738,11 @@
           <NavigationProperty Name="Profile" Relationship="InsurancePortal_dbModel.FK_Profile_AspNetUsers" FromRole="AspNetUsers" ToRole="Profile" />
           <NavigationProperty Name="Notification" Relationship="InsurancePortal_dbModel.FK_NotificationFromUser_AspNetUsers" FromRole="AspNetUsers" ToRole="Notification" />
           <NavigationProperty Name="Notification1" Relationship="InsurancePortal_dbModel.FK_NotificationToUser_AspNetUsers" FromRole="AspNetUsers" ToRole="Notification" />
+          <NavigationProperty Name="ConstructionCompanyFavorite" Relationship="InsurancePortal_dbModel.FK_ConstructionCompanyFavorite_User" FromRole="AspNetUsers" ToRole="ConstructionCompanyFavorite" />
+          <NavigationProperty Name="GarageFavorite" Relationship="InsurancePortal_dbModel.FK_GarageFavorite_User" FromRole="AspNetUsers" ToRole="GarageFavorite" />
+          <NavigationProperty Name="HomeApplianceRepairFavorite" Relationship="InsurancePortal_dbModel.FK_HomeApplianceRepairFavorite_User" FromRole="AspNetUsers" ToRole="HomeApplianceRepairFavorite" />
+          <NavigationProperty Name="InsuranceCompanyContactFavorite" Relationship="InsurancePortal_dbModel.FK_InsuranceCompanyContactFavorite_User" FromRole="AspNetUsers" ToRole="InsuranceCompanyContactFavorite" />
+          <NavigationProperty Name="MedicalClinicFavorite" Relationship="InsurancePortal_dbModel.FK_MedicalClinicFavorite_User" FromRole="AspNetUsers" ToRole="MedicalClinicFavorite" />
           </EntityType>
         <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
           <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
@@ -1302,11 +1805,6 @@
           <Property Name="Troco" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="Porta" Type="Int32" />
           <NavigationProperty Name="Profile" Relationship="InsurancePortal_dbModel.FK_Profile_PostalCode" FromRole="PostalCode" ToRole="Profile" />
-          <NavigationProperty Name="ConstructionCompany" Relationship="InsurancePortal_dbModel.FK_ConstructionCompany_PostalCode" FromRole="PostalCode" ToRole="ConstructionCompany" />
-          <NavigationProperty Name="Garage" Relationship="InsurancePortal_dbModel.FK_Garage_PostalCode" FromRole="PostalCode" ToRole="Garage" />
-          <NavigationProperty Name="HomeApplianceRepair" Relationship="InsurancePortal_dbModel.FK_HomeApplianceRepair_PostalCode" FromRole="PostalCode" ToRole="HomeApplianceRepair" />
-          <NavigationProperty Name="InsuranceCompanyContact" Relationship="InsurancePortal_dbModel.FK_InsuranceCompanyContact_PostalCode" FromRole="PostalCode" ToRole="InsuranceCompanyContact" />
-          <NavigationProperty Name="MedicalClinic" Relationship="InsurancePortal_dbModel.FK_MedicalClinic_PostalCode" FromRole="PostalCode" ToRole="MedicalClinic" />
         </EntityType>
         <EntityType Name="PostCommentLike">
           <Key>
@@ -1787,6 +2285,48 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="County">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="District_Code" Type="Int32" Nullable="false" />
+          <Property Name="Code" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ConstructionCompany" Relationship="InsurancePortal_dbModel.FK_ConstructionCompany_County" FromRole="County" ToRole="ConstructionCompany" />
+          <NavigationProperty Name="Garage" Relationship="InsurancePortal_dbModel.FK_Garage_County" FromRole="County" ToRole="Garage" />
+          <NavigationProperty Name="HomeApplianceRepair" Relationship="InsurancePortal_dbModel.FK_HomeApplianceRepair_County" FromRole="County" ToRole="HomeApplianceRepair" />
+          <NavigationProperty Name="InsuranceCompanyContact" Relationship="InsurancePortal_dbModel.FK_InsuranceCompanyContact_County" FromRole="County" ToRole="InsuranceCompanyContact" />
+          <NavigationProperty Name="MedicalClinic" Relationship="InsurancePortal_dbModel.FK_MedicalClinic_County" FromRole="County" ToRole="MedicalClinic" />
+        </EntityType>
+        <EntityType Name="District">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ConstructionCompany" Relationship="InsurancePortal_dbModel.FK_ConstructionCompany_District" FromRole="District" ToRole="ConstructionCompany" />
+          <NavigationProperty Name="Garage" Relationship="InsurancePortal_dbModel.FK_Garage_District" FromRole="District" ToRole="Garage" />
+          <NavigationProperty Name="HomeApplianceRepair" Relationship="InsurancePortal_dbModel.FK_HomeApplianceRepair_District" FromRole="District" ToRole="HomeApplianceRepair" />
+          <NavigationProperty Name="InsuranceCompanyContact" Relationship="InsurancePortal_dbModel.FK_InsuranceCompanyContact_District" FromRole="District" ToRole="InsuranceCompanyContact" />
+          <NavigationProperty Name="MedicalClinic" Relationship="InsurancePortal_dbModel.FK_MedicalClinic_District" FromRole="District" ToRole="MedicalClinic" />
+        </EntityType>
+        <EntityType Name="Parish">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="County_Code" Type="Int32" Nullable="false" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Designation" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ConstructionCompany" Relationship="InsurancePortal_dbModel.FK_ConstructionCompany_Parish" FromRole="Parish" ToRole="ConstructionCompany" />
+          <NavigationProperty Name="Garage" Relationship="InsurancePortal_dbModel.FK_Garage_Parish" FromRole="Parish" ToRole="Garage" />
+          <NavigationProperty Name="HomeApplianceRepair" Relationship="InsurancePortal_dbModel.FK_HomeApplianceRepair_Parish" FromRole="Parish" ToRole="HomeApplianceRepair" />
+          <NavigationProperty Name="InsuranceCompanyContact" Relationship="InsurancePortal_dbModel.FK_InsuranceCompanyContact_Parish" FromRole="Parish" ToRole="InsuranceCompanyContact" />
+          <NavigationProperty Name="MedicalClinic" Relationship="InsurancePortal_dbModel.FK_MedicalClinic_Parish" FromRole="Parish" ToRole="MedicalClinic" />
+        </EntityType>
         <EntityType Name="ConstructionCompany">
           <Key>
             <PropertyRef Name="ID" />
@@ -1801,16 +2341,21 @@
           <Property Name="Telephone_1" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Telephone_2" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Address" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="ID_PostalCode" Type="Int64" />
+          <Property Name="ID_District" Type="Int64" />
+          <Property Name="ID_County" Type="Int64" />
+          <Property Name="ID_Parish" Type="Int64" />
           <Property Name="LogoPhoto" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="Website" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="OficialPartner" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="OficialAgent" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="OfficialPartner" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="OfficialAgent" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="LastChangeDate" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="DeleteDate" Type="DateTime" Precision="7" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="PostalCode" Relationship="InsurancePortal_dbModel.FK_ConstructionCompany_PostalCode" FromRole="ConstructionCompany" ToRole="PostalCode" />
+          <NavigationProperty Name="County" Relationship="InsurancePortal_dbModel.FK_ConstructionCompany_County" FromRole="ConstructionCompany" ToRole="County" />
+          <NavigationProperty Name="District" Relationship="InsurancePortal_dbModel.FK_ConstructionCompany_District" FromRole="ConstructionCompany" ToRole="District" />
+          <NavigationProperty Name="Parish" Relationship="InsurancePortal_dbModel.FK_ConstructionCompany_Parish" FromRole="ConstructionCompany" ToRole="Parish" />
+          <NavigationProperty Name="ConstructionCompanyFavorite" Relationship="InsurancePortal_dbModel.FK_ConstructionCompanyFavorite_ConstructionCompany" FromRole="ConstructionCompany" ToRole="ConstructionCompanyFavorite" />
         </EntityType>
         <EntityType Name="Garage">
           <Key>
@@ -1826,16 +2371,21 @@
           <Property Name="Telephone_1" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Telephone_2" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Address" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="ID_PostalCode" Type="Int64" />
+          <Property Name="ID_District" Type="Int64" />
+          <Property Name="ID_County" Type="Int64" />
+          <Property Name="ID_Parish" Type="Int64" />
           <Property Name="LogoPhoto" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="Website" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="OficialPartner" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="OficialAgent" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="OfficialPartner" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="OfficialAgent" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="LastChangeDate" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="DeleteDate" Type="DateTime" Precision="7" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="PostalCode" Relationship="InsurancePortal_dbModel.FK_Garage_PostalCode" FromRole="Garage" ToRole="PostalCode" />
+          <NavigationProperty Name="County" Relationship="InsurancePortal_dbModel.FK_Garage_County" FromRole="Garage" ToRole="County" />
+          <NavigationProperty Name="District" Relationship="InsurancePortal_dbModel.FK_Garage_District" FromRole="Garage" ToRole="District" />
+          <NavigationProperty Name="Parish" Relationship="InsurancePortal_dbModel.FK_Garage_Parish" FromRole="Garage" ToRole="Parish" />
+          <NavigationProperty Name="GarageFavorite" Relationship="InsurancePortal_dbModel.FK_GarageFavorite_Garage" FromRole="Garage" ToRole="GarageFavorite" />
         </EntityType>
         <EntityType Name="HomeApplianceRepair">
           <Key>
@@ -1851,16 +2401,21 @@
           <Property Name="Telephone_1" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Telephone_2" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Address" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="ID_PostalCode" Type="Int64" />
+          <Property Name="ID_District" Type="Int64" />
+          <Property Name="ID_County" Type="Int64" />
+          <Property Name="ID_Parish" Type="Int64" />
           <Property Name="LogoPhoto" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="Website" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="OficialPartner" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="OficialAgent" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="OfficialPartner" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="OfficialAgent" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="LastChangeDate" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="DeleteDate" Type="DateTime" Precision="7" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="PostalCode" Relationship="InsurancePortal_dbModel.FK_HomeApplianceRepair_PostalCode" FromRole="HomeApplianceRepair" ToRole="PostalCode" />
+          <NavigationProperty Name="County" Relationship="InsurancePortal_dbModel.FK_HomeApplianceRepair_County" FromRole="HomeApplianceRepair" ToRole="County" />
+          <NavigationProperty Name="District" Relationship="InsurancePortal_dbModel.FK_HomeApplianceRepair_District" FromRole="HomeApplianceRepair" ToRole="District" />
+          <NavigationProperty Name="Parish" Relationship="InsurancePortal_dbModel.FK_HomeApplianceRepair_Parish" FromRole="HomeApplianceRepair" ToRole="Parish" />
+          <NavigationProperty Name="HomeApplianceRepairFavorite" Relationship="InsurancePortal_dbModel.FK_HomeApplianceRepairFavorite_HomeApplianceRepair" FromRole="HomeApplianceRepair" ToRole="HomeApplianceRepairFavorite" />
         </EntityType>
         <EntityType Name="InsuranceCompanyContact">
           <Key>
@@ -1876,16 +2431,21 @@
           <Property Name="Telephone_1" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Telephone_2" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Address" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="ID_PostalCode" Type="Int64" />
+          <Property Name="ID_District" Type="Int64" />
+          <Property Name="ID_County" Type="Int64" />
+          <Property Name="ID_Parish" Type="Int64" />
           <Property Name="LogoPhoto" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="Website" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="OficialPartner" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="OficialAgent" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="OfficialPartner" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="OfficialAgent" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="LastChangeDate" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="DeleteDate" Type="DateTime" Precision="7" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="PostalCode" Relationship="InsurancePortal_dbModel.FK_InsuranceCompanyContact_PostalCode" FromRole="InsuranceCompanyContact" ToRole="PostalCode" />
+          <NavigationProperty Name="County" Relationship="InsurancePortal_dbModel.FK_InsuranceCompanyContact_County" FromRole="InsuranceCompanyContact" ToRole="County" />
+          <NavigationProperty Name="District" Relationship="InsurancePortal_dbModel.FK_InsuranceCompanyContact_District" FromRole="InsuranceCompanyContact" ToRole="District" />
+          <NavigationProperty Name="Parish" Relationship="InsurancePortal_dbModel.FK_InsuranceCompanyContact_Parish" FromRole="InsuranceCompanyContact" ToRole="Parish" />
+          <NavigationProperty Name="InsuranceCompanyContactFavorite" Relationship="InsurancePortal_dbModel.FK_InsuranceCompanyContactFavorite_InsuranceCompanyContact" FromRole="InsuranceCompanyContact" ToRole="InsuranceCompanyContactFavorite" />
         </EntityType>
         <EntityType Name="MedicalClinic">
           <Key>
@@ -1901,74 +2461,374 @@
           <Property Name="Telephone_1" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Telephone_2" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Address" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="ID_PostalCode" Type="Int64" />
+          <Property Name="ID_District" Type="Int64" />
+          <Property Name="ID_County" Type="Int64" />
+          <Property Name="ID_Parish" Type="Int64" />
           <Property Name="LogoPhoto" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="Website" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="OficialPartner" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="OficialAgent" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="OfficialPartner" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="OfficialAgent" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="LastChangeDate" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="DeleteDate" Type="DateTime" Precision="7" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="PostalCode" Relationship="InsurancePortal_dbModel.FK_MedicalClinic_PostalCode" FromRole="MedicalClinic" ToRole="PostalCode" />
+          <NavigationProperty Name="County" Relationship="InsurancePortal_dbModel.FK_MedicalClinic_County" FromRole="MedicalClinic" ToRole="County" />
+          <NavigationProperty Name="District" Relationship="InsurancePortal_dbModel.FK_MedicalClinic_District" FromRole="MedicalClinic" ToRole="District" />
+          <NavigationProperty Name="Parish" Relationship="InsurancePortal_dbModel.FK_MedicalClinic_Parish" FromRole="MedicalClinic" ToRole="Parish" />
+          <NavigationProperty Name="MedicalClinicFavorite" Relationship="InsurancePortal_dbModel.FK_MedicalClinicFavorite_MedicalClinic" FromRole="MedicalClinic" ToRole="MedicalClinicFavorite" />
         </EntityType>
-        <Association Name="FK_ConstructionCompany_PostalCode">
-          <End Type="InsurancePortal_dbModel.PostalCode" Role="PostalCode" Multiplicity="0..1" />
+        <Association Name="FK_ConstructionCompany_County">
+          <End Type="InsurancePortal_dbModel.County" Role="County" Multiplicity="0..1" />
           <End Type="InsurancePortal_dbModel.ConstructionCompany" Role="ConstructionCompany" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="PostalCode">
+            <Principal Role="County">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="ConstructionCompany">
-              <PropertyRef Name="ID_PostalCode" />
+              <PropertyRef Name="ID_County" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Garage_PostalCode">
-          <End Type="InsurancePortal_dbModel.PostalCode" Role="PostalCode" Multiplicity="0..1" />
+        <Association Name="FK_ConstructionCompany_District">
+          <End Type="InsurancePortal_dbModel.District" Role="District" Multiplicity="0..1" />
+          <End Type="InsurancePortal_dbModel.ConstructionCompany" Role="ConstructionCompany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ConstructionCompany">
+              <PropertyRef Name="ID_District" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConstructionCompany_Parish">
+          <End Type="InsurancePortal_dbModel.Parish" Role="Parish" Multiplicity="0..1" />
+          <End Type="InsurancePortal_dbModel.ConstructionCompany" Role="ConstructionCompany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Parish">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ConstructionCompany">
+              <PropertyRef Name="ID_Parish" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Garage_County">
+          <End Type="InsurancePortal_dbModel.County" Role="County" Multiplicity="0..1" />
           <End Type="InsurancePortal_dbModel.Garage" Role="Garage" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="PostalCode">
+            <Principal Role="County">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="Garage">
-              <PropertyRef Name="ID_PostalCode" />
+              <PropertyRef Name="ID_County" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_HomeApplianceRepair_PostalCode">
-          <End Type="InsurancePortal_dbModel.PostalCode" Role="PostalCode" Multiplicity="0..1" />
+        <Association Name="FK_HomeApplianceRepair_County">
+          <End Type="InsurancePortal_dbModel.County" Role="County" Multiplicity="0..1" />
           <End Type="InsurancePortal_dbModel.HomeApplianceRepair" Role="HomeApplianceRepair" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="PostalCode">
+            <Principal Role="County">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="HomeApplianceRepair">
-              <PropertyRef Name="ID_PostalCode" />
+              <PropertyRef Name="ID_County" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_InsuranceCompanyContact_PostalCode">
-          <End Type="InsurancePortal_dbModel.PostalCode" Role="PostalCode" Multiplicity="0..1" />
+        <Association Name="FK_InsuranceCompanyContact_County">
+          <End Type="InsurancePortal_dbModel.County" Role="County" Multiplicity="0..1" />
           <End Type="InsurancePortal_dbModel.InsuranceCompanyContact" Role="InsuranceCompanyContact" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="PostalCode">
+            <Principal Role="County">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="InsuranceCompanyContact">
-              <PropertyRef Name="ID_PostalCode" />
+              <PropertyRef Name="ID_County" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_MedicalClinic_PostalCode">
-          <End Type="InsurancePortal_dbModel.PostalCode" Role="PostalCode" Multiplicity="0..1" />
+        <Association Name="FK_MedicalClinic_County">
+          <End Type="InsurancePortal_dbModel.County" Role="County" Multiplicity="0..1" />
           <End Type="InsurancePortal_dbModel.MedicalClinic" Role="MedicalClinic" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="PostalCode">
+            <Principal Role="County">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="MedicalClinic">
-              <PropertyRef Name="ID_PostalCode" />
+              <PropertyRef Name="ID_County" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Garage_District">
+          <End Type="InsurancePortal_dbModel.District" Role="District" Multiplicity="0..1" />
+          <End Type="InsurancePortal_dbModel.Garage" Role="Garage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Garage">
+              <PropertyRef Name="ID_District" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HomeApplianceRepair_District">
+          <End Type="InsurancePortal_dbModel.District" Role="District" Multiplicity="0..1" />
+          <End Type="InsurancePortal_dbModel.HomeApplianceRepair" Role="HomeApplianceRepair" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="HomeApplianceRepair">
+              <PropertyRef Name="ID_District" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InsuranceCompanyContact_District">
+          <End Type="InsurancePortal_dbModel.District" Role="District" Multiplicity="0..1" />
+          <End Type="InsurancePortal_dbModel.InsuranceCompanyContact" Role="InsuranceCompanyContact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="InsuranceCompanyContact">
+              <PropertyRef Name="ID_District" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedicalClinic_District">
+          <End Type="InsurancePortal_dbModel.District" Role="District" Multiplicity="0..1" />
+          <End Type="InsurancePortal_dbModel.MedicalClinic" Role="MedicalClinic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MedicalClinic">
+              <PropertyRef Name="ID_District" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Garage_Parish">
+          <End Type="InsurancePortal_dbModel.Parish" Role="Parish" Multiplicity="0..1" />
+          <End Type="InsurancePortal_dbModel.Garage" Role="Garage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Parish">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Garage">
+              <PropertyRef Name="ID_Parish" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HomeApplianceRepair_Parish">
+          <End Type="InsurancePortal_dbModel.Parish" Role="Parish" Multiplicity="0..1" />
+          <End Type="InsurancePortal_dbModel.HomeApplianceRepair" Role="HomeApplianceRepair" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Parish">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="HomeApplianceRepair">
+              <PropertyRef Name="ID_Parish" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InsuranceCompanyContact_Parish">
+          <End Type="InsurancePortal_dbModel.Parish" Role="Parish" Multiplicity="0..1" />
+          <End Type="InsurancePortal_dbModel.InsuranceCompanyContact" Role="InsuranceCompanyContact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Parish">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="InsuranceCompanyContact">
+              <PropertyRef Name="ID_Parish" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedicalClinic_Parish">
+          <End Type="InsurancePortal_dbModel.Parish" Role="Parish" Multiplicity="0..1" />
+          <End Type="InsurancePortal_dbModel.MedicalClinic" Role="MedicalClinic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Parish">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MedicalClinic">
+              <PropertyRef Name="ID_Parish" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ConstructionCompanyFavorite">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_ConstructionCompany" Type="Int64" Nullable="false" />
+          <Property Name="ID_User" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="7" />
+          <NavigationProperty Name="AspNetUsers" Relationship="InsurancePortal_dbModel.FK_ConstructionCompanyFavorite_User" FromRole="ConstructionCompanyFavorite" ToRole="AspNetUsers" />
+          <NavigationProperty Name="ConstructionCompany" Relationship="InsurancePortal_dbModel.FK_ConstructionCompanyFavorite_ConstructionCompany" FromRole="ConstructionCompanyFavorite" ToRole="ConstructionCompany" />
+        </EntityType>
+        <EntityType Name="GarageFavorite">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Garage" Type="Int64" Nullable="false" />
+          <Property Name="ID_User" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="7" />
+          <NavigationProperty Name="AspNetUsers" Relationship="InsurancePortal_dbModel.FK_GarageFavorite_User" FromRole="GarageFavorite" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Garage" Relationship="InsurancePortal_dbModel.FK_GarageFavorite_Garage" FromRole="GarageFavorite" ToRole="Garage" />
+        </EntityType>
+        <EntityType Name="HomeApplianceRepairFavorite">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_HomeApplianceRepair" Type="Int64" Nullable="false" />
+          <Property Name="ID_User" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="7" />
+          <NavigationProperty Name="AspNetUsers" Relationship="InsurancePortal_dbModel.FK_HomeApplianceRepairFavorite_User" FromRole="HomeApplianceRepairFavorite" ToRole="AspNetUsers" />
+          <NavigationProperty Name="HomeApplianceRepair" Relationship="InsurancePortal_dbModel.FK_HomeApplianceRepairFavorite_HomeApplianceRepair" FromRole="HomeApplianceRepairFavorite" ToRole="HomeApplianceRepair" />
+        </EntityType>
+        <EntityType Name="InsuranceCompanyContactFavorite">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_InsuranceCompanyContact" Type="Int64" Nullable="false" />
+          <Property Name="ID_User" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="7" />
+          <NavigationProperty Name="AspNetUsers" Relationship="InsurancePortal_dbModel.FK_InsuranceCompanyContactFavorite_User" FromRole="InsuranceCompanyContactFavorite" ToRole="AspNetUsers" />
+          <NavigationProperty Name="InsuranceCompanyContact" Relationship="InsurancePortal_dbModel.FK_InsuranceCompanyContactFavorite_InsuranceCompanyContact" FromRole="InsuranceCompanyContactFavorite" ToRole="InsuranceCompanyContact" />
+        </EntityType>
+        <EntityType Name="MedicalClinicFavorite">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_MedicalClinic" Type="Int64" Nullable="false" />
+          <Property Name="ID_User" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="7" />
+          <NavigationProperty Name="AspNetUsers" Relationship="InsurancePortal_dbModel.FK_MedicalClinicFavorite_User" FromRole="MedicalClinicFavorite" ToRole="AspNetUsers" />
+          <NavigationProperty Name="MedicalClinic" Relationship="InsurancePortal_dbModel.FK_MedicalClinicFavorite_MedicalClinic" FromRole="MedicalClinicFavorite" ToRole="MedicalClinic" />
+        </EntityType>
+        <Association Name="FK_ConstructionCompanyFavorite_User">
+          <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="InsurancePortal_dbModel.ConstructionCompanyFavorite" Role="ConstructionCompanyFavorite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ConstructionCompanyFavorite">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GarageFavorite_User">
+          <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="InsurancePortal_dbModel.GarageFavorite" Role="GarageFavorite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GarageFavorite">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HomeApplianceRepairFavorite_User">
+          <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="InsurancePortal_dbModel.HomeApplianceRepairFavorite" Role="HomeApplianceRepairFavorite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HomeApplianceRepairFavorite">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InsuranceCompanyContactFavorite_User">
+          <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="InsurancePortal_dbModel.InsuranceCompanyContactFavorite" Role="InsuranceCompanyContactFavorite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InsuranceCompanyContactFavorite">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedicalClinicFavorite_User">
+          <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="InsurancePortal_dbModel.MedicalClinicFavorite" Role="MedicalClinicFavorite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MedicalClinicFavorite">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConstructionCompanyFavorite_ConstructionCompany">
+          <End Type="InsurancePortal_dbModel.ConstructionCompany" Role="ConstructionCompany" Multiplicity="1" />
+          <End Type="InsurancePortal_dbModel.ConstructionCompanyFavorite" Role="ConstructionCompanyFavorite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ConstructionCompany">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ConstructionCompanyFavorite">
+              <PropertyRef Name="ID_ConstructionCompany" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GarageFavorite_Garage">
+          <End Type="InsurancePortal_dbModel.Garage" Role="Garage" Multiplicity="1" />
+          <End Type="InsurancePortal_dbModel.GarageFavorite" Role="GarageFavorite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Garage">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GarageFavorite">
+              <PropertyRef Name="ID_Garage" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HomeApplianceRepairFavorite_HomeApplianceRepair">
+          <End Type="InsurancePortal_dbModel.HomeApplianceRepair" Role="HomeApplianceRepair" Multiplicity="1" />
+          <End Type="InsurancePortal_dbModel.HomeApplianceRepairFavorite" Role="HomeApplianceRepairFavorite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HomeApplianceRepair">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="HomeApplianceRepairFavorite">
+              <PropertyRef Name="ID_HomeApplianceRepair" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InsuranceCompanyContactFavorite_InsuranceCompanyContact">
+          <End Type="InsurancePortal_dbModel.InsuranceCompanyContact" Role="InsuranceCompanyContact" Multiplicity="1" />
+          <End Type="InsurancePortal_dbModel.InsuranceCompanyContactFavorite" Role="InsuranceCompanyContactFavorite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InsuranceCompanyContact">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="InsuranceCompanyContactFavorite">
+              <PropertyRef Name="ID_InsuranceCompanyContact" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedicalClinicFavorite_MedicalClinic">
+          <End Type="InsurancePortal_dbModel.MedicalClinic" Role="MedicalClinic" Multiplicity="1" />
+          <End Type="InsurancePortal_dbModel.MedicalClinicFavorite" Role="MedicalClinicFavorite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MedicalClinic">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MedicalClinicFavorite">
+              <PropertyRef Name="ID_MedicalClinic" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2280,6 +3140,36 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="County">
+            <EntityTypeMapping TypeName="InsurancePortal_dbModel.County">
+              <MappingFragment StoreEntitySet="County">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="District_Code" ColumnName="District_Code" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="District">
+            <EntityTypeMapping TypeName="InsurancePortal_dbModel.District">
+              <MappingFragment StoreEntitySet="District">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Parish">
+            <EntityTypeMapping TypeName="InsurancePortal_dbModel.Parish">
+              <MappingFragment StoreEntitySet="Parish">
+                <ScalarProperty Name="Designation" ColumnName="Designation" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="County_Code" ColumnName="County_Code" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="ConstructionCompany">
             <EntityTypeMapping TypeName="InsurancePortal_dbModel.ConstructionCompany">
               <MappingFragment StoreEntitySet="ConstructionCompany">
@@ -2287,11 +3177,13 @@
                 <ScalarProperty Name="DeleteDate" ColumnName="DeleteDate" />
                 <ScalarProperty Name="LastChangeDate" ColumnName="LastChangeDate" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="OficialAgent" ColumnName="OficialAgent" />
-                <ScalarProperty Name="OficialPartner" ColumnName="OficialPartner" />
+                <ScalarProperty Name="OfficialAgent" ColumnName="OfficialAgent" />
+                <ScalarProperty Name="OfficialPartner" ColumnName="OfficialPartner" />
                 <ScalarProperty Name="Website" ColumnName="Website" />
                 <ScalarProperty Name="LogoPhoto" ColumnName="LogoPhoto" />
-                <ScalarProperty Name="ID_PostalCode" ColumnName="ID_PostalCode" />
+                <ScalarProperty Name="ID_Parish" ColumnName="ID_Parish" />
+                <ScalarProperty Name="ID_County" ColumnName="ID_County" />
+                <ScalarProperty Name="ID_District" ColumnName="ID_District" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="Telephone_2" ColumnName="Telephone_2" />
                 <ScalarProperty Name="Telephone_1" ColumnName="Telephone_1" />
@@ -2312,11 +3204,13 @@
                 <ScalarProperty Name="DeleteDate" ColumnName="DeleteDate" />
                 <ScalarProperty Name="LastChangeDate" ColumnName="LastChangeDate" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="OficialAgent" ColumnName="OficialAgent" />
-                <ScalarProperty Name="OficialPartner" ColumnName="OficialPartner" />
+                <ScalarProperty Name="OfficialAgent" ColumnName="OfficialAgent" />
+                <ScalarProperty Name="OfficialPartner" ColumnName="OfficialPartner" />
                 <ScalarProperty Name="Website" ColumnName="Website" />
                 <ScalarProperty Name="LogoPhoto" ColumnName="LogoPhoto" />
-                <ScalarProperty Name="ID_PostalCode" ColumnName="ID_PostalCode" />
+                <ScalarProperty Name="ID_Parish" ColumnName="ID_Parish" />
+                <ScalarProperty Name="ID_County" ColumnName="ID_County" />
+                <ScalarProperty Name="ID_District" ColumnName="ID_District" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="Telephone_2" ColumnName="Telephone_2" />
                 <ScalarProperty Name="Telephone_1" ColumnName="Telephone_1" />
@@ -2337,11 +3231,13 @@
                 <ScalarProperty Name="DeleteDate" ColumnName="DeleteDate" />
                 <ScalarProperty Name="LastChangeDate" ColumnName="LastChangeDate" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="OficialAgent" ColumnName="OficialAgent" />
-                <ScalarProperty Name="OficialPartner" ColumnName="OficialPartner" />
+                <ScalarProperty Name="OfficialAgent" ColumnName="OfficialAgent" />
+                <ScalarProperty Name="OfficialPartner" ColumnName="OfficialPartner" />
                 <ScalarProperty Name="Website" ColumnName="Website" />
                 <ScalarProperty Name="LogoPhoto" ColumnName="LogoPhoto" />
-                <ScalarProperty Name="ID_PostalCode" ColumnName="ID_PostalCode" />
+                <ScalarProperty Name="ID_Parish" ColumnName="ID_Parish" />
+                <ScalarProperty Name="ID_County" ColumnName="ID_County" />
+                <ScalarProperty Name="ID_District" ColumnName="ID_District" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="Telephone_2" ColumnName="Telephone_2" />
                 <ScalarProperty Name="Telephone_1" ColumnName="Telephone_1" />
@@ -2362,11 +3258,13 @@
                 <ScalarProperty Name="DeleteDate" ColumnName="DeleteDate" />
                 <ScalarProperty Name="LastChangeDate" ColumnName="LastChangeDate" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="OficialAgent" ColumnName="OficialAgent" />
-                <ScalarProperty Name="OficialPartner" ColumnName="OficialPartner" />
+                <ScalarProperty Name="OfficialAgent" ColumnName="OfficialAgent" />
+                <ScalarProperty Name="OfficialPartner" ColumnName="OfficialPartner" />
                 <ScalarProperty Name="Website" ColumnName="Website" />
                 <ScalarProperty Name="LogoPhoto" ColumnName="LogoPhoto" />
-                <ScalarProperty Name="ID_PostalCode" ColumnName="ID_PostalCode" />
+                <ScalarProperty Name="ID_Parish" ColumnName="ID_Parish" />
+                <ScalarProperty Name="ID_County" ColumnName="ID_County" />
+                <ScalarProperty Name="ID_District" ColumnName="ID_District" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="Telephone_2" ColumnName="Telephone_2" />
                 <ScalarProperty Name="Telephone_1" ColumnName="Telephone_1" />
@@ -2387,11 +3285,13 @@
                 <ScalarProperty Name="DeleteDate" ColumnName="DeleteDate" />
                 <ScalarProperty Name="LastChangeDate" ColumnName="LastChangeDate" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="OficialAgent" ColumnName="OficialAgent" />
-                <ScalarProperty Name="OficialPartner" ColumnName="OficialPartner" />
+                <ScalarProperty Name="OfficialAgent" ColumnName="OfficialAgent" />
+                <ScalarProperty Name="OfficialPartner" ColumnName="OfficialPartner" />
                 <ScalarProperty Name="Website" ColumnName="Website" />
                 <ScalarProperty Name="LogoPhoto" ColumnName="LogoPhoto" />
-                <ScalarProperty Name="ID_PostalCode" ColumnName="ID_PostalCode" />
+                <ScalarProperty Name="ID_Parish" ColumnName="ID_Parish" />
+                <ScalarProperty Name="ID_County" ColumnName="ID_County" />
+                <ScalarProperty Name="ID_District" ColumnName="ID_District" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="Telephone_2" ColumnName="Telephone_2" />
                 <ScalarProperty Name="Telephone_1" ColumnName="Telephone_1" />
@@ -2401,6 +3301,56 @@
                 <ScalarProperty Name="NIF" ColumnName="NIF" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ConstructionCompanyFavorite">
+            <EntityTypeMapping TypeName="InsurancePortal_dbModel.ConstructionCompanyFavorite">
+              <MappingFragment StoreEntitySet="ConstructionCompanyFavorite">
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
+                <ScalarProperty Name="ID_ConstructionCompany" ColumnName="ID_ConstructionCompany" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GarageFavorite">
+            <EntityTypeMapping TypeName="InsurancePortal_dbModel.GarageFavorite">
+              <MappingFragment StoreEntitySet="GarageFavorite">
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
+                <ScalarProperty Name="ID_Garage" ColumnName="ID_Garage" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HomeApplianceRepairFavorite">
+            <EntityTypeMapping TypeName="InsurancePortal_dbModel.HomeApplianceRepairFavorite">
+              <MappingFragment StoreEntitySet="HomeApplianceRepairFavorite">
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
+                <ScalarProperty Name="ID_HomeApplianceRepair" ColumnName="ID_HomeApplianceRepair" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InsuranceCompanyContactFavorite">
+            <EntityTypeMapping TypeName="InsurancePortal_dbModel.InsuranceCompanyContactFavorite">
+              <MappingFragment StoreEntitySet="InsuranceCompanyContactFavorite">
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
+                <ScalarProperty Name="ID_InsuranceCompanyContact" ColumnName="ID_InsuranceCompanyContact" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MedicalClinicFavorite">
+            <EntityTypeMapping TypeName="InsurancePortal_dbModel.MedicalClinicFavorite">
+              <MappingFragment StoreEntitySet="MedicalClinicFavorite">
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
+                <ScalarProperty Name="ID_MedicalClinic" ColumnName="ID_MedicalClinic" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

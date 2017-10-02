@@ -1,0 +1,7 @@
+﻿CREATE TABLE [Insurance].[District]
+(
+	[ID] BIGINT IDENTITY NOT NULL, 
+    [Code] INT NOT NULL, 
+    [Name] NVARCHAR(256) NOT NULL, 
+    CONSTRAINT [PK_District] PRIMARY KEY CLUSTERED ([ID] ASC)
+)

@@ -18,5 +18,9 @@ Post-Deployment Script Template
 :r .\InitData\AspNetUsers.sql
 :r .\InitData\FriendStatus.sql
 :r .\InitData\BannerType.sql
+:r .\InitData\District.sql
+:r .\InitData\County.sql
+:r .\InitData\Parish.sql
+--:r .\InitData\PostalCode.sql
 
 :r .\InitData\dummy_data.sql

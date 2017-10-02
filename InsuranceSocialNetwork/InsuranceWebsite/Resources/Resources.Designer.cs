@@ -142,6 +142,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Administração.
+        /// </summary>
+        public static string Administration {
+            get {
+                return ResourceManager.GetString("Administration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Administrador.
         /// </summary>
         public static string ADMINISTRATOR {
@@ -169,6 +178,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Página da APROSE.
+        /// </summary>
+        public static string AprosePage {
+            get {
+                return ResourceManager.GetString("AprosePage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to APS.
         /// </summary>
         public static string APS {
@@ -178,11 +196,38 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Página da APS.
+        /// </summary>
+        public static string ApsPage {
+            get {
+                return ResourceManager.GetString("ApsPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tem a certeza que pretende activar a empresa?.
+        /// </summary>
+        public static string AreYouSureToActivateCompany {
+            get {
+                return ResourceManager.GetString("AreYouSureToActivateCompany", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tem a certeza que pretende activar o utilizador?.
         /// </summary>
         public static string AreYouSureToActivateUser {
             get {
                 return ResourceManager.GetString("AreYouSureToActivateUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tem a certeza que pretende desactivar a empresa?.
+        /// </summary>
+        public static string AreYouSureToDeactivateCompany {
+            get {
+                return ResourceManager.GetString("AreYouSureToDeactivateCompany", resourceCulture);
             }
         }
         
@@ -210,6 +255,15 @@ namespace Resources {
         public static string ASF {
             get {
                 return ResourceManager.GetString("ASF", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Página da ASF.
+        /// </summary>
+        public static string AsfPage {
+            get {
+                return ResourceManager.GetString("AsfPage", resourceCulture);
             }
         }
         
@@ -295,6 +349,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Conversações.
+        /// </summary>
+        public static string Chats {
+            get {
+                return ResourceManager.GetString("Chats", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Verifique o seu e-mail para confirmar o registo e ativar o acesso ao portal..
         /// </summary>
         public static string CheckYourEmailToGetAccess {
@@ -349,6 +412,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Gestão de Empresas - Empresas de Construção.
+        /// </summary>
+        public static string ConstructionCompaniesManagement {
+            get {
+                return ResourceManager.GetString("ConstructionCompaniesManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nome da empresa de construção.
         /// </summary>
         public static string ConstructionCompanyName {
@@ -394,6 +466,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Concelho.
+        /// </summary>
+        public static string County {
+            get {
+                return ResourceManager.GetString("County", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Criar novo banner.
         /// </summary>
         public static string CreateNewBanner {
@@ -417,6 +498,15 @@ namespace Resources {
         public static string CreateNewUser {
             get {
                 return ResourceManager.GetString("CreateNewUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Em discussão.
+        /// </summary>
+        public static string CurrentDiscussions {
+            get {
+                return ResourceManager.GetString("CurrentDiscussions", resourceCulture);
             }
         }
         
@@ -610,11 +700,38 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Foram encontradas {0} oficinas.
+        /// </summary>
+        public static string FoundGarages {
+            get {
+                return ResourceManager.GetString("FoundGarages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Foram encontradas {0} clínicas.
+        /// </summary>
+        public static string FoundMedicalClinics {
+            get {
+                return ResourceManager.GetString("FoundMedicalClinics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Amigos.
         /// </summary>
         public static string Friends {
             get {
                 return ResourceManager.GetString("Friends", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gestão de Empresas - Garagens.
+        /// </summary>
+        public static string GarageCompaniesManagement {
+            get {
+                return ResourceManager.GetString("GarageCompaniesManagement", resourceCulture);
             }
         }
         
@@ -633,6 +750,15 @@ namespace Resources {
         public static string Home {
             get {
                 return ResourceManager.GetString("Home", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gestão de Empresas - Reparador de Electrodomésticos.
+        /// </summary>
+        public static string HomeApplianceRepairCompaniesManagement {
+            get {
+                return ResourceManager.GetString("HomeApplianceRepairCompaniesManagement", resourceCulture);
             }
         }
         
@@ -687,6 +813,15 @@ namespace Resources {
         public static string INSURANCE_PROFESSIONAL {
             get {
                 return ResourceManager.GetString("INSURANCE_PROFESSIONAL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gestão de Empresas - Contactos de Seguradoras.
+        /// </summary>
+        public static string InsuranceContactCompaniesManagement {
+            get {
+                return ResourceManager.GetString("InsuranceContactCompaniesManagement", resourceCulture);
             }
         }
         
@@ -768,6 +903,15 @@ namespace Resources {
         public static string MadePost {
             get {
                 return ResourceManager.GetString("MadePost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gestão de Empresas - Clinicas Médicas.
+        /// </summary>
+        public static string MedicalClinicCompaniesManagement {
+            get {
+                return ResourceManager.GetString("MedicalClinicCompaniesManagement", resourceCulture);
             }
         }
         
@@ -889,6 +1033,33 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Seleccione uma conversação para listar as respectivas mensagens.
+        /// </summary>
+        public static string NoActiveChatSelected {
+            get {
+                return ResourceManager.GetString("NoActiveChatSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Não existem conversações.
+        /// </summary>
+        public static string NoChats {
+            get {
+                return ResourceManager.GetString("NoChats", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De momento não possui amigos.
+        /// </summary>
+        public static string NoFriends {
+            get {
+                return ResourceManager.GetString("NoFriends", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De momento não possui notificações.
         /// </summary>
         public static string NoNotifications {
@@ -943,6 +1114,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Parceiro oficial.
+        /// </summary>
+        public static string OfficialPartner {
+            get {
+                return ResourceManager.GetString("OfficialPartner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Palavra-passe anterior.
         /// </summary>
         public static string OldPassword {
@@ -957,6 +1137,15 @@ namespace Resources {
         public static string PageSize {
             get {
                 return ResourceManager.GetString("PageSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Freguesia.
+        /// </summary>
+        public static string Parish {
+            get {
+                return ResourceManager.GetString("Parish", resourceCulture);
             }
         }
         
@@ -984,6 +1173,15 @@ namespace Resources {
         public static string PasswordRequired {
             get {
                 return ResourceManager.GetString("PasswordRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Código postal.
+        /// </summary>
+        public static string PostalCode {
+            get {
+                return ResourceManager.GetString("PostalCode", resourceCulture);
             }
         }
         
@@ -1191,6 +1389,24 @@ namespace Resources {
         public static string SecondsAgo {
             get {
                 return ResourceManager.GetString("SecondsAgo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Seleccione o concelho.
+        /// </summary>
+        public static string SelectCounty {
+            get {
+                return ResourceManager.GetString("SelectCounty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Seleccione o distrito.
+        /// </summary>
+        public static string SelectDistrict {
+            get {
+                return ResourceManager.GetString("SelectDistrict", resourceCulture);
             }
         }
         

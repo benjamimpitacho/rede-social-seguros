@@ -77,7 +77,14 @@
     <div class="item">
         <a href="@Url.Action("LogOff", "Account")" title="@Resources.Resources.Logout"><span class="glyphicon glyphicon-log-out"></span></a>
     </div>
+
     @if (InsuranceBusiness.BusinessLayer.IsUserAuthorizedToFunctionality(this.User.Identity.Name, Functionality.USERS_MANAGEMENT.ToString()))
+    {
+        <div class="item">
+            <a href = "@Url.Action("SystemManagement", "Home")" title="@Resources.Resources.Administration"><span class="glyphicon glyphicon-cog"></span></a>
+        </div>
+    }
+    @*@if (InsuranceBusiness.BusinessLayer.IsUserAuthorizedToFunctionality(this.User.Identity.Name, Functionality.USERS_MANAGEMENT.ToString()))
     {
         <div class="item">
             <a href = "@Url.Action("Index", "UsersManagement")" title="@Resources.Resources.UsersManagement"><span class="glyphicon glyphicon-cog"></span></a>
@@ -100,7 +107,7 @@
         <div class="item">
             <a href="@Url.Action("Index", "BannersManagement")" title="@Resources.Resources.BannersManagement"><span class="glyphicon glyphicon-warning-sign"></span></a>
         </div>
-    }
+    }*@
 
     
 </div>

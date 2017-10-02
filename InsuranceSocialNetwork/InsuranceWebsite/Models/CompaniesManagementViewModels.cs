@@ -1,4 +1,6 @@
-﻿using InsuranceSocialNetworkDTO.Notification;
+﻿using InsuranceSocialNetworkBusiness;
+using InsuranceSocialNetworkCore.Enums;
+using InsuranceSocialNetworkDTO.Notification;
 using InsuranceSocialNetworkDTO.Post;
 using InsuranceSocialNetworkDTO.UserProfile;
 using System;
@@ -20,19 +22,27 @@ namespace InsuranceWebsite.Models
 
         public CompanyModelObject newCompany { get; set; }
 
+        public CompanyTypeEnum CompanyType { get; set; }
+
     }
 
     public class CompanyModelObject
     {
         public CompanyModelObject()
         {
-            //_bannerTypes = InsuranceSocialNetworkBusiness.InsuranceBusiness.BusinessLayer.GetBannerTypes().Select(i => new ListItem() { Id = i.ID, Name = Resources.Resources.ResourceManager.GetString(i.Description) }).ToList();
+            List<SelectListItem> initList = new List<SelectListItem>() { new SelectListItem() { Value = "", Text = Resources.Resources.SelectDistrict } };
+            this.DistrictList = initList.Concat(InsuranceBusiness.BusinessLayer.GetDistricts().Select(i => new SelectListItem() { Value = i.Key.ToString(), Text = i.Value }).ToList()).ToList();
+            this.CountyList = new List<SelectListItem>() { new SelectListItem() { Value = "", Text = Resources.Resources.SelectCounty } };
         }
+
+        public CompanyTypeEnum CompanyType { get; set; }
 
         public long ID { get; set; }
         [Required]
         public string Name { get; set; }
+        [Required]
         public string Description { get; set; }
+        [Required]
         public string NIF { get; set; }
         [Required]
         [EmailAddress]
@@ -42,14 +52,23 @@ namespace InsuranceWebsite.Models
         public string Telephone_1 { get; set; }
         public string Telephone_2 { get; set; }
         public string Address { get; set; }
-        public long? ID_PostalCode { get; set; }
+        //public long? ID_PostalCode { get; set; }
+        public long? ID_District { get; set; }
+        public long? ID_County { get; set; }
+        public long? ID_Parish { get; set; }
         public byte[] LogoPhoto { get; set; }
         [Url]
         public string Website { get; set; }
-        public string OficialPartner { get; set; }
-        public string OficialAgent { get; set; }
+        public string OfficialPartner { get; set; }
+        public string OfficialAgent { get; set; }
         public bool Active { get; set; }
-        
+
+        public List<SelectListItem> DistrictList { get; set; }
+
+        public List<SelectListItem> CountyList { get; set; }
+
+        public List<SelectListItem> ParishList { get; set; }
+
         //private List<ListItem> _bannerTypes;
         //public IEnumerable<SelectListItem> BannerTypesList
         //{

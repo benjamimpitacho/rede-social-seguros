@@ -31,7 +31,7 @@
                         <div class="container container-timeline" style="margin:15px;">
                             <div class="col-md-11 no-paddin-xs" style="background-color:white; padding:20px;width:90%">
 
-                                <a href="@Url.Action("Create", "CompaniesManagement")" class='btn btn-success lnkCreate'>@Resources.Resources.CreateNewCompany</a>
+                                <a href="@Url.Action("Create", "CompaniesManagement", new { id=Model.CompanyType })" class='btn btn-success lnkCreate'>@Resources.Resources.CreateNewCompany</a>
                                 <p></p>
 
                                 @Html.Partial("_MVCGridToolbar", new MVCGridToolbarModel()
@@ -42,7 +42,7 @@
                                     Export = true,
                                     GlobalSearch = true
                                 })
-                                @Html.MVCGrid("CompaniesManagementGrid")
+                                @*@Html.MVCGrid("CompaniesManagementGrid")*@
 
                             </div>
                         </div>
@@ -218,4 +218,4 @@
 <div id="dialog-detail" style="display: none">
 </div>
 
-@Html.Partial("~/Views/Home/Partial/Footer.cshtml", Model)
+@*@Html.Partial("~/Views/Home/Partial/Footer.cshtml", Model)*@

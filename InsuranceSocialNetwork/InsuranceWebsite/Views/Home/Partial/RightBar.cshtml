@@ -1,31 +1,7 @@
 ﻿@using InsuranceWebsite.Models
 @model HomeViewModel
 
-<script>
-    $(function () {
-        var icons = {
-            header: "ui-icon-circle-arrow-e",
-            activeHeader: "ui-icon-circle-arrow-s"
-        };
-
-        $("#accordion").accordion({
-            collapsible: true,
-            active: false,
-            icons: icons
-        });
-
-        $("#toggle").button().on("click", function () {
-            if ($("#accordion").accordion("option", "icons")) {
-                $("#accordion").accordion("option", "icons", null);
-            }
-            else {
-                $("#accordion").accordion("option", "icons", icons);
-            }
-        });
-    });
-</script>
-
-<style>
+@*<style>
 
 .ui-accordion-header-collapsed .img-garages
 {
@@ -87,7 +63,7 @@
     background-size: 50px;
 }
 
-</style>
+</style>*@
 
 <!-- left content-->
 
@@ -104,12 +80,12 @@
                 <div>
                     @using (Html.BeginForm("SearchGarages", "Home", FormMethod.Post, new { id = "searchGaragesForm" }))
                     {
-                        @Html.TextBoxFor(m => m.GarageName, new { @class = "col-md-10", @style = "margin-top: 6px;margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.GarageName })
-                        @Html.TextBoxFor(m => m.GarageDistrict, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.District })
-                        @Html.TextBoxFor(m => m.GarageLocation, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.Location })
-                        @Html.TextBoxFor(m => m.GarageService, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.Services })
-                        @Html.TextBoxFor(m => m.GaragePartnership, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.Partnerships })
-                        @Html.TextBoxFor(m => m.GarageOfficialAgent, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.OfficialAgent })
+                        @Html.TextBoxFor(m => m.SearchCompaniesModel.GarageName, new { @class = "col-md-10", @style = "margin-top: 6px;margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.GarageName })
+                        @Html.DropDownListFor(m => m.SearchCompaniesModel.GarageDistrict, Model.SearchCompaniesModel.DistrictList, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;color:#777;min-height:28px;", @placeholder = Resources.Resources.District, id="garageDistrictList" })
+                        @Html.DropDownListFor(m => m.SearchCompaniesModel.GarageCounty, Model.SearchCompaniesModel.CountyList, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;color:#777;min-height:28px;", @placeholder = Resources.Resources.Location, id = "garageCountyList" })
+                        @Html.TextBoxFor(m => m.SearchCompaniesModel.GarageService, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.Services })
+                        @Html.TextBoxFor(m => m.SearchCompaniesModel.GaragePartnership, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.Partnerships })
+                        @Html.TextBoxFor(m => m.SearchCompaniesModel.GarageOfficialAgent, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.OfficialAgent })
 
                         <div class="col-md-10" style="margin-left:10%;margin-right:10%;width:80%; margin-bottom: 30px; padding: 0px;">
                             <a class="btn btn-warning pull-right" href="#" onclick="document.getElementById('searchGaragesForm').submit();" style="width:100%">@Resources.Resources.SearchGarages</a>
@@ -120,12 +96,12 @@
                 <div>
                     @using (Html.BeginForm("SearchClinics", "Home", FormMethod.Post, new { id = "searchClinicsForm" }))
                     {
-                        @Html.TextBoxFor(m => m.ClinicName, new { @class = "col-md-10", @style = "margin-top: 6px;margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.ClinicName })
-                        @Html.TextBoxFor(m => m.ClinicDistrict, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.District })
-                        @Html.TextBoxFor(m => m.ClinicLocation, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.Location })
-                        @Html.TextBoxFor(m => m.ClinicService, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.Services })
-                        @Html.TextBoxFor(m => m.ClinicPartnership, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.Partnerships })
-                        @Html.TextBoxFor(m => m.ClinicOfficialAgent, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.OfficialAgent })
+                        @Html.TextBoxFor(m => m.SearchCompaniesModel.ClinicName, new { @class = "col-md-10", @style = "margin-top: 6px;margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.ClinicName })
+                        @Html.DropDownListFor(m => m.SearchCompaniesModel.ClinicDistrict, Model.SearchCompaniesModel.DistrictList, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;color:#777;min-height:28px;", @placeholder = Resources.Resources.District, id = "clinicDistrictList" })
+                        @Html.DropDownListFor(m => m.SearchCompaniesModel.ClinicCounty, Model.SearchCompaniesModel.CountyList, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;color:#777;min-height:28px;", @placeholder = Resources.Resources.Location, id = "clinicCountyList" })
+                        @Html.TextBoxFor(m => m.SearchCompaniesModel.ClinicService, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.Services })
+                        @Html.TextBoxFor(m => m.SearchCompaniesModel.ClinicPartnership, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.Partnerships })
+                        @Html.TextBoxFor(m => m.SearchCompaniesModel.ClinicOfficialAgent, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.OfficialAgent })
 
                         <div class="col-md-10" style="margin-left:10%;margin-right:10%;width:80%; margin-bottom: 30px; padding: 0px;">
                             <a class="btn btn-warning pull-right" href="#" onclick="document.getElementById('searchClinicsForm').submit();" style="width:100%">@Resources.Resources.SearchClinics</a>
@@ -136,12 +112,12 @@
                 <div>
                     @using (Html.BeginForm("SearchConstructionCompanies", "Home", FormMethod.Post, new { id = "searchConstructionCompaniesForm" }))
                     {
-                        @Html.TextBoxFor(m => m.ConstructionCompanyName, new { @class = "col-md-10", @style = "margin-top: 6px;margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.ConstructionCompanyName })
-                        @Html.TextBoxFor(m => m.ConstructionCompanyDistrict, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.District })
-                        @Html.TextBoxFor(m => m.ConstructionCompanyLocation, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.Location })
-                        @Html.TextBoxFor(m => m.ConstructionCompanyService, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.Services })
-                        @Html.TextBoxFor(m => m.ConstructionCompanyPartnership, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.Partnerships })
-                        @Html.TextBoxFor(m => m.ConstructionCompanyOfficialAgent, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.OfficialAgent })
+                        @Html.TextBoxFor(m => m.SearchCompaniesModel.ConstructionCompanyName, new { @class = "col-md-10", @style = "margin-top: 6px;margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.ConstructionCompanyName })
+                        @Html.DropDownListFor(m => m.SearchCompaniesModel.ConstructionCompanyDistrict, Model.SearchCompaniesModel.DistrictList, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;color:#777;min-height:28px;", @placeholder = Resources.Resources.District, id = "constructionCompanyDistrictList" })
+                        @Html.DropDownListFor(m => m.SearchCompaniesModel.ConstructionCompanyCounty, Model.SearchCompaniesModel.CountyList, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;color:#777;min-height:28px;", @placeholder = Resources.Resources.Location, id = "constructionCompanyCountyList" })
+                        @Html.TextBoxFor(m => m.SearchCompaniesModel.ConstructionCompanyService, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.Services })
+                        @Html.TextBoxFor(m => m.SearchCompaniesModel.ConstructionCompanyPartnership, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.Partnerships })
+                        @Html.TextBoxFor(m => m.SearchCompaniesModel.ConstructionCompanyOfficialAgent, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.OfficialAgent })
 
                         <div class="col-md-10" style="margin-left:10%;margin-right:10%;width:80%; margin-bottom: 30px; padding: 0px;">
                             <a class="btn btn-warning pull-right" href="#" onclick="document.getElementById('searchConstructionCompaniesForm').submit();" style="width:100%">@Resources.Resources.SearchConstructionCompanies</a>
@@ -152,12 +128,12 @@
                 <div>
                     @using (Html.BeginForm("SearchHomeApplianceRepair", "Home", FormMethod.Post, new { id = "searchHomeApplianceRepairForm" }))
                     {
-                        @Html.TextBoxFor(m => m.HomeApplianceRepairName, new { @class = "col-md-10", @style = "margin-top: 6px;margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.HomeApplianceRepairName })
-                        @Html.TextBoxFor(m => m.HomeApplianceRepairDistrict, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.District })
-                        @Html.TextBoxFor(m => m.HomeApplianceRepairLocation, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.Location })
-                        @Html.TextBoxFor(m => m.HomeApplianceRepairService, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.Services })
-                        @Html.TextBoxFor(m => m.HomeApplianceRepairPartnership, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.Partnerships })
-                        @Html.TextBoxFor(m => m.HomeApplianceRepairOfficialAgent, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.OfficialAgent })
+                        @Html.TextBoxFor(m => m.SearchCompaniesModel.HomeApplianceRepairName, new { @class = "col-md-10", @style = "margin-top: 6px;margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.HomeApplianceRepairName })
+                        @Html.DropDownListFor(m => m.SearchCompaniesModel.HomeApplianceRepairDistrict, Model.SearchCompaniesModel.DistrictList, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;color:#777;min-height:28px;", @placeholder = Resources.Resources.District, id = "homeApplianceRepairDistrictList" })
+                        @Html.DropDownListFor(m => m.SearchCompaniesModel.HomeApplianceRepairCounty, Model.SearchCompaniesModel.CountyList, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;color:#777;min-height:28px;", @placeholder = Resources.Resources.Location, id = "homeApplianceRepairCountyList" })
+                        @Html.TextBoxFor(m => m.SearchCompaniesModel.HomeApplianceRepairService, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.Services })
+                        @Html.TextBoxFor(m => m.SearchCompaniesModel.HomeApplianceRepairPartnership, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.Partnerships })
+                        @Html.TextBoxFor(m => m.SearchCompaniesModel.HomeApplianceRepairOfficialAgent, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.OfficialAgent })
 
                         <div class="col-md-10" style="margin-left:10%;margin-right:10%;width:80%; margin-bottom: 30px; padding: 0px;">
                             <a class="btn btn-warning pull-right" href="#" onclick="document.getElementById('searchHomeApplianceRepairForm').submit();" style="width:100%">@Resources.Resources.SearchHomeApplianceRepair</a>
@@ -168,12 +144,12 @@
                 <div>
                     @using (Html.BeginForm("SearchInsuranceContacts", "Home", FormMethod.Post, new { id = "searchInsuranceContactsForm" }))
                     {
-                        @Html.TextBoxFor(m => m.InsuranceContactName, new { @class = "col-md-10", @style = "margin-top: 6px;margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.InsuranceContactName })
-                        @Html.TextBoxFor(m => m.InsuranceContactDistrict, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.District })
-                        @Html.TextBoxFor(m => m.InsuranceContactLocation, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.Location })
-                        @Html.TextBoxFor(m => m.InsuranceContactService, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.Services })
-                        @Html.TextBoxFor(m => m.InsuranceContactPartnership, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.Partnerships })
-                        @Html.TextBoxFor(m => m.InsuranceContactOfficialAgent, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.OfficialAgent })
+                        @Html.TextBoxFor(m => m.SearchCompaniesModel.InsuranceContactName, new { @class = "col-md-10", @style = "margin-top: 6px;margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.InsuranceContactName })
+                        @Html.DropDownListFor(m => m.SearchCompaniesModel.InsuranceContactDistrict, Model.SearchCompaniesModel.DistrictList, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;color:#777;min-height:28px;", @placeholder = Resources.Resources.District, id = "insuranceContactDistrictList" })
+                        @Html.DropDownListFor(m => m.SearchCompaniesModel.InsuranceContactCounty, Model.SearchCompaniesModel.CountyList, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;color:#777;min-height:28px;", @placeholder = Resources.Resources.Location, id = "insuranceContactCountyList" })
+                        @Html.TextBoxFor(m => m.SearchCompaniesModel.InsuranceContactService, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.Services })
+                        @Html.TextBoxFor(m => m.SearchCompaniesModel.InsuranceContactPartnership, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.Partnerships })
+                        @Html.TextBoxFor(m => m.SearchCompaniesModel.InsuranceContactOfficialAgent, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.OfficialAgent })
 
                         <div class="col-md-10" style="margin-left:10%;margin-right:10%;width:80%; margin-bottom: 30px; padding: 0px;">
                             <a class="btn btn-warning pull-right" href="#" onclick="document.getElementById('searchInsuranceContactsForm').submit();" style="width:100%">@Resources.Resources.SearchInsuranceContacts</a>
@@ -245,3 +221,139 @@
     </div>*@
 
 </div><!-- end left content-->
+
+
+<script>
+
+    $(function () {
+
+        var icons = {
+            header: "ui-icon-circle-arrow-e",
+            activeHeader: "ui-icon-circle-arrow-s"
+        };
+
+        $("#accordion").accordion({
+            collapsible: true,
+            active: false,
+            icons: icons
+        });
+
+        $("#toggle").button().on("click", function () {
+            if ($("#accordion").accordion("option", "icons")) {
+                $("#accordion").accordion("option", "icons", null);
+            }
+            else {
+                $("#accordion").accordion("option", "icons", icons);
+            }
+        });
+
+        //$('#garageCountyList').hide();
+        var ddlGarageCounties = $("#garageCountyList"); //dropdownlist for counties
+        var ddlClinicCounties = $("#clinicCountyList"); //dropdownlist for counties
+        var ddlConstructionCompanyCounties = $("#constructionCompanyCountyList"); //dropdownlist for counties
+        var ddlHomeApplianceRepairCounties = $("#homeApplianceRepairCountyList"); //dropdownlist for counties
+        var ddlinsuranceContactCounties = $("#insuranceContactCountyList"); //dropdownlist for counties
+
+        $("#garageDistrictList").change(function () {
+            var selectedItem = $("#garageDistrictList").val(); //dropdownlist for states
+
+            $.ajax({
+                cache: false,
+                type: "GET",
+                url: '@Url.Action("GetCountiesByDistrict", "Home")',
+                data: { "districtId": selectedItem },
+                success: function (data) {
+                    ddlGarageCounties.html('')
+                    $.each(data, function (id, option) {
+                        ddlGarageCounties.append($('<option></option>').val(option.Value).html(option.Text));
+                    });
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert('Failed to retrieve counties.');
+                }
+            });
+        });
+
+        $("#clinicDistrictList").change(function () {
+            var selectedItem = $("#clinicDistrictList").val(); //dropdownlist for states
+
+            $.ajax({
+                cache: false,
+                type: "GET",
+                url: '@Url.Action("GetCountiesByDistrict", "Home")',
+                data: { "districtId": selectedItem },
+                success: function (data) {
+                    ddlClinicCounties.html('')
+                    $.each(data, function (id, option) {
+                        ddlClinicCounties.append($('<option></option>').val(option.Value).html(option.Text));
+                    });
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert('Failed to retrieve counties.');
+                }
+            });
+        });
+
+        $("#constructionCompanyDistrictList").change(function () {
+            var selectedItem = $("#constructionCompanyDistrictList").val(); //dropdownlist for states
+
+            $.ajax({
+                cache: false,
+                type: "GET",
+                url: '@Url.Action("GetCountiesByDistrict", "Home")',
+                data: { "districtId": selectedItem },
+                success: function (data) {
+                    ddlConstructionCompanyCounties.html('')
+                    $.each(data, function (id, option) {
+                        ddlConstructionCompanyCounties.append($('<option></option>').val(option.Value).html(option.Text));
+                    });
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert('Failed to retrieve counties.');
+                }
+            });
+        });
+
+        $("#homeApplianceRepairDistrictList").change(function () {
+            var selectedItem = $("#homeApplianceRepairDistrictList").val(); //dropdownlist for states
+
+            $.ajax({
+                cache: false,
+                type: "GET",
+                url: '@Url.Action("GetCountiesByDistrict", "Home")',
+                data: { "districtId": selectedItem },
+                success: function (data) {
+                    ddlHomeApplianceRepairCounties.html('')
+                    $.each(data, function (id, option) {
+                        ddlHomeApplianceRepairCounties.append($('<option></option>').val(option.Value).html(option.Text));
+                    });
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert('Failed to retrieve counties.');
+                }
+            });
+        });
+
+        $("#insuranceContactDistrictList").change(function () {
+            var selectedItem = $("#insuranceContactDistrictList").val(); //dropdownlist for states
+
+            $.ajax({
+                cache: false,
+                type: "GET",
+                url: '@Url.Action("GetCountiesByDistrict", "Home")',
+                data: { "districtId": selectedItem },
+                success: function (data) {
+                    ddlinsuranceContactCounties.html('')
+                    $.each(data, function (id, option) {
+                        ddlinsuranceContactCounties.append($('<option></option>').val(option.Value).html(option.Text));
+                    });
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert('Failed to retrieve counties.');
+                }
+            });
+        });
+
+    });
+
+</script>

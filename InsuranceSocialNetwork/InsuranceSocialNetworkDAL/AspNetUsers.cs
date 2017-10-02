@@ -31,6 +31,11 @@ namespace InsuranceSocialNetworkDAL
             this.Profile = new HashSet<Profile>();
             this.Notification = new HashSet<Notification>();
             this.Notification1 = new HashSet<Notification>();
+            this.ConstructionCompanyFavorite = new HashSet<ConstructionCompanyFavorite>();
+            this.GarageFavorite = new HashSet<GarageFavorite>();
+            this.HomeApplianceRepairFavorite = new HashSet<HomeApplianceRepairFavorite>();
+            this.InsuranceCompanyContactFavorite = new HashSet<InsuranceCompanyContactFavorite>();
+            this.MedicalClinicFavorite = new HashSet<MedicalClinicFavorite>();
         }
     
         public string Id { get; set; }
@@ -74,5 +79,15 @@ namespace InsuranceSocialNetworkDAL
         public virtual ICollection<Notification> Notification { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Notification> Notification1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ConstructionCompanyFavorite> ConstructionCompanyFavorite { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GarageFavorite> GarageFavorite { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HomeApplianceRepairFavorite> HomeApplianceRepairFavorite { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<InsuranceCompanyContactFavorite> InsuranceCompanyContactFavorite { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MedicalClinicFavorite> MedicalClinicFavorite { get; set; }
     }
 }

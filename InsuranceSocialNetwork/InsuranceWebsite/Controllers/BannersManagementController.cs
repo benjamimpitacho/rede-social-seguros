@@ -225,6 +225,7 @@ namespace InsuranceWebsite.Controllers
             {
                 BannerDTO newBanner = new BannerDTO()
                 {
+                    ID = model.ID,
                     ID_Banner_Type = model.ID_Banner_Type,
                     Description = model.Description,
                     StartDate = model.StartDate,

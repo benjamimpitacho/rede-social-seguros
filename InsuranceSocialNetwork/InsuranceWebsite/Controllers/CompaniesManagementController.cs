@@ -1,13 +1,11 @@
 ﻿using AutoMapper;
 using InsuranceSocialNetworkBusiness;
 using InsuranceSocialNetworkCore.Enums;
-using InsuranceSocialNetworkDTO.Garage;
-using InsuranceSocialNetworkDTO.Role;
-using InsuranceSocialNetworkDTO.UserProfile;
+using InsuranceSocialNetworkDTO.Company;
+using InsuranceSocialNetworkDTO.PostalCode;
 using InsuranceWebsite.Commons;
 using InsuranceWebsite.Models;
 using InsuranceWebsite.Utils;
-using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using MVCGrid.Models;
 using MVCGrid.Web;
@@ -27,8 +25,8 @@ namespace InsuranceWebsite.Controllers
     {
         MapperConfiguration mapperConfiguration = new MapperConfiguration(cfg =>
         {
-            cfg.CreateMap<GarageDTO, CompanyModelObject>();
-            cfg.CreateMap<CompanyModelObject, GarageDTO>();
+            cfg.CreateMap<CompanyDTO, CompanyModelObject>();
+            cfg.CreateMap<CompanyModelObject, CompanyDTO>();
         });
 
         public CompaniesManagementController()
@@ -36,9 +34,29 @@ namespace InsuranceWebsite.Controllers
         }
 
         [FunctionalityAutorizeAttribute("COMPANIES_MANAGEMENT")]
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(CompanyTypeEnum id)
         {
             CompaniesManagementViewModel model = new CompaniesManagementViewModel();
+
+            model.CompanyType = id;
+            //switch (id)
+            //{
+            //    case 1:
+            //        model.CompanyType = CompanyTypeEnum.GARAGE;
+            //        break;
+            //    case 2:
+            //        model.CompanyType = CompanyTypeEnum.MEDICAL_CLINIC;
+            //        break;
+            //    case 3:
+            //        model.CompanyType = CompanyTypeEnum.CONSTRUCTION_COMPANY;
+            //        break;
+            //    case 4:
+            //        model.CompanyType = CompanyTypeEnum.HOME_APPLIANCES_REPAIR;
+            //        break;
+            //    case 5:
+            //        model.CompanyType = CompanyTypeEnum.INSURANCE_COMPANY_CONTACT;
+            //        break;
+            //}
 
             if (null != this.User && this.User.Identity.IsAuthenticated)
             {
@@ -60,7 +78,7 @@ namespace InsuranceWebsite.Controllers
 
             try
             {
-                var grid = MVCGridDefinitionTable.GetDefinition<UserProfileModelObject>("CompaniesManagementGrid");
+                var grid = MVCGridDefinitionTable.GetDefinition<CompanyModelObject>("CompaniesManagementGrid");
             }
             catch (Exception)
             {
@@ -115,13 +133,13 @@ namespace InsuranceWebsite.Controllers
                     cols.Add("Edit").WithHtmlEncoding(false)
                         .WithSorting(false)
                         .WithHeaderText(" ")
-                        .WithValueExpression((p, c) => c.UrlHelper.Action("Edit", "CompaniesManagement", new { id = p.ID }))
+                        .WithValueExpression((p, c) => c.UrlHelper.Action("Edit", "CompaniesManagement", new { id = p.ID, idType = id }))
                         .WithValueTemplate("<a href='{Value}' class='btn btn-warning lnkEdit'>" + Resources.Resources.Edit + "</a>")
                         .WithVisibility(true, false);
                     cols.Add("Delete").WithHtmlEncoding(false)
                         .WithSorting(false)
                         .WithHeaderText(" ")
-                        .WithValueExpression((p, c) => c.UrlHelper.Action("Delete", "CompaniesManagement", new { id = p.ID }))
+                        .WithValueExpression((p, c) => c.UrlHelper.Action("Delete", "CompaniesManagement", new { id = p.ID, idType = id }))
                         .WithValueTemplate("<a href='{Value}' class='btn btn-danger lnkDelete' role='button'>" + Resources.Resources.Delete + "</a>")
                         .WithVisibility(true, false);
                 })
@@ -140,7 +158,27 @@ namespace InsuranceWebsite.Controllers
 
                     var options = context.QueryOptions;
                     var result = new QueryResult<CompanyModelObject>();
-                    var query = BusinessItemsLists.GetGarages();
+                    List<CompanyModelObject> query = new List<CompanyModelObject>();
+                    
+                    switch(model.CompanyType)
+                    {
+                        case CompanyTypeEnum.GARAGE:
+                            query = BusinessItemsLists.GetGarages();
+                            break;
+                        case CompanyTypeEnum.MEDICAL_CLINIC:
+                            query = BusinessItemsLists.GetGarages();
+                            break;
+                        case CompanyTypeEnum.CONSTRUCTION_COMPANY:
+                            query = BusinessItemsLists.GetGarages();
+                            break;
+                        case CompanyTypeEnum.HOME_APPLIANCES_REPAIR:
+                            query = BusinessItemsLists.GetGarages();
+                            break;
+                        case CompanyTypeEnum.INSURANCE_COMPANY_CONTACT:
+                            query = BusinessItemsLists.GetGarages();
+                            break;
+                    }
+                    
                     if (!String.IsNullOrWhiteSpace(options.SortColumnName))
                     {
                         switch (options.SortColumnName.ToLower())
@@ -214,11 +252,11 @@ namespace InsuranceWebsite.Controllers
         }
 
         [FunctionalityAutorizeAttribute("COMPANIES_MANAGEMENT")]
-        public ActionResult Create()
+        public ActionResult Create(CompanyTypeEnum id)
         {
             CompanyModelObject model = new CompanyModelObject()
             {
-                //StartDate = DateTime.Now
+                CompanyType = id
             };
 
             return PartialView(model);
@@ -228,55 +266,100 @@ namespace InsuranceWebsite.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [FunctionalityAutorizeAttribute("COMPANIES_MANAGEMENT")]
-        public async Task<ActionResult> Create(CompanyModelObject model, HttpPostedFileBase fileUploaderControl)
+        public ActionResult Create(CompanyModelObject model, HttpPostedFileBase fileUploaderControl)
         {
             try
             {
-                GarageDTO newGarage = Mapper.Map<GarageDTO>(model);
+                CompanyDTO newCompany = new CompanyDTO()
+                {
+                    ID = model.ID,
+                    Active = model.Active,
+                    Address = model.Address,
+                    ContactEmail = model.ContactEmail,
+                    Description = model.Description,
+                    ID_District = model.ID_District,
+                    ID_County = model.ID_County,
+                    ID_Parish = model.ID_Parish,
+                    MobilePhone_1 = model.MobilePhone_1,
+                    MobilePhone_2 = model.MobilePhone_2,
+                    Name = model.Name,
+                    NIF = model.NIF,
+                    OfficialAgent = model.OfficialAgent,
+                    OfficialPartner = model.OfficialPartner,
+                    Telephone_1 = model.Telephone_1,
+                    Telephone_2 = model.Telephone_2,
+                    Website = model.Website
+                };
 
                 if (null != fileUploaderControl)
                 {
                     MemoryStream target = new MemoryStream();
                     fileUploaderControl.InputStream.CopyTo(target);
                     byte[] data = target.ToArray();
-                    newGarage.LogoPhoto = data;
+                    newCompany.LogoPhoto = data;
                 }
 
-                InsuranceBusiness.BusinessLayer.CreateGarage(newGarage);
+                switch(model.CompanyType)
+                {
+                    case CompanyTypeEnum.GARAGE:
+                        InsuranceBusiness.BusinessLayer.CreateGarage(newCompany);
+                        break;
+                    case CompanyTypeEnum.MEDICAL_CLINIC:
+                        InsuranceBusiness.BusinessLayer.CreateGarage(newCompany);
+                        break;
+                    case CompanyTypeEnum.CONSTRUCTION_COMPANY:
+                        InsuranceBusiness.BusinessLayer.CreateGarage(newCompany);
+                        break;
+                    case CompanyTypeEnum.HOME_APPLIANCES_REPAIR:
+                        InsuranceBusiness.BusinessLayer.CreateGarage(newCompany);
+                        break;
+                    case CompanyTypeEnum.INSURANCE_COMPANY_CONTACT:
+                        InsuranceBusiness.BusinessLayer.CreateGarage(newCompany);
+                        break;
+                    default:
+                        break;
+                }
             }
             catch (Exception ex)
             {
                 throw new NotImplementedException();
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { id = model.CompanyType });
         }
 
         // GET: /User/Edit/5
         [FunctionalityAutorizeAttribute("COMPANIES_MANAGEMENT")]
-        public ActionResult Edit(long id = 0)
+        public ActionResult Edit(long id, CompanyTypeEnum idType)
         {
-            GarageDTO garage = InsuranceBusiness.BusinessLayer.GetGarage(id);
+            CompanyDTO company = InsuranceBusiness.BusinessLayer.GetGarage(id);
 
             CompanyModelObject model = new CompanyModelObject()
             {
-                ID = garage.ID,
-                Active = garage.Active,
-                Name = garage.Name,
-                Description = garage.Description,
-                Address = garage.Address,
-                ContactEmail = garage.ContactEmail,
-                ID_PostalCode = garage.ID_PostalCode,
-                LogoPhoto = garage.LogoPhoto,
-                MobilePhone_1 = garage.MobilePhone_1,
-                MobilePhone_2 = garage.MobilePhone_2,
-                NIF = garage.NIF,
-                OficialAgent = garage.OficialAgent,
-                OficialPartner = garage.OficialPartner,
-                Telephone_1 = garage.Telephone_1,
-                Telephone_2 = garage.Telephone_2,
-                Website = garage.Website
+                ID = company.ID,
+                Active = company.Active,
+                Name = company.Name,
+                Description = company.Description,
+                Address = company.Address,
+                ContactEmail = company.ContactEmail,
+                ID_District = company.ID_District,
+                ID_County = company.ID_County,
+                ID_Parish = company.ID_Parish,
+                LogoPhoto = company.LogoPhoto,
+                MobilePhone_1 = company.MobilePhone_1,
+                MobilePhone_2 = company.MobilePhone_2,
+                NIF = company.NIF,
+                OfficialAgent = company.OfficialAgent,
+                OfficialPartner = company.OfficialPartner,
+                Telephone_1 = company.Telephone_1,
+                Telephone_2 = company.Telephone_2,
+                Website = company.Website
             };
+
+            if(model.ID_District.HasValue)
+            {
+                model.CountyList = model.CountyList.Concat(InsuranceBusiness.BusinessLayer.GetCountiesByDistrict(model.ID_District.Value).Select(i => new SelectListItem() { Value = i.Key.ToString(), Text = i.Value }).ToList()).ToList();
+            }
 
             return PartialView(model);
         }
@@ -289,33 +372,53 @@ namespace InsuranceWebsite.Controllers
         {
             try
             {
-                GarageDTO garage = InsuranceBusiness.BusinessLayer.GetGarage(model.ID);
+                CompanyDTO company = InsuranceBusiness.BusinessLayer.GetGarage(model.ID);
 
-                //garage.ID = model.ID;
-                garage.Active = model.Active;
-                garage.Name = model.Name;
-                garage.Description = model.Description;
-                garage.Address = model.Address;
-                garage.ContactEmail = model.ContactEmail;
-                garage.ID_PostalCode = model.ID_PostalCode;
-                garage.LogoPhoto = model.LogoPhoto;
-                garage.MobilePhone_1 = model.MobilePhone_1;
-                garage.MobilePhone_2 = model.MobilePhone_2;
-                garage.NIF = model.NIF;
-                garage.OficialAgent = model.OficialAgent;
-                garage.OficialPartner = model.OficialPartner;
-                garage.Telephone_1 = model.Telephone_1;
-                garage.Telephone_2 = model.Telephone_2;
-                garage.Website = model.Website;
+                company.Active = model.Active;
+                company.Name = model.Name;
+                company.Description = model.Description;
+                company.Address = model.Address;
+                company.ContactEmail = model.ContactEmail;
+                company.ID_District = model.ID_District;
+                company.ID_County = model.ID_County;
+                company.ID_Parish = model.ID_Parish;
+                company.LogoPhoto = model.LogoPhoto;
+                company.MobilePhone_1 = model.MobilePhone_1;
+                company.MobilePhone_2 = model.MobilePhone_2;
+                company.NIF = model.NIF;
+                company.OfficialAgent = model.OfficialAgent;
+                company.OfficialPartner = model.OfficialPartner;
+                company.Telephone_1 = model.Telephone_1;
+                company.Telephone_2 = model.Telephone_2;
+                company.Website = model.Website;
 
-                InsuranceBusiness.BusinessLayer.EditGarage(garage);
+                switch (model.CompanyType)
+                {
+                    case CompanyTypeEnum.GARAGE:
+                        InsuranceBusiness.BusinessLayer.EditGarage(company);
+                        break;
+                    case CompanyTypeEnum.MEDICAL_CLINIC:
+                        InsuranceBusiness.BusinessLayer.EditGarage(company);
+                        break;
+                    case CompanyTypeEnum.CONSTRUCTION_COMPANY:
+                        InsuranceBusiness.BusinessLayer.EditGarage(company);
+                        break;
+                    case CompanyTypeEnum.HOME_APPLIANCES_REPAIR:
+                        InsuranceBusiness.BusinessLayer.EditGarage(company);
+                        break;
+                    case CompanyTypeEnum.INSURANCE_COMPANY_CONTACT:
+                        InsuranceBusiness.BusinessLayer.EditGarage(company);
+                        break;
+                    default:
+                        break;
+                }
             }
             catch (Exception ex)
             {
                 throw new NotImplementedException();
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { id = model.CompanyType });
         }
 
         [FunctionalityAutorizeAttribute("COMPANIES_MANAGEMENT")]
@@ -361,6 +464,26 @@ namespace InsuranceWebsite.Controllers
             }
 
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public JsonResult GetPostalCodeInformation(string postalCode)
+        {
+            try
+            {
+                PostalCodeDTO postalCodeInfo = InsuranceBusiness.BusinessLayer.GetPostalCodeInformation(postalCode);
+
+                if (null == postalCodeInfo)
+                {
+                    return Json(new { ok = false }, JsonRequestBehavior.AllowGet);
+                }
+
+                return Json(new { ok = true, localocality = postalCodeInfo.Localidade, postalCodeId = postalCodeInfo.ID }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }

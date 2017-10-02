@@ -6,23 +6,6 @@
 
     @Html.Partial("./Partial/TopBannerPartialView", Model)
 
-    @*<div class="panel topPanel">
-
-        @using (Html.BeginForm("SearchUsers", "Home", FormMethod.Post, new { id = "searchForm" }))
-        {
-            <div class="form-group" style="display:inline;">
-                <div class="input-group" style="display:table;">
-
-                    @Html.TextBoxFor(m => m.SearchModel.SearchTerm, new { @class = "form-control", @placeholder = Resources.Resources.Search + "..." })
-
-                    <a href="#" onclick="document.getElementById('searchForm').submit();" class="input-group-addon" style="width:1%;padding:3px 12px">
-                        <span class="glyphicon glyphicon-search"></span>
-                    </a>
-                </div>
-            </div>
-        }
-    </div>
-    <p></p>*@
     <div class="panel topPanel">
         @using (Html.BeginForm("NewPost", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
@@ -89,33 +72,6 @@
         $("#imgUpload").change(function () {
             readURL(this);
         });
-
-        @*$('#searchForm').submit(function (e) {
-
-            alert("submit by ajax");
-
-            var formData = new FormData(this);
-
-            $.ajax({
-                url: '@Url.Action("SearchUsers", "Home")',
-                type: "POST",
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function (result) {
-                    alert("sucesso!!");
-                    $("#div_Results").html(data);
-                },
-                error: function (result) {
-                    alert(result);
-                    $("#div_Results").html(data);
-                }
-            });
-
-            e.preventDefault();
-        });*@
     });
 
     function readURL(input) {

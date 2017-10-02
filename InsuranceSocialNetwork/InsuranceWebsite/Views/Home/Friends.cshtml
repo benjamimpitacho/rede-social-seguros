@@ -26,45 +26,51 @@
 
                 @Html.Partial("./Partial/TopBannerPartialView", Model)
 
-                @*<div class="alert alert-info">
-                    <strong>Info:</strong> Esta página ainda está em desenvolvimento.
-                </div>*@
-
-                @foreach (UserProfileDTO friend in Model.Friends)
+                @if (null == Model.Friends || Model.Friends.Count == 0)
                 {
-                    <div class="col-md-4 col-sm-3">
-                        <div class="panel">
-                            <div class="panel-body">
-                                <div class="media">
-                                    <a class="pull-left" href="#" style="padding: 0px; text-align: -webkit-center;">
-                                        @if (null == friend.ProfilePhoto || friend.ProfilePhoto.Length == 0)
-                                        {
-                                            <img class="thumb media-object" src="~/Content/images/no_photo_img.jpg" alt="" style="border-radius:100px;max-width:80%;">
-                                        }
-                                        else
-                                        {
-                                            <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(friend.ProfilePhoto))" class="thumb media-object" style="border-radius:100px;max-width:80%;">
-                                        }
-                                    </a>
-                                    <div class="media-body" style="text-align:center">
-                                        <h5 style="text-align:center">@friend.FirstName @friend.LastName</h5>
-                                        <ul class="social-links">
-                                            @*@if (!Model.SearchModel.AlreadyFriends.Contains(friend.ID))
+                    <div class="col-md-12 alert alert-info" style="text-align:center">
+                        @Resources.Resources.NoFriends
+                    </div>
+                }
+                else
+                {
+
+                    foreach (UserProfileDTO friend in Model.Friends)
+                    {
+                        <div class="col-md-4 col-sm-3">
+                            <div class="panel">
+                                <div class="panel-body">
+                                    <div class="media">
+                                        <a class="pull-left" href="#" style="padding: 0px; text-align: -webkit-center;">
+                                            @if (null == friend.ProfilePhoto || friend.ProfilePhoto.Length == 0)
                                             {
-                                                <li><a title="" data-placement="top" data-toggle="tooltip" class="tooltips" onclick="addFriendFunction(this, @profile.ID)" data-original-title="@Resources.Resources.AddFriend"><i class="fa fa-user-plus"></i></a></li>
+                                                <img class="thumb media-object" src="~/Content/images/no_photo_img.jpg" alt="" style="border-radius:100px;max-width:80%;">
                                             }
                                             else
                                             {
-                                                <li><a title="" data-placement="top" data-toggle="tooltip" class="tooltips" data-original-title="@Resources.Resources.RemoveFriend"><i class="fa fa-user-times"></i></a></li>
-                                            }*@
-                                            <li><a href="@Url.Action("SendMessage",new { id= friend.ID })" title="" data-placement="top" data-toggle="tooltip" class="tooltips" data-original-title="@Resources.Resources.SendMessage"><i class="fa fa-comments"></i></a></li>
-                                            <li><a href="@Html.DisplayTextFor(i => i.Profile.Website)" target="_blank" title="" data-placement="top" data-toggle="tooltip" class="tooltips" data-original-title="@Resources.Resources.Website"><i class="fa fa-globe"></i></a></li>
-                                        </ul>
+                                                <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(friend.ProfilePhoto))" class="thumb media-object" style="border-radius:100px;max-width:80%;">
+                                            }
+                                        </a>
+                                        <div class="media-body" style="text-align:center">
+                                            <h5 style="text-align:center">@friend.FirstName @friend.LastName</h5>
+                                            <ul class="social-links">
+                                                @*@if (!Model.SearchModel.AlreadyFriends.Contains(friend.ID))
+                                                {
+                                                    <li><a title="" data-placement="top" data-toggle="tooltip" class="tooltips" onclick="addFriendFunction(this, @profile.ID)" data-original-title="@Resources.Resources.AddFriend"><i class="fa fa-user-plus"></i></a></li>
+                                                }
+                                                else
+                                                {
+                                                    <li><a title="" data-placement="top" data-toggle="tooltip" class="tooltips" data-original-title="@Resources.Resources.RemoveFriend"><i class="fa fa-user-times"></i></a></li>
+                                                }*@
+                                                <li><a href="@Url.Action("SendMessage", new { id = friend.ID })" title="" data-placement="top" data-toggle="tooltip" class="tooltips" data-original-title="@Resources.Resources.SendMessage"><i class="fa fa-comments"></i></a></li>
+                                                <li><a href="@Html.DisplayTextFor(i => i.Profile.Website)" target="_blank" title="" data-placement="top" data-toggle="tooltip" class="tooltips" data-original-title="@Resources.Resources.Website"><i class="fa fa-globe"></i></a></li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    }
                 }
 
             </div>
@@ -79,4 +85,4 @@
 
 </div><!-- end timeline content-->
 
-@Html.Partial("~/Views/Home/Partial/Footer.cshtml", Model)
+@*@Html.Partial("~/Views/Home/Partial/Footer.cshtml", Model)*@

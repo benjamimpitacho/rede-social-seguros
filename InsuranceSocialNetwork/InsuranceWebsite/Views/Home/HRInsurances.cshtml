@@ -1,0 +1,43 @@
+﻿@using InsuranceWebsite.Models
+@using InsuranceSocialNetworkDTO.UserProfile
+@model HomeViewModel
+
+@{
+    ViewBag.Title = Resources.Resources.ProfilePageTitle;
+}
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+
+@Html.Partial("~/Views/Home/Partial/NavBar.cshtml", Model)
+
+<!-- Timeline content -->
+<div class="container">
+
+    <div class="col-md-12 no-paddin-xs directory-info-row" style="background-color:ghostwhite">
+
+        <div class="row" style="display:flex">
+
+            @Html.Partial("~/Views/Home/Partial/SideNavBar.cshtml", Model)
+
+            <!-- right  content-->
+
+            <div class="profile-info col-md-6 animated fadeInUp">
+
+                @Html.Partial("./Partial/TopBannerPartialView", Model)
+
+                <div class="col-md-12 alert alert-info" style="text-align:center">
+                    @Resources.Resources.HRInsurances
+                </div>
+
+            </div>
+
+            <!--end right  content-->
+
+            @Html.Partial("~/Views/Home/Partial/RightBar.cshtml", Model)
+
+        </div>
+
+    </div>
+
+</div><!-- end timeline content-->

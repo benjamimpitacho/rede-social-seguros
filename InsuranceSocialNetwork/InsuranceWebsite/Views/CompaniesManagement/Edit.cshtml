@@ -16,35 +16,91 @@
     {
         @Html.AntiForgeryToken();
         @Html.HiddenFor(i => i.ID);
+        @Html.HiddenFor(i => i.CompanyType);
+
         <p>
-            @Html.Label(Resources.Resources.FirstName)
-            @Html.TextBoxFor(i => i.FirstName, new { @class = "text ui-widget-content ui-corner-all", id = "firstname" })
-            @Html.ValidationMessageFor(i => i.FirstName)
+            @Html.Label(Resources.Resources.Name)
+            @Html.TextBoxFor(i => i.Name, new { @class = "text ui-widget-content ui-corner-all", id = "name" })
+            @Html.ValidationMessageFor(i => i.Name)
         </p>
         <p>
-            @Html.Label(Resources.Resources.LastName)
-            @Html.TextBoxFor(model => model.LastName, new { @class = "text ui-widget-content ui-corner-all", id = "lastname" })
-            @Html.ValidationMessageFor(i => i.LastName)
+            @Html.Label(Resources.Resources.NIF)
+            @Html.TextBoxFor(model => model.NIF, new { @class = "text ui-widget-content ui-corner-all", id = "nif" })
+            @Html.ValidationMessageFor(i => i.NIF)
         </p>
         <p>
-            @Html.Label(Resources.Resources.Email)
-            @Html.TextBoxFor(model => model.User.Email, new { @class = "text ui-widget-content ui-corner-all", id = "lastname", disabled="disabled" })
-            @Html.ValidationMessageFor(i => i.User.Email)
+            @Html.Label(Resources.Resources.Description)
+            @Html.TextBoxFor(model => model.Description, new { @class = "text ui-widget-content ui-corner-all", id = "description" })
+            @Html.ValidationMessageFor(i => i.Description)
         </p>
         <p>
+            @Html.Label(Resources.Resources.ContactEmail)
+            @Html.TextBoxFor(model => model.ContactEmail, new { @class = "text ui-widget-content ui-corner-all", id = "contactemail" })
+            @Html.ValidationMessageFor(i => i.ContactEmail)
+        </p>
+        <p>
+            @Html.Label(Resources.Resources.Address)
+            @Html.TextBoxFor(i => i.Address, new { @class = "text ui-widget-content ui-corner-all", id = "address" })
+            @Html.ValidationMessageFor(i => i.Address)
+        </p>
+        <p>
+            @Html.Label(Resources.Resources.District)
+            @*@Html.TextBox("PostalCode", null, new { id = "postalcode", @class = "text ui-widget-content ui-corner-all" })*@
+            @Html.DropDownListFor(m => m.ID_District, Model.DistrictList, new { @class = "text ui-widget-content ui-corner-all", @style = "margin-left:10%;margin-right:10%;color:#777;min-height:28px;", @placeholder = Resources.Resources.District, id = "districtList" })
+            @*@Html.TextBoxFor(model => model.ID_PostalCode, new { @class = "text ui-widget-content ui-corner-all", id = "postalcode" })*@
+            @Html.HiddenFor(i => i.ID_District, new { id = "districtId" })
+        </p>
+        <p>
+            @Html.Label(Resources.Resources.County)
+            @*@Html.TextBox("PostalCode", null, new { id = "postalcode", @class = "text ui-widget-content ui-corner-all" })*@
+            @Html.DropDownListFor(m => m.ID_County, Model.CountyList, new { @class = "text ui-widget-content ui-corner-all", @style = "margin-left:10%;margin-right:10%;color:#777;min-height:28px;", @placeholder = Resources.Resources.Location, id = "countyList" })
+            @*@Html.TextBoxFor(model => model.ID_PostalCode, new { @class = "text ui-widget-content ui-corner-all", id = "postalcode" })*@
+            @Html.HiddenFor(i => i.ID_County, new { id = "countyId" })
+        </p>
+        <p>
+            @Html.Label(Resources.Resources.Location)
+            @Html.TextBox("Location", null, new { id = "locality", @class = "text ui-widget-content ui-corner-all" })
+        </p>
+        <p>
+            @Html.Label(Resources.Resources.Telephone_1)
+            @Html.TextBoxFor(model => model.Telephone_1, new { @class = "text ui-widget-content ui-corner-all", id = "telephone_1" })
+            @Html.ValidationMessageFor(i => i.Telephone_1)
+        </p>
+        <p>
+            @Html.Label(Resources.Resources.Telephone_2)
+            @Html.TextBoxFor(model => model.Telephone_2, new { @class = "text ui-widget-content ui-corner-all", id = "telephone_2" })
+            @Html.ValidationMessageFor(i => i.Telephone_2)
+        </p>
+        <p>
+            @Html.Label(Resources.Resources.MobilePhone_1)
+            @Html.TextBoxFor(model => model.MobilePhone_1, new { @class = "text ui-widget-content ui-corner-all", id = "mobilephone_1" })
+            @Html.ValidationMessageFor(i => i.MobilePhone_1)
+        </p>
+        <p>
+            @Html.Label(Resources.Resources.MobilePhone_2)
+            @Html.TextBoxFor(model => model.MobilePhone_2, new { @class = "text ui-widget-content ui-corner-all", id = "mobilephone_2" })
+            @Html.ValidationMessageFor(i => i.MobilePhone_2)
+        </p>
+        <p>
+            @Html.Label(Resources.Resources.Website)
+            @Html.TextBoxFor(model => model.Website, new { @class = "text ui-widget-content ui-corner-all", id = "website" })
+            @Html.ValidationMessageFor(i => i.Website)
+        </p>
+        <p>
+            @Html.Label(Resources.Resources.OfficialAgent)
+            @Html.TextBoxFor(model => model.OfficialAgent, new { @class = "text ui-widget-content ui-corner-all", id = "official_agent" })
+            @Html.ValidationMessageFor(i => i.OfficialAgent)
+        </p>
+        <p>
+            @Html.Label(Resources.Resources.OfficialPartner)
+            @Html.TextBoxFor(model => model.OfficialPartner, new { @class = "text ui-widget-content ui-corner-all", id = "official_partner" })
+            @Html.ValidationMessageFor(i => i.OfficialPartner)
+        </p>
+        @*<p>
             @Html.Label(Resources.Resources.UserRole)
-            @Html.DropDownListFor(i => i.Role.Id, Model.UserRolesList, new { @class = "text ui-widget-content ui-corner-all", id = "bannertype", style = "width:95%;padding:.4em;" })
-            @Html.ValidationMessageFor(i => i.Role.Id)
-        </p>
-        
-        if (Model.User.EmailConfirmed)
-        {
-            <p>@Html.ActionLink(Resources.Resources.Deactivate, "Deactivate", "CompaniesManagement", new { id = Model.ID }, new { @class= "btn btn-danger lnkDeactivate" })</p>
-        }
-        else
-        {
-            <p>@Html.ActionLink(Resources.Resources.Activate, "Activate", "CompaniesManagement", new { id = Model.ID }, new { @class = "btn btn-success lnkActivate" })</p>
-        }
+            @Html.DropDownListFor(i => i.ID_Role, Model.UserRolesList, new { @class = "text ui-widget-content ui-corner-all", id = "bannertype", style = "width:95%;padding:.4em;" })
+            @Html.ValidationMessageFor(i => i.ID_Role)
+        </p>*@
     }
 </div>
 
@@ -133,6 +189,35 @@
             return false;
         });
 
+        //$('#countyList').hide();
+        $('#countyList').prop('disabled', true);
+        var ddlCounties = $("#countyList"); //dropdownlist for counties
+
+        $("#districtList").change(function () {
+            var selectedItem = $("#districtList").val(); //dropdownlist for states
+
+            //$('#countyList').show();
+            $('#countyList').prop('disabled', false);
+
+            $.ajax({
+                cache: false,
+                type: "GET",
+                url: '@Url.Action("GetCountiesByDistrict", "Home")',
+                data: { "districtId": selectedItem },
+                success: function (data) {
+                    ddlCounties.html('')
+                    $.each(data, function (id, option) {
+                        ddlCounties.append($('<option></option>').val(option.Value).html(option.Text));
+                    });
+                },
+
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert('Failed to retrieve counties.');
+                }
+            });
+
+        });
+
     } );
 
 </script>
@@ -140,13 +225,13 @@
 <div id="dialog-activate" style="display: none">
     <p>
         <span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>
-        @Resources.Resources.AreYouSureToActivateUser
+        @Resources.Resources.AreYouSureToActivateCompany
     </p>
 </div>
 
 <div id="dialog-deactivate" style="display: none">
     <p>
         <span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>
-        @Resources.Resources.AreYouSureToDeactivateUser
+        @Resources.Resources.AreYouSureToDeactivateCompany
     </p>
 </div>

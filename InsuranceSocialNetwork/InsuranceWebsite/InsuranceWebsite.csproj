@@ -231,6 +231,7 @@
     <Compile Include="Models\ChatViewModel.cs" />
     <Compile Include="Models\MessagesViewModels.cs" />
     <Compile Include="Models\BannersManagementViewModels.cs" />
+    <Compile Include="Models\SearchCompaniesViewModel.cs" />
     <Compile Include="Models\SearchViewModels.cs" />
     <Compile Include="Models\MVCGridToolbarModel.cs" />
     <Compile Include="Models\RolesManagementViewModels.cs" />
@@ -585,6 +586,15 @@
     <Content Include="Views\CompaniesManagement\Index.cshtml" />
     <Content Include="Views\CompaniesManagement\Create.cshtml" />
     <Content Include="Views\CompaniesManagement\Edit.cshtml" />
+    <Content Include="Views\Home\SystemManagement.cshtml" />
+    <Content Include="Views\Home\CookieUsagePolicy.cshtml" />
+    <Content Include="Views\Home\DataPolicy.cshtml" />
+    <Content Include="Views\Home\ApsPage.cshtml" />
+    <Content Include="Views\Home\AprosePage.cshtml" />
+    <Content Include="Views\Home\AsfPage.cshtml" />
+    <Content Include="Views\Home\HRInsurances.cshtml" />
+    <Content Include="Views\Home\CurrentDiscussions.cshtml" />
+    <Content Include="Views\Home\SafeBusinesses.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

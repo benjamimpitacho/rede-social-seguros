@@ -1,7 +1,9 @@
 ﻿using InsuranceSocialNetworkBusiness;
 using InsuranceSocialNetworkCore.Enums;
 using InsuranceSocialNetworkCore.Utils;
+using InsuranceSocialNetworkDTO.Company;
 using InsuranceSocialNetworkDTO.Post;
+using InsuranceSocialNetworkDTO.PostalCode;
 using InsuranceSocialNetworkDTO.UserProfile;
 using InsuranceWebsite.Commons;
 using InsuranceWebsite.Models;
@@ -114,6 +116,22 @@ namespace InsuranceWebsite.Controllers
         public ActionResult TermsConditions()
         {
             ViewBag.Message = "Your Terms & Conditions page.";
+
+            return View();
+        }
+
+        [AllowAnonymous]
+        public ActionResult CookieUsagePolicy()
+        {
+            ViewBag.Message = "Your Cookie Usage Policy page.";
+
+            return View();
+        }
+
+        [AllowAnonymous]
+        public ActionResult DataPolicy()
+        {
+            ViewBag.Message = "Your Data Policy page.";
 
             return View();
         }
@@ -531,7 +549,7 @@ namespace InsuranceWebsite.Controllers
             {
                 throw new NotImplementedException();
             }
-            
+
             return Json(new { ok = true, message = commentId });
         }
 
@@ -585,7 +603,7 @@ namespace InsuranceWebsite.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
-            if(id != model.Profile.ID)
+            if (id != model.Profile.ID)
             {
                 return RedirectToAction("LogOff", "Account");
             }
@@ -647,7 +665,7 @@ namespace InsuranceWebsite.Controllers
             profile.LastName = model.LastName;
             profile.MobilePhone_1 = model.MobilePhone_1;
             profile.MobilePhone_2 = model.MobilePhone_2;
-            if(null!= fileUploaderControl)
+            if (null != fileUploaderControl)
             {
                 Bitmap resizedImage = ImageUtils.ResizeImage(Bitmap.FromStream(fileUploaderControl.InputStream), 250, 250);
                 profile.ProfilePhoto = ImageUtils.ImageToByte(resizedImage);
@@ -772,6 +790,17 @@ namespace InsuranceWebsite.Controllers
         private void FillModel(ProfileViewModel model, string userId)
         {
             model.Profile = InsuranceBusiness.BusinessLayer.GetUserProfile(userId);
+
+            if (null == model.Profile.ProfilePhoto || model.Profile.ProfilePhoto.Length == 0)
+            {
+                Image img = Image.FromFile(Server.MapPath("/Content/images/no_photo_img.jpg"));
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    img.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                    model.Profile.ProfilePhoto = ms.ToArray();
+                }
+            }
+
             CurrentUser = model.Profile;
             model.Notifications = InsuranceBusiness.BusinessLayer.GetUserNotifications(userId);
             if (model is HomeViewModel)
@@ -801,6 +830,28 @@ namespace InsuranceWebsite.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public ActionResult GetCountiesByDistrict(string districtId)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(districtId))
+                {
+                    return Json(new List<SelectListItem>() { new SelectListItem() { Value = "", Text = Resources.Resources.SelectCounty } }, JsonRequestBehavior.AllowGet);
+                }
+
+                List<SelectListItem> initList = new List<SelectListItem>() { new SelectListItem() { Value = "", Text = Resources.Resources.SelectCounty } };
+
+                List<SelectListItem> items = initList.Concat(InsuranceBusiness.BusinessLayer.GetCountiesByDistrict(Int64.Parse(districtId)).Select(i => new SelectListItem() { Value = i.Key.ToString(), Text = i.Value }).ToList()).ToList();
+
+                return Json(items, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         #region Search Operations
 
         [FunctionalityAutorizeAttribute("SEARCH_GARAGES_FUNCTIONALITY")]
@@ -813,6 +864,18 @@ namespace InsuranceWebsite.Controllers
                 model.IsSearchGarages = true;
 
                 // Perform Search
+                CompanySearchFilterDTO companySearchFilter = new CompanySearchFilterDTO()
+                {
+                    UserId = CurrentUser.ID_User,
+                    GarageName = model.SearchCompaniesModel.GarageName,
+                    GarageDistrict = model.SearchCompaniesModel.GarageDistrict,
+                    GarageCounty = model.SearchCompaniesModel.GarageCounty,
+                    GarageService = model.SearchCompaniesModel.GarageService,
+                    GaragePartnership = model.SearchCompaniesModel.GaragePartnership,
+                    GarageOfficialAgent = model.SearchCompaniesModel.GarageOfficialAgent
+                };
+
+                model.SearchCompaniesModel.ResultCompanyItems = InsuranceBusiness.BusinessLayer.SearchGarages(companySearchFilter);
 
                 FillModel(model, CurrentUser.ID_User);
             }
@@ -833,6 +896,18 @@ namespace InsuranceWebsite.Controllers
                 model.IsSearchClinics = true;
 
                 // Perform Search
+                CompanySearchFilterDTO companySearchFilter = new CompanySearchFilterDTO()
+                {
+                    UserId = CurrentUser.ID_User,
+                    GarageName = model.SearchCompaniesModel.ClinicName,
+                    GarageDistrict = model.SearchCompaniesModel.ClinicDistrict,
+                    GarageCounty = model.SearchCompaniesModel.ClinicCounty,
+                    GarageService = model.SearchCompaniesModel.ClinicService,
+                    GaragePartnership = model.SearchCompaniesModel.ClinicPartnership,
+                    GarageOfficialAgent = model.SearchCompaniesModel.ClinicOfficialAgent
+                };
+
+                model.SearchCompaniesModel.ResultCompanyItems = InsuranceBusiness.BusinessLayer.SearchMedicalClinis(companySearchFilter);
 
                 FillModel(model, CurrentUser.ID_User);
             }
@@ -853,6 +928,18 @@ namespace InsuranceWebsite.Controllers
                 model.IsSearchConstructionCompanies = true;
 
                 // Perform Search
+                CompanySearchFilterDTO companySearchFilter = new CompanySearchFilterDTO()
+                {
+                    UserId = CurrentUser.ID_User,
+                    GarageName = model.SearchCompaniesModel.ConstructionCompanyName,
+                    GarageDistrict = model.SearchCompaniesModel.ConstructionCompanyDistrict,
+                    GarageCounty = model.SearchCompaniesModel.ConstructionCompanyCounty,
+                    GarageService = model.SearchCompaniesModel.ConstructionCompanyService,
+                    GaragePartnership = model.SearchCompaniesModel.ConstructionCompanyPartnership,
+                    GarageOfficialAgent = model.SearchCompaniesModel.ConstructionCompanyOfficialAgent
+                };
+
+                model.SearchCompaniesModel.ResultCompanyItems = InsuranceBusiness.BusinessLayer.SearchConstructionCompanies(companySearchFilter);
 
                 FillModel(model, CurrentUser.ID_User);
             }
@@ -873,6 +960,18 @@ namespace InsuranceWebsite.Controllers
                 model.IsSearchHomeApplianceRepair = true;
 
                 // Perform Search
+                CompanySearchFilterDTO companySearchFilter = new CompanySearchFilterDTO()
+                {
+                    UserId = CurrentUser.ID_User,
+                    GarageName = model.SearchCompaniesModel.HomeApplianceRepairName,
+                    GarageDistrict = model.SearchCompaniesModel.HomeApplianceRepairDistrict,
+                    GarageCounty = model.SearchCompaniesModel.HomeApplianceRepairCounty,
+                    GarageService = model.SearchCompaniesModel.HomeApplianceRepairService,
+                    GaragePartnership = model.SearchCompaniesModel.HomeApplianceRepairPartnership,
+                    GarageOfficialAgent = model.SearchCompaniesModel.HomeApplianceRepairOfficialAgent
+                };
+
+                model.SearchCompaniesModel.ResultCompanyItems = InsuranceBusiness.BusinessLayer.SearchHomeApplianceRepairs(companySearchFilter);
 
                 FillModel(model, CurrentUser.ID_User);
             }
@@ -893,6 +992,18 @@ namespace InsuranceWebsite.Controllers
                 model.IsSearchInsuranceContacts = true;
 
                 // Perform Search
+                CompanySearchFilterDTO companySearchFilter = new CompanySearchFilterDTO()
+                {
+                    UserId = CurrentUser.ID_User,
+                    GarageName = model.SearchCompaniesModel.InsuranceContactName,
+                    GarageDistrict = model.SearchCompaniesModel.InsuranceContactDistrict,
+                    GarageCounty = model.SearchCompaniesModel.InsuranceContactCounty,
+                    GarageService = model.SearchCompaniesModel.InsuranceContactService,
+                    GaragePartnership = model.SearchCompaniesModel.InsuranceContactPartnership,
+                    GarageOfficialAgent = model.SearchCompaniesModel.InsuranceContactOfficialAgent
+                };
+
+                model.SearchCompaniesModel.ResultCompanyItems = InsuranceBusiness.BusinessLayer.SearchInsuranceCompanyContacts(companySearchFilter);
 
                 FillModel(model, CurrentUser.ID_User);
             }
@@ -928,6 +1039,235 @@ namespace InsuranceWebsite.Controllers
             }
 
             model.OwnProfile = true;
+
+            return View(model);
+        }
+
+        [FunctionalityAutorizeAttribute("USERS_MANAGEMENT")]
+        public async Task<ActionResult> SystemManagement()
+        {
+            var model = new ProfileViewModel();
+            if (null != this.User && this.User.Identity.IsAuthenticated)
+            {
+                var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
+                if (null != user)
+                {
+                    FillModel(model, user.Id);
+                }
+                else
+                {
+                    return RedirectToAction("LogOff", "Account");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            model.OwnProfile = true;
+
+            return View(model);
+        }
+
+        [FunctionalityAutorizeAttribute("COMPANY_FAVORITE_FUNCTIONALITY")]
+        public JsonResult AddFavorite(long companyId, int companyTypeId)
+        {
+            switch (companyTypeId)
+            {
+                case (int)CompanyTypeEnum.GARAGE:
+                    InsuranceBusiness.BusinessLayer.AddFavoriteGarage(companyId, CurrentUser.ID_User);
+                    break;
+                case (int)CompanyTypeEnum.CONSTRUCTION_COMPANY:
+                    InsuranceBusiness.BusinessLayer.AddFavoriteConstructionCompany(companyId, CurrentUser.ID_User);
+                    break;
+                case (int)CompanyTypeEnum.HOME_APPLIANCES_REPAIR:
+                    InsuranceBusiness.BusinessLayer.AddFavoriteHomeAppliancesRepair(companyId, CurrentUser.ID_User);
+                    break;
+                case (int)CompanyTypeEnum.INSURANCE_COMPANY_CONTACT:
+                    InsuranceBusiness.BusinessLayer.AddFavoriteInsuranceCompanyContact(companyId, CurrentUser.ID_User);
+                    break;
+                case (int)CompanyTypeEnum.MEDICAL_CLINIC:
+                    InsuranceBusiness.BusinessLayer.AddFavoriteMedicalClinic(companyId, CurrentUser.ID_User);
+                    break;
+            }
+
+            //return RedirectToAction("Index");
+            return Json(new { ok = true, message = "" });
+        }
+
+        [FunctionalityAutorizeAttribute("COMPANY_FAVORITE_FUNCTIONALITY")]
+        public JsonResult RemoveFavorite(long companyId, int companyTypeId)
+        {
+            switch (companyTypeId)
+            {
+                case (int)CompanyTypeEnum.GARAGE:
+                    InsuranceBusiness.BusinessLayer.RemoveFavoriteGarage(companyId, CurrentUser.ID_User);
+                    break;
+                case (int)CompanyTypeEnum.CONSTRUCTION_COMPANY:
+                    InsuranceBusiness.BusinessLayer.RemoveFavoriteConstructionCompany(companyId, CurrentUser.ID_User);
+                    break;
+                case (int)CompanyTypeEnum.HOME_APPLIANCES_REPAIR:
+                    InsuranceBusiness.BusinessLayer.RemoveFavoriteHomeAppliancesRepair(companyId, CurrentUser.ID_User);
+                    break;
+                case (int)CompanyTypeEnum.INSURANCE_COMPANY_CONTACT:
+                    InsuranceBusiness.BusinessLayer.RemoveFavoriteInsuranceCompanyContact(companyId, CurrentUser.ID_User);
+                    break;
+                case (int)CompanyTypeEnum.MEDICAL_CLINIC:
+                    InsuranceBusiness.BusinessLayer.RemoveFavoriteMedicalClinic(companyId, CurrentUser.ID_User);
+                    break;
+            }
+
+            //return RedirectToAction("Index");
+            return Json(new { ok = true, message = "" });
+        }
+
+        [Authorize]
+        public async Task<ActionResult> ApsPage()
+        {
+            var model = new HomeViewModel();
+            if (null != this.User && this.User.Identity.IsAuthenticated)
+            {
+                var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
+                if (null != user)
+                {
+                    FillModel(model, user.Id);
+                }
+                else
+                {
+                    return RedirectToAction("LogOff", "Account");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            return View(model);
+        }
+
+        [Authorize]
+        public async Task<ActionResult> AsfPage()
+        {
+            var model = new HomeViewModel();
+            if (null != this.User && this.User.Identity.IsAuthenticated)
+            {
+                var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
+                if (null != user)
+                {
+                    FillModel(model, user.Id);
+                }
+                else
+                {
+                    return RedirectToAction("LogOff", "Account");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            return View(model);
+        }
+
+        [Authorize]
+        public async Task<ActionResult> AprosePage()
+        {
+            var model = new HomeViewModel();
+            if (null != this.User && this.User.Identity.IsAuthenticated)
+            {
+                var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
+                if (null != user)
+                {
+                    FillModel(model, user.Id);
+                }
+                else
+                {
+                    return RedirectToAction("LogOff", "Account");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            return View(model);
+        }
+
+        [Authorize]
+        public async Task<ActionResult> CurrentDiscussions()
+        {
+            var model = new HomeViewModel();
+            if (null != this.User && this.User.Identity.IsAuthenticated)
+            {
+                var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
+                if (null != user)
+                {
+                    FillModel(model, user.Id);
+                }
+                else
+                {
+                    return RedirectToAction("LogOff", "Account");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            return View(model);
+        }
+
+        [Authorize]
+        public async Task<ActionResult> HRInsurances()
+        {
+            var model = new HomeViewModel();
+            if (null != this.User && this.User.Identity.IsAuthenticated)
+            {
+                var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
+                if (null != user)
+                {
+                    FillModel(model, user.Id);
+                }
+                else
+                {
+                    return RedirectToAction("LogOff", "Account");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            return View(model);
+        }
+
+        [Authorize]
+        public async Task<ActionResult> SafeBusinesses()
+        {
+            var model = new HomeViewModel();
+            if (null != this.User && this.User.Identity.IsAuthenticated)
+            {
+                var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
+                if (null != user)
+                {
+                    FillModel(model, user.Id);
+                }
+                else
+                {
+                    return RedirectToAction("LogOff", "Account");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
 
             return View(model);
         }

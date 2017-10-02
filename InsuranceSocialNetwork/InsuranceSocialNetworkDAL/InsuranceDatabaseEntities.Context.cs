@@ -47,10 +47,18 @@ namespace InsuranceSocialNetworkDAL
         public virtual DbSet<Banner> Banner { get; set; }
         public virtual DbSet<BannerType> BannerType { get; set; }
         public virtual DbSet<Notification> Notification { get; set; }
+        public virtual DbSet<County> County { get; set; }
+        public virtual DbSet<District> District { get; set; }
+        public virtual DbSet<Parish> Parish { get; set; }
         public virtual DbSet<ConstructionCompany> ConstructionCompany { get; set; }
         public virtual DbSet<Garage> Garage { get; set; }
         public virtual DbSet<HomeApplianceRepair> HomeApplianceRepair { get; set; }
         public virtual DbSet<InsuranceCompanyContact> InsuranceCompanyContact { get; set; }
         public virtual DbSet<MedicalClinic> MedicalClinic { get; set; }
+        public virtual DbSet<ConstructionCompanyFavorite> ConstructionCompanyFavorite { get; set; }
+        public virtual DbSet<GarageFavorite> GarageFavorite { get; set; }
+        public virtual DbSet<HomeApplianceRepairFavorite> HomeApplianceRepairFavorite { get; set; }
+        public virtual DbSet<InsuranceCompanyContactFavorite> InsuranceCompanyContactFavorite { get; set; }
+        public virtual DbSet<MedicalClinicFavorite> MedicalClinicFavorite { get; set; }
     }
 }

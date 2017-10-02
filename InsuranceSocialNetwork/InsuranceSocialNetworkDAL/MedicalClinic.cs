@@ -14,6 +14,12 @@ namespace InsuranceSocialNetworkDAL
     
     public partial class MedicalClinic
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public MedicalClinic()
+        {
+            this.MedicalClinicFavorite = new HashSet<MedicalClinicFavorite>();
+        }
+    
         public long ID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
@@ -24,16 +30,22 @@ namespace InsuranceSocialNetworkDAL
         public string Telephone_1 { get; set; }
         public string Telephone_2 { get; set; }
         public string Address { get; set; }
-        public Nullable<long> ID_PostalCode { get; set; }
+        public Nullable<long> ID_District { get; set; }
+        public Nullable<long> ID_County { get; set; }
+        public Nullable<long> ID_Parish { get; set; }
         public byte[] LogoPhoto { get; set; }
         public string Website { get; set; }
-        public string OficialPartner { get; set; }
-        public string OficialAgent { get; set; }
+        public string OfficialPartner { get; set; }
+        public string OfficialAgent { get; set; }
         public System.DateTime CreateDate { get; set; }
         public System.DateTime LastChangeDate { get; set; }
         public Nullable<System.DateTime> DeleteDate { get; set; }
         public bool Active { get; set; }
     
-        public virtual PostalCode PostalCode { get; set; }
+        public virtual County County { get; set; }
+        public virtual District District { get; set; }
+        public virtual Parish Parish { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MedicalClinicFavorite> MedicalClinicFavorite { get; set; }
     }
 }
