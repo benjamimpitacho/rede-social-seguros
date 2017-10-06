@@ -175,6 +175,7 @@ namespace InsuranceWebsite.Controllers
                 {
                     ID_Banner_Type = model.ID_Banner_Type,
                     Description = model.Description,
+                    Url = model.Url,
                     StartDate = model.StartDate,
                     DueDate = model.DueDate
                 };
@@ -206,6 +207,7 @@ namespace InsuranceWebsite.Controllers
             {
                 Active = banner.Active,
                 Description = banner.Description,
+                Url = banner.Url,
                 DueDate = banner.DueDate,
                 ID = banner.ID,
                 ID_Banner_Type = banner.ID_Banner_Type,
@@ -228,6 +230,7 @@ namespace InsuranceWebsite.Controllers
                     ID = model.ID,
                     ID_Banner_Type = model.ID_Banner_Type,
                     Description = model.Description,
+                    Url = model.Url,
                     StartDate = model.StartDate,
                     DueDate = model.DueDate
                 };

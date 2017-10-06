@@ -575,8 +575,6 @@
     <Content Include="Views\Home\Partial\SearchUsersResult.cshtml" />
     <Content Include="Views\Home\Partial\ChatSectionView.cshtml" />
     <Content Include="Views\BannersManagement\Index.cshtml" />
-    <Content Include="Views\BannersManagement\Partial\CreateBannerModalView.cshtml" />
-    <Content Include="Views\BannersManagement\AddBanner.cshtml" />
     <Content Include="Views\BannersManagement\Edit.cshtml" />
     <Content Include="Views\BannersManagement\Create.cshtml" />
     <Content Include="Views\Home\Partial\TopBannerPartialView.cshtml" />

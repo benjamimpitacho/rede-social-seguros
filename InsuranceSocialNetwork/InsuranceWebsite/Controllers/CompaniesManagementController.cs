@@ -254,10 +254,11 @@ namespace InsuranceWebsite.Controllers
         [FunctionalityAutorizeAttribute("COMPANIES_MANAGEMENT")]
         public ActionResult Create(CompanyTypeEnum id)
         {
-            CompanyModelObject model = new CompanyModelObject()
-            {
-                CompanyType = id
-            };
+            CompanyModelObject model = new CompanyModelObject();
+
+            List<SelectListItem>  initList = new List<SelectListItem>() { new SelectListItem() { Value = "", Text = Resources.Resources.SelectService } };
+            model.ServiceList = initList.Concat(InsuranceBusiness.BusinessLayer.GetCompanyServices(id).Select(i => new SelectListItem() { Value = i.Key.ToString(), Text = i.Value }).ToList()).ToList();
+            model.CompanyType = id;
 
             return PartialView(model);
         }
@@ -280,6 +281,7 @@ namespace InsuranceWebsite.Controllers
                     ID_District = model.ID_District,
                     ID_County = model.ID_County,
                     ID_Parish = model.ID_Parish,
+                    ID_Service = model.ID_Service,
                     MobilePhone_1 = model.MobilePhone_1,
                     MobilePhone_2 = model.MobilePhone_2,
                     Name = model.Name,
@@ -305,16 +307,16 @@ namespace InsuranceWebsite.Controllers
                         InsuranceBusiness.BusinessLayer.CreateGarage(newCompany);
                         break;
                     case CompanyTypeEnum.MEDICAL_CLINIC:
-                        InsuranceBusiness.BusinessLayer.CreateGarage(newCompany);
+                        InsuranceBusiness.BusinessLayer.CreateMedicalClinic(newCompany);
                         break;
                     case CompanyTypeEnum.CONSTRUCTION_COMPANY:
-                        InsuranceBusiness.BusinessLayer.CreateGarage(newCompany);
+                        InsuranceBusiness.BusinessLayer.CreateConstructionCompany(newCompany);
                         break;
                     case CompanyTypeEnum.HOME_APPLIANCES_REPAIR:
-                        InsuranceBusiness.BusinessLayer.CreateGarage(newCompany);
+                        InsuranceBusiness.BusinessLayer.CreateHomeApplianceRepair(newCompany);
                         break;
                     case CompanyTypeEnum.INSURANCE_COMPANY_CONTACT:
-                        InsuranceBusiness.BusinessLayer.CreateGarage(newCompany);
+                        InsuranceBusiness.BusinessLayer.CreateInsuranceCompanyContact(newCompany);
                         break;
                     default:
                         break;
@@ -345,6 +347,7 @@ namespace InsuranceWebsite.Controllers
                 ID_District = company.ID_District,
                 ID_County = company.ID_County,
                 ID_Parish = company.ID_Parish,
+                ID_Service = company.ID_Service,
                 LogoPhoto = company.LogoPhoto,
                 MobilePhone_1 = company.MobilePhone_1,
                 MobilePhone_2 = company.MobilePhone_2,
@@ -356,7 +359,11 @@ namespace InsuranceWebsite.Controllers
                 Website = company.Website
             };
 
-            if(model.ID_District.HasValue)
+            List<SelectListItem> initList = new List<SelectListItem>() { new SelectListItem() { Value = "", Text = Resources.Resources.SelectService } };
+            model.ServiceList = initList.Concat(InsuranceBusiness.BusinessLayer.GetCompanyServices(idType).Select(i => new SelectListItem() { Value = i.Key.ToString(), Text = i.Value }).ToList()).ToList();
+            model.CompanyType = idType;
+
+            if (model.ID_District.HasValue)
             {
                 model.CountyList = model.CountyList.Concat(InsuranceBusiness.BusinessLayer.GetCountiesByDistrict(model.ID_District.Value).Select(i => new SelectListItem() { Value = i.Key.ToString(), Text = i.Value }).ToList()).ToList();
             }
@@ -382,6 +389,7 @@ namespace InsuranceWebsite.Controllers
                 company.ID_District = model.ID_District;
                 company.ID_County = model.ID_County;
                 company.ID_Parish = model.ID_Parish;
+                company.ID_Service = model.ID_Service;
                 company.LogoPhoto = model.LogoPhoto;
                 company.MobilePhone_1 = model.MobilePhone_1;
                 company.MobilePhone_2 = model.MobilePhone_2;
@@ -398,16 +406,16 @@ namespace InsuranceWebsite.Controllers
                         InsuranceBusiness.BusinessLayer.EditGarage(company);
                         break;
                     case CompanyTypeEnum.MEDICAL_CLINIC:
-                        InsuranceBusiness.BusinessLayer.EditGarage(company);
+                        InsuranceBusiness.BusinessLayer.EditMedicalClinic(company);
                         break;
                     case CompanyTypeEnum.CONSTRUCTION_COMPANY:
-                        InsuranceBusiness.BusinessLayer.EditGarage(company);
+                        InsuranceBusiness.BusinessLayer.EditConstructionCompany(company);
                         break;
                     case CompanyTypeEnum.HOME_APPLIANCES_REPAIR:
-                        InsuranceBusiness.BusinessLayer.EditGarage(company);
+                        InsuranceBusiness.BusinessLayer.EditHomeApplianceRepair(company);
                         break;
                     case CompanyTypeEnum.INSURANCE_COMPANY_CONTACT:
-                        InsuranceBusiness.BusinessLayer.EditGarage(company);
+                        InsuranceBusiness.BusinessLayer.EditInsuranceCompanyContact(company);
                         break;
                     default:
                         break;
@@ -465,25 +473,5 @@ namespace InsuranceWebsite.Controllers
 
             return RedirectToAction("Index");
         }
-
-        //[HttpGet]
-        //public JsonResult GetPostalCodeInformation(string postalCode)
-        //{
-        //    try
-        //    {
-        //        PostalCodeDTO postalCodeInfo = InsuranceBusiness.BusinessLayer.GetPostalCodeInformation(postalCode);
-
-        //        if (null == postalCodeInfo)
-        //        {
-        //            return Json(new { ok = false }, JsonRequestBehavior.AllowGet);
-        //        }
-
-        //        return Json(new { ok = true, localocality = postalCodeInfo.Localidade, postalCodeId = postalCodeInfo.ID }, JsonRequestBehavior.AllowGet);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new NotImplementedException();
-        //    }
-        //}
     }
 }

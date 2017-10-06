@@ -72,6 +72,7 @@ namespace InsuranceWebsite.Utils
             MapperConfiguration mapperConfiguration = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<CompanyDTO, CompanyModelObject>();
+                    //.ForMember(dto => dto.CompanyType, opt => opt.Ignore());
                 cfg.CreateMap<CompanyModelObject, CompanyDTO>();
             });
 

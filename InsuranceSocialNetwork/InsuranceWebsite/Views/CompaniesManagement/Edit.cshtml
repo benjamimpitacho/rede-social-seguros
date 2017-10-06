@@ -29,6 +29,11 @@
             @Html.ValidationMessageFor(i => i.NIF)
         </p>
         <p>
+            @Html.Label(Resources.Resources.Services)
+            @Html.DropDownListFor(m => m.ID_Service, Model.ServiceList, new { @class = "text ui-widget-content ui-corner-all", @style = "margin-left:10%;margin-right:10%;color:#777;min-height:28px;", @placeholder = Resources.Resources.Services, id = "serviceList" })
+            @Html.HiddenFor(i => i.ID_Service, new { id = "serviceId" })
+        </p>
+        <p>
             @Html.Label(Resources.Resources.Description)
             @Html.TextBoxFor(model => model.Description, new { @class = "text ui-widget-content ui-corner-all", id = "description" })
             @Html.ValidationMessageFor(i => i.Description)
@@ -56,10 +61,6 @@
             @Html.DropDownListFor(m => m.ID_County, Model.CountyList, new { @class = "text ui-widget-content ui-corner-all", @style = "margin-left:10%;margin-right:10%;color:#777;min-height:28px;", @placeholder = Resources.Resources.Location, id = "countyList" })
             @*@Html.TextBoxFor(model => model.ID_PostalCode, new { @class = "text ui-widget-content ui-corner-all", id = "postalcode" })*@
             @Html.HiddenFor(i => i.ID_County, new { id = "countyId" })
-        </p>
-        <p>
-            @Html.Label(Resources.Resources.Location)
-            @Html.TextBox("Location", null, new { id = "locality", @class = "text ui-widget-content ui-corner-all" })
         </p>
         <p>
             @Html.Label(Resources.Resources.Telephone_1)

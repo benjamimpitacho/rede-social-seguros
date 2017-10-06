@@ -354,7 +354,7 @@ namespace InsuranceWebsite.Controllers
 
                 profile.FirstName = model.FirstName;
                 profile.LastName = model.LastName;
-                profile.User.EmailConfirmed = model.User.EmailConfirmed;
+                //profile.User.EmailConfirmed = model.User.EmailConfirmed;
 
                 InsuranceBusiness.BusinessLayer.UpdateProfile(profile);
             }

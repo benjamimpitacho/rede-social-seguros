@@ -114,6 +114,9 @@
     <Compile Include="GarageFavorite.cs">
       <DependentUpon>InsuranceDatabaseEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="HomeApplianceRepairRepository.cs" />
+    <Compile Include="InsuranceCompanyContactRepository.cs" />
+    <Compile Include="ConstructionCompanyRepository.cs" />
     <Compile Include="HomeApplianceRepair.cs">
       <DependentUpon>InsuranceDatabaseEntities.tt</DependentUpon>
     </Compile>

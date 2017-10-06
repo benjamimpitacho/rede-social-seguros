@@ -7,7 +7,16 @@
     <div class="bannerPanel" id="rotator">
         @foreach (BannerDTO banner in Model.TopBanners)
         {
-            <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(banner.Image))" class="bannerPanel" />
+            if (!string.IsNullOrEmpty(banner.Url))
+            {
+                <a href="@banner.Url" target="_blank">
+                    <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(banner.Image))" class="bannerPanel" />
+                </a>
+            }
+            else
+            {
+                <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(banner.Image))" class="bannerPanel" />
+            }
         }
     </div>
 

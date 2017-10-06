@@ -64,6 +64,7 @@ namespace InsuranceSocialNetworkDAL
                 item.ID_District = garage.ID_District;
                 item.ID_County = garage.ID_County;
                 item.ID_Parish = garage.ID_Parish;
+                item.ID_Service = garage.ID_Service;
                 item.MobilePhone_1 = garage.MobilePhone_1;
                 item.MobilePhone_2 = garage.MobilePhone_2;
                 item.Name = garage.Name;

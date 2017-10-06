@@ -56,6 +56,7 @@ namespace InsuranceWebsite.Models
         public long? ID_District { get; set; }
         public long? ID_County { get; set; }
         public long? ID_Parish { get; set; }
+        public long? ID_Service { get; set; }
         public byte[] LogoPhoto { get; set; }
         [Url]
         public string Website { get; set; }
@@ -69,10 +70,6 @@ namespace InsuranceWebsite.Models
 
         public List<SelectListItem> ParishList { get; set; }
 
-        //private List<ListItem> _bannerTypes;
-        //public IEnumerable<SelectListItem> BannerTypesList
-        //{
-        //    get { return new SelectList(_bannerTypes, "Id", "Name"); }
-        //}
+        public List<SelectListItem> ServiceList { get; set; }
     }
 }

@@ -81,25 +81,25 @@ namespace InsuranceSocialNetworkBusiness
                 cfg.CreateMap<BannerType, BannerTypeDTO>();
                 cfg.CreateMap<BannerTypeDTO, BannerType>();
 
-                cfg.CreateMap<Garage, CompanyDTO>()
-                    .ForMember(dest => dest.IsFavorite,
-                       opts => opts.MapFrom(src => src.GarageFavorite != null && src.GarageFavorite.Count > 0));
+                cfg.CreateMap<Garage, CompanyDTO>();
+                    //.ForMember(dest => dest.IsFavorite,
+                    //   opts => opts.MapFrom(src => src.GarageFavorite != null && src.GarageFavorite.Count > 0));
                 cfg.CreateMap<CompanyDTO, Garage>();
-                cfg.CreateMap<MedicalClinic, CompanyDTO>()
-                    .ForMember(dest => dest.IsFavorite,
-                       opts => opts.MapFrom(src => src.MedicalClinicFavorite != null && src.MedicalClinicFavorite.Count > 0));
+                cfg.CreateMap<MedicalClinic, CompanyDTO>();
+                    //.ForMember(dest => dest.IsFavorite,
+                    //   opts => opts.MapFrom(src => src.MedicalClinicFavorite != null && src.MedicalClinicFavorite.Count > 0));
                 cfg.CreateMap<CompanyDTO, MedicalClinic>();
-                cfg.CreateMap<ConstructionCompany, CompanyDTO>()
-                    .ForMember(dest => dest.IsFavorite,
-                       opts => opts.MapFrom(src => src.ConstructionCompanyFavorite != null && src.ConstructionCompanyFavorite.Count > 0));
+                cfg.CreateMap<ConstructionCompany, CompanyDTO>();
+                    //.ForMember(dest => dest.IsFavorite,
+                    //   opts => opts.MapFrom(src => src.ConstructionCompanyFavorite != null && src.ConstructionCompanyFavorite.Count > 0));
                 cfg.CreateMap<CompanyDTO, ConstructionCompany>();
-                cfg.CreateMap<HomeApplianceRepair, CompanyDTO>()
-                    .ForMember(dest => dest.IsFavorite,
-                       opts => opts.MapFrom(src => src.HomeApplianceRepairFavorite != null && src.HomeApplianceRepairFavorite.Count > 0));
+                cfg.CreateMap<HomeApplianceRepair, CompanyDTO>();
+                    //.ForMember(dest => dest.IsFavorite,
+                    //   opts => opts.MapFrom(src => src.HomeApplianceRepairFavorite != null && src.HomeApplianceRepairFavorite.Count > 0));
                 cfg.CreateMap<CompanyDTO, HomeApplianceRepair>();
-                cfg.CreateMap<InsuranceCompanyContact, CompanyDTO>()
-                    .ForMember(dest => dest.IsFavorite,
-                       opts => opts.MapFrom(src => src.InsuranceCompanyContactFavorite != null && src.InsuranceCompanyContactFavorite.Count > 0));
+                cfg.CreateMap<InsuranceCompanyContact, CompanyDTO>();
+                    //.ForMember(dest => dest.IsFavorite,
+                    //   opts => opts.MapFrom(src => src.InsuranceCompanyContactFavorite != null && src.InsuranceCompanyContactFavorite.Count > 0));
                 cfg.CreateMap<CompanyDTO, InsuranceCompanyContact>();
             });
 
@@ -568,8 +568,8 @@ namespace InsuranceSocialNetworkBusiness
 
         public CompanyDTO GetGarage(long id)
         {
-            Garage garage = GarageRepository.GetGarage(id);
-            return AutoMapper.Mapper.Map<CompanyDTO>(garage);
+            Garage item = GarageRepository.GetGarage(id);
+            return AutoMapper.Mapper.Map<CompanyDTO>(item);
         }
 
         public List<CompanyDTO> GetGarages()
@@ -586,8 +586,8 @@ namespace InsuranceSocialNetworkBusiness
 
         public bool EditGarage(CompanyDTO item)
         {
-            Garage banner = AutoMapper.Mapper.Map<Garage>(item);
-            return GarageRepository.EditGarage(banner);
+            Garage garage = AutoMapper.Mapper.Map<Garage>(item);
+            return GarageRepository.EditGarage(garage);
         }
 
         public bool DeleteGarage(long id)
@@ -614,13 +614,175 @@ namespace InsuranceSocialNetworkBusiness
 
         #region Medical Clinics
 
+        public CompanyDTO GetMedicalClinic(long id)
+        {
+            MedicalClinic item = MedicalClinicRepository.GetMedicalClinic(id);
+            return AutoMapper.Mapper.Map<CompanyDTO>(item);
+        }
+
         public List<CompanyDTO> GetMedicalClinics()
         {
             List<MedicalClinic> items = MedicalClinicRepository.GetMedicalClinics();
             return AutoMapper.Mapper.Map<List<CompanyDTO>>(items);
         }
 
+        public long CreateMedicalClinic(CompanyDTO item)
+        {
+            MedicalClinic clinic = AutoMapper.Mapper.Map<MedicalClinic>(item);
+            return MedicalClinicRepository.CreateMedicalClinic(clinic);
+        }
+
+        public bool EditMedicalClinic(CompanyDTO item)
+        {
+            MedicalClinic clinic = AutoMapper.Mapper.Map<MedicalClinic>(item);
+            return MedicalClinicRepository.EditMedicalClinic(clinic);
+        }
+
+        public bool DeleteMedicalClinic(long id)
+        {
+            return MedicalClinicRepository.DeleteMedicalClinic(id);
+        }
+
+        public bool ActivateMedicalClinic(long id)
+        {
+            return MedicalClinicRepository.ActivateMedicalClinic(id);
+        }
+
+        public bool DeactivateMedicalClinic(long id)
+        {
+            return MedicalClinicRepository.DeactivateMedicalClinic(id);
+        }
+
         #endregion Medical Clinics
+
+        #region Construction Companies
+
+        public CompanyDTO GetConstructionCompany(long id)
+        {
+            ConstructionCompany item = ConstructionCompanyRepository.GetConstructionCompany(id);
+            return AutoMapper.Mapper.Map<CompanyDTO>(item);
+        }
+
+        public List<CompanyDTO> GetConstructionCompanies()
+        {
+            List<ConstructionCompany> items = ConstructionCompanyRepository.GetConstructionCompanies();
+            return AutoMapper.Mapper.Map<List<CompanyDTO>>(items);
+        }
+
+        public long CreateConstructionCompany(CompanyDTO item)
+        {
+            ConstructionCompany constructionCompany = AutoMapper.Mapper.Map<ConstructionCompany>(item);
+            return ConstructionCompanyRepository.CreateConstructionCompany(constructionCompany);
+        }
+
+        public bool EditConstructionCompany(CompanyDTO item)
+        {
+            ConstructionCompany constructionCompany = AutoMapper.Mapper.Map<ConstructionCompany>(item);
+            return ConstructionCompanyRepository.EditConstructionCompany(constructionCompany);
+        }
+
+        public bool DeleteConstructionCompany(long id)
+        {
+            return ConstructionCompanyRepository.DeleteConstructionCompany(id);
+        }
+
+        public bool ActivateConstructionCompany(long id)
+        {
+            return ConstructionCompanyRepository.ActivateConstructionCompany(id);
+        }
+
+        public bool DeactivateConstructionCompany(long id)
+        {
+            return ConstructionCompanyRepository.DeactivateConstructionCompany(id);
+        }
+
+        #endregion Construction Companies
+
+        #region Home Appliances Repairs
+
+        public CompanyDTO GetHomeApplianceRepair(long id)
+        {
+            HomeApplianceRepair item = HomeApplianceRepairRepository.GetHomeApplianceRepair(id);
+            return AutoMapper.Mapper.Map<CompanyDTO>(item);
+        }
+
+        public List<CompanyDTO> GetHomeApplianceRepairs()
+        {
+            List<HomeApplianceRepair> items = HomeApplianceRepairRepository.GetHomeApplianceRepairs();
+            return AutoMapper.Mapper.Map<List<CompanyDTO>>(items);
+        }
+
+        public long CreateHomeApplianceRepair(CompanyDTO item)
+        {
+            HomeApplianceRepair homeApplianceRepair = AutoMapper.Mapper.Map<HomeApplianceRepair>(item);
+            return HomeApplianceRepairRepository.CreateHomeApplianceRepair(homeApplianceRepair);
+        }
+
+        public bool EditHomeApplianceRepair(CompanyDTO item)
+        {
+            HomeApplianceRepair homeApplianceRepair = AutoMapper.Mapper.Map<HomeApplianceRepair>(item);
+            return HomeApplianceRepairRepository.EditHomeApplianceRepair(homeApplianceRepair);
+        }
+
+        public bool DeleteHomeApplianceRepair(long id)
+        {
+            return HomeApplianceRepairRepository.DeleteHomeApplianceRepair(id);
+        }
+
+        public bool ActivateHomeApplianceRepair(long id)
+        {
+            return HomeApplianceRepairRepository.ActivateHomeApplianceRepair(id);
+        }
+
+        public bool DeactivateHomeApplianceRepair(long id)
+        {
+            return HomeApplianceRepairRepository.DeactivateHomeApplianceRepair(id);
+        }
+
+        #endregion Home Appliances Repairs
+
+        #region Insurance Company Contacts
+
+        public CompanyDTO GetInsuranceCompanyContact(long id)
+        {
+            InsuranceCompanyContact item = InsuranceCompanyContactRepository.GetInsuranceCompanyContact(id);
+            return AutoMapper.Mapper.Map<CompanyDTO>(item);
+        }
+
+        public List<CompanyDTO> GetInsuranceCompanyContacts()
+        {
+            List<InsuranceCompanyContact> items = InsuranceCompanyContactRepository.GetInsuranceCompanyContacts();
+            return AutoMapper.Mapper.Map<List<CompanyDTO>>(items);
+        }
+
+        public long CreateInsuranceCompanyContact(CompanyDTO item)
+        {
+            InsuranceCompanyContact insuranceCompanyContact = AutoMapper.Mapper.Map<InsuranceCompanyContact>(item);
+            return InsuranceCompanyContactRepository.CreateInsuranceCompanyContact(insuranceCompanyContact);
+        }
+
+        public bool EditInsuranceCompanyContact(CompanyDTO item)
+        {
+            InsuranceCompanyContact insuranceCompanyContact = AutoMapper.Mapper.Map<InsuranceCompanyContact>(item);
+            return InsuranceCompanyContactRepository.EditInsuranceCompanyContact(insuranceCompanyContact);
+        }
+
+        public bool DeleteInsuranceCompanyContact(long id)
+        {
+            return InsuranceCompanyContactRepository.DeleteInsuranceCompanyContact(id);
+        }
+
+        public bool ActivateInsuranceCompanyContact(long id)
+        {
+            return InsuranceCompanyContactRepository.ActivateInsuranceCompanyContact(id);
+        }
+
+        public bool DeactivateInsuranceCompanyContact(long id)
+        {
+            return InsuranceCompanyContactRepository.DeactivateInsuranceCompanyContact(id);
+        }
+
+        #endregion Insurance Company Contacts
 
         #region Postal Code
 

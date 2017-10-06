@@ -20,6 +20,11 @@
             @Html.ValidationMessageFor(i => i.Description)
         </p>
         <p>
+            @Html.Label(Resources.Resources.Website)
+            @Html.TextBoxFor(i => i.Url, new { @class = "text ui-widget-content ui-corner-all", id = "description" })
+            @Html.ValidationMessageFor(i => i.Url)
+        </p>
+        <p>
             @Html.Label(Resources.Resources.BannerType)
             @Html.DropDownListFor(i => i.ID_Banner_Type, Model.BannerTypesList, new { @class = "text ui-widget-content ui-corner-all", id = "bannertype", style = "width:95%;padding:.4em;" })
             @Html.ValidationMessageFor(i => i.ID_Banner_Type)
