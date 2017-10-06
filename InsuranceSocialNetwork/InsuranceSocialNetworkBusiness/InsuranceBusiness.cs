@@ -101,9 +101,6 @@ namespace InsuranceSocialNetworkBusiness
                     .ForMember(dest => dest.IsFavorite,
                        opts => opts.MapFrom(src => src.InsuranceCompanyContactFavorite != null && src.InsuranceCompanyContactFavorite.Count > 0));
                 cfg.CreateMap<CompanyDTO, InsuranceCompanyContact>();
-
-                cfg.CreateMap<PostalCode, PostalCodeDTO>();
-                cfg.CreateMap<PostalCodeDTO, PostalCode>();
             });
 
             #endregion
@@ -131,7 +128,7 @@ namespace InsuranceSocialNetworkBusiness
             List<string> registerRoles = new List<string>()
             {
                 "NORMAL_USER"
-                //,"INSURANCE_PROFESSIONAL"
+                ,"INSURANCE_PROFESSIONAL"
                 //,"ASSOCIATED_PREMIUM"
             };
             List<AspNetRoles> roles = RoleRepository.GetRoles().Where(i => registerRoles.Contains(i.Name)).OrderBy(i => i.Id).ToList();
@@ -243,7 +240,10 @@ namespace InsuranceSocialNetworkBusiness
                     ChatRepository.CreateChat(context, chat);
                 }
 
-                return AutoMapper.Mapper.Map<ChatDTO>(chat);
+                ChatDTO chatDTO = AutoMapper.Mapper.Map<ChatDTO>(chat);
+                chatDTO.ChatMemberProfile = AutoMapper.Mapper.Map<List<UserProfileDTO>>(chat.ChatMember.Select(i => i.AspNetUsers.Profile.FirstOrDefault()).ToList());
+
+                return chatDTO;
             }
         }
 
@@ -253,7 +253,10 @@ namespace InsuranceSocialNetworkBusiness
             {
                 Chat chat = ChatRepository.GetChat(context, chatId);
 
-                return AutoMapper.Mapper.Map<ChatDTO>(chat);
+                ChatDTO chatDTO = AutoMapper.Mapper.Map<ChatDTO>(chat);
+                chatDTO.ChatMemberProfile = AutoMapper.Mapper.Map<List<UserProfileDTO>>(chat.ChatMember.Select(i => i.AspNetUsers.Profile.FirstOrDefault()).ToList());
+
+                return chatDTO;
             }
         }
 
@@ -305,7 +308,21 @@ namespace InsuranceSocialNetworkBusiness
         public List<NotificationDTO> GetUserNotifications(string Id)
         {
             List<Notification> list = NotificationRepository.GetUserNotifications(Id);
-            return AutoMapper.Mapper.Map<List<NotificationDTO>>(list);
+            List<NotificationDTO> result = AutoMapper.Mapper.Map<List<NotificationDTO>>(list);
+
+            //result.usersNames = UserProfileRepository.GetNamesForUsers(list.Select(i=>i.FromUserID).Distinct().ToList());
+
+            return result;
+        }
+
+        public List<ListItemString> GetNamesForUsers(List<string> usersIds)
+        {
+            return UserProfileRepository.GetNamesForUsers(usersIds);
+        }
+
+        public List<ListItemObject> GetPhotosForUsers(List<string> usersIds)
+        {
+            return UserProfileRepository.GetPhotosForUsers(usersIds);
         }
 
         public bool CreateNotification(NotificationDTO item)
@@ -330,6 +347,51 @@ namespace InsuranceSocialNetworkBusiness
             };
 
             return NotificationRepository.CreateNotification(notification);
+        }
+
+        public bool CreateNotificationForPost(long postId, string fromUserId, NotificationTypeEnum type)
+        {
+            string postOwnerUserId = PostRepository.GetPostOwnerUserId(postId);
+
+            Notification notification = new Notification()
+            {
+                Active = true,
+                CreateDate = DateTime.Now,
+                Read = false,
+                ID_NotificationType = NotificationRepository.GetNotificationType(type.ToString()).ID,
+                ToUserID = postOwnerUserId,
+                FromUserID = string.IsNullOrEmpty(fromUserId) ? null : fromUserId
+            };
+
+            return NotificationRepository.CreateNotification(notification);
+        }
+
+        public bool CreateNotificationForChat(string chatId, string fromUserId, NotificationTypeEnum type)
+        {
+            List<string> chatMembersUserIds = ChatRepository.GetChatMembersUserIds(chatId, fromUserId);
+
+            Notification notification = new Notification()
+            {
+                Active = true,
+                CreateDate = DateTime.Now,
+                Read = false,
+                ID_NotificationType = NotificationRepository.GetNotificationType(type.ToString()).ID,
+                //ToUserID = postOwnerUserId,
+                FromUserID = string.IsNullOrEmpty(fromUserId) ? null : fromUserId
+            };
+
+            foreach(string userId in chatMembersUserIds)
+            {
+                notification.ToUserID = userId;
+                NotificationRepository.CreateNotification(notification);
+            }
+
+            return true;
+        }
+
+        public bool MarkNotificationAsRead(long id)
+        {
+            return NotificationRepository.MarkNotificationAsRead(id);
         }
 
         #endregion Notifications
@@ -480,6 +542,26 @@ namespace InsuranceSocialNetworkBusiness
             return FriendsRepository.AddFriend(currentUserId, newFriendId);
         }
 
+        public bool AcceptFriendRequest(string currentUserId, string newFriendId)
+        {
+            return FriendsRepository.AcceptFriendRequest(currentUserId, newFriendId);
+        }
+
+        public bool IgnoreFriendRequest(string currentUserId, string newFriendId)
+        {
+            return FriendsRepository.IgnoreFriendRequest(currentUserId, newFriendId);
+        }
+
+        public bool AreFriends(string currentUserId, string otherUserId)
+        {
+            return FriendsRepository.AreFriends(currentUserId, otherUserId);
+        }
+
+        public bool HasPendingFriendRequest(string currentUserId, string otherUserId)
+        {
+            return FriendsRepository.HasPendingFriendRequest(currentUserId, otherUserId);
+        }
+
         #endregion Friends
 
         #region Garages
@@ -523,6 +605,11 @@ namespace InsuranceSocialNetworkBusiness
             return GarageRepository.DeactivateGarage(id);
         }
 
+        public List<ListItem> GetCompanyServices(CompanyTypeEnum type)
+        {
+            return CompanyRepository.GetCompanyServices(type);
+        }
+
         #endregion Garages
 
         #region Medical Clinics
@@ -537,41 +624,41 @@ namespace InsuranceSocialNetworkBusiness
 
         #region Postal Code
 
-        public PostalCodeDTO GetPostalCodeInformation(string postalCode)
-        {
-            int postalCodeValue = -1;
-            int postalSubCodeValue = -1;
-            string[] postalCodeSplitted = postalCode.Trim().Split(new char[] { '-' });
+        //public PostalCodeDTO GetPostalCodeInformation(string postalCode)
+        //{
+        //    int postalCodeValue = -1;
+        //    int postalSubCodeValue = -1;
+        //    string[] postalCodeSplitted = postalCode.Trim().Split(new char[] { '-' });
 
-            bool postalCodeParsedCorrectly = true;
-            if (postalCodeSplitted.Length > 1)
-            {
-                postalCodeParsedCorrectly = postalCodeParsedCorrectly && Int32.TryParse(postalCodeSplitted[0], out postalCodeValue);
-                postalCodeParsedCorrectly = postalCodeParsedCorrectly && Int32.TryParse(postalCodeSplitted[1], out postalSubCodeValue);
+        //    bool postalCodeParsedCorrectly = true;
+        //    if (postalCodeSplitted.Length > 1)
+        //    {
+        //        postalCodeParsedCorrectly = postalCodeParsedCorrectly && Int32.TryParse(postalCodeSplitted[0], out postalCodeValue);
+        //        postalCodeParsedCorrectly = postalCodeParsedCorrectly && Int32.TryParse(postalCodeSplitted[1], out postalSubCodeValue);
 
-                if(postalCodeParsedCorrectly)
-                {
-                    PostalCode itemInfo = PostalCodeRepository.GetInformation(postalCodeValue, postalSubCodeValue);
-                    return AutoMapper.Mapper.Map<PostalCodeDTO>(itemInfo);
-                }
-            }
-            else if (postalCodeSplitted.Length == 1)
-            {
-                postalCodeParsedCorrectly = postalCodeParsedCorrectly && Int32.TryParse(postalCodeSplitted[0], out postalCodeValue);
+        //        if(postalCodeParsedCorrectly)
+        //        {
+        //            PostalCode itemInfo = PostalCodeRepository.GetInformation(postalCodeValue, postalSubCodeValue);
+        //            return AutoMapper.Mapper.Map<PostalCodeDTO>(itemInfo);
+        //        }
+        //    }
+        //    else if (postalCodeSplitted.Length == 1)
+        //    {
+        //        postalCodeParsedCorrectly = postalCodeParsedCorrectly && Int32.TryParse(postalCodeSplitted[0], out postalCodeValue);
 
-                if (postalCodeParsedCorrectly)
-                {
-                    PostalCode itemInfo = PostalCodeRepository.GetInformation(postalCodeValue, null);
-                    return AutoMapper.Mapper.Map<PostalCodeDTO>(itemInfo);
-                }
-            }
-            else
-            {
-                return null;
-            }
+        //        if (postalCodeParsedCorrectly)
+        //        {
+        //            PostalCode itemInfo = PostalCodeRepository.GetInformation(postalCodeValue, null);
+        //            return AutoMapper.Mapper.Map<PostalCodeDTO>(itemInfo);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        return null;
+        //    }
 
-            return null;
-        }
+        //    return null;
+        //}
 
         public List<ListItem> GetDistricts()
         {

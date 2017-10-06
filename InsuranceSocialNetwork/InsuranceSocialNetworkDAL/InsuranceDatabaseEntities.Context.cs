@@ -33,7 +33,6 @@ namespace InsuranceSocialNetworkDAL
         public virtual DbSet<PostSubject> PostSubject { get; set; }
         public virtual DbSet<PostType> PostType { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
-        public virtual DbSet<PostalCode> PostalCode { get; set; }
         public virtual DbSet<PostCommentLike> PostCommentLike { get; set; }
         public virtual DbSet<Post> Post { get; set; }
         public virtual DbSet<AspNetRolesFunctionalities> AspNetRolesFunctionalities { get; set; }
@@ -43,22 +42,24 @@ namespace InsuranceSocialNetworkDAL
         public virtual DbSet<Chat> Chat { get; set; }
         public virtual DbSet<ChatMember> ChatMember { get; set; }
         public virtual DbSet<ChatMessage> ChatMessage { get; set; }
-        public virtual DbSet<Profile> Profile { get; set; }
-        public virtual DbSet<Banner> Banner { get; set; }
         public virtual DbSet<BannerType> BannerType { get; set; }
         public virtual DbSet<Notification> Notification { get; set; }
         public virtual DbSet<County> County { get; set; }
         public virtual DbSet<District> District { get; set; }
         public virtual DbSet<Parish> Parish { get; set; }
-        public virtual DbSet<ConstructionCompany> ConstructionCompany { get; set; }
-        public virtual DbSet<Garage> Garage { get; set; }
-        public virtual DbSet<HomeApplianceRepair> HomeApplianceRepair { get; set; }
-        public virtual DbSet<InsuranceCompanyContact> InsuranceCompanyContact { get; set; }
-        public virtual DbSet<MedicalClinic> MedicalClinic { get; set; }
         public virtual DbSet<ConstructionCompanyFavorite> ConstructionCompanyFavorite { get; set; }
         public virtual DbSet<GarageFavorite> GarageFavorite { get; set; }
         public virtual DbSet<HomeApplianceRepairFavorite> HomeApplianceRepairFavorite { get; set; }
         public virtual DbSet<InsuranceCompanyContactFavorite> InsuranceCompanyContactFavorite { get; set; }
         public virtual DbSet<MedicalClinicFavorite> MedicalClinicFavorite { get; set; }
+        public virtual DbSet<Banner> Banner { get; set; }
+        public virtual DbSet<Profile> Profile { get; set; }
+        public virtual DbSet<CompanyType> CompanyType { get; set; }
+        public virtual DbSet<ConstructionCompany> ConstructionCompany { get; set; }
+        public virtual DbSet<Garage> Garage { get; set; }
+        public virtual DbSet<HomeApplianceRepair> HomeApplianceRepair { get; set; }
+        public virtual DbSet<InsuranceCompanyContact> InsuranceCompanyContact { get; set; }
+        public virtual DbSet<MedicalClinic> MedicalClinic { get; set; }
+        public virtual DbSet<CompanyService> CompanyService { get; set; }
     }
 }

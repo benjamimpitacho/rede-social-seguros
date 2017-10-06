@@ -79,6 +79,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to aceitou o seu pedido de amizade.
+        /// </summary>
+        public static string AcceptedYourFriendRequest {
+            get {
+                return ResourceManager.GetString("AcceptedYourFriendRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aceitar pedido.
+        /// </summary>
+        public static string AcceptRequest {
+            get {
+                return ResourceManager.GetString("AcceptRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ativar.
         /// </summary>
         public static string Activate {
@@ -268,7 +286,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Associado ou Premium.
+        ///   Looks up a localized string similar to Utilizador Premium.
         /// </summary>
         public static string ASSOCIATED_PREMIUM {
             get {
@@ -358,6 +376,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Conversação com {0}.
+        /// </summary>
+        public static string ChatWith {
+            get {
+                return ResourceManager.GetString("ChatWith", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Verifique o seu e-mail para confirmar o registo e ativar o acesso ao portal..
         /// </summary>
         public static string CheckYourEmailToGetAccess {
@@ -394,11 +421,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to comentou a sua publicação.
+        /// </summary>
+        public static string CommentedOnYourPost {
+            get {
+                return ResourceManager.GetString("CommentedOnYourPost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Comentários nas suas publicações.
         /// </summary>
         public static string CommentsOnYourPosts {
             get {
                 return ResourceManager.GetString("CommentsOnYourPosts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Seguradoras com que trabalha.
+        /// </summary>
+        public static string CompaniesWorkingWith {
+            get {
+                return ResourceManager.GetString("CompaniesWorkingWith", resourceCulture);
             }
         }
         
@@ -525,6 +570,15 @@ namespace Resources {
         public static string DateJoined {
             get {
                 return ResourceManager.GetString("DateJoined", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to dia atrás.
+        /// </summary>
+        public static string DayAgo {
+            get {
+                return ResourceManager.GetString("DayAgo", resourceCulture);
             }
         }
         
@@ -799,6 +853,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ignorar pedido.
+        /// </summary>
+        public static string IgnoreRequest {
+            get {
+                return ResourceManager.GetString("IgnoreRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Em discussão.
         /// </summary>
         public static string InDiscussion {
@@ -808,7 +871,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Profissional de Seguros.
+        ///   Looks up a localized string similar to Mediador de Seguros.
         /// </summary>
         public static string INSURANCE_PROFESSIONAL {
             get {
@@ -849,6 +912,15 @@ namespace Resources {
         public static string LastName {
             get {
                 return ResourceManager.GetString("LastName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to gostou da sua publicação.
+        /// </summary>
+        public static string LikedYourPost {
+            get {
+                return ResourceManager.GetString("LikedYourPost", resourceCulture);
             }
         }
         
@@ -1420,11 +1492,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Seleccione serviço.
+        /// </summary>
+        public static string SelectService {
+            get {
+                return ResourceManager.GetString("SelectService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enviar Mensagem.
         /// </summary>
         public static string SendMessage {
             get {
                 return ResourceManager.GetString("SendMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to enviou-lhe um pedido de amizade.
+        /// </summary>
+        public static string SentYouFriendRequest {
+            get {
+                return ResourceManager.GetString("SentYouFriendRequest", resourceCulture);
             }
         }
         
@@ -1497,6 +1587,15 @@ namespace Resources {
         public static string SiteTitle {
             get {
                 return ResourceManager.GetString("SiteTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skype.
+        /// </summary>
+        public static string Skype {
+            get {
+                return ResourceManager.GetString("Skype", resourceCulture);
             }
         }
         
@@ -1690,11 +1789,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Whatsapp.
+        /// </summary>
+        public static string Whatsapp {
+            get {
+                return ResourceManager.GetString("Whatsapp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to O que pretende publicar hoje?.
         /// </summary>
         public static string WhatsInYourMindToday {
             get {
                 return ResourceManager.GetString("WhatsInYourMindToday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Complete a informação do seu perfil.
+        /// </summary>
+        public static string YouNeedCompleteYourProfile {
+            get {
+                return ResourceManager.GetString("YouNeedCompleteYourProfile", resourceCulture);
             }
         }
     }

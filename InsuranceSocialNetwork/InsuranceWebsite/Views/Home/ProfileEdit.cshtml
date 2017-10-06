@@ -129,6 +129,14 @@
                                                             @Html.TextBoxFor(i => i.MobilePhone_2, new { @class = "form-control" })
                                                         </p>
                                                         <p class="data-row">
+                                                            <span class="data-name">@Resources.Resources.Skype</span>
+                                                            @Html.TextBoxFor(i => i.Skype, new { @class = "form-control" })
+                                                        </p>
+                                                        <p class="data-row">
+                                                            <span class="data-name">@Resources.Resources.Whatsapp</span>
+                                                            @Html.TextBoxFor(i => i.Whatsapp, new { @class = "form-control" })
+                                                        </p>
+                                                        <p class="data-row">
                                                             <span class="data-name">@Resources.Resources.Address</span>
                                                             @Html.TextBoxFor(i => i.Address, new { @class = "form-control" })
                                                         </p>
@@ -136,6 +144,9 @@
                                                     <div class="about">
                                                         <h3><i class="fa fa-square"></i> @Resources.Resources.AboutMe</h3>
                                                         @Html.TextAreaFor(i => i.AboutMe, new { @class = "form-control aboutme" })
+                                                        <p></p>
+                                                        <h3><i class="fa fa-square"></i> @Resources.Resources.CompaniesWorkingWith</h3>
+                                                        @Html.TextAreaFor(i => i.CompaniesWorkingWith, new { @class = "form-control aboutme" })
                                                         <p></p>
                                                     </div>
                                                     <div class="about">

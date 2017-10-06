@@ -39,6 +39,9 @@ namespace InsuranceWebsite.Models
         public string Telephone_1 { get; set; }
         public string Telephone_2 { get; set; }
         public string Address { get; set; }
+        public string Skype { get; set; }
+        public string Whatsapp { get; set; }
+        public string CompaniesWorkingWith { get; set; }
         public long? ID_PostalCode { get; set; }
         public byte[] ProfilePhoto { get; set; }
         [DataType(DataType.Date)]

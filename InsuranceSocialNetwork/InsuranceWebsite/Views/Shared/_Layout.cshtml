@@ -40,14 +40,16 @@
 
 <body class="animated fadeIn">
 
-    @if (!User.Identity.IsAuthenticated)
+    @*@if (!User.Identity.IsAuthenticated)
     {
         @RenderBody()
     }
     else
     {
         @RenderBody()
-    }
+    }*@
+
+    @RenderBody()
 
 </body>
 </html>

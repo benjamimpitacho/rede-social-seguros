@@ -53,6 +53,7 @@ namespace InsuranceSocialNetworkDAL
                         && i.StartDate < DateTime.Now
                         && (!i.DueDate.HasValue || i.DueDate.Value > DateTime.Now))
                     .Select(i => i)
+                    .OrderBy(i => Guid.NewGuid())
                     .ToList();
             }
         }

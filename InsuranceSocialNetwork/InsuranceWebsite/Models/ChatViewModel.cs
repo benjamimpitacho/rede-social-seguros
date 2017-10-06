@@ -12,5 +12,12 @@ namespace InsuranceWebsite.Models
     {
         public ChatDTO Chat { get; set; }
 
+        public string ChatOtherNames
+        {
+            get
+            {
+                return string.Join(",", this.Chat.ChatMemberProfile.Where(i => i.ID_User != this.Profile.ID_User).Select(j => j.FirstName + " " + j.LastName).ToArray());
+            }
+        }
     }
 }

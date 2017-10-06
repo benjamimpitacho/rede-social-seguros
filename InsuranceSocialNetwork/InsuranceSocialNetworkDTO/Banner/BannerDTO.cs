@@ -11,6 +11,7 @@ namespace InsuranceSocialNetworkDTO.Banner
         public long ID { get; set; }
         public long ID_Banner_Type { get; set; }
         public string Description { get; set; }
+        public string Url { get; set; }
         public byte[] Image { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime? DueDate { get; set; }

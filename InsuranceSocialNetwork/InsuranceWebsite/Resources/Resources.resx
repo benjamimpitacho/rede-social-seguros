@@ -124,7 +124,7 @@
     <value>Adicione um comentário...</value>
   </data>
   <data name="ASSOCIATED_PREMIUM" xml:space="preserve">
-    <value>Associado ou Premium</value>
+    <value>Utilizador Premium</value>
   </data>
   <data name="ChatGroups" xml:space="preserve">
     <value>Grupos de Conversa</value>
@@ -166,7 +166,7 @@
     <value>horas atrás</value>
   </data>
   <data name="INSURANCE_PROFESSIONAL" xml:space="preserve">
-    <value>Profissional de Seguros</value>
+    <value>Mediador de Seguros</value>
   </data>
   <data name="InvalidLoginAttempt" xml:space="preserve">
     <value>Tentativa de login inválida!</value>
@@ -662,5 +662,44 @@
   </data>
   <data name="CurrentDiscussions" xml:space="preserve">
     <value>Em discussão</value>
+  </data>
+  <data name="ChatWith" xml:space="preserve">
+    <value>Conversação com {0}</value>
+  </data>
+  <data name="CompaniesWorkingWith" xml:space="preserve">
+    <value>Seguradoras com que trabalha</value>
+  </data>
+  <data name="Skype" xml:space="preserve">
+    <value>Skype</value>
+  </data>
+  <data name="Whatsapp" xml:space="preserve">
+    <value>Whatsapp</value>
+  </data>
+  <data name="AcceptedYourFriendRequest" xml:space="preserve">
+    <value>aceitou o seu pedido de amizade</value>
+  </data>
+  <data name="AcceptRequest" xml:space="preserve">
+    <value>Aceitar pedido</value>
+  </data>
+  <data name="CommentedOnYourPost" xml:space="preserve">
+    <value>comentou a sua publicação</value>
+  </data>
+  <data name="IgnoreRequest" xml:space="preserve">
+    <value>Ignorar pedido</value>
+  </data>
+  <data name="LikedYourPost" xml:space="preserve">
+    <value>gostou da sua publicação</value>
+  </data>
+  <data name="SentYouFriendRequest" xml:space="preserve">
+    <value>enviou-lhe um pedido de amizade</value>
+  </data>
+  <data name="YouNeedCompleteYourProfile" xml:space="preserve">
+    <value>Complete a informação do seu perfil</value>
+  </data>
+  <data name="DayAgo" xml:space="preserve">
+    <value>dia atrás</value>
+  </data>
+  <data name="SelectService" xml:space="preserve">
+    <value>Seleccione serviço</value>
   </data>
 </root>

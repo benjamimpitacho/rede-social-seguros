@@ -15,7 +15,7 @@ namespace InsuranceSocialNetworkDTO.Company
         public string GarageName { get; set; }
         public string GarageDistrict { get; set; }
         public string GarageCounty { get; set; }
-        public string GarageService { get; set; }
+        public long? GarageServiceID { get; set; }
         public string GaragePartnership { get; set; }
         public string GarageOfficialAgent { get; set; }
 
@@ -25,8 +25,8 @@ namespace InsuranceSocialNetworkDTO.Company
 
         public string ClinicName { get; set; }
         public string ClinicDistrict { get; set; }
-        public string ClinicLocation { get; set; }
-        public string ClinicService { get; set; }
+        public string ClinicCounty { get; set; }
+        public long? ClinicServiceID { get; set; }
         public string ClinicPartnership { get; set; }
         public string ClinicOfficialAgent { get; set; }
 
@@ -36,8 +36,8 @@ namespace InsuranceSocialNetworkDTO.Company
 
         public string ConstructionCompanyName { get; set; }
         public string ConstructionCompanyDistrict { get; set; }
-        public string ConstructionCompanyLocation { get; set; }
-        public string ConstructionCompanyService { get; set; }
+        public string ConstructionCompanyCounty { get; set; }
+        public long? ConstructionCompanyServiceID { get; set; }
         public string ConstructionCompanyPartnership { get; set; }
         public string ConstructionCompanyOfficialAgent { get; set; }
 
@@ -47,8 +47,8 @@ namespace InsuranceSocialNetworkDTO.Company
 
         public string HomeApplianceRepairName { get; set; }
         public string HomeApplianceRepairDistrict { get; set; }
-        public string HomeApplianceRepairLocation { get; set; }
-        public string HomeApplianceRepairService { get; set; }
+        public string HomeApplianceRepairCounty { get; set; }
+        public long? HomeApplianceRepairServiceID { get; set; }
         public string HomeApplianceRepairPartnership { get; set; }
         public string HomeApplianceRepairOfficialAgent { get; set; }
 
@@ -58,8 +58,8 @@ namespace InsuranceSocialNetworkDTO.Company
 
         public string InsuranceContactName { get; set; }
         public string InsuranceContactDistrict { get; set; }
-        public string InsuranceContactLocation { get; set; }
-        public string InsuranceContactService { get; set; }
+        public string InsuranceContactCounty { get; set; }
+        public long? InsuranceContactServiceID { get; set; }
         public string InsuranceContactPartnership { get; set; }
         public string InsuranceContactOfficialAgent { get; set; }
 

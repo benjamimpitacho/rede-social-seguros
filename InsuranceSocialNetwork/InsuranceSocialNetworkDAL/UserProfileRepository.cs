@@ -5,6 +5,8 @@ using System.Linq;
 using System.Data.Entity;
 using System.Text;
 using System.Threading.Tasks;
+using InsuranceSocialNetworkCore.Enums;
+using InsuranceSocialNetworkCore.Types;
 
 namespace InsuranceSocialNetworkDAL
 {
@@ -66,6 +68,34 @@ namespace InsuranceSocialNetworkDAL
             }
         }
 
+        public static List<ListItemString> GetNamesForUsers(List<string> list)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                return context
+                    .Profile
+                    .Fetch()
+                    .Include(i => i.AspNetUsers)
+                    .Where(i => list.Contains(i.ID_User))
+                    .Select(i => new ListItemString() { Key = i.ID_User, Value = i.FirstName + " " + i.LastName })
+                    .ToList();
+            }
+        }
+
+        public static List<ListItemObject> GetPhotosForUsers(List<string> list)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                return context
+                    .Profile
+                    .Fetch()
+                    .Include(i => i.AspNetUsers)
+                    .Where(i => list.Contains(i.ID_User))
+                    .Select(i => new ListItemObject() { Key = i.ID_User, Value = i.ProfilePhoto })
+                    .ToList();
+            }
+        }
+
         public static List<long> GetUserFriendsIDs(long currentUserId)
         {
             using (var context = new BackofficeUnitOfWork())
@@ -96,8 +126,8 @@ namespace InsuranceSocialNetworkDAL
         {
             using (var context = new BackofficeUnitOfWork())
             {
-                List<string> friends1Ids = context.Friend.Fetch().Where(j => j.AspNetUsers1.Id == currentUserId).Select(j => j.AspNetUsers.Id).ToList();
-                List<string> friends2Ids = context.Friend.Fetch().Where(j => j.AspNetUsers.Id == currentUserId).Select(j => j.AspNetUsers1.Id).ToList();
+                List<string> friends1Ids = context.Friend.Fetch().Where(j => j.FriendStatus.Token == FriendStatusEnum.REQUEST_ACCEPTED.ToString() && j.AspNetUsers1.Id == currentUserId).Select(j => j.AspNetUsers.Id).ToList();
+                List<string> friends2Ids = context.Friend.Fetch().Where(j => j.FriendStatus.Token == FriendStatusEnum.REQUEST_ACCEPTED.ToString() && j.AspNetUsers.Id == currentUserId).Select(j => j.AspNetUsers1.Id).ToList();
                 friends1Ids = friends1Ids.Concat(friends2Ids).ToList();
 
                 List<Profile> friends = context
@@ -108,33 +138,26 @@ namespace InsuranceSocialNetworkDAL
                     .Select(i => i)
                     .ToList();
 
-                //List<Profile> friends2 = context
-                //    .Profile
-                //    .Fetch()
-                //    .Include(i => i.AspNetUsers)
-                //    .Where(i => context.Friend.Fetch().Where(j => j.AspNetUsers.Id == currentUserId).Select(j => j.AspNetUsers1.Id).ToList().Contains(i.AspNetUsers.Id))
-                //    .Select(i => i)
-                //    .ToList();
+                return friends;
+            }
+        }
 
-                //List<Profile> friends1 = context
-                //    .Friend
-                //    .Fetch()
-                //    .Include(i => i.AspNetUsers)
-                //    .Include(i => i.AspNetUsers.Profile)
-                //    .Where(i => i.AspNetUsers.Profile.FirstOrDefault().ID_User == currentUserId)
-                //    .Select(i => i.AspNetUsers1.Profile.FirstOrDefault())
-                //    .ToList();
+        public static List<Profile> GetUserPendingFriendRequests(string currentUserId)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                List<string> friends1Ids = context.Friend.Fetch().Where(j => j.FriendStatus.Token == FriendStatusEnum.REQUEST_SENT.ToString() && j.AspNetUsers1.Id == currentUserId).Select(j => j.AspNetUsers.Id).ToList();
+                //List<string> friends2Ids = context.Friend.Fetch().Where(j => j.FriendStatus.Token == FriendStatusEnum.REQUEST_ACCEPTED.ToString() && j.AspNetUsers.Id == currentUserId).Select(j => j.AspNetUsers1.Id).ToList();
+                //friends1Ids = friends1Ids.Concat(friends2Ids).ToList();
 
-                //List<Profile> friends2 = context
-                //    .Friend
-                //    .Fetch()
-                //    .Include(i => i.AspNetUsers)
-                //    .Include(i => i.AspNetUsers.Profile)
-                //    .Where(i => i.AspNetUsers1.Profile.FirstOrDefault().ID_User == currentUserId)
-                //    .Select(i => i.AspNetUsers.Profile.FirstOrDefault())
-                //    .ToList();
+                List<Profile> friends = context
+                    .Profile
+                    .Fetch()
+                    .Include(i => i.AspNetUsers)
+                    .Where(i => friends1Ids.Contains(i.AspNetUsers.Id))
+                    .Select(i => i)
+                    .ToList();
 
-                //return friends1.Concat(friends2).ToList();
                 return friends;
             }
         }

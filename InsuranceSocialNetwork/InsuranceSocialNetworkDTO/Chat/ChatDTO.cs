@@ -21,6 +21,8 @@ namespace InsuranceSocialNetworkDTO.Chat
 
         public UserDTO AspNetUsers { get; set; }
         public List<ChatMemberDTO> ChatMember { get; set; }
+        public List<UserProfileDTO> ChatMemberProfile { get; set; }
         public List<ChatMessageDTO> ChatMessage { get; set; }
+
     }
 }

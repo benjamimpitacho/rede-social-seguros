@@ -46,7 +46,7 @@
                                         {
                                             foreach (ChatDTO chat in Model.Chats)
                                             {
-                                                <div class="user" onclick="$('#messageListPanel').load('@Url.Action("LoadChat", "Home", new { id = chat.ID })');">
+                                                <div style="display:block" class="@((null != Model.ActiveChat && Model.ActiveChat.ID == chat.ID) ? "active" : "") user" onclick="$('.user').removeClass('active');$(this).addClass('active');$('#messageListPanel').load('@Url.Action("LoadChat", "Home", new { id = chat.ID })');">
 
                                                     <div class="avatar">
 
@@ -75,9 +75,16 @@
                             </div>
 
                             <div class="col-sm-8 col-xs-12 chat" style="overflow-x: hidden; overflow-y: scroll; outline: none;" tabindex="5001" id="messageListPanel">
-                                <div class="col-md-12 alert alert-info" style="text-align:center;margin-top: 60px;">
-                                    @Resources.Resources.NoActiveChatSelected
-                                </div>
+                                @if (null == Model.ActiveChat)
+                                {
+                                    <div class="col-md-12 alert alert-info" style="text-align:center;margin-top: 60px;">
+                                        @Resources.Resources.NoActiveChatSelected
+                                    </div>
+                                }
+                                else
+                                {
+                                    @Html.Partial("~/Views/Home/Partial/ChatSectionView.cshtml", new ChatViewModel() { Chat = Model.ActiveChat, Profile = Model.Profile })
+                                }
                             </div>
                         </div>
                     </div>

@@ -466,24 +466,24 @@ namespace InsuranceWebsite.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpGet]
-        public JsonResult GetPostalCodeInformation(string postalCode)
-        {
-            try
-            {
-                PostalCodeDTO postalCodeInfo = InsuranceBusiness.BusinessLayer.GetPostalCodeInformation(postalCode);
+        //[HttpGet]
+        //public JsonResult GetPostalCodeInformation(string postalCode)
+        //{
+        //    try
+        //    {
+        //        PostalCodeDTO postalCodeInfo = InsuranceBusiness.BusinessLayer.GetPostalCodeInformation(postalCode);
 
-                if (null == postalCodeInfo)
-                {
-                    return Json(new { ok = false }, JsonRequestBehavior.AllowGet);
-                }
+        //        if (null == postalCodeInfo)
+        //        {
+        //            return Json(new { ok = false }, JsonRequestBehavior.AllowGet);
+        //        }
 
-                return Json(new { ok = true, localocality = postalCodeInfo.Localidade, postalCodeId = postalCodeInfo.ID }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                throw new NotImplementedException();
-            }
-        }
+        //        return Json(new { ok = true, localocality = postalCodeInfo.Localidade, postalCodeId = postalCodeInfo.ID }, JsonRequestBehavior.AllowGet);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new NotImplementedException();
+        //    }
+        //}
     }
 }

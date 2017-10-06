@@ -4,6 +4,7 @@
 	[ID_Banner_Type] BIGINT NOT NULL,
 	[Description] NVARCHAR(128) NOT NULL,
 	[Image] IMAGE NOT NULL,
+	[Url] NVARCHAR(MAX) NULL,
 	[StartDate] DATETIME2 NOT NULL,
 	[DueDate] DATETIME2 NULL,
 	[CreateDate] DATETIME2 NOT NULL,

@@ -20,6 +20,7 @@ namespace InsuranceSocialNetworkDAL
                     .Include(i=>i.NotificationType)
                     .Where(i => i.Active && i.ToUserID == Id)
                     .OrderByDescending(i => i.CreateDate)
+                    .Take(50)
                     .ToList();
             }
         }
@@ -44,6 +45,28 @@ namespace InsuranceSocialNetworkDAL
             using (var context = new BackofficeUnitOfWork())
             {
                 return context.NotificationType.Fetch().FirstOrDefault(i => i.Token == token);
+            }
+        }
+
+        public static bool MarkNotificationAsRead(long id)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                //IQueryable<Notification> query = context.Notification
+                Notification item = context.Notification
+                    .Fetch()
+                    .FirstOrDefault(i => i.ID == id);
+
+                if (null == item)
+                    return false;
+
+                item.Read = true;
+                item.ReadDate = DateTime.Now;
+
+                context.Notification.Update(item);
+                context.Save();
+
+                return true;
             }
         }
     }

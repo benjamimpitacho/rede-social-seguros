@@ -27,6 +27,8 @@ namespace InsuranceWebsite.Hubs
             //Clients.Client(chatId).sendPrivateMessage(name, name, message, name);
             //Clients.Caller.sendPrivateMessage(chatId, name, message, chatId);
             InsuranceBusiness.BusinessLayer.SaveMessage(userId, chatId, message);
+
+            InsuranceBusiness.BusinessLayer.CreateNotificationForChat(chatId, userId, InsuranceSocialNetworkCore.Enums.NotificationTypeEnum.NEW_MESSAGE_RECEIVED);
         }
     }
 }

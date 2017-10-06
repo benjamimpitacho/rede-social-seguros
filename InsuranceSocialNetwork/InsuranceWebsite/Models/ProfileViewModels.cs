@@ -17,7 +17,11 @@ namespace InsuranceWebsite.Models
 
         public int TotalUnreadMessages { get { return 99; } }
 
-        public bool OwnProfile { get; set; }
+        public bool IsOwnProfile { get; set; }
+
+        public bool IsFriendRequest { get; set; }
+
+        public bool IsFriend { get; set; }
 
         public ProfileSettingsModel Settings { get; set; }
     }
@@ -38,6 +42,9 @@ namespace InsuranceWebsite.Models
         public string Telephone_1 { get; set; }
         public string Telephone_2 { get; set; }
         public string Address { get; set; }
+        public string Skype { get; set; }
+        public string Whatsapp { get; set; }
+        public string CompaniesWorkingWith { get; set; }
         public long? ID_PostalCode { get; set; }
         public byte[] ProfilePhoto { get; set; }
         [Url]

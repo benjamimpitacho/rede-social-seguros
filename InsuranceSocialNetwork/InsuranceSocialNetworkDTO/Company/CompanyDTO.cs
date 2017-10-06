@@ -22,6 +22,7 @@ namespace InsuranceSocialNetworkDTO.Company
         public long? ID_District { get; set; }
         public long? ID_County { get; set; }
         public long? ID_Parish { get; set; }
+        public long? ID_Service { get; set; }
         public byte[] LogoPhoto { get; set; }
         public string Website { get; set; }
         public string OfficialPartner { get; set; }

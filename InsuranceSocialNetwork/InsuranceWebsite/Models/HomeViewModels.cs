@@ -1,4 +1,5 @@
-﻿using InsuranceSocialNetworkDTO.Banner;
+﻿using InsuranceSocialNetworkCore.Types;
+using InsuranceSocialNetworkDTO.Banner;
 using InsuranceSocialNetworkDTO.Notification;
 using InsuranceSocialNetworkDTO.Post;
 using InsuranceSocialNetworkDTO.UserProfile;

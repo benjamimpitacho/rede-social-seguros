@@ -18,12 +18,13 @@ namespace InsuranceSocialNetworkDAL
         public long ID_Banner_Type { get; set; }
         public string Description { get; set; }
         public byte[] Image { get; set; }
-        public System.DateTime CreateDate { get; set; }
+        public string Url { get; set; }
+        public System.DateTime StartDate { get; set; }
         public Nullable<System.DateTime> DueDate { get; set; }
+        public System.DateTime CreateDate { get; set; }
+        public System.DateTime LastChangeDate { get; set; }
         public Nullable<System.DateTime> DeleteDate { get; set; }
         public bool Active { get; set; }
-        public System.DateTime StartDate { get; set; }
-        public System.DateTime LastChangeDate { get; set; }
     
         public virtual BannerType BannerType { get; set; }
     }

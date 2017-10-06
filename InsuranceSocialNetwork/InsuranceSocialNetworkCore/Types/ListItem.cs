@@ -17,4 +17,10 @@ namespace InsuranceSocialNetworkCore.Types
         public string Key { get; set; }
         public string Value { get; set; }
     }
+
+    public class ListItemObject
+    {
+        public string Key { get; set; }
+        public object Value { get; set; }
+    }
 }

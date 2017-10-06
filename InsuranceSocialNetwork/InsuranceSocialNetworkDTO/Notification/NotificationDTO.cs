@@ -1,9 +1,4 @@
 ﻿using InsuranceSocialNetworkCore.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InsuranceSocialNetworkDTO.Notification
 {
@@ -12,6 +7,8 @@ namespace InsuranceSocialNetworkDTO.Notification
         public long ID { get; set; }
         public string ToUserID { get; set; }
         public string FromUserID { get; set; }
+        public string ToUserProfileID { get; set; }
+        public string FromUserProfileID { get; set; }
         public string FromUserName { get; set; }
         public byte[] FromUserPhoto { get; set; }
         public long ID_NotificationType { get; set; }

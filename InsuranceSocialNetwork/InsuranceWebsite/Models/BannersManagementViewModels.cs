@@ -35,6 +35,9 @@ namespace InsuranceWebsite.Models
         public long ID_Banner_Type { get; set; }
         [Required]
         public string Description { get; set; }
+        [Url]
+        public string Url { get; set; }
+        [Required]
         public byte[] Image { get; set; }
         [Required]
         //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]

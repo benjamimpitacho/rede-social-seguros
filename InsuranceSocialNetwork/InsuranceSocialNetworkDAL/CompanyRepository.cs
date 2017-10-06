@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using InsuranceSocialNetworkCore.Types;
 using InsuranceSocialNetworkDTO.Company;
+using InsuranceSocialNetworkCore.Enums;
 
 namespace InsuranceSocialNetworkDAL
 {
@@ -24,9 +25,9 @@ namespace InsuranceSocialNetworkDAL
                     query = query.Where(i => i.Name.ToLower().Contains(searchFilter.GarageName.ToLower()));
                 }
 
-                if (!string.IsNullOrEmpty(searchFilter.GarageService))
+                if (searchFilter.GarageServiceID.HasValue)
                 {
-                    query = query.Where(i => i.Description.ToLower().Contains(searchFilter.GarageService.ToLower()));
+                    query = query.Where(i => i.ID_Service.Value == searchFilter.GarageServiceID.Value);
                 }
 
                 if (!string.IsNullOrEmpty(searchFilter.GarageOfficialAgent))
@@ -54,9 +55,9 @@ namespace InsuranceSocialNetworkDAL
                     query = query.Where(i => i.Name.ToLower().Contains(searchFilter.ClinicName.ToLower()));
                 }
 
-                if (!string.IsNullOrEmpty(searchFilter.ClinicService))
+                if (searchFilter.ClinicServiceID.HasValue)
                 {
-                    query = query.Where(i => i.Description.ToLower().Contains(searchFilter.ClinicService.ToLower()));
+                    query = query.Where(i => i.ID_Service == searchFilter.ClinicServiceID.Value);
                 }
 
                 if (!string.IsNullOrEmpty(searchFilter.ClinicOfficialAgent))
@@ -84,9 +85,9 @@ namespace InsuranceSocialNetworkDAL
                     query = query.Where(i => i.Name.ToLower().Contains(searchFilter.ConstructionCompanyName.ToLower()));
                 }
 
-                if (!string.IsNullOrEmpty(searchFilter.ConstructionCompanyService))
+                if (searchFilter.ConstructionCompanyServiceID.HasValue)
                 {
-                    query = query.Where(i => i.Description.ToLower().Contains(searchFilter.ConstructionCompanyService.ToLower()));
+                    query = query.Where(i => i.ID_Service == searchFilter.ConstructionCompanyServiceID.Value);
                 }
 
                 if (!string.IsNullOrEmpty(searchFilter.ConstructionCompanyOfficialAgent))
@@ -114,9 +115,9 @@ namespace InsuranceSocialNetworkDAL
                     query = query.Where(i => i.Name.ToLower().Contains(searchFilter.HomeApplianceRepairName.ToLower()));
                 }
 
-                if (!string.IsNullOrEmpty(searchFilter.HomeApplianceRepairService))
+                if (searchFilter.HomeApplianceRepairServiceID.HasValue)
                 {
-                    query = query.Where(i => i.Description.ToLower().Contains(searchFilter.HomeApplianceRepairService.ToLower()));
+                    query = query.Where(i => i.ID_Service == searchFilter.HomeApplianceRepairServiceID.Value);
                 }
 
                 if (!string.IsNullOrEmpty(searchFilter.HomeApplianceRepairOfficialAgent))
@@ -144,9 +145,9 @@ namespace InsuranceSocialNetworkDAL
                     query = query.Where(i => i.Name.ToLower().Contains(searchFilter.InsuranceContactName.ToLower()));
                 }
 
-                if (!string.IsNullOrEmpty(searchFilter.InsuranceContactService))
+                if (searchFilter.InsuranceContactServiceID.HasValue)
                 {
-                    query = query.Where(i => i.Description.ToLower().Contains(searchFilter.InsuranceContactService.ToLower()));
+                    query = query.Where(i => i.ID_Service == searchFilter.InsuranceContactServiceID.Value);
                 }
 
                 if (!string.IsNullOrEmpty(searchFilter.InsuranceContactOfficialAgent))
@@ -320,6 +321,21 @@ namespace InsuranceSocialNetworkDAL
                 context.Save();
 
                 return true;
+            }
+        }
+
+        public static List<ListItem> GetCompanyServices(CompanyTypeEnum type)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                string companyType = type.ToString();
+
+                return context.CompanyService
+                    .Fetch()
+                    .Include(i => i.CompanyType)
+                    .Where(i => i.CompanyType.Token == companyType && i.Active)
+                    .Select(i => new ListItem() { Key = i.ID, Value = i.Description })
+                    .ToList();
             }
         }
     }

@@ -14,7 +14,7 @@
 
     @*<ul>*@
     <div class="chat-body" id="discussion">
-        <h6>Mini Chat</h6>
+        <h6>@string.Format(Resources.Resources.ChatWith, Model.ChatOtherNames)</h6>
         @foreach (ChatMessageDTO message in Model.Chat.ChatMessage)
         {
             if (message.ID_User == Model.Profile.ID_User)
@@ -181,6 +181,15 @@
                 @*chat.server.sendPrivateMessage($('#displayname').val(), $('#message').val(), '@Model.Chat.ID_Chat');*@
                 // Clear text box and reset focus for next comment.
                 $('#message').val('').focus();
+            });
+
+            $('#message').keypress(function (e) {
+                var key = e.which;
+                if (key == 13)  // the enter key code
+                {
+                    $('#sendmessage').click();
+                    return false;
+                }
             });
         });
     });

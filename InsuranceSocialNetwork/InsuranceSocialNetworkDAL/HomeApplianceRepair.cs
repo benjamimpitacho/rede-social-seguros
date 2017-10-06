@@ -33,6 +33,7 @@ namespace InsuranceSocialNetworkDAL
         public Nullable<long> ID_District { get; set; }
         public Nullable<long> ID_County { get; set; }
         public Nullable<long> ID_Parish { get; set; }
+        public Nullable<long> ID_Service { get; set; }
         public byte[] LogoPhoto { get; set; }
         public string Website { get; set; }
         public string OfficialPartner { get; set; }
@@ -47,5 +48,6 @@ namespace InsuranceSocialNetworkDAL
         public virtual Parish Parish { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HomeApplianceRepairFavorite> HomeApplianceRepairFavorite { get; set; }
+        public virtual CompanyService CompanyService { get; set; }
     }
 }

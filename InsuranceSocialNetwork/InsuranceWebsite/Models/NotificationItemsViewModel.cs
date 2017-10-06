@@ -1,4 +1,5 @@
-﻿using InsuranceSocialNetworkDTO.Notification;
+﻿using InsuranceSocialNetworkCore.Types;
+using InsuranceSocialNetworkDTO.Notification;
 using InsuranceSocialNetworkDTO.UserProfile;
 using System;
 using System.Collections.Generic;
@@ -12,5 +13,8 @@ namespace InsuranceWebsite.Models
         public UserProfileDTO Profile { get; set; }
 
         public List<NotificationDTO> Items { get; set; }
+
+        public List<ListItemString> UsersNames { get; set; }
+        public List<ListItemObject> UsersPhotos { get; set; }
     }
 }

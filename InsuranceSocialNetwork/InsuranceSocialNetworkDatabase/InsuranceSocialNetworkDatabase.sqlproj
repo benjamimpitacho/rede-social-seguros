@@ -110,6 +110,10 @@
     <Build Include="Tables\ConstructionCompanyFavorite.sql" />
     <Build Include="Tables\InsuranceCompanyContactFavorite.sql" />
     <Build Include="Tables\HomeApplianceRepairFavorite.sql" />
+    <Build Include="Tables\CompanyType.sql" />
+    <None Include="InitData\CompanyType.sql" />
+    <Build Include="Tables\CompanyService.sql" />
+    <None Include="InitData\CompanyService.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="InsuranceSocialNetworkDatabase.refactorlog" />

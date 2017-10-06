@@ -12,7 +12,8 @@
     [Address] NVARCHAR(256) NULL,   
     [ID_District] BIGINT NULL, 
     [ID_County] BIGINT NULL, 
-    [ID_Parish] BIGINT NULL, 
+    [ID_Parish] BIGINT NULL,  
+	[ID_Service] BIGINT NULL,
     [LogoPhoto] IMAGE NULL, 
     [Website] NVARCHAR(256) NULL,
     [OfficialPartner] NVARCHAR(256) NULL, 
@@ -24,6 +25,7 @@
     CONSTRAINT [PK_MedicalClinic] PRIMARY KEY CLUSTERED ([ID] ASC),
 	CONSTRAINT [FK_MedicalClinic_District] FOREIGN KEY([ID_District]) REFERENCES [Insurance].[District] ([ID]),
 	CONSTRAINT [FK_MedicalClinic_County] FOREIGN KEY([ID_County]) REFERENCES [Insurance].[County] ([ID]),
-	CONSTRAINT [FK_MedicalClinic_Parish] FOREIGN KEY([ID_Parish]) REFERENCES [Insurance].[Parish] ([ID])
+	CONSTRAINT [FK_MedicalClinic_Parish] FOREIGN KEY([ID_Parish]) REFERENCES [Insurance].[Parish] ([ID]),
+	CONSTRAINT [FK_MedicalClinic_Service] FOREIGN KEY([ID_Service]) REFERENCES [Insurance].[CompanyService] ([ID])
 )
 

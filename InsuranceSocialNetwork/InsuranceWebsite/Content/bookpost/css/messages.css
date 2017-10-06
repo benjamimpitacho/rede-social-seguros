@@ -17,15 +17,17 @@
 }
 .chat-users .user {
     position: relative;
-    padding: 0 0 0 50px;
+    padding: 10px 10px 10px 50px;
     display: block;
     cursor: pointer;
-    margin: 0 0 10px;
-    height: 40px;
+    /*margin: 0 0 10px;*/
+    height: 50px;
+    display: table-cell;
+    vertical-align: middle;
 }
 .chat-users .user .avatar {
-    top: 0;
-    left: 0;
+    top: 8px;
+    left: 6px;
 }
 .chat .avatar {
     width: 40px;
@@ -73,6 +75,10 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.chat-users div.active{
+    background-color: #f1f5fc;
 }
 
 /*****************CHAT BODY *******************/

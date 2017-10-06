@@ -191,8 +191,8 @@ namespace InsuranceWebsite.Controllers
                 }
 
                 string secondUserId = InsuranceBusiness.BusinessLayer.GetUserIdFromProfileId(id);
-                model.Chats = InsuranceBusiness.BusinessLayer.GetChats(CurrentUser.ID_User);
                 model.ActiveChat = InsuranceBusiness.BusinessLayer.GetChat(model.Profile.User.Id, secondUserId);
+                model.Chats = InsuranceBusiness.BusinessLayer.GetChats(CurrentUser.ID_User);
 
                 return View("Messages", model);
             }
@@ -257,6 +257,8 @@ namespace InsuranceWebsite.Controllers
                 NotificationItemsViewModel model = new NotificationItemsViewModel();
                 model.Profile = CurrentUser;
                 model.Items = InsuranceBusiness.BusinessLayer.GetUserNotifications(CurrentUser.ID_User);
+                model.UsersNames = InsuranceBusiness.BusinessLayer.GetNamesForUsers(model.Items.Select(i => i.FromUserID).Distinct().ToList());
+                model.UsersPhotos = InsuranceBusiness.BusinessLayer.GetPhotosForUsers(model.Items.Select(i => i.FromUserID).Distinct().ToList());
 
                 return PartialView("Partial/NotificationsControl", model);
             }
@@ -481,11 +483,13 @@ namespace InsuranceWebsite.Controllers
         }
 
         [FunctionalityAutorizeAttribute("LIKE_POST_FUNCTIONALITY")]
-        public JsonResult LikePost(/*HomeViewModel model, */long postId/*, string userId*/)
+        public JsonResult LikePost(long postId)
         {
-            InsuranceBusiness.BusinessLayer.LikePost(postId, CurrentUser.ID_User);
+            if (InsuranceBusiness.BusinessLayer.LikePost(postId, CurrentUser.ID_User))
+            {
+                InsuranceBusiness.BusinessLayer.CreateNotificationForPost(postId, CurrentUser.ID_User, NotificationTypeEnum.NEW_POST_LIKE);
+            }
 
-            //return RedirectToAction("Index");
             return Json(new { ok = true, message = "" });
         }
 
@@ -544,6 +548,11 @@ namespace InsuranceWebsite.Controllers
                 };
 
                 commentId = InsuranceBusiness.BusinessLayer.CreateComment(newComment);
+
+                if (commentId > 0)
+                {
+                    InsuranceBusiness.BusinessLayer.CreateNotificationForPost(postId, CurrentUser.ID_User, NotificationTypeEnum.NEW_POST_COMMENT);
+                }
             }
             catch (Exception ex)
             {
@@ -575,13 +584,120 @@ namespace InsuranceWebsite.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
-            model.OwnProfile = id.HasValue ? model.Profile.ID == id.Value : true;
+            model.IsOwnProfile = id.HasValue ? model.Profile.ID == id.Value : true;
+            if(!model.IsOwnProfile)
+            {
+                model.IsFriend = InsuranceBusiness.BusinessLayer.AreFriends(CurrentUser.ID_User, model.Profile.ID_User);
+                model.IsFriendRequest = InsuranceBusiness.BusinessLayer.HasPendingFriendRequest(CurrentUser.ID_User, model.Profile.ID_User);
+            }
 
             return View(model);
         }
 
+        [FunctionalityAutorizeAttribute("ADD_FRIEND_FUNCTIONALITY")]
+        public async Task<ActionResult> FriendRequest(string id, long? ntId)
+        {
+            var model = new ProfileViewModel();
+            if (null != this.User && this.User.Identity.IsAuthenticated)
+            {
+                var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
+                if (null != user)
+                {
+                    FillModel(model, user.Id);
+                }
+                else
+                {
+                    return RedirectToAction("LogOff", "Account");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            model.IsOwnProfile = false;
+            model.IsFriendRequest = InsuranceBusiness.BusinessLayer.HasPendingFriendRequest(CurrentUser.ID_User, id);
+            model.IsFriend = InsuranceBusiness.BusinessLayer.AreFriends(CurrentUser.ID_User, id);
+            model.Profile = InsuranceBusiness.BusinessLayer.GetUserProfile(id);
+
+            if (ntId.HasValue)
+            {
+                InsuranceBusiness.BusinessLayer.MarkNotificationAsRead(ntId.Value);
+            }
+
+            return View("ProfileInfo", model);
+        }
+
+        [FunctionalityAutorizeAttribute("ADD_FRIEND_FUNCTIONALITY")]
+        public async Task<ActionResult> AcceptFriendRequest(string id)
+        {
+            var model = new ProfileViewModel();
+            if (null != this.User && this.User.Identity.IsAuthenticated)
+            {
+                var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
+                if (null != user)
+                {
+                    FillModel(model, user.Id);
+                }
+                else
+                {
+                    return RedirectToAction("LogOff", "Account");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            if(InsuranceBusiness.BusinessLayer.AcceptFriendRequest(CurrentUser.ID_User, id))
+            {
+                model.IsFriendRequest = false;
+            }
+            else
+            {
+                model.IsFriendRequest = true;
+            }
+            model.IsOwnProfile = false;
+            model.IsFriend = true;
+            model.Profile = InsuranceBusiness.BusinessLayer.GetUserProfile(id);
+
+            return View("ProfileInfo", model);
+        }
+
+        [FunctionalityAutorizeAttribute("ADD_FRIEND_FUNCTIONALITY")]
+        public async Task<ActionResult> IgnoreFriendRequest(string id)
+        {
+            var model = new ProfileViewModel();
+            if (null != this.User && this.User.Identity.IsAuthenticated)
+            {
+                var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
+                if (null != user)
+                {
+                    FillModel(model, user.Id);
+                }
+                else
+                {
+                    return RedirectToAction("LogOff", "Account");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            InsuranceBusiness.BusinessLayer.IgnoreFriendRequest(CurrentUser.ID_User, id);
+            model.IsOwnProfile = false;
+            model.IsFriendRequest = false;
+            model.Profile = InsuranceBusiness.BusinessLayer.GetUserProfile(id);
+
+            return View("ProfileInfo", model);
+        }
+
         [FunctionalityAutorizeAttribute("PROFILE_INFO_FUNCTIONALITY")]
-        public async Task<ActionResult> ProfileEdit(long id)
+        public async Task<ActionResult> ProfileEdit(string userId, long? ntId)
         {
             ProfileEditModel model = new ProfileEditModel();
 
@@ -603,26 +719,36 @@ namespace InsuranceWebsite.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
-            if (id != model.Profile.ID)
+            //if (id != model.Profile.ID)
+            //{
+            //    return RedirectToAction("LogOff", "Account");
+            //}
+
+            UserProfileDTO userProfile = InsuranceBusiness.BusinessLayer.GetUserProfile(userId);
+
+            model.IsOwnProfile = userId == CurrentUser.ID_User;
+
+            model.ID = userProfile.ID;
+            model.FirstName = userProfile.FirstName;
+            model.LastName = userProfile.LastName;
+            model.MobilePhone_1 = userProfile.MobilePhone_1;
+            model.MobilePhone_2 = userProfile.MobilePhone_2;
+            model.Telephone_1 = userProfile.Telephone_1;
+            model.Telephone_2 = userProfile.Telephone_2;
+            model.Address = userProfile.Address;
+            model.Birthdate = userProfile.Birthdate;
+            model.ContactEmail = userProfile.ContactEmail;
+            model.ProfilePhoto = userProfile.ProfilePhoto;
+            model.Website = string.IsNullOrEmpty(userProfile.Website) ? userProfile.Website : userProfile.Website.ToLower();
+            model.AboutMe = userProfile.AboutMe;
+            model.Skype = userProfile.Skype;
+            model.Whatsapp = userProfile.Whatsapp;
+            model.CompaniesWorkingWith = userProfile.CompaniesWorkingWith;
+
+            if(ntId.HasValue)
             {
-                return RedirectToAction("LogOff", "Account");
+                InsuranceBusiness.BusinessLayer.MarkNotificationAsRead(ntId.Value);
             }
-
-            model.OwnProfile = id == model.Profile.ID;
-
-            model.ID = model.Profile.ID;
-            model.FirstName = model.Profile.FirstName;
-            model.LastName = model.Profile.LastName;
-            model.MobilePhone_1 = model.Profile.MobilePhone_1;
-            model.MobilePhone_2 = model.Profile.MobilePhone_2;
-            model.Telephone_1 = model.Profile.Telephone_1;
-            model.Telephone_2 = model.Profile.Telephone_2;
-            model.Address = model.Profile.Address;
-            model.Birthdate = model.Profile.Birthdate;
-            model.ContactEmail = model.Profile.ContactEmail;
-            model.ProfilePhoto = model.Profile.ProfilePhoto;
-            model.Website = string.IsNullOrEmpty(model.Profile.Website) ? model.Profile.Website : model.Profile.Website.ToLower();
-            model.AboutMe = model.Profile.AboutMe;
 
             return View(model);
         }
@@ -653,7 +779,7 @@ namespace InsuranceWebsite.Controllers
                 return RedirectToAction("LogOff", "Account");
             }
 
-            model.OwnProfile = CurrentUser.ID == model.ID;
+            model.IsOwnProfile = CurrentUser.ID == model.ID;
 
             UserProfileDTO profile = InsuranceBusiness.BusinessLayer.GetUserProfile(model.ID);
 
@@ -665,6 +791,9 @@ namespace InsuranceWebsite.Controllers
             profile.LastName = model.LastName;
             profile.MobilePhone_1 = model.MobilePhone_1;
             profile.MobilePhone_2 = model.MobilePhone_2;
+            profile.Skype = model.Skype;
+            profile.Whatsapp = model.Whatsapp;
+            profile.CompaniesWorkingWith = model.CompaniesWorkingWith;
             if (null != fileUploaderControl)
             {
                 Bitmap resizedImage = ImageUtils.ResizeImage(Bitmap.FromStream(fileUploaderControl.InputStream), 250, 250);
@@ -683,7 +812,8 @@ namespace InsuranceWebsite.Controllers
 
             InsuranceBusiness.BusinessLayer.UpdateProfile(profile);
 
-            return View("ProfileInfo", model);
+            //return View("ProfileInfo", model);
+            return RedirectToAction("ProfileInfo", new { id = model.Profile.ID });
         }
 
         [FunctionalityAutorizeAttribute("PROFILE_INFO_FUNCTIONALITY")]
@@ -712,7 +842,7 @@ namespace InsuranceWebsite.Controllers
                 return RedirectToAction("LogOff", "Account");
             }
 
-            model.OwnProfile = CurrentUser.ID == model.ID;
+            model.IsOwnProfile = CurrentUser.ID == model.ID;
 
             //UserProfileDTO profile = InsuranceBusiness.BusinessLayer.GetUserProfile(model.ID);
 
@@ -870,7 +1000,7 @@ namespace InsuranceWebsite.Controllers
                     GarageName = model.SearchCompaniesModel.GarageName,
                     GarageDistrict = model.SearchCompaniesModel.GarageDistrict,
                     GarageCounty = model.SearchCompaniesModel.GarageCounty,
-                    GarageService = model.SearchCompaniesModel.GarageService,
+                    GarageServiceID = model.SearchCompaniesModel.GarageServiceID,
                     GaragePartnership = model.SearchCompaniesModel.GaragePartnership,
                     GarageOfficialAgent = model.SearchCompaniesModel.GarageOfficialAgent
                 };
@@ -899,12 +1029,12 @@ namespace InsuranceWebsite.Controllers
                 CompanySearchFilterDTO companySearchFilter = new CompanySearchFilterDTO()
                 {
                     UserId = CurrentUser.ID_User,
-                    GarageName = model.SearchCompaniesModel.ClinicName,
-                    GarageDistrict = model.SearchCompaniesModel.ClinicDistrict,
-                    GarageCounty = model.SearchCompaniesModel.ClinicCounty,
-                    GarageService = model.SearchCompaniesModel.ClinicService,
-                    GaragePartnership = model.SearchCompaniesModel.ClinicPartnership,
-                    GarageOfficialAgent = model.SearchCompaniesModel.ClinicOfficialAgent
+                    ClinicName = model.SearchCompaniesModel.ClinicName,
+                    ClinicDistrict = model.SearchCompaniesModel.ClinicDistrict,
+                    ClinicCounty = model.SearchCompaniesModel.ClinicCounty,
+                    ClinicServiceID = model.SearchCompaniesModel.ClinicServiceID,
+                    ClinicPartnership = model.SearchCompaniesModel.ClinicPartnership,
+                    ClinicOfficialAgent = model.SearchCompaniesModel.ClinicOfficialAgent
                 };
 
                 model.SearchCompaniesModel.ResultCompanyItems = InsuranceBusiness.BusinessLayer.SearchMedicalClinis(companySearchFilter);
@@ -931,12 +1061,12 @@ namespace InsuranceWebsite.Controllers
                 CompanySearchFilterDTO companySearchFilter = new CompanySearchFilterDTO()
                 {
                     UserId = CurrentUser.ID_User,
-                    GarageName = model.SearchCompaniesModel.ConstructionCompanyName,
-                    GarageDistrict = model.SearchCompaniesModel.ConstructionCompanyDistrict,
-                    GarageCounty = model.SearchCompaniesModel.ConstructionCompanyCounty,
-                    GarageService = model.SearchCompaniesModel.ConstructionCompanyService,
-                    GaragePartnership = model.SearchCompaniesModel.ConstructionCompanyPartnership,
-                    GarageOfficialAgent = model.SearchCompaniesModel.ConstructionCompanyOfficialAgent
+                    ConstructionCompanyName = model.SearchCompaniesModel.ConstructionCompanyName,
+                    ConstructionCompanyDistrict = model.SearchCompaniesModel.ConstructionCompanyDistrict,
+                    ConstructionCompanyCounty = model.SearchCompaniesModel.ConstructionCompanyCounty,
+                    ConstructionCompanyServiceID = model.SearchCompaniesModel.ConstructionCompanyServiceID,
+                    ConstructionCompanyPartnership = model.SearchCompaniesModel.ConstructionCompanyPartnership,
+                    ConstructionCompanyOfficialAgent = model.SearchCompaniesModel.ConstructionCompanyOfficialAgent
                 };
 
                 model.SearchCompaniesModel.ResultCompanyItems = InsuranceBusiness.BusinessLayer.SearchConstructionCompanies(companySearchFilter);
@@ -963,12 +1093,12 @@ namespace InsuranceWebsite.Controllers
                 CompanySearchFilterDTO companySearchFilter = new CompanySearchFilterDTO()
                 {
                     UserId = CurrentUser.ID_User,
-                    GarageName = model.SearchCompaniesModel.HomeApplianceRepairName,
-                    GarageDistrict = model.SearchCompaniesModel.HomeApplianceRepairDistrict,
-                    GarageCounty = model.SearchCompaniesModel.HomeApplianceRepairCounty,
-                    GarageService = model.SearchCompaniesModel.HomeApplianceRepairService,
-                    GaragePartnership = model.SearchCompaniesModel.HomeApplianceRepairPartnership,
-                    GarageOfficialAgent = model.SearchCompaniesModel.HomeApplianceRepairOfficialAgent
+                    HomeApplianceRepairName = model.SearchCompaniesModel.HomeApplianceRepairName,
+                    HomeApplianceRepairDistrict = model.SearchCompaniesModel.HomeApplianceRepairDistrict,
+                    HomeApplianceRepairCounty = model.SearchCompaniesModel.HomeApplianceRepairCounty,
+                    HomeApplianceRepairServiceID = model.SearchCompaniesModel.HomeApplianceRepairServiceID,
+                    HomeApplianceRepairPartnership = model.SearchCompaniesModel.HomeApplianceRepairPartnership,
+                    HomeApplianceRepairOfficialAgent = model.SearchCompaniesModel.HomeApplianceRepairOfficialAgent
                 };
 
                 model.SearchCompaniesModel.ResultCompanyItems = InsuranceBusiness.BusinessLayer.SearchHomeApplianceRepairs(companySearchFilter);
@@ -995,12 +1125,12 @@ namespace InsuranceWebsite.Controllers
                 CompanySearchFilterDTO companySearchFilter = new CompanySearchFilterDTO()
                 {
                     UserId = CurrentUser.ID_User,
-                    GarageName = model.SearchCompaniesModel.InsuranceContactName,
-                    GarageDistrict = model.SearchCompaniesModel.InsuranceContactDistrict,
-                    GarageCounty = model.SearchCompaniesModel.InsuranceContactCounty,
-                    GarageService = model.SearchCompaniesModel.InsuranceContactService,
-                    GaragePartnership = model.SearchCompaniesModel.InsuranceContactPartnership,
-                    GarageOfficialAgent = model.SearchCompaniesModel.InsuranceContactOfficialAgent
+                    InsuranceContactName = model.SearchCompaniesModel.InsuranceContactName,
+                    InsuranceContactDistrict = model.SearchCompaniesModel.InsuranceContactDistrict,
+                    InsuranceContactCounty = model.SearchCompaniesModel.InsuranceContactCounty,
+                    InsuranceContactServiceID = model.SearchCompaniesModel.InsuranceContactServiceID,
+                    InsuranceContactPartnership = model.SearchCompaniesModel.InsuranceContactPartnership,
+                    InsuranceContactOfficialAgent = model.SearchCompaniesModel.InsuranceContactOfficialAgent
                 };
 
                 model.SearchCompaniesModel.ResultCompanyItems = InsuranceBusiness.BusinessLayer.SearchInsuranceCompanyContacts(companySearchFilter);
@@ -1038,7 +1168,7 @@ namespace InsuranceWebsite.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
-            model.OwnProfile = true;
+            model.IsOwnProfile = true;
 
             return View(model);
         }
@@ -1065,7 +1195,7 @@ namespace InsuranceWebsite.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
-            model.OwnProfile = true;
+            model.IsOwnProfile = true;
 
             return View(model);
         }

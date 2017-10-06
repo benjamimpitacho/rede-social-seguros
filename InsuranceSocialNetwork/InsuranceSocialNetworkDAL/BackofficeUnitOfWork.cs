@@ -38,10 +38,12 @@ namespace InsuranceSocialNetworkDAL
         private IRepository<ChatMessage> chatMessageRepository;
         private IRepository<Banner> bannerRepository;
         private IRepository<BannerType> bannerTypeRepository;
-        private IRepository<PostalCode> postalCodeRepository;
         private IRepository<District> districtRepository;
         private IRepository<County> countyRepository;
         private IRepository<Parish> parishRepository;
+
+        private IRepository<CompanyType> companyTypeRepository;
+        private IRepository<CompanyService> companyServiceRepository;
 
         private bool AutoDetectChangesEnabled;
         private int DatabaseTimeout;
@@ -312,19 +314,6 @@ namespace InsuranceSocialNetworkDAL
             }
         }
 
-        public IRepository<PostalCode> PostalCode
-        {
-            get
-            {
-                if (this.postalCodeRepository == null)
-                {
-                    this.postalCodeRepository =
-                        new Repository<InsurancePortal_dbEntities, PostalCode>(DataContext, AutoDetectChangesEnabled);
-                }
-                return postalCodeRepository;
-            }
-        }
-
         public IRepository<District> District
         {
             get
@@ -491,6 +480,32 @@ namespace InsuranceSocialNetworkDAL
                         new Repository<InsurancePortal_dbEntities, InsuranceCompanyContactFavorite>(DataContext, AutoDetectChangesEnabled);
                 }
                 return insuranceCompanyContactFavoriteRepository;
+            }
+        }
+
+        public IRepository<CompanyType> CompanyType
+        {
+            get
+            {
+                if (this.companyTypeRepository == null)
+                {
+                    this.companyTypeRepository =
+                        new Repository<InsurancePortal_dbEntities, CompanyType>(DataContext, AutoDetectChangesEnabled);
+                }
+                return companyTypeRepository;
+            }
+        }
+
+        public IRepository<CompanyService> CompanyService
+        {
+            get
+            {
+                if (this.companyServiceRepository == null)
+                {
+                    this.companyServiceRepository =
+                        new Repository<InsurancePortal_dbEntities, CompanyService>(DataContext, AutoDetectChangesEnabled);
+                }
+                return companyServiceRepository;
             }
         }
     }

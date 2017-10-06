@@ -81,6 +81,12 @@
     <Compile Include="ChatMessage.cs">
       <DependentUpon>InsuranceDatabaseEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="CompanyService.cs">
+      <DependentUpon>InsuranceDatabaseEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CompanyType.cs">
+      <DependentUpon>InsuranceDatabaseEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="ConstructionCompany.cs">
       <DependentUpon>InsuranceDatabaseEntities.tt</DependentUpon>
     </Compile>
@@ -151,9 +157,6 @@
       <DependentUpon>InsuranceDatabaseEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="CommentRepository.cs" />
-    <Compile Include="PostalCode.cs">
-      <DependentUpon>InsuranceDatabaseEntities.tt</DependentUpon>
-    </Compile>
     <Compile Include="PostCommentLike.cs">
       <DependentUpon>InsuranceDatabaseEntities.tt</DependentUpon>
     </Compile>

@@ -99,6 +99,14 @@ namespace InsuranceSocialNetworkDAL
             }
         }
 
+        public static string GetPostOwnerUserId(long id)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                return context.Post.Get(id).ID_User;
+            }
+        }
+
         public static PostType GetPostType(string token)
         {
             using (var context = new BackofficeUnitOfWork())

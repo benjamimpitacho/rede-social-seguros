@@ -26,7 +26,11 @@ namespace InsuranceSocialNetworkDAL
         public string Telephone_2 { get; set; }
         public string Address { get; set; }
         public string AboutMe { get; set; }
+        public string Skype { get; set; }
+        public string Whatsapp { get; set; }
         public string Website { get; set; }
+        public string ProfessionalNumber { get; set; }
+        public string CompaniesWorkingWith { get; set; }
         public Nullable<long> ID_PostalCode { get; set; }
         public byte[] ProfilePhoto { get; set; }
         public System.DateTime CreateDate { get; set; }
@@ -35,6 +39,5 @@ namespace InsuranceSocialNetworkDAL
         public bool Active { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
-        public virtual PostalCode PostalCode { get; set; }
     }
 }

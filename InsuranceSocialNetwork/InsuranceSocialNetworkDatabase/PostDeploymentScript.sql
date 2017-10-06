@@ -21,6 +21,7 @@ Post-Deployment Script Template
 :r .\InitData\District.sql
 :r .\InitData\County.sql
 :r .\InitData\Parish.sql
---:r .\InitData\PostalCode.sql
+:r .\InitData\CompanyType.sql
+:r .\InitData\CompanyService.sql
 
 :r .\InitData\dummy_data.sql

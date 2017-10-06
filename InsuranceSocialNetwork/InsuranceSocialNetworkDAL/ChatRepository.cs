@@ -115,5 +115,20 @@ namespace InsuranceSocialNetworkDAL
                 return chats;
             //}
         }
+
+        public static List<string> GetChatMembersUserIds(string chatId, string userId)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                Chat chat = context.Chat
+                    .Fetch()
+                    .FirstOrDefault(i => i.ID_Chat == chatId);
+
+                if (null == chat)
+                    return new List<string>();
+
+                return chat.ChatMember.Where(i => i.ID_User != userId).Select(i => i.ID_User).ToList();
+            }
+        }        
     }
 }

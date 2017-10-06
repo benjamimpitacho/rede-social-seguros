@@ -10,16 +10,16 @@ namespace InsuranceSocialNetworkDAL
 {
     public class PostalCodeRepository
     {
-        public static PostalCode GetInformation(int postalCode, int? postalSubCode)
-        {
-            using (var context = new BackofficeUnitOfWork())
-            {
-                return context.PostalCode
-                    .Fetch()
-                    .FirstOrDefault(i => i.Codigo_Postal == postalCode
-                        && (!postalSubCode.HasValue || i.Codigo_Arteria.Value == postalSubCode.Value));
-            }
-        }
+        //public static PostalCode GetInformation(int postalCode, int? postalSubCode)
+        //{
+        //    using (var context = new BackofficeUnitOfWork())
+        //    {
+        //        return context.PostalCode
+        //            .Fetch()
+        //            .FirstOrDefault(i => i.Codigo_Postal == postalCode
+        //                && (!postalSubCode.HasValue || i.Codigo_Arteria.Value == postalSubCode.Value));
+        //    }
+        //}
 
         public static List<ListItem> GetDistrictList()
         {
