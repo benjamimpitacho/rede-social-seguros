@@ -44,6 +44,7 @@ namespace InsuranceSocialNetworkDAL
 
         private IRepository<CompanyType> companyTypeRepository;
         private IRepository<CompanyService> companyServiceRepository;
+        private IRepository<AuthorizedEmail> authorizedEmailRepository;
 
         private bool AutoDetectChangesEnabled;
         private int DatabaseTimeout;
@@ -506,6 +507,19 @@ namespace InsuranceSocialNetworkDAL
                         new Repository<InsurancePortal_dbEntities, CompanyService>(DataContext, AutoDetectChangesEnabled);
                 }
                 return companyServiceRepository;
+            }
+        }
+
+        public IRepository<AuthorizedEmail> AuthorizedEmail
+        {
+            get
+            {
+                if (this.authorizedEmailRepository == null)
+                {
+                    this.authorizedEmailRepository =
+                        new Repository<InsurancePortal_dbEntities, AuthorizedEmail>(DataContext, AutoDetectChangesEnabled);
+                }
+                return authorizedEmailRepository;
             }
         }
     }

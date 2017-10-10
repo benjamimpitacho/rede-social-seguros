@@ -56,6 +56,18 @@
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
+        <EntityType Name="AuthorizedEmail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_User" Type="nvarchar" MaxLength="128" />
+          <Property Name="Email" Type="nvarchar" MaxLength="512" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="LastChangeDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="DeleteDate" Type="datetime2" Precision="7" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="Banner">
           <Key>
             <PropertyRef Name="ID" />
@@ -498,6 +510,18 @@
           <Property Name="DeleteDate" Type="datetime2" Precision="7" />
           <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
+        <Association Name="FK_AuthorizedEmail_User">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="AuthorizedEmail" Type="Self.AuthorizedEmail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AuthorizedEmail">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Banner_BannerType">
           <End Role="BannerType" Type="Self.BannerType" Multiplicity="1" />
           <End Role="Banner" Type="Self.Banner" Multiplicity="*" />
@@ -1208,6 +1232,7 @@
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AuthorizedEmail" EntityType="Self.AuthorizedEmail" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="Banner" EntityType="Self.Banner" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="BannerType" EntityType="Self.BannerType" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="Chat" EntityType="Self.Chat" Schema="Insurance" store:Type="Tables" />
@@ -1240,6 +1265,10 @@
           <EntitySet Name="PostSubject" EntityType="Self.PostSubject" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="PostType" EntityType="Self.PostType" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="Profile" EntityType="Self.Profile" Schema="Insurance" store:Type="Tables" />
+          <AssociationSet Name="FK_AuthorizedEmail_User" Association="Self.FK_AuthorizedEmail_User">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AuthorizedEmail" EntitySet="AuthorizedEmail" />
+          </AssociationSet>
           <AssociationSet Name="FK_Banner_BannerType" Association="Self.FK_Banner_BannerType">
             <End Role="BannerType" EntitySet="BannerType" />
             <End Role="Banner" EntitySet="Banner" />
@@ -1742,6 +1771,11 @@
             <End Role="CompanyService" EntitySet="CompanyService" />
             <End Role="MedicalClinic" EntitySet="MedicalClinic" />
           </AssociationSet>
+          <EntitySet Name="AuthorizedEmail" EntityType="InsurancePortal_dbModel.AuthorizedEmail" />
+          <AssociationSet Name="FK_AuthorizedEmail_User" Association="InsurancePortal_dbModel.FK_AuthorizedEmail_User">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AuthorizedEmail" EntitySet="AuthorizedEmail" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="AspNetRoles">
           <Key>
@@ -1854,6 +1888,7 @@
           <NavigationProperty Name="InsuranceCompanyContactFavorite" Relationship="InsurancePortal_dbModel.FK_InsuranceCompanyContactFavorite_User" FromRole="AspNetUsers" ToRole="InsuranceCompanyContactFavorite" />
           <NavigationProperty Name="MedicalClinicFavorite" Relationship="InsurancePortal_dbModel.FK_MedicalClinicFavorite_User" FromRole="AspNetUsers" ToRole="MedicalClinicFavorite" />
           <NavigationProperty Name="Profile" Relationship="InsurancePortal_dbModel.FK_Profile_AspNetUsers" FromRole="AspNetUsers" ToRole="Profile" />
+          <NavigationProperty Name="AuthorizedEmail" Relationship="InsurancePortal_dbModel.FK_AuthorizedEmail_User" FromRole="AspNetUsers" ToRole="AuthorizedEmail" />
           </EntityType>
         <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
           <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
@@ -3022,6 +3057,31 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="AuthorizedEmail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_User" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="LastChangeDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="DeleteDate" Type="DateTime" Precision="7" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="InsurancePortal_dbModel.FK_AuthorizedEmail_User" FromRole="AuthorizedEmail" ToRole="AspNetUsers" />
+        </EntityType>
+        <Association Name="FK_AuthorizedEmail_User">
+          <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+          <End Type="InsurancePortal_dbModel.AuthorizedEmail" Role="AuthorizedEmail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AuthorizedEmail">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3551,6 +3611,19 @@
                 <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="ID_CompanyType" ColumnName="ID_CompanyType" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AuthorizedEmail">
+            <EntityTypeMapping TypeName="InsurancePortal_dbModel.AuthorizedEmail">
+              <MappingFragment StoreEntitySet="AuthorizedEmail">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="DeleteDate" ColumnName="DeleteDate" />
+                <ScalarProperty Name="LastChangeDate" ColumnName="LastChangeDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -28,15 +28,21 @@
         </p>
         <p>
             @Html.Label(Resources.Resources.Email)
-            @Html.TextBoxFor(model => model.User.Email, new { @class = "text ui-widget-content ui-corner-all", id = "lastname", disabled="disabled" })
+            @Html.TextBoxFor(model => model.User.Email, new { @class = "text ui-widget-content ui-corner-all", id = "email", disabled="disabled" })
             @Html.ValidationMessageFor(i => i.User.Email)
         </p>
         <p>
             @Html.Label(Resources.Resources.UserRole)
-            @Html.DropDownListFor(i => i.Role.Id, Model.UserRolesList, new { @class = "text ui-widget-content ui-corner-all", id = "bannertype", style = "width:95%;padding:.4em;" })
+            @Html.DropDownListFor(i => i.Role.Id, Model.UserRolesList, new { @class = "text ui-widget-content ui-corner-all", id = "userRoleDropdown", style = "width:95%;padding:.4em;" })
             @Html.ValidationMessageFor(i => i.Role.Id)
         </p>
-        
+        <div class="form-group" id="professionalNumberSection">
+            <div class="col-md-12">
+                <span class="glyphicon glyphicon-envelope"></span>
+                @Html.TextBoxFor(m => m.ProfessionalNumber, new { @class = "form-control", @placeholder = Resources.Resources.ProfessionalNumber, @id = "short" })
+            </div>
+        </div>
+
         if (Model.User.EmailConfirmed)
         {
             <p>@Html.ActionLink(Resources.Resources.Deactivate, "Deactivate", "UsersManagement", new { id = Model.ID }, new { @class= "btn btn-danger lnkDeactivate" })</p>
@@ -69,6 +75,17 @@
 
         $('.date-picker').datepicker({
             dateFormat: 'dd/mm/yy'
+        });
+
+        $("#professionalNumberSection").hide();
+
+        $("#userRoleDropdown").change(function () {
+            if ($("#userRoleDropdown").val() == 3) {
+                $("#professionalNumberSection").show();
+            }
+            else {
+                $("#professionalNumberSection").hide();
+            }
         });
 
         $("#dialog-activate").dialog({

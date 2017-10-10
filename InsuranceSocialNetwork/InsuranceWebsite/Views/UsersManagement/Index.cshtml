@@ -45,6 +45,24 @@
                                 @*@Html.MVCGrid("UsersManagementGrid")*@
 
                             </div>
+
+                            <div class="col-md-11 no-paddin-xs" style="background-color:white; padding:20px;width:90%">
+                                <div>@Html.Label(Resources.Resources.AllowedEmailDomains)</div>
+                                @using (Html.BeginForm("SaveAllowedEmailsDomains", "UsersManagement", null, FormMethod.Post, new { @class = "form-horizontal", role = "form", id="authorizedEmailForm" }))
+                                {
+                                    <div style="display:flex;">
+                                        @Html.ListBoxFor(m => m.SelectedAllowedEmails, new MultiSelectList(Model.AllowedEmails, "Text", "Text"), new { @class = "form-control listbox", id = "emailListbox" })
+                                        <div style="padding-left:20px;">
+                                            <div style="display:flex">
+                                                @Html.TextBox("Email", null, new { id = "emailDomainTextbox", @class = "form-control" })
+                                                <input type="button" class="btn btn-primary" value="@Resources.Resources.AddEmailOrDomain" id="addEmailDomain" />
+                                            </div>
+                                            <div><input type="button" class="btn btn-warning" value="@Resources.Resources.RemoveEmailOrDomain" id="removeEmailDomain" /></div>
+                                            <div><input type="submit" class="btn btn-success" value="@Resources.Resources.Save" id="saveEmailDomain" /></div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -58,9 +76,33 @@
 
 </div><!-- end timeline content-->
 
+<style>
+    .listbox {
+        /* display: block; */
+        width: 200px;
+        height: 150px;
+    }
+</style>
+
 <script>
     $(document).ready(function () {
         var url = "";
+
+        $("#addEmailDomain").click(function () {
+            if ($('#emailDomainTextbox').val() == null || $('#emailDomainTextbox').val() == '')
+                return;
+
+            $('#emailListbox').append('<option value="' + $('#emailDomainTextbox').val() + '">' + $('#emailDomainTextbox').val() + '</option>');
+            $('#emailDomainTextbox').val('');
+        });
+
+        $('#removeEmailDomain').click(function () {
+            $("#emailListbox option:selected").remove();
+        });
+
+        $("#authorizedEmailForm").submit(function (e) {
+            $("#emailListbox option").attr("selected", "selected");
+        });
 
         $("#dialog-alert").dialog({
             autoOpen: false,
@@ -106,9 +148,9 @@
                     $("#dialog-edit").dialog("close");
                 }*/
             },
-            close: function() {
-                form[ 0 ].reset();
-                allFields.removeClass( "ui-state-error" );
+            close: function () {
+                form[0].reset();
+                allFields.removeClass("ui-state-error");
             }
         });
 
@@ -217,101 +259,3 @@
 
 <div id="dialog-detail" style="display: none">
 </div>
-
-@*@Html.Partial("~/Views/Home/Partial/Footer.cshtml", Model)*@
-
-
-
-
-@*<script>
-    
-    $("#jsGrid").jsGrid({
-        //width: "100%",
-        height: "400px",
-
-        filtering: true,
-        inserting: true,
-        editing: false,
-        sorting: true,
-        paging: true,
-        autoload: true,
-
-        loadIndication: true,
-        loadIndicationDelay: 100,
-        loadMessage: "Por favor, aguarde...",
-        loadShading: true,
-
-        pagerContainer: null,
-        pageIndex: 1,
-        pageSize: 20,
-        pageButtonCount: 5,
-        pagerFormat: "Pages: {first} {prev} {pages} {next} {last}    {pageIndex} of {pageCount}",
-        pagePrevText: "Prev",
-        pageNextText: "Next",
-        pageFirstText: "First",
-        pageLastText: "Last",
-        pageNavigatorNextText: "...",
-        pageNavigatorPrevText: "...",
-
-        rowClick: function (args) {
-            var $row = this.rowByItem(args.item);
-            $row.toggleClass("highlight");
-        },
-
-        deleteConfirm: "Do you really want to delete the user?",
-
-        controller: {
-            loadData: function (filter) {
-                return $.ajax({
-                    type: "GET",
-                    url: "/usersmanagement/get",
-                    data: "",
-                    dataType: "json"
-                });
-            },
-
-            insertItem: function (item) {
-                return $.ajax({
-                    type: "POST",
-                    url: "/api/data",
-                    data: item,
-                    dataType: "json"
-                });
-            },
-
-            //updateItem: function (item) {
-            //    return $.ajax({
-            //        type: "PUT",
-            //        url: "/api/data/" + item.ID,
-            //        data: item,
-            //        dataType: "json"
-            //    });
-            //},
-
-            deleteItem: function (item) {
-                return $.ajax({
-                    type: "DELETE",
-                    url: "/api/data/" + item.ID,
-                    dataType: "json"
-                });
-            }
-        },
-
-        fields: [
-            { name: "User.UserName", type: "text", validate: "required", title: "@Resources.Resources.Username" },
-            { name: "FirstName", type: "text", validate: "required" },
-            { name: "LastName", type: "text", validate: "required" },
-            //{ name: "CreateDate", type: "date", width: 50, formatter: "date", formoptions: { rowpos: 3, colpos: 1 }, formatoptions: { srcformat: "ISO8601Long", newformat: "m/d/Y h:i A" } },
-            { name: "Active", type: "checkbox", title: "Active", sorting: false },
-            { type: "control",
-                itemTemplate: function(value, item) {
-                    var $result = $([]);
-
-                    $result = $result.add(this._createDeleteButton(item));
-        
-                    return $result;
-                } 
-            }
-        ]
-    });
-</script>*@

@@ -50,5 +50,12 @@ namespace InsuranceWebsite.Commons
             }
         }
 
+        public static string ApplicationSiteUrl
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["ApplicationSiteUrl"];
+            }
+        }
     }
 }

@@ -174,7 +174,7 @@ namespace InsuranceSocialNetworkDAL
 
                 //AspNetUsers user = context.AspNetUsers.Get(profile.ID_User);
                 //user.AspNetRoles.Add(RoleRepository.GetRole(context, InsuranceSocialNetworkCore.Enums.RoleEnum.USER));
-                
+
                 context.Save();
 
                 return profile.ID;
@@ -271,7 +271,7 @@ namespace InsuranceSocialNetworkDAL
 
                 List<string> functionalityRolesAllowed = context.AspNetRolesFunctionalities.Fetch().Where(i => i.Token == functionality && i.Active).Select(i => i.RoleId).ToList();
 
-                foreach(var role in user.AspNetRoles)
+                foreach (var role in user.AspNetRoles)
                 {
                     if (functionalityRolesAllowed.Contains(role.Id))
                         return true;

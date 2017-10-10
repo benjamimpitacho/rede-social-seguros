@@ -88,6 +88,12 @@ namespace InsuranceWebsite.Models
         [Required(ErrorMessageResourceType = typeof(Resources.Resources), ErrorMessageResourceName = "RoleRequired")]
         [Display(Name = "UserRole", ResourceType = typeof(Resources.Resources))]
         public string UserRole { get; set; }
+
+        //[Required(ErrorMessageResourceType = typeof(Resources.Resources), ErrorMessageResourceName = "ProfessionalNumberRequired")]
+        [Display(Name = "ProfessionalNumber", ResourceType = typeof(Resources.Resources))]
+        public string ProfessionalNumber { get; set; }
+
+        public List<System.Web.Mvc.SelectListItem> UserRoles { get; set; }
     }
 
     public class ResetPasswordViewModel

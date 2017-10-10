@@ -133,6 +133,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Adicionar email/dominio.
+        /// </summary>
+        public static string AddEmailOrDomain {
+            get {
+                return ResourceManager.GetString("AddEmailOrDomain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Adicionar Amigo.
         /// </summary>
         public static string AddFriend {
@@ -183,6 +192,24 @@ namespace Resources {
         public static string AlertsManagement {
             get {
                 return ResourceManager.GetString("AlertsManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lista de e-mails/dominios autorizados.
+        /// </summary>
+        public static string AllowedEmailDomains {
+            get {
+                return ResourceManager.GetString("AllowedEmailDomains", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FalarSeguros.pt.
+        /// </summary>
+        public static string ApplicationNAme {
+            get {
+                return ResourceManager.GetString("ApplicationNAme", resourceCulture);
             }
         }
         
@@ -691,6 +718,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirmação de registo.
+        /// </summary>
+        public static string EmailRegisterConfirmation {
+            get {
+                return ResourceManager.GetString("EmailRegisterConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to E-mail é obrigatório.
         /// </summary>
         public static string EmailRequired {
@@ -795,6 +831,15 @@ namespace Resources {
         public static string GarageName {
             get {
                 return ResourceManager.GetString("GarageName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Olá.
+        /// </summary>
+        public static string Hello {
+            get {
+                return ResourceManager.GetString("Hello", resourceCulture);
             }
         }
         
@@ -1285,6 +1330,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Numero Mediador (ASF).
+        /// </summary>
+        public static string ProfessionalNumber {
+            get {
+                return ResourceManager.GetString("ProfessionalNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Falar Seguros - Perfil.
         /// </summary>
         public static string ProfilePageTitle {
@@ -1312,6 +1366,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} o portal Falar Seguros dá-lhe as boas vindas!&lt;BR/&gt;Obrigado por se registar! Queira por favor clicar no seguinte link para concluir o seu processo de registo e usufruir da plataforma Falar Seguros: &lt;a href=&apos;{1}&apos; title=&apos;Confirmação Registo&apos;&gt;{1}&lt;/a&gt;.
+        /// </summary>
+        public static string RegisterConfirmationMessage {
+            get {
+                return ResourceManager.GetString("RegisterConfirmationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Data de registo.
         /// </summary>
         public static string RegisterDate {
@@ -1335,6 +1398,15 @@ namespace Resources {
         public static string RememberThisBrowser {
             get {
                 return ResourceManager.GetString("RememberThisBrowser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remover email/dominio.
+        /// </summary>
+        public static string RemoveEmailOrDomain {
+            get {
+                return ResourceManager.GetString("RemoveEmailOrDomain", resourceCulture);
             }
         }
         

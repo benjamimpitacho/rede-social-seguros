@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using InsuranceSocialNetworkCore.Enums;
 using System.Resources;
 using InsuranceSocialNetworkDTO.Role;
+using System.IO;
 
 namespace InsuranceWebsite.Controllers
 {
@@ -162,17 +163,21 @@ namespace InsuranceWebsite.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            SelectList rolesList = new SelectList(InsuranceBusiness.BusinessLayer.GetRegisterRoles().ToList(), "Id", "Name");
-            
-            ResourceManager rm = Resources.Resources.ResourceManager;
-            foreach (RoleDTO role in rolesList.Items)
-            {
-                role.Name = rm.GetString(role.Name);
-            }
+            //SelectList rolesList = new SelectList(InsuranceBusiness.BusinessLayer.GetRegisterRoles().ToList(), "Id", "Name");
 
-            ViewBag.Name = rolesList;
+            //ResourceManager rm = Resources.Resources.ResourceManager;
+            //foreach (RoleDTO role in rolesList.Items)
+            //{
+            //    role.Name = rm.GetString(role.Name);
+            //}
 
-            return View();
+            //ViewBag.Name = rolesList;
+            //ViewBag.UserRole = rolesList;
+
+            RegisterViewModel model = new RegisterViewModel();
+            model.UserRoles = InsuranceBusiness.BusinessLayer.GetRegisterRoles().Select(i => new SelectListItem() { Value = i.Id, Text = i.Name }).ToList();
+
+            return View(model);
         }
 
         //
@@ -231,7 +236,32 @@ namespace InsuranceWebsite.Controllers
                     {
                         InsuranceBusiness.BusinessLayer.CreateNotification(user.Id, null, NotificationTypeEnum.COMPLETE_PROFILE_INFO);
 
-                        //await SendConfirmationEmail(user, model.Name);
+                        if(InsuranceBusiness.BusinessLayer.IsEmailAuthorizedForAutomaticApproval(user.UserName))
+                        {
+                            // Authorized
+                            try
+                            {
+                                var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                                var activationResult = await UserManager.ConfirmEmailAsync(user.Id, code);
+
+                                if (activationResult.Succeeded)
+                                {
+                                    await SendActivationEmail(user, model.Name);
+                                }
+                            }
+                            catch(Exception ex)
+                            {
+                                InsuranceBusiness.BusinessLayer.DeleteUserProfile(userId);
+                                await UserManager.DeleteAsync(user);
+
+                                return View(model);
+                            }
+                        }
+                        else
+                        {
+                            // Not authorized - pending activation
+                            await SendConfirmationEmail(user, model.Name);
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -254,6 +284,8 @@ namespace InsuranceWebsite.Controllers
                 AddErrors(result);
             }
 
+            model.UserRoles = InsuranceBusiness.BusinessLayer.GetRegisterRoles().Select(i => new SelectListItem() { Value = i.Id, Text = i.Name }).ToList();
+
             // If we got this far, something failed, redisplay form
             return View(model);
         }
@@ -263,10 +295,48 @@ namespace InsuranceWebsite.Controllers
             var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
 
             System.Net.Mail.MailMessage m = new System.Net.Mail.MailMessage(
-                new System.Net.Mail.MailAddress(ConfigurationSettings.AppEmailAddress, "Web Registration"),
+                new System.Net.Mail.MailAddress(ConfigurationSettings.AppEmailAddress, Resources.Resources.ApplicationNAme),
                 new System.Net.Mail.MailAddress(user.Email));
-            m.Subject = "Email confirmation";
-            m.Body = string.Format("Dear {0}<BR/>Thank you for your registration, please click on the below link to comlete your registration: <a href=\"{1}\" title=\"User Email Confirm\">{1}</a>", user.UserName, Url.Action("ConfirmEmail", "Account", new { token = code, code = user.Id }, Request.Url.Scheme));
+            m.Subject = Resources.Resources.EmailRegisterConfirmation;
+            //m.Body = string.Format(Resources.Resources.RegisterConfirmationMessage, name, Url.Action("ConfirmEmail", "Account", new { token = code, code = user.Id }, Request.Url.Scheme));
+
+            using (StreamReader reader = new StreamReader(Server.MapPath("~/Views/Account/EmailTemplates/RegisterConfirmationTemplate.html")))
+            {
+                m.Body = reader.ReadToEnd();
+            }
+
+            m.Body = m.Body.Replace("{NAME}", name); //replacing the required things  
+
+            m.Body = m.Body.Replace("{URL}", Url.Action("ConfirmEmail", "Account", new { token = code, code = user.Id }, Request.Url.Scheme));
+
+            m.IsBodyHtml = true;
+            System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient(ConfigurationSettings.SmtpHost, ConfigurationSettings.SmtpPort)
+            {
+                Credentials = new System.Net.NetworkCredential(ConfigurationSettings.SmtpUsername, ConfigurationSettings.SmtpPassword),
+                EnableSsl = true
+            };
+            smtp.Send(m);
+
+            return true;
+        }
+
+        private async Task<bool> SendActivationEmail(ApplicationUser user, string name)
+        {
+            System.Net.Mail.MailMessage m = new System.Net.Mail.MailMessage(
+                new System.Net.Mail.MailAddress(ConfigurationSettings.AppEmailAddress, Resources.Resources.ApplicationNAme),
+                new System.Net.Mail.MailAddress(user.Email));
+            m.Subject = Resources.Resources.EmailRegisterConfirmation;
+            //m.Body = string.Format(Resources.Resources.RegisterConfirmationMessage, name, Url.Action("ConfirmEmail", "Account", new { token = code, code = user.Id }, Request.Url.Scheme));
+
+            using (StreamReader reader = new StreamReader(Server.MapPath("~/Views/Account/EmailTemplates/RegisterActivationTemplate.html")))
+            {
+                m.Body = reader.ReadToEnd();
+            }
+
+            m.Body = m.Body.Replace("{NAME}", name); //replacing the required things  
+
+            m.Body = m.Body.Replace("{URL}", ConfigurationSettings.ApplicationSiteUrl);
+
             m.IsBodyHtml = true;
             System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient(ConfigurationSettings.SmtpHost, ConfigurationSettings.SmtpPort)
             {

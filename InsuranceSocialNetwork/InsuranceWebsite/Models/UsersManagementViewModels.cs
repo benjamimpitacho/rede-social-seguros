@@ -13,9 +13,20 @@ namespace InsuranceWebsite.Models
     {
         public UsersManagementViewModel()
         {
+            AllowedEmails = new List<SelectListItem>()
+            {
+                new SelectListItem() { Text="item1", Value="1" },
+                new SelectListItem() { Text="item2", Value="2" },
+                new SelectListItem() { Text="item3", Value="3" },
+                new SelectListItem() { Text="item4", Value="4" },
+                new SelectListItem() { Text="item5", Value="5" }
+            };
         }
 
         public List<UserProfileModelObject> UserProfiles { get; set; }
+
+        public List<SelectListItem> AllowedEmails { get; set; }
+        public string[] SelectedAllowedEmails { get; set; }
 
     }
 
@@ -42,7 +53,7 @@ namespace InsuranceWebsite.Models
         public string Skype { get; set; }
         public string Whatsapp { get; set; }
         public string CompaniesWorkingWith { get; set; }
-        public long? ID_PostalCode { get; set; }
+        public string ProfessionalNumber { get; set; }
         public byte[] ProfilePhoto { get; set; }
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]

@@ -52,7 +52,7 @@
                         @*@Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })*@
                         <div class="col-md-12">
                             <span class="glyphicon glyphicon-lock"></span>
-                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @placeholder = Resources.Resources.Password, @id = "short" })
+                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @placeholder = Resources.Resources.ConfirmPassword, @id = "short" })
                             
                         </div>
                     </div>
@@ -60,7 +60,15 @@
                         @*@Html.LabelFor(m => m.UserRole, new { @class = "col-md-2 control-label" })*@
                         <div class="col-md-12">
                             <span class="glyphicon glyphicon-lock"></span>
-                            @Html.DropDownList("UserRole", (SelectList)ViewBag.Name, null, new { @class = "form-control" })
+                            @Html.DropDownListFor(m => m.UserRole, Model.UserRoles, new { @class = "form-control", id = "userRoleDropdown" })
+                            @*@Html.DropDownList("UserRole", (SelectList)ViewBag.Name, null, new { @class = "form-control", id="userRoleDropdown" })*@
+                        </div>
+                    </div>
+                    <div class="form-group" id="professionalNumberSection">
+                        @*@Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })*@
+                        <div class="col-md-12">
+                            <span class="glyphicon glyphicon-envelope"></span>
+                            @Html.TextBoxFor(m => m.ProfessionalNumber, new { @class = "form-control", @placeholder = Resources.Resources.ProfessionalNumber, @id = "short" })
                         </div>
                     </div>
 
@@ -101,26 +109,27 @@
         $(".panel-home").toggleClass("animated");
         $(".panel-home").toggleClass("fadeInUp");
     });
+
+    $("#professionalNumberSection").hide();
+
+    $("#userRoleDropdown").change(function () {
+        if($("#userRoleDropdown").val() == 3)
+        {
+            $("#professionalNumberSection").show();
+        }
+        else
+        {
+            $("#professionalNumberSection").hide();
+        }
+    });
+
 </script>
 
 <style type="text/css">
-    /*.login_button {
-        width: 90%;
-        margin-bottom: 10px;
-        font-size: 14px;
-        background: #fff;
-        color: #777;
-        border: 1px solid #00C1DE;
-        outline: 0;
-        border-radius: 5px;
-        -moz-box-shadow: 0px 1px 1px rgba(255, 255, 255, 0.1);
-        -webkit-box-shadow: 0px 1px 1px rgba(255, 255, 255, 0.1);
-        box-shadow: 0px 1px 1px rgba(255, 255, 255, 0.1);
-        -moz-box-sizing: border-box;
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
-        float: right;
-    }*/
+
+.form-group {
+    margin-bottom: 10px;
+}
     
 .glyphicon {
     /*color: #00C1DE;

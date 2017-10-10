@@ -702,4 +702,28 @@
   <data name="SelectService" xml:space="preserve">
     <value>Seleccione serviço</value>
   </data>
+  <data name="AddEmailOrDomain" xml:space="preserve">
+    <value>Adicionar email/dominio</value>
+  </data>
+  <data name="AllowedEmailDomains" xml:space="preserve">
+    <value>Lista de e-mails/dominios autorizados</value>
+  </data>
+  <data name="ProfessionalNumber" xml:space="preserve">
+    <value>Numero Mediador (ASF)</value>
+  </data>
+  <data name="RemoveEmailOrDomain" xml:space="preserve">
+    <value>Remover email/dominio</value>
+  </data>
+  <data name="ApplicationNAme" xml:space="preserve">
+    <value>FalarSeguros.pt</value>
+  </data>
+  <data name="EmailRegisterConfirmation" xml:space="preserve">
+    <value>Confirmação de registo</value>
+  </data>
+  <data name="RegisterConfirmationMessage" xml:space="preserve">
+    <value>{0} o portal Falar Seguros dá-lhe as boas vindas!&lt;BR/&gt;Obrigado por se registar! Queira por favor clicar no seguinte link para concluir o seu processo de registo e usufruir da plataforma Falar Seguros: &lt;a href='{1}' title='Confirmação Registo'&gt;{1}&lt;/a&gt;</value>
+  </data>
+  <data name="Hello" xml:space="preserve">
+    <value>Olá</value>
+  </data>
 </root>

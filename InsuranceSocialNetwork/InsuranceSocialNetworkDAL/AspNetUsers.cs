@@ -36,6 +36,7 @@ namespace InsuranceSocialNetworkDAL
             this.InsuranceCompanyContactFavorite = new HashSet<InsuranceCompanyContactFavorite>();
             this.MedicalClinicFavorite = new HashSet<MedicalClinicFavorite>();
             this.Profile = new HashSet<Profile>();
+            this.AuthorizedEmail = new HashSet<AuthorizedEmail>();
         }
     
         public string Id { get; set; }
@@ -89,5 +90,7 @@ namespace InsuranceSocialNetworkDAL
         public virtual ICollection<MedicalClinicFavorite> MedicalClinicFavorite { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Profile> Profile { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AuthorizedEmail> AuthorizedEmail { get; set; }
     }
 }

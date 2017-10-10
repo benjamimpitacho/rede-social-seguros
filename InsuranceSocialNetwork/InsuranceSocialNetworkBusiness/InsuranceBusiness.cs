@@ -160,12 +160,6 @@ namespace InsuranceSocialNetworkBusiness
             return UserProfileRepository.GetProfile(profileId).ID_User;
         }
 
-        //public UserProfileDTO GetUser(string username)
-        //{
-        //    AspNetUsers user = UserProfileRepository.GetUser(username);
-        //    return AutoMapper.Mapper.Map<List<UserProfileDTO>>(users);
-        //}
-
         public bool IsUserAuthorizedToFunctionality(string username, string functionality)
         {
             return UserProfileRepository.IsUserAuthorizedToFunctionality(username, functionality);
@@ -213,6 +207,21 @@ namespace InsuranceSocialNetworkBusiness
         }
 
         #endregion Profile
+
+        #region Authorized Emails for Automatic Approval
+
+
+        public bool IsEmailAuthorizedForAutomaticApproval(string email)
+        {
+            return AuthorizedEmailRepository.IsEmailAuthorizedForAutomaticApproval(email);
+        }
+
+        public bool UpdateEmailAuthorizedForAutomaticApproval(string[] emailPatterns)
+        {
+            return AuthorizedEmailRepository.UpdateEmailAuthorizedForAutomaticApproval(emailPatterns);
+        }
+
+        #endregion Authorized Emails for Automatic Approval
 
         #region Messages / Chats
 

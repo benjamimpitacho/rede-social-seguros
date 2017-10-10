@@ -65,10 +65,14 @@
     <Compile Include="AspNetUsers.cs">
       <DependentUpon>InsuranceDatabaseEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="AuthorizedEmail.cs">
+      <DependentUpon>InsuranceDatabaseEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="BackofficeUnitOfWork.cs" />
     <Compile Include="Banner.cs">
       <DependentUpon>InsuranceDatabaseEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="AuthorizedEmailRepository.cs" />
     <Compile Include="BannerType.cs">
       <DependentUpon>InsuranceDatabaseEntities.tt</DependentUpon>
     </Compile>

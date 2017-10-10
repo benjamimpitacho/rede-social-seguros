@@ -98,6 +98,8 @@
         <AssociationConnector Association="InsurancePortal_dbModel.FK_HomeApplianceRepair_Service" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_InsuranceCompanyContact_Service" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_MedicalClinic_Service" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.AuthorizedEmail" Width="1.5" PointX="5.25" PointY="27.625" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_AuthorizedEmail_User" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

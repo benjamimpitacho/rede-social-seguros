@@ -411,6 +411,21 @@ namespace InsuranceWebsite.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
+        public ActionResult SaveAllowedEmailsDomains(UsersManagementViewModel model)
+        {
+            try
+            {
+                InsuranceBusiness.BusinessLayer.UpdateEmailAuthorizedForAutomaticApproval(model.SelectedAllowedEmails);
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException();
+            }
+
+            return RedirectToAction("Index");
+        }
+
         private ApplicationUserManager _userManager;
         public ApplicationUserManager UserManager
         {

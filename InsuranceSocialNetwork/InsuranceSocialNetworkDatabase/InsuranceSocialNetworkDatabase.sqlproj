@@ -114,6 +114,7 @@
     <None Include="InitData\CompanyType.sql" />
     <Build Include="Tables\CompanyService.sql" />
     <None Include="InitData\CompanyService.sql" />
+    <Build Include="Tables\AuthorizedEmail.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="InsuranceSocialNetworkDatabase.refactorlog" />
