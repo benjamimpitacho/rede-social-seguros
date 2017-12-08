@@ -2711,6 +2711,10 @@ a:hover, a:active, a:focus {
     border-radius: 32px;
 }
 
+.glyphicon-star {
+    cursor: pointer;
+}
+
 .bannerPanel
 {
     height: 120px;

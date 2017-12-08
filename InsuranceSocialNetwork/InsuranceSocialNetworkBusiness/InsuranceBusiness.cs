@@ -432,6 +432,46 @@ namespace InsuranceSocialNetworkBusiness
             }
         }
 
+        public List<PostDTO> GetCurrentDiscussions()
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                List<Post> list = PostRepository.GetPostsBySubject(context, PostSubjectEnum.CURRENT_DISCUSSION_POST);
+
+                return AutoMapper.Mapper.Map<List<PostDTO>>(list);
+            }
+        }
+
+        public List<PostDTO> GetASFPosts()
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                List<Post> list = PostRepository.GetPostsBySubject(context, PostSubjectEnum.ASF_POST);
+
+                return AutoMapper.Mapper.Map<List<PostDTO>>(list);
+            }
+        }
+
+        public List<PostDTO> GetAPROSEPosts()
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                List<Post> list = PostRepository.GetPostsBySubject(context, PostSubjectEnum.APROSE_POST);
+
+                return AutoMapper.Mapper.Map<List<PostDTO>>(list);
+            }
+        }
+
+        public List<PostDTO> GetAPSPosts()
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                List<Post> list = PostRepository.GetPostsBySubject(context, PostSubjectEnum.APS_POST);
+
+                return AutoMapper.Mapper.Map<List<PostDTO>>(list);
+            }
+        }
+
         public bool CreatePost(PostDTO item)
         {
             Post post = AutoMapper.Mapper.Map<Post>(item);

@@ -18,8 +18,8 @@ namespace InsuranceSocialNetworkDAL
         public Post()
         {
             this.PostComment = new HashSet<PostComment>();
-            this.PostLike = new HashSet<PostLike>();
             this.PostImage = new HashSet<PostImage>();
+            this.PostLike = new HashSet<PostLike>();
         }
     
         public long ID { get; set; }
@@ -35,6 +35,7 @@ namespace InsuranceSocialNetworkDAL
         public bool Sticky { get; set; }
         public bool Sponsored { get; set; }
         public bool Active { get; set; }
+        public string Title { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual PostSubject PostSubject { get; set; }
@@ -42,8 +43,8 @@ namespace InsuranceSocialNetworkDAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PostComment> PostComment { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PostLike> PostLike { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PostImage> PostImage { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PostLike> PostLike { get; set; }
     }
 }

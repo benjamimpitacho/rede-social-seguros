@@ -23,6 +23,7 @@ namespace InsuranceSocialNetworkDAL
         public System.DateTime LastChangeDate { get; set; }
         public Nullable<System.DateTime> DeleteDate { get; set; }
         public bool Active { get; set; }
+        public Nullable<System.DateTime> ReadDate { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual Chat Chat { get; set; }

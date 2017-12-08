@@ -22,7 +22,6 @@ namespace InsuranceSocialNetworkDAL
             this.PostLike = new HashSet<PostLike>();
             this.AspNetRoles = new HashSet<AspNetRoles>();
             this.PostCommentLike = new HashSet<PostCommentLike>();
-            this.Post = new HashSet<Post>();
             this.Friend = new HashSet<Friend>();
             this.Friend1 = new HashSet<Friend>();
             this.Chat = new HashSet<Chat>();
@@ -37,6 +36,7 @@ namespace InsuranceSocialNetworkDAL
             this.MedicalClinicFavorite = new HashSet<MedicalClinicFavorite>();
             this.Profile = new HashSet<Profile>();
             this.AuthorizedEmail = new HashSet<AuthorizedEmail>();
+            this.Post = new HashSet<Post>();
         }
     
         public string Id { get; set; }
@@ -62,8 +62,6 @@ namespace InsuranceSocialNetworkDAL
         public virtual ICollection<AspNetRoles> AspNetRoles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PostCommentLike> PostCommentLike { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Post> Post { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Friend> Friend { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -92,5 +90,7 @@ namespace InsuranceSocialNetworkDAL
         public virtual ICollection<Profile> Profile { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AuthorizedEmail> AuthorizedEmail { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Post> Post { get; set; }
     }
 }

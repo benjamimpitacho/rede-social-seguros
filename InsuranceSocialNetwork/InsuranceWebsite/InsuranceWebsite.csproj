@@ -375,6 +375,10 @@
     <Content Include="Content\jsGrid\jsgrid.js" />
     <Content Include="Content\jsGrid\jsgrid.min.css" />
     <Content Include="Content\jsGrid\jsgrid.min.js" />
+    <Content Include="Content\logos\asf_cor.png" />
+    <Content Include="Content\logos\asf_cor_2.png" />
+    <Content Include="Content\logos\asf_pb.png" />
+    <Content Include="Content\logos\asf_pb_2.png" />
     <Content Include="Content\logos\azul_simbolo_falar_seguros.png" />
     <Content Include="Content\logos\cinza_simbolo_falar_seguros.png" />
     <Content Include="Content\logos\logotipo_falar_seguros.png" />

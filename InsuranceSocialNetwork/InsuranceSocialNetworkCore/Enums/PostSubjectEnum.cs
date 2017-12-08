@@ -13,6 +13,10 @@ namespace InsuranceSocialNetworkCore.Enums
         NEWS_POST,
         PARTNERSHIP_POST,
         WALLET_POST,
-        SPONSORED_POST
+        SPONSORED_POST,
+        CURRENT_DISCUSSION_POST,
+        ASF_POST,
+        APROSE_POST,
+        APS_POST
     }
 }

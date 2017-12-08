@@ -20,6 +20,8 @@ namespace InsuranceSocialNetworkDAL
         public string Type { get; set; }
         public System.DateTime Date { get; set; }
         public bool Active { get; set; }
+        public string FileName { get; set; }
+        public string FileExtension { get; set; }
     
         public virtual Post Post { get; set; }
     }

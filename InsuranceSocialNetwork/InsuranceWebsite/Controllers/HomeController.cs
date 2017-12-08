@@ -511,29 +511,6 @@ namespace InsuranceWebsite.Controllers
             return PartialView("Partial/PostsControl", model);
         }
 
-        //[HttpPost]
-        //[FunctionalityAutorizeAttribute("COMMENT_POST_FUNCTIONALITY")]
-        //public ActionResult NewComment(long postId, string postNewComment)
-        //{
-        //    try
-        //    {
-        //        PostCommentDTO newComment = new PostCommentDTO()
-        //        {
-        //            ID_Post = postId,
-        //            ID_User = CurrentUser.ID_User,
-        //            Text = postNewComment
-        //        };
-
-        //        InsuranceBusiness.BusinessLayer.CreateComment(newComment);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new NotImplementedException();
-        //    }
-
-        //    return RedirectToAction("Index");
-        //}
-
         [FunctionalityAutorizeAttribute("COMMENT_POST_FUNCTIONALITY")]
         public JsonResult NewComment(long postId, string postNewComment)
         {
@@ -560,6 +537,50 @@ namespace InsuranceWebsite.Controllers
             }
 
             return Json(new { ok = true, message = commentId });
+        }
+
+        [HttpPost]
+        [FunctionalityAutorizeAttribute("NEW_POST_FUNCTIONALITY")]
+        public ActionResult NewCurrentDiscussion(HomeViewModel model, string postTitleTextarea, string postContentTextarea, HttpPostedFileBase imgUpload, HttpPostedFileBase fileUpload)
+        {
+            try
+            {
+                PostDTO newPost = new PostDTO()
+                {
+                    Active = true,
+                    CreateDate = DateTime.Now,
+                    LastChangeDate = DateTime.Now,
+                    ID_User = model.Profile.ID_User,
+                    Title = postTitleTextarea,
+                    Text = postContentTextarea,
+                    Type = InsuranceSocialNetworkCore.Enums.PostTypeEnum.TEXT_POST,
+                    Subject = InsuranceSocialNetworkCore.Enums.PostSubjectEnum.CURRENT_DISCUSSION_POST
+                };
+
+                if (null != imgUpload)
+                {
+                    newPost.Type = InsuranceSocialNetworkCore.Enums.PostTypeEnum.IMAGE_POST;
+                    newPost.Image = InsuranceSocialNetworkCore.Utils.ConvertionUtils.ScaleImage(InsuranceSocialNetworkCore.Utils.ConvertionUtils.ReadFully(imgUpload.InputStream), 1024, 1024);
+                    newPost.FileName = Path.GetFileNameWithoutExtension(fileUpload.FileName);
+                    newPost.FileExtension = Path.GetExtension(fileUpload.FileName);
+                }
+
+                if (null != fileUpload)
+                {
+                    newPost.Type = InsuranceSocialNetworkCore.Enums.PostTypeEnum.FILE_POST;
+                    newPost.File = ConvertionUtils.ReadFully(fileUpload.InputStream);
+                    newPost.FileName = Path.GetFileNameWithoutExtension(fileUpload.FileName);
+                    newPost.FileExtension = Path.GetExtension(fileUpload.FileName);
+                }
+
+                InsuranceBusiness.BusinessLayer.CreatePost(newPost);
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException();
+            }
+
+            return RedirectToAction("Index");
         }
 
         [FunctionalityAutorizeAttribute("PROFILE_INFO_FUNCTIONALITY")]
@@ -917,7 +938,7 @@ namespace InsuranceWebsite.Controllers
             return View(model);
         }
 
-        private void FillModel(ProfileViewModel model, string userId)
+        private void FillModel(ProfileViewModel model, string userId, bool GetUserRelatedPosts = true)
         {
             model.Profile = InsuranceBusiness.BusinessLayer.GetUserProfile(userId);
 
@@ -935,17 +956,13 @@ namespace InsuranceWebsite.Controllers
             model.Notifications = InsuranceBusiness.BusinessLayer.GetUserNotifications(userId);
             if (model is HomeViewModel)
             {
-                if (((HomeViewModel)model).IsPostsView)
+                if (((HomeViewModel)model).IsPostsView && GetUserRelatedPosts)
                 {
                     ((HomeViewModel)model).Posts = InsuranceBusiness.BusinessLayer.GetUserRelatedPosts(userId);
                 }
                 ((HomeViewModel)model).TopBanners = InsuranceBusiness.BusinessLayer.GetActiveBanners(BannerTypeEnum.WEB_PRINCIPAL_BANNER);
                 ((HomeViewModel)model).SideBanners = InsuranceBusiness.BusinessLayer.GetActiveBanners(BannerTypeEnum.WEB_SECONDARY_BANNER);
             }
-            //else if (model is HomeViewModel)
-            //{
-            //    ((HomeViewModel)model).Friends = InsuranceBusiness.BusinessLayer.GetFriends(userId);
-            //}
             else if (model is MessagesViewModel)
             {
                 ((MessagesViewModel)model).Chats = InsuranceBusiness.BusinessLayer.GetChats(userId);
@@ -1262,7 +1279,7 @@ namespace InsuranceWebsite.Controllers
                 var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
                 if (null != user)
                 {
-                    FillModel(model, user.Id);
+                    FillModel(model, user.Id, false);
                 }
                 else
                 {
@@ -1273,6 +1290,8 @@ namespace InsuranceWebsite.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
+
+            model.Posts = InsuranceBusiness.BusinessLayer.GetAPSPosts();
 
             return View(model);
         }
@@ -1287,7 +1306,7 @@ namespace InsuranceWebsite.Controllers
                 var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
                 if (null != user)
                 {
-                    FillModel(model, user.Id);
+                    FillModel(model, user.Id, false);
                 }
                 else
                 {
@@ -1298,6 +1317,8 @@ namespace InsuranceWebsite.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
+
+            model.Posts = InsuranceBusiness.BusinessLayer.GetASFPosts();
 
             return View(model);
         }
@@ -1312,7 +1333,7 @@ namespace InsuranceWebsite.Controllers
                 var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
                 if (null != user)
                 {
-                    FillModel(model, user.Id);
+                    FillModel(model, user.Id, false);
                 }
                 else
                 {
@@ -1323,6 +1344,8 @@ namespace InsuranceWebsite.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
+
+            model.Posts = InsuranceBusiness.BusinessLayer.GetAPROSEPosts();
 
             return View(model);
         }
@@ -1337,7 +1360,7 @@ namespace InsuranceWebsite.Controllers
                 var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
                 if (null != user)
                 {
-                    FillModel(model, user.Id);
+                    FillModel(model, user.Id, false);
                 }
                 else
                 {
@@ -1348,6 +1371,8 @@ namespace InsuranceWebsite.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
+
+            model.Posts = InsuranceBusiness.BusinessLayer.GetCurrentDiscussions();
 
             return View(model);
         }

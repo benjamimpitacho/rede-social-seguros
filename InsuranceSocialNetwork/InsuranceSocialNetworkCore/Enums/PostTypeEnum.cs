@@ -11,6 +11,7 @@ namespace InsuranceSocialNetworkCore.Enums
         IMAGE_POST,
         VIDEO_POST,
         TEXT_POST,
-        LINK_POST
+        LINK_POST,
+        FILE_POST
     }
 }

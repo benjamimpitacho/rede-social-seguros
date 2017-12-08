@@ -14,8 +14,12 @@ namespace InsuranceSocialNetworkDTO.Post
         public string ID_User { get; set; }
         public long ID_PostType { get; set; }
         public long ID_PostSubject { get; set; }
+        public string Title { get; set; }
         public string Text { get; set; }
         public byte[] Image { get; set; }
+        public byte[] File { get; set; }
+        public string FileName { get; set; }
+        public string FileExtension { get; set; }
         public string Video { get; set; }
         public string URL { get; set; }
         public DateTime CreateDate { get; set; }

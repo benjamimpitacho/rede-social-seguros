@@ -1,4 +1,6 @@
 ﻿@using InsuranceWebsite.Models
+@using InsuranceSocialNetworkBusiness
+@using InsuranceSocialNetworkCore.Enums
 @using InsuranceSocialNetworkDTO.UserProfile
 @model HomeViewModel
 
@@ -8,6 +10,31 @@
 
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/jqueryval")
+
+<style>
+    .search-result {
+        padding: 10px 20px 20px 20px;
+        border-bottom: solid 2px lightgray;
+        margin-bottom: 10px;
+        margin-top: 10px;
+        border-top: solid 0.5px lightgrey;
+    }
+
+    .search-result-title {
+        display: inline-flex;
+        width: 100%;
+        padding-bottom: 10px;
+    }
+
+    .stats {
+        padding-top: 10px;
+    }
+
+    .stat-item {
+        padding-right: 40px;
+        cursor: pointer;
+    }
+</style>
 
 @Html.Partial("~/Views/Home/Partial/NavBar.cshtml", Model)
 
@@ -26,10 +53,86 @@
 
                 @Html.Partial("./Partial/TopBannerPartialView", Model)
 
-                <div class="col-md-12 alert alert-info" style="text-align:center">
-                    @Resources.Resources.CurrentDiscussions
-                </div>
+                <div class="panel topPanel">
+                    <div>
+                        <img src="~/Content/icons/129.png" style="max-width:50px;" />
+                        <span style="font-weight:bold;">@Resources.Resources.CurrentDiscussions</span>
+                        <a href="/">
+                            <img src="/Content/icons/136.png" style="margin-left:56%;max-width:30px;">
+                        </a>
+                    </div>
 
+                    @if (InsuranceBusiness.BusinessLayer.IsUserAuthorizedToFunctionality(this.User.Identity.Name, Functionality.NEW_CURRENT_DISCUSSION_FUNCTIONALITY.ToString()))
+                    {
+                        <div style="border-bottom: solid 2px lightgray;">
+                            @using (Html.BeginForm("NewCurrentDiscussion", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            {
+                                @Html.HiddenFor(m => m.Profile.ID_User)
+                                @Html.HiddenFor(m => m.Profile.ID)
+
+                                <textarea placeholder="@Resources.Resources.Title" rows="2" class="form-control input-lg p-text-area" id="postTitleTextarea" name="postTitleTextarea" maxlength="256" style="resize:none"></textarea>
+                                <textarea placeholder="@Resources.Resources.DiscussionNewContent" rows="2" class="form-control input-lg p-text-area" id="postContentTextarea" name="postContentTextarea"></textarea>
+                                <img id="imgPlaceholder" src="#" alt="" style="visibility:hidden;position:absolute" />
+                                <div class="panel-footer" style="border-top: 0px; padding: 5px 15px">
+                                    <button class="btn btn-info pull-right">@Resources.Resources.Publish</button>
+                                    <ul class="nav nav-pills">
+                                        <li>
+                                            <input type='file' id="imgUpload" style="visibility:hidden;position:absolute" name="imgUpload" />
+                                            <a href="javascript:$('#imgUpload').click()" style="padding: 7px 10px"><i class="fa fa-camera"></i></a>
+                                        </li>
+                                        <li>
+                                            <input type='file' id="fileUpload" style="visibility:hidden;position:absolute" name="fileUpload" />
+                                            <a href="javascript:$('#fileUpload').click()" style="padding: 7px 10px"><i class="fa fa-paperclip"></i></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            }
+                        </div>
+                    }
+
+                    @foreach (var post in Model.Posts)
+                    {
+                        <div class="search-result" href="#" style="border-top:none;">
+                            <div class="search-result-title">
+
+                                <p>
+                                    <span style="font-weight:bold; display:block;">@post.Title</span>
+                                    @if (post.PostType.Token == PostTypeEnum.IMAGE_POST.ToString())
+                                    {
+                                        <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(post.PostImage[0].Image))" />
+                                    }
+                                    
+                                    @if (post.Text.Length > 150)
+                                    {
+                                        <span style="font-size:12px;">@post.Text.Substring(0, 150)</span>
+                                        <span>...</span>
+                                    }
+                                    else
+                                    {
+                                        <span style="font-size:12px;">@post.Text</span>
+                                    }
+                                </p>
+                            </div>
+                            <div class="post-description" style="border-top: 1px solid #eee;">
+
+                                <div class="stats">
+
+                                    <a onclick="LikePost(this, 24, 2)" class="stat-item" id="likePost">
+                                        <i class="glyphicon glyphicon-star icon"></i><span style="padding-left: 8px;color:#4B5C66;font-size: 10px;">@post.PostLike.Count</span>
+                                    </a>
+
+                                    <a class="stat-item" style="cursor:default;">
+                                        <i class="glyphicon glyphicon-option-horizontal icon"></i><span style="padding-left: 8px;color:#4B5C66;font-size: 10px;">@post.PostComment.Count</span>
+                                    </a>
+
+                                    <a class="stat-item" href="/Home/CurrentDiscussionDetails/24">
+                                        <img src="/Content/icons/149.png" style="max-width:32px;padding-bottom:5px;">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
             </div>
 
             <!--end right  content-->
@@ -41,3 +144,42 @@
     </div>
 
 </div><!-- end timeline content-->
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#imgUpload").change(function () {
+            readImgURL(this);
+        });
+
+        $("#fileUpload").change(function () {
+            readFileURL(this);
+        });
+    });
+
+    function readImgURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#imgPlaceholder').attr('style', '');
+                $('#imgPlaceholder').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+
+            $("#fileUpload").files = null;
+        }
+    }
+
+    function readFileURL(input) {
+        if (input.files && input.files[0]) {
+            $('#imgPlaceholder').attr('style', '');
+            $('#imgPlaceholder').attr('src', '');
+
+            $("#imgUpload").files = null;
+        }
+    }
+
+</script>

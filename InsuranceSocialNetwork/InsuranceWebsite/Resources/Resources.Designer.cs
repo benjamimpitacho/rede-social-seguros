@@ -655,6 +655,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Conteúdo do novo tema em discussão.
+        /// </summary>
+        public static string DiscussionNewContent {
+            get {
+                return ResourceManager.GetString("DiscussionNewContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Distrito.
         /// </summary>
         public static string District {
@@ -1348,6 +1357,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Publicar.
+        /// </summary>
+        public static string Publish {
+            get {
+                return ResourceManager.GetString("Publish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Registo.
         /// </summary>
         public static string Regist {
@@ -1740,6 +1758,15 @@ namespace Resources {
         public static string ThanksForRegister {
             get {
                 return ResourceManager.GetString("ThanksForRegister", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Título.
+        /// </summary>
+        public static string Title {
+            get {
+                return ResourceManager.GetString("Title", resourceCulture);
             }
         }
         
