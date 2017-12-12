@@ -310,6 +310,16 @@ namespace InsuranceSocialNetworkBusiness
             }
         }
 
+        public int GetTotalUnreadMessages(string userId)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                List<ChatDTO> chats = GetChats(userId);
+
+                return chats.Select(i => i.ChatMessage.Where(j => j.ID_User != userId && j.ReadDate == null)).Count();
+            }
+        }
+
         #endregion Messages / Chats
 
         #region Notifications
@@ -406,6 +416,13 @@ namespace InsuranceSocialNetworkBusiness
         #endregion Notifications
 
         #region Posts
+
+        public PostDTO GetPost(long Id)
+        {
+            Post post = PostRepository.GetPost(Id);
+
+            return AutoMapper.Mapper.Map<PostDTO>(post);
+        }
 
         public List<PostDTO> GetUserPosts(string Id)
         {

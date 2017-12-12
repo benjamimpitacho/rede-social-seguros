@@ -14,6 +14,7 @@ namespace InsuranceSocialNetworkDTO.Chat
         public string ID_User { get; set; }
         public string Text { get; set; }
         public byte[] Image { get; set; }
+        public DateTime? ReadDate { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime LastChangeDate { get; set; }
         public DateTime? DeleteDate { get; set; }

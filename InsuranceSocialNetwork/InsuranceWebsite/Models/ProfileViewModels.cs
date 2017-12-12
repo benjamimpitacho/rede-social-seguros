@@ -15,7 +15,7 @@ namespace InsuranceWebsite.Models
 
         public int TotalUnreadNotifications { get { return null == Notifications ? 0 : Notifications.Count(i => !i.Read); } }
 
-        public int TotalUnreadMessages { get { return 99; } }
+        public int TotalUnreadMessages { get; set; }
 
         public bool IsOwnProfile { get; set; }
 

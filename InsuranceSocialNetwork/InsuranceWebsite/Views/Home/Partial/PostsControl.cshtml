@@ -94,14 +94,24 @@
 
             <div class="post-description">
 
-                <p>
-                    @post.Text
-                </p>
+                @if (post.PostType.Token == InsuranceSocialNetworkCore.Enums.PostTypeEnum.FILE_POST.ToString())
+                {
+                    <p style="word-break: break-all;">
+                        <a href="@Url.Action("Download", "Home", new { id = post.ID })"><i class="fa fa-file-text-o" aria-hidden="true" style="font-size:30px;padding-left: 15px;padding-right:10px;"></i></a>
+                        @post.Text
+                    </p>
+                }
+                else
+                {
+                    <p>
+                        @post.Text
+                    </p>
+                }
 
             </div>
 
             @if (post.PostType.Token == InsuranceSocialNetworkCore.Enums.PostTypeEnum.IMAGE_POST.ToString())
-                {
+            {
 
                 <div class="post-image">
 

@@ -954,6 +954,7 @@ namespace InsuranceWebsite.Controllers
 
             CurrentUser = model.Profile;
             model.Notifications = InsuranceBusiness.BusinessLayer.GetUserNotifications(userId);
+            model.TotalUnreadMessages = InsuranceBusiness.BusinessLayer.GetTotalUnreadMessages(userId);
             if (model is HomeViewModel)
             {
                 if (((HomeViewModel)model).IsPostsView && GetUserRelatedPosts)
@@ -1425,6 +1426,15 @@ namespace InsuranceWebsite.Controllers
             }
 
             return View(model);
+        }
+
+        [Authorize]
+        public FileResult Download(long id)
+        {
+            PostDTO post = InsuranceBusiness.BusinessLayer.GetPost(id);
+
+            string fileName = post.PostImage.First().FileName + post.PostImage.First().FileExtension;
+            return File(post.PostImage.First().Image, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
         }
     }
 }

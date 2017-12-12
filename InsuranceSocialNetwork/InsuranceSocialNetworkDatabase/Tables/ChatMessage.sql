@@ -5,6 +5,7 @@
 	[ID_User] NVARCHAR(128) NOT NULL,
 	[Text] NVARCHAR (MAX) NULL,
 	[Image] IMAGE NULL,
+	[ReadDate] DATETIME2 NULL,
 	[CreateDate] DATETIME2 NOT NULL,
 	[LastChangeDate] DATETIME2 NOT NULL,
 	[DeleteDate] DATETIME2,

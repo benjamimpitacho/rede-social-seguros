@@ -12,6 +12,23 @@ namespace InsuranceSocialNetworkDAL
 {
     public class PostRepository
     {
+        public static Post GetPost(long Id)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                return context.Post
+                    .Fetch()
+                    .Include(i => i.AspNetUsers.Profile)
+                    .Include(i => i.PostType)
+                    .Include(i => i.PostSubject)
+                    .Include(i => i.PostLike)
+                    .Include(i => i.PostComment)
+                    .Include(i => i.PostImage)
+                    .Where(i => i.ID == Id && i.Active)
+                    .FirstOrDefault();
+            }
+        }
+
         public static List<Post> GetUserPosts(string Id)
         {
             using (var context = new BackofficeUnitOfWork())
