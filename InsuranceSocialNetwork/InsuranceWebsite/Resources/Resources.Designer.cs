@@ -19,7 +19,7 @@ namespace Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -484,7 +484,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gestão de Empresas - Empresas de Construção.
+        ///   Looks up a localized string similar to Gestão de Directório Construções e Remodelações.
         /// </summary>
         public static string ConstructionCompaniesManagement {
             get {
@@ -655,15 +655,6 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Conteúdo do novo tema em discussão.
-        /// </summary>
-        public static string DiscussionNewContent {
-            get {
-                return ResourceManager.GetString("DiscussionNewContent", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Distrito.
         /// </summary>
         public static string District {
@@ -826,7 +817,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gestão de Empresas - Garagens.
+        ///   Looks up a localized string similar to Gestão de Directório Automóvel.
         /// </summary>
         public static string GarageCompaniesManagement {
             get {
@@ -853,6 +844,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Esconder.
+        /// </summary>
+        public static string Hide {
+            get {
+                return ResourceManager.GetString("Hide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Home.
         /// </summary>
         public static string Home {
@@ -862,7 +862,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gestão de Empresas - Reparador de Electrodomésticos.
+        ///   Looks up a localized string similar to Gestão de Directório Electrodomésticos e Electrónica.
         /// </summary>
         public static string HomeApplianceRepairCompaniesManagement {
             get {
@@ -934,7 +934,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gestão de Empresas - Contactos de Seguradoras.
+        ///   Looks up a localized string similar to Gestão de Seguradoras.
         /// </summary>
         public static string InsuranceContactCompaniesManagement {
             get {
@@ -1033,7 +1033,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gestão de Empresas - Clinicas Médicas.
+        ///   Looks up a localized string similar to Gestão de Directório Saúde.
         /// </summary>
         public static string MedicalClinicCompaniesManagement {
             get {
@@ -1132,6 +1132,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Conteúdo do novo tema em discussão.
+        /// </summary>
+        public static string NewCurrentDiscussion {
+            get {
+                return ResourceManager.GetString("NewCurrentDiscussion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nova palavra-passe.
         /// </summary>
         public static string NewPassword {
@@ -1173,6 +1182,15 @@ namespace Resources {
         public static string NoChats {
             get {
                 return ResourceManager.GetString("NoChats", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Não existem temas em discussão.
+        /// </summary>
+        public static string NoCurrentDiscussions {
+            get {
+                return ResourceManager.GetString("NoCurrentDiscussions", resourceCulture);
             }
         }
         
@@ -1492,7 +1510,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pesquisar clínicas.
+        ///   Looks up a localized string similar to Directório Saúde.
         /// </summary>
         public static string SearchClinics {
             get {
@@ -1501,7 +1519,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pesquisar empresas de construção/remodelação.
+        ///   Looks up a localized string similar to Directório Construções e Remodelações.
         /// </summary>
         public static string SearchConstructionCompanies {
             get {
@@ -1510,7 +1528,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pesquisar oficinas.
+        ///   Looks up a localized string similar to Directório Automóvel.
         /// </summary>
         public static string SearchGarages {
             get {
@@ -1519,7 +1537,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pesquisar reparadores de electrodomésticos.
+        ///   Looks up a localized string similar to Directório Electrodomésticos e Electrónica.
         /// </summary>
         public static string SearchHomeApplianceRepair {
             get {
@@ -1528,7 +1546,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pesquisar contactos de seguradoras.
+        ///   Looks up a localized string similar to Seguradoras.
         /// </summary>
         public static string SearchInsuranceContacts {
             get {
@@ -1762,7 +1780,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Título.
+        ///   Looks up a localized string similar to Titulo.
         /// </summary>
         public static string Title {
             get {

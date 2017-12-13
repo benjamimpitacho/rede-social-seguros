@@ -24,6 +24,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <ApplicationInsightsResourceId>/subscriptions/b1ba703e-8cc7-4f49-b3c7-78fc4fdee811/resourcegroups/InsuranceResourceGroup/providers/microsoft.insights/components/InsuranceWebsite</ApplicationInsightsResourceId>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -229,6 +230,7 @@
     <Compile Include="Models\CompaniesManagementViewModels.cs" />
     <Compile Include="Models\FriendsViewModels.cs" />
     <Compile Include="Models\ChatViewModel.cs" />
+    <Compile Include="Models\SinglePostViewModel.cs" />
     <Compile Include="Models\MessagesViewModels.cs" />
     <Compile Include="Models\BannersManagementViewModels.cs" />
     <Compile Include="Models\SearchCompaniesViewModel.cs" />
@@ -285,6 +287,7 @@
     <Content Include="Content\bookpost\css\font-awesome.css" />
     <Content Include="Content\bookpost\css\font-awesome.min.css" />
     <Content Include="Content\bookpost\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\contextMenu\jquery.contextMenu.css" />
     <Content Include="Content\Facebook\css\AtR00FcnuUe.css" />
     <Content Include="Content\Facebook\css\AvCSouKPVJu.css" />
     <Content Include="Content\Facebook\css\gNs_8jOawWE.css" />
@@ -352,6 +355,10 @@
     <Content Include="Content\icons\washing-machine.svg" />
     <Content Include="Content\icons\wheelbarrow.svg" />
     <Content Include="Content\images-grid.css" />
+    <Content Include="Content\images\1.png" />
+    <Content Include="Content\images\12.png" />
+    <Content Include="Content\images\12_1.png" />
+    <Content Include="Content\images\1_1.png" />
     <Content Include="Content\images\default_profile_header.png" />
     <Content Include="Content\images\login.jpg" />
     <Content Include="Content\images\no_photo_img.jpg" />
@@ -375,10 +382,6 @@
     <Content Include="Content\jsGrid\jsgrid.js" />
     <Content Include="Content\jsGrid\jsgrid.min.css" />
     <Content Include="Content\jsGrid\jsgrid.min.js" />
-    <Content Include="Content\logos\asf_cor.png" />
-    <Content Include="Content\logos\asf_cor_2.png" />
-    <Content Include="Content\logos\asf_pb.png" />
-    <Content Include="Content\logos\asf_pb_2.png" />
     <Content Include="Content\logos\azul_simbolo_falar_seguros.png" />
     <Content Include="Content\logos\cinza_simbolo_falar_seguros.png" />
     <Content Include="Content\logos\logotipo_falar_seguros.png" />
@@ -493,6 +496,9 @@
     <None Include="Properties\PublishProfiles\InsurancePortalWebsite.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="Scripts\contextMenu\contextMenu.main.js" />
+    <Content Include="Scripts\contextMenu\jquery.contextMenu.js" />
+    <Content Include="Scripts\contextMenu\jquery.ui.position.min.js" />
     <Content Include="Scripts\images-grid.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
@@ -515,7 +521,9 @@
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\Account\EmailTemplates\RegisterActivationTemplate.html" />
     <Content Include="Views\Account\EmailTemplates\RegisterConfirmationTemplate.html" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -599,6 +607,8 @@
     <Content Include="Views\Home\HRInsurances.cshtml" />
     <Content Include="Views\Home\CurrentDiscussions.cshtml" />
     <Content Include="Views\Home\SafeBusinesses.cshtml" />
+    <Content Include="Views\Home\Partial\ProfileTimeline.cshtml" />
+    <Content Include="Views\Home\CurrentDiscussionDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

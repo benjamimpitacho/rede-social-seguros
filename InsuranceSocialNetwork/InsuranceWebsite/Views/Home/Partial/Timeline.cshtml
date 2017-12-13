@@ -1,6 +1,11 @@
 ﻿@using InsuranceWebsite.Models
 @model HomeViewModel
 
+<link href="~/Content/contextMenu/jquery.contextMenu.css" rel="stylesheet" />
+
+<script src="~/Scripts/contextMenu/jquery.contextMenu.js"></script>
+<script src="~/Scripts/contextMenu/jquery.ui.position.min.js"></script>
+<script src="~/Scripts/contextMenu/contextMenu.main.js"></script>
 
 <div class="profile-info col-md-6 animated fadeInUp">
 
@@ -20,7 +25,10 @@
                     <li>
                         <input type='file' id="imgUpload" style="visibility:hidden;position:absolute" name="imgUpload" />
                         <a href="javascript:$('#imgUpload').click()" style="padding: 7px 10px"><i class="fa fa-camera"></i></a>
-
+                    </li>
+                    <li>
+                        <input type='file' id="fileUpload" style="visibility:hidden;position:absolute" name="fileUpload" />
+                        <a href="javascript:$('#fileUpload').click()" style="padding: 7px 10px"><i class="fa fa-paperclip"></i></a>
                     </li>
                 </ul>
             </div>
@@ -34,22 +42,7 @@
             </div>
         </div>
     </div>
-
-
-    @*Html.Partial("PostsControl", Model.Posts)*@
     
-
-
-    @*<div class="panel panel-white post-load-more panel-shadow text-center">
-
-        <button class="btn btn-info">
-
-            <i class="fa fa-refresh"></i>Load More...
-
-        </button>
-
-    </div>*@
-
 </div><!--end right  content-->
 
 
@@ -71,6 +64,13 @@
 
         $("#imgUpload").change(function () {
             readURL(this);
+            $("#fileUpload").files = null;
+        });
+
+        $("#fileUpload").change(function () {
+            $('#imgPlaceholder').attr('style', 'visibility:hidden;position:absolute');
+            $('#imgPlaceholder').attr('src', '');
+            $("#imgUpload").files = null;
         });
     });
 

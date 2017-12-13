@@ -8,6 +8,12 @@
 @Html.HiddenFor(m => m.Items)
 @Html.HiddenFor(m => m.Profile)
 
+<style>
+    .unread{
+        background-color: aliceblue;
+    }
+</style>
+
 
 @foreach (NotificationDTO notification in Model.Items)
 {
@@ -15,8 +21,8 @@
     {
         case "COMPLETE_PROFILE_INFO":
             <a href="#" onclick="location.href='@Url.Action("ProfileEdit", "Home", new { id = notification.ToUserID, ntId = notification.ID })'">
-                <div class="panel panel-white post panel-shadow animated fadeInUp">
-                    <div class="post-heading">
+                <div class="panel panel-white post panel-shadow animated fadeInUp" style="margin-bottom:2px;">
+                    <div class="@("post-heading " + (notification.Read ? "" : "unread"))">
                         <div class="pull-left image">
                             @if (null == Model.Profile.ProfilePhoto || Model.Profile.ProfilePhoto.Length == 0)
                         {
@@ -62,8 +68,8 @@
             </a>
             break;
         case "NEW_POST_LIKE":
-            <div class="panel panel-white post panel-shadow animated fadeInUp">
-                <div class="post-heading">
+            <div class="panel panel-white post panel-shadow animated fadeInUp" style="margin-bottom:2px;">
+                <div class="@("post-heading " + (notification.Read ? "" : "unread"))">
                     <div class="pull-left image">
                         @if (null == Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID)
                             || null == Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value
@@ -112,8 +118,8 @@
             </div>
             break;
         case "NEW_POST_COMMENT":
-            <div class="panel panel-white post panel-shadow animated fadeInUp">
-                <div class="post-heading">
+            <div class="panel panel-white post panel-shadow animated fadeInUp" style="margin-bottom:2px;">
+                <div class="@("post-heading " + (notification.Read ? "" : "unread"))">
                     <div class="pull-left image">
                         @if (null == Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID)
                             || null == Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value
@@ -165,8 +171,8 @@
             break;
         case "FRIEND_REQUEST_RECEIVED":
             <a href="#" onclick="location.href='@Url.Action("FriendRequest", "Home", new { id = notification.FromUserID, ntId = notification.ID })'">
-                <div class="panel panel-white post panel-shadow animated fadeInUp">
-                    <div class="post-heading">
+                <div class="panel panel-white post panel-shadow animated fadeInUp" style="margin-bottom:2px;">
+                    <div class="@("post-heading " + (notification.Read ? "" : "unread"))">
                         <div class="pull-left image">
                             @if (null == Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID)
                     || null == Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value
@@ -216,8 +222,8 @@
             </a>
             break;
         case "FRIEND_REQUEST_ACCEPTED":
-            <div class="panel panel-white post panel-shadow animated fadeInUp">
-                <div class="post-heading">
+            <div class="panel panel-white post panel-shadow animated fadeInUp" style="margin-bottom:2px;">
+                <div class="@("post-heading " + (notification.Read ? "" : "unread"))">
                     <div class="pull-left image">
                         @if (null == Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID)
                             || null == Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value

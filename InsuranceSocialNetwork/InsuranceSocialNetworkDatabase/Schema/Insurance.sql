@@ -1,1 +1,1 @@
-﻿CREATE SCHEMA [Insurance]
+﻿CREATE SCHEMA [Insurance];

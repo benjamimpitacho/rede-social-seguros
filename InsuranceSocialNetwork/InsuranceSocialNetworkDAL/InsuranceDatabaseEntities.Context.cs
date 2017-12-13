@@ -35,12 +35,10 @@ namespace InsuranceSocialNetworkDAL
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
         public virtual DbSet<PostCommentLike> PostCommentLike { get; set; }
         public virtual DbSet<AspNetRolesFunctionalities> AspNetRolesFunctionalities { get; set; }
-        public virtual DbSet<PostImage> PostImage { get; set; }
         public virtual DbSet<FriendStatus> FriendStatus { get; set; }
         public virtual DbSet<Friend> Friend { get; set; }
         public virtual DbSet<Chat> Chat { get; set; }
         public virtual DbSet<ChatMember> ChatMember { get; set; }
-        public virtual DbSet<ChatMessage> ChatMessage { get; set; }
         public virtual DbSet<BannerType> BannerType { get; set; }
         public virtual DbSet<Notification> Notification { get; set; }
         public virtual DbSet<County> County { get; set; }
@@ -61,6 +59,8 @@ namespace InsuranceSocialNetworkDAL
         public virtual DbSet<MedicalClinic> MedicalClinic { get; set; }
         public virtual DbSet<CompanyService> CompanyService { get; set; }
         public virtual DbSet<AuthorizedEmail> AuthorizedEmail { get; set; }
+        public virtual DbSet<PostImage> PostImage { get; set; }
         public virtual DbSet<Post> Post { get; set; }
+        public virtual DbSet<ChatMessage> ChatMessage { get; set; }
     }
 }

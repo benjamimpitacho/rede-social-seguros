@@ -12,7 +12,7 @@
             <div class="post-heading">
 
                 <div class="pull-left image" style="padding:5px">
-                    <a href="@Url.Action("ProfileInfo", "Home", new { id = post.PostOwner.ID })">
+                    <a href="@Url.Action("ProfileTimeline", "Home", new { id = post.PostOwner.ID })">
                         @if (null != post.PostOwner.ProfilePhoto && post.PostOwner.ProfilePhoto.Length > 0)
                         {
                             <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(post.PostOwner.ProfilePhoto))" class="avatar" alt="user profile image">
@@ -28,7 +28,7 @@
 
                     <div class="h5" style="font-weight: bold;">
 
-                        <a href="@Url.Action("ProfileInfo", "Home", new { id = post.PostOwner.ID })" class="post-user-name">@post.PostOwner.FirstName</a>
+                        <a href="@Url.Action("ProfileTimeline", "Home", new { id = post.PostOwner.ID })" class="post-user-name">@post.PostOwner.FirstName</a>
 
                         @*@switch (post.PostType.Token)
                             {
@@ -85,33 +85,30 @@
                 </div>
 
                 <div class="pull-right">
-                    <a onclick="alert('Opções do post a serem mostradas...')" class="stat-item">
+                    @*<a onclick="alert('Opções do post a serem mostradas...')" class="stat-item">
                         <i class="glyphicon glyphicon-option-vertical icon" style="border:0px;font-size: 24px;margin-right: 10px;"></i>
-                    </a>
+                    </a>*@
+
+                    @*<span class="context-menu-one btn btn-neutral">right click me</span>*@
+                    <i class="glyphicon glyphicon-option-vertical icon context-menu-one" style="border:0px;font-size: 24px;margin-right: 10px;"></i>
                 </div>
 
             </div>
 
             <div class="post-description">
 
-                @if (post.PostType.Token == InsuranceSocialNetworkCore.Enums.PostTypeEnum.FILE_POST.ToString())
-                {
-                    <p style="word-break: break-all;">
+                <p style="word-break: break-all;">
+                    @if (post.PostType.Token == InsuranceSocialNetworkCore.Enums.PostTypeEnum.FILE_POST.ToString())
+                    {
                         <a href="@Url.Action("Download", "Home", new { id = post.ID })"><i class="fa fa-file-text-o" aria-hidden="true" style="font-size:30px;padding-left: 15px;padding-right:10px;"></i></a>
-                        @post.Text
-                    </p>
-                }
-                else
-                {
-                    <p>
-                        @post.Text
-                    </p>
-                }
+                    }
+                    @post.Text
+                </p>
 
             </div>
 
             @if (post.PostType.Token == InsuranceSocialNetworkCore.Enums.PostTypeEnum.IMAGE_POST.ToString())
-            {
+                {
 
                 <div class="post-image">
 
@@ -198,7 +195,7 @@
                         {
                             <li class="comment">
 
-                                <a class="pull-left" href="@Url.Action("ProfileInfo", "Home", new { id = comment.CommentOwner.ID })">
+                                <a class="pull-left" href="@Url.Action("ProfileTimeline", "Home", new { id = comment.CommentOwner.ID })">
 
                                     @if (null != comment.CommentOwner.ProfilePhoto && comment.CommentOwner.ProfilePhoto.Length > 0)
                                     {
@@ -213,36 +210,7 @@
 
                                 <div class="comment-body" style="font-size:12px">
 
-                                    @*<div class="comment-heading">
-
-                                        <h4 class="comment-user-name"><a href="@Url.Action("ProfileInfo", "Home", new { id = comment.CommentOwner.ID })">@comment.CommentOwner.FirstName</a></h4>
-
-                                        @if (DateTime.Now.Subtract(comment.Date).TotalMinutes < 1)
-                                        {
-                                            <h5 class="time">@Math.Round(DateTime.Now.Subtract(comment.Date).TotalSeconds, 0) @Resources.Resources.SecondsAgo</h5>
-                                        }
-                                        else if (DateTime.Now.Subtract(comment.Date).TotalHours < 1)
-                                        {
-                                            <h5 class="time">@Math.Round(DateTime.Now.Subtract(comment.Date).TotalMinutes, 0) @Resources.Resources.MinutesAgo</h5>
-                                        }
-                                        else if (DateTime.Now.Subtract(comment.Date).TotalDays < 1)
-                                        {
-                                            <h5 class="time">@Math.Round(DateTime.Now.Subtract(comment.Date).TotalHours, 0) @Resources.Resources.HoursAgo</h5>
-                                        }
-                                        else if (DateTime.Now.Subtract(comment.Date).TotalDays < 5)
-                                        {
-                                            <h5 class="time">@Math.Round(DateTime.Now.Subtract(comment.Date).TotalDays, 0) @Resources.Resources.DaysAgo</h5>
-                                        }
-                                        else
-                                        {
-                                            <h5 class="time">@comment.Date.ToShortDateString()</h5>
-                                        }
-
-                                    </div>
-
-                                    <p>@comment.Text</p>*@
-
-                                    <h6 class="comment-user-name"><a href="@Url.Action("ProfileInfo", "Home", new { id = comment.CommentOwner.ID })">@comment.CommentOwner.FirstName</a></h6> @comment.Text
+                                    <h6 class="comment-user-name"><a href="@Url.Action("ProfileTimeline", "Home", new { id = comment.CommentOwner.ID })">@comment.CommentOwner.FirstName</a></h6> @comment.Text
 
                                     <div class="comment-heading">
 
@@ -280,7 +248,7 @@
                     </ul>
                 }
 
-                @using (Html.BeginForm("NewComment", "Home", FormMethod.Post, new { @class="commentForm" }))
+                @using (Html.BeginForm("NewComment", "Home", FormMethod.Post, new { @class = "commentForm" }))
                 {
                     <input type="hidden" id="postId" name="postId" value="@post.ID" />
                     <input id="postNewComment" name="postNewComment" class="form-control add-comment-input" placeholder="@Resources.Resources.AddComment" type="text" />
@@ -291,6 +259,13 @@
         </div>
     }
 </div>
+
+<ul class="context-menu-list context-menu-root" style="width: 208px; top: 194px; left: 418px; z-index: 1; display: none;">
+    <li class="context-menu-item context-menu-icon context-menu-icon-edit"><span>@Resources.Resources.Edit</span></li>
+    <li class="context-menu-item context-menu-icon context-menu-icon-cut"><span>@Resources.Resources.Hide</span></li>
+    <li class="context-menu-item context-menu-separator context-menu-not-selectable"></li>
+    <li class="context-menu-item context-menu-icon context-menu-icon-quit"><span>@Resources.Resources.Delete</span></li>
+</ul>
 
 <script type="text/javascript">
     $(function() {
@@ -303,9 +278,9 @@
                 $(e.target).parent().prepend("<ul class=\"comments-list\"></ul>");
             }
 
-            $(e.target).parent().children(".comments-list").append("<li class=\"comment\"><a class=\"pull-left\" href=\"/Home/ProfileInfo/1\"><img src=\"@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.Profile.ProfilePhoto))\" class=\"avatar\" ></a><div class=\"comment-body\" style=\"font-size:12px\"><h6 class=\"comment-user-name\"><a href=\"/Home/ProfileInfo/1\">Administrator</a></h6> " + $(e.target).children("#postNewComment").val() + "<div class=\"comment-heading\"><h6 class=\"time\">@Resources.Resources.Now</h6></div></div></li>");
+            $(e.target).parent().children(".comments-list").append("<li class=\"comment\"><a class=\"pull-left\" href=\"/Home/ProfileTimeline/@Model.Profile.ID\"><img src=\"@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.Profile.ProfilePhoto))\" class=\"avatar\" ></a><div class=\"comment-body\" style=\"font-size:12px\"><h6 class=\"comment-user-name\"><a href=\"/Home/ProfileInfo/1\">Administrator</a></h6> " + $(e.target).children("#postNewComment").val() + "<div class=\"comment-heading\"><h6 class=\"time\">@Resources.Resources.Now</h6></div></div></li>");
             jQuery.post('@Url.Action("NewComment", "Home")',
-                { postId: $(e.target).children("#postId").val(), postNewComment: $(e.target).children("#postNewComment").val() }
+                { postId: $(e.target).children("#postId").val(), postNewComment: $(e.target).children("#postNewComment").val(), hasNotification: true }
             )
             .done(function (data) {
                 //alert("retorno do comment:" + data);
@@ -317,6 +292,24 @@
             $(e.target).children("#postNewComment").val("");
 
         });
+
+        $.contextMenu({
+            selector: '.context-menu-one',
+            callback: function (key, options) {
+                var m = "clicked: " + key;
+                window.console && console.log(m) || alert(m);
+            },
+            items: {
+                "edit": { name: "@Resources.Resources.Edit", icon: "edit" },
+                "hide": { name: "@Resources.Resources.Hide", icon: "hide" },
+                "sep1": "---------",
+                "delete": { name: "@Resources.Resources.Delete", icon: "delete" }
+            }
+        });
+
+        $('.context-menu-one').on('click', function (e) {
+            console.log('clicked', this);
+        })
     });
 
     function LikePost(object, postId, likesCount) {
@@ -358,4 +351,5 @@
             .fail(function () {
             });
     }
+
 </script>

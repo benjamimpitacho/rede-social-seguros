@@ -7,7 +7,7 @@
 	[Title] NVARCHAR (256),
 	[Text] NVARCHAR (MAX),
 	--[Image] NVARCHAR (256),
-	[Video] NVARCHAR (MAX),
+	[Video] NVARCHAR (256),
 	[URL] NVARCHAR (MAX),
 	[CreateDate] DATETIME2 NOT NULL,
 	[LastChangeDate] DATETIME2 NOT NULL,

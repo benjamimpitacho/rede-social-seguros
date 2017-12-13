@@ -1,4 +1,5 @@
-﻿using InsuranceSocialNetworkCore.Types;
+﻿using InsuranceSocialNetworkBusiness;
+using InsuranceSocialNetworkCore.Types;
 using InsuranceSocialNetworkDTO.Notification;
 using InsuranceSocialNetworkDTO.Post;
 using InsuranceSocialNetworkDTO.UserProfile;
@@ -13,14 +14,7 @@ namespace InsuranceWebsite.Models
     {
         public UsersManagementViewModel()
         {
-            AllowedEmails = new List<SelectListItem>()
-            {
-                new SelectListItem() { Text="item1", Value="1" },
-                new SelectListItem() { Text="item2", Value="2" },
-                new SelectListItem() { Text="item3", Value="3" },
-                new SelectListItem() { Text="item4", Value="4" },
-                new SelectListItem() { Text="item5", Value="5" }
-            };
+            AllowedEmails = InsuranceBusiness.BusinessLayer.GetAuthorizedEmailsForAutomaticApproval().Select(i => new SelectListItem() { Value = i, Text = i }).ToList();
         }
 
         public List<UserProfileModelObject> UserProfiles { get; set; }

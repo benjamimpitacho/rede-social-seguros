@@ -17,6 +17,7 @@ using InsuranceSocialNetworkCore.Enums;
 using System.Resources;
 using InsuranceSocialNetworkDTO.Role;
 using System.IO;
+using System.Net.Mail;
 
 namespace InsuranceWebsite.Controllers
 {
@@ -199,6 +200,7 @@ namespace InsuranceWebsite.Controllers
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 user.EmailConfirmed = false;
+                await SendActivationEmail(user, model.Name);
                 var result = await UserManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
@@ -333,15 +335,16 @@ namespace InsuranceWebsite.Controllers
                 m.Body = reader.ReadToEnd();
             }
 
-            m.Body = m.Body.Replace("{NAME}", name); //replacing the required things  
-
+            m.Body = m.Body.Replace("{NAME}", name); //replacing the required things
             m.Body = m.Body.Replace("{URL}", ConfigurationSettings.ApplicationSiteUrl);
-
             m.IsBodyHtml = true;
-            System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient(ConfigurationSettings.SmtpHost, ConfigurationSettings.SmtpPort)
+
+            SmtpClient smtp = new SmtpClient(ConfigurationSettings.SmtpHost, ConfigurationSettings.SmtpPort)
             {
                 Credentials = new System.Net.NetworkCredential(ConfigurationSettings.SmtpUsername, ConfigurationSettings.SmtpPassword),
-                EnableSsl = true
+                EnableSsl = false,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false
             };
             smtp.Send(m);
 

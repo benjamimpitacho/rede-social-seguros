@@ -13,16 +13,20 @@
 <!-- Timeline content -->
 <div class="container">
 
-    <div class="col-md-12 no-paddin-xs" style="background-color:ghostwhite">
+    <div class="col-md-12 no-paddin-xs" style="background-color:#E3E6E8">
 
         <div class="row" style="display:flex">
 
             @Html.Partial("~/Views/Home/Partial/SideNavBar.cshtml", Model)
 
             <!-- left  content-->
-            @if (Model.IsPostsView)
+            @if (Model.IsPostsView && !Model.IsProfileTimeline)
             {
                 @Html.Partial("~/Views/Home/Partial/Timeline.cshtml", Model)
+            }
+            else if (Model.IsProfileTimeline)
+            {
+                @Html.Partial("~/Views/Home/Partial/ProfileTimeline.cshtml", Model)
             }
             else if (Model.IsSearchView)
             {

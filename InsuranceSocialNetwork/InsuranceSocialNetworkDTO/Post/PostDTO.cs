@@ -17,7 +17,6 @@ namespace InsuranceSocialNetworkDTO.Post
         public string Title { get; set; }
         public string Text { get; set; }
         public byte[] Image { get; set; }
-        public byte[] File { get; set; }
         public string FileName { get; set; }
         public string FileExtension { get; set; }
         public string Video { get; set; }

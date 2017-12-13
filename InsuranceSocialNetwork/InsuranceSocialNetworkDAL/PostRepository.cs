@@ -12,23 +12,6 @@ namespace InsuranceSocialNetworkDAL
 {
     public class PostRepository
     {
-        public static Post GetPost(long Id)
-        {
-            using (var context = new BackofficeUnitOfWork())
-            {
-                return context.Post
-                    .Fetch()
-                    .Include(i => i.AspNetUsers.Profile)
-                    .Include(i => i.PostType)
-                    .Include(i => i.PostSubject)
-                    .Include(i => i.PostLike)
-                    .Include(i => i.PostComment)
-                    .Include(i => i.PostImage)
-                    .Where(i => i.ID == Id && i.Active)
-                    .FirstOrDefault();
-            }
-        }
-
         public static List<Post> GetUserPosts(string Id)
         {
             using (var context = new BackofficeUnitOfWork())
@@ -41,7 +24,16 @@ namespace InsuranceSocialNetworkDAL
                     .Include(i => i.PostLike)
                     .Include(i => i.PostComment)
                     .Include(i => i.PostImage)
-                    .Where(i => i.ID_User == Id && i.Active)
+                    .Where(i => i.ID_User == Id 
+                        && i.Active
+                        && (
+                            i.PostSubject.Token.Equals("PERSONAL_POST")
+                            || i.PostSubject.Token.Equals("BUSINESS_POST")
+                            || i.PostSubject.Token.Equals("NEWS_POST")
+                            || i.PostSubject.Token.Equals("PARTNERSHIP_POST")
+                            || i.PostSubject.Token.Equals("WALLET_POST")
+                            || i.PostSubject.Token.Equals("SPONSORED_POST")
+                        ))
                     .OrderByDescending(i => i.Sticky)
                     .ThenByDescending(i => i.CreateDate)
                     .ToList();
@@ -80,15 +72,14 @@ namespace InsuranceSocialNetworkDAL
                     || friendsUserIds.Contains(i.ID_User)
                     )
                     && i.Active
-                    && 
-                        (i.PostSubject.Token == PostSubjectEnum.BUSINESS_POST.ToString()
-                        || i.PostSubject.Token == PostSubjectEnum.NEWS_POST.ToString()
-                        || i.PostSubject.Token == PostSubjectEnum.PARTNERSHIP_POST.ToString()
-                        || i.PostSubject.Token == PostSubjectEnum.PERSONAL_POST.ToString()
-                        || i.PostSubject.Token == PostSubjectEnum.SPONSORED_POST.ToString()
-                        || i.PostSubject.Token == PostSubjectEnum.WALLET_POST.ToString()
-                        )
-                    )
+                    && (
+                        i.PostSubject.Token.Equals("PERSONAL_POST")
+                        || i.PostSubject.Token.Equals("BUSINESS_POST")
+                        || i.PostSubject.Token.Equals("NEWS_POST")
+                        || i.PostSubject.Token.Equals("PARTNERSHIP_POST")
+                        || i.PostSubject.Token.Equals("WALLET_POST")
+                        || i.PostSubject.Token.Equals("SPONSORED_POST")
+                    ))
                 .OrderByDescending(i => i.Sticky)
                 .ThenByDescending(i => i.CreateDate)
                 .ToList();
@@ -99,7 +90,7 @@ namespace InsuranceSocialNetworkDAL
             return postList;
         }
 
-        public static List<Post> GetPostsBySubject(BackofficeUnitOfWork context, PostSubjectEnum postSubject)
+        public static List<Post> GetUserPostsOnly(BackofficeUnitOfWork context, string Id)
         {
             List<Post> postList = context.Post
                 .Fetch()
@@ -110,7 +101,39 @@ namespace InsuranceSocialNetworkDAL
                 .Include(i => i.PostComment)
                 //.Include(i => i.ChatMessage.OrderByDescending(j => j.CreateDate).Take(20))
                 .Include(i => i.PostImage)
-                .Where(i => i.PostSubject.Token == postSubject.ToString()
+                .Where(i => i.ID_User == Id 
+                    && i.Active
+                    && (
+                        i.PostSubject.Token.Equals("PERSONAL_POST")
+                        || i.PostSubject.Token.Equals("BUSINESS_POST")
+                        || i.PostSubject.Token.Equals("NEWS_POST")
+                        || i.PostSubject.Token.Equals("PARTNERSHIP_POST")
+                        || i.PostSubject.Token.Equals("WALLET_POST")
+                        || i.PostSubject.Token.Equals("SPONSORED_POST")
+                    ))
+                .OrderByDescending(i => i.Sticky)
+                .ThenByDescending(i => i.CreateDate)
+                .ToList();
+
+            postList.ForEach(p => p.PostComment = p.PostComment.Where(c => c.Active).Select(c => c).OrderBy(i => i.Date).ToList());
+            postList.ForEach(p => p.PostLike = p.PostLike.Where(c => c.Active).Select(c => c).ToList());
+            postList.ForEach(p => p.PostImage = p.PostImage.Where(c => c.Active).Select(c => c).ToList());
+
+            return postList;
+        }
+
+        public static List<Post> GetPosts(BackofficeUnitOfWork context, string Id, PostSubjectEnum postSubject)
+        {
+            List<Post> postList = context.Post
+                .Fetch()
+                .Include(i => i.AspNetUsers.Profile)
+                .Include(i => i.PostType)
+                .Include(i => i.PostSubject)
+                .Include(i => i.PostLike)
+                .Include(i => i.PostComment)
+                //.Include(i => i.ChatMessage.OrderByDescending(j => j.CreateDate).Take(20))
+                .Include(i => i.PostImage)
+                .Where(i => i.PostSubject.Token.Equals(postSubject.ToString())
                     && i.Active)
                 .OrderByDescending(i => i.Sticky)
                 .ThenByDescending(i => i.CreateDate)
@@ -120,6 +143,30 @@ namespace InsuranceSocialNetworkDAL
             postList.ForEach(p => p.PostImage = p.PostImage.Where(c => c.Active).Select(c => c).ToList());
 
             return postList;
+        }
+
+        public static Post GetPost(BackofficeUnitOfWork context, long postId)
+        {
+            Post post = context.Post
+                .Fetch()
+                .Include(i => i.AspNetUsers.Profile)
+                .Include(i => i.PostType)
+                .Include(i => i.PostSubject)
+                .Include(i => i.PostLike)
+                .Include(i => i.PostComment)
+                //.Include(i => i.ChatMessage.OrderByDescending(j => j.CreateDate).Take(20))
+                .Include(i => i.PostImage)
+                .Where(i => i.ID == postId)
+                .FirstOrDefault();
+
+            if (null != post)
+            {
+                post.PostComment = post.PostComment.Where(c => c.Active).Select(c => c).OrderBy(i => i.Date).ToList();
+                post.PostImage = post.PostImage.Where(c => c.Active).Select(c => c).ToList();
+                post.PostLike = post.PostLike.Where(c => c.Active).Select(c => c).ToList();
+            }
+
+            return post;
         }
 
         public static bool CreatePost(Post post)
@@ -210,6 +257,19 @@ namespace InsuranceSocialNetworkDAL
                 context.Save();
 
                 return true;
+            }
+        }
+
+        public static bool IsOwnPost(long postId, string userId)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                Post post = context.Post.First(i => i.ID == postId);
+
+                if (null == post)
+                    return false;
+
+                return post.ID_User == userId;
             }
         }
     }

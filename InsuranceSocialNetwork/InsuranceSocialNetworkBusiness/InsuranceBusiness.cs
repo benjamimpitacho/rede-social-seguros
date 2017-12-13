@@ -221,6 +221,11 @@ namespace InsuranceSocialNetworkBusiness
             return AuthorizedEmailRepository.UpdateEmailAuthorizedForAutomaticApproval(emailPatterns);
         }
 
+        public List<string> GetAuthorizedEmailsForAutomaticApproval()
+        {
+            return AuthorizedEmailRepository.GetAuthorizedEmailsForAutomaticApproval().Select(i => i.Email).ToList();
+        }
+
         #endregion Authorized Emails for Automatic Approval
 
         #region Messages / Chats
@@ -249,7 +254,7 @@ namespace InsuranceSocialNetworkBusiness
                     ChatRepository.CreateChat(context, chat);
                 }
 
-                ChatDTO chatDTO = AutoMapper.Mapper.Map<ChatDTO>(chat);
+                ChatDTO chatDTO = AutoMapper.Mapper.Map<ChatDTO>(ChatRepository.GetChat(context, userId, userId2));
                 chatDTO.ChatMemberProfile = AutoMapper.Mapper.Map<List<UserProfileDTO>>(chat.ChatMember.Select(i => i.AspNetUsers.Profile.FirstOrDefault()).ToList());
 
                 return chatDTO;
@@ -310,14 +315,9 @@ namespace InsuranceSocialNetworkBusiness
             }
         }
 
-        public int GetTotalUnreadMessages(string userId)
+        public int GetTotalUnreadMessages(string Id)
         {
-            using (var context = new BackofficeUnitOfWork())
-            {
-                List<ChatDTO> chats = GetChats(userId);
-
-                return chats.Select(i => i.ChatMessage.Where(j => j.ID_User != userId && j.ReadDate == null)).Count();
-            }
+            return ChatRepository.GetTotalUnreadMessages(Id);
         }
 
         #endregion Messages / Chats
@@ -417,13 +417,6 @@ namespace InsuranceSocialNetworkBusiness
 
         #region Posts
 
-        public PostDTO GetPost(long Id)
-        {
-            Post post = PostRepository.GetPost(Id);
-
-            return AutoMapper.Mapper.Map<PostDTO>(post);
-        }
-
         public List<PostDTO> GetUserPosts(string Id)
         {
             List<Post> list = PostRepository.GetUserPosts(Id);
@@ -449,43 +442,45 @@ namespace InsuranceSocialNetworkBusiness
             }
         }
 
-        public List<PostDTO> GetCurrentDiscussions()
+        public List<PostDTO> GetUserPostsOnly(string Id)
         {
             using (var context = new BackofficeUnitOfWork())
             {
-                List<Post> list = PostRepository.GetPostsBySubject(context, PostSubjectEnum.CURRENT_DISCUSSION_POST);
+                List<Post> list = PostRepository.GetUserPostsOnly(context, Id);
+
+                //list.ForEach(p => p.PostComment = p.PostComment.Where(c => c.Active).Select(c => c).ToList());
+                //list.ForEach(p => p.PostImage = p.PostImage.Where(c => c.Active).Select(c => c).ToList());
+
 
                 return AutoMapper.Mapper.Map<List<PostDTO>>(list);
             }
         }
 
-        public List<PostDTO> GetASFPosts()
+        public List<PostDTO> GetCurrentDiscussionPosts(string Id)
         {
             using (var context = new BackofficeUnitOfWork())
             {
-                List<Post> list = PostRepository.GetPostsBySubject(context, PostSubjectEnum.ASF_POST);
+                List<Post> list = PostRepository.GetPosts(context, Id, PostSubjectEnum.CURRENT_DISCUSSION_POST);
+
+                //list.ForEach(p => p.PostComment = p.PostComment.Where(c => c.Active).Select(c => c).ToList());
+                //list.ForEach(p => p.PostImage = p.PostImage.Where(c => c.Active).Select(c => c).ToList());
+
 
                 return AutoMapper.Mapper.Map<List<PostDTO>>(list);
             }
         }
 
-        public List<PostDTO> GetAPROSEPosts()
+        public PostDTO GetPost(long postId)
         {
             using (var context = new BackofficeUnitOfWork())
             {
-                List<Post> list = PostRepository.GetPostsBySubject(context, PostSubjectEnum.APROSE_POST);
+                Post post = PostRepository.GetPost(context, postId);
 
-                return AutoMapper.Mapper.Map<List<PostDTO>>(list);
-            }
-        }
+                //list.ForEach(p => p.PostComment = p.PostComment.Where(c => c.Active).Select(c => c).ToList());
+                //list.ForEach(p => p.PostImage = p.PostImage.Where(c => c.Active).Select(c => c).ToList());
 
-        public List<PostDTO> GetAPSPosts()
-        {
-            using (var context = new BackofficeUnitOfWork())
-            {
-                List<Post> list = PostRepository.GetPostsBySubject(context, PostSubjectEnum.APS_POST);
 
-                return AutoMapper.Mapper.Map<List<PostDTO>>(list);
+                return AutoMapper.Mapper.Map<PostDTO>(post);
             }
         }
 
@@ -505,7 +500,9 @@ namespace InsuranceSocialNetworkBusiness
                     //AspNetUsers = post.AspNetUsers,
                     Date = DateTime.Now,
                     //ID_User = post.ID_User,
-                    Image = item.Image
+                    Image = item.Image,
+                    FileName = item.FileName,
+                    FileExtension = item.FileExtension
                 });
             }
 
@@ -520,6 +517,11 @@ namespace InsuranceSocialNetworkBusiness
         public bool UnlikePost(long postId, string userId)
         {
             return PostRepository.UnlikePost(postId, userId);
+        }
+
+        public bool IsOwnPost(long postId, string userId)
+        {
+            return PostRepository.IsOwnPost(postId, userId);
         }
 
         #endregion Posts

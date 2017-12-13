@@ -129,6 +129,20 @@ namespace InsuranceSocialNetworkDAL
 
                 return chat.ChatMember.Where(i => i.ID_User != userId).Select(i => i.ID_User).ToList();
             }
-        }        
+        }
+
+        public static int GetTotalUnreadMessages(string userId)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                return context.ChatMessage
+                    .Fetch()
+                    .Include(i => i.Chat)
+                    .Where(i => null == i.ReadDate)
+                    .Select(i => i.ID_Chat)
+                    .Distinct()
+                    .Count();
+            }
+        }
     }
 }

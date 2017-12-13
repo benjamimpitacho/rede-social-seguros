@@ -57,7 +57,7 @@
                 <div class="answer left">
                     <div class="avatar">
                         <img src="~/Content/images/no_photo_img.jpg" alt="User name">
-                        <div class="status offline"></div>
+                        @*<div class="status offline"></div>*@
                     </div>
                     <div class="name">
                         @message.AspNetUsers.Email
@@ -148,12 +148,12 @@
             //alert($('#messageListPanel').height());
             if (connectionid == $('#chatId').val()) {
                 $('#sendMessageDiv').before('<div class="answer right"><div class="avatar">'
-                    + '<img src="/Content/images/no_photo_img.jpg" alt="User name"><div class="status offline"></div></div>'
+                    + '<img src="/Content/images/no_photo_img.jpg" alt="User name"></div></div>'
                     + '<div class="name">'
                     + htmlEncode(name)
                     + '</div><div class="text">'
                     + htmlEncode(message)
-                    + '</div><div class="time">5 min ago</div></div>');
+                    + '</div><div class="time"></div></div>');
                 //$('#discussion').append('<div class="answer right"><div class="avatar">'
                 //    + '<img src="~/Content/images/no_photo_img.jpg" alt="User name"><div class="status offline"></div></div>'
                 //    + '<div class="name">'

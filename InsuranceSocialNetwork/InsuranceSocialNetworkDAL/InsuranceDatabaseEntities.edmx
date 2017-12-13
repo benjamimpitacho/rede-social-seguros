@@ -1549,7 +1549,6 @@
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetRolesFunctionalities" EntitySet="AspNetRolesFunctionalities" />
           </AssociationSet>
-          <EntitySet Name="PostImage" EntityType="InsurancePortal_dbModel.PostImage" />
           <EntitySet Name="FriendStatus" EntityType="InsurancePortal_dbModel.FriendStatus" />
           <EntitySet Name="Friend" EntityType="InsurancePortal_dbModel.Friend" />
           <AssociationSet Name="FK_FriendUser_AspNetUsers" Association="InsurancePortal_dbModel.FK_FriendUser_AspNetUsers">
@@ -1566,7 +1565,6 @@
           </AssociationSet>
           <EntitySet Name="Chat" EntityType="InsurancePortal_dbModel.Chat" />
           <EntitySet Name="ChatMember" EntityType="InsurancePortal_dbModel.ChatMember" />
-          <EntitySet Name="ChatMessage" EntityType="InsurancePortal_dbModel.ChatMessage" />
           <AssociationSet Name="FK_Chat_AspNetUsers" Association="InsurancePortal_dbModel.FK_Chat_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Chat" EntitySet="Chat" />
@@ -1575,17 +1573,9 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="ChatMember" EntitySet="ChatMember" />
           </AssociationSet>
-          <AssociationSet Name="FK_ChatMessage_AspNetUsers" Association="InsurancePortal_dbModel.FK_ChatMessage_AspNetUsers">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="ChatMessage" EntitySet="ChatMessage" />
-          </AssociationSet>
           <AssociationSet Name="FK_ChatMember_Chat" Association="InsurancePortal_dbModel.FK_ChatMember_Chat">
             <End Role="Chat" EntitySet="Chat" />
             <End Role="ChatMember" EntitySet="ChatMember" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ChatMessage_Chat" Association="InsurancePortal_dbModel.FK_ChatMessage_Chat">
-            <End Role="Chat" EntitySet="Chat" />
-            <End Role="ChatMessage" EntitySet="ChatMessage" />
           </AssociationSet>
           <EntitySet Name="BannerType" EntityType="InsurancePortal_dbModel.BannerType" />
           <EntitySet Name="Notification" EntityType="InsurancePortal_dbModel.Notification" />
@@ -1755,6 +1745,7 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AuthorizedEmail" EntitySet="AuthorizedEmail" />
           </AssociationSet>
+          <EntitySet Name="PostImage" EntityType="InsurancePortal_dbModel.PostImage" />
           <EntitySet Name="Post" EntityType="InsurancePortal_dbModel.Post" />
           <AssociationSet Name="FK_Post_AspNetUsers" Association="InsurancePortal_dbModel.FK_Post_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -1779,6 +1770,15 @@
           <AssociationSet Name="FK_PostLike_Post" Association="InsurancePortal_dbModel.FK_PostLike_Post">
             <End Role="Post" EntitySet="Post" />
             <End Role="PostLike" EntitySet="PostLike" />
+          </AssociationSet>
+          <EntitySet Name="ChatMessage" EntityType="InsurancePortal_dbModel.ChatMessage" />
+          <AssociationSet Name="FK_ChatMessage_AspNetUsers" Association="InsurancePortal_dbModel.FK_ChatMessage_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="ChatMessage" EntitySet="ChatMessage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChatMessage_Chat" Association="InsurancePortal_dbModel.FK_ChatMessage_Chat">
+            <End Role="Chat" EntitySet="Chat" />
+            <End Role="ChatMessage" EntitySet="ChatMessage" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="AspNetRoles">
@@ -1882,7 +1882,6 @@
           <NavigationProperty Name="Friend1" Relationship="InsurancePortal_dbModel.FK_FriendUserFriend_AspNetUsers" FromRole="AspNetUsers" ToRole="Friend" />
           <NavigationProperty Name="Chat" Relationship="InsurancePortal_dbModel.FK_Chat_AspNetUsers" FromRole="AspNetUsers" ToRole="Chat" />
           <NavigationProperty Name="ChatMember" Relationship="InsurancePortal_dbModel.FK_ChatMember_AspNetUsers" FromRole="AspNetUsers" ToRole="ChatMember" />
-          <NavigationProperty Name="ChatMessage" Relationship="InsurancePortal_dbModel.FK_ChatMessage_AspNetUsers" FromRole="AspNetUsers" ToRole="ChatMessage" />
           <NavigationProperty Name="Notification" Relationship="InsurancePortal_dbModel.FK_NotificationFromUser_AspNetUsers" FromRole="AspNetUsers" ToRole="Notification" />
           <NavigationProperty Name="Notification1" Relationship="InsurancePortal_dbModel.FK_NotificationToUser_AspNetUsers" FromRole="AspNetUsers" ToRole="Notification" />
           <NavigationProperty Name="ConstructionCompanyFavorite" Relationship="InsurancePortal_dbModel.FK_ConstructionCompanyFavorite_User" FromRole="AspNetUsers" ToRole="ConstructionCompanyFavorite" />
@@ -1893,6 +1892,7 @@
           <NavigationProperty Name="Profile" Relationship="InsurancePortal_dbModel.FK_Profile_AspNetUsers" FromRole="AspNetUsers" ToRole="Profile" />
           <NavigationProperty Name="AuthorizedEmail" Relationship="InsurancePortal_dbModel.FK_AuthorizedEmail_User" FromRole="AspNetUsers" ToRole="AuthorizedEmail" />
           <NavigationProperty Name="Post" Relationship="InsurancePortal_dbModel.FK_Post_AspNetUsers" FromRole="AspNetUsers" ToRole="Post" />
+          <NavigationProperty Name="ChatMessage" Relationship="InsurancePortal_dbModel.FK_ChatMessage_AspNetUsers" FromRole="AspNetUsers" ToRole="ChatMessage" />
           </EntityType>
         <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
           <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
@@ -1996,20 +1996,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="PostImage">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ID_Post" Type="Int64" Nullable="false" />
-          <Property Name="Image" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
-          <Property Name="Type" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
-          <Property Name="Date" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="Active" Type="Boolean" Nullable="false" />
-          <Property Name="FileName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="FileExtension" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Post" Relationship="InsurancePortal_dbModel.FK_PostImage_Post" FromRole="PostImage" ToRole="Post" />
-        </EntityType>
         <EntityType Name="FriendStatus">
           <Key>
             <PropertyRef Name="ID" />
@@ -2103,23 +2089,6 @@
           <NavigationProperty Name="AspNetUsers" Relationship="InsurancePortal_dbModel.FK_ChatMember_AspNetUsers" FromRole="ChatMember" ToRole="AspNetUsers" />
           <NavigationProperty Name="Chat" Relationship="InsurancePortal_dbModel.FK_ChatMember_Chat" FromRole="ChatMember" ToRole="Chat" />
         </EntityType>
-        <EntityType Name="ChatMessage">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ID_Chat" Type="Int64" Nullable="false" />
-          <Property Name="ID_User" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="LastChangeDate" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="DeleteDate" Type="DateTime" Precision="7" />
-          <Property Name="Active" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="AspNetUsers" Relationship="InsurancePortal_dbModel.FK_ChatMessage_AspNetUsers" FromRole="ChatMessage" ToRole="AspNetUsers" />
-          <NavigationProperty Name="Chat" Relationship="InsurancePortal_dbModel.FK_ChatMessage_Chat" FromRole="ChatMessage" ToRole="Chat" />
-          <Property Name="ReadDate" Type="DateTime" Precision="7" />
-        </EntityType>
         <Association Name="FK_Chat_AspNetUsers">
           <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
           <End Type="InsurancePortal_dbModel.Chat" Role="Chat" Multiplicity="*" />
@@ -2144,18 +2113,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ChatMessage_AspNetUsers">
-          <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
-          <End Type="InsurancePortal_dbModel.ChatMessage" Role="ChatMessage" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ChatMessage">
-              <PropertyRef Name="ID_User" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ChatMember_Chat">
           <End Type="InsurancePortal_dbModel.Chat" Role="Chat" Multiplicity="1" />
           <End Type="InsurancePortal_dbModel.ChatMember" Role="ChatMember" Multiplicity="*" />
@@ -2164,18 +2121,6 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="ChatMember">
-              <PropertyRef Name="ID_Chat" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ChatMessage_Chat">
-          <End Type="InsurancePortal_dbModel.Chat" Role="Chat" Multiplicity="1" />
-          <End Type="InsurancePortal_dbModel.ChatMessage" Role="ChatMessage" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Chat">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="ChatMessage">
               <PropertyRef Name="ID_Chat" />
             </Dependent>
           </ReferentialConstraint>
@@ -2993,6 +2938,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="PostImage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Post" Type="Int64" Nullable="false" />
+          <Property Name="Image" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="Type" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="FileName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="FileExtension" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Post" Relationship="InsurancePortal_dbModel.FK_PostImage_Post" FromRole="PostImage" ToRole="Post" />
+        </EntityType>
         <EntityType Name="Post">
           <Key>
             <PropertyRef Name="ID" />
@@ -3087,6 +3046,47 @@
             </Principal>
             <Dependent Role="PostLike">
               <PropertyRef Name="ID_Post" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ChatMessage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Chat" Type="Int64" Nullable="false" />
+          <Property Name="ID_User" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="LastChangeDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="DeleteDate" Type="DateTime" Precision="7" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="ReadDate" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="AspNetUsers" Relationship="InsurancePortal_dbModel.FK_ChatMessage_AspNetUsers" FromRole="ChatMessage" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Chat" Relationship="InsurancePortal_dbModel.FK_ChatMessage_Chat" FromRole="ChatMessage" ToRole="Chat" />
+        </EntityType>
+        <Association Name="FK_ChatMessage_AspNetUsers">
+          <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="InsurancePortal_dbModel.ChatMessage" Role="ChatMessage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ChatMessage">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChatMessage_Chat">
+          <End Type="InsurancePortal_dbModel.Chat" Role="Chat" Multiplicity="1" />
+          <End Type="InsurancePortal_dbModel.ChatMessage" Role="ChatMessage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Chat">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ChatMessage">
+              <PropertyRef Name="ID_Chat" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3213,20 +3213,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="PostImage">
-            <EntityTypeMapping TypeName="InsurancePortal_dbModel.PostImage">
-              <MappingFragment StoreEntitySet="PostImage">
-                <ScalarProperty Name="FileExtension" ColumnName="FileExtension" />
-                <ScalarProperty Name="FileName" ColumnName="FileName" />
-                <ScalarProperty Name="Active" ColumnName="Active" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="Image" ColumnName="Image" />
-                <ScalarProperty Name="ID_Post" ColumnName="ID_Post" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="FriendStatus">
             <EntityTypeMapping TypeName="InsurancePortal_dbModel.FriendStatus">
               <MappingFragment StoreEntitySet="FriendStatus">
@@ -3273,22 +3259,6 @@
                 <ScalarProperty Name="DeleteDate" ColumnName="DeleteDate" />
                 <ScalarProperty Name="LastChangeDate" ColumnName="LastChangeDate" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
-                <ScalarProperty Name="ID_Chat" ColumnName="ID_Chat" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ChatMessage">
-            <EntityTypeMapping TypeName="InsurancePortal_dbModel.ChatMessage">
-              <MappingFragment StoreEntitySet="ChatMessage">
-                <ScalarProperty Name="ReadDate" ColumnName="ReadDate" />
-                <ScalarProperty Name="Active" ColumnName="Active" />
-                <ScalarProperty Name="DeleteDate" ColumnName="DeleteDate" />
-                <ScalarProperty Name="LastChangeDate" ColumnName="LastChangeDate" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="Image" ColumnName="Image" />
-                <ScalarProperty Name="Text" ColumnName="Text" />
                 <ScalarProperty Name="ID_User" ColumnName="ID_User" />
                 <ScalarProperty Name="ID_Chat" ColumnName="ID_Chat" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -3620,6 +3590,20 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="PostImage">
+            <EntityTypeMapping TypeName="InsurancePortal_dbModel.PostImage">
+              <MappingFragment StoreEntitySet="PostImage">
+                <ScalarProperty Name="FileExtension" ColumnName="FileExtension" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="ID_Post" ColumnName="ID_Post" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Post">
             <EntityTypeMapping TypeName="InsurancePortal_dbModel.Post">
               <MappingFragment StoreEntitySet="Post">
@@ -3636,6 +3620,22 @@
                 <ScalarProperty Name="ID_PostSubject" ColumnName="ID_PostSubject" />
                 <ScalarProperty Name="ID_PostType" ColumnName="ID_PostType" />
                 <ScalarProperty Name="ID_User" ColumnName="ID_User" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChatMessage">
+            <EntityTypeMapping TypeName="InsurancePortal_dbModel.ChatMessage">
+              <MappingFragment StoreEntitySet="ChatMessage">
+                <ScalarProperty Name="ReadDate" ColumnName="ReadDate" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="DeleteDate" ColumnName="DeleteDate" />
+                <ScalarProperty Name="LastChangeDate" ColumnName="LastChangeDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
+                <ScalarProperty Name="ID_Chat" ColumnName="ID_Chat" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

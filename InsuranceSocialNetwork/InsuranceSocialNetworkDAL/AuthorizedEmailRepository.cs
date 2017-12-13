@@ -67,27 +67,17 @@ namespace InsuranceSocialNetworkDAL
             }
         }
 
-        //public static Banner GetBanner(BackofficeUnitOfWork context, long id)
-        //{
-        //    return context.Banner
-        //        .Fetch()
-        //        .Include(i => i.BannerType)
-        //        .Where(i => i.Active)
-        //        .FirstOrDefault(i => i.ID == id);
-        //}
-
-        //public static List<Banner> GetBanners()
-        //{
-        //    using (var context = new BackofficeUnitOfWork())
-        //    {
-        //        return context.Banner
-        //            .Fetch()
-        //            .Include(i => i.BannerType)
-        //            .Where(i => i.Active)
-        //            .Select(i => i)
-        //            .ToList();
-        //    }
-        //}
+        public static List<AuthorizedEmail> GetAuthorizedEmailsForAutomaticApproval()
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                return context.AuthorizedEmail
+                    .Fetch()
+                    .Where(i => i.Active)
+                    .Select(i => i)
+                    .ToList();
+            }
+        }
 
         //public static List<Banner> GetActiveBanners(BannerTypeEnum bannerType)
         //{
