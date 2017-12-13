@@ -1389,6 +1389,8 @@ namespace InsuranceWebsite.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
+            model.Posts = InsuranceBusiness.BusinessLayer.GetAPSPosts();
+
             return View(model);
         }
 
@@ -1414,6 +1416,8 @@ namespace InsuranceWebsite.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
+            model.Posts = InsuranceBusiness.BusinessLayer.GetASFPosts();
+
             return View(model);
         }
 
@@ -1438,6 +1442,8 @@ namespace InsuranceWebsite.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
+
+            model.Posts = InsuranceBusiness.BusinessLayer.GetAPROSEPosts();
 
             return View(model);
         }

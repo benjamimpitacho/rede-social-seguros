@@ -90,6 +90,29 @@ namespace InsuranceSocialNetworkDAL
             return postList;
         }
 
+        public static List<Post> GetPostsBySubject(BackofficeUnitOfWork context, PostSubjectEnum postSubject)
+        {
+            List<Post> postList = context.Post
+                .Fetch()
+                .Include(i => i.AspNetUsers.Profile)
+                .Include(i => i.PostType)
+                .Include(i => i.PostSubject)
+                .Include(i => i.PostLike)
+                .Include(i => i.PostComment)
+                //.Include(i => i.ChatMessage.OrderByDescending(j => j.CreateDate).Take(20))
+                .Include(i => i.PostImage)
+                .Where(i => i.PostSubject.Token == postSubject.ToString()
+                    && i.Active)
+                .OrderByDescending(i => i.Sticky)
+                .ThenByDescending(i => i.CreateDate)
+                .ToList();
+
+            postList.ForEach(p => p.PostComment = p.PostComment.Where(c => c.Active).Select(c => c).OrderBy(i => i.Date).ToList());
+            postList.ForEach(p => p.PostImage = p.PostImage.Where(c => c.Active).Select(c => c).ToList());
+
+            return postList;
+        }
+
         public static List<Post> GetUserPostsOnly(BackofficeUnitOfWork context, string Id)
         {
             List<Post> postList = context.Post
