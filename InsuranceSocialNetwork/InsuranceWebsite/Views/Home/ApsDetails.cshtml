@@ -1,0 +1,292 @@
+﻿@using InsuranceWebsite.Models
+@using InsuranceSocialNetworkDTO.Post;
+@model HomeViewModel
+
+@{
+    ViewBag.Title = Resources.Resources.ProfilePageTitle;
+}
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+
+@Html.Partial("~/Views/Home/Partial/NavBar.cshtml", Model)
+
+<!-- Timeline content -->
+<div class="container">
+
+    <div class="col-md-12 no-paddin-xs directory-info-row" style="background-color:#E3E6E8">
+
+        <div class="row" style="display:flex">
+
+            @Html.Partial("~/Views/Home/Partial/SideNavBar.cshtml", Model)
+
+            <!-- right  content-->
+
+            <div class="profile-info col-md-6 animated fadeInUp">
+
+                @Html.Partial("./Partial/TopBannerPartialView", Model)
+
+                
+                    <div class="panel panel-white post panel-shadow">
+
+                        <div>
+                            <img src="~/Content/icons/129.png" style="max-width:60px;" />
+                            <span style="font-weight:bold">@Resources.Resources.APS</span>
+                            <a href="@Url.Action("ApsPage", "Home")">
+                                <img src="~/Content/icons/134.png" style="max-width: 30px;float: right;margin-right: 20px;margin-top: 13px;" />
+                            </a>
+                        </div>
+                        
+                        <div class="post-heading" style="height:50px;padding:5px 15px;">
+
+                            @*<div class="pull-left image" style="padding:5px">
+                                <a href="@Url.Action("ProfileTimeline", "Home", new { id = Model.Posts[0].PostOwner.ID })">
+                                    @if (null != Model.Posts[0].PostOwner.ProfilePhoto && Model.Posts[0].PostOwner.ProfilePhoto.Length > 0)
+                                    {
+                                        <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.Posts[0].PostOwner.ProfilePhoto))" class="avatar" alt="user profile image">
+                                    }
+                                    else
+                                    {
+                                        <img src="~/Content/images/no_photo_img.jpg" class="avatar" alt="user profile image">
+                                    }
+                                </a>
+                            </div>*@
+
+                            <div class="pull-left meta" style="margin-bottom: 0px;">
+
+                                <div class="h5" style="font-weight: bold;">@Model.Posts[0].Title</div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="post-description">
+
+                            @if (Model.Posts[0].PostType.Token == InsuranceSocialNetworkCore.Enums.PostTypeEnum.IMAGE_POST.ToString())
+                            {
+
+                                <div class="post-image" style="padding-bottom: 20px;">
+
+                                    <div id="gallery_@Model.Posts[0].ID" class="image show-in-modal"></div>
+
+                                    <script>
+
+                                        $(function () {
+
+                                            $('#gallery_'+@Model.Posts[0].ID).imagesGrid({
+                                                images: [
+                                                    {
+                                                        src: '@Model.Posts[0].ImageSource'
+                                                    }
+                                                ],
+                                                align: true,
+                                                getViewAllText: function (imgsCount) { return 'View all' }
+                                            });
+
+                                        });
+
+                                    </script>
+
+                                </div>
+                            }
+
+                            <p style="word-break: break-all;">
+                                @if (Model.Posts[0].PostType.Token == InsuranceSocialNetworkCore.Enums.PostTypeEnum.FILE_POST.ToString())
+                                {
+                                    <a href="@Url.Action("Download", "Home", new { id = Model.Posts[0].ID })"><i class="fa fa-file-text-o" aria-hidden="true" style="font-size:30px;padding-left: 15px;padding-right:10px;"></i></a>
+                                }
+
+                                @Model.Posts[0].Text
+                            </p>
+                        </div>
+
+                        <div class="post-description" style="border-top: 1px solid #eee;">
+
+                            <div class="stats">
+
+                                @if (null != Model.Posts[0].PostLike && Model.Posts[0].PostLike.Count > 0 && Model.Posts[0].PostLike.Exists(i => i.ID_User == Model.Profile.ID_User))
+                                {
+                                    <a onclick="UnlikePost(this, @Model.Posts[0].ID, @Model.Posts[0].PostLike.Count)" class="stat-item" id="unlikePost" style="color:#00C1DE">
+                                        <i class="glyphicon glyphicon-star icon"></i><span style="padding-left: 8px;color:#4B5C66;font-size: 10px;">@Model.Posts[0].PostLike.Count</span>
+                                    </a>
+                                }
+                                else if (null != Model.Posts[0].PostLike && Model.Posts[0].PostLike.Count > 0)
+                                {
+                                    <a onclick="LikePost(this, @Model.Posts[0].ID, @Model.Posts[0].PostLike.Count)" class="stat-item" id="likePost">
+                                        <i class="glyphicon glyphicon-star icon"></i><span style="padding-left: 8px;color:#4B5C66;font-size: 10px;">@Model.Posts[0].PostLike.Count</span>
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a onclick="LikePost(this, @Model.Posts[0].ID, @Model.Posts[0].PostLike.Count)" class="stat-item">
+                                        <i class="glyphicon glyphicon-star icon"></i>
+                                    </a>
+                                }
+
+                                <a class="stat-item">
+
+                                    <i class="glyphicon glyphicon-option-horizontal icon"></i>
+                                    @if (Model.Posts[0].PostComment.Count > 0)
+                                    {
+                                        <span style="padding-left: 8px;color:#4B5C66;font-size: 10px;">
+                                            @Model.Posts[0].PostComment.Count
+                                        </span>
+                                    }
+
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                        <div class="post-footer" style="border-top: 1px solid #eee;">
+
+                            @if (null != Model.Posts[0].PostComment && Model.Posts[0].PostComment.Count > 0)
+                            {
+                                <ul class="comments-list">
+
+                                    @foreach (PostCommentDTO comment in Model.Posts[0].PostComment)
+                                    {
+                                        <li class="comment">
+
+                                            <a class="pull-left" href="@Url.Action("ProfileTimeline", "Home", new { id = comment.CommentOwner.ID })">
+
+                                                @if (null != comment.CommentOwner.ProfilePhoto && comment.CommentOwner.ProfilePhoto.Length > 0)
+                                                {
+                                                    <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(comment.CommentOwner.ProfilePhoto))" class="avatar" alt="user profile image">
+                                                }
+                                                else
+                                                {
+                                                    <img src="~/Content/images/no_photo_img.jpg" class="avatar" alt="user profile image">
+                                                }
+
+                                            </a>
+                                              
+                                            <div class="comment-body" style="font-size:12px">
+
+                                                <h6 class="comment-user-name"><a href="@Url.Action("ProfileTimeline", "Home", new { id = comment.CommentOwner.ID })">@comment.CommentOwner.FirstName</a></h6> @comment.Text
+
+                                                <div class="comment-heading">
+
+                                                    @if (DateTime.Now.Subtract(comment.Date).TotalMinutes < 1)
+                                                    {
+                                                        <h6 class="time">@Math.Round(DateTime.Now.Subtract(comment.Date).TotalSeconds, 0) @Resources.Resources.SecondsAgo</h6>
+                                                    }
+                                                    else if (DateTime.Now.Subtract(comment.Date).TotalHours < 1)
+                                                    {
+                                                        <h6 class="time">@Math.Round(DateTime.Now.Subtract(comment.Date).TotalMinutes, 0) @Resources.Resources.MinutesAgo</h6>
+                                                    }
+                                                    else if (DateTime.Now.Subtract(comment.Date).TotalDays < 1)
+                                                    {
+                                                        <h6 class="time">@Math.Round(DateTime.Now.Subtract(comment.Date).TotalHours, 0) @Resources.Resources.HoursAgo</h6>
+                                                    }
+                                                    else if (DateTime.Now.Subtract(comment.Date).TotalDays == 1)
+                                                    {
+                                                        <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(comment.Date).TotalDays, 0) @Resources.Resources.DayAgo</h6>
+                                                    }
+                                                    else if (DateTime.Now.Subtract(comment.Date).TotalDays < 3)
+                                                    {
+                                                        <h6 class="time">@Math.Round(DateTime.Now.Subtract(comment.Date).TotalDays, 0) @Resources.Resources.DaysAgo</h6>
+                                                    }
+                                                    else
+                                                    {
+                                                        <h6 class="time">@comment.Date.ToShortDateString()</h6>
+                                                    }
+
+                                                </div>
+                                            </div>
+
+                                        </li>
+                                    }
+
+                                </ul>
+                            }
+
+                            @using (Html.BeginForm("NewComment", "Home", FormMethod.Post, new { @class = "commentForm" }))
+                            {
+                                <input type="hidden" id="postId" name="postId" value="@Model.Posts[0].ID" />
+                                <input id="postNewComment" name="postNewComment" class="form-control add-comment-input" placeholder="@Resources.Resources.AddComment" type="text" />
+                            }
+                        </div>
+
+                    </div>
+
+            </div>
+
+            <!--end right  content-->
+            @Html.Partial("~/Views/Home/Partial/RightBar.cshtml", Model)
+
+        </div>
+
+    </div>
+
+</div><!-- end timeline content-->
+
+<script type="text/javascript">
+    $(function() {
+        $(".commentForm").on("submit", function(e) {
+            e.preventDefault();  //prevent form from submitting
+
+            if($(e.target).parent().children(".comments-list").length == 0)
+            {
+                //alert("nao ha comments list");
+                $(e.target).parent().prepend("<ul class=\"comments-list\"></ul>");
+            }
+
+            $(e.target).parent().children(".comments-list").append("<li class=\"comment\"><a class=\"pull-left\" href=\"/Home/ProfileTimeline/@Model.Profile.ID\"><img src=\"@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.Profile.ProfilePhoto))\" class=\"avatar\" ></a><div class=\"comment-body\" style=\"font-size:12px\"><h6 class=\"comment-user-name\"><a href=\"/Home/ProfileInfo/1\">Administrator</a></h6> " + $(e.target).children("#postNewComment").val() + "<div class=\"comment-heading\"><h6 class=\"time\">@Resources.Resources.Now</h6></div></div></li>");
+            jQuery.post('@Url.Action("NewComment", "Home")',
+                { postId: $(e.target).children("#postId").val(), postNewComment: $(e.target).children("#postNewComment").val(), hasNotification: false }
+            )
+            .done(function (data) {
+                //alert("retorno do comment:" + data);
+            })
+            .fail(function () {
+                //alert("falhou...");
+            });
+
+            $(e.target).children("#postNewComment").val("");
+
+        });
+    });
+
+    function LikePost(object, postId, likesCount) {
+        object.style.color = "#00C1DE";
+        object.innerHTML = "<i class=\"glyphicon glyphicon-star icon\"></i><span style=\"padding-left: 8px;color:#4B5C66;font-size: 10px;\">" + (likesCount+1) + "</span>";
+        likesCount = likesCount + 1;
+        object.onclick = function() { UnlikePost(object, postId, likesCount); }
+
+        jQuery.post('@Url.Action("LikePost", "Home")',
+
+                { postId: postId }
+            )
+            .done(function (data) {
+            })
+            .fail(function () {
+            });
+    }
+
+    function UnlikePost(object, postId, likesCount) {
+        object.style.color = "#7f7f7f";
+        if(likesCount <= 1)
+        {
+            object.innerHTML = "<i class=\"glyphicon glyphicon-star icon\"></i>";
+        }
+        else
+        {
+            object.innerHTML = "<i class=\"glyphicon glyphicon-star icon\"></i><span style=\"padding-left: 8px;color:#4B5C66;font-size: 10px;\">" + (likesCount-1) + "</span>";
+        }
+        if(likesCount > 0)
+        {
+            likesCount = likesCount - 1;
+        }
+        object.onclick = function() { LikePost(object, postId, likesCount); }
+
+        jQuery.post('@Url.Action("UnlikePost", "Home")',
+                { postId: postId }
+            )
+            .done(function (data) {
+            })
+            .fail(function () {
+            });
+    }
+</script>

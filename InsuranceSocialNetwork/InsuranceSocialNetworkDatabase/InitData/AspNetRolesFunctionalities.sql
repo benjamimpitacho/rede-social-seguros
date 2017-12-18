@@ -23,6 +23,12 @@ INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUE
 INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('1','SETTINGS_FUNCTIONALITY',1);
 INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('1','CURRENT_DISCUSSIONS_FUNCTIONALITY',1);
 INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('1','NEW_CURRENT_DISCUSSION_FUNCTIONALITY',1);
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('1','ASF_FUNCTIONALITY',1);
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('1','NEW_ASF_FUNCTIONALITY',1);
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('1','APS_FUNCTIONALITY',1);
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('1','NEW_APS_FUNCTIONALITY',1);
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('1','APROSE_FUNCTIONALITY',1);
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('1','NEW_APROSE_FUNCTIONALITY',1);
 
 /* NORMAL_USER */
 INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('2','USERS_MANAGEMENT',0);

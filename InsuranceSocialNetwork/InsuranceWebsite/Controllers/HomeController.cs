@@ -536,6 +536,138 @@ namespace InsuranceWebsite.Controllers
             return RedirectToAction("CurrentDiscussions");
         }
 
+        [HttpPost]
+        [FunctionalityAutorizeAttribute("NEW_ASF_FUNCTIONALITY")]
+        public ActionResult NewAsfPost(HomeViewModel model, string postTitleTextarea, string postContentTextarea, HttpPostedFileBase imgUpload, HttpPostedFileBase fileUpload)
+        {
+            try
+            {
+                PostDTO newPost = new PostDTO()
+                {
+                    Active = true,
+                    CreateDate = DateTime.Now,
+                    LastChangeDate = DateTime.Now,
+                    ID_User = model.Profile.ID_User,
+                    Title = postTitleTextarea,
+                    Text = postContentTextarea,
+                    Type = null == imgUpload ? InsuranceSocialNetworkCore.Enums.PostTypeEnum.TEXT_POST : InsuranceSocialNetworkCore.Enums.PostTypeEnum.IMAGE_POST,
+                    Subject = InsuranceSocialNetworkCore.Enums.PostSubjectEnum.ASF_POST
+                };
+
+                if (null != imgUpload)
+                {
+                    newPost.Type = InsuranceSocialNetworkCore.Enums.PostTypeEnum.IMAGE_POST;
+                    newPost.Image = InsuranceSocialNetworkCore.Utils.ConvertionUtils.ScaleImage(InsuranceSocialNetworkCore.Utils.ConvertionUtils.ReadFully(imgUpload.InputStream), 1024, 1024);
+                    newPost.FileName = Path.GetFileNameWithoutExtension(imgUpload.FileName);
+                    newPost.FileExtension = Path.GetExtension(imgUpload.FileName);
+                }
+
+                if (null != fileUpload)
+                {
+                    newPost.Type = InsuranceSocialNetworkCore.Enums.PostTypeEnum.FILE_POST;
+                    newPost.Image = InsuranceSocialNetworkCore.Utils.ConvertionUtils.ReadFully(fileUpload.InputStream);
+                    newPost.FileName = Path.GetFileNameWithoutExtension(fileUpload.FileName);
+                    newPost.FileExtension = Path.GetExtension(fileUpload.FileName);
+                }
+
+                InsuranceBusiness.BusinessLayer.CreatePost(newPost);
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException();
+            }
+
+            return RedirectToAction("AsfPage");
+        }
+
+        [HttpPost]
+        [FunctionalityAutorizeAttribute("NEW_APS_FUNCTIONALITY")]
+        public ActionResult NewApsPost(HomeViewModel model, string postTitleTextarea, string postContentTextarea, HttpPostedFileBase imgUpload, HttpPostedFileBase fileUpload)
+        {
+            try
+            {
+                PostDTO newPost = new PostDTO()
+                {
+                    Active = true,
+                    CreateDate = DateTime.Now,
+                    LastChangeDate = DateTime.Now,
+                    ID_User = model.Profile.ID_User,
+                    Title = postTitleTextarea,
+                    Text = postContentTextarea,
+                    Type = null == imgUpload ? InsuranceSocialNetworkCore.Enums.PostTypeEnum.TEXT_POST : InsuranceSocialNetworkCore.Enums.PostTypeEnum.IMAGE_POST,
+                    Subject = InsuranceSocialNetworkCore.Enums.PostSubjectEnum.APS_POST
+                };
+
+                if (null != imgUpload)
+                {
+                    newPost.Type = InsuranceSocialNetworkCore.Enums.PostTypeEnum.IMAGE_POST;
+                    newPost.Image = InsuranceSocialNetworkCore.Utils.ConvertionUtils.ScaleImage(InsuranceSocialNetworkCore.Utils.ConvertionUtils.ReadFully(imgUpload.InputStream), 1024, 1024);
+                    newPost.FileName = Path.GetFileNameWithoutExtension(imgUpload.FileName);
+                    newPost.FileExtension = Path.GetExtension(imgUpload.FileName);
+                }
+
+                if (null != fileUpload)
+                {
+                    newPost.Type = InsuranceSocialNetworkCore.Enums.PostTypeEnum.FILE_POST;
+                    newPost.Image = InsuranceSocialNetworkCore.Utils.ConvertionUtils.ReadFully(fileUpload.InputStream);
+                    newPost.FileName = Path.GetFileNameWithoutExtension(fileUpload.FileName);
+                    newPost.FileExtension = Path.GetExtension(fileUpload.FileName);
+                }
+
+                InsuranceBusiness.BusinessLayer.CreatePost(newPost);
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException();
+            }
+
+            return RedirectToAction("ApsPage");
+        }
+
+        [HttpPost]
+        [FunctionalityAutorizeAttribute("NEW_APROSE_FUNCTIONALITY")]
+        public ActionResult NewAprosePost(HomeViewModel model, string postTitleTextarea, string postContentTextarea, HttpPostedFileBase imgUpload, HttpPostedFileBase fileUpload)
+        {
+            try
+            {
+                PostDTO newPost = new PostDTO()
+                {
+                    Active = true,
+                    CreateDate = DateTime.Now,
+                    LastChangeDate = DateTime.Now,
+                    ID_User = model.Profile.ID_User,
+                    Title = postTitleTextarea,
+                    Text = postContentTextarea,
+                    Type = null == imgUpload ? InsuranceSocialNetworkCore.Enums.PostTypeEnum.TEXT_POST : InsuranceSocialNetworkCore.Enums.PostTypeEnum.IMAGE_POST,
+                    Subject = InsuranceSocialNetworkCore.Enums.PostSubjectEnum.APROSE_POST
+                };
+
+                if (null != imgUpload)
+                {
+                    newPost.Type = InsuranceSocialNetworkCore.Enums.PostTypeEnum.IMAGE_POST;
+                    newPost.Image = InsuranceSocialNetworkCore.Utils.ConvertionUtils.ScaleImage(InsuranceSocialNetworkCore.Utils.ConvertionUtils.ReadFully(imgUpload.InputStream), 1024, 1024);
+                    newPost.FileName = Path.GetFileNameWithoutExtension(imgUpload.FileName);
+                    newPost.FileExtension = Path.GetExtension(imgUpload.FileName);
+                }
+
+                if (null != fileUpload)
+                {
+                    newPost.Type = InsuranceSocialNetworkCore.Enums.PostTypeEnum.FILE_POST;
+                    newPost.Image = InsuranceSocialNetworkCore.Utils.ConvertionUtils.ReadFully(fileUpload.InputStream);
+                    newPost.FileName = Path.GetFileNameWithoutExtension(fileUpload.FileName);
+                    newPost.FileExtension = Path.GetExtension(fileUpload.FileName);
+                }
+
+                InsuranceBusiness.BusinessLayer.CreatePost(newPost);
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException();
+            }
+
+            return RedirectToAction("AprosePage");
+        }
+
         public FileResult Download(long id)
         {
             PostDTO post = InsuranceBusiness.BusinessLayer.GetPost(id);
@@ -1368,6 +1500,7 @@ namespace InsuranceWebsite.Controllers
         }
 
         [Authorize]
+        [FunctionalityAutorizeAttribute("APS_FUNCTIONALITY")]
         public async Task<ActionResult> ApsPage()
         {
             var model = new HomeViewModel();
@@ -1395,6 +1528,35 @@ namespace InsuranceWebsite.Controllers
         }
 
         [Authorize]
+        [FunctionalityAutorizeAttribute("APS_FUNCTIONALITY")]
+        public async Task<ActionResult> ApsDetails(long id)
+        {
+            var model = new HomeViewModel();
+            if (null != this.User && this.User.Identity.IsAuthenticated)
+            {
+                var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
+                if (null != user)
+                {
+                    FillModel(model, user.Id, false);
+                }
+                else
+                {
+                    return RedirectToAction("LogOff", "Account");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            model.Posts = new List<PostDTO>() { InsuranceBusiness.BusinessLayer.GetPost(id) };
+
+            return View(model);
+        }
+
+        [Authorize]
+        [FunctionalityAutorizeAttribute("ASF_FUNCTIONALITY")]
         public async Task<ActionResult> AsfPage()
         {
             var model = new HomeViewModel();
@@ -1422,6 +1584,35 @@ namespace InsuranceWebsite.Controllers
         }
 
         [Authorize]
+        [FunctionalityAutorizeAttribute("ASF_FUNCTIONALITY")]
+        public async Task<ActionResult> AsfDetails(long id)
+        {
+            var model = new HomeViewModel();
+            if (null != this.User && this.User.Identity.IsAuthenticated)
+            {
+                var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
+                if (null != user)
+                {
+                    FillModel(model, user.Id, false);
+                }
+                else
+                {
+                    return RedirectToAction("LogOff", "Account");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            model.Posts = new List<PostDTO>() { InsuranceBusiness.BusinessLayer.GetPost(id) };
+
+            return View(model);
+        }
+
+        [Authorize]
+        [FunctionalityAutorizeAttribute("APROSE_FUNCTIONALITY")]
         public async Task<ActionResult> AprosePage()
         {
             var model = new HomeViewModel();
@@ -1444,6 +1635,34 @@ namespace InsuranceWebsite.Controllers
             }
 
             model.Posts = InsuranceBusiness.BusinessLayer.GetAPROSEPosts();
+
+            return View(model);
+        }
+
+        [Authorize]
+        [FunctionalityAutorizeAttribute("APROSE_FUNCTIONALITY")]
+        public async Task<ActionResult> AproseDetails(long id)
+        {
+            var model = new HomeViewModel();
+            if (null != this.User && this.User.Identity.IsAuthenticated)
+            {
+                var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
+                if (null != user)
+                {
+                    FillModel(model, user.Id, false);
+                }
+                else
+                {
+                    return RedirectToAction("LogOff", "Account");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            model.Posts = new List<PostDTO>() { InsuranceBusiness.BusinessLayer.GetPost(id) };
 
             return View(model);
         }

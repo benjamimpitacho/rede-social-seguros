@@ -359,6 +359,7 @@
     <Content Include="Content\images\12.png" />
     <Content Include="Content\images\12_1.png" />
     <Content Include="Content\images\1_1.png" />
+    <Content Include="Content\images\ASF_Logotipo.jpg" />
     <Content Include="Content\images\default_profile_header.png" />
     <Content Include="Content\images\login.jpg" />
     <Content Include="Content\images\no_photo_img.jpg" />
@@ -609,6 +610,9 @@
     <Content Include="Views\Home\SafeBusinesses.cshtml" />
     <Content Include="Views\Home\Partial\ProfileTimeline.cshtml" />
     <Content Include="Views\Home\CurrentDiscussionDetails.cshtml" />
+    <Content Include="Views\Home\AsfDetails.cshtml" />
+    <Content Include="Views\Home\ApsDetails.cshtml" />
+    <Content Include="Views\Home\AproseDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

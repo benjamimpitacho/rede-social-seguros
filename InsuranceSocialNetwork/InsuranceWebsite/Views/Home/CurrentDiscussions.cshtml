@@ -1,7 +1,6 @@
 ﻿@using InsuranceWebsite.Models
 @using InsuranceSocialNetworkBusiness
 @using InsuranceSocialNetworkCore.Enums
-@using InsuranceSocialNetworkDTO.UserProfile
 @model HomeViewModel
 
 @{
@@ -12,7 +11,6 @@
 @Scripts.Render("~/bundles/jqueryval")
 
 @Html.Partial("~/Views/Home/Partial/NavBar.cshtml", Model)
-
 
 <style>
     .search-sub-title {
@@ -74,8 +72,6 @@
     }
 </style>
 
-
-
 <!-- Timeline content -->
 <div class="container">
 
@@ -127,7 +123,7 @@
                         <img src="~/Content/icons/129.png" style="max-width:60px;" />
                         <span style="font-weight:bold">@Resources.Resources.CurrentDiscussions</span>
                         <a href="@Url.Action("Index", "Home")">
-                            <img src="~/Content/icons/136.png" style="margin-left:56%;max-width:30px;" />
+                            <img src="~/Content/icons/136.png" style="max-width: 30px;float: right;margin-right: 20px;margin-top: 13px;" />
                         </a>
                     </div>
 
@@ -144,44 +140,26 @@
                             <div class="search-result" href="#" style="border-top:none;">
                                 <div class="search-result-title">
                                 
-                                    @if (!string.IsNullOrEmpty(post.ImageSource))
+                                    @if (post.PostType.Token == PostTypeEnum.IMAGE_POST.ToString())
                                     {
-                                        if (post.Text.Length > 150)
+                                        <img class="search-company-logo" src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(post.PostImage[0].Image))" />
+                                    }
+                                    else if (post.PostType.Token == InsuranceSocialNetworkCore.Enums.PostTypeEnum.FILE_POST.ToString())
+                                    {
+                                        <a href="@Url.Action("Download", "Home", new { id = post.ID })"><i class="fa fa-file-text-o" aria-hidden="true" style="font-size:30px;padding-left: 15px;padding-right:10px;"></i></a>
+                                    }
+                                    <div style="display:block;padding: 0px;width:100%;">
+                                        <div style="font-weight:bold;">@post.Title</div>
+                                        @if (post.Text.Length > 150)
                                         {
-                                            <p>
-                                                <img src="@post.ImageSource" />
-                                                <span style="font-weight:bold; display:block;">@post.Title</span> 
-                                                <span style="font-size:12px;">@post.Text.Substring(0, 150)</span>
-                                                <span>...</span>
-                                            </p>
+                                            <span style="font-size:12px;">@post.Text.Substring(0, 150)</span>
+                                            <span>...</span>
                                         }
                                         else
                                         {
-                                            <p>
-                                                <img src="@post.ImageSource" />
-                                                <span style="font-weight:bold; display:block;">@post.Title</span>
-                                                <span style="font-size:12px;">@post.Text</span>
-                                            </p>
+                                            <span style="font-size:12px;">@post.Text</span>
                                         }
-                                    }
-                                    else
-                                    {
-                                        if (post.Text.Length > 150)
-                                        {
-                                            <p>
-                                                <span style="font-weight:bold; display:block;">@post.Title</span>
-                                                <span style="font-size:12px;">@post.Text.Substring(0, 150)</span>
-                                                <span>...</span>
-                                            </p>
-                                        }
-                                        else
-                                        {
-                                            <p>
-                                                <span style="font-weight:bold; display:block;">@post.Title</span>
-                                                <span style="font-size:12px;">@post.Text</span>
-                                            </p>
-                                        }
-                                    }
+                                    </div>
                                 </div>
                                 <div class="post-description" style="border-top: 1px solid #eee;">
 

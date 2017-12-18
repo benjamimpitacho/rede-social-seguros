@@ -19,7 +19,7 @@ namespace Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -1132,6 +1132,33 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Conteúdo da nova publicação da APROSE.
+        /// </summary>
+        public static string NewAprosePost {
+            get {
+                return ResourceManager.GetString("NewAprosePost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Conteúdo da nova publicação da APS.
+        /// </summary>
+        public static string NewApsPost {
+            get {
+                return ResourceManager.GetString("NewApsPost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Conteúdo da nova publicação da ASF.
+        /// </summary>
+        public static string NewAsfPost {
+            get {
+                return ResourceManager.GetString("NewAsfPost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Conteúdo do novo tema em discussão.
         /// </summary>
         public static string NewCurrentDiscussion {
@@ -1173,6 +1200,33 @@ namespace Resources {
         public static string NoActiveChatSelected {
             get {
                 return ResourceManager.GetString("NoActiveChatSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Não existem publicações da ASF.
+        /// </summary>
+        public static string NoAfsPosts {
+            get {
+                return ResourceManager.GetString("NoAfsPosts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Não existem publicações da APROSE.
+        /// </summary>
+        public static string NoAprosePosts {
+            get {
+                return ResourceManager.GetString("NoAprosePosts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Não existem publicações da APS.
+        /// </summary>
+        public static string NoApsPosts {
+            get {
+                return ResourceManager.GetString("NoApsPosts", resourceCulture);
             }
         }
         

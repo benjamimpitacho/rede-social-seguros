@@ -112,15 +112,12 @@
 
             <div class="panel" style="box-shadow:none; background-color:transparent; display:flex; margin-bottom: 10px;">
                 <h5 class="btn-rightbar"><img src="~/Content/icons/128.png" style="margin-left:10px; margin-right:10px;max-width:50px;" />@Html.ActionLink(Resources.Resources.InDiscussion, "CurrentDiscussions", "Home")</h5>
-                @*<h5 class="btn-rightbar"><img src="~/Content/icons/128.png" style="margin-left:10px; margin-right:10px;max-width:50px;" />@Html.ActionLink(Resources.Resources.ASF, "AsfPage", "Home")</h5>*@
-                <h5 class="btn-rightbar"><img src="~/Content/images/12_1.png" style="margin-left:10px; margin-right:10px;max-width:100px;padding-top:5px;" /></h5>
+                <h5 class="btn-rightbar"><a href="/Home/AsfPage"><img src="~/Content/images/ASF_Logotipo.jpg" style="margin-left:10px; margin-right:10px;max-width:175px;" /></a></h5>
             </div>
 
             <div class="panel" style="box-shadow:none; background-color:transparent; display:flex; margin-bottom: 10px;min-height:62px">
-                @*<h5 class="btn-rightbar"><img src="~/Content/icons/128.png" style="margin-left:10px; margin-right:10px;max-width:50px;" />@Html.ActionLink(Resources.Resources.APROSE, "AprosePage", "Home")</h5>*@
-                <h5 class="btn-rightbar"><img src="~/Content/icons/128.png" style="margin-left:10px; margin-right:10px;max-width:50px;" />@Resources.Resources.APROSE</h5>
-                @*<h5 class="btn-rightbar"><img src="~/Content/icons/128.png" style="margin-left:10px; margin-right:10px;max-width:50px;" />@Html.ActionLink(Resources.Resources.APS, "ApsPage", "Home")</h5>*@
-                <h5 class="btn-rightbar"><img src="~/Content/icons/128.png" style="margin-left:10px; margin-right:10px;max-width:50px;" />@Resources.Resources.APS</h5>
+                <h5 class="btn-rightbar"><img src="~/Content/icons/128.png" style="margin-left:10px; margin-right:10px;max-width:50px;" />@Html.ActionLink(Resources.Resources.APROSE, "AprosePage", "Home")</h5>
+                <h5 class="btn-rightbar"><img src="~/Content/icons/128.png" style="margin-left:10px; margin-right:10px;max-width:50px;" />@Html.ActionLink(Resources.Resources.APS, "ApsPage", "Home")</h5>
             </div>
 
         </div>

@@ -741,4 +741,22 @@
   <data name="Hide" xml:space="preserve">
     <value>Esconder</value>
   </data>
+  <data name="NewAprosePost" xml:space="preserve">
+    <value>Conteúdo da nova publicação da APROSE</value>
+  </data>
+  <data name="NewApsPost" xml:space="preserve">
+    <value>Conteúdo da nova publicação da APS</value>
+  </data>
+  <data name="NewAsfPost" xml:space="preserve">
+    <value>Conteúdo da nova publicação da ASF</value>
+  </data>
+  <data name="NoAfsPosts" xml:space="preserve">
+    <value>Não existem publicações da ASF</value>
+  </data>
+  <data name="NoAprosePosts" xml:space="preserve">
+    <value>Não existem publicações da APROSE</value>
+  </data>
+  <data name="NoApsPosts" xml:space="preserve">
+    <value>Não existem publicações da APS</value>
+  </data>
 </root>
