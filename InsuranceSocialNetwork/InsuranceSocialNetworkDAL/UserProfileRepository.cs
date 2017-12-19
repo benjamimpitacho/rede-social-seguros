@@ -162,6 +162,28 @@ namespace InsuranceSocialNetworkDAL
             }
         }
 
+        public static List<string> GetUsersToNotify()
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                List<string> roleIds = context.AspNetRoles
+                    .Fetch()
+                    .Where(j => 
+                        j.Name == "NORMAL_USER" 
+                        || j.Name == "ASSOCIATED_PREMIUM" 
+                        | j.Name == "ADMINISTRATOR")
+                    .Select(j => j.Id)
+                    .ToList();
+
+                return context.AspNetUsers
+                    .Fetch()
+                    .Include(i => i.AspNetRoles)
+                    .Where(i => roleIds.Contains(i.AspNetRoles.FirstOrDefault().Id))
+                    .Select(i => i.Id)
+                    .ToList();
+            }
+        }
+
         public static long CreateDefaultProfile(Profile profile)
         {
             using (var context = new BackofficeUnitOfWork())

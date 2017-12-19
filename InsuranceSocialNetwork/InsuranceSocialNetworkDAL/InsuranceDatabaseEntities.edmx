@@ -381,8 +381,9 @@
           <Property Name="ID_NotificationType" Type="bigint" Nullable="false" />
           <Property Name="Text" Type="nvarchar" MaxLength="64" />
           <Property Name="URL" Type="nvarchar" MaxLength="256" />
+          <Property Name="ID_Post" Type="bigint" />
           <Property Name="CreateDate" Type="datetime2" Precision="7" Nullable="false" />
-          <Property Name="ReadDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="ReadDate" Type="datetime2" Precision="7" />
           <Property Name="Read" Type="bit" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
@@ -1074,6 +1075,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Notification_Post">
+          <End Role="Post" Type="Self.Post" Multiplicity="0..1" />
+          <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Notification">
+              <PropertyRef Name="ID_Post" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_NotificationFromUser_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
           <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
@@ -1453,6 +1466,10 @@
             <End Role="NotificationType" EntitySet="NotificationType" />
             <End Role="Notification" EntitySet="Notification" />
           </AssociationSet>
+          <AssociationSet Name="FK_Notification_Post" Association="Self.FK_Notification_Post">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="Notification" EntitySet="Notification" />
+          </AssociationSet>
           <AssociationSet Name="FK_NotificationFromUser_AspNetUsers" Association="Self.FK_NotificationFromUser_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Notification" EntitySet="Notification" />
@@ -1578,19 +1595,6 @@
             <End Role="ChatMember" EntitySet="ChatMember" />
           </AssociationSet>
           <EntitySet Name="BannerType" EntityType="InsurancePortal_dbModel.BannerType" />
-          <EntitySet Name="Notification" EntityType="InsurancePortal_dbModel.Notification" />
-          <AssociationSet Name="FK_NotificationFromUser_AspNetUsers" Association="InsurancePortal_dbModel.FK_NotificationFromUser_AspNetUsers">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="Notification" EntitySet="Notification" />
-          </AssociationSet>
-          <AssociationSet Name="FK_NotificationToUser_AspNetUsers" Association="InsurancePortal_dbModel.FK_NotificationToUser_AspNetUsers">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="Notification" EntitySet="Notification" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Notification_NotificationType" Association="InsurancePortal_dbModel.FK_Notification_NotificationType">
-            <End Role="NotificationType" EntitySet="NotificationType" />
-            <End Role="Notification" EntitySet="Notification" />
-          </AssociationSet>
           <EntitySet Name="County" EntityType="InsurancePortal_dbModel.County" />
           <EntitySet Name="District" EntityType="InsurancePortal_dbModel.District" />
           <EntitySet Name="Parish" EntityType="InsurancePortal_dbModel.Parish" />
@@ -1780,6 +1784,23 @@
             <End Role="Chat" EntitySet="Chat" />
             <End Role="ChatMessage" EntitySet="ChatMessage" />
           </AssociationSet>
+          <EntitySet Name="Notification" EntityType="InsurancePortal_dbModel.Notification" />
+          <AssociationSet Name="FK_NotificationFromUser_AspNetUsers" Association="InsurancePortal_dbModel.FK_NotificationFromUser_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Notification" EntitySet="Notification" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NotificationToUser_AspNetUsers" Association="InsurancePortal_dbModel.FK_NotificationToUser_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Notification" EntitySet="Notification" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notification_NotificationType" Association="InsurancePortal_dbModel.FK_Notification_NotificationType">
+            <End Role="NotificationType" EntitySet="NotificationType" />
+            <End Role="Notification" EntitySet="Notification" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notification_Post" Association="InsurancePortal_dbModel.FK_Notification_Post">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="Notification" EntitySet="Notification" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="AspNetRoles">
           <Key>
@@ -1882,8 +1903,6 @@
           <NavigationProperty Name="Friend1" Relationship="InsurancePortal_dbModel.FK_FriendUserFriend_AspNetUsers" FromRole="AspNetUsers" ToRole="Friend" />
           <NavigationProperty Name="Chat" Relationship="InsurancePortal_dbModel.FK_Chat_AspNetUsers" FromRole="AspNetUsers" ToRole="Chat" />
           <NavigationProperty Name="ChatMember" Relationship="InsurancePortal_dbModel.FK_ChatMember_AspNetUsers" FromRole="AspNetUsers" ToRole="ChatMember" />
-          <NavigationProperty Name="Notification" Relationship="InsurancePortal_dbModel.FK_NotificationFromUser_AspNetUsers" FromRole="AspNetUsers" ToRole="Notification" />
-          <NavigationProperty Name="Notification1" Relationship="InsurancePortal_dbModel.FK_NotificationToUser_AspNetUsers" FromRole="AspNetUsers" ToRole="Notification" />
           <NavigationProperty Name="ConstructionCompanyFavorite" Relationship="InsurancePortal_dbModel.FK_ConstructionCompanyFavorite_User" FromRole="AspNetUsers" ToRole="ConstructionCompanyFavorite" />
           <NavigationProperty Name="GarageFavorite" Relationship="InsurancePortal_dbModel.FK_GarageFavorite_User" FromRole="AspNetUsers" ToRole="GarageFavorite" />
           <NavigationProperty Name="HomeApplianceRepairFavorite" Relationship="InsurancePortal_dbModel.FK_HomeApplianceRepairFavorite_User" FromRole="AspNetUsers" ToRole="HomeApplianceRepairFavorite" />
@@ -1893,6 +1912,8 @@
           <NavigationProperty Name="AuthorizedEmail" Relationship="InsurancePortal_dbModel.FK_AuthorizedEmail_User" FromRole="AspNetUsers" ToRole="AuthorizedEmail" />
           <NavigationProperty Name="Post" Relationship="InsurancePortal_dbModel.FK_Post_AspNetUsers" FromRole="AspNetUsers" ToRole="Post" />
           <NavigationProperty Name="ChatMessage" Relationship="InsurancePortal_dbModel.FK_ChatMessage_AspNetUsers" FromRole="AspNetUsers" ToRole="ChatMessage" />
+          <NavigationProperty Name="Notification" Relationship="InsurancePortal_dbModel.FK_NotificationFromUser_AspNetUsers" FromRole="AspNetUsers" ToRole="Notification" />
+          <NavigationProperty Name="Notification1" Relationship="InsurancePortal_dbModel.FK_NotificationToUser_AspNetUsers" FromRole="AspNetUsers" ToRole="Notification" />
           </EntityType>
         <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
           <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
@@ -2135,60 +2156,6 @@
           <Property Name="Active" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Banner" Relationship="InsurancePortal_dbModel.FK_Banner_BannerType" FromRole="BannerType" ToRole="Banner" />
         </EntityType>
-        <EntityType Name="Notification">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ToUserID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="FromUserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="ID_NotificationType" Type="Int64" Nullable="false" />
-          <Property Name="Text" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
-          <Property Name="URL" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="ReadDate" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="Read" Type="Boolean" Nullable="false" />
-          <Property Name="Active" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="AspNetUsers" Relationship="InsurancePortal_dbModel.FK_NotificationFromUser_AspNetUsers" FromRole="Notification" ToRole="AspNetUsers" />
-          <NavigationProperty Name="AspNetUsers1" Relationship="InsurancePortal_dbModel.FK_NotificationToUser_AspNetUsers" FromRole="Notification" ToRole="AspNetUsers" />
-          <NavigationProperty Name="NotificationType" Relationship="InsurancePortal_dbModel.FK_Notification_NotificationType" FromRole="Notification" ToRole="NotificationType" />
-        </EntityType>
-        <Association Name="FK_NotificationFromUser_AspNetUsers">
-          <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
-          <End Type="InsurancePortal_dbModel.Notification" Role="Notification" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Notification">
-              <PropertyRef Name="FromUserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_NotificationToUser_AspNetUsers">
-          <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
-          <End Type="InsurancePortal_dbModel.Notification" Role="Notification" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Notification">
-              <PropertyRef Name="ToUserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Notification_NotificationType">
-          <End Type="InsurancePortal_dbModel.NotificationType" Role="NotificationType" Multiplicity="1" />
-          <End Type="InsurancePortal_dbModel.Notification" Role="Notification" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="NotificationType">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Notification">
-              <PropertyRef Name="ID_NotificationType" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="County">
           <Key>
             <PropertyRef Name="ID" />
@@ -2976,6 +2943,7 @@
           <NavigationProperty Name="PostComment" Relationship="InsurancePortal_dbModel.FK_PostComment_Post" FromRole="Post" ToRole="PostComment" />
           <NavigationProperty Name="PostImage" Relationship="InsurancePortal_dbModel.FK_PostImage_Post" FromRole="Post" ToRole="PostImage" />
           <NavigationProperty Name="PostLike" Relationship="InsurancePortal_dbModel.FK_PostLike_Post" FromRole="Post" ToRole="PostLike" />
+          <NavigationProperty Name="Notification" Relationship="InsurancePortal_dbModel.FK_Notification_Post" FromRole="Post" ToRole="Notification" />
         </EntityType>
         <Association Name="FK_Post_AspNetUsers">
           <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
@@ -3087,6 +3055,74 @@
             </Principal>
             <Dependent Role="ChatMessage">
               <PropertyRef Name="ID_Chat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Notification">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ToUserID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="FromUserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ID_NotificationType" Type="Int64" Nullable="false" />
+          <Property Name="Text" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="URL" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="ID_Post" Type="Int64" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="ReadDate" Type="DateTime" Precision="7" />
+          <Property Name="Read" Type="Boolean" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="InsurancePortal_dbModel.FK_NotificationFromUser_AspNetUsers" FromRole="Notification" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUsers1" Relationship="InsurancePortal_dbModel.FK_NotificationToUser_AspNetUsers" FromRole="Notification" ToRole="AspNetUsers" />
+          <NavigationProperty Name="NotificationType" Relationship="InsurancePortal_dbModel.FK_Notification_NotificationType" FromRole="Notification" ToRole="NotificationType" />
+          <NavigationProperty Name="Post" Relationship="InsurancePortal_dbModel.FK_Notification_Post" FromRole="Notification" ToRole="Post" />
+        </EntityType>
+        <Association Name="FK_NotificationFromUser_AspNetUsers">
+          <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+          <End Type="InsurancePortal_dbModel.Notification" Role="Notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Notification">
+              <PropertyRef Name="FromUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NotificationToUser_AspNetUsers">
+          <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="InsurancePortal_dbModel.Notification" Role="Notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Notification">
+              <PropertyRef Name="ToUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notification_NotificationType">
+          <End Type="InsurancePortal_dbModel.NotificationType" Role="NotificationType" Multiplicity="1" />
+          <End Type="InsurancePortal_dbModel.Notification" Role="Notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NotificationType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Notification">
+              <PropertyRef Name="ID_NotificationType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notification_Post">
+          <End Type="InsurancePortal_dbModel.Post" Role="Post" Multiplicity="0..1" />
+          <End Type="InsurancePortal_dbModel.Notification" Role="Notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Notification">
+              <PropertyRef Name="ID_Post" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3271,22 +3307,6 @@
                 <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Token" ColumnName="Token" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Notification">
-            <EntityTypeMapping TypeName="InsurancePortal_dbModel.Notification">
-              <MappingFragment StoreEntitySet="Notification">
-                <ScalarProperty Name="Active" ColumnName="Active" />
-                <ScalarProperty Name="Read" ColumnName="Read" />
-                <ScalarProperty Name="ReadDate" ColumnName="ReadDate" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="URL" ColumnName="URL" />
-                <ScalarProperty Name="Text" ColumnName="Text" />
-                <ScalarProperty Name="ID_NotificationType" ColumnName="ID_NotificationType" />
-                <ScalarProperty Name="FromUserID" ColumnName="FromUserID" />
-                <ScalarProperty Name="ToUserID" ColumnName="ToUserID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -3636,6 +3656,23 @@
                 <ScalarProperty Name="Text" ColumnName="Text" />
                 <ScalarProperty Name="ID_User" ColumnName="ID_User" />
                 <ScalarProperty Name="ID_Chat" ColumnName="ID_Chat" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notification">
+            <EntityTypeMapping TypeName="InsurancePortal_dbModel.Notification">
+              <MappingFragment StoreEntitySet="Notification">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Read" ColumnName="Read" />
+                <ScalarProperty Name="ReadDate" ColumnName="ReadDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="ID_Post" ColumnName="ID_Post" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="ID_NotificationType" ColumnName="ID_NotificationType" />
+                <ScalarProperty Name="FromUserID" ColumnName="FromUserID" />
+                <ScalarProperty Name="ToUserID" ColumnName="ToUserID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

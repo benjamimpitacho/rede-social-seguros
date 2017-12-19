@@ -6,3 +6,7 @@ INSERT INTO Insurance.NotificationType ([Token],[Description],[Active]) VALUES (
 INSERT INTO Insurance.NotificationType ([Token],[Description],[Active]) VALUES ('NEW_MESSAGE_RECEIVED', 'NEW_MESSAGE_RECEIVED', 1);
 INSERT INTO Insurance.NotificationType ([Token],[Description],[Active]) VALUES ('FRIEND_REQUEST_RECEIVED', 'FRIEND_REQUEST_RECEIVED', 1);
 INSERT INTO Insurance.NotificationType ([Token],[Description],[Active]) VALUES ('FRIEND_REQUEST_ACCEPTED', 'FRIEND_REQUEST_ACCEPTED', 1);
+INSERT INTO Insurance.NotificationType ([Token],[Description],[Active]) VALUES ('NEW_CURRENT_DISCUSSION_POST', 'NEW_CURRENT_DISCUSSION_POST', 1);
+INSERT INTO Insurance.NotificationType ([Token],[Description],[Active]) VALUES ('NEW_APS_POST', 'NEW_APS_POST', 1);
+INSERT INTO Insurance.NotificationType ([Token],[Description],[Active]) VALUES ('NEW_ASF_POST', 'NEW_ASF_POST', 1);
+INSERT INTO Insurance.NotificationType ([Token],[Description],[Active]) VALUES ('NEW_APROSE_POST', 'NEW_APROSE_POST', 1);

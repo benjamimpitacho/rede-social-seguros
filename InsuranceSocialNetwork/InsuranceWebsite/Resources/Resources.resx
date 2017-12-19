@@ -759,4 +759,16 @@
   <data name="NoApsPosts" xml:space="preserve">
     <value>Não existem publicações da APS</value>
   </data>
+  <data name="NewAprosePostNotification" xml:space="preserve">
+    <value>Foi publicado um novo conteúdo da APROSE.</value>
+  </data>
+  <data name="NewApsPostNotification" xml:space="preserve">
+    <value>Foi publicado um novo conteúdo da APS.</value>
+  </data>
+  <data name="NewAsfPostNotification" xml:space="preserve">
+    <value>Foi publicado um novo conteúdo da ASF.</value>
+  </data>
+  <data name="NewCurrentDiscussionPostNotification" xml:space="preserve">
+    <value>Foi publicado um novo tema em discussão.</value>
+  </data>
 </root>

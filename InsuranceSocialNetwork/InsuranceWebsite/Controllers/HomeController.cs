@@ -526,7 +526,9 @@ namespace InsuranceWebsite.Controllers
                     newPost.FileExtension = Path.GetExtension(fileUpload.FileName);
                 }
 
-                InsuranceBusiness.BusinessLayer.CreatePost(newPost);
+                long postId = InsuranceBusiness.BusinessLayer.CreatePost(newPost);
+
+                InsuranceBusiness.BusinessLayer.CreateNotificationForNewPost(NotificationTypeEnum.NEW_CURRENT_DISCUSSION_POST, postId);
             }
             catch (Exception ex)
             {
@@ -570,7 +572,9 @@ namespace InsuranceWebsite.Controllers
                     newPost.FileExtension = Path.GetExtension(fileUpload.FileName);
                 }
 
-                InsuranceBusiness.BusinessLayer.CreatePost(newPost);
+                long postId = InsuranceBusiness.BusinessLayer.CreatePost(newPost);
+
+                InsuranceBusiness.BusinessLayer.CreateNotificationForNewPost(NotificationTypeEnum.NEW_ASF_POST, postId);
             }
             catch (Exception ex)
             {
@@ -614,7 +618,9 @@ namespace InsuranceWebsite.Controllers
                     newPost.FileExtension = Path.GetExtension(fileUpload.FileName);
                 }
 
-                InsuranceBusiness.BusinessLayer.CreatePost(newPost);
+                long postId = InsuranceBusiness.BusinessLayer.CreatePost(newPost);
+
+                InsuranceBusiness.BusinessLayer.CreateNotificationForNewPost(NotificationTypeEnum.NEW_APS_POST, postId);
             }
             catch (Exception ex)
             {
@@ -658,7 +664,9 @@ namespace InsuranceWebsite.Controllers
                     newPost.FileExtension = Path.GetExtension(fileUpload.FileName);
                 }
 
-                InsuranceBusiness.BusinessLayer.CreatePost(newPost);
+                long postId = InsuranceBusiness.BusinessLayer.CreatePost(newPost);
+
+                InsuranceBusiness.BusinessLayer.CreateNotificationForNewPost(NotificationTypeEnum.NEW_APROSE_POST, postId);
             }
             catch (Exception ex)
             {

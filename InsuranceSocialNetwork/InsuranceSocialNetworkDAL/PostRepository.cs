@@ -192,7 +192,7 @@ namespace InsuranceSocialNetworkDAL
             return post;
         }
 
-        public static bool CreatePost(Post post)
+        public static long CreatePost(Post post)
         {
             using (var context = new BackofficeUnitOfWork())
             {
@@ -215,7 +215,7 @@ namespace InsuranceSocialNetworkDAL
                 //    transaction.Complete();
                 //}
 
-                return post.ID > 0;
+                return post.ID;
             }
         }
 

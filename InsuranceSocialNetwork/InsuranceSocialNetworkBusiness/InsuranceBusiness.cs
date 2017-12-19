@@ -408,6 +408,30 @@ namespace InsuranceSocialNetworkBusiness
             return true;
         }
 
+        public bool CreateNotificationForNewPost(NotificationTypeEnum type, long postId)
+        {
+            List<string> usersToNotify = UserProfileRepository.GetUsersToNotify();
+
+            Notification notification = new Notification()
+            {
+                Active = true,
+                CreateDate = DateTime.Now,
+                Read = false,
+                ID_NotificationType = NotificationRepository.GetNotificationType(type.ToString()).ID,
+                ID_Post = postId
+                //ToUserID = postOwnerUserId,
+                //FromUserID = string.IsNullOrEmpty(fromUserId) ? null : fromUserId
+            };
+
+            foreach (string userId in usersToNotify)
+            {
+                notification.ToUserID = userId;
+                NotificationRepository.CreateNotification(notification);
+            }
+
+            return true;
+        }
+
         public bool MarkNotificationAsRead(long id)
         {
             return NotificationRepository.MarkNotificationAsRead(id);
@@ -514,7 +538,7 @@ namespace InsuranceSocialNetworkBusiness
             }
         }
 
-        public bool CreatePost(PostDTO item)
+        public long CreatePost(PostDTO item)
         {
             Post post = AutoMapper.Mapper.Map<Post>(item);
 

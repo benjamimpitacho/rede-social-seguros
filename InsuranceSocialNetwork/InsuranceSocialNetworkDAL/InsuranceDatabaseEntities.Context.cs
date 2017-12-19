@@ -40,7 +40,6 @@ namespace InsuranceSocialNetworkDAL
         public virtual DbSet<Chat> Chat { get; set; }
         public virtual DbSet<ChatMember> ChatMember { get; set; }
         public virtual DbSet<BannerType> BannerType { get; set; }
-        public virtual DbSet<Notification> Notification { get; set; }
         public virtual DbSet<County> County { get; set; }
         public virtual DbSet<District> District { get; set; }
         public virtual DbSet<Parish> Parish { get; set; }
@@ -62,5 +61,6 @@ namespace InsuranceSocialNetworkDAL
         public virtual DbSet<PostImage> PostImage { get; set; }
         public virtual DbSet<Post> Post { get; set; }
         public virtual DbSet<ChatMessage> ChatMessage { get; set; }
+        public virtual DbSet<Notification> Notification { get; set; }
     }
 }

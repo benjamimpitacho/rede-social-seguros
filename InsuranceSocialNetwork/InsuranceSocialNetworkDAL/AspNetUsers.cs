@@ -26,8 +26,6 @@ namespace InsuranceSocialNetworkDAL
             this.Friend1 = new HashSet<Friend>();
             this.Chat = new HashSet<Chat>();
             this.ChatMember = new HashSet<ChatMember>();
-            this.Notification = new HashSet<Notification>();
-            this.Notification1 = new HashSet<Notification>();
             this.ConstructionCompanyFavorite = new HashSet<ConstructionCompanyFavorite>();
             this.GarageFavorite = new HashSet<GarageFavorite>();
             this.HomeApplianceRepairFavorite = new HashSet<HomeApplianceRepairFavorite>();
@@ -37,6 +35,8 @@ namespace InsuranceSocialNetworkDAL
             this.AuthorizedEmail = new HashSet<AuthorizedEmail>();
             this.Post = new HashSet<Post>();
             this.ChatMessage = new HashSet<ChatMessage>();
+            this.Notification = new HashSet<Notification>();
+            this.Notification1 = new HashSet<Notification>();
         }
     
         public string Id { get; set; }
@@ -71,10 +71,6 @@ namespace InsuranceSocialNetworkDAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChatMember> ChatMember { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Notification> Notification { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Notification> Notification1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ConstructionCompanyFavorite> ConstructionCompanyFavorite { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GarageFavorite> GarageFavorite { get; set; }
@@ -92,5 +88,9 @@ namespace InsuranceSocialNetworkDAL
         public virtual ICollection<Post> Post { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChatMessage> ChatMessage { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Notification> Notification { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Notification> Notification1 { get; set; }
     }
 }

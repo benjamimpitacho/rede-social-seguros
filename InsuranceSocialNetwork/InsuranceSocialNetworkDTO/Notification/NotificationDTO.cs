@@ -1,4 +1,5 @@
 ﻿using InsuranceSocialNetworkCore.Enums;
+using System;
 
 namespace InsuranceSocialNetworkDTO.Notification
 {
@@ -14,9 +15,10 @@ namespace InsuranceSocialNetworkDTO.Notification
         public long ID_NotificationType { get; set; }
         public string Text { get; set; }
         public string URL { get; set; }
+        public long? ID_Post { get; set; }
         public long? FriendRequestID { get; set; }
-        public System.DateTime CreateDate { get; set; }
-        public System.DateTime ReadDate { get; set; }
+        public DateTime CreateDate { get; set; }
+        public DateTime? ReadDate { get; set; }
         public bool Read { get; set; }
         public bool Active { get; set; }
 

@@ -1141,11 +1141,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Foi publicado um novo conteúdo da APROSE..
+        /// </summary>
+        public static string NewAprosePostNotification {
+            get {
+                return ResourceManager.GetString("NewAprosePostNotification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Conteúdo da nova publicação da APS.
         /// </summary>
         public static string NewApsPost {
             get {
                 return ResourceManager.GetString("NewApsPost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Foi publicado um novo conteúdo da APS..
+        /// </summary>
+        public static string NewApsPostNotification {
+            get {
+                return ResourceManager.GetString("NewApsPostNotification", resourceCulture);
             }
         }
         
@@ -1159,11 +1177,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Foi publicado um novo conteúdo da ASF..
+        /// </summary>
+        public static string NewAsfPostNotification {
+            get {
+                return ResourceManager.GetString("NewAsfPostNotification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Conteúdo do novo tema em discussão.
         /// </summary>
         public static string NewCurrentDiscussion {
             get {
                 return ResourceManager.GetString("NewCurrentDiscussion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Foi publicado um novo tema em discussão..
+        /// </summary>
+        public static string NewCurrentDiscussionPostNotification {
+            get {
+                return ResourceManager.GetString("NewCurrentDiscussionPostNotification", resourceCulture);
             }
         }
         

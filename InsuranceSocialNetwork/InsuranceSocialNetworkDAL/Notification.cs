@@ -20,13 +20,15 @@ namespace InsuranceSocialNetworkDAL
         public long ID_NotificationType { get; set; }
         public string Text { get; set; }
         public string URL { get; set; }
+        public Nullable<long> ID_Post { get; set; }
         public System.DateTime CreateDate { get; set; }
-        public System.DateTime ReadDate { get; set; }
+        public Nullable<System.DateTime> ReadDate { get; set; }
         public bool Read { get; set; }
         public bool Active { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual AspNetUsers AspNetUsers1 { get; set; }
         public virtual NotificationType NotificationType { get; set; }
+        public virtual Post Post { get; set; }
     }
 }
