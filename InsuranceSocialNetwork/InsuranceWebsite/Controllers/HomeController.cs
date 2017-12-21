@@ -88,6 +88,39 @@ namespace InsuranceWebsite.Controllers
             return View(model);
         }
 
+        [Authorize]
+        public async Task<ActionResult> PostDetail(long idPost, long? idNotification)
+        {
+            HomeViewModel model = new HomeViewModel();
+
+            if (null != this.User && this.User.Identity.IsAuthenticated)
+            {
+                var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
+                if (null != user)
+                {
+                    FillModel(model, user.Id, false);
+                }
+                else
+                {
+                    return RedirectToAction("LogOff", "Account");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            if(idNotification.HasValue)
+            {
+                InsuranceBusiness.BusinessLayer.MarkNotificationAsRead(idNotification.Value);
+            }
+
+            model.Posts = new List<PostDTO>() { InsuranceBusiness.BusinessLayer.GetPost(idPost) };
+
+            return View(model);
+        }
+
         [AllowAnonymous]
         public ActionResult About()
         {
@@ -715,7 +748,9 @@ namespace InsuranceWebsite.Controllers
         {
             PostItemsViewModel model = new PostItemsViewModel();
             model.Profile = CurrentUser;
+
             model.Items = InsuranceBusiness.BusinessLayer.GetUserRelatedPosts(CurrentUser.ID_User);
+            
             return PartialView("Partial/PostsControl", model);
         }
 
@@ -771,7 +806,7 @@ namespace InsuranceWebsite.Controllers
         }
 
         [FunctionalityAutorizeAttribute("PROFILE_INFO_FUNCTIONALITY")]
-        public async Task<ActionResult> ProfileInfo(long? id)
+        public async Task<ActionResult> ProfileInfo(long? id, long? idNotification)
         {
             var model = new ProfileViewModel();
             if (null != this.User && this.User.Identity.IsAuthenticated)
@@ -790,6 +825,11 @@ namespace InsuranceWebsite.Controllers
             else
             {
                 return RedirectToAction("Login", "Account");
+            }
+
+            if(idNotification.HasValue)
+            {
+                InsuranceBusiness.BusinessLayer.MarkNotificationAsRead(idNotification.Value);
             }
 
             model.IsOwnProfile = id.HasValue ? model.Profile.ID == id.Value : true;
@@ -1537,7 +1577,7 @@ namespace InsuranceWebsite.Controllers
 
         [Authorize]
         [FunctionalityAutorizeAttribute("APS_FUNCTIONALITY")]
-        public async Task<ActionResult> ApsDetails(long id)
+        public async Task<ActionResult> ApsDetails(long id, long? idNotification)
         {
             var model = new HomeViewModel();
             if (null != this.User && this.User.Identity.IsAuthenticated)
@@ -1556,6 +1596,11 @@ namespace InsuranceWebsite.Controllers
             else
             {
                 return RedirectToAction("Login", "Account");
+            }
+
+            if (idNotification.HasValue)
+            {
+                InsuranceBusiness.BusinessLayer.MarkNotificationAsRead(idNotification.Value);
             }
 
             model.Posts = new List<PostDTO>() { InsuranceBusiness.BusinessLayer.GetPost(id) };
@@ -1593,7 +1638,7 @@ namespace InsuranceWebsite.Controllers
 
         [Authorize]
         [FunctionalityAutorizeAttribute("ASF_FUNCTIONALITY")]
-        public async Task<ActionResult> AsfDetails(long id)
+        public async Task<ActionResult> AsfDetails(long id, long? idNotification)
         {
             var model = new HomeViewModel();
             if (null != this.User && this.User.Identity.IsAuthenticated)
@@ -1612,6 +1657,11 @@ namespace InsuranceWebsite.Controllers
             else
             {
                 return RedirectToAction("Login", "Account");
+            }
+
+            if (idNotification.HasValue)
+            {
+                InsuranceBusiness.BusinessLayer.MarkNotificationAsRead(idNotification.Value);
             }
 
             model.Posts = new List<PostDTO>() { InsuranceBusiness.BusinessLayer.GetPost(id) };
@@ -1649,7 +1699,7 @@ namespace InsuranceWebsite.Controllers
 
         [Authorize]
         [FunctionalityAutorizeAttribute("APROSE_FUNCTIONALITY")]
-        public async Task<ActionResult> AproseDetails(long id)
+        public async Task<ActionResult> AproseDetails(long id, long? idNotification)
         {
             var model = new HomeViewModel();
             if (null != this.User && this.User.Identity.IsAuthenticated)
@@ -1668,6 +1718,11 @@ namespace InsuranceWebsite.Controllers
             else
             {
                 return RedirectToAction("Login", "Account");
+            }
+
+            if (idNotification.HasValue)
+            {
+                InsuranceBusiness.BusinessLayer.MarkNotificationAsRead(idNotification.Value);
             }
 
             model.Posts = new List<PostDTO>() { InsuranceBusiness.BusinessLayer.GetPost(id) };
@@ -1705,7 +1760,7 @@ namespace InsuranceWebsite.Controllers
 
         [Authorize]
         [FunctionalityAutorizeAttribute("CURRENT_DISCUSSIONS_FUNCTIONALITY")]
-        public async Task<ActionResult> CurrentDiscussionDetails(long id)
+        public async Task<ActionResult> CurrentDiscussionDetails(long id, long? idNotification)
         {
             var model = new HomeViewModel();
             if (null != this.User && this.User.Identity.IsAuthenticated)
@@ -1724,6 +1779,11 @@ namespace InsuranceWebsite.Controllers
             else
             {
                 return RedirectToAction("Login", "Account");
+            }
+
+            if(idNotification.HasValue)
+            {
+                InsuranceBusiness.BusinessLayer.MarkNotificationAsRead(idNotification.Value);
             }
 
             model.Posts = new List<PostDTO>() { InsuranceBusiness.BusinessLayer.GetPost(id) };

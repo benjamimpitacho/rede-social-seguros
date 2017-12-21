@@ -160,6 +160,11 @@ namespace InsuranceSocialNetworkBusiness
             return UserProfileRepository.GetProfile(profileId).ID_User;
         }
 
+        public long GetUserProfileIdFromId(string id)
+        {
+            return UserProfileRepository.GetProfile(id).ID;
+        }
+
         public bool IsUserAuthorizedToFunctionality(string username, string functionality)
         {
             return UserProfileRepository.IsUserAuthorizedToFunctionality(username, functionality);
@@ -379,7 +384,8 @@ namespace InsuranceSocialNetworkBusiness
                 Read = false,
                 ID_NotificationType = NotificationRepository.GetNotificationType(type.ToString()).ID,
                 ToUserID = postOwnerUserId,
-                FromUserID = string.IsNullOrEmpty(fromUserId) ? null : fromUserId
+                FromUserID = string.IsNullOrEmpty(fromUserId) ? null : fromUserId,
+                ID_Post = postId
             };
 
             return NotificationRepository.CreateNotification(notification);
