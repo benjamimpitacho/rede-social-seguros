@@ -166,16 +166,16 @@ namespace InsuranceWebsite.Controllers
                             query = BusinessItemsLists.GetGarages();
                             break;
                         case CompanyTypeEnum.MEDICAL_CLINIC:
-                            query = BusinessItemsLists.GetGarages();
+                            query = BusinessItemsLists.GetMedicalClinis();
                             break;
                         case CompanyTypeEnum.CONSTRUCTION_COMPANY:
-                            query = BusinessItemsLists.GetGarages();
+                            query = BusinessItemsLists.GetConstructionCompanies();
                             break;
                         case CompanyTypeEnum.HOME_APPLIANCES_REPAIR:
-                            query = BusinessItemsLists.GetGarages();
+                            query = BusinessItemsLists.GetHomeApplianceRepairs();
                             break;
                         case CompanyTypeEnum.INSURANCE_COMPANY_CONTACT:
-                            query = BusinessItemsLists.GetGarages();
+                            query = BusinessItemsLists.GetInsuranceCompanyContacts();
                             break;
                     }
                     
@@ -334,7 +334,26 @@ namespace InsuranceWebsite.Controllers
         [FunctionalityAutorizeAttribute("COMPANIES_MANAGEMENT")]
         public ActionResult Edit(long id, CompanyTypeEnum idType)
         {
-            CompanyDTO company = InsuranceBusiness.BusinessLayer.GetGarage(id);
+            CompanyDTO company = null;
+
+            switch(idType)
+            {
+                case CompanyTypeEnum.GARAGE:
+                    company = InsuranceBusiness.BusinessLayer.GetGarage(id);
+                    break;
+                case CompanyTypeEnum.MEDICAL_CLINIC:
+                    company = InsuranceBusiness.BusinessLayer.GetMedicalClinic(id);
+                    break;
+                case CompanyTypeEnum.CONSTRUCTION_COMPANY:
+                    company = InsuranceBusiness.BusinessLayer.GetConstructionCompany(id);
+                    break;
+                case CompanyTypeEnum.HOME_APPLIANCES_REPAIR:
+                    company = InsuranceBusiness.BusinessLayer.GetHomeApplianceRepair(id);
+                    break;
+                case CompanyTypeEnum.INSURANCE_COMPANY_CONTACT:
+                    company = InsuranceBusiness.BusinessLayer.GetInsuranceCompanyContact(id);
+                    break;
+            }
 
             CompanyModelObject model = new CompanyModelObject()
             {
@@ -379,7 +398,26 @@ namespace InsuranceWebsite.Controllers
         {
             try
             {
-                CompanyDTO company = InsuranceBusiness.BusinessLayer.GetGarage(model.ID);
+                CompanyDTO company = null;
+
+                switch (model.CompanyType)
+                {
+                    case CompanyTypeEnum.GARAGE:
+                        company = InsuranceBusiness.BusinessLayer.GetGarage(model.ID);
+                        break;
+                    case CompanyTypeEnum.MEDICAL_CLINIC:
+                        company = InsuranceBusiness.BusinessLayer.GetMedicalClinic(model.ID);
+                        break;
+                    case CompanyTypeEnum.CONSTRUCTION_COMPANY:
+                        company = InsuranceBusiness.BusinessLayer.GetConstructionCompany(model.ID);
+                        break;
+                    case CompanyTypeEnum.HOME_APPLIANCES_REPAIR:
+                        company = InsuranceBusiness.BusinessLayer.GetHomeApplianceRepair(model.ID);
+                        break;
+                    case CompanyTypeEnum.INSURANCE_COMPANY_CONTACT:
+                        company = InsuranceBusiness.BusinessLayer.GetInsuranceCompanyContact(model.ID);
+                        break;
+                }
 
                 company.Active = model.Active;
                 company.Name = model.Name;
@@ -430,11 +468,30 @@ namespace InsuranceWebsite.Controllers
         }
 
         [FunctionalityAutorizeAttribute("COMPANIES_MANAGEMENT")]
-        public ActionResult Delete(long id)
+        public ActionResult Delete(long id, CompanyTypeEnum idType)
         {
             try
             {
-                InsuranceBusiness.BusinessLayer.DeleteGarage(id);
+                switch (idType)
+                {
+                    case CompanyTypeEnum.GARAGE:
+                        InsuranceBusiness.BusinessLayer.DeleteGarage(id);
+                        break;
+                    case CompanyTypeEnum.MEDICAL_CLINIC:
+                        InsuranceBusiness.BusinessLayer.DeleteMedicalClinic(id);
+                        break;
+                    case CompanyTypeEnum.CONSTRUCTION_COMPANY:
+                        InsuranceBusiness.BusinessLayer.DeleteConstructionCompany(id);
+                        break;
+                    case CompanyTypeEnum.HOME_APPLIANCES_REPAIR:
+                        InsuranceBusiness.BusinessLayer.DeleteHomeApplianceRepair(id);
+                        break;
+                    case CompanyTypeEnum.INSURANCE_COMPANY_CONTACT:
+                        InsuranceBusiness.BusinessLayer.DeleteInsuranceCompanyContact(id);
+                        break;
+                    default:
+                        break;
+                }
             }
             catch (Exception ex)
             {
@@ -444,34 +501,34 @@ namespace InsuranceWebsite.Controllers
             return RedirectToAction("Index");
         }
 
-        [FunctionalityAutorizeAttribute("COMPANIES_MANAGEMENT")]
-        public ActionResult Activate(long id)
-        {
-            try
-            {
-                InsuranceBusiness.BusinessLayer.ActivateGarage(id);
-            }
-            catch (Exception ex)
-            {
-                throw new NotImplementedException();
-            }
+        //[FunctionalityAutorizeAttribute("COMPANIES_MANAGEMENT")]
+        //public ActionResult Activate(long id)
+        //{
+        //    try
+        //    {
+        //        InsuranceBusiness.BusinessLayer.ActivateGarage(id);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new NotImplementedException();
+        //    }
 
-            return RedirectToAction("Index");
-        }
+        //    return RedirectToAction("Index");
+        //}
 
-        [FunctionalityAutorizeAttribute("COMPANIES_MANAGEMENT")]
-        public ActionResult Deactivate(long id)
-        {
-            try
-            {
-                InsuranceBusiness.BusinessLayer.ActivateGarage(id);
-            }
-            catch (Exception ex)
-            {
-                throw new NotImplementedException();
-            }
+        //[FunctionalityAutorizeAttribute("COMPANIES_MANAGEMENT")]
+        //public ActionResult Deactivate(long id)
+        //{
+        //    try
+        //    {
+        //        InsuranceBusiness.BusinessLayer.ActivateGarage(id);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new NotImplementedException();
+        //    }
 
-            return RedirectToAction("Index");
-        }
+        //    return RedirectToAction("Index");
+        //}
     }
 }

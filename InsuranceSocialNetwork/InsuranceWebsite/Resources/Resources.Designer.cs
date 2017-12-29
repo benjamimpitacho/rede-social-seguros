@@ -790,11 +790,38 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Foram encontradas {0} empresas de construção e remodelação.
+        /// </summary>
+        public static string FoundConstructionCompanies {
+            get {
+                return ResourceManager.GetString("FoundConstructionCompanies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Foram encontradas {0} oficinas.
         /// </summary>
         public static string FoundGarages {
             get {
                 return ResourceManager.GetString("FoundGarages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Foram encontrados {0} reparadores de electrodomésticos.
+        /// </summary>
+        public static string FoundHomeAppliances {
+            get {
+                return ResourceManager.GetString("FoundHomeAppliances", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Foram encontrados {0} contactos de seguradoras.
+        /// </summary>
+        public static string FoundInsuranceContacts {
+            get {
+                return ResourceManager.GetString("FoundInsuranceContacts", resourceCulture);
             }
         }
         

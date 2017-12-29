@@ -1293,8 +1293,8 @@ namespace InsuranceWebsite.Controllers
                 {
                     UserId = CurrentUser.ID_User,
                     GarageName = model.SearchCompaniesModel.GarageName,
-                    GarageDistrict = model.SearchCompaniesModel.GarageDistrict,
-                    GarageCounty = model.SearchCompaniesModel.GarageCounty,
+                    GarageDistrictID = model.SearchCompaniesModel.GarageDistrict,
+                    GarageCountyID = model.SearchCompaniesModel.GarageCounty,
                     GarageServiceID = model.SearchCompaniesModel.GarageServiceID,
                     GaragePartnership = model.SearchCompaniesModel.GaragePartnership,
                     GarageOfficialAgent = model.SearchCompaniesModel.GarageOfficialAgent

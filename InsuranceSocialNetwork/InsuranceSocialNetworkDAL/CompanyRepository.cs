@@ -18,11 +18,28 @@ namespace InsuranceSocialNetworkDAL
             {
                 var query = context.Garage
                     .Fetch()
+                    .Include(i => i.District)
+                    .Include(i => i.County)
                     .Include(i => i.GarageFavorite);
 
                 if(!string.IsNullOrEmpty(searchFilter.GarageName))
                 {
                     query = query.Where(i => i.Name.ToLower().Contains(searchFilter.GarageName.ToLower()));
+                }
+
+                if (searchFilter.GarageServiceID.HasValue)
+                {
+                    query = query.Where(i => i.ID_Service.Value == searchFilter.GarageServiceID.Value);
+                }
+
+                if (searchFilter.GarageDistrictID.HasValue)
+                {
+                    query = query.Where(i => i.District != null && i.ID_District == searchFilter.GarageDistrictID.Value);
+                }
+
+                if (searchFilter.GarageCountyID.HasValue)
+                {
+                    query = query.Where(i => i.County != null && i.ID_County == searchFilter.GarageCountyID.Value);
                 }
 
                 if (searchFilter.GarageServiceID.HasValue)

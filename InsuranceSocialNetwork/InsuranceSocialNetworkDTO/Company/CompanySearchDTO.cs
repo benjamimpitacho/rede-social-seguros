@@ -13,8 +13,8 @@ namespace InsuranceSocialNetworkDTO.Company
         #region Garages Search
 
         public string GarageName { get; set; }
-        public string GarageDistrict { get; set; }
-        public string GarageCounty { get; set; }
+        public long? GarageDistrictID { get; set; }
+        public long? GarageCountyID { get; set; }
         public long? GarageServiceID { get; set; }
         public string GaragePartnership { get; set; }
         public string GarageOfficialAgent { get; set; }

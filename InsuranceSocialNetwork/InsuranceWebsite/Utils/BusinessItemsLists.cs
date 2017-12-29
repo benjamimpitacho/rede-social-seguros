@@ -81,5 +81,65 @@ namespace InsuranceWebsite.Utils
             var list = InsuranceBusiness.BusinessLayer.GetGarages();
             return mapper.Map<List<CompanyModelObject>>(list);
         }
+
+        public static List<CompanyModelObject> GetMedicalClinis()
+        {
+            MapperConfiguration mapperConfiguration = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<CompanyDTO, CompanyModelObject>();
+                //.ForMember(dto => dto.CompanyType, opt => opt.Ignore());
+                cfg.CreateMap<CompanyModelObject, CompanyDTO>();
+            });
+
+            var mapper = mapperConfiguration.CreateMapper();
+
+            var list = InsuranceBusiness.BusinessLayer.GetMedicalClinics();
+            return mapper.Map<List<CompanyModelObject>>(list);
+        }
+
+        public static List<CompanyModelObject> GetConstructionCompanies()
+        {
+            MapperConfiguration mapperConfiguration = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<CompanyDTO, CompanyModelObject>();
+                //.ForMember(dto => dto.CompanyType, opt => opt.Ignore());
+                cfg.CreateMap<CompanyModelObject, CompanyDTO>();
+            });
+
+            var mapper = mapperConfiguration.CreateMapper();
+
+            var list = InsuranceBusiness.BusinessLayer.GetConstructionCompanies();
+            return mapper.Map<List<CompanyModelObject>>(list);
+        }
+
+        public static List<CompanyModelObject> GetHomeApplianceRepairs()
+        {
+            MapperConfiguration mapperConfiguration = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<CompanyDTO, CompanyModelObject>();
+                //.ForMember(dto => dto.CompanyType, opt => opt.Ignore());
+                cfg.CreateMap<CompanyModelObject, CompanyDTO>();
+            });
+
+            var mapper = mapperConfiguration.CreateMapper();
+
+            var list = InsuranceBusiness.BusinessLayer.GetHomeApplianceRepairs();
+            return mapper.Map<List<CompanyModelObject>>(list);
+        }
+
+        public static List<CompanyModelObject> GetInsuranceCompanyContacts()
+        {
+            MapperConfiguration mapperConfiguration = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<CompanyDTO, CompanyModelObject>();
+                //.ForMember(dto => dto.CompanyType, opt => opt.Ignore());
+                cfg.CreateMap<CompanyModelObject, CompanyDTO>();
+            });
+
+            var mapper = mapperConfiguration.CreateMapper();
+
+            var list = InsuranceBusiness.BusinessLayer.GetInsuranceCompanyContacts();
+            return mapper.Map<List<CompanyModelObject>>(list);
+        }
     }
 }

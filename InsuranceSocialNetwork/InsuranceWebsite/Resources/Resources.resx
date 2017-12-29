@@ -771,4 +771,13 @@
   <data name="NewCurrentDiscussionPostNotification" xml:space="preserve">
     <value>Foi publicado um novo tema em discussão.</value>
   </data>
+  <data name="FoundConstructionCompanies" xml:space="preserve">
+    <value>Foram encontradas {0} empresas de construção e remodelação</value>
+  </data>
+  <data name="FoundHomeAppliances" xml:space="preserve">
+    <value>Foram encontrados {0} reparadores de electrodomésticos</value>
+  </data>
+  <data name="FoundInsuranceContacts" xml:space="preserve">
+    <value>Foram encontrados {0} contactos de seguradoras</value>
+  </data>
 </root>

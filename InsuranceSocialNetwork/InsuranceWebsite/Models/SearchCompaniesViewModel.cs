@@ -41,8 +41,8 @@ namespace InsuranceWebsite.Models
         #region Garages Search
 
         public string GarageName { get; set; }
-        public string GarageDistrict { get; set; }
-        public string GarageCounty { get; set; }
+        public long? GarageDistrict { get; set; }
+        public long? GarageCounty { get; set; }
         public long? GarageServiceID { get; set; }
         public List<SelectListItem> GarageServiceList { get; set; }
         public string GaragePartnership { get; set; }

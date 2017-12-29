@@ -77,22 +77,46 @@
 
         @if (Model.IsSearchClinics)
         {
-            <h3>Pesquisa de Clinicas</h3>
+            <h5 class="ui-accordion-header-active" style="font-weight:bold; display:flex;border-bottom: solid 1px lightgrey;padding-bottom:10px;">
+                <div class="img-clinics" style="margin-left:10px;margin-right:10px;max-width:50px;width:50px;height:50px;display:inline-flex;padding-bottom: 20px;"></div>
+                <div style="padding-top: 10px;">
+                    @Resources.Resources.SearchClinics
+                    <div class="search-sub-title">@string.Format(Resources.Resources.FoundMedicalClinics, Model.SearchCompaniesModel.ResultCompanyItems.Count)</div>
+                </div>
+            </h5>
         }
 
         @if (Model.IsSearchConstructionCompanies)
         {
-            <h3>Pesquisa de Empresas de Construção</h3>
+            <h5 class="ui-accordion-header-active" style="font-weight:bold; display:flex;border-bottom: solid 1px lightgrey;padding-bottom:10px;">
+                <div class="img-constructioncompanies" style="margin-left:10px;margin-right:10px;max-width:50px;width:50px;height:50px;display:inline-flex;padding-bottom: 20px;"></div>
+                <div style="padding-top: 10px;">
+                    @Resources.Resources.SearchConstructionCompanies
+                    <div class="search-sub-title">@string.Format(Resources.Resources.FoundConstructionCompanies, Model.SearchCompaniesModel.ResultCompanyItems.Count)</div>
+                </div>
+            </h5>
         }
 
         @if (Model.IsSearchHomeApplianceRepair)
         {
-            <h3>Pesquisa de Reparadores de Electrodomésticos</h3>
+            <h5 class="ui-accordion-header-active" style="font-weight:bold; display:flex;border-bottom: solid 1px lightgrey;padding-bottom:10px;">
+                <div class="img-homeappliances" style="margin-left:10px;margin-right:10px;max-width:50px;width:50px;height:50px;display:inline-flex;padding-bottom: 20px;"></div>
+                <div style="padding-top: 10px;">
+                    @Resources.Resources.SearchHomeApplianceRepair
+                    <div class="search-sub-title">@string.Format(Resources.Resources.FoundHomeAppliances, Model.SearchCompaniesModel.ResultCompanyItems.Count)</div>
+                </div>
+            </h5>
         }
 
         @if (Model.IsSearchInsuranceContacts)
         {
-            <h3>Pesquisa de Contactos Seguradoras</h3>
+            <h5 class="ui-accordion-header-active" style="font-weight:bold; display:flex;border-bottom: solid 1px lightgrey;padding-bottom:10px;">
+                <div class="img-insurancecontacts" style="margin-left:10px;margin-right:10px;max-width:50px;width:50px;height:50px;display:inline-flex;padding-bottom: 20px;"></div>
+                <div style="padding-top: 10px;">
+                    @Resources.Resources.SearchInsuranceContacts
+                    <div class="search-sub-title">@string.Format(Resources.Resources.FoundInsuranceContacts, Model.SearchCompaniesModel.ResultCompanyItems.Count)</div>
+                </div>
+            </h5>
         }
 
         @foreach (CompanyDTO item in Model.SearchCompaniesModel.ResultCompanyItems)
