@@ -41,7 +41,7 @@
                             <div class="panel">
                                 <div class="panel-body">
                                     <div class="media">
-                                        <a class="pull-left" href="#" style="padding: 0px; text-align: -webkit-center;">
+                                        <a class="pull-left" href="@Url.Action("ProfileTimeline", "Home", new { id = friend.ID })" style="padding: 0px; text-align: -webkit-center;">
                                             @if (null == friend.ProfilePhoto || friend.ProfilePhoto.Length == 0)
                                             {
                                                 <img class="thumb media-object" src="~/Content/images/no_photo_img.jpg" alt="" style="border-radius:100px;max-width:80%;">

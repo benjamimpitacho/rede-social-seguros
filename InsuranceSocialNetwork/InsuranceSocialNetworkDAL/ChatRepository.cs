@@ -135,10 +135,19 @@ namespace InsuranceSocialNetworkDAL
         {
             using (var context = new BackofficeUnitOfWork())
             {
+                List<long> chatIds = context.Chat
+                        .Fetch()
+                        .Include(i => i.ChatMember)
+                        .Where(i => i.ChatMember.Select(j => j.AspNetUsers.Id).ToList().Contains(userId))
+                        .Select(i => i.ID)
+                        .ToList();
+
                 return context.ChatMessage
                     .Fetch()
                     .Include(i => i.Chat)
-                    .Where(i => null == i.ReadDate)
+                    .Where(i => null == i.ReadDate
+                        && i.ID_User != userId
+                        && chatIds.Contains(i.ID_Chat))
                     .Select(i => i.ID_Chat)
                     .Distinct()
                     .Count();

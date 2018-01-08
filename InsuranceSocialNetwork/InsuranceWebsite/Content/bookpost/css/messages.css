@@ -130,7 +130,7 @@
     border-radius: 8px 8px 8px 0;
 }
 .chat-body .answer .text {
-    padding: 12px;
+    padding: 10px;
     font-size: 16px;
     line-height: 26px;
     position: relative;
@@ -199,6 +199,7 @@
     background: #39bbdb;
 }
 .chat-body .answer-add input {
+    outline: none;
     border: none;
     background: none;
     display: block;

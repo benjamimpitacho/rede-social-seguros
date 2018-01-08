@@ -872,6 +872,7 @@ namespace InsuranceWebsite.Controllers
                 model.SearchModel.AlreadyFriends = InsuranceBusiness.BusinessLayer.GetFriendsIDs(CurrentUser.ID);
                 model.IsFriend = InsuranceBusiness.BusinessLayer.AreFriends(CurrentUser.ID_User, targetUserId);
                 model.IsProfileTimeline = true;
+                model.TimelineProfileId = id;
 
                 if (model.IsFriend)
                 {

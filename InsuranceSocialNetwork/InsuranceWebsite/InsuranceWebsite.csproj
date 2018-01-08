@@ -613,6 +613,7 @@
     <Content Include="Views\Home\AsfDetails.cshtml" />
     <Content Include="Views\Home\ApsDetails.cshtml" />
     <Content Include="Views\Home\AproseDetails.cshtml" />
+    <Content Include="Views\Home\PostDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
