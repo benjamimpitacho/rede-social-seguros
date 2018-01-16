@@ -184,6 +184,10 @@
                                                     @Html.TextAreaFor(i => i.Profile.CompaniesWorkingWith, new { @class = "form-control aboutme", @disabled = "disabled" })
                                                     <p></p>
                                                 </div>
+                                                <div class="basic-info">
+                                                    <h3><i class="fa fa-square"></i> @Resources.Resources.AllowedEmailDomains</h3>
+                                                    @Html.ListBoxFor(m => m.SelectedAllowedEmails, new MultiSelectList(Model.AllowedEmails, "Text", "Text"), new { @class = "form-control listbox", id = "emailListbox", style = "max-width:49%;display: inline-flex;min-height: 103px;" })
+                                                </div>
                                                 <div class="about">
                                                     <h3><i class="fa fa-square"></i> @Resources.Resources.Statistics</h3>
                                                     <p><span class="badge">332</span> Following</p>

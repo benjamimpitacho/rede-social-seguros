@@ -67,6 +67,29 @@ namespace InsuranceSocialNetworkDAL
             }
         }
 
+        public static bool UpdateEmailAuthorizedForAutomaticApproval(string userId, string[] emailPatterns)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                context.AuthorizedEmail.Delete(i => string.IsNullOrEmpty(i.ID_User));
+
+                foreach (string emailPattern in emailPatterns)
+                {
+                    context.AuthorizedEmail.Create(new AuthorizedEmail() {
+                        ID_User = userId,
+                        Active = true,
+                        Email = emailPattern.ToLower(),
+                        CreateDate = DateTime.Now,
+                        LastChangeDate = DateTime.Now
+                    });
+                }
+
+                context.Save();
+
+                return true;
+            }
+        }
+
         public static List<AuthorizedEmail> GetAuthorizedEmailsForAutomaticApproval()
         {
             using (var context = new BackofficeUnitOfWork())
@@ -74,6 +97,18 @@ namespace InsuranceSocialNetworkDAL
                 return context.AuthorizedEmail
                     .Fetch()
                     .Where(i => i.Active)
+                    .Select(i => i)
+                    .ToList();
+            }
+        }
+
+        public static List<AuthorizedEmail> GetAuthorizedEmailsForAutomaticApproval(string userId)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                return context.AuthorizedEmail
+                    .Fetch()
+                    .Where(i => i.Active && i.ID_User == userId)
                     .Select(i => i)
                     .ToList();
             }

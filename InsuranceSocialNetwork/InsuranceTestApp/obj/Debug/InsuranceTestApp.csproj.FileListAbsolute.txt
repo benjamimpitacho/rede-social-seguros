@@ -1,0 +1,6 @@
+C:\Work\rede-social-seguros\InsuranceSocialNetwork\InsuranceTestApp\bin\Debug\InsuranceTestApp.exe.config
+C:\Work\rede-social-seguros\InsuranceSocialNetwork\InsuranceTestApp\bin\Debug\InsuranceTestApp.exe
+C:\Work\rede-social-seguros\InsuranceSocialNetwork\InsuranceTestApp\bin\Debug\InsuranceTestApp.pdb
+C:\Work\rede-social-seguros\InsuranceSocialNetwork\InsuranceTestApp\obj\Debug\InsuranceTestApp.csprojResolveAssemblyReference.cache
+C:\Work\rede-social-seguros\InsuranceSocialNetwork\InsuranceTestApp\obj\Debug\InsuranceTestApp.exe
+C:\Work\rede-social-seguros\InsuranceSocialNetwork\InsuranceTestApp\obj\Debug\InsuranceTestApp.pdb

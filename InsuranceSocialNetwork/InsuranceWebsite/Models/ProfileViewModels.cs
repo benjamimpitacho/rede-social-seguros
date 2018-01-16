@@ -4,6 +4,7 @@ using InsuranceSocialNetworkDTO.UserProfile;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Web.Mvc;
 
 namespace InsuranceWebsite.Models
 {
@@ -24,6 +25,9 @@ namespace InsuranceWebsite.Models
         public bool IsFriend { get; set; }
 
         public ProfileSettingsModel Settings { get; set; }
+
+        public List<SelectListItem> AllowedEmails { get; set; }
+        public string[] SelectedAllowedEmails { get; set; }
     }
 
     public class ProfileEditModel : ProfileViewModel
@@ -53,6 +57,9 @@ namespace InsuranceWebsite.Models
         public System.DateTime CreateDate { get; set; }
         public System.DateTime LastChangeDate { get; set; }
         public bool Active { get; set; }
+
+        public List<SelectListItem> AllowedEmails { get; set; }
+        public string[] SelectedAllowedEmails { get; set; }
 
         //public ProfileSettingsModel Settings { get; set; }
     }

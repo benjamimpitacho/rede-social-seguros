@@ -226,9 +226,19 @@ namespace InsuranceSocialNetworkBusiness
             return AuthorizedEmailRepository.UpdateEmailAuthorizedForAutomaticApproval(emailPatterns);
         }
 
+        public bool UpdateEmailAuthorizedForAutomaticApproval(string userId, string[] emailPatterns)
+        {
+            return AuthorizedEmailRepository.UpdateEmailAuthorizedForAutomaticApproval(userId, emailPatterns);
+        }
+
         public List<string> GetAuthorizedEmailsForAutomaticApproval()
         {
             return AuthorizedEmailRepository.GetAuthorizedEmailsForAutomaticApproval().Select(i => i.Email).ToList();
+        }
+
+        public List<string> GetAuthorizedEmailsForAutomaticApproval(string userId)
+        {
+            return AuthorizedEmailRepository.GetAuthorizedEmailsForAutomaticApproval(userId).Select(i => i.Email).ToList();
         }
 
         #endregion Authorized Emails for Automatic Approval

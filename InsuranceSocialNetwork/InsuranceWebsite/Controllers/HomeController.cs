@@ -839,6 +839,8 @@ namespace InsuranceWebsite.Controllers
                 model.IsFriendRequest = InsuranceBusiness.BusinessLayer.HasPendingFriendRequest(CurrentUser.ID_User, model.Profile.ID_User);
             }
 
+            model.AllowedEmails = InsuranceBusiness.BusinessLayer.GetAuthorizedEmailsForAutomaticApproval(model.Profile.ID_User).Select(i => new SelectListItem() { Value = i, Text = i }).ToList();
+
             return View(model);
         }
 
@@ -995,7 +997,7 @@ namespace InsuranceWebsite.Controllers
         public async Task<ActionResult> ProfileEdit(string userId, long? ntId)
         {
             ProfileEditModel model = new ProfileEditModel();
-
+            
             if (null != this.User && this.User.Identity.IsAuthenticated)
             {
                 var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
@@ -1040,7 +1042,9 @@ namespace InsuranceWebsite.Controllers
             model.Whatsapp = userProfile.Whatsapp;
             model.CompaniesWorkingWith = userProfile.CompaniesWorkingWith;
 
-            if(ntId.HasValue)
+            model.AllowedEmails = InsuranceBusiness.BusinessLayer.GetAuthorizedEmailsForAutomaticApproval(model.Profile.ID_User).Select(i => new SelectListItem() { Value = i, Text = i }).ToList();
+
+            if (ntId.HasValue)
             {
                 InsuranceBusiness.BusinessLayer.MarkNotificationAsRead(ntId.Value);
             }
@@ -1106,6 +1110,15 @@ namespace InsuranceWebsite.Controllers
             profile.Website = model.Website;
 
             InsuranceBusiness.BusinessLayer.UpdateProfile(profile);
+
+            try
+            {
+                InsuranceBusiness.BusinessLayer.UpdateEmailAuthorizedForAutomaticApproval(model.Profile.ID_User, model.SelectedAllowedEmails);
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException();
+            }
 
             //return View("ProfileInfo", model);
             return RedirectToAction("ProfileInfo", new { id = model.Profile.ID });

@@ -362,6 +362,7 @@
     <Content Include="Content\images\ASF_Logotipo.jpg" />
     <Content Include="Content\images\default_profile_header.png" />
     <Content Include="Content\images\login.jpg" />
+    <Content Include="Content\images\logo_aps.png" />
     <Content Include="Content\images\no_photo_img.jpg" />
     <Content Include="Content\images\waiting.gif" />
     <Content Include="Content\jsGrid\i18n\jsgrid-de.js" />
