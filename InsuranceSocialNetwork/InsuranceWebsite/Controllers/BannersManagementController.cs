@@ -136,11 +136,19 @@ namespace InsuranceWebsite.Controllers
                             ).ToList();
                         }
 
-                        return new QueryResult<BannerModelObject>()
+                        result.TotalRecords = query.Count();
+
+                        if (options.GetLimitOffset().HasValue)
                         {
-                            Items = query,
-                            TotalRecords = query.Count // if paging is enabled, return the total number of records of all pages
-                        };
+                            query = query
+                                .Skip(options.GetLimitOffset().Value)
+                                .Take(options.GetLimitRowcount().Value)
+                                .ToList();
+                        }
+
+                        result.Items = query;
+
+                        return result;
                     })
                 );
             }

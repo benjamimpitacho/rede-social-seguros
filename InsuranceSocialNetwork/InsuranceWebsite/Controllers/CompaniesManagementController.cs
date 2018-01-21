@@ -233,11 +233,19 @@ namespace InsuranceWebsite.Controllers
                         ).ToList();
                     }
 
-                    return new QueryResult<CompanyModelObject>()
+                    result.TotalRecords = query.Count();
+
+                    if (options.GetLimitOffset().HasValue)
                     {
-                        Items = query,
-                        TotalRecords = query.Count // if paging is enabled, return the total number of records of all pages
-                    };
+                        query = query
+                            .Skip(options.GetLimitOffset().Value)
+                            .Take(options.GetLimitRowcount().Value)
+                            .ToList();
+                    }
+
+                    result.Items = query;
+
+                    return result;
                 })
             );
             }
@@ -290,7 +298,9 @@ namespace InsuranceWebsite.Controllers
                     OfficialPartner = model.OfficialPartner,
                     Telephone_1 = model.Telephone_1,
                     Telephone_2 = model.Telephone_2,
-                    Website = model.Website
+                    Website = model.Website,
+                    BusinessName = model.BusinessName,
+                    IBAN = model.IBAN
                 };
 
                 if (null != fileUploaderControl)
@@ -437,6 +447,8 @@ namespace InsuranceWebsite.Controllers
                 company.Telephone_1 = model.Telephone_1;
                 company.Telephone_2 = model.Telephone_2;
                 company.Website = model.Website;
+                company.BusinessName = model.BusinessName;
+                company.IBAN = model.IBAN;
 
                 switch (model.CompanyType)
                 {

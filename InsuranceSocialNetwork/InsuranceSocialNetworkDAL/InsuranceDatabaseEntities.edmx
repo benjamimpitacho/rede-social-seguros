@@ -178,6 +178,8 @@
           <Property Name="LastChangeDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="DeleteDate" Type="datetime2" Precision="7" />
           <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="BusinessName" Type="nvarchar" MaxLength="256" />
+          <Property Name="IBAN" Type="nvarchar" MaxLength="256" />
         </EntityType>
         <EntityType Name="ConstructionCompanyFavorite">
           <Key>
@@ -253,6 +255,8 @@
           <Property Name="LastChangeDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="DeleteDate" Type="datetime2" Precision="7" />
           <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="BusinessName" Type="nvarchar" MaxLength="256" />
+          <Property Name="IBAN" Type="nvarchar" MaxLength="256" />
         </EntityType>
         <EntityType Name="GarageFavorite">
           <Key>
@@ -289,6 +293,8 @@
           <Property Name="LastChangeDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="DeleteDate" Type="datetime2" Precision="7" />
           <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="BusinessName" Type="nvarchar" MaxLength="256" />
+          <Property Name="IBAN" Type="nvarchar" MaxLength="256" />
         </EntityType>
         <EntityType Name="HomeApplianceRepairFavorite">
           <Key>
@@ -325,6 +331,8 @@
           <Property Name="LastChangeDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="DeleteDate" Type="datetime2" Precision="7" />
           <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="BusinessName" Type="nvarchar" MaxLength="256" />
+          <Property Name="IBAN" Type="nvarchar" MaxLength="256" />
         </EntityType>
         <EntityType Name="InsuranceCompanyContactFavorite">
           <Key>
@@ -361,6 +369,8 @@
           <Property Name="LastChangeDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="DeleteDate" Type="datetime2" Precision="7" />
           <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="BusinessName" Type="nvarchar" MaxLength="256" />
+          <Property Name="IBAN" Type="nvarchar" MaxLength="256" />
         </EntityType>
         <EntityType Name="MedicalClinicFavorite">
           <Key>
@@ -2424,6 +2434,8 @@
           <NavigationProperty Name="Parish" Relationship="InsurancePortal_dbModel.FK_ConstructionCompany_Parish" FromRole="ConstructionCompany" ToRole="Parish" />
           <NavigationProperty Name="ConstructionCompanyFavorite" Relationship="InsurancePortal_dbModel.FK_ConstructionCompanyFavorite_ConstructionCompany" FromRole="ConstructionCompany" ToRole="ConstructionCompanyFavorite" />
           <NavigationProperty Name="CompanyService" Relationship="InsurancePortal_dbModel.FK_ConstructionCompany_Service" FromRole="ConstructionCompany" ToRole="CompanyService" />
+          <Property Name="BusinessName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="IBAN" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Garage">
           <Key>
@@ -2456,6 +2468,8 @@
           <NavigationProperty Name="Parish" Relationship="InsurancePortal_dbModel.FK_Garage_Parish" FromRole="Garage" ToRole="Parish" />
           <NavigationProperty Name="GarageFavorite" Relationship="InsurancePortal_dbModel.FK_GarageFavorite_Garage" FromRole="Garage" ToRole="GarageFavorite" />
           <NavigationProperty Name="CompanyService" Relationship="InsurancePortal_dbModel.FK_Garage_Service" FromRole="Garage" ToRole="CompanyService" />
+          <Property Name="BusinessName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="IBAN" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="HomeApplianceRepair">
           <Key>
@@ -2488,6 +2502,8 @@
           <NavigationProperty Name="Parish" Relationship="InsurancePortal_dbModel.FK_HomeApplianceRepair_Parish" FromRole="HomeApplianceRepair" ToRole="Parish" />
           <NavigationProperty Name="HomeApplianceRepairFavorite" Relationship="InsurancePortal_dbModel.FK_HomeApplianceRepairFavorite_HomeApplianceRepair" FromRole="HomeApplianceRepair" ToRole="HomeApplianceRepairFavorite" />
           <NavigationProperty Name="CompanyService" Relationship="InsurancePortal_dbModel.FK_HomeApplianceRepair_Service" FromRole="HomeApplianceRepair" ToRole="CompanyService" />
+          <Property Name="BusinessName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="IBAN" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="InsuranceCompanyContact">
           <Key>
@@ -2520,6 +2536,8 @@
           <NavigationProperty Name="Parish" Relationship="InsurancePortal_dbModel.FK_InsuranceCompanyContact_Parish" FromRole="InsuranceCompanyContact" ToRole="Parish" />
           <NavigationProperty Name="InsuranceCompanyContactFavorite" Relationship="InsurancePortal_dbModel.FK_InsuranceCompanyContactFavorite_InsuranceCompanyContact" FromRole="InsuranceCompanyContact" ToRole="InsuranceCompanyContactFavorite" />
           <NavigationProperty Name="CompanyService" Relationship="InsurancePortal_dbModel.FK_InsuranceCompanyContact_Service" FromRole="InsuranceCompanyContact" ToRole="CompanyService" />
+          <Property Name="BusinessName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="IBAN" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="MedicalClinic">
           <Key>
@@ -2552,6 +2570,8 @@
           <NavigationProperty Name="Parish" Relationship="InsurancePortal_dbModel.FK_MedicalClinic_Parish" FromRole="MedicalClinic" ToRole="Parish" />
           <NavigationProperty Name="MedicalClinicFavorite" Relationship="InsurancePortal_dbModel.FK_MedicalClinicFavorite_MedicalClinic" FromRole="MedicalClinic" ToRole="MedicalClinicFavorite" />
           <NavigationProperty Name="CompanyService" Relationship="InsurancePortal_dbModel.FK_MedicalClinic_Service" FromRole="MedicalClinic" ToRole="CompanyService" />
+          <Property Name="BusinessName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="IBAN" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_ConstructionCompany_County">
           <End Type="InsurancePortal_dbModel.County" Role="County" Multiplicity="0..1" />
@@ -3450,6 +3470,8 @@
           <EntitySetMapping Name="ConstructionCompany">
             <EntityTypeMapping TypeName="InsurancePortal_dbModel.ConstructionCompany">
               <MappingFragment StoreEntitySet="ConstructionCompany">
+                <ScalarProperty Name="IBAN" ColumnName="IBAN" />
+                <ScalarProperty Name="BusinessName" ColumnName="BusinessName" />
                 <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="DeleteDate" ColumnName="DeleteDate" />
                 <ScalarProperty Name="LastChangeDate" ColumnName="LastChangeDate" />
@@ -3478,6 +3500,8 @@
           <EntitySetMapping Name="Garage">
             <EntityTypeMapping TypeName="InsurancePortal_dbModel.Garage">
               <MappingFragment StoreEntitySet="Garage">
+                <ScalarProperty Name="IBAN" ColumnName="IBAN" />
+                <ScalarProperty Name="BusinessName" ColumnName="BusinessName" />
                 <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="DeleteDate" ColumnName="DeleteDate" />
                 <ScalarProperty Name="LastChangeDate" ColumnName="LastChangeDate" />
@@ -3506,6 +3530,8 @@
           <EntitySetMapping Name="HomeApplianceRepair">
             <EntityTypeMapping TypeName="InsurancePortal_dbModel.HomeApplianceRepair">
               <MappingFragment StoreEntitySet="HomeApplianceRepair">
+                <ScalarProperty Name="IBAN" ColumnName="IBAN" />
+                <ScalarProperty Name="BusinessName" ColumnName="BusinessName" />
                 <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="DeleteDate" ColumnName="DeleteDate" />
                 <ScalarProperty Name="LastChangeDate" ColumnName="LastChangeDate" />
@@ -3534,6 +3560,8 @@
           <EntitySetMapping Name="InsuranceCompanyContact">
             <EntityTypeMapping TypeName="InsurancePortal_dbModel.InsuranceCompanyContact">
               <MappingFragment StoreEntitySet="InsuranceCompanyContact">
+                <ScalarProperty Name="IBAN" ColumnName="IBAN" />
+                <ScalarProperty Name="BusinessName" ColumnName="BusinessName" />
                 <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="DeleteDate" ColumnName="DeleteDate" />
                 <ScalarProperty Name="LastChangeDate" ColumnName="LastChangeDate" />
@@ -3562,6 +3590,8 @@
           <EntitySetMapping Name="MedicalClinic">
             <EntityTypeMapping TypeName="InsurancePortal_dbModel.MedicalClinic">
               <MappingFragment StoreEntitySet="MedicalClinic">
+                <ScalarProperty Name="IBAN" ColumnName="IBAN" />
+                <ScalarProperty Name="BusinessName" ColumnName="BusinessName" />
                 <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="DeleteDate" ColumnName="DeleteDate" />
                 <ScalarProperty Name="LastChangeDate" ColumnName="LastChangeDate" />

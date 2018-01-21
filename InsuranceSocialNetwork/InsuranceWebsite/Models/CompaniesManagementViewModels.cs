@@ -44,6 +44,7 @@ namespace InsuranceWebsite.Models
         public string Description { get; set; }
         [Required]
         public string NIF { get; set; }
+        public string BusinessName { get; set; }
         [Required]
         [EmailAddress]
         public string ContactEmail { get; set; }
@@ -62,6 +63,7 @@ namespace InsuranceWebsite.Models
         public string Website { get; set; }
         public string OfficialPartner { get; set; }
         public string OfficialAgent { get; set; }
+        public string IBAN { get; set; }
         public bool Active { get; set; }
 
         public List<SelectListItem> DistrictList { get; set; }

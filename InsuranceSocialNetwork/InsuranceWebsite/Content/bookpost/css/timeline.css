@@ -625,6 +625,9 @@ a {
 .post .post-description {
   padding: 5px 15px;
 }
+.post .post-control {
+    padding: 5px 15px;
+}
 .post .post-description p {
   font-size: 14px;
 }
@@ -632,6 +635,11 @@ a {
   margin-top: 5px;
   margin-bottom: 10px;
   color: #7f7f7f;
+}
+.post .post-control .stats {
+    margin-top: 5px;
+    margin-bottom: 10px;
+    color: #7f7f7f;
 }
 .post .post-description .stats a {
     color: #7f7f7f;

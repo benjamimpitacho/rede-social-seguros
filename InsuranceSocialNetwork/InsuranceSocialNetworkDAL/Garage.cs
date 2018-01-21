@@ -42,6 +42,8 @@ namespace InsuranceSocialNetworkDAL
         public System.DateTime LastChangeDate { get; set; }
         public Nullable<System.DateTime> DeleteDate { get; set; }
         public bool Active { get; set; }
+        public string BusinessName { get; set; }
+        public string IBAN { get; set; }
     
         public virtual County County { get; set; }
         public virtual District District { get; set; }

@@ -18,6 +18,8 @@
     [Website] NVARCHAR(256) NULL,
     [OfficialPartner] NVARCHAR(256) NULL, 
     [OfficialAgent] NVARCHAR(256) NULL,  
+	[BusinessName] NVARCHAR(256) NULL,  
+	[IBAN] NVARCHAR(256) NULL,  
     [CreateDate] DATETIME2 NOT NULL DEFAULT GETDATE(), 
     [LastChangeDate] DATETIME2 NOT NULL DEFAULT GETDATE(), 
     [DeleteDate] DATETIME2 NULL, 

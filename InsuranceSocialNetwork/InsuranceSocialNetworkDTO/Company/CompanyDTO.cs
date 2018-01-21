@@ -32,5 +32,7 @@ namespace InsuranceSocialNetworkDTO.Company
         public DateTime? DeleteDate { get; set; }
         public bool Active { get; set; }
         public bool IsFavorite { get; set; }
+        public string BusinessName { get; set; }
+        public string IBAN { get; set; }
     }
 }

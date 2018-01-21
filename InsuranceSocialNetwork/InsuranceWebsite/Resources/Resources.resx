@@ -780,4 +780,25 @@
   <data name="FoundInsuranceContacts" xml:space="preserve">
     <value>Foram encontrados {0} contactos de seguradoras</value>
   </data>
+  <data name="ReadLess" xml:space="preserve">
+    <value>ler menos</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>ler mais</value>
+  </data>
+  <data name="CompanyData" xml:space="preserve">
+    <value>Dados da Empresa</value>
+  </data>
+  <data name="Contacts" xml:space="preserve">
+    <value>Contactos</value>
+  </data>
+  <data name="Payments" xml:space="preserve">
+    <value>Pagamentos</value>
+  </data>
+  <data name="BusinessName" xml:space="preserve">
+    <value>Denominação comercial</value>
+  </data>
+  <data name="IBAN" xml:space="preserve">
+    <value>IBAN</value>
+  </data>
 </root>

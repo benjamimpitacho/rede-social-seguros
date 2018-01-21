@@ -4,6 +4,8 @@
 @Html.HiddenFor(m => m.Items)
 @Html.HiddenFor(m => m.Profile)
 
+<script type="text/javascript" src="~/Scripts/jquery.expander.js"></script>
+
 <div>
     @foreach (PostDTO post in Model.Items)
     {
@@ -95,15 +97,13 @@
 
             </div>
 
-            <div class="post-description">
+            <div class="post-description" style="word-break:normal; text-align:justify;">
 
-                <p style="word-break: break-all;">
-                    @if (post.PostType.Token == InsuranceSocialNetworkCore.Enums.PostTypeEnum.FILE_POST.ToString())
-                    {
+                @if (post.PostType.Token == InsuranceSocialNetworkCore.Enums.PostTypeEnum.FILE_POST.ToString())
+                {
                     <a href="@Url.Action("Download", "Home", new { id = post.ID })"><i class="fa fa-file-text-o" aria-hidden="true" style="font-size:30px;padding-left: 15px;padding-right:10px;"></i></a>
-                    }
-                    @post.Text
-                </p>
+                }
+                @post.Text
 
             </div>
 
@@ -268,7 +268,15 @@
 </ul>
 
 <script type="text/javascript">
-    $(function() {
+    
+    $(function () {
+
+        $('.post-description').expander({
+            slicePoint: 500,
+            expandText: '@Resources.Resources.ReadMore',
+            userCollapseText: '@Resources.Resources.ReadLess'
+        });
+
         $(".commentForm").on("submit", function(e) {
             e.preventDefault();  //prevent form from submitting
 

@@ -40,7 +40,7 @@
         width:100%;
         display: inline-flex;
         font-size:9px;
-        padding: 20px 0px;
+        padding: 10px 0px;
         border-top: solid 0.5px lightgrey;
     }
 
@@ -143,24 +143,32 @@
                     }
                 </div>
                 <div class="search-result-contacts">
-                    <div style="width:45%;display:inline-flex;">
+                    <div style="width:33%;display:inline-flex;">
                         <img class="search-result-icon" src="~/Content/icons/141.png" />
                         <div style="padding-left: 5px;padding-top: 4px;">@item.Address</div>
                     </div>
-                    <div style="width:25%;display:inline-flex;">
+                    <div style="width:24%;display:inline-flex;">
                         <img class="search-result-icon" src="~/Content/icons/142.png" />
-                        <div style="padding-left: 5px;padding-top: 4px;">
+                        <div style="padding-left: 4px;padding-top: 4px;">
                             <div>@item.Telephone_1</div>
                             <div>@item.Telephone_2</div>
                             <div>@item.MobilePhone_1</div>
                             <div>@item.MobilePhone_2</div>
                         </div>
                     </div>
-                    <div style="width:25%;display:inline-flex;">
+                    <div style="width:23%;display:inline-flex;">
                         <img class="search-result-icon" src="~/Content/icons/143.png" />
-                        <div style="padding-left: 5px;padding-top:4px;">@item.NIF</div>
+                        <div style="padding-left: 4px;padding-top:4px;">@item.NIF</div>
                     </div>
-                    <div>
+                    <div style="width:10%;">
+                        @if (!string.IsNullOrEmpty(item.ContactEmail))
+                        {
+                            <a href="mailto:@item.ContactEmail" target="_top">
+                                <img class="search-result-icon" src="~/Content/icons/144.png" />
+                            </a>
+                        }
+                    </div>
+                    <div style="width:10%;">
                         @if (!string.IsNullOrEmpty(item.Website))
                         {
                             <a href="@Url.Content(item.Website)" target="_blank">
