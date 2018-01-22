@@ -368,16 +368,6 @@ a {
   /*background: rgba(0, 0, 0, 0.3);*/
 }
 
-.forgot-password-link {
-    padding-left: 70px;
-    margin-bottom: 0px;
-}
-
-.forgot-password-link a{
-  color: darkgrey;
-  font-size: 12px !important;
-}
-
 .welcome-full {
   width: 100%;
 }
@@ -2857,10 +2847,6 @@ a:hover, a:active, a:focus {
 
     .welcome-inner{
         margin-top:10px;
-    }
-
-    .form-group {
-        margin-bottom: 0px;
     }
 }
 

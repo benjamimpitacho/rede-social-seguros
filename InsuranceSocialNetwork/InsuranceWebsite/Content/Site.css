@@ -29,3 +29,73 @@ textarea {
     text-align: center;
     position: absolute;
 }
+
+
+/*
+    Login CSS
+*/
+
+.form-group {
+    margin-bottom: 0px !important;
+}
+
+.login-box {
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-bottom: 0px;
+}
+
+.login-box-elements {
+    padding: 5px;
+}
+
+.login-box-elements.light {
+    background-color: #F1F2F3;
+}
+
+.login-box-elements.dark {
+    background-color: #E2E5E7;
+}
+
+.login-box-input {
+    border: 0px !important;
+    background-color: transparent !important;
+    color: #0B7D85 !important;
+}
+
+.login-button {
+    float: none !important;
+    background-color: #00C1DE !important;
+    color: #fff !important;
+    font-weight: bold;
+    border: none !important;
+    width: 100% !important;
+    height: 50px;
+    font-size: 14px;
+}
+
+.forgot-password-link {
+    text-align: center;
+    margin-bottom: 0px;
+}
+
+.forgot-password-link a {
+    color: #0B7D85;
+    font-size: 10px !important;
+}
+
+input::-webkit-input-placeholder {
+    color: #0B7D85 !important;
+}
+
+input:-moz-placeholder { /* Firefox 18- */
+    color: #0B7D85 !important;
+}
+
+input::-moz-placeholder { /* Firefox 19+ */
+    color: #0B7D85 !important;
+}
+
+input:-ms-input-placeholder {
+    color: #0B7D85 !important;
+}

@@ -17,30 +17,31 @@
 
         <div class="widget-body">
 
-            <div class="row" style="margin-left: 15px;padding-top:0px">
+            <div class="row" style="margin-left: 15px; padding-top:0px; margin-bottom: 8px;">
 
                 @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                 {
                     @Html.AntiForgeryToken()
 
-                    <div class="form-group">
+                    <div class="form-group" style="margin-bottom: 35px !important;">
                         <img src="~/Content/logos/logotipo_falar_seguros.png" style="padding: 30px 50px;" />
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group login-box">
                         @*@Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })*@
                         
-                        <div class="col-md-12">
-                            <span class="glyphicon glyphicon-user"></span>
-                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = Resources.Resources.Email, @id = "short" })
+                        <div class="col-md-12 login-box-elements light">
+                            @*<span class="glyphicon glyphicon-user"></span>*@
+                            <img src="~/Content/icons/1.png" style="width:40px; height:40px;" />
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control login-box-input", @placeholder = Resources.Resources.Email, @id = "short" })
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group login-box">
                         @*@Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })*@
                         
-                        <div class="col-md-12">
-                            <span class="glyphicon glyphicon-lock"></span>
-                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = Resources.Resources.Password, @id = "short" })
+                        <div class="col-md-12 login-box-elements dark">
+                            <img src="~/Content/icons/12.png" style="width:40px; height:40px;" />
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control login-box-input", @placeholder = Resources.Resources.Password, @id = "short" })
                         </div>
                     </div>
 
@@ -50,22 +51,20 @@
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        <div class="col-md-12" style="text-align:center;">
+                            @Html.ActionLink(Resources.Resources.Register, "Register", "Account", new { @class = "", style= "font-weight: bold;color:#00C1DE;" })
+                        </div>
+                    </div>
+
                     <div class="form-group forgot-password-link">
 
                         <a href="@Url.Action("ForgotPassword", "Account")">@Resources.Resources.ForgotYourPassword</a><br>
 
                     </div>
 
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10" style="margin-left: 0px; padding-left: 70px;">
-                            @Html.ActionLink(Resources.Resources.Register.ToUpper(), "Register", "Account", new { @class = "" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10" style="margin-left: 0px">
-                            <input type="submit" value="@Resources.Resources.Login" class="btn btn-info" />
-                        </div>
+                    <div class="form-group login-box" style="text-align: center;">
+                        <input type="submit" value="@Resources.Resources.Login" class="btn btn-info login-button" />
                     </div>
                 }
 
@@ -90,10 +89,6 @@
 </script>
 
 <style type="text/css">
-
-.form-group {
-    margin-bottom: 10px;
-}
 
 .glyphicon {
     /*color: #00C1DE;
