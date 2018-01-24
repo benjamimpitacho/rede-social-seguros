@@ -801,4 +801,10 @@
   <data name="IBAN" xml:space="preserve">
     <value>IBAN</value>
   </data>
+  <data name="EnterYourEmailToRecoverAccount" xml:space="preserve">
+    <value>Insira e-mail para recuperar a sua conta</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Enviar</value>
+  </data>
 </root>

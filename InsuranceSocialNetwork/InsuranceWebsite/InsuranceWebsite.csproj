@@ -295,7 +295,6 @@
     <Content Include="Content\Facebook\css\MebYOZ-gq9c.css" />
     <Content Include="Content\Facebook\css\n_s5vQ0E5ir.css" />
     <Content Include="Content\Facebook\css\tigqm6m_uPB.css" />
-    <Content Include="Content\icons\1.png" />
     <Content Include="Content\icons\110.png" />
     <Content Include="Content\icons\111.png" />
     <Content Include="Content\icons\112.png" />
@@ -306,7 +305,6 @@
     <Content Include="Content\icons\117.png" />
     <Content Include="Content\icons\118.png" />
     <Content Include="Content\icons\119.png" />
-    <Content Include="Content\icons\12.png" />
     <Content Include="Content\icons\120.png" />
     <Content Include="Content\icons\121.png" />
     <Content Include="Content\icons\122.png" />
@@ -349,9 +347,14 @@
     <Content Include="Content\icons\17.png" />
     <Content Include="Content\icons\18.png" />
     <Content Include="Content\icons\19.png" />
+    <Content Include="Content\icons\business_user.png" />
     <Content Include="Content\icons\car-with-wrench.svg" />
     <Content Include="Content\icons\doctor-stethoscope.svg" />
+    <Content Include="Content\icons\envelope.png" />
+    <Content Include="Content\icons\locker.png" />
+    <Content Include="Content\icons\target.png" />
     <Content Include="Content\icons\telephone.svg" />
+    <Content Include="Content\icons\user.png" />
     <Content Include="Content\icons\washing-machine.svg" />
     <Content Include="Content\icons\wheelbarrow.svg" />
     <Content Include="Content\images-grid.css" />

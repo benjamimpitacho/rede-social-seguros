@@ -176,7 +176,8 @@ namespace InsuranceWebsite.Controllers
             //ViewBag.UserRole = rolesList;
 
             RegisterViewModel model = new RegisterViewModel();
-            model.UserRoles = InsuranceBusiness.BusinessLayer.GetRegisterRoles().Select(i => new SelectListItem() { Value = i.Id, Text = i.Name }).ToList();
+
+            model.UserRoles = InsuranceBusiness.BusinessLayer.GetRegisterRoles().Select(i => new SelectListItem() { Value = i.Id, Text = Resources.Resources.ResourceManager.GetString(i.Name) }).ToList();
 
             return View(model);
         }

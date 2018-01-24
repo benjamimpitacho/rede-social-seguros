@@ -772,6 +772,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Insira e-mail para recuperar a sua conta.
+        /// </summary>
+        public static string EnterYourEmailToRecoverAccount {
+            get {
+                return ResourceManager.GetString("EnterYourEmailToRecoverAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exportar.
         /// </summary>
         public static string Export {
@@ -1785,6 +1794,15 @@ namespace Resources {
         public static string SelectService {
             get {
                 return ResourceManager.GetString("SelectService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enviar.
+        /// </summary>
+        public static string Send {
+            get {
+                return ResourceManager.GetString("Send", resourceCulture);
             }
         }
         

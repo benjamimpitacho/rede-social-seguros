@@ -60,7 +60,18 @@ textarea {
 .login-box-input {
     border: 0px !important;
     background-color: transparent !important;
-    color: #0B7D85 !important;
+    color: #6F7D85 !important;
+}
+
+.login-select-input {
+    border: 0px !important;
+    background-color: transparent !important;
+    color: #6F7D85 !important;
+    padding-left: 13px !important;
+}
+
+.login-link-control {
+    padding: 15px 0px;
 }
 
 .login-button {
@@ -80,16 +91,16 @@ textarea {
 }
 
 .forgot-password-link a {
-    color: #0B7D85;
+    color: #6F7D85;
     font-size: 10px !important;
 }
 
 input::-webkit-input-placeholder {
-    color: #0B7D85 !important;
+    color: #6F7D85 !important;
 }
 
 input:-moz-placeholder { /* Firefox 18- */
-    color: #0B7D85 !important;
+    color: #6F7D85 !important;
 }
 
 input::-moz-placeholder { /* Firefox 19+ */
