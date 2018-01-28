@@ -2113,7 +2113,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to O que pretende publicar hoje?.
+        ///   Looks up a localized string similar to Partilhe um artigo, foto, link ou ideia....
         /// </summary>
         public static string WhatsInYourMindToday {
             get {

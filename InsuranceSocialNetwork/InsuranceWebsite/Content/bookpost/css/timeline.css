@@ -34,8 +34,8 @@ a {
 
 .mini-avatar
 {
-    max-height: 80px;
-    max-width: 80px;
+    max-height: 55px;
+    max-width: 55px;
     width: 100%;
     /*height: 100%;*/
 }
@@ -547,7 +547,8 @@ a {
     box-shadow: none;
     color: #c3c3c3;
     font-size: 14px;
-    resize:vertical ;
+    resize:vertical;
+    padding: 15px 20px;
 }
 
 /*======================== Timeline post ====================*/
@@ -1397,6 +1398,7 @@ div.about-tab div.about-tab-content:not(.active){
     box-shadow: none;
     color: #c3c3c3;
     font-size: 16px;
+    min-height: 49px;
 }
 
 .bio-graph-heading {
@@ -2179,7 +2181,9 @@ h4, .h4 {
     -moz-border-radius: 3px;
     -moz-background-clip: padding;
     border-radius: 0px;
-    background-clip: padding-box
+    background-clip: padding-box;
+    box-shadow: none;
+    border: none !important;
 }
 
 .btn:hover {
@@ -2206,7 +2210,10 @@ h4, .h4 {
     font-weight: bold;
 }
 
-
+.icon-normal{
+    max-width: 26px;
+    max-height: 26px;
+}
 
 /*======== user detail ===========================*/
 .decor-default {
@@ -2725,6 +2732,7 @@ a:hover, a:active, a:focus {
 .bannerPanel img {
   position:absolute;
   left:0;
+  width: 100%;
   /*-webkit-transition: opacity 1s ease-in-out;
   -moz-transition: opacity 1s ease-in-out;
   -o-transition: opacity 1s ease-in-out;
@@ -2735,63 +2743,53 @@ a:hover, a:active, a:focus {
     text-align:center;
 }
 
-.ui-accordion-header-collapsed .img-garages
-{
-    background-image: url(../../../Content/icons/114.png);
+.ui-accordion-header-collapsed .img-garages {
+    background-image: url(../../../Content/icons/home_page_rede_social_falar_seguros_AF134.png);
     background-size: 50px;
 }
 
-.ui-accordion-header-active .img-garages
-{
-    background-image: url(../../../Content/icons/115.png);
+.ui-accordion-header-active .img-garages {
+    background-image: url(../../../Content/icons/home_page_rede_social_falar_seguros_AF136.png);
     background-size: 50px;
 }
 
-.ui-accordion-header-collapsed .img-clinics
-{
-    background-image: url(../../../Content/icons/116.png);
+.ui-accordion-header-collapsed .img-clinics {
+    background-image: url(../../../Content/icons/home_page_rede_social_falar_seguros_AF137.png);
     background-size: 50px;
 }
 
-.ui-accordion-header-active .img-clinics
-{
-    background-image: url(../../../Content/icons/117.png);
+.ui-accordion-header-active .img-clinics {
+    background-image: url(../../../Content/icons/home_page_rede_social_falar_seguros_AF139.png);
     background-size: 50px;
 }
 
-.ui-accordion-header-collapsed .img-constructioncompanies
-{
-    background-image: url(../../../Content/icons/118.png);
+.ui-accordion-header-collapsed .img-constructioncompanies {
+    background-image: url(../../../Content/icons/home_page_rede_social_falar_seguros_AF140.png);
     background-size: 50px;
 }
 
-.ui-accordion-header-active .img-constructioncompanies
-{
-    background-image: url(../../../Content/icons/119.png);
+.ui-accordion-header-active .img-constructioncompanies {
+    background-image: url(../../../Content/icons/home_page_rede_social_falar_seguros_AF142.png);
     background-size: 50px;
 }
 
-.ui-accordion-header-collapsed .img-homeappliances
-{
-    background-image: url(../../../Content/icons/120.png);
+.ui-accordion-header-collapsed .img-homeappliances {
+    background-image: url(../../../Content/icons/home_page_rede_social_falar_seguros_AF143.png);
     background-size: 50px;
 }
 
-.ui-accordion-header-active .img-homeappliances
-{
-    background-image: url(../../../Content/icons/121.png);
+.ui-accordion-header-active .img-homeappliances {
+    background-image: url(../../../Content/icons/home_page_rede_social_falar_seguros_AF145.png);
     background-size: 50px;
 }
 
-.ui-accordion-header-collapsed .img-insurancecontacts
-{
-    background-image: url(../../../Content/icons/122.png);
+.ui-accordion-header-collapsed .img-insurancecontacts {
+    background-image: url(../../../Content/icons/home_page_rede_social_falar_seguros_AF146.png);
     background-size: 50px;
 }
 
-.ui-accordion-header-active .img-insurancecontacts
-{
-    background-image: url(../../../Content/icons/123.png);
+.ui-accordion-header-active .img-insurancecontacts {
+    background-image: url(../../../Content/icons/home_page_rede_social_falar_seguros_AF148.png);
     background-size: 50px;
 }
 
