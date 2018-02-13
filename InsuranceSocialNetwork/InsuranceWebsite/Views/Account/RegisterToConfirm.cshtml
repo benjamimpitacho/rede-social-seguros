@@ -5,54 +5,39 @@
 }
 
 @{
-    Layout = "~/Views/Shared/_RegisterConfirmationLayout.cshtml";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
 }
 
+<div class="welcome-inputs">
 
-<!-- register and login form-->
+    <div class="widget panel-inputs panel-home animated fadeInUp">
 
-<table class="table-row" width="100%" bgcolor="transparent" style="table-layout: fixed; background-color: #ffffff;" cellspacing="0" cellpadding="0" border="0">
-    <tbody>
-        <tr>
-            <td class="table-row-td" style="font-family: Arial, sans-serif; line-height: 19px; color: #444444; font-size: 13px; font-weight: normal; padding-left: 24px; padding-right: 24px;" valign="top" align="left">
-                <table class="table-col" align="left" width="100%" cellspacing="0" cellpadding="0" border="0" style="table-layout: fixed;">
-                    <tbody>
-                        <tr>
-                            <td class="table-col-td" width="100%" style="font-family: Arial, sans-serif; line-height: 19px; color: #444444; font-size: 13px; font-weight: normal;" valign="top" align="left">
-                                <div style="font-family: Arial, sans-serif; line-height: 19px; color: #444444; font-size: 13px; text-align: center;">
-                                    <img src="img/email_text.png" style="border: 0px none #444444; vertical-align: middle; display: block; padding-bottom: 9px;" hspace="0" vspace="0" border="0">
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </td>
-        </tr>
-    </tbody>
-</table>
+        <div class="widget-body">
 
-<table class="table-row" width="100%" bgcolor="transparent" style="table-layout: fixed; background-color: #ffffff; @*max-width: 580px;*@" cellspacing="0" cellpadding="0" border="0">
-    <tbody>
-        <tr>
-            <td class="table-row-td" style="font-family: Arial, sans-serif; line-height: 19px; color: #444444; font-size: 13px; font-weight: normal; padding-left: 36px; padding-right: 36px; padding-bottom: 20px;" valign="top" align="left">
-                <table class="table-col" align="left" width="100%" cellspacing="0" cellpadding="0" border="0" style="table-layout: fixed;">
-                    <tbody>
-                        <tr>
-                            <td class="table-col-td" width="100%" style="font-family: Arial, sans-serif; line-height: 19px; color: #444444; font-size: 13px; font-weight: normal;" valign="top" align="left">
-                                <table class="header-row" width="100%" cellspacing="0" cellpadding="0" border="0" style="table-layout: fixed;">
-                                    <tbody>
-                                        <tr>
-                                            <td class="header-row-td" width="100%" style="font-size: 28px; margin: 0px; font-family: Arial, sans-serif; font-weight: normal; line-height: 19px; color: #478fca; padding-bottom: 10px; padding-top: 15px;" valign="top" align="left">@Resources.Resources.Hello, @Model.Name</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <div style="font-family: Arial, sans-serif; line-height: 19px; color: #444444; font-size: 13px;">@Resources.Resources.ThanksForRegister @Resources.Resources.CheckYourEmailToGetAccess</div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </td>
-        </tr>
-    </tbody>
-</table>
+            <div class="row" style="padding-top:0px; margin-bottom: 8px; color:#4B5C66; font-size:13px; font-weight:bold;">
 
+                <div class="form-group" style="margin-bottom: 35px !important;">
+                    <a href="@Url.Action("Index", "Home")" title="@Resources.Resources.Home"><img src="~/Content/logos/logotipo_falar_seguros.png" style="padding: 30px 50px;" /></a>
+                </div>
+
+                <div style="background-color:#eee; margin:0px 25px; height: 4px;"></div>
+
+                <div style="padding: 45px 30px;">
+                    <div style="text-align:center;">
+                        <span style="color:#00C1DE; display:block; font-size: 14px;">@Resources.Resources.Hello, @Model.Name</span>
+                        <span>@Resources.Resources.ThanksForRegister</span>
+                    </div>
+                    <div style="text-align:center; padding-top: 20px;">
+                        <span>@Resources.Resources.CheckYourEmailToGetAccess</span>
+                    </div>
+                </div>
+
+                <div style="background-color:#eee; margin:0px 25px; height: 4px;"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

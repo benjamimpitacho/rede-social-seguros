@@ -154,7 +154,7 @@
     <value>Feed</value>
   </data>
   <data name="ForgotYourPassword" xml:space="preserve">
-    <value>Esqueceste-te da tua conta?</value>
+    <value>Esqueceu-se da sua palavra-passe</value>
   </data>
   <data name="Home" xml:space="preserve">
     <value>Home</value>
@@ -235,7 +235,7 @@
     <value>Termos de Utilização</value>
   </data>
   <data name="ThanksForRegister" xml:space="preserve">
-    <value>Obrigado pelo seu registo no portal Falar Seguros.</value>
+    <value>Obrigado pelo seu registo.</value>
   </data>
   <data name="UploadedPhoto" xml:space="preserve">
     <value>publicou uma foto</value>
@@ -809,5 +809,8 @@
   </data>
   <data name="TermsAndConditions" xml:space="preserve">
     <value>Termos &amp; Condições</value>
+  </data>
+  <data name="CheckYourEmailToResetPassword" xml:space="preserve">
+    <value>Por favor verifique o seu email para redefinir a sua senha.</value>
   </data>
 </root>
