@@ -426,6 +426,7 @@
     <Content Include="Content\logos\azul_simbolo_falar_seguros.png" />
     <Content Include="Content\logos\cinza_simbolo_falar_seguros.png" />
     <Content Include="Content\logos\logotipo_falar_seguros.png" />
+    <Content Include="Content\logos\logo_termos_condicoes_login_rede_social_falar_seguros_AF.png" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -642,7 +643,6 @@
     <Content Include="Views\CompaniesManagement\Edit.cshtml" />
     <Content Include="Views\Home\SystemManagement.cshtml" />
     <Content Include="Views\Home\CookieUsagePolicy.cshtml" />
-    <Content Include="Views\Home\DataPolicy.cshtml" />
     <Content Include="Views\Home\ApsPage.cshtml" />
     <Content Include="Views\Home\AprosePage.cshtml" />
     <Content Include="Views\Home\AsfPage.cshtml" />

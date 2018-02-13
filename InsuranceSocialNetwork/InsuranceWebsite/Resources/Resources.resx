@@ -807,4 +807,7 @@
   <data name="Send" xml:space="preserve">
     <value>Enviar</value>
   </data>
+  <data name="TermsAndConditions" xml:space="preserve">
+    <value>Termos &amp; Condições</value>
+  </data>
 </root>

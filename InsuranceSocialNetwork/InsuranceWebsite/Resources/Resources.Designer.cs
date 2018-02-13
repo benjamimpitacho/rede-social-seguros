@@ -1960,6 +1960,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Termos &amp; Condições.
+        /// </summary>
+        public static string TermsAndConditions {
+            get {
+                return ResourceManager.GetString("TermsAndConditions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Termos de Utilização.
         /// </summary>
         public static string TermsOfUse {

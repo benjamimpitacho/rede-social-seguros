@@ -137,13 +137,13 @@ namespace InsuranceWebsite.Controllers
             return View();
         }
 
-        [AllowAnonymous]
-        public ActionResult PrivacyPolicy()
-        {
-            ViewBag.Message = "Your Privacy Policy page.";
+        //[AllowAnonymous]
+        //public ActionResult PrivacyPolicy()
+        //{
+        //    ViewBag.Message = "Your Privacy Policy page.";
 
-            return View();
-        }
+        //    return View();
+        //}
 
         [AllowAnonymous]
         public ActionResult TermsConditions()
@@ -162,9 +162,9 @@ namespace InsuranceWebsite.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult DataPolicy()
+        public ActionResult PrivacyPolicy()
         {
-            ViewBag.Message = "Your Data Policy page.";
+            ViewBag.Message = "Your Privacy Policy page.";
 
             return View();
         }
