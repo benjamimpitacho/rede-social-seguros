@@ -453,6 +453,11 @@ namespace InsuranceSocialNetworkBusiness
             return NotificationRepository.MarkNotificationAsRead(id);
         }
 
+        public bool MarkAllNotificationsAsRead(string id)
+        {
+            return NotificationRepository.MarkNotificationsAsRead(id);
+        }
+
         #endregion Notifications
 
         #region Posts

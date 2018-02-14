@@ -69,5 +69,31 @@ namespace InsuranceSocialNetworkDAL
                 return true;
             }
         }
+
+        public static bool MarkNotificationsAsRead(string id)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                //IQueryable<Notification> query = context.Notification
+                List<Notification> items = context.Notification
+                    .Fetch()
+                    .Where(i => i.ToUserID == id && !i.Read)
+                    .ToList();
+
+                if (null == items || items.Count == 0)
+                    return false;
+
+                foreach(Notification item in items)
+                {
+                    item.Read = true;
+                    item.ReadDate = DateTime.Now;
+                    context.Notification.Update(item);
+                }
+                
+                context.Save();
+
+                return true;
+            }
+        }
     }
 }

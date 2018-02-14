@@ -21,7 +21,7 @@ footer {
 }
 
 a {
-    color: #4B5C66;
+    color: #6F7D85;
 }
 
 .avatar
@@ -556,7 +556,7 @@ a {
   border: 1px solid #dddddd;
 }
 .post, .panel{
-  box-shadow: 0 1px 7px rgba(0, 0, 0, 0.14);
+  /*box-shadow: 0 1px 7px rgba(0, 0, 0, 0.14);*/
   border-radius: 0px;
 }
 .panel-white  .panel-heading {
@@ -598,7 +598,7 @@ a {
 }
 .post .post-heading .meta .time {
   margin-top: 6px;
-  color: #999;
+  color: #939DA3;
   font-size: 10px;
   font-weight: 600;
   /*text-transform: uppercase;*/

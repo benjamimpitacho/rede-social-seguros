@@ -283,6 +283,23 @@ namespace InsuranceWebsite.Controllers
         }
 
         [FunctionalityAutorizeAttribute("NOTIFICATIONS_FUNCTIONALITY")]
+        public async Task<ActionResult> MarkAllNotificationsAsRead(string id)
+        {
+            try
+            {
+                InsuranceBusiness.BusinessLayer.MarkAllNotificationsAsRead(id);
+
+                return Redirect("../Notifications");
+
+                //return View("Partial/NotificationsControl", model);
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        [FunctionalityAutorizeAttribute("NOTIFICATIONS_FUNCTIONALITY")]
         public ActionResult LoadNotifications()
         {
             try

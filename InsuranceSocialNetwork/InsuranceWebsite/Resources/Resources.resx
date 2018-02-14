@@ -813,4 +813,19 @@
   <data name="CheckYourEmailToResetPassword" xml:space="preserve">
     <value>Por favor verifique o seu email para redefinir a sua senha.</value>
   </data>
+  <data name="NewPublishedContentOnCurrentDiscussions" xml:space="preserve">
+    <value>Foi publicado um novo conteúdo nos temas </value>
+  </data>
+  <data name="NewPublishedContentOnAPROSE" xml:space="preserve">
+    <value>Foi publicado um novo conteúdo na </value>
+  </data>
+  <data name="NewPublishedContentOnAPS" xml:space="preserve">
+    <value>Foi publicado um novo conteúdo na </value>
+  </data>
+  <data name="NewPublishedContentOnASF" xml:space="preserve">
+    <value>Foi publicado um novo conteúdo na </value>
+  </data>
+  <data name="MarkAllAsRead" xml:space="preserve">
+    <value>Marcar todas como lidas</value>
+  </data>
 </root>

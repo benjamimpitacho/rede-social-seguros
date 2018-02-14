@@ -10,329 +10,348 @@
 
 <style>
     .unread {
-        background-color: aliceblue;
+        background-color: #E5EEF5;
+    }
+    .read {
+        background-color: #F6F7F7;
     }
 </style>
 
+@*<div class="panel panel-white post panel-shadow animated fadeInUp" style="margin-bottom:2px;" id="wrapper">
+    <div id="c1">con1</div>
+    <div id="c2">con2</div>
+</div>*@
 
-@foreach (NotificationDTO notification in Model.Items)
-{
-    switch (notification.NotificationType.Token)
+<div class="panel panel-white post panel-shadow animated fadeInUp" style="margin-bottom:2px;">
+    <div class="post-heading">
+        <div class="pull-left image">
+            <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF113.png" class="avatar img-circle" style="border:none;">
+        </div>
+        
+            <div class="title h4" style="border:0px;background-color:inherit; font-weight:bold; font-size: 17px; overflow: auto; padding-top: 3px;">
+                <div style="float:left">@Resources.Resources.Notifications</div>
+                <div style="float:right">
+                    <a href="@Url.Action("MarkAllNotificationsAsRead", "Home", new { id = Model.Profile.ID_User })" style="color:#00C1DE; font-size:13px; ">@Resources.Resources.MarkAllAsRead</a>
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+    @foreach (NotificationDTO notification in Model.Items)
     {
-        case "COMPLETE_PROFILE_INFO":
-            <a href="#" onclick="location.href='@Url.Action("ProfileEdit", "Home", new { id = notification.ToUserID, ntId = notification.ID })'">
-                <div class="panel panel-white post panel-shadow animated fadeInUp" style="margin-bottom:2px;">
-                    <div class="@("post-heading " + (notification.Read ? "" : "unread"))">
-                        <div class="pull-left image">
-                            @if (null == Model.Profile.ProfilePhoto || Model.Profile.ProfilePhoto.Length == 0)
+        switch (notification.NotificationType.Token)
+        {
+            case "COMPLETE_PROFILE_INFO":
+                <a href="#" onclick="location.href='@Url.Action("ProfileEdit", "Home", new { id = notification.ToUserID, ntId = notification.ID })'">
+                    <div class="panel panel-white post panel-shadow animated fadeInUp" style="margin-bottom:2px;">
+                        <div class="@("post-heading " + (notification.Read ? "read" : "unread"))">
+                            <div class="pull-left image">
+                                @if (null == Model.Profile.ProfilePhoto || Model.Profile.ProfilePhoto.Length == 0)
                         {
-                                <img src="~/Content/images/no_photo_img.jpg" class="avatar img-circle">
-                            }
-                            else
-                            {
-                                <img src="@imgSrc" class="avatar img-circle">
-                            }
-                        </div>
-                        <div class="pull-left meta">
-                            <div class="title h5" style="border:0px;background-color:inherit">
-                                @*You need to complete your <a href="#">Profile</a>*@
-                                @Resources.Resources.YouNeedCompleteYourProfile
+                                    <img src="~/Content/images/no_photo_img.jpg" class="avatar img-circle">
+                                }
+                                else
+                                {
+                                    <img src="@imgSrc" class="avatar img-circle">
+                                }
                             </div>
-                            @if (DateTime.Now.Subtract(notification.CreateDate).TotalMinutes < 1)
-                            {
-                                <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalSeconds, 0) @Resources.Resources.SecondsAgo</h6>
-                            }
-                            else if (DateTime.Now.Subtract(notification.CreateDate).TotalHours < 2)
-                            {
-                                <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalMinutes, 0) @Resources.Resources.MinutesAgo</h6>
-                            }
-                            else if (DateTime.Now.Subtract(notification.CreateDate).TotalDays < 1)
-                            {
-                                <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalHours, 0) @Resources.Resources.HoursAgo</h6>
-                            }
-                            else if (DateTime.Now.Subtract(notification.CreateDate).TotalDays == 1)
-                            {
-                                <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalDays, 0) @Resources.Resources.DayAgo</h6>
-                            }
-                            else if (DateTime.Now.Subtract(notification.CreateDate).TotalDays < 3)
-                            {
-                                <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalDays, 0) @Resources.Resources.DaysAgo</h6>
-                            }
-                            else
-                            {
-                                <h6 class="text-muted time">@notification.CreateDate.ToShortDateString()</h6>
-                            }
+                            <div class="pull-left meta">
+                                <div class="title h5" style="border:0px;background-color:inherit">
+                                    @*You need to complete your <a href="#">Profile</a>*@
+                                    @Resources.Resources.YouNeedCompleteYourProfile
+                                </div>
+                                @if (DateTime.Now.Subtract(notification.CreateDate).TotalMinutes < 1)
+                                {
+                                    <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalSeconds, 0) @Resources.Resources.SecondsAgo</h6>
+                                }
+                                else if (DateTime.Now.Subtract(notification.CreateDate).TotalHours < 2)
+                                {
+                                    <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalMinutes, 0) @Resources.Resources.MinutesAgo</h6>
+                                }
+                                else if (DateTime.Now.Subtract(notification.CreateDate).TotalDays < 1)
+                                {
+                                    <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalHours, 0) @Resources.Resources.HoursAgo</h6>
+                                }
+                                else if (DateTime.Now.Subtract(notification.CreateDate).TotalDays == 1)
+                                {
+                                    <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalDays, 0) @Resources.Resources.DayAgo</h6>
+                                }
+                                else if (DateTime.Now.Subtract(notification.CreateDate).TotalDays < 3)
+                                {
+                                    <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalDays, 0) @Resources.Resources.DaysAgo</h6>
+                                }
+                                else
+                                {
+                                    <h6 class="text-muted time">@notification.CreateDate.ToShortDateString()</h6>
+                                }
+                            </div>
                         </div>
                     </div>
-                </div>
-            </a>
-            break;
-        case "NEW_POST_LIKE":
-            <a href="#" onclick="location.href='@Url.Action("PostDetail", "Home", new { idPost = notification.ID_Post, idNotification = notification.ID })'">
-                <div class="panel panel-white post panel-shadow animated fadeInUp" style="margin-bottom:2px;">
-                    <div class="@("post-heading " + (notification.Read ? "" : "unread"))">
-                        <div class="pull-left image">
-                            @if (null == Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID)
-                        || null == Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value
-                        || Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value is DBNull
-                        || ((byte[])Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value).Length == 0)
-                            {
-                                <img src="~/Content/images/no_photo_img.jpg" class="avatar img-circle">
-                            }
-                            else
-                            {
-                                <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String((byte[])Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value))" class="avatar img-circle">
-                            }
-                        </div>
-                        <div class="pull-left meta">
-                            <div class="title h5" style="border:0px;background-color:inherit">
-                                @*<a href="#" class="post-user-name">*@@Model.UsersNames.FirstOrDefault(i => i.Key == notification.FromUserID).Value@*</a>*@
-                                @*liked your <a href="#">Post</a>*@
-                                @Resources.Resources.LikedYourPost
-                            </div>
-                            @if (DateTime.Now.Subtract(notification.CreateDate).TotalMinutes < 1)
-                        {
-                                <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalSeconds, 0) @Resources.Resources.SecondsAgo</h6>
-                            }
-                            else if (DateTime.Now.Subtract(notification.CreateDate).TotalHours < 2)
-                            {
-                                <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalMinutes, 0) @Resources.Resources.MinutesAgo</h6>
-                            }
-                            else if (DateTime.Now.Subtract(notification.CreateDate).TotalDays < 1)
-                            {
-                                <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalHours, 0) @Resources.Resources.HoursAgo</h6>
-                            }
-                            else if (DateTime.Now.Subtract(notification.CreateDate).TotalDays == 1)
-                            {
-                                <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalDays, 0) @Resources.Resources.DayAgo</h6>
-                            }
-                            else if (DateTime.Now.Subtract(notification.CreateDate).TotalDays < 3)
-                            {
-                                <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalDays, 0) @Resources.Resources.DaysAgo</h6>
-                            }
-                            else
-                            {
-                                <h6 class="text-muted time">@notification.CreateDate.ToShortDateString()</h6>
-                            }
-                        </div>
-                    </div>
-                </div>
-            </a>
-            break;
-        case "NEW_POST_COMMENT":
-            <a href="#" onclick="location.href='@Url.Action("PostDetail", "Home", new { idPost = notification.ID_Post, idNotification = notification.ID })'">
-                <div class="panel panel-white post panel-shadow animated fadeInUp" style="margin-bottom:2px;">
-                    <div class="@("post-heading " + (notification.Read ? "" : "unread"))">
-                        <div class="pull-left image">
-                            @if (null == Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID)
-                        || null == Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value
-                        || Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value is DBNull
-                        || ((byte[])Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value).Length == 0)
-                            {
-                                <img src="~/Content/images/no_photo_img.jpg" class="avatar img-circle">
-                            }
-                            else
-                            {
-                                <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String((byte[])Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value))" class="avatar img-circle">
-                            }
-                        </div>
-                        <div class="pull-left meta">
-                            <div class="title h5" style="border:0px;background-color:inherit">
-                                @*<a href="#" class="post-user-name">*@@Model.UsersNames.FirstOrDefault(i => i.Key == notification.FromUserID).Value@*</a>*@
-                                @*commented your <a href="#">Post</a>*@
-                                @Resources.Resources.CommentedOnYourPost
-                            </div>
-                            @if (DateTime.Now.Subtract(notification.CreateDate).TotalMinutes < 1)
-                        {
-                                <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalSeconds, 0) @Resources.Resources.SecondsAgo</h6>
-                            }
-                            else if (DateTime.Now.Subtract(notification.CreateDate).TotalHours < 2)
-                            {
-                                <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalMinutes, 0) @Resources.Resources.MinutesAgo</h6>
-                            }
-                            else if (DateTime.Now.Subtract(notification.CreateDate).TotalDays < 1)
-                            {
-                                <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalHours, 0) @Resources.Resources.HoursAgo</h6>
-                            }
-                            else if (DateTime.Now.Subtract(notification.CreateDate).TotalDays == 1)
-                            {
-                                <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalDays, 0) @Resources.Resources.DayAgo</h6>
-                            }
-                            else if (DateTime.Now.Subtract(notification.CreateDate).TotalDays < 3)
-                            {
-                                <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalDays, 0) @Resources.Resources.DaysAgo</h6>
-                            }
-                            else
-                            {
-                                <h6 class="text-muted time">@notification.CreateDate.ToShortDateString()</h6>
-                            }
-                        </div>
-                    </div>
-                </div>
-            </a>
-            break;
-        case "NEW_MESSAGE_RECEIVED":
-            break;
-        case "FRIEND_REQUEST_RECEIVED":
-            <a href="#" onclick="location.href='@Url.Action("FriendRequest", "Home", new { id = notification.FromUserID, ntId = notification.ID })'">
-                <div class="panel panel-white post panel-shadow animated fadeInUp" style="margin-bottom:2px;">
-                    <div class="@("post-heading " + (notification.Read ? "" : "unread"))">
-                        <div class="pull-left image">
-                            @if (null == Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID)
+                </a>
+                break;
+            case "NEW_POST_LIKE":
+                <a href="#" onclick="location.href='@Url.Action("PostDetail", "Home", new { idPost = notification.ID_Post, idNotification = notification.ID })'">
+                    <div class="panel panel-white post panel-shadow animated fadeInUp" style="margin-bottom:2px;">
+                        <div class="@("post-heading " + (notification.Read ? "read" : "unread"))">
+                            <div class="pull-left image">
+                                @if (null == Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID)
                 || null == Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value
                 || Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value is DBNull
                 || ((byte[])Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value).Length == 0)
-                            {
-                                <img src="~/Content/images/no_photo_img.jpg" class="avatar img-circle">
-                            }
-                            else
-                            {
-                                <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String((byte[])Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value))" class="avatar img-circle">
-                            }
-                        </div>
-                        <div class="pull-left meta">
-                            <div class="title h5" style="border:0px;background-color:inherit">
-                                @*<a href="#" class="post-user-name">*@@Model.UsersNames.FirstOrDefault(i => i.Key == notification.FromUserID).Value@*</a>*@
-                                @Resources.Resources.SentYouFriendRequest
-                                @*sent you a <a href="#">Friend Request</a>*@
+                                {
+                                    <img src="~/Content/images/no_photo_img.jpg" class="avatar img-circle">
+                                }
+                                else
+                                {
+                                    <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String((byte[])Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value))" class="avatar img-circle">
+                                }
                             </div>
-                            @if (DateTime.Now.Subtract(notification.CreateDate).TotalMinutes < 1)
-                            {
-                                <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalSeconds, 0) @Resources.Resources.SecondsAgo</h6>
-                            }
-                            else if (DateTime.Now.Subtract(notification.CreateDate).TotalHours < 2)
-                            {
-                                <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalMinutes, 0) @Resources.Resources.MinutesAgo</h6>
-                            }
-                            else if (DateTime.Now.Subtract(notification.CreateDate).TotalDays < 1)
-                            {
-                                <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalHours, 0) @Resources.Resources.HoursAgo</h6>
-                            }
-                            else if (DateTime.Now.Subtract(notification.CreateDate).TotalDays == 1)
-                            {
-                                <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalDays, 0) @Resources.Resources.DayAgo</h6>
-                            }
-                            else if (DateTime.Now.Subtract(notification.CreateDate).TotalDays < 3)
-                            {
-                                <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalDays, 0) @Resources.Resources.DaysAgo</h6>
-                            }
-                            else
-                            {
-                                <h6 class="text-muted time">@notification.CreateDate.ToShortDateString()</h6>
-                            }
-                        </div>
-                    </div>
-                </div>
-            </a>
-            break;
-        case "FRIEND_REQUEST_ACCEPTED":
-            <a href="#" onclick="location.href='@Url.Action("ProfileInfo", "Home", new { id = InsuranceSocialNetworkBusiness.InsuranceBusiness.BusinessLayer.GetUserProfileIdFromId(notification.FromUserProfileID), idNotification=notification.ID })'">
-                <div class="panel panel-white post panel-shadow animated fadeInUp" style="margin-bottom:2px;">
-                    <div class="@("post-heading " + (notification.Read ? "" : "unread"))">
-                        <div class="pull-left image">
-                            @if (null == Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID)
-                        || null == Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value
-                        || Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value is DBNull
-                        || ((byte[])Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value).Length == 0)
-                            {
-                                <img src="~/Content/images/no_photo_img.jpg" class="avatar img-circle">
-                            }
-                            else
-                            {
-                                <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String((byte[])Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value))" class="avatar img-circle">
-                            }
-                        </div>
-                        <div class="pull-left meta">
-                            <div class="title h5" style="border:0px;background-color:inherit">
-                                @*<a href="#" class="post-user-name">*@@Model.UsersNames.FirstOrDefault(i => i.Key == notification.FromUserID).Value@*</a>*@
-                                @*accepted your <a href="#">Friend Request</a>*@
-                                @Resources.Resources.AcceptedYourFriendRequest
-                            </div>
-                            @if (DateTime.Now.Subtract(notification.CreateDate).TotalMinutes < 1)
+                            <div class="pull-left meta">
+                                <div class="title h5" style="border:0px;background-color:inherit">
+                                    <span style="font-weight:bold;">@Model.UsersNames.FirstOrDefault(i => i.Key == notification.FromUserID).Value</span>
+                                    @Resources.Resources.LikedYourPost
+                                </div>
+                                @if (DateTime.Now.Subtract(notification.CreateDate).TotalMinutes < 1)
                         {
-                                <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalSeconds, 0) @Resources.Resources.SecondsAgo</h6>
-                            }
-                            else if (DateTime.Now.Subtract(notification.CreateDate).TotalHours < 2)
-                            {
-                                <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalMinutes, 0) @Resources.Resources.MinutesAgo</h6>
-                            }
-                            else if (DateTime.Now.Subtract(notification.CreateDate).TotalDays < 1)
-                            {
-                                <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalHours, 0) @Resources.Resources.HoursAgo</h6>
-                            }
-                            else if (DateTime.Now.Subtract(notification.CreateDate).TotalDays == 1)
-                            {
-                                <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalDays, 0) @Resources.Resources.DayAgo</h6>
-                            }
-                            else if (DateTime.Now.Subtract(notification.CreateDate).TotalDays < 3)
-                            {
-                                <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalDays, 0) @Resources.Resources.DaysAgo</h6>
-                            }
-                            else
-                            {
-                                <h6 class="text-muted time">@notification.CreateDate.ToShortDateString()</h6>
-                            }
-                        </div>
-                    </div>
-                </div>
-            </a>
-            break;
-        case "NEW_CURRENT_DISCUSSION_POST":
-            <a href="#" onclick="location.href='@Url.Action("CurrentDiscussionDetails", "Home", new { id = notification.ID_Post, idNotification = notification.ID })'">
-                <div class="panel panel-white post panel-shadow animated fadeInUp" style="margin-bottom:2px;">
-                    <div class="@("post-heading " + (notification.Read ? "" : "unread"))">
-                        <div class="pull-left image">
-                            @if (null == Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID)
-                            || null == Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value
-                            || Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value is DBNull
-                            || ((byte[])Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value).Length == 0)
-                            {
-                                <img src="~/Content/images/no_photo_img.jpg" class="avatar img-circle">
-                            }
-                            else
-                            {
-                                <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String((byte[])Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value))" class="avatar img-circle">
-                            }
-                        </div>
-                        <div class="pull-left meta">
-                            <div class="title h5" style="border:0px;background-color:inherit">
-                                @Resources.Resources.NewCurrentDiscussionPostNotification
+                                    <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalSeconds, 0) @Resources.Resources.SecondsAgo</h6>
+                                }
+                                else if (DateTime.Now.Subtract(notification.CreateDate).TotalHours < 2)
+                                {
+                                    <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalMinutes, 0) @Resources.Resources.MinutesAgo</h6>
+                                }
+                                else if (DateTime.Now.Subtract(notification.CreateDate).TotalDays < 1)
+                                {
+                                    <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalHours, 0) @Resources.Resources.HoursAgo</h6>
+                                }
+                                else if (DateTime.Now.Subtract(notification.CreateDate).TotalDays == 1)
+                                {
+                                    <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalDays, 0) @Resources.Resources.DayAgo</h6>
+                                }
+                                else if (DateTime.Now.Subtract(notification.CreateDate).TotalDays < 3)
+                                {
+                                    <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalDays, 0) @Resources.Resources.DaysAgo</h6>
+                                }
+                                else
+                                {
+                                    <h6 class="text-muted time">@notification.CreateDate.ToShortDateString()</h6>
+                                }
                             </div>
-                            @if (DateTime.Now.Subtract(notification.CreateDate).TotalMinutes < 1)
-                        {
-                                <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalSeconds, 0) @Resources.Resources.SecondsAgo</h6>
-                            }
-                            else if (DateTime.Now.Subtract(notification.CreateDate).TotalHours < 2)
-                            {
-                                <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalMinutes, 0) @Resources.Resources.MinutesAgo</h6>
-                            }
-                            else if (DateTime.Now.Subtract(notification.CreateDate).TotalDays < 1)
-                            {
-                                <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalHours, 0) @Resources.Resources.HoursAgo</h6>
-                            }
-                            else if (DateTime.Now.Subtract(notification.CreateDate).TotalDays == 1)
-                            {
-                                <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalDays, 0) @Resources.Resources.DayAgo</h6>
-                            }
-                            else if (DateTime.Now.Subtract(notification.CreateDate).TotalDays < 3)
-                            {
-                                <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalDays, 0) @Resources.Resources.DaysAgo</h6>
-                            }
-                            else
-                            {
-                                <h6 class="text-muted time">@notification.CreateDate.ToShortDateString()</h6>
-                            }
                         </div>
                     </div>
-                </div>
-            </a>
-            break;
-        case "NEW_APS_POST":
-            <a href="#" onclick="location.href='@Url.Action("ApsDetails", "Home", new { id = notification.ID_Post, idNotification = notification.ID })'">
-                <div class="panel panel-white post panel-shadow animated fadeInUp" style="margin-bottom:2px;">
-                    <div class="@("post-heading " + (notification.Read ? "" : "unread"))">
-                        <div class="pull-left image">
-                            @if (null == Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID)
+                </a>
+                break;
+            case "NEW_POST_COMMENT":
+                <a href="#" onclick="location.href='@Url.Action("PostDetail", "Home", new { idPost = notification.ID_Post, idNotification = notification.ID })'">
+                    <div class="panel panel-white post panel-shadow animated fadeInUp" style="margin-bottom:2px;">
+                        <div class="@("post-heading " + (notification.Read ? "read" : "unread"))">
+                            <div class="pull-left image">
+                                @if (null == Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID)
+                || null == Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value
+                || Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value is DBNull
+                || ((byte[])Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value).Length == 0)
+                                {
+                                    <img src="~/Content/images/no_photo_img.jpg" class="avatar img-circle">
+                                }
+                                else
+                                {
+                                    <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String((byte[])Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value))" class="avatar img-circle">
+                                }
+                            </div>
+                            <div class="pull-left meta">
+                                <div class="title h5" style="border:0px;background-color:inherit">
+                                    <span style="font-weight:bold;">@Model.UsersNames.FirstOrDefault(i => i.Key == notification.FromUserID).Value</span>
+                                    @Resources.Resources.CommentedOnYourPost
+                                </div>
+                                @if (DateTime.Now.Subtract(notification.CreateDate).TotalMinutes < 1)
+                        {
+                                    <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalSeconds, 0) @Resources.Resources.SecondsAgo</h6>
+                                }
+                                else if (DateTime.Now.Subtract(notification.CreateDate).TotalHours < 2)
+                                {
+                                    <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalMinutes, 0) @Resources.Resources.MinutesAgo</h6>
+                                }
+                                else if (DateTime.Now.Subtract(notification.CreateDate).TotalDays < 1)
+                                {
+                                    <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalHours, 0) @Resources.Resources.HoursAgo</h6>
+                                }
+                                else if (DateTime.Now.Subtract(notification.CreateDate).TotalDays == 1)
+                                {
+                                    <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalDays, 0) @Resources.Resources.DayAgo</h6>
+                                }
+                                else if (DateTime.Now.Subtract(notification.CreateDate).TotalDays < 3)
+                                {
+                                    <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalDays, 0) @Resources.Resources.DaysAgo</h6>
+                                }
+                                else
+                                {
+                                    <h6 class="text-muted time">@notification.CreateDate.ToShortDateString()</h6>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                break;
+            case "NEW_MESSAGE_RECEIVED":
+                break;
+            case "FRIEND_REQUEST_RECEIVED":
+                <a href="#" onclick="location.href='@Url.Action("FriendRequest", "Home", new { id = notification.FromUserID, ntId = notification.ID })'">
+                    <div class="panel panel-white post panel-shadow animated fadeInUp" style="margin-bottom:2px;">
+                        <div class="@("post-heading " + (notification.Read ? "read" : "unread"))">
+                            <div class="pull-left image">
+                                @if (null == Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID)
+        || null == Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value
+        || Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value is DBNull
+        || ((byte[])Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value).Length == 0)
+                                {
+                                    <img src="~/Content/images/no_photo_img.jpg" class="avatar img-circle">
+                                }
+                                else
+                                {
+                                    <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String((byte[])Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value))" class="avatar img-circle">
+                                }
+                            </div>
+                            <div class="pull-left meta">
+                                <div class="title h5" style="border:0px;background-color:inherit">
+                                    <span style="font-weight:bold;">@Model.UsersNames.FirstOrDefault(i => i.Key == notification.FromUserID).Value</span>
+                                    @Resources.Resources.SentYouFriendRequest
+                                </div>
+                                @if (DateTime.Now.Subtract(notification.CreateDate).TotalMinutes < 1)
+                                {
+                                    <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalSeconds, 0) @Resources.Resources.SecondsAgo</h6>
+                                }
+                                else if (DateTime.Now.Subtract(notification.CreateDate).TotalHours < 2)
+                                {
+                                    <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalMinutes, 0) @Resources.Resources.MinutesAgo</h6>
+                                }
+                                else if (DateTime.Now.Subtract(notification.CreateDate).TotalDays < 1)
+                                {
+                                    <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalHours, 0) @Resources.Resources.HoursAgo</h6>
+                                }
+                                else if (DateTime.Now.Subtract(notification.CreateDate).TotalDays == 1)
+                                {
+                                    <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalDays, 0) @Resources.Resources.DayAgo</h6>
+                                }
+                                else if (DateTime.Now.Subtract(notification.CreateDate).TotalDays < 3)
+                                {
+                                    <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalDays, 0) @Resources.Resources.DaysAgo</h6>
+                                }
+                                else
+                                {
+                                    <h6 class="text-muted time">@notification.CreateDate.ToShortDateString()</h6>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                break;
+            case "FRIEND_REQUEST_ACCEPTED":
+                <a href="#" onclick="location.href='@Url.Action("ProfileInfo", "Home", new { id = InsuranceSocialNetworkBusiness.InsuranceBusiness.BusinessLayer.GetUserProfileIdFromId(notification.FromUserProfileID), idNotification=notification.ID })'">
+                    <div class="panel panel-white post panel-shadow animated fadeInUp" style="margin-bottom:2px;">
+                        <div class="@("post-heading " + (notification.Read ? "read" : "unread"))">
+                            <div class="pull-left image">
+                                @if (null == Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID)
+                || null == Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value
+                || Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value is DBNull
+                || ((byte[])Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value).Length == 0)
+                                {
+                                    <img src="~/Content/images/no_photo_img.jpg" class="avatar img-circle">
+                                }
+                                else
+                                {
+                                    <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String((byte[])Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value))" class="avatar img-circle">
+                                }
+                            </div>
+                            <div class="pull-left meta">
+                                <div class="title h5" style="border:0px;background-color:inherit">
+                                    <span style="font-weight:bold;">@Model.UsersNames.FirstOrDefault(i => i.Key == notification.FromUserID).Value</span>
+                                    @Resources.Resources.AcceptedYourFriendRequest
+                                </div>
+                                @if (DateTime.Now.Subtract(notification.CreateDate).TotalMinutes < 1)
+                        {
+                                    <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalSeconds, 0) @Resources.Resources.SecondsAgo</h6>
+                                }
+                                else if (DateTime.Now.Subtract(notification.CreateDate).TotalHours < 2)
+                                {
+                                    <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalMinutes, 0) @Resources.Resources.MinutesAgo</h6>
+                                }
+                                else if (DateTime.Now.Subtract(notification.CreateDate).TotalDays < 1)
+                                {
+                                    <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalHours, 0) @Resources.Resources.HoursAgo</h6>
+                                }
+                                else if (DateTime.Now.Subtract(notification.CreateDate).TotalDays == 1)
+                                {
+                                    <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalDays, 0) @Resources.Resources.DayAgo</h6>
+                                }
+                                else if (DateTime.Now.Subtract(notification.CreateDate).TotalDays < 3)
+                                {
+                                    <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalDays, 0) @Resources.Resources.DaysAgo</h6>
+                                }
+                                else
+                                {
+                                    <h6 class="text-muted time">@notification.CreateDate.ToShortDateString()</h6>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                break;
+            case "NEW_CURRENT_DISCUSSION_POST":
+                <a href="#" onclick="location.href='@Url.Action("CurrentDiscussionDetails", "Home", new { id = notification.ID_Post, idNotification = notification.ID })'">
+                    <div class="panel panel-white post panel-shadow animated fadeInUp" style="margin-bottom:2px;">
+                        <div class="@("post-heading " + (notification.Read ? "read" : "unread"))">
+                            <div class="pull-left image">
+                                @if (null == Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID)
+                    || null == Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value
+                    || Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value is DBNull
+                    || ((byte[])Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value).Length == 0)
+                                {
+                                    <img src="~/Content/images/no_photo_img.jpg" class="avatar img-circle">
+                                }
+                                else
+                                {
+                                    <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String((byte[])Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value))" class="avatar img-circle">
+                                }
+                            </div>
+                            <div class="pull-left meta">
+                                <div class="title h5" style="border:0px;background-color:inherit">
+                                    @Resources.Resources.NewPublishedContentOnCurrentDiscussions<span style="font-weight:bold">@Resources.Resources.CurrentDiscussions</span>
+                                </div>
+                                @if (DateTime.Now.Subtract(notification.CreateDate).TotalMinutes < 1)
+                        {
+                                    <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalSeconds, 0) @Resources.Resources.SecondsAgo</h6>
+                                }
+                                else if (DateTime.Now.Subtract(notification.CreateDate).TotalHours < 2)
+                                {
+                                    <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalMinutes, 0) @Resources.Resources.MinutesAgo</h6>
+                                }
+                                else if (DateTime.Now.Subtract(notification.CreateDate).TotalDays < 1)
+                                {
+                                    <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalHours, 0) @Resources.Resources.HoursAgo</h6>
+                                }
+                                else if (DateTime.Now.Subtract(notification.CreateDate).TotalDays == 1)
+                                {
+                                    <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalDays, 0) @Resources.Resources.DayAgo</h6>
+                                }
+                                else if (DateTime.Now.Subtract(notification.CreateDate).TotalDays < 3)
+                                {
+                                    <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalDays, 0) @Resources.Resources.DaysAgo</h6>
+                                }
+                                else
+                                {
+                                    <h6 class="text-muted time">@notification.CreateDate.ToShortDateString()</h6>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                break;
+            case "NEW_APS_POST":
+                <a href="#" onclick="location.href='@Url.Action("ApsDetails", "Home", new { id = notification.ID_Post, idNotification = notification.ID })'">
+                    <div class="panel panel-white post panel-shadow animated fadeInUp" style="margin-bottom:2px;">
+                        <div class="@("post-heading " + (notification.Read ? "read" : "unread"))">
+                            <div class="pull-left image">
+                                @if (null == Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID)
                         || null == Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value
                         || Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value is DBNull
                         || ((byte[])Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value).Length == 0)
@@ -343,12 +362,12 @@
                             {
                             <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String((byte[])Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value))" class="avatar img-circle">
                             }
-                        </div>
-                        <div class="pull-left meta">
-                            <div class="title h5" style="border:0px;background-color:inherit">
-                                @Resources.Resources.NewApsPostNotification
                             </div>
-                            @if (DateTime.Now.Subtract(notification.CreateDate).TotalMinutes < 1)
+                            <div class="pull-left meta">
+                                <div class="title h5" style="border:0px;background-color:inherit">
+                                    @Resources.Resources.NewPublishedContentOnAPS<span style="font-weight:bold">@Resources.Resources.APS</span>
+                                </div>
+                                @if (DateTime.Now.Subtract(notification.CreateDate).TotalMinutes < 1)
                         {
                             <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalSeconds, 0) @Resources.Resources.SecondsAgo</h6>
                             }
@@ -372,17 +391,17 @@
                             {
                             <h6 class="text-muted time">@notification.CreateDate.ToShortDateString()</h6>
                             }
+                            </div>
                         </div>
                     </div>
-                </div>
-            </a>
-            break;
-        case "NEW_ASF_POST":
-            <a href="#" onclick="location.href='@Url.Action("AsfDetails", "Home", new { id = notification.ID_Post, idNotification = notification.ID })'">
-                <div class="panel panel-white post panel-shadow animated fadeInUp" style="margin-bottom:2px;">
-                    <div class="@("post-heading " + (notification.Read ? "" : "unread"))">
-                        <div class="pull-left image">
-                            @if (null == Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID)
+                </a>
+                break;
+            case "NEW_ASF_POST":
+                <a href="#" onclick="location.href='@Url.Action("AsfDetails", "Home", new { id = notification.ID_Post, idNotification = notification.ID })'">
+                    <div class="panel panel-white post panel-shadow animated fadeInUp" style="margin-bottom:2px;">
+                        <div class="@("post-heading " + (notification.Read ? "read" : "unread"))">
+                            <div class="pull-left image">
+                                @if (null == Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID)
                         || null == Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value
                         || Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value is DBNull
                         || ((byte[])Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value).Length == 0)
@@ -393,12 +412,12 @@
                             {
                             <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String((byte[])Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value))" class="avatar img-circle">
                             }
-                        </div>
-                        <div class="pull-left meta">
-                            <div class="title h5" style="border:0px;background-color:inherit">
-                                @Resources.Resources.NewAsfPostNotification
                             </div>
-                            @if (DateTime.Now.Subtract(notification.CreateDate).TotalMinutes < 1)
+                            <div class="pull-left meta">
+                                <div class="title h5" style="border:0px;background-color:inherit">
+                                    @Resources.Resources.NewPublishedContentOnASF<span style="font-weight:bold">@Resources.Resources.ASF</span>
+                                </div>
+                                @if (DateTime.Now.Subtract(notification.CreateDate).TotalMinutes < 1)
                         {
                             <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalSeconds, 0) @Resources.Resources.SecondsAgo</h6>
                             }
@@ -422,17 +441,17 @@
                             {
                             <h6 class="text-muted time">@notification.CreateDate.ToShortDateString()</h6>
                             }
+                            </div>
                         </div>
                     </div>
-                </div>
-            </a>
-            break;
-        case "NEW_APROSE_POST":
-            <a href="#" onclick="location.href='@Url.Action("AproseDetails", "Home", new { id = notification.ID_Post, idNotification = notification.ID })'">
-                <div class="panel panel-white post panel-shadow animated fadeInUp" style="margin-bottom:2px;">
-                    <div class="@("post-heading " + (notification.Read ? "" : "unread"))">
-                        <div class="pull-left image">
-                            @if (null == Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID)
+                </a>
+                break;
+            case "NEW_APROSE_POST":
+                <a href="#" onclick="location.href='@Url.Action("AproseDetails", "Home", new { id = notification.ID_Post, idNotification = notification.ID })'">
+                    <div class="panel panel-white post panel-shadow animated fadeInUp" style="margin-bottom:2px;">
+                        <div class="@("post-heading " + (notification.Read ? "read" : "unread"))">
+                            <div class="pull-left image">
+                                @if (null == Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID)
                                 || null == Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value
                                 || Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value is DBNull
                                 || ((byte[])Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value).Length == 0)
@@ -443,12 +462,12 @@
                             {
                             <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String((byte[])Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value))" class="avatar img-circle">
                             }
-                        </div>
-                        <div class="pull-left meta">
-                            <div class="title h5" style="border:0px;background-color:inherit">
-                                @Resources.Resources.NewAprosePostNotification
                             </div>
-                            @if (DateTime.Now.Subtract(notification.CreateDate).TotalMinutes < 1)
+                            <div class="pull-left meta">
+                                <div class="title h5" style="border:0px;background-color:inherit">
+                                    @Resources.Resources.NewPublishedContentOnAPROSE<span style="font-weight:bold">@Resources.Resources.APROSE</span>
+                                </div>
+                                @if (DateTime.Now.Subtract(notification.CreateDate).TotalMinutes < 1)
                             {
                             <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalSeconds, 0) @Resources.Resources.SecondsAgo</h6>
                             }
@@ -472,21 +491,21 @@
                             {
                             <h6 class="text-muted time">@notification.CreateDate.ToShortDateString()</h6>
                             }
+                            </div>
                         </div>
                     </div>
-                </div>
-            </a>
-            break;
-    }
-}
-
-<script type="text/javascript">
-    function KeypressHandler(e) {
-        alert('key pressed!');
-        if (e.which == 13) {
-            e.preventDefault(); //stops default action: submitting form
-            $(this).blur();
-            $('#SubmitButton').focus().click();//give your submit an ID
+                </a>
+                break;
         }
     }
-</script>
+
+    <script type="text/javascript">
+        function KeypressHandler(e) {
+            alert('key pressed!');
+            if (e.which == 13) {
+                e.preventDefault(); //stops default action: submitting form
+                $(this).blur();
+                $('#SubmitButton').focus().click();//give your submit an ID
+            }
+        }
+    </script>

@@ -430,6 +430,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Por favor verifique o seu email para redefinir a sua senha..
+        /// </summary>
+        public static string CheckYourEmailToResetPassword {
+            get {
+                return ResourceManager.GetString("CheckYourEmailToResetPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nome da clínica.
         /// </summary>
         public static string ClinicName {
@@ -817,7 +826,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Esqueceste-te da tua conta?.
+        ///   Looks up a localized string similar to Esqueceu-se da sua palavra-passe.
         /// </summary>
         public static string ForgotYourPassword {
             get {
@@ -1105,6 +1114,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Marcar todas como lidas.
+        /// </summary>
+        public static string MarkAllAsRead {
+            get {
+                return ResourceManager.GetString("MarkAllAsRead", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Gestão de Directório Saúde.
         /// </summary>
         public static string MedicalClinicCompaniesManagement {
@@ -1281,6 +1299,42 @@ namespace Resources {
         public static string NewPassword {
             get {
                 return ResourceManager.GetString("NewPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Foi publicado um novo conteúdo na .
+        /// </summary>
+        public static string NewPublishedContentOnAPROSE {
+            get {
+                return ResourceManager.GetString("NewPublishedContentOnAPROSE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Foi publicado um novo conteúdo na .
+        /// </summary>
+        public static string NewPublishedContentOnAPS {
+            get {
+                return ResourceManager.GetString("NewPublishedContentOnAPS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Foi publicado um novo conteúdo na .
+        /// </summary>
+        public static string NewPublishedContentOnASF {
+            get {
+                return ResourceManager.GetString("NewPublishedContentOnASF", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Foi publicado um novo conteúdo nos temas .
+        /// </summary>
+        public static string NewPublishedContentOnCurrentDiscussions {
+            get {
+                return ResourceManager.GetString("NewPublishedContentOnCurrentDiscussions", resourceCulture);
             }
         }
         
@@ -1978,7 +2032,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Obrigado pelo seu registo no portal Falar Seguros..
+        ///   Looks up a localized string similar to Obrigado pelo seu registo..
         /// </summary>
         public static string ThanksForRegister {
             get {
