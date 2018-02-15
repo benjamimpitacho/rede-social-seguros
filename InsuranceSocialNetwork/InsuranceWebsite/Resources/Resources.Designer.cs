@@ -367,6 +367,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Contactos bloqueados.
+        /// </summary>
+        public static string BlockedFriends {
+            get {
+                return ResourceManager.GetString("BlockedFriends", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Denominação comercial.
         /// </summary>
         public static string BusinessName {
@@ -507,6 +516,24 @@ namespace Resources {
         public static string ConfirmPassword {
             get {
                 return ResourceManager.GetString("ConfirmPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Conexão.
+        /// </summary>
+        public static string Connection {
+            get {
+                return ResourceManager.GetString("Connection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Conexões.
+        /// </summary>
+        public static string Connections {
+            get {
+                return ResourceManager.GetString("Connections", resourceCulture);
             }
         }
         
@@ -1065,6 +1092,15 @@ namespace Resources {
         public static string LikesOnYourPosts {
             get {
                 return ResourceManager.GetString("LikesOnYourPosts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Conectados.
+        /// </summary>
+        public static string Linked {
+            get {
+                return ResourceManager.GetString("Linked", resourceCulture);
             }
         }
         
@@ -1753,6 +1789,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pesquisa por empresa, nome, email ou localidade.
+        /// </summary>
+        public static string SearchByCompanyNameEmailLocality {
+            get {
+                return ResourceManager.GetString("SearchByCompanyNameEmailLocality", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Directório Saúde.
         /// </summary>
         public static string SearchClinics {
@@ -1794,6 +1839,15 @@ namespace Resources {
         public static string SearchInsuranceContacts {
             get {
                 return ResourceManager.GetString("SearchInsuranceContacts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pesquisar novos contactos.
+        /// </summary>
+        public static string SearchNewFriends {
+            get {
+                return ResourceManager.GetString("SearchNewFriends", resourceCulture);
             }
         }
         

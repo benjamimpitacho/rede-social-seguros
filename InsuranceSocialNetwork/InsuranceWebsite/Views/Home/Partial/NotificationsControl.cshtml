@@ -28,12 +28,12 @@
             <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF113.png" class="avatar img-circle" style="border:none;">
         </div>
         
-            <div class="title h4" style="border:0px;background-color:inherit; font-weight:bold; font-size: 17px; overflow: auto; padding-top: 3px;">
-                <div style="float:left">@Resources.Resources.Notifications</div>
-                <div style="float:right">
-                    <a href="@Url.Action("MarkAllNotificationsAsRead", "Home", new { id = Model.Profile.ID_User })" style="color:#00C1DE; font-size:13px; ">@Resources.Resources.MarkAllAsRead</a>
-                </div>
+        <div class="title h4" style="border:0px;background-color:inherit; font-weight:bold; font-size: 17px; overflow: auto; padding-top: 3px;">
+            <div style="float:left">@Resources.Resources.Notifications</div>
+            <div style="float:right">
+                <a href="@Url.Action("MarkAllNotificationsAsRead", "Home", new { id = Model.Profile.ID_User })" style="color:#00C1DE; font-size:13px; ">@Resources.Resources.MarkAllAsRead</a>
             </div>
+        </div>
         
     </div>
 </div>

@@ -26,6 +26,49 @@
 
                 @Html.Partial("./Partial/TopBannerPartialView", Model)
 
+                @using (Html.BeginForm("SearchUsers", "Home", FormMethod.Post, new { id = "searchForm" }))
+                {
+                    <div class="panel panel-white post panel-shadow animated fadeInUp" style="margin-bottom:0px;height:80px;">
+                        <div class="post-heading" style="padding: 10px 15px;">
+                            <div class="title" style="border:0px;background-color:inherit; font-weight:bold; font-size: 17px; overflow: auto;">
+                                <div class="pull-left image" style="max-width:60px;">
+                                    <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF122.png" class="avatar img-circle" style="border:none;height:60px; width:60px;">
+                                </div>
+
+                                <div style="float:left; padding-top:8px;width: calc(100% - 125px);">@Html.TextBoxFor(m => m.SearchModel.SearchTerm, new { @class = "form-control", @placeholder = Resources.Resources.SearchByCompanyNameEmailLocality, @style = "padding:18px;border-radius:0px;border:0px;box-shadow: none;font-weight:normal;" })</div>
+                                <div style="float:right; max-width: 50px;">
+                                    <a href="#" onclick="document.getElementById('searchForm').submit();">
+                                        <img src="~/Content/icons/icone_pesquisa_rede_social_falar_seguros_AF.png" />
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                }
+                <div class="panel panel-white post panel-shadow animated fadeInUp" style="margin-bottom:2px;height:70px;background-color:#EDEFF0;">
+                    <div class="post-heading" style="padding: 10px 15px;vertical-align:middle;">
+                        <div class="pull-left" style="padding-top:12px;">
+                            @if(Model.Friends.Count == 1)
+                            {
+                                <span style="font-size:16px;font-weight:bold;color:#4B5C66;">@Model.Friends.Count @Resources.Resources.Connection</span>
+                            }
+                            else
+                            {
+                                <span style="font-size:16px;font-weight:bold;color:#4B5C66;">@Model.Friends.Count @Resources.Resources.Connections</span>
+                            }
+                        </div>
+                        <div style="float:right; padding-top:16px; display:table; font-size:11px; font-weight:bold;">
+                            <div style="display:table-cell;">
+                                <span style="color:#4B5C66;">@Resources.Resources.BlockedFriends</span>
+                            </div>
+                            <div style="display:table-cell;padding-left:10px;">
+                                <span style="color:#00C1DE;">@Resources.Resources.SearchNewFriends</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 @if (null == Model.Friends || Model.Friends.Count == 0)
                 {
                     <div class="col-md-12 alert alert-info" style="text-align:center">
@@ -37,38 +80,51 @@
 
                     foreach (UserProfileDTO friend in Model.Friends)
                     {
-                        <div class="col-md-4 col-sm-3">
-                            <div class="panel">
-                                <div class="panel-body">
-                                    <div class="media">
-                                        <a class="pull-left" href="@Url.Action("ProfileTimeline", "Home", new { id = friend.ID })" style="padding: 0px; text-align: -webkit-center;">
-                                            @if (null == friend.ProfilePhoto || friend.ProfilePhoto.Length == 0)
-                                            {
-                                                <img class="thumb media-object" src="~/Content/images/no_photo_img.jpg" alt="" style="border-radius:100px;max-width:80%;">
-                                            }
-                                            else
-                                            {
-                                                <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(friend.ProfilePhoto))" class="thumb media-object" style="border-radius:100px;max-width:80%;">
-                                            }
-                                        </a>
-                                        <div class="media-body" style="text-align:center">
-                                            <h5 style="text-align:center">@friend.FirstName @friend.LastName</h5>
-                                            <ul class="social-links">
-                                                @*@if (!Model.SearchModel.AlreadyFriends.Contains(friend.ID))
-                                                {
-                                                    <li><a title="" data-placement="top" data-toggle="tooltip" class="tooltips" onclick="addFriendFunction(this, @profile.ID)" data-original-title="@Resources.Resources.AddFriend"><i class="fa fa-user-plus"></i></a></li>
-                                                }
-                                                else
-                                                {
-                                                    <li><a title="" data-placement="top" data-toggle="tooltip" class="tooltips" data-original-title="@Resources.Resources.RemoveFriend"><i class="fa fa-user-times"></i></a></li>
-                                                }*@
-                                                <li><a href="@Url.Action("SendMessage", new { id = friend.ID })" title="" data-placement="top" data-toggle="tooltip" class="tooltips" data-original-title="@Resources.Resources.SendMessage"><i class="fa fa-comments"></i></a></li>
-                                                <li><a href="@Html.DisplayTextFor(i => i.Profile.Website)" target="_blank" title="" data-placement="top" data-toggle="tooltip" class="tooltips" data-original-title="@Resources.Resources.Website"><i class="fa fa-globe"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                        <div class="panel panel-body post panel-shadow animated fadeInUp" style="margin-bottom:2px;max-height:80px;padding:10px 15px;">
+                            <div class="pull-left image">
+                                <a href="@Url.Action("ProfileTimeline", "Home", new { id = friend.ID })" style="padding: 0px; text-align: -webkit-center;">
+                                    @if (null == friend.ProfilePhoto || friend.ProfilePhoto.Length == 0)
+                                    {
+                                        <img class="thumb media-object" src="~/Content/images/no_photo_img.jpg" alt="" style="border-radius:100px;max-height:60px;border: 2px solid #EDEFF0;">
+                                    }
+                                    else
+                                    {
+                                        <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(friend.ProfilePhoto))" class="thumb media-object" style="border-radius:100px;max-height:60px;border: 2px solid #EDEFF0;">
+                                    }
+                                </a>
+                            </div>
+                            <div style="float:left; padding:0px 15px; width: calc(100% - 268px);">
+                                <div style="color:#4B5C66;font-weight:bold;font-size:14px;">@friend.FirstName @friend.LastName</div>
+                                <div style="color:#939DA3;font-size:11px;font-weight:bold;">[empresa]</div>
+                                <div style="color:#939DA3;font-size:11px;">[localidade]</div>
+                            </div>
+                            <div style="float:right; padding-top:13px; display:table; font-size:11px; font-weight:bold;">
+                                <div style="display:table-cell;vertical-align:middle;">
+                                    <span style="color:#4B5C66;">@Resources.Resources.SendMessage</span>
+                                </div>
+                                <div style="display:table-cell;vertical-align:middle;padding:0px 10px;">
+                                    <span style="color:#00C1DE;">@Resources.Resources.Linked</span>
+                                </div>
+                                <div style="display:table-cell;vertical-align:middle;">
+                                    <span><img src="~/Content/icons/home_page_rede_social_falar_seguros_AF112_h.png" style="max-width:30px;" /></span>
                                 </div>
                             </div>
+                            
+                            @*<div class="media-body" style="text-align:center">
+                                <h5 style="text-align:center">@friend.FirstName @friend.LastName</h5>
+                                <ul class="social-links">
+                                    @if (!Model.SearchModel.AlreadyFriends.Contains(friend.ID))
+                                        {
+                                            <li><a title="" data-placement="top" data-toggle="tooltip" class="tooltips" onclick="addFriendFunction(this, @profile.ID)" data-original-title="@Resources.Resources.AddFriend"><i class="fa fa-user-plus"></i></a></li>
+                                        }
+                                        else
+                                        {
+                                            <li><a title="" data-placement="top" data-toggle="tooltip" class="tooltips" data-original-title="@Resources.Resources.RemoveFriend"><i class="fa fa-user-times"></i></a></li>
+                                        }   
+                                    <li><a href="@Url.Action("SendMessage", new { id = friend.ID })" title="" data-placement="top" data-toggle="tooltip" class="tooltips" data-original-title="@Resources.Resources.SendMessage"><i class="fa fa-comments"></i></a></li>
+                                    <li><a href="@Html.DisplayTextFor(i => i.Profile.Website)" target="_blank" title="" data-placement="top" data-toggle="tooltip" class="tooltips" data-original-title="@Resources.Resources.Website"><i class="fa fa-globe"></i></a></li>
+                                </ul>
+                            </div>*@
                         </div>
                     }
                 }

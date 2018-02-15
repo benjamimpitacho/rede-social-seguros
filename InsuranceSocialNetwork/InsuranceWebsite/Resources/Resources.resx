@@ -828,4 +828,22 @@
   <data name="MarkAllAsRead" xml:space="preserve">
     <value>Marcar todas como lidas</value>
   </data>
+  <data name="SearchByCompanyNameEmailLocality" xml:space="preserve">
+    <value>Pesquisa por empresa, nome, email ou localidade</value>
+  </data>
+  <data name="BlockedFriends" xml:space="preserve">
+    <value>Contactos bloqueados</value>
+  </data>
+  <data name="Connection" xml:space="preserve">
+    <value>Conexão</value>
+  </data>
+  <data name="Connections" xml:space="preserve">
+    <value>Conexões</value>
+  </data>
+  <data name="Linked" xml:space="preserve">
+    <value>Conectados</value>
+  </data>
+  <data name="SearchNewFriends" xml:space="preserve">
+    <value>Pesquisar novos contactos</value>
+  </data>
 </root>

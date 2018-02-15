@@ -7,8 +7,6 @@
 
     @Html.Partial("./Partial/TopBannerPartialView", Model)
 
-    
-
     <div class="panel topPanel" style="border:0px;">
 
         @using (Html.BeginForm("SearchUsers", "Home", FormMethod.Post, new { id = "searchForm" }))
@@ -16,8 +14,8 @@
             <div class="panel panel-white post panel-shadow animated fadeInUp" style="margin-bottom:2px;">
                 <div class="post-heading" style="padding: 10px 15px;">
                     <div class="title" style="border:0px;background-color:inherit; font-weight:bold; font-size: 17px; overflow: auto;">
-                        <div style="float:left; padding-top:8px;">@Html.TextBoxFor(m => m.SearchModel.SearchTerm, new { @class = "form-control", @placeholder = Resources.Resources.Search + "...", @style = "padding:18px;border-radius:0px;" })</div>
-                        <div style="float:right; max-width: 60px;">
+                        <div style="float:left; padding-top:8px;width: calc(100% - 50px);">@Html.TextBoxFor(m => m.SearchModel.SearchTerm, new { @class = "form-control", @placeholder = Resources.Resources.Search, @style = "padding:18px;border-radius:0px;border:0px;box-shadow: none;font-weight:normal;" })</div>
+                        <div style="float:right; max-width: 50px;">
                             <a href="#" onclick="document.getElementById('searchForm').submit();">
                                 <img src="~/Content/icons/icone_pesquisa_rede_social_falar_seguros_AF.png" />
                             </a>
