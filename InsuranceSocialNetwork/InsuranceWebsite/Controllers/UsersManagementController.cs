@@ -13,7 +13,9 @@ using MVCGrid.Models;
 using MVCGrid.Web;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -296,7 +298,10 @@ namespace InsuranceWebsite.Controllers
                         {
                             InsuranceBusiness.BusinessLayer.CreateNotification(user.Id, null, NotificationTypeEnum.COMPLETE_PROFILE_INFO);
 
-                            //await SendConfirmationEmail(user, model.Name);
+                            string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                            var callbackUrl = Url.Action("ConfirmEmail", "Account", new { code = user.Id, token = code }, protocol: Request.Url.Scheme);
+                            await SendNewRegisterEmail(user, model.FirstName + " " + model.LastName, callbackUrl, password);
+
                         }
                         catch (Exception ex)
                         {
@@ -308,9 +313,9 @@ namespace InsuranceWebsite.Controllers
                         
                         // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                         // Send an email with this link
-                        // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                        // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                        // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                        //string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                        //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                        //await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
                         //return View("RegisterToConfirm", model);
                     }
@@ -322,6 +327,35 @@ namespace InsuranceWebsite.Controllers
             }
 
             return RedirectToAction("Index");
+        }
+
+        private async Task<bool> SendNewRegisterEmail(ApplicationUser user, string name, string callbackUrl, string password)
+        {
+            System.Net.Mail.MailMessage m = new System.Net.Mail.MailMessage(
+                new System.Net.Mail.MailAddress(ConfigurationSettings.AppEmailAddress, Resources.Resources.ApplicationNAme),
+                new System.Net.Mail.MailAddress(user.Email));
+            m.Subject = Resources.Resources.EmailRegisterConfirmation;
+            //m.Body = string.Format(Resources.Resources.RegisterConfirmationMessage, name, Url.Action("ConfirmEmail", "Account", new { token = code, code = user.Id }, Request.Url.Scheme));
+
+            using (StreamReader reader = new StreamReader(Server.MapPath("~/Views/Account/EmailTemplates/RegisterConfirmationWithPasswordTemplate.html")))
+            {
+                m.Body = reader.ReadToEnd();
+            }
+
+            m.Body = m.Body.Replace("{NAME}", name); //replacing the required things
+            //m.Body = m.Body.Replace("{URL}", ConfigurationSettings.ApplicationSiteUrl);
+            m.Body = m.Body.Replace("{URL}", callbackUrl);
+            m.Body = m.Body.Replace("{PASSWORD}", password);
+            m.IsBodyHtml = true;
+
+            SmtpClient smtp = new SmtpClient(ConfigurationSettings.SmtpHost, ConfigurationSettings.SmtpPort)
+            {
+                Credentials = new System.Net.NetworkCredential(ConfigurationSettings.SmtpUsername, ConfigurationSettings.SmtpPassword),
+                EnableSsl = false
+            };
+            smtp.Send(m);
+
+            return true;
         }
 
         // GET: /User/Edit/5

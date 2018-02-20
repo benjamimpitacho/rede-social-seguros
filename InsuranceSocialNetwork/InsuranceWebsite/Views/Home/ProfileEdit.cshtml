@@ -264,9 +264,17 @@
         $("#addEmailDomain").click(function () {
             if ($('#emailDomainTextbox').val() == null || $('#emailDomainTextbox').val() == '')
                 return;
-
+            alert("1");
+            //var regex = new RegExp(/^[+a-zA-Z0-9._-]+@@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i);
+            var regex = /^([a-zA-Z0-9_.+-])+\@@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+            if (!regex.test($('#emailDomainTextbox').val()))
+            {
+                $("#emailDomainTextbox").addClass("input-validation-error");
+                return;
+            }
             $('#emailListbox').append('<option value="' + $('#emailDomainTextbox').val() + '">' + $('#emailDomainTextbox').val() + '</option>');
             $('#emailDomainTextbox').val('');
+            $("#emailDomainTextbox").removeClass("input-validation-error");
         });
 
         $('#removeEmailDomain').click(function () {

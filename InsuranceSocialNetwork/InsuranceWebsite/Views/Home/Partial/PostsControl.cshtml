@@ -87,12 +87,14 @@
                 </div>
 
                 <div class="pull-right">
-                    @*<a onclick="alert('Opções do post a serem mostradas...')" class="stat-item">
-                            <i class="glyphicon glyphicon-option-vertical icon" style="border:0px;font-size: 24px;margin-right: 10px;"></i>
-                        </a>*@
-
-                    @*<span class="context-menu-one btn btn-neutral">right click me</span>*@
-                    <i class="glyphicon glyphicon-option-vertical icon context-menu-one" style="border:0px;font-size: 24px;margin-right: 10px;"></i>
+                    @if (post.ID_User == Model.Profile.ID_User)
+                    {
+                        <i class="glyphicon glyphicon-option-vertical icon context-menu-one" style="border:0px;font-size: 24px;margin-right: 10px;"></i>
+                    }
+                    else
+                    {
+                        <i class="glyphicon glyphicon-option-vertical icon context-menu-two" style="border:0px;font-size: 24px;margin-right: 10px;"></i>
+                    }
                 </div>
 
             </div>
@@ -260,15 +262,15 @@
     }
 </div>
 
-<ul class="context-menu-list context-menu-root" style="width: 208px; top: 194px; left: 418px; z-index: 1; display: none;">
+@*<ul class="context-menu-list context-menu-root" style="width: 208px; top: 194px; left: 418px; z-index: 1; display: none;">
     <li class="context-menu-item context-menu-icon context-menu-icon-edit"><span>@Resources.Resources.Edit</span></li>
     <li class="context-menu-item context-menu-icon context-menu-icon-cut"><span>@Resources.Resources.Hide</span></li>
     <li class="context-menu-item context-menu-separator context-menu-not-selectable"></li>
     <li class="context-menu-item context-menu-icon context-menu-icon-quit"><span>@Resources.Resources.Delete</span></li>
-</ul>
+</ul>*@
 
 <script type="text/javascript">
-    
+
     $(function () {
 
         $('.post-description').expander({
@@ -309,9 +311,23 @@
             },
             items: {
                 "edit": { name: "@Resources.Resources.Edit", icon: "edit" },
-                "hide": { name: "@Resources.Resources.Hide", icon: "hide" },
+                @*"hide": { name: "@Resources.Resources.Hide", icon: "hide" },*@
                 "sep1": "---------",
                 "delete": { name: "@Resources.Resources.Delete", icon: "delete" }
+            }
+        });
+
+        $.contextMenu({
+            selector: '.context-menu-two',
+            callback: function (key, options) {
+                var m = "clicked: " + key;
+                window.console && console.log(m) || alert(m);
+            },
+            items: {
+                @*"edit": { name: "@Resources.Resources.Edit", icon: "edit" },*@
+                "hide": { name: "@Resources.Resources.Hide", icon: "hide" }
+                //"sep1": "---------",
+                @*"delete": { name: "@Resources.Resources.Delete", icon: "delete" }*@
             }
         });
 

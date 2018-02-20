@@ -38,7 +38,15 @@ namespace InsuranceSocialNetworkDAL
         {
             using (var context = new BackofficeUnitOfWork())
             {
-                List<string> authorizedEmails = context.AuthorizedEmail.Fetch().Select(i => i.Email).ToList();
+                List<string> authorizedEmails = context.AuthorizedEmail.Fetch().Where(i => i.ID_User != null).Select(i => i.Email).ToList();
+
+                foreach (string item in authorizedEmails)
+                {
+                    if (email.ToLower().Equals(item.ToLower()))
+                        return true;
+                }
+
+                authorizedEmails = context.AuthorizedEmail.Fetch().Where(i => i.ID_User == null).Select(i => i.Email).ToList();
 
                 foreach (string item in authorizedEmails)
                 {
