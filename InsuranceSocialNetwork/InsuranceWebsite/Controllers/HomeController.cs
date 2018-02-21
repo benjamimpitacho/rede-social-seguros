@@ -543,6 +543,84 @@ namespace InsuranceWebsite.Controllers
         }
 
         [HttpPost]
+        [FunctionalityAutorizeAttribute("NEW_POST_FUNCTIONALITY")]
+        public ActionResult EditPost(HomeViewModel model, string postContentTextarea, HttpPostedFileBase imgUpload, HttpPostedFileBase fileUpload, long postId)
+        {
+            try
+            {
+                PostDTO editedPost = InsuranceBusiness.BusinessLayer.GetPost(postId);
+
+                editedPost.LastChangeDate = DateTime.Now;
+                editedPost.Text = postContentTextarea;
+                editedPost.Type = null == imgUpload ? InsuranceSocialNetworkCore.Enums.PostTypeEnum.TEXT_POST : InsuranceSocialNetworkCore.Enums.PostTypeEnum.IMAGE_POST;
+                editedPost.Subject = InsuranceSocialNetworkCore.Enums.PostSubjectEnum.PERSONAL_POST;
+                
+                if (null != imgUpload)
+                {
+                    editedPost.Type = InsuranceSocialNetworkCore.Enums.PostTypeEnum.IMAGE_POST;
+                    editedPost.Image = InsuranceSocialNetworkCore.Utils.ConvertionUtils.ScaleImage(InsuranceSocialNetworkCore.Utils.ConvertionUtils.ReadFully(imgUpload.InputStream), 1024, 1024);
+                    editedPost.FileName = Path.GetFileNameWithoutExtension(imgUpload.FileName);
+                    editedPost.FileExtension = Path.GetExtension(imgUpload.FileName);
+                }
+
+                if (null != fileUpload)
+                {
+                    editedPost.Type = InsuranceSocialNetworkCore.Enums.PostTypeEnum.FILE_POST;
+                    editedPost.Image = InsuranceSocialNetworkCore.Utils.ConvertionUtils.ReadFully(fileUpload.InputStream);
+                    editedPost.FileName = Path.GetFileNameWithoutExtension(fileUpload.FileName);
+                    editedPost.FileExtension = Path.GetExtension(fileUpload.FileName);
+                }
+
+                InsuranceBusiness.BusinessLayer.EditPost(editedPost);
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException();
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        public JsonResult GetPost(long id)
+        {
+            var result = InsuranceBusiness.BusinessLayer.GetPost(id);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        //[HttpPost]
+        [FunctionalityAutorizeAttribute("NEW_POST_FUNCTIONALITY")]
+        public ActionResult DeletePost(long id)
+        {
+            try
+            {
+                InsuranceBusiness.BusinessLayer.DeletePost(id, CurrentUser.ID_User);
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException();
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        //[HttpPost]
+        [FunctionalityAutorizeAttribute("NEW_POST_FUNCTIONALITY")]
+        public ActionResult HidePost(long id)
+        {
+            try
+            {
+                InsuranceBusiness.BusinessLayer.HidePost(id, CurrentUser.ID_User);
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException();
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
         [FunctionalityAutorizeAttribute("NEW_CURRENT_DISCUSSION_FUNCTIONALITY")]
         public ActionResult NewCurrentDiscussionPost(HomeViewModel model, string postTitleTextarea, string postContentTextarea, HttpPostedFileBase imgUpload, HttpPostedFileBase fileUpload)
         {

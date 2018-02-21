@@ -4,6 +4,8 @@
 @Html.HiddenFor(m => m.Items)
 @Html.HiddenFor(m => m.Profile)
 
+@*<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">*@
+@*<link href="~/Content/bookpost/css/jquery-ui.css" rel="stylesheet" />*@
 <script type="text/javascript" src="~/Scripts/jquery.expander.js"></script>
 
 <div>
@@ -89,11 +91,11 @@
                 <div class="pull-right">
                     @if (post.ID_User == Model.Profile.ID_User)
                     {
-                        <i class="glyphicon glyphicon-option-vertical icon context-menu-one" style="border:0px;font-size: 24px;margin-right: 10px;"></i>
+                        <i class="glyphicon glyphicon-option-vertical icon context-menu-one" id="menu_@post.ID" style="border:0px;font-size: 24px;margin-right: 10px;"></i>
                     }
                     else
                     {
-                        <i class="glyphicon glyphicon-option-vertical icon context-menu-two" style="border:0px;font-size: 24px;margin-right: 10px;"></i>
+                        <i class="glyphicon glyphicon-option-vertical icon context-menu-two" id="menu_@post.ID" style="border:0px;font-size: 24px;margin-right: 10px;"></i>
                     }
                 </div>
 
@@ -103,9 +105,9 @@
 
                 @if (post.PostType.Token == InsuranceSocialNetworkCore.Enums.PostTypeEnum.FILE_POST.ToString())
                 {
-                    <a href="@Url.Action("Download", "Home", new { id = post.ID })"><i class="fa fa-file-text-o" aria-hidden="true" style="font-size:30px;padding-left: 15px;padding-right:10px;"></i></a>
+                    <a id="file_@post.ID" href="@Url.Action("Download", "Home", new { id = post.ID })"><i class="fa fa-file-text-o" aria-hidden="true" style="font-size:30px;padding-left: 15px;padding-right:10px;"></i></a>
                 }
-                @post.Text
+                <span id="text_@post.ID">@post.Text</span>
 
             </div>
 
@@ -269,9 +271,57 @@
     <li class="context-menu-item context-menu-icon context-menu-icon-quit"><span>@Resources.Resources.Delete</span></li>
 </ul>*@
 
+
+<div id="dialog-confirm-delete" style="display: none">
+    <p>
+        <span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>
+        @Resources.Resources.AreYouSureToDeletePost
+    </p>
+</div>
+
+<div id="dialog-confirm-hide" style="display: none">
+    <p>
+        <span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>
+        @Resources.Resources.AreYouSureToHidePost
+    </p>
+</div>
+
+<div id="dialog-confirm-edit" style="display:none">
+    <div class="panel topPanel" style="margin-bottom: 0px;">
+        @using (Html.BeginForm("EditPost", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.HiddenFor(m => m.Profile.ID_User)
+            @Html.HiddenFor(m => m.Profile.ID)
+
+            <textarea placeholder="@Resources.Resources.WhatsInYourMindToday" rows="1" class="form-control input-lg p-text-area" id="postContentTextarea" name="postContentTextarea" style="resize: none;height:375px;"></textarea>
+            <img id="imgPlaceholder" src="#" alt="" style="visibility:hidden;position:absolute" />
+            <div class="panel-footer" style="border-top: 0px; padding: 10px 10px">
+                @*<button class="btn btn-info pull-right" id="publishButton">@Resources.Resources.Save</button>*@
+                <ul class="nav nav-pills">
+                    <li>
+                        <input type='file' id="imgUpload" style="visibility:hidden;position:absolute" name="imgUpload" />
+                        <a href="javascript:$('#imgUpload').click()" style="padding: 3px 5px">
+                            <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF110.png" class="icon-normal" />
+                        </a>
+                    </li>
+                    <li>
+                        <input type='file' id="fileUpload" style="visibility:hidden;position:absolute" name="fileUpload" />
+                        <a href="javascript:$('#fileUpload').click()" style="padding: 3px 5px">
+                            <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF111.png" class="icon-normal" />
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        }
+    </div>
+</div>
+
 <script type="text/javascript">
 
     $(function () {
+
+        var url = "";
+        var postId = 0;
 
         $('.post-description').expander({
             slicePoint: 500,
@@ -306,12 +356,31 @@
         $.contextMenu({
             selector: '.context-menu-one',
             callback: function (key, options) {
-                var m = "clicked: " + key;
-                window.console && console.log(m) || alert(m);
+                //var m = "clicked: " + key;
+                //window.console && console.log(m) || alert(m);
+                switch (key)
+                {
+                    case "hide":
+                        url = "@Url.Action("HidePost", "Home")" + "/" + options.$trigger.attr("id").replace("menu_", "");
+                        $("#dialog-confirm-hide").dialog('open');
+                        break;
+                    case "edit":
+                        postId = options.$trigger.attr("id").replace("menu_", "");
+                        $("#dialog-confirm-edit").dialog('open');
+                        //alert($("#postContentTextarea").id);
+                        //alert($("#text_" + options.$trigger.attr("id").replace("menu_", "")).text());
+                        //$("#postContentTextarea").text = $("#text_" + options.$trigger.attr("id").replace("menu_", "")).text();
+                        break;
+                    case "delete":
+                        url = "@Url.Action("DeletePost", "Home")" + "/" + options.$trigger.attr("id").replace("menu_", "");
+                        $("#dialog-confirm-delete").dialog('open');
+                        break;
+                    default: break;
+                }
             },
             items: {
-                "edit": { name: "@Resources.Resources.Edit", icon: "edit" },
-                @*"hide": { name: "@Resources.Resources.Hide", icon: "hide" },*@
+                @*"edit": { name: "@Resources.Resources.Edit", icon: "edit" },*@
+                "hide": { name: "@Resources.Resources.Hide", icon: "hide" },
                 "sep1": "---------",
                 "delete": { name: "@Resources.Resources.Delete", icon: "delete" }
             }
@@ -320,8 +389,14 @@
         $.contextMenu({
             selector: '.context-menu-two',
             callback: function (key, options) {
-                var m = "clicked: " + key;
-                window.console && console.log(m) || alert(m);
+                switch (key)
+                {
+                    case "hide":
+                        url = "@Url.Action("HidePost", "Home")" + "/" + options.$trigger.attr("id").replace("menu_", "");
+                        $("#dialog-confirm-hide").dialog('open');
+                        break;
+                    default: break;
+                }
             },
             items: {
                 @*"edit": { name: "@Resources.Resources.Edit", icon: "edit" },*@
@@ -334,6 +409,107 @@
         $('.context-menu-one').on('click', function (e) {
             console.log('clicked', this);
         })
+
+        $('.context-menu-two').on('click', function (e) {
+            console.log('clicked', this);
+        })
+
+        $("#dialog-confirm-delete").dialog({
+            autoOpen: false,
+            resizable: false,
+            height: 170,
+            width: 350,
+            show: { effect: 'drop', direction: "up" },
+            modal: true,
+            draggable: true,
+            open: function (event, ui) {
+                $(".ui-dialog-titlebar-close").hide();
+
+            },
+            buttons: {
+                "@Resources.Resources.Ok": function () {
+                    $(this).dialog("close");
+                    window.location.href = url;
+                },
+                "@Resources.Resources.Cancel": function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+
+        $("#dialog-confirm-hide").dialog({
+            autoOpen: false,
+            resizable: false,
+            height: 170,
+            width: 350,
+            show: { effect: 'drop', direction: "up" },
+            modal: true,
+            draggable: true,
+            open: function (event, ui) {
+                $(".ui-dialog-titlebar-close").hide();
+            },
+            buttons: {
+                "@Resources.Resources.Ok": function () {
+                    $(this).dialog("close");
+                    window.location.href = url;
+                },
+                "@Resources.Resources.Cancel": function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+
+        $('#postContentTextarea').on('show', function () {
+            alert("ola!!");
+        });
+
+        $("#dialog-confirm-edit").dialog({
+            autoOpen: false,
+            resizable: false,
+            height: 550,
+            width: 450,
+            show: { effect: 'drop', direction: "up" },
+            modal: true,
+            draggable: true,
+            open: function (event, ui) {
+                $(".ui-dialog-titlebar-close").hide();
+
+                $("postContentTextarea").val('asdasdsadaasdasd');
+                //$("#dialog-confirm-edit").show();
+
+                //alert($("#postContentTextarea").id);
+                //alert($("#text_" + postId).text());
+                //$("#postContentTextarea").text = $("#text_" + postId).text();
+
+                $.getJSON('/Home/GetPost/' + postId, function (data) {
+                    alert(data.Text);
+                    //alert($("#postContentTextarea").id);
+
+                    //$.each(data, function (i, property) {
+                    //    alert(property);
+                    //});
+                    //alert($("#text_" + postId).text());
+                    //$("#postContentTextarea").text = $("#text_" + postId).text();
+
+                    //var items = '<table><tr><th>Name</th><th>Address</th></tr>';
+                    //$.each(data, function (i, country) {
+                    //    items += "<tr><td>" + country.ContactName + "</td><td>" + country.Address + "</td></tr>";
+                    //});
+                    //items += "</table>";
+
+                    //$('#rData').html(items);
+                    });
+            },
+            buttons: {
+                "@Resources.Resources.Save": function () {
+                    $(this).dialog("close");
+                    window.location.href = url;
+                },
+                "@Resources.Resources.Cancel": function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
     });
 
     function LikePost(object, postId, likesCount) {

@@ -62,5 +62,6 @@ namespace InsuranceSocialNetworkDAL
         public virtual DbSet<Post> Post { get; set; }
         public virtual DbSet<ChatMessage> ChatMessage { get; set; }
         public virtual DbSet<Notification> Notification { get; set; }
+        public virtual DbSet<PostHidden> PostHidden { get; set; }
     }
 }

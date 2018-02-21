@@ -16,6 +16,12 @@ namespace InsuranceSocialNetworkDAL
         {
             using (var context = new BackofficeUnitOfWork())
             {
+                List<long> hiddenPostIds = context.PostHidden
+                .Fetch()
+                .Where(i => i.ID_User == Id && i.Hidden)
+                .Select(i => i.ID_Post)
+                .ToList();
+
                 return context.Post
                     .Fetch()
                     .Include(i => i.AspNetUsers.Profile)
@@ -24,8 +30,10 @@ namespace InsuranceSocialNetworkDAL
                     .Include(i => i.PostLike)
                     .Include(i => i.PostComment)
                     .Include(i => i.PostImage)
-                    .Where(i => i.ID_User == Id 
+                    .Include(i => i.PostHidden)
+                    .Where(i => i.ID_User == Id
                         && i.Active
+                        && !hiddenPostIds.Contains(i.ID)
                         && (
                             i.PostSubject.Token.Equals("PERSONAL_POST")
                             || i.PostSubject.Token.Equals("BUSINESS_POST")
@@ -58,6 +66,12 @@ namespace InsuranceSocialNetworkDAL
                 .ToList();
             friendsUserIds = friendsUserIds.Concat(auxFriendsUserIds).ToList();
 
+            List<long> hiddenPostIds = context.PostHidden
+                .Fetch()
+                .Where(i => i.ID_User == Id && i.Hidden)
+                .Select(i => i.ID_Post)
+                .ToList();
+
             List<Post> postList = context.Post
                 .Fetch()
                 .Include(i => i.AspNetUsers.Profile)
@@ -65,6 +79,7 @@ namespace InsuranceSocialNetworkDAL
                 .Include(i => i.PostSubject)
                 .Include(i => i.PostLike)
                 .Include(i => i.PostComment)
+                .Include(i => i.PostHidden)
                 //.Include(i => i.ChatMessage.OrderByDescending(j => j.CreateDate).Take(20))
                 .Include(i => i.PostImage)
                 .Where(i => (
@@ -72,6 +87,7 @@ namespace InsuranceSocialNetworkDAL
                     || friendsUserIds.Contains(i.ID_User)
                     )
                     && i.Active
+                    && !hiddenPostIds.Contains(i.ID)
                     && (
                         i.PostSubject.Token.Equals("PERSONAL_POST")
                         || i.PostSubject.Token.Equals("BUSINESS_POST")
@@ -115,6 +131,12 @@ namespace InsuranceSocialNetworkDAL
 
         public static List<Post> GetUserPostsOnly(BackofficeUnitOfWork context, string Id)
         {
+            List<long> hiddenPostIds = context.PostHidden
+                .Fetch()
+                .Where(i => i.ID_User == Id && i.Hidden)
+                .Select(i => i.ID_Post)
+                .ToList();
+
             List<Post> postList = context.Post
                 .Fetch()
                 .Include(i => i.AspNetUsers.Profile)
@@ -122,10 +144,12 @@ namespace InsuranceSocialNetworkDAL
                 .Include(i => i.PostSubject)
                 .Include(i => i.PostLike)
                 .Include(i => i.PostComment)
+                .Include(i => i.PostHidden)
                 //.Include(i => i.ChatMessage.OrderByDescending(j => j.CreateDate).Take(20))
                 .Include(i => i.PostImage)
-                .Where(i => i.ID_User == Id 
+                .Where(i => i.ID_User == Id
                     && i.Active
+                    && !hiddenPostIds.Contains(i.ID)
                     && (
                         i.PostSubject.Token.Equals("PERSONAL_POST")
                         || i.PostSubject.Token.Equals("BUSINESS_POST")
@@ -147,6 +171,12 @@ namespace InsuranceSocialNetworkDAL
 
         public static List<Post> GetPosts(BackofficeUnitOfWork context, string Id, PostSubjectEnum postSubject)
         {
+            List<long> hiddenPostIds = context.PostHidden
+                .Fetch()
+                .Where(i => i.ID_User == Id && i.Hidden)
+                .Select(i => i.ID_Post)
+                .ToList();
+
             List<Post> postList = context.Post
                 .Fetch()
                 .Include(i => i.AspNetUsers.Profile)
@@ -154,10 +184,13 @@ namespace InsuranceSocialNetworkDAL
                 .Include(i => i.PostSubject)
                 .Include(i => i.PostLike)
                 .Include(i => i.PostComment)
+                .Include(i => i.PostHidden)
                 //.Include(i => i.ChatMessage.OrderByDescending(j => j.CreateDate).Take(20))
                 .Include(i => i.PostImage)
                 .Where(i => i.PostSubject.Token.Equals(postSubject.ToString())
-                    && i.Active)
+                    && i.Active
+                    && !hiddenPostIds.Contains(i.ID)
+                )
                 .OrderByDescending(i => i.Sticky)
                 .ThenByDescending(i => i.CreateDate)
                 .ToList();
@@ -216,6 +249,55 @@ namespace InsuranceSocialNetworkDAL
                 //}
 
                 return post.ID;
+            }
+        }
+
+        public static long EditPost(Post post)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                context.Post.Update(post);
+                context.Save();
+
+                return post.ID;
+            }
+        }
+
+        public static bool DeletePost(long postId, string userId)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                Post post = context.Post
+                    .Fetch()
+                    .Where(i => i.ID == postId && i.ID_User == userId)
+                    .FirstOrDefault();
+
+                if (null == post)
+                    return false;
+
+                context.Post.Delete(post);
+                context.Save();
+
+                return true;
+            }
+        }
+
+        public static bool HidePost(long postId, string userId)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                PostHidden hidePost = new PostHidden()
+                {
+                    Date=DateTime.Now,
+                    Hidden = true,
+                    ID_Post = postId,
+                    ID_User = userId
+                };
+                
+                context.PostHidden.Create(hidePost);
+                context.Save();
+
+                return true;
             }
         }
 

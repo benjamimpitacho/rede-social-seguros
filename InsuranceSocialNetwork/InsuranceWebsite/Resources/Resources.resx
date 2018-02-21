@@ -846,4 +846,13 @@
   <data name="SearchNewFriends" xml:space="preserve">
     <value>Pesquisar novos contactos</value>
   </data>
+  <data name="AreYouSureToDeletePost" xml:space="preserve">
+    <value>Tem a certeza que pretende apagar a publicação?</value>
+  </data>
+  <data name="AreYouSureToHidePost" xml:space="preserve">
+    <value>Tem a certeza que pretende ocultar a publicação?</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
 </root>

@@ -456,6 +456,16 @@
           <Property Name="Date" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="PostHidden">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_User" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ID_Post" Type="bigint" Nullable="false" />
+          <Property Name="Hidden" Type="bit" Nullable="false" />
+          <Property Name="Date" Type="datetime2" Precision="7" Nullable="false" />
+        </EntityType>
         <EntityType Name="PostImage">
           <Key>
             <PropertyRef Name="ID" />
@@ -1205,6 +1215,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PostHidden_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="PostHidden" Type="Self.PostHidden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PostHidden">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PostHidden_Post">
+          <End Role="Post" Type="Self.Post" Multiplicity="1" />
+          <End Role="PostHidden" Type="Self.PostHidden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PostHidden">
+              <PropertyRef Name="ID_Post" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PostImage_Post">
           <End Role="Post" Type="Self.Post" Multiplicity="1" />
           <End Role="PostImage" Type="Self.PostImage" Multiplicity="*" />
@@ -1287,6 +1321,7 @@
           <EntitySet Name="Post" EntityType="Self.Post" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="PostComment" EntityType="Self.PostComment" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="PostCommentLike" EntityType="Self.PostCommentLike" Schema="Insurance" store:Type="Tables" />
+          <EntitySet Name="PostHidden" EntityType="Self.PostHidden" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="PostImage" EntityType="Self.PostImage" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="PostLike" EntityType="Self.PostLike" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="PostSubject" EntityType="Self.PostSubject" Schema="Insurance" store:Type="Tables" />
@@ -1515,6 +1550,14 @@
           <AssociationSet Name="FK_PostCommentLike_Comment" Association="Self.FK_PostCommentLike_Comment">
             <End Role="PostComment" EntitySet="PostComment" />
             <End Role="PostCommentLike" EntitySet="PostCommentLike" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PostHidden_AspNetUsers" Association="Self.FK_PostHidden_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="PostHidden" EntitySet="PostHidden" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PostHidden_Post" Association="Self.FK_PostHidden_Post">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="PostHidden" EntitySet="PostHidden" />
           </AssociationSet>
           <AssociationSet Name="FK_PostImage_Post" Association="Self.FK_PostImage_Post">
             <End Role="Post" EntitySet="Post" />
@@ -1811,6 +1854,15 @@
             <End Role="Post" EntitySet="Post" />
             <End Role="Notification" EntitySet="Notification" />
           </AssociationSet>
+          <EntitySet Name="PostHidden" EntityType="InsurancePortal_dbModel.PostHidden" />
+          <AssociationSet Name="FK_PostHidden_AspNetUsers" Association="InsurancePortal_dbModel.FK_PostHidden_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="PostHidden" EntitySet="PostHidden" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PostHidden_Post" Association="InsurancePortal_dbModel.FK_PostHidden_Post">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="PostHidden" EntitySet="PostHidden" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="AspNetRoles">
           <Key>
@@ -1924,6 +1976,7 @@
           <NavigationProperty Name="ChatMessage" Relationship="InsurancePortal_dbModel.FK_ChatMessage_AspNetUsers" FromRole="AspNetUsers" ToRole="ChatMessage" />
           <NavigationProperty Name="Notification" Relationship="InsurancePortal_dbModel.FK_NotificationFromUser_AspNetUsers" FromRole="AspNetUsers" ToRole="Notification" />
           <NavigationProperty Name="Notification1" Relationship="InsurancePortal_dbModel.FK_NotificationToUser_AspNetUsers" FromRole="AspNetUsers" ToRole="Notification" />
+          <NavigationProperty Name="PostHidden" Relationship="InsurancePortal_dbModel.FK_PostHidden_AspNetUsers" FromRole="AspNetUsers" ToRole="PostHidden" />
           </EntityType>
         <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
           <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
@@ -2964,6 +3017,7 @@
           <NavigationProperty Name="PostImage" Relationship="InsurancePortal_dbModel.FK_PostImage_Post" FromRole="Post" ToRole="PostImage" />
           <NavigationProperty Name="PostLike" Relationship="InsurancePortal_dbModel.FK_PostLike_Post" FromRole="Post" ToRole="PostLike" />
           <NavigationProperty Name="Notification" Relationship="InsurancePortal_dbModel.FK_Notification_Post" FromRole="Post" ToRole="Notification" />
+          <NavigationProperty Name="PostHidden" Relationship="InsurancePortal_dbModel.FK_PostHidden_Post" FromRole="Post" ToRole="PostHidden" />
         </EntityType>
         <Association Name="FK_Post_AspNetUsers">
           <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
@@ -3142,6 +3196,42 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="Notification">
+              <PropertyRef Name="ID_Post" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="PostHidden">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_User" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ID_Post" Type="Int64" Nullable="false" />
+          <Property Name="Hidden" Type="Boolean" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="7" />
+          <NavigationProperty Name="AspNetUsers" Relationship="InsurancePortal_dbModel.FK_PostHidden_AspNetUsers" FromRole="PostHidden" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Post" Relationship="InsurancePortal_dbModel.FK_PostHidden_Post" FromRole="PostHidden" ToRole="Post" />
+        </EntityType>
+        <Association Name="FK_PostHidden_AspNetUsers">
+          <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="InsurancePortal_dbModel.PostHidden" Role="PostHidden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PostHidden">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PostHidden_Post">
+          <End Type="InsurancePortal_dbModel.Post" Role="Post" Multiplicity="1" />
+          <End Type="InsurancePortal_dbModel.PostHidden" Role="PostHidden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PostHidden">
               <PropertyRef Name="ID_Post" />
             </Dependent>
           </ReferentialConstraint>
@@ -3703,6 +3793,17 @@
                 <ScalarProperty Name="ID_NotificationType" ColumnName="ID_NotificationType" />
                 <ScalarProperty Name="FromUserID" ColumnName="FromUserID" />
                 <ScalarProperty Name="ToUserID" ColumnName="ToUserID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PostHidden">
+            <EntityTypeMapping TypeName="InsurancePortal_dbModel.PostHidden">
+              <MappingFragment StoreEntitySet="PostHidden">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Hidden" ColumnName="Hidden" />
+                <ScalarProperty Name="ID_Post" ColumnName="ID_Post" />
+                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

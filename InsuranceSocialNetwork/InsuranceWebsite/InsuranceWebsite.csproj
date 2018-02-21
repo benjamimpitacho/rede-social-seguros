@@ -283,6 +283,7 @@
     <Content Include="Content\bookpost\css\bootstrap.min.css" />
     <Content Include="Content\bookpost\bootstrap.min.js" />
     <Content Include="Content\bookpost\css\friends.css" />
+    <Content Include="Content\bookpost\css\jquery-ui.css" />
     <Content Include="Content\bookpost\css\messages.css" />
     <Content Include="Content\bookpost\custom.js" />
     <Content Include="Content\bookpost\fonts\glyphicons-halflings-regular.svg" />

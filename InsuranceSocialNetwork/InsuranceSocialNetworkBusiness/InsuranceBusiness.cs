@@ -584,6 +584,31 @@ namespace InsuranceSocialNetworkBusiness
             return PostRepository.CreatePost(post);
         }
 
+        public long EditPost(PostDTO item)
+        {
+            Post post = AutoMapper.Mapper.Map<Post>(item);
+
+            post.ID_PostType = PostRepository.GetPostType(item.Type.ToString()).ID;
+            post.ID_PostSubject = PostRepository.GetPostSubject(item.Subject.ToString()).ID;
+
+            if (null != item.Image)
+            {
+                post.PostImage = new List<PostImage>();
+                post.PostImage.Add(new PostImage()
+                {
+                    Active = true,
+                    //AspNetUsers = post.AspNetUsers,
+                    Date = DateTime.Now,
+                    //ID_User = post.ID_User,
+                    Image = item.Image,
+                    FileName = item.FileName,
+                    FileExtension = item.FileExtension
+                });
+            }
+
+            return PostRepository.EditPost(post);
+        }
+
         public bool LikePost(long postId, string userId)
         {
             return PostRepository.LikePost(postId, userId);
@@ -597,6 +622,16 @@ namespace InsuranceSocialNetworkBusiness
         public bool IsOwnPost(long postId, string userId)
         {
             return PostRepository.IsOwnPost(postId, userId);
+        }
+
+        public bool DeletePost(long postId, string userId)
+        {
+            return PostRepository.DeletePost(postId, userId);
+        }
+
+        public bool HidePost(long postId, string userId)
+        {
+            return PostRepository.HidePost(postId, userId);
         }
 
         #endregion Posts

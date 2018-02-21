@@ -1,0 +1,11 @@
+﻿CREATE TABLE [Insurance].[PostHidden]
+(
+	[ID] BIGINT IDENTITY NOT NULL,
+	[ID_User] NVARCHAR(128) NOT NULL,
+	[ID_Post] BIGINT NOT NULL,
+	[Hidden] BIT NOT NULL DEFAULT 1,
+	[Date] DATETIME2 NOT NULL,
+    CONSTRAINT [PK_PostHidden] PRIMARY KEY CLUSTERED ([ID] ASC),
+	CONSTRAINT [FK_PostHidden_AspNetUsers] FOREIGN KEY([ID_User]) REFERENCES [dbo].[AspNetUsers] ([Id]),
+	CONSTRAINT [FK_PostHidden_Post] FOREIGN KEY([ID_Post]) REFERENCES [Insurance].[Post] ([ID])
+)

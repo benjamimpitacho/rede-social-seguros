@@ -295,6 +295,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tem a certeza que pretende apagar a publicação?.
+        /// </summary>
+        public static string AreYouSureToDeletePost {
+            get {
+                return ResourceManager.GetString("AreYouSureToDeletePost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tem a certeza que pretende ocultar a publicação?.
+        /// </summary>
+        public static string AreYouSureToHidePost {
+            get {
+                return ResourceManager.GetString("AreYouSureToHidePost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ASF.
         /// </summary>
         public static string ASF {
@@ -1515,6 +1533,15 @@ namespace Resources {
         public static string OfficialPartner {
             get {
                 return ResourceManager.GetString("OfficialPartner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        public static string Ok {
+            get {
+                return ResourceManager.GetString("Ok", resourceCulture);
             }
         }
         

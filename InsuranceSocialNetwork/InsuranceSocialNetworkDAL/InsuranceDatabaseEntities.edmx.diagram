@@ -101,6 +101,9 @@
         <AssociationConnector Association="InsurancePortal_dbModel.FK_NotificationToUser_AspNetUsers" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_Notification_NotificationType" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_Notification_Post" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.PostHidden" Width="1.5" PointX="16.5" PointY="24.5" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_PostHidden_AspNetUsers" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_PostHidden_Post" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
