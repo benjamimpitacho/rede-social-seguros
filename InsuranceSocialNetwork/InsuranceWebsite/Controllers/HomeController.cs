@@ -1949,5 +1949,27 @@ namespace InsuranceWebsite.Controllers
 
             return View(model);
         }
+
+        public ActionResult ConfirmPostDelete(long id)
+        {
+            ViewBag.postId = id;
+            return PartialView("Partial/_ConfirmPostDelete");
+        }
+
+        public ActionResult ConfirmPostHide(long id)
+        {
+            ViewBag.postId = id;
+            return PartialView("Partial/_ConfirmPostHide");
+        }
+
+        public ActionResult EditPostDialog(long id)
+        {
+            PostViewModel model = new PostViewModel();
+
+            FillModel(model, CurrentUser.ID_User, false);
+            model.Post = InsuranceBusiness.BusinessLayer.GetPost(id);
+
+            return PartialView("Partial/_EditPost", model);
+        }
     }
 }

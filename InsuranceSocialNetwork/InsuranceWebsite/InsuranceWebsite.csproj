@@ -230,6 +230,7 @@
     <Compile Include="Models\CompaniesManagementViewModels.cs" />
     <Compile Include="Models\FriendsViewModels.cs" />
     <Compile Include="Models\ChatViewModel.cs" />
+    <Compile Include="Models\PostViewModels.cs" />
     <Compile Include="Models\SinglePostViewModel.cs" />
     <Compile Include="Models\MessagesViewModels.cs" />
     <Compile Include="Models\BannersManagementViewModels.cs" />
@@ -659,6 +660,9 @@
     <Content Include="Views\Home\ApsDetails.cshtml" />
     <Content Include="Views\Home\AproseDetails.cshtml" />
     <Content Include="Views\Home\PostDetail.cshtml" />
+    <Content Include="Views\Home\Partial\_ConfirmPostDelete.cshtml" />
+    <Content Include="Views\Home\Partial\_ConfirmPostHide.cshtml" />
+    <Content Include="Views\Home\Partial\_EditPost.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
