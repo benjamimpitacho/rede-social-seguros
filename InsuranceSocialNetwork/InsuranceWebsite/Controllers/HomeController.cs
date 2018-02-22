@@ -544,31 +544,34 @@ namespace InsuranceWebsite.Controllers
 
         [HttpPost]
         [FunctionalityAutorizeAttribute("NEW_POST_FUNCTIONALITY")]
-        public ActionResult EditPost(HomeViewModel model, string postContentTextarea, HttpPostedFileBase imgUpload, HttpPostedFileBase fileUpload, long postId)
+        public ActionResult EditPost(PostViewModel model, string postContentTextarea, HttpPostedFileBase imgEditUpload, HttpPostedFileBase fileEditUpload)
         {
             try
             {
-                PostDTO editedPost = InsuranceBusiness.BusinessLayer.GetPost(postId);
+                PostDTO editedPost = InsuranceBusiness.BusinessLayer.GetPost(model.Post.ID);
 
                 editedPost.LastChangeDate = DateTime.Now;
                 editedPost.Text = postContentTextarea;
-                editedPost.Type = null == imgUpload ? InsuranceSocialNetworkCore.Enums.PostTypeEnum.TEXT_POST : InsuranceSocialNetworkCore.Enums.PostTypeEnum.IMAGE_POST;
+                editedPost.Type = InsuranceSocialNetworkCore.Enums.PostTypeEnum.TEXT_POST;
                 editedPost.Subject = InsuranceSocialNetworkCore.Enums.PostSubjectEnum.PERSONAL_POST;
-                
-                if (null != imgUpload)
+
+                editedPost.Image = null;
+                editedPost.FileName = null;
+                editedPost.FileExtension = null;
+                if (null != imgEditUpload)
                 {
                     editedPost.Type = InsuranceSocialNetworkCore.Enums.PostTypeEnum.IMAGE_POST;
-                    editedPost.Image = InsuranceSocialNetworkCore.Utils.ConvertionUtils.ScaleImage(InsuranceSocialNetworkCore.Utils.ConvertionUtils.ReadFully(imgUpload.InputStream), 1024, 1024);
-                    editedPost.FileName = Path.GetFileNameWithoutExtension(imgUpload.FileName);
-                    editedPost.FileExtension = Path.GetExtension(imgUpload.FileName);
+                    editedPost.Image = InsuranceSocialNetworkCore.Utils.ConvertionUtils.ScaleImage(InsuranceSocialNetworkCore.Utils.ConvertionUtils.ReadFully(imgEditUpload.InputStream), 1024, 1024);
+                    editedPost.FileName = Path.GetFileNameWithoutExtension(imgEditUpload.FileName);
+                    editedPost.FileExtension = Path.GetExtension(imgEditUpload.FileName);
                 }
 
-                if (null != fileUpload)
+                if (null != fileEditUpload)
                 {
                     editedPost.Type = InsuranceSocialNetworkCore.Enums.PostTypeEnum.FILE_POST;
-                    editedPost.Image = InsuranceSocialNetworkCore.Utils.ConvertionUtils.ReadFully(fileUpload.InputStream);
-                    editedPost.FileName = Path.GetFileNameWithoutExtension(fileUpload.FileName);
-                    editedPost.FileExtension = Path.GetExtension(fileUpload.FileName);
+                    editedPost.Image = InsuranceSocialNetworkCore.Utils.ConvertionUtils.ReadFully(fileEditUpload.InputStream);
+                    editedPost.FileName = Path.GetFileNameWithoutExtension(fileEditUpload.FileName);
+                    editedPost.FileExtension = Path.GetExtension(fileEditUpload.FileName);
                 }
 
                 InsuranceBusiness.BusinessLayer.EditPost(editedPost);

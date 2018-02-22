@@ -256,6 +256,13 @@ namespace InsuranceSocialNetworkDAL
         {
             using (var context = new BackofficeUnitOfWork())
             {
+                context.PostImage.Delete(i => i.ID_Post == post.ID);
+
+                if (null != post.PostImage && post.PostImage.Count > 0)
+                {
+                    context.PostImage.Create(post.PostImage.ElementAt(0));
+                }
+
                 context.Post.Update(post);
                 context.Save();
 

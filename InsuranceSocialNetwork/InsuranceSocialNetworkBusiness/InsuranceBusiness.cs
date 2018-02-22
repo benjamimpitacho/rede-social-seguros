@@ -589,7 +589,9 @@ namespace InsuranceSocialNetworkBusiness
             Post post = AutoMapper.Mapper.Map<Post>(item);
 
             post.ID_PostType = PostRepository.GetPostType(item.Type.ToString()).ID;
+            post.PostType = null;
             post.ID_PostSubject = PostRepository.GetPostSubject(item.Subject.ToString()).ID;
+            post.PostSubject = null;
 
             if (null != item.Image)
             {
@@ -597,6 +599,7 @@ namespace InsuranceSocialNetworkBusiness
                 post.PostImage.Add(new PostImage()
                 {
                     Active = true,
+                    ID_Post = post.ID,
                     //AspNetUsers = post.AspNetUsers,
                     Date = DateTime.Now,
                     //ID_User = post.ID_User,
@@ -604,6 +607,10 @@ namespace InsuranceSocialNetworkBusiness
                     FileName = item.FileName,
                     FileExtension = item.FileExtension
                 });
+            }
+            else
+            {
+                post.PostImage = null;
             }
 
             return PostRepository.EditPost(post);
