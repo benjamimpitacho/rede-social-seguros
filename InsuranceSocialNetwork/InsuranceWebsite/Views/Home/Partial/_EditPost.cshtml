@@ -18,11 +18,20 @@
         @Html.HiddenFor(m => m.Profile.ID_User)
         @Html.HiddenFor(m => m.Profile.ID)
         @Html.HiddenFor(m => m.Post.ID)
+        @Html.HiddenFor(m => m.RemoveFile)
+        @Html.HiddenFor(m => m.RemoveImage)
 
         if (Model.Post.PostType.Token == InsuranceSocialNetworkCore.Enums.PostTypeEnum.IMAGE_POST.ToString() && null != Model.Post.PostImage && Model.Post.PostImage.Count > 0)
         {
             <textarea placeholder="@Resources.Resources.WhatsInYourMindToday" rows="1" class="form-control input-lg p-text-area" id="postContentTextarea" name="postContentTextarea" style="resize: vertical;word-break:normal;height:100px;max-height:500px; text-align:justify;">@Model.Post.Text</textarea>
+            <button id="removeImageButton" type="button" class="ui-button ui-corner-all ui-widget ui-button-icon-only" style="position: absolute;width: 20px;height: 20px;padding: 1px;margin-left: 415px;margin-top: 4px;" title="@Resources.Resources.Remove"><span class="ui-button-icon ui-icon ui-icon-closethick"></span><span class="ui-button-icon-space"> </span>@Resources.Resources.Remove</button>
             <img id="imgPlaceholderEdit" src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.Post.PostImage[0].Image))" alt="" style="" />
+        }
+        else if (Model.Post.PostType.Token == InsuranceSocialNetworkCore.Enums.PostTypeEnum.FILE_POST.ToString())
+        {
+            <textarea placeholder="@Resources.Resources.WhatsInYourMindToday" rows="1" class="form-control input-lg p-text-area" id="postContentTextarea" name="postContentTextarea" style="resize: vertical;word-break:normal;height:300px;max-height:500px; text-align:justify;">@Model.Post.Text</textarea>
+            <button id="removeFileButton" type="button" class="ui-button ui-corner-all ui-widget ui-button-icon-only" style="position: absolute;width: 20px;height: 20px;padding: 1px;margin-left: 50px;margin-top: 4px;" title="@Resources.Resources.Remove"><span class="ui-button-icon ui-icon ui-icon-closethick"></span><span class="ui-button-icon-space"> </span>@Resources.Resources.Remove</button>
+            <a id="fileLink" href="@Url.Action("Download", "Home", new { id = Model.Post.ID })"><i class="fa fa-file-text-o" aria-hidden="true" style="font-size:30px;padding-left: 15px;padding-right:10px;"></i></a>
         }
         else
         {
@@ -69,15 +78,33 @@
             $("#dialog-confirm-edit").dialog("close");
         });
 
+        $("#removeFileButton").on("click", function (e) {
+            $("#fileLink").hide();
+            $("#removeFileButton").hide();
+            $("#fileEditUpload").files = null;
+            $("#RemoveFile").val("True");
+        });
+
+        $("#removeImageButton").on("click", function (e) {
+            $("#fileLink").hide();
+            $("#removeImageButton").hide();
+            $('#imgPlaceholderEdit').attr('style', 'visibility:hidden;position:absolute');
+            $('#imgPlaceholderEdit').attr('src', '');
+            $("#imgEditUpload").files = null;
+            $("#RemoveImage").val("True");
+        });
+
         $("#imgEditUpload").change(function () {
             readURL(this);
             $("#fileEditUpload").files = null;
+            $("#RemoveFile").val("True");
         });
 
         $("#fileEditUpload").change(function () {
             $('#imgPlaceholderEdit').attr('style', 'visibility:hidden;position:absolute');
             $('#imgPlaceholderEdit').attr('src', '');
             $("#imgEditUpload").files = null;
+            $("#RemoveImage").val("True");
         });
 
     });

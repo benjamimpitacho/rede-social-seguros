@@ -95,3 +95,25 @@ INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUE
 INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('4','SEARCH_INSURANCECONTACTS_FUNCTIONALITY',1);
 INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('4','SETTINGS_FUNCTIONALITY',1);
 INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('4','CURRENT_DISCUSSIONS_FUNCTIONALITY',1);
+
+/* INSURANCE_COMPANY */
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('5','USERS_MANAGEMENT',0);
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('5','ROLES_MANAGEMENT',0);
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('5','ALERTS_MANAGEMENT',0);
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('5','COMPANY_FAVORITE_FUNCTIONALITY',1);
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('5','MESSAGES_FUNCTIONALITY',1);
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('5','NOTIFICATIONS_FUNCTIONALITY',1);
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('5','ADD_FRIEND_FUNCTIONALITY',1);
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('5','NEW_POST_FUNCTIONALITY',1);
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('5','LIKE_POST_FUNCTIONALITY',1);
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('5','TIMELINE_FUNCTIONALITY',1);
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('5','COMMENT_POST_FUNCTIONALITY',1);
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('5','PROFILE_INFO_FUNCTIONALITY',1);
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('5','FRIENDS_FUNCTIONALITY',1)
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('5','SEARCH_GARAGES_FUNCTIONALITY',1);
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('5','SEARCH_CLINICS_FUNCTIONALITY',1);
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('5','SEARCH_CONSTRUCTIONCOMPANIES_FUNCTIONALITY',1);
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('5','SEARCH_APPLIANCEREPAIR_FUNCTIONALITY',1);
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('5','SEARCH_INSURANCECONTACTS_FUNCTIONALITY',1);
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('5','SETTINGS_FUNCTIONALITY',1);
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('5','CURRENT_DISCUSSIONS_FUNCTIONALITY',1);

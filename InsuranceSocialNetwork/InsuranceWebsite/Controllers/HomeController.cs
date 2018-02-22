@@ -558,7 +558,7 @@ namespace InsuranceWebsite.Controllers
                 editedPost.Image = null;
                 editedPost.FileName = null;
                 editedPost.FileExtension = null;
-                if (null != imgEditUpload)
+                if (model.RemoveImage && null != imgEditUpload)
                 {
                     editedPost.Type = InsuranceSocialNetworkCore.Enums.PostTypeEnum.IMAGE_POST;
                     editedPost.Image = InsuranceSocialNetworkCore.Utils.ConvertionUtils.ScaleImage(InsuranceSocialNetworkCore.Utils.ConvertionUtils.ReadFully(imgEditUpload.InputStream), 1024, 1024);
@@ -566,7 +566,7 @@ namespace InsuranceWebsite.Controllers
                     editedPost.FileExtension = Path.GetExtension(imgEditUpload.FileName);
                 }
 
-                if (null != fileEditUpload)
+                if (model.RemoveFile && null != fileEditUpload)
                 {
                     editedPost.Type = InsuranceSocialNetworkCore.Enums.PostTypeEnum.FILE_POST;
                     editedPost.Image = InsuranceSocialNetworkCore.Utils.ConvertionUtils.ReadFully(fileEditUpload.InputStream);
@@ -1413,7 +1413,7 @@ namespace InsuranceWebsite.Controllers
                 };
 
                 model.SearchCompaniesModel.ResultCompanyItems = InsuranceBusiness.BusinessLayer.SearchGarages(companySearchFilter);
-
+                
                 FillModel(model, CurrentUser.ID_User);
             }
             catch (Exception ex)

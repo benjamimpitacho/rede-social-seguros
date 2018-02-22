@@ -81,25 +81,25 @@ namespace InsuranceSocialNetworkBusiness
                 cfg.CreateMap<BannerType, BannerTypeDTO>();
                 cfg.CreateMap<BannerTypeDTO, BannerType>();
 
-                cfg.CreateMap<Garage, CompanyDTO>();
-                    //.ForMember(dest => dest.IsFavorite,
-                    //   opts => opts.MapFrom(src => src.GarageFavorite != null && src.GarageFavorite.Count > 0));
+                cfg.CreateMap<Garage, CompanyDTO>()
+                    .ForMember(dest => dest.IsFavorite,
+                       opts => opts.MapFrom(src => src.GarageFavorite != null && src.GarageFavorite.Count > 0));
                 cfg.CreateMap<CompanyDTO, Garage>();
-                cfg.CreateMap<MedicalClinic, CompanyDTO>();
-                    //.ForMember(dest => dest.IsFavorite,
-                    //   opts => opts.MapFrom(src => src.MedicalClinicFavorite != null && src.MedicalClinicFavorite.Count > 0));
+                cfg.CreateMap<MedicalClinic, CompanyDTO>()
+                    .ForMember(dest => dest.IsFavorite,
+                       opts => opts.MapFrom(src => src.MedicalClinicFavorite != null && src.MedicalClinicFavorite.Count > 0));
                 cfg.CreateMap<CompanyDTO, MedicalClinic>();
-                cfg.CreateMap<ConstructionCompany, CompanyDTO>();
-                    //.ForMember(dest => dest.IsFavorite,
-                    //   opts => opts.MapFrom(src => src.ConstructionCompanyFavorite != null && src.ConstructionCompanyFavorite.Count > 0));
+                cfg.CreateMap<ConstructionCompany, CompanyDTO>()
+                    .ForMember(dest => dest.IsFavorite,
+                       opts => opts.MapFrom(src => src.ConstructionCompanyFavorite != null && src.ConstructionCompanyFavorite.Count > 0));
                 cfg.CreateMap<CompanyDTO, ConstructionCompany>();
-                cfg.CreateMap<HomeApplianceRepair, CompanyDTO>();
-                    //.ForMember(dest => dest.IsFavorite,
-                    //   opts => opts.MapFrom(src => src.HomeApplianceRepairFavorite != null && src.HomeApplianceRepairFavorite.Count > 0));
+                cfg.CreateMap<HomeApplianceRepair, CompanyDTO>()
+                    .ForMember(dest => dest.IsFavorite,
+                       opts => opts.MapFrom(src => src.HomeApplianceRepairFavorite != null && src.HomeApplianceRepairFavorite.Count > 0));
                 cfg.CreateMap<CompanyDTO, HomeApplianceRepair>();
-                cfg.CreateMap<InsuranceCompanyContact, CompanyDTO>();
-                    //.ForMember(dest => dest.IsFavorite,
-                    //   opts => opts.MapFrom(src => src.InsuranceCompanyContactFavorite != null && src.InsuranceCompanyContactFavorite.Count > 0));
+                cfg.CreateMap<InsuranceCompanyContact, CompanyDTO>()
+                    .ForMember(dest => dest.IsFavorite,
+                       opts => opts.MapFrom(src => src.InsuranceCompanyContactFavorite != null && src.InsuranceCompanyContactFavorite.Count > 0));
                 cfg.CreateMap<CompanyDTO, InsuranceCompanyContact>();
             });
 
@@ -1025,6 +1025,7 @@ namespace InsuranceSocialNetworkBusiness
         {
             List<Garage> itemsList = CompanyRepository.SearchGarages(searchFilter);
             itemsList.ForEach(i => i.GarageFavorite = i.GarageFavorite.Where(j => j.ID_User == searchFilter.UserId).ToList());
+            itemsList = itemsList.OrderBy(i => (null != i.GarageFavorite && i.GarageFavorite.Count > 0) ? 0 : 1).ToList();
             return AutoMapper.Mapper.Map<List<CompanyDTO>>(itemsList);
         }
 
@@ -1032,24 +1033,32 @@ namespace InsuranceSocialNetworkBusiness
         {
 
             List<MedicalClinic> itemsList = CompanyRepository.SearchMedicalClinics(searchFilter);
+            itemsList.ForEach(i => i.MedicalClinicFavorite = i.MedicalClinicFavorite.Where(j => j.ID_User == searchFilter.UserId).ToList());
+            itemsList = itemsList.OrderBy(i => (null != i.MedicalClinicFavorite && i.MedicalClinicFavorite.Count > 0) ? 0 : 1).ToList();
             return AutoMapper.Mapper.Map<List<CompanyDTO>>(itemsList);
         }
 
         public List<CompanyDTO> SearchConstructionCompanies(CompanySearchFilterDTO searchFilter)
         {
             List<ConstructionCompany> itemsList = CompanyRepository.SearchConstructionCompanies(searchFilter);
+            itemsList.ForEach(i => i.ConstructionCompanyFavorite = i.ConstructionCompanyFavorite.Where(j => j.ID_User == searchFilter.UserId).ToList());
+            itemsList = itemsList.OrderBy(i => (null != i.ConstructionCompanyFavorite && i.ConstructionCompanyFavorite.Count > 0) ? 0 : 1).ToList();
             return AutoMapper.Mapper.Map<List<CompanyDTO>>(itemsList);
         }
 
         public List<CompanyDTO> SearchHomeApplianceRepairs(CompanySearchFilterDTO searchFilter)
         {
             List<HomeApplianceRepair> itemsList = CompanyRepository.SearchHomeApplianceRepairs(searchFilter);
+            itemsList.ForEach(i => i.HomeApplianceRepairFavorite = i.HomeApplianceRepairFavorite.Where(j => j.ID_User == searchFilter.UserId).ToList());
+            itemsList = itemsList.OrderBy(i => (null != i.HomeApplianceRepairFavorite && i.HomeApplianceRepairFavorite.Count > 0) ? 0 : 1).ToList();
             return AutoMapper.Mapper.Map<List<CompanyDTO>>(itemsList);
         }
 
         public List<CompanyDTO> SearchInsuranceCompanyContacts(CompanySearchFilterDTO searchFilter)
         {
             List<InsuranceCompanyContact> itemsList = CompanyRepository.SearchInsuranceCompanyContacts(searchFilter);
+            itemsList.ForEach(i => i.InsuranceCompanyContactFavorite = i.InsuranceCompanyContactFavorite.Where(j => j.ID_User == searchFilter.UserId).ToList());
+            itemsList = itemsList.OrderBy(i => (null != i.InsuranceCompanyContactFavorite && i.InsuranceCompanyContactFavorite.Count > 0) ? 0 : 1).ToList();
             return AutoMapper.Mapper.Map<List<CompanyDTO>>(itemsList);
         }
 

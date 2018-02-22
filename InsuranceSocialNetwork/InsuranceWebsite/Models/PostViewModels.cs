@@ -14,5 +14,8 @@ namespace InsuranceWebsite.Models
         public PostViewModel() { }
 
         public PostDTO Post { get; set; }
+
+        public bool RemoveImage { get; set; }
+        public bool RemoveFile { get; set; }
     }
 }
