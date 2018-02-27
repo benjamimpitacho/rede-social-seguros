@@ -1128,15 +1128,16 @@ namespace InsuranceWebsite.Controllers
         [FunctionalityAutorizeAttribute("PROFILE_INFO_FUNCTIONALITY")]
         public async Task<ActionResult> ProfileEdit(string userId, long? ntId)
         {
-            ProfileEditModel model = new ProfileEditModel();
-            
+            //ProfileEditModel model = new ProfileEditModel();
+            HomeViewModel model = new HomeViewModel();
+
             if (null != this.User && this.User.Identity.IsAuthenticated)
             {
                 var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
                 var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
                 if (null != user)
                 {
-                    FillModel(model, user.Id);
+                    FillModel(model, user.Id, false);
                 }
                 else
                 {
@@ -1148,44 +1149,47 @@ namespace InsuranceWebsite.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
-            //if (id != model.Profile.ID)
-            //{
-            //    return RedirectToAction("LogOff", "Account");
-            //}
+            //UserProfileDTO userProfile = InsuranceBusiness.BusinessLayer.GetUserProfile(userId);
 
-            UserProfileDTO userProfile = InsuranceBusiness.BusinessLayer.GetUserProfile(userId);
-
+            model.IsPostsView = false;
             model.IsOwnProfile = userId == CurrentUser.ID_User;
+            model.IsProfileEdit = true;
 
-            model.ID = userProfile.ID;
-            model.FirstName = userProfile.FirstName;
-            model.LastName = userProfile.LastName;
-            model.MobilePhone_1 = userProfile.MobilePhone_1;
-            model.MobilePhone_2 = userProfile.MobilePhone_2;
-            model.Telephone_1 = userProfile.Telephone_1;
-            model.Telephone_2 = userProfile.Telephone_2;
-            model.Address = userProfile.Address;
-            model.Birthdate = userProfile.Birthdate;
-            model.ContactEmail = userProfile.ContactEmail;
-            model.ProfilePhoto = userProfile.ProfilePhoto;
-            model.Website = string.IsNullOrEmpty(userProfile.Website) ? userProfile.Website : userProfile.Website.ToLower();
-            model.AboutMe = userProfile.AboutMe;
-            model.Skype = userProfile.Skype;
-            model.Whatsapp = userProfile.Whatsapp;
-            model.CompaniesWorkingWith = userProfile.CompaniesWorkingWith;
+            model.Profile = InsuranceBusiness.BusinessLayer.GetUserProfile(userId);
 
-            model.AllowedEmails = InsuranceBusiness.BusinessLayer.GetAuthorizedEmailsForAutomaticApproval(model.Profile.ID_User).Select(i => new SelectListItem() { Value = i, Text = i }).ToList();
+            model.ProfileEditModel = new ProfileEditModel();
+            model.ProfileEditModel.ID = model.Profile.ID;
+            model.ProfileEditModel.FirstName =  model.Profile.FirstName;
+            model.ProfileEditModel.LastName =  model.Profile.LastName;
+            model.ProfileEditModel.MobilePhone_1 =  model.Profile.MobilePhone_1;
+            model.ProfileEditModel.MobilePhone_2 =  model.Profile.MobilePhone_2;
+            model.ProfileEditModel.Telephone_1 =  model.Profile.Telephone_1;
+            model.ProfileEditModel.Telephone_2 =  model.Profile.Telephone_2;
+            model.ProfileEditModel.Address =  model.Profile.Address;
+            model.ProfileEditModel.Birthdate =  model.Profile.Birthdate;
+            model.ProfileEditModel.ContactEmail =  model.Profile.ContactEmail;
+            model.ProfileEditModel.ProfilePhoto =  model.Profile.ProfilePhoto;
+            model.ProfileEditModel.Website = string.IsNullOrEmpty( model.Profile.Website) ?  model.Profile.Website :  model.Profile.Website.ToLower();
+            model.ProfileEditModel.AboutMe =  model.Profile.AboutMe;
+            model.ProfileEditModel.Skype =  model.Profile.Skype;
+            model.ProfileEditModel.Whatsapp =  model.Profile.Whatsapp;
+            model.ProfileEditModel.CompaniesWorkingWith = model.Profile.CompaniesWorkingWith;
+
+            model.ProfileEditModel.CreateDate = model.Profile.CreateDate;
+
+            model.ProfileEditModel.AllowedEmails = InsuranceBusiness.BusinessLayer.GetAuthorizedEmailsForAutomaticApproval(model.Profile.ID_User).Select(i => new SelectListItem() { Value = i, Text = i }).ToList();
 
             if (ntId.HasValue)
             {
                 InsuranceBusiness.BusinessLayer.MarkNotificationAsRead(ntId.Value);
             }
 
-            return View(model);
+            return View("Index", model);
+            //return View(model);
         }
 
         [FunctionalityAutorizeAttribute("PROFILE_INFO_FUNCTIONALITY")]
-        public async Task<ActionResult> ProfileSave(ProfileEditModel model, HttpPostedFileBase fileUploaderControl)
+        public async Task<ActionResult> ProfileSave(HomeViewModel model, HttpPostedFileBase fileUploaderControl)
         {
             if (null != this.User && this.User.Identity.IsAuthenticated)
             {
@@ -1205,55 +1209,55 @@ namespace InsuranceWebsite.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
-            if (CurrentUser.ID != model.ID)
+            if (CurrentUser.ID != model.ProfileEditModel.ID)
             {
                 return RedirectToAction("LogOff", "Account");
             }
 
-            model.IsOwnProfile = CurrentUser.ID == model.ID;
+            model.IsOwnProfile = CurrentUser.ID == model.ProfileEditModel.ID;
 
-            UserProfileDTO profile = InsuranceBusiness.BusinessLayer.GetUserProfile(model.ID);
+            UserProfileDTO profile = InsuranceBusiness.BusinessLayer.GetUserProfile(model.ProfileEditModel.ID);
 
-            profile.AboutMe = model.AboutMe;
-            profile.Address = model.Address;
-            profile.Birthdate = model.Birthdate;
-            profile.ContactEmail = model.ContactEmail;
-            profile.FirstName = model.FirstName;
-            profile.LastName = model.LastName;
-            profile.MobilePhone_1 = model.MobilePhone_1;
-            profile.MobilePhone_2 = model.MobilePhone_2;
-            profile.Skype = model.Skype;
-            profile.Whatsapp = model.Whatsapp;
-            profile.CompaniesWorkingWith = model.CompaniesWorkingWith;
+            profile.AboutMe = model.ProfileEditModel.AboutMe;
+            profile.Address = model.ProfileEditModel.Address;
+            profile.Birthdate = model.ProfileEditModel.Birthdate;
+            profile.ContactEmail = model.ProfileEditModel.ContactEmail;
+            profile.FirstName = model.ProfileEditModel.FirstName;
+            profile.LastName = model.ProfileEditModel.LastName;
+            profile.MobilePhone_1 = model.ProfileEditModel.MobilePhone_1;
+            profile.MobilePhone_2 = model.ProfileEditModel.MobilePhone_2;
+            profile.Skype = model.ProfileEditModel.Skype;
+            profile.Whatsapp = model.ProfileEditModel.Whatsapp;
+            profile.CompaniesWorkingWith = model.ProfileEditModel.CompaniesWorkingWith;
             if (null != fileUploaderControl)
             {
                 Bitmap resizedImage = ImageUtils.ResizeImage(Bitmap.FromStream(fileUploaderControl.InputStream), 250, 250);
                 profile.ProfilePhoto = ImageUtils.ImageToByte(resizedImage);
-                model.ProfilePhoto = profile.ProfilePhoto;
-                model.Profile.ProfilePhoto = profile.ProfilePhoto;
+                model.ProfileEditModel.ProfilePhoto = profile.ProfilePhoto;
+                model.ProfileEditModel.Profile.ProfilePhoto = profile.ProfilePhoto;
                 //using (var binaryReader = new BinaryReader(fileUploaderControl.InputStream))
                 //{
                 //    profile.ProfilePhoto = binaryReader.ReadBytes(fileUploaderControl.ContentLength);
                 //    model.ProfilePhoto = profile.ProfilePhoto;
                 //}
             }
-            profile.Telephone_1 = model.Telephone_1;
-            profile.Telephone_2 = model.Telephone_2;
-            profile.Website = model.Website;
+            profile.Telephone_1 = model.ProfileEditModel.Telephone_1;
+            profile.Telephone_2 = model.ProfileEditModel.Telephone_2;
+            profile.Website = model.ProfileEditModel.Website;
 
             InsuranceBusiness.BusinessLayer.UpdateProfile(profile);
 
-            try
-            {
-                InsuranceBusiness.BusinessLayer.UpdateEmailAuthorizedForAutomaticApproval(model.Profile.ID_User, model.SelectedAllowedEmails);
-            }
-            catch (Exception ex)
-            {
-                throw new NotImplementedException();
-            }
+            //try
+            //{
+            //    InsuranceBusiness.BusinessLayer.UpdateEmailAuthorizedForAutomaticApproval(model.Profile.ID_User, model.ProfileEditModel.SelectedAllowedEmails);
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw new NotImplementedException();
+            //}
 
             //return View("ProfileInfo", model);
-            return RedirectToAction("ProfileInfo", new { id = model.Profile.ID });
+            return RedirectToAction("ProfileInfo", new { id = model.ProfileEditModel.ID });
         }
 
         [FunctionalityAutorizeAttribute("PROFILE_INFO_FUNCTIONALITY")]

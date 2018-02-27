@@ -61,6 +61,8 @@ namespace InsuranceWebsite.Models
 
         public SearchCompaniesViewModel SearchCompaniesModel { get; set; }
 
+        public ProfileEditModel ProfileEditModel { get; set; }
+
         #region Banners Fields
 
         public List<BannerDTO> TopBanners { get; set; }

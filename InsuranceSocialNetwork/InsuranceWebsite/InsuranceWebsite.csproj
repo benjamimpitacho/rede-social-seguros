@@ -418,6 +418,11 @@
     <Content Include="Content\icons\icons_mensagens_rede_social_falar_seguros_AF7.png" />
     <Content Include="Content\icons\icons_mensagens_rede_social_falar_seguros_AF8.png" />
     <Content Include="Content\icons\icons_mensagens_rede_social_falar_seguros_AF9.png" />
+    <Content Include="Content\icons\icons_perfil_rede_social_falar_seguros_AF.png" />
+    <Content Include="Content\icons\icons_perfil_rede_social_falar_seguros_AF2.png" />
+    <Content Include="Content\icons\icons_perfil_rede_social_falar_seguros_AF3.png" />
+    <Content Include="Content\icons\icons_perfil_rede_social_falar_seguros_AF4.png" />
+    <Content Include="Content\icons\icons_perfil_rede_social_falar_seguros_AF5.png" />
     <Content Include="Content\icons\icons_perfil_rede_social_falar_seguros_v2.png" />
     <Content Include="Content\icons\icons_perfil_rede_social_falar_seguros_v210.png" />
     <Content Include="Content\icons\icons_perfil_rede_social_falar_seguros_v211.png" />
@@ -708,6 +713,7 @@
     <Content Include="Views\Home\Partial\_ConfirmPostHide.cshtml" />
     <Content Include="Views\Home\Partial\_EditPost.cshtml" />
     <Content Include="Views\Home\Partial\ProfileOwn.cshtml" />
+    <Content Include="Views\Home\Partial\ProfileEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

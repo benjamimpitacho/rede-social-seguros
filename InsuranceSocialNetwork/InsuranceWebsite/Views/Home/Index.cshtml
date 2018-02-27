@@ -32,6 +32,10 @@
             {
                 @Html.Partial("~/Views/Home/Partial/ProfileOwn.cshtml", Model)
             }
+            else if (Model.IsProfileEdit)
+            {
+                @Html.Partial("~/Views/Home/Partial/ProfileEdit.cshtml", Model)
+            }
             else if (Model.IsSearchView)
             {
                 @Html.Partial("~/Views/Home/Partial/SearchResult.cshtml", Model)

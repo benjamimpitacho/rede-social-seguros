@@ -43,6 +43,33 @@
     .label-control {
         background-color: #F6F8F7;
     }
+
+    .form-control input {
+        width: 100% !important;
+        border: 0px !important;
+        background-color: transparent !important;
+    }
+
+    .profile-textarea {
+        background-color: #F6F8F7;
+        border-radius: 0px;
+    }
+
+    .btn-blue {
+        background-color: #00C1DE;
+        color: #fff;
+        font-weight: bold;
+        width: 100px;
+        padding: 10px;
+    }
+
+    .btn-darkblue {
+        background-color: #4B5C66;
+        color: #fff;
+        font-weight: bold;
+        width: 100px;
+        padding: 10px;
+    }
 </style>
 
 <div class="profile-info col-md-6 animated fadeInUp">
@@ -54,7 +81,7 @@
             <div style="display:table-cell;vertical-align:middle;">
                 <img src="~/Content/icons/icons_perfil_rede_social_falar_seguros_v22.png" class="profile-icon" />
             </div>
-            <div style="display:table-cell;vertical-align:middle;"><span style="display:block;color:#00C1DE;">@Resources.Resources.UserProfile</span>@Html.ActionLink(Resources.Resources.Edit, "ProfileEdit", new { userId = Model.Profile.ID_User }, null)</div>
+            <div style="display:table-cell;vertical-align:middle;"><span style="display:block;color:#00C1DE;">@Resources.Resources.UserProfile</span>@Html.ActionLink(Resources.Resources.Cancel, "ProfileInfo", new { id = Model.Profile.ID }, null)</div>
         </div>
         <div style="width:120px;text-align:center;">
             @if (null == Model.Profile || null == Model.Profile.ProfilePhoto || Model.Profile.ProfilePhoto.Length == 0)
@@ -110,31 +137,36 @@
     </div>
 
     <div class="panel panel-white" style="display:block;padding:10px 20px;font-weight:bold;color:#4B5C66;font-size:12px;">
+@using (Html.BeginForm("ProfileSave", "Home", FormMethod.Post, new { @class = "", enctype = "multipart/form-data", id = "profileInformationForm" }))
+{
+    @Html.HiddenFor(i => i.ProfileEditModel.ID)
         <div style="padding:10px 0px;">
             <span style="font-size:14px;">@Resources.Resources.BasicInformation</span>
         </div>
         <div>
             <p class="data-row">
                 <span class="data-name profile-label">@Resources.Resources.FirstName</span>
-                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.Profile.FirstName)</label>
+                <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.ProfileEditModel.FirstName)</label>
+                @Html.ValidationMessageFor(i => i.ProfileEditModel.FirstName)
             </p>
         </div>
         <div>
             <p class="data-row">
                 <span class="data-name profile-label">@Resources.Resources.LastName</span>
-                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.Profile.LastName)</label>
+                <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.ProfileEditModel.LastName)</label>
+                @Html.ValidationMessageFor(i => i.ProfileEditModel.FirstName)
             </p>
         </div>
         <div>
             <p class="data-row">
                 <span class="data-name profile-label">@Resources.Resources.BirthDate</span>
-                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.Profile.Birthdate)</label>
+                <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.ProfileEditModel.Birthdate)</label>
             </p>
         </div>
         <div>
             <p class="data-row">
                 <span class="data-name profile-label">@Resources.Resources.RegisterDate</span>
-                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.Profile.CreateDate)</label>
+                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.ProfileEditModel.CreateDate)</label>
             </p>
         </div>
 
@@ -145,43 +177,45 @@
         <div>
             <p class="data-row">
                 <span class="data-name profile-label">@Resources.Resources.ContactEmail</span>
-                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.Profile.ContactEmail)</label>
+                <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.ProfileEditModel.ContactEmail)</label>
+                @Html.ValidationMessageFor(i => i.ProfileEditModel.ContactEmail)
             </p>
         </div>
         <div>
             <p class="data-row">
                 <span class="data-name profile-label">@Resources.Resources.Website</span>
-                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.Profile.Website)</label>
+                <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.ProfileEditModel.Website)</label>
+                @Html.ValidationMessageFor(i => i.ProfileEditModel.Website)
             </p>
         </div>
         <div>
             <p class="data-row">
                 <span class="data-name profile-label">@Resources.Resources.Telephone_1</span>
-                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.Profile.Telephone_1)</label>
+                <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.ProfileEditModel.Telephone_1)</label>
             </p>
         </div>
         <div>
             <p class="data-row">
                 <span class="data-name profile-label">@Resources.Resources.Telephone_2</span>
-                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.Profile.Telephone_2)</label>
+                <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.ProfileEditModel.Telephone_2)</label>
             </p>
         </div>
         <div>
             <p class="data-row">
                 <span class="data-name profile-label">@Resources.Resources.MobilePhone_1</span>
-                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.Profile.MobilePhone_1)</label>
+                <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.ProfileEditModel.MobilePhone_1)</label>
             </p>
         </div>
         <div>
             <p class="data-row">
                 <span class="data-name profile-label">@Resources.Resources.MobilePhone_2</span>
-                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.Profile.MobilePhone_2)</label>
+                <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.ProfileEditModel.MobilePhone_2)</label>
             </p>
         </div>
         <div>
             <p class="data-row">
                 <span class="data-name profile-label">@Resources.Resources.Address</span>
-                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.Profile.Address)</label>
+                <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.ProfileEditModel.Address)</label>
             </p>
         </div>
 
@@ -190,7 +224,7 @@
             <span style="font-size:14px;">@Resources.Resources.AboutMe</span>
         </div>
         <div>
-            @Html.TextAreaFor(i => i.Profile.AboutMe, new { @class = "form-control aboutme", @disabled = "disabled", @style= "resize:none;scroll-behaviour:auto;font-weight:normal;" })
+            @Html.TextAreaFor(i => i.ProfileEditModel.AboutMe, new { @class = "form-control aboutme profile-textarea", @style = "resize:none;scroll-behaviour:auto;font-weight:normal;" })
         </div>
 
         <p></p>
@@ -198,17 +232,24 @@
             <span style="font-size:14px;">@Resources.Resources.CompaniesWorkingWith</span>
         </div>
         <div>
-            @Html.TextAreaFor(i => i.Profile.CompaniesWorkingWith, new { @class = "form-control aboutme", @disabled = "disabled", @style = "resize:none;scroll-behaviour:auto;font-weight:normal;" })
+            @Html.TextAreaFor(i => i.ProfileEditModel.CompaniesWorkingWith, new { @class = "form-control aboutme profile-textarea", @disabled = "disabled", @style = "resize:none;scroll-behaviour:auto;font-weight:normal;" })
         </div>
 
         <p></p>
         <div style="padding:10px 0px;">
             <span style="font-size:14px;">@Resources.Resources.AllowedEmailDomains</span>
         </div>
-        <div>
-            @Html.TextAreaFor(i => i.AllowedEmailsText, new { @class = "form-control aboutme", @disabled = "disabled", @style = "resize:none;scroll-behaviour:auto;font-weight:normal;" })
+        <div style="padding:10px 0px;">
+            @Html.TextAreaFor(i => i.ProfileEditModel.AllowedEmailsText, new { @class = "form-control aboutme profile-textarea", @disabled = "disabled", @style = "resize:none;scroll-behaviour:auto;font-weight:normal;" })
             @*@Html.ListBoxFor(m => m.SelectedAllowedEmails, new MultiSelectList(Model.AllowedEmails, "Text", "Text"), new { @class = "form-control listbox", id = "emailListbox", style = "max-width:49%;display: inline-flex;min-height: 103px;" })*@
         </div>
+
+        <p></p>
+        <div class="action-buttons" style="display:block; text-align:center;">
+            @Html.ActionLink(Resources.Resources.Cancel, "ProfileInfo", new { id = Model.Profile.ID }, new { @class = "btn btn-darkblue" })
+            <input type="submit" class="btn btn-blue" value="@Resources.Resources.Save" />
+        </div>
+}
     </div>
 
 </div>

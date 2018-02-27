@@ -20,6 +20,8 @@ namespace InsuranceWebsite.Models
 
         public bool IsOwnProfile { get; set; }
 
+        public bool IsProfileEdit { get; set; }
+
         public bool IsFriendRequest { get; set; }
 
         public bool IsFriend { get; set; }
@@ -63,8 +65,15 @@ namespace InsuranceWebsite.Models
         public System.DateTime LastChangeDate { get; set; }
         public bool Active { get; set; }
 
-        public List<SelectListItem> AllowedEmails { get; set; }
-        public string[] SelectedAllowedEmails { get; set; }
+        //public List<SelectListItem> AllowedEmails { get; set; }
+        //public string[] SelectedAllowedEmails { get; set; }
+        //public string AllowedEmailsText
+        //{
+        //    get
+        //    {
+        //        return string.Join(";", AllowedEmails.Select(o => o.Text));
+        //    }
+        //}
 
         //public ProfileSettingsModel Settings { get; set; }
     }
