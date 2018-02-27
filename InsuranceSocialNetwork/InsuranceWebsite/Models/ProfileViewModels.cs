@@ -28,6 +28,11 @@ namespace InsuranceWebsite.Models
 
         public List<SelectListItem> AllowedEmails { get; set; }
         public string[] SelectedAllowedEmails { get; set; }
+        public string AllowedEmailsText {
+            get {
+                return string.Join(";", AllowedEmails.Select(o => o.Text));
+            }
+        }
     }
 
     public class ProfileEditModel : ProfileViewModel

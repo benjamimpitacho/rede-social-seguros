@@ -529,6 +529,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Configurações.
+        /// </summary>
+        public static string Configurations {
+            get {
+                return ResourceManager.GetString("Configurations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Confirme password.
         /// </summary>
         public static string ConfirmPassword {
@@ -871,6 +880,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Seguidores.
+        /// </summary>
+        public static string Followers {
+            get {
+                return ResourceManager.GetString("Followers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Esqueceu-se da sua palavra-passe.
         /// </summary>
         public static string ForgotYourPassword {
@@ -1101,6 +1119,15 @@ namespace Resources {
         public static string LikedYourPost {
             get {
                 return ResourceManager.GetString("LikedYourPost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gostos.
+        /// </summary>
+        public static string Likes {
+            get {
+                return ResourceManager.GetString("Likes", resourceCulture);
             }
         }
         

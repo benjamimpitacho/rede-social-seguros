@@ -858,4 +858,13 @@
   <data name="Remove" xml:space="preserve">
     <value>Remover</value>
   </data>
+  <data name="Configurations" xml:space="preserve">
+    <value>Configurações</value>
+  </data>
+  <data name="Likes" xml:space="preserve">
+    <value>Gostos</value>
+  </data>
+  <data name="Followers" xml:space="preserve">
+    <value>Seguidores</value>
+  </data>
 </root>

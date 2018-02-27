@@ -1,0 +1,223 @@
+﻿@using InsuranceWebsite.Models
+@model HomeViewModel
+
+<style>
+    .panel{
+        margin-bottom: 4px !important;
+    }
+
+    .main-photo {
+        max-width: 120px;
+        max-height: 120px;
+        border-radius: 100px;
+        border: 3px solid #E3E6E8;
+    }
+
+    .profile-icon{
+        max-width: 65px;
+    }
+
+    .profile-info{
+        font-size: 12px;
+    }
+
+    .data-row{
+        display:flex;
+        margin:0px 0px 2px;
+        height:34px;
+    }
+
+    .label-control{
+        border:none;
+        box-shadow:none;
+        border-radius:0px;
+
+    }
+
+    .profile-label {
+        font-size: 12px !important;
+        font-weight: bold !important;
+        padding: 10px !important;
+    }
+
+    .label-control {
+        background-color: #F6F8F7;
+    }
+</style>
+
+<div class="profile-info col-md-6 animated fadeInUp">
+
+    @Html.Partial("./Partial/TopBannerPartialView", Model)
+
+    <div class="panel topPanel" style="display:flex;padding:10px 0px;font-weight:bold;color:#4B5C66">
+        <div style="width:calc( 50% - 60px );height:120px; display:table;justify-content: space-evenly;">
+            <div style="display:table-cell;vertical-align:middle;">
+                <img src="~/Content/icons/icons_perfil_rede_social_falar_seguros_v22.png" class="profile-icon" />
+            </div>
+            <div style="display:table-cell;vertical-align:middle;"><span style="display:block;color:#00C1DE;">@Resources.Resources.UserProfile</span>@Resources.Resources.Edit</div>
+        </div>
+        <div style="width:120px;text-align:center;">
+            @if (null == Model.Profile || null == Model.Profile.ProfilePhoto || Model.Profile.ProfilePhoto.Length == 0)
+            {
+                <img src="~/Content/images/no_photo_img.jpg" class="mini-avatar item-photo main-photo">
+            }
+            else
+            {
+                <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.Profile.ProfilePhoto))" class="mini-avatar item-photo main-photo">
+            }
+        </div>
+        <div style="width:calc( 50% - 60px );height:120px; text-align:right;display:table;justify-content: space-evenly;font-weight:bold;">
+            <div style="display:table-cell;vertical-align:middle;">@Resources.Resources.Configurations</div>
+            <div style="display:table-cell;vertical-align:middle;">
+                <img src="~/Content/icons/icons_perfil_rede_social_falar_seguros_v25.png" class="profile-icon" />
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-white" style="display:block;padding:10px 0px;font-weight:bold;color:#4B5C66">
+        <div style="width:100%;text-align:center;display:table;">
+            <div style="display:table-cell;vertical-align:middle;"><span style="display:block;font-size:20px;">@Model.Profile.FirstName @Model.Profile.LastName</span>@Model.Profile.Address</div>
+        </div>
+        <div style="width:100%;display:flex;">
+            <div style="width:33%;display:block;justify-content: space-evenly;text-align:center;">
+                <div>
+                    <img src="~/Content/icons/icons_perfil_rede_social_falar_seguros_v24.png" class="profile-icon" />
+                    <span style="font-size:18px;">000</span>
+                </div>
+                <div style="">@Resources.Resources.Contacts</div>
+            </div>
+            <div style="width:34%;display:block;justify-content: space-evenly;text-align:center;">
+                <div>
+                    <img src="~/Content/icons/icons_perfil_rede_social_falar_seguros_v24.png" class="profile-icon" />
+                    <span style="font-size:18px;">000</span>
+                </div>
+                <div style="">@Resources.Resources.Likes</div>
+            </div>
+            <div style="width:33%;text-align:center;display:block;justify-content: space-evenly;">
+                <div>
+                    <img src="~/Content/icons/icons_perfil_rede_social_falar_seguros_v24.png" class="profile-icon" />
+                    <span style="font-size:18px;">000</span>
+                </div>
+                <div style="">@Resources.Resources.Followers</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-white">
+        <div style="width:100%;display:flex;text-align:center;">
+
+        </div>
+    </div>
+
+    <div class="panel panel-white" style="display:block;padding:10px 20px;font-weight:bold;color:#4B5C66;font-size:12px;">
+        <div style="padding:10px 0px;">
+            <span style="font-size:14px;">@Resources.Resources.BasicInformation</span>
+        </div>
+        <div>
+            <p class="data-row">
+                <span class="data-name profile-label">@Resources.Resources.FirstName</span>
+                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.Profile.FirstName)</label>
+            </p>
+        </div>
+        <div>
+            <p class="data-row">
+                <span class="data-name profile-label">@Resources.Resources.LastName</span>
+                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.Profile.LastName)</label>
+            </p>
+        </div>
+        <div>
+            <p class="data-row">
+                <span class="data-name profile-label">@Resources.Resources.BirthDate</span>
+                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.Profile.Birthdate)</label>
+            </p>
+        </div>
+        <div>
+            <p class="data-row">
+                <span class="data-name profile-label">@Resources.Resources.RegisterDate</span>
+                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.Profile.CreateDate)</label>
+            </p>
+        </div>
+
+        <p></p>
+        <div style="padding:10px 0px;">
+            <span style="font-size:14px;">@Resources.Resources.ContactInformation</span>
+        </div>
+        <div>
+            <p class="data-row">
+                <span class="data-name profile-label">@Resources.Resources.ContactEmail</span>
+                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.Profile.ContactEmail)</label>
+            </p>
+        </div>
+        <div>
+            <p class="data-row">
+                <span class="data-name profile-label">@Resources.Resources.Website</span>
+                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.Profile.Website)</label>
+            </p>
+        </div>
+        <div>
+            <p class="data-row">
+                <span class="data-name profile-label">@Resources.Resources.Telephone_1</span>
+                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.Profile.Telephone_1)</label>
+            </p>
+        </div>
+        <div>
+            <p class="data-row">
+                <span class="data-name profile-label">@Resources.Resources.Telephone_2</span>
+                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.Profile.Telephone_2)</label>
+            </p>
+        </div>
+        <div>
+            <p class="data-row">
+                <span class="data-name profile-label">@Resources.Resources.MobilePhone_1</span>
+                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.Profile.MobilePhone_1)</label>
+            </p>
+        </div>
+        <div>
+            <p class="data-row">
+                <span class="data-name profile-label">@Resources.Resources.MobilePhone_2</span>
+                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.Profile.MobilePhone_2)</label>
+            </p>
+        </div>
+        <div>
+            <p class="data-row">
+                <span class="data-name profile-label">@Resources.Resources.Address</span>
+                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.Profile.Address)</label>
+            </p>
+        </div>
+
+        <p></p>
+        <div style="padding:10px 0px;">
+            <span style="font-size:14px;">@Resources.Resources.AboutMe</span>
+        </div>
+        <div>
+            @Html.TextAreaFor(i => i.Profile.AboutMe, new { @class = "form-control aboutme", @disabled = "disabled", @style= "resize:none;scroll-behaviour:auto;font-weight:normal;" })
+        </div>
+
+        <p></p>
+        <div style="padding:10px 0px;">
+            <span style="font-size:14px;">@Resources.Resources.CompaniesWorkingWith</span>
+        </div>
+        <div>
+            @Html.TextAreaFor(i => i.Profile.CompaniesWorkingWith, new { @class = "form-control aboutme", @disabled = "disabled", @style = "resize:none;scroll-behaviour:auto;font-weight:normal;" })
+        </div>
+
+        <p></p>
+        <div style="padding:10px 0px;">
+            <span style="font-size:14px;">@Resources.Resources.AllowedEmailDomains</span>
+        </div>
+        <div>
+            @Html.TextAreaFor(i => i.AllowedEmailsText, new { @class = "form-control aboutme", @disabled = "disabled", @style = "resize:none;scroll-behaviour:auto;font-weight:normal;" })
+            @*@Html.ListBoxFor(m => m.SelectedAllowedEmails, new MultiSelectList(Model.AllowedEmails, "Text", "Text"), new { @class = "form-control listbox", id = "emailListbox", style = "max-width:49%;display: inline-flex;min-height: 103px;" })*@
+        </div>
+    </div>
+
+</div>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        
+    });
+
+</script>

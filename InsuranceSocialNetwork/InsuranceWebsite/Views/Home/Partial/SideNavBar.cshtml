@@ -3,11 +3,6 @@
 @using InsuranceSocialNetworkCore.Enums
 @model ProfileViewModel
 
-@{
-    var base64 = (null == Model.Profile || null == Model.Profile.ProfilePhoto || Model.Profile.ProfilePhoto.Length == 0) ? null : Convert.ToBase64String(Model.Profile.ProfilePhoto);
-    var imgSrc = (null == Model.Profile || null == Model.Profile.ProfilePhoto || Model.Profile.ProfilePhoto.Length == 0) ? null : String.Format("data:image/png;base64,{0}", base64);
-}
-
 <!-- Fixed navbar -->
 @*<nav class="navbar navbar-default navbar-fixed-top navbar-principal">*@
 
@@ -28,7 +23,7 @@
             }
             else
             {
-                <img src="@imgSrc" class="mini-avatar item-photo">
+                <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.Profile.ProfilePhoto))" class="mini-avatar item-photo">
             }
         </a>
     </div>

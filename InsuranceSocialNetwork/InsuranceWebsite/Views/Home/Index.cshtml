@@ -24,9 +24,13 @@
             {
                 @Html.Partial("~/Views/Home/Partial/Timeline.cshtml", Model)
             }
-            else if (Model.IsProfileTimeline)
+            else if (Model.IsProfileTimeline && !Model.IsOwnProfile)
             {
                 @Html.Partial("~/Views/Home/Partial/ProfileTimeline.cshtml", Model)
+            }
+            else if (Model.IsProfileTimeline && Model.IsOwnProfile)
+            {
+                @Html.Partial("~/Views/Home/Partial/ProfileOwn.cshtml", Model)
             }
             else if (Model.IsSearchView)
             {

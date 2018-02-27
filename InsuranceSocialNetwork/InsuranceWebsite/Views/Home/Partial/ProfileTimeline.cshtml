@@ -1,68 +1,72 @@
 ﻿@using InsuranceWebsite.Models
 @model HomeViewModel
 
+<style>
+    .panel{
+        margin-bottom: 4px !important;
+    }
+</style>
+
 <div class="profile-info col-md-6 animated fadeInUp">
 
     @Html.Partial("./Partial/TopBannerPartialView", Model)
 
-    <div class="news">
-        <div class="partialContents" data-url="/home/posts/@Model.TimelineProfileId">
-            <div style="text-align:center">
-                <img src="~/Content/images/waiting.gif" /> @Resources.Resources.Loading...
+    <div class="panel topPanel">
+        <div style="width:33%;">
+            <div>
+                <img src="~/Content/icons/icons_perfil_rede_social_falar_seguros_v23.png" />
             </div>
+            <div>@Resources.Resources.Contacts</div>
+        </div>
+        <div style="width:34%;">
+            @if (null == Model.Profile || null == Model.Profile.ProfilePhoto || Model.Profile.ProfilePhoto.Length == 0)
+            {
+                <img src="~/Content/images/no_photo_img.jpg" class="mini-avatar item-photo">
+            }
+            else
+            {
+                <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.Profile.ProfilePhoto))" class="mini-avatar item-photo">
+            }
+        </div>
+        <div style="width:33%;">
+            <div>
+                <img src="~/Content/icons/icons_perfil_rede_social_falar_seguros_v23.png" />
+            </div>
+            <div>@Resources.Resources.Contacts</div>
         </div>
     </div>
 
+    <div class="panel panel-white">
+        <h1>Informação sobre o utilizador</h1>
+    </div>
 
-    @*Html.Partial("PostsControl", Model.Posts)*@
-    
+    <div class="panel panel-white">
+        <h1>Links redes sociais</h1>
+    </div>
 
+    <div class="panel panel-white">
+        <h1>Data nascimento</h1>
+    </div>
 
-    @*<div class="panel panel-white post-load-more panel-shadow text-center">
+    <div class="panel panel-white">
+        <h1>Sobre mim</h1>
+    </div>
 
-        <button class="btn btn-info">
+    <div class="panel panel-white">
+        <h1>Seguradoras com quem trabalha</h1>
+    </div>
 
-            <i class="fa fa-refresh"></i>Load More...
+    <div class="panel panel-white">
+        <h1>Informaçao de contacto</h1>
+    </div>
 
-        </button>
-
-    </div>*@
-
-</div><!--end right  content-->
+</div>
 
 
 <script type="text/javascript">
 
-    var site = site || {};
-    site.baseUrl = site.baseUrl || "";
-
     $(document).ready(function () {
-
-        // locate each partial section.
-        // if it has a URL set, load the contents into the area.
-        $(".partialContents").each(function (index, item) {
-            var url = site.baseUrl + $(item).data("url");
-            if (url && url.length > 0) {
-                $(item).load(url);
-            }
-        });
-
-        $("#imgUpload").change(function () {
-            readURL(this);
-        });
+        
     });
-
-    function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-
-            reader.onload = function (e) {
-                $('#imgPlaceholder').attr('style', '');
-                $('#imgPlaceholder').attr('src', e.target.result);
-            }
-
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
 
 </script>

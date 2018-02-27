@@ -906,40 +906,74 @@ namespace InsuranceWebsite.Controllers
         [FunctionalityAutorizeAttribute("PROFILE_INFO_FUNCTIONALITY")]
         public async Task<ActionResult> ProfileInfo(long? id, long? idNotification)
         {
-            var model = new ProfileViewModel();
-            if (null != this.User && this.User.Identity.IsAuthenticated)
+            try
             {
-                var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-                var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
-                if (null != user)
+                HomeViewModel model = new HomeViewModel();
+
+                if (null != this.User && this.User.Identity.IsAuthenticated)
                 {
-                    FillModel(model, user.Id);
+                    var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                    var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
+                    if (null != user)
+                    {
+                        FillModel(model, user.Id);
+                    }
+                    else
+                    {
+                        return RedirectToAction("LogOff", "Account");
+                    }
                 }
                 else
                 {
-                    return RedirectToAction("LogOff", "Account");
+                    return RedirectToAction("Login", "Account");
                 }
+
+                model.IsProfileTimeline = true;
+                model.IsOwnProfile = (!id.HasValue || (id.HasValue && id.Value == model.Profile.ID));
+                model.AllowedEmails = InsuranceBusiness.BusinessLayer.GetAuthorizedEmailsForAutomaticApproval(model.Profile.ID_User).Select(i => new SelectListItem() { Value = i, Text = i }).ToList();
+
+                return View("Index", model);
+
+                //return View(model);
             }
-            else
+            catch (Exception ex)
             {
-                return RedirectToAction("Login", "Account");
+                throw new NotImplementedException();
             }
+            //var model = new ProfileViewModel();
+            //if (null != this.User && this.User.Identity.IsAuthenticated)
+            //{
+            //    var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            //    var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
+            //    if (null != user)
+            //    {
+            //        FillModel(model, user.Id);
+            //    }
+            //    else
+            //    {
+            //        return RedirectToAction("LogOff", "Account");
+            //    }
+            //}
+            //else
+            //{
+            //    return RedirectToAction("Login", "Account");
+            //}
 
-            if(idNotification.HasValue)
-            {
-                InsuranceBusiness.BusinessLayer.MarkNotificationAsRead(idNotification.Value);
-            }
+            //if(idNotification.HasValue)
+            //{
+            //    InsuranceBusiness.BusinessLayer.MarkNotificationAsRead(idNotification.Value);
+            //}
 
-            model.IsOwnProfile = id.HasValue ? model.Profile.ID == id.Value : true;
-            if(!model.IsOwnProfile)
-            {
-                model.IsFriend = InsuranceBusiness.BusinessLayer.AreFriends(CurrentUser.ID_User, model.Profile.ID_User);
-                model.IsFriendRequest = InsuranceBusiness.BusinessLayer.HasPendingFriendRequest(CurrentUser.ID_User, model.Profile.ID_User);
-            }
+            //model.IsOwnProfile = id.HasValue ? model.Profile.ID == id.Value : true;
+            //if(!model.IsOwnProfile)
+            //{
+            //    model.IsFriend = InsuranceBusiness.BusinessLayer.AreFriends(CurrentUser.ID_User, model.Profile.ID_User);
+            //    model.IsFriendRequest = InsuranceBusiness.BusinessLayer.HasPendingFriendRequest(CurrentUser.ID_User, model.Profile.ID_User);
+            //}
 
-            model.AllowedEmails = InsuranceBusiness.BusinessLayer.GetAuthorizedEmailsForAutomaticApproval(model.Profile.ID_User).Select(i => new SelectListItem() { Value = i, Text = i }).ToList();
+            //model.AllowedEmails = InsuranceBusiness.BusinessLayer.GetAuthorizedEmailsForAutomaticApproval(model.Profile.ID_User).Select(i => new SelectListItem() { Value = i, Text = i }).ToList();
 
-            return View(model);
+            //return View(model);
         }
 
         public async Task<ActionResult> ProfileTimeline(long id)
