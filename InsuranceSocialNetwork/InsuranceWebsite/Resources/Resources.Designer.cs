@@ -547,6 +547,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Conectar.
+        /// </summary>
+        public static string Connect {
+            get {
+                return ResourceManager.GetString("Connect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Conectados.
+        /// </summary>
+        public static string Connected {
+            get {
+                return ResourceManager.GetString("Connected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Conexão.
         /// </summary>
         public static string Connection {
@@ -939,6 +957,15 @@ namespace Resources {
         public static string FoundMedicalClinics {
             get {
                 return ResourceManager.GetString("FoundMedicalClinics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pedido de conexão pendente.
+        /// </summary>
+        public static string FriendRequestPending {
+            get {
+                return ResourceManager.GetString("FriendRequestPending", resourceCulture);
             }
         }
         

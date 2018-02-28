@@ -916,7 +916,7 @@ namespace InsuranceWebsite.Controllers
                     var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
                     if (null != user)
                     {
-                        FillModel(model, user.Id);
+                        FillModel(model, user.Id, false);
                     }
                     else
                     {
@@ -928,9 +928,25 @@ namespace InsuranceWebsite.Controllers
                     return RedirectToAction("Login", "Account");
                 }
 
+                if (idNotification.HasValue)
+                {
+                    InsuranceBusiness.BusinessLayer.MarkNotificationAsRead(idNotification.Value);
+                }
+
                 model.IsProfileTimeline = true;
                 model.IsOwnProfile = (!id.HasValue || (id.HasValue && id.Value == model.Profile.ID));
                 model.AllowedEmails = InsuranceBusiness.BusinessLayer.GetAuthorizedEmailsForAutomaticApproval(model.Profile.ID_User).Select(i => new SelectListItem() { Value = i, Text = i }).ToList();
+
+                if (!model.IsOwnProfile && id.HasValue)
+                {
+                    model.ProfileInfo = InsuranceBusiness.BusinessLayer.GetUserProfile(id.Value);
+                    model.IsFriend = InsuranceBusiness.BusinessLayer.AreFriends(CurrentUser.ID_User, model.ProfileInfo.ID_User);
+                    model.IsFriendRequest = InsuranceBusiness.BusinessLayer.HasPendingFriendRequest(CurrentUser.ID_User, model.ProfileInfo.ID_User);
+                }
+                else
+                {
+                    model.ProfileInfo = model.Profile;
+                }
 
                 return View("Index", model);
 

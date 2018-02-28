@@ -12,6 +12,8 @@ namespace InsuranceWebsite.Models
     {
         public UserProfileDTO Profile { get; set; }
 
+        public UserProfileDTO ProfileInfo { get; set; }
+
         public List<NotificationDTO> Notifications { get; set; }
 
         public int TotalUnreadNotifications { get { return null == Notifications ? 0 : Notifications.Count(i => !i.Read); } }

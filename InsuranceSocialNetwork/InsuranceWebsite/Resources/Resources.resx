@@ -867,4 +867,13 @@
   <data name="Followers" xml:space="preserve">
     <value>Seguidores</value>
   </data>
+  <data name="Connect" xml:space="preserve">
+    <value>Conectar</value>
+  </data>
+  <data name="Connected" xml:space="preserve">
+    <value>Conectados</value>
+  </data>
+  <data name="FriendRequestPending" xml:space="preserve">
+    <value>Pedido de conexão pendente</value>
+  </data>
 </root>

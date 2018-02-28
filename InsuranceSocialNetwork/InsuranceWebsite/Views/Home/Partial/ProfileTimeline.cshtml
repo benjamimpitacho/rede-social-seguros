@@ -2,62 +2,188 @@
 @model HomeViewModel
 
 <style>
-    .panel{
+    .panel {
         margin-bottom: 4px !important;
+    }
+
+    .main-photo {
+        max-width: 120px;
+        max-height: 120px;
+        border-radius: 100px;
+        border: 3px solid #E3E6E8;
+    }
+
+    .profile-icon {
+        max-width: 65px;
+    }
+
+    .profile-info {
+        font-size: 12px;
+    }
+
+    .data-row {
+        display: flex;
+        margin: 0px 0px 2px;
+        height: 34px;
+    }
+
+    .label-control {
+        border: none;
+        box-shadow: none;
+        border-radius: 0px;
+    }
+
+    .profile-label {
+        font-size: 12px !important;
+        font-weight: bold !important;
+        padding: 10px !important;
+    }
+
+    .label-control {
+        background-color: #F6F8F7;
     }
 </style>
 
-<div class="profile-info col-md-6 animated fadeInUp">
+<div class="profile-info col-md-6 animated fadeInUp" style="padding-bottom:30px;">
 
     @Html.Partial("./Partial/TopBannerPartialView", Model)
 
-    <div class="panel topPanel">
-        <div style="width:33%;">
+    <div class="panel topPanel" style="display:flex;padding:10px 0px;font-weight:bold;color:#4B5C66">
+        <div style="width:calc( 50% - 60px );display:block;justify-content: space-evenly;text-align:center;font-size:16px;padding-top:10px;padding-right:20px;">
             <div>
-                <img src="~/Content/icons/icons_perfil_rede_social_falar_seguros_v23.png" />
+                <img src="~/Content/icons/icons_perfil_rede_social_falar_seguros_v24.png" class="profile-icon" />
+                <span style="font-size:18px;">000</span>
             </div>
-            <div>@Resources.Resources.Contacts</div>
+            <div style="">@Resources.Resources.Contacts</div>
         </div>
-        <div style="width:34%;">
-            @if (null == Model.Profile || null == Model.Profile.ProfilePhoto || Model.Profile.ProfilePhoto.Length == 0)
+        <div style="width:120px;text-align:center;">
+            @if (null == Model.Profile || null == Model.ProfileInfo.ProfilePhoto || Model.ProfileInfo.ProfilePhoto.Length == 0)
             {
-                <img src="~/Content/images/no_photo_img.jpg" class="mini-avatar item-photo">
+                <img src="~/Content/images/no_photo_img.jpg" class="mini-avatar item-photo main-photo">
             }
             else
             {
-                <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.Profile.ProfilePhoto))" class="mini-avatar item-photo">
+                <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.ProfileInfo.ProfilePhoto))" class="mini-avatar item-photo main-photo">
             }
         </div>
-        <div style="width:33%;">
+        <div style="width:calc( 50% - 60px );display:block;justify-content: space-evenly;text-align:center;font-size:16px;padding-top:10px;padding-left:20px;">
             <div>
-                <img src="~/Content/icons/icons_perfil_rede_social_falar_seguros_v23.png" />
+                <span style="font-size:18px;">000</span>
+                <img src="~/Content/icons/icons_perfil_rede_social_falar_seguros_v24.png" class="profile-icon" />
             </div>
-            <div>@Resources.Resources.Contacts</div>
+            <div style="">@Resources.Resources.Followers</div>
         </div>
     </div>
 
-    <div class="panel panel-white">
-        <h1>Informação sobre o utilizador</h1>
+    <div class="panel panel-white" style="display:block;padding:10px 0px;font-weight:bold;color:#4B5C66">
+        <div style="width:100%;text-align:center;display:table;padding-bottom:10px;">
+            <div style="display:table-cell;vertical-align:middle;"><span style="display:block;font-size:20px;">@Model.ProfileInfo.FirstName @Model.ProfileInfo.LastName</span>@Model.ProfileInfo.Address</div>
+        </div>
+        <div style="width:100%;text-align:center;display:grid;font-size:14px;">
+            <div style="display:table-cell;vertical-align:middle;"><span style="display:block;">@Html.ActionLink(Resources.Resources.SendMessage, "SendMessage", new { id = Model.ProfileInfo.ID }, new { style= "color:#4B5C66;" })</span></div>
+            @if (Model.IsFriend)
+            {
+                <div style="display:table-cell;vertical-align:middle;color:#00C1DE;"><span style="display:block;color:#00C1DE;">@Resources.Resources.Connected</span></div>
+            }
+            else if (Model.IsFriendRequest)
+            {
+                <div style="display:table-cell;vertical-align:middle;cursor:pointer;color:#00C1DE;">@Resources.Resources.FriendRequestPending</div>
+            }
+            else
+            {
+                <div style="display:table-cell;vertical-align:middle;cursor:pointer;"><a class="" style="border-radius:3px;color:#00C1DE;" id="btnAddFriend" onclick="addFriendFunction(this, @Model.ProfileInfo.ID)">@Resources.Resources.Connect</a></div>
+            }
+        </div>
+        @*<div style="width:100%;display:flex;">
+            <div style="width:33%;display:block;justify-content: space-evenly;text-align:center;">
+                <div>
+                    <img src="~/Content/icons/icons_perfil_rede_social_falar_seguros_v24.png" class="profile-icon" />
+                    <span style="font-size:18px;">000</span>
+                </div>
+                <div style="">@Resources.Resources.Contacts</div>
+            </div>
+            <div style="width:34%;display:block;justify-content: space-evenly;text-align:center;">
+                <div>
+                    <img src="~/Content/icons/icons_perfil_rede_social_falar_seguros_v24.png" class="profile-icon" />
+                    <span style="font-size:18px;">000</span>
+                </div>
+                <div style="">@Resources.Resources.Likes</div>
+            </div>
+            <div style="width:33%;text-align:center;display:block;justify-content: space-evenly;">
+                <div>
+                    <img src="~/Content/icons/icons_perfil_rede_social_falar_seguros_v24.png" class="profile-icon" />
+                    <span style="font-size:18px;">000</span>
+                </div>
+                <div style="">@Resources.Resources.Followers</div>
+            </div>
+        </div>*@
     </div>
 
-    <div class="panel panel-white">
-        <h1>Links redes sociais</h1>
+    @if (Model.ProfileInfo.Birthdate.HasValue)
+    {
+        <div class="panel panel-white" style="width:100%;display:grid;text-align:center;font-weight:bold;color:#4B5C66;font-size:16px;padding:20px 0px;">
+            <span>@Resources.Resources.BirthDate</span>
+            <span style="color:#00C1DE;">@Model.ProfileInfo.Birthdate.Value.ToShortDateString()</span>
+        </div>
+    }
+
+    <div class="panel panel-white" style="display:block;padding:10px 20px;font-weight:bold;color:#4B5C66;font-size:12px;min-height:80px;">
+        <div style="padding:10px 0px;">
+            <span style="font-size:14px;">@Resources.Resources.AboutMe</span>
+        </div>
+        <div style="font-weight:normal;">
+            @Model.ProfileInfo.AboutMe
+        </div>
+    </div>
+    <div class="panel panel-white" style="display:block;padding:10px 20px;font-weight:bold;color:#4B5C66;font-size:12px;min-height:80px;">
+        <div style="padding:10px 0px;">
+            <span style="font-size:14px;">@Resources.Resources.CompaniesWorkingWith</span>
+        </div>
+        <div style="font-weight:normal;">
+            @Model.ProfileInfo.CompaniesWorkingWith
+        </div>
     </div>
 
-    <div class="panel panel-white">
-        <h1>Data nascimento</h1>
-    </div>
-
-    <div class="panel panel-white">
-        <h1>Sobre mim</h1>
-    </div>
-
-    <div class="panel panel-white">
-        <h1>Seguradoras com quem trabalha</h1>
-    </div>
-
-    <div class="panel panel-white">
-        <h1>Informaçao de contacto</h1>
+    <div class="panel panel-white" style="display:block;padding:10px 20px 30px 20px;font-weight:bold;color:#4B5C66;font-size:12px;">
+        <div style="padding:10px 0px;">
+            <span style="font-size:14px;">@Resources.Resources.ContactInformation</span>
+        </div>
+        <div>
+            <p class="data-row">
+                <span class="data-name profile-label">@Resources.Resources.ContactEmail</span>
+                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.ProfileInfo.ContactEmail)</label>
+            </p>
+        </div>
+        <div>
+            <p class="data-row">
+                <span class="data-name profile-label">@Resources.Resources.Website</span>
+                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.ProfileInfo.Website)</label>
+            </p>
+        </div>
+        <div>
+            <p class="data-row">
+                <span class="data-name profile-label">@Resources.Resources.Telephone_1</span>
+                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.ProfileInfo.Telephone_1)</label>
+            </p>
+        </div>
+        <div>
+            <p class="data-row">
+                <span class="data-name profile-label">@Resources.Resources.Telephone_2</span>
+                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.ProfileInfo.Telephone_2)</label>
+            </p>
+        </div>
+        <div>
+            <p class="data-row">
+                <span class="data-name profile-label">@Resources.Resources.MobilePhone_1</span>
+                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.ProfileInfo.MobilePhone_1)</label>
+            </p>
+        </div>
+        <div>
+            <p class="data-row">
+                <span class="data-name profile-label">@Resources.Resources.MobilePhone_2</span>
+                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.ProfileInfo.MobilePhone_2)</label>
+            </p>
+        </div>
     </div>
 
 </div>
@@ -66,7 +192,19 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
-        
+
     });
+
+    function addFriendFunction(object, userId) {
+        object.style.display = "none";
+
+        jQuery.post('@Url.Action("AddFriend", "Home")',
+                { id: userId }
+            )
+            .done(function (data) {})
+            .fail(function () {
+                object.style.display = "block";
+            });
+    }
 
 </script>
