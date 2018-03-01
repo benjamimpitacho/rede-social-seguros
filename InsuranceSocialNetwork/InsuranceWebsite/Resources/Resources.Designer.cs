@@ -1186,6 +1186,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Localidade.
+        /// </summary>
+        public static string Locality {
+            get {
+                return ResourceManager.GetString("Locality", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Concelho.
         /// </summary>
         public static string Location {

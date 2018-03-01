@@ -1182,6 +1182,10 @@ namespace InsuranceWebsite.Controllers
             model.ProfileEditModel.Telephone_1 =  model.Profile.Telephone_1;
             model.ProfileEditModel.Telephone_2 =  model.Profile.Telephone_2;
             model.ProfileEditModel.Address =  model.Profile.Address;
+            model.ProfileEditModel.PostalCode = model.Profile.PostalCode;
+            model.ProfileEditModel.Locality = model.Profile.Locality;
+            model.ProfileEditModel.County = model.Profile.County;
+            model.ProfileEditModel.District = model.Profile.District;
             model.ProfileEditModel.Birthdate =  model.Profile.Birthdate;
             model.ProfileEditModel.ContactEmail =  model.Profile.ContactEmail;
             model.ProfileEditModel.ProfilePhoto =  model.Profile.ProfilePhoto;
@@ -1236,6 +1240,10 @@ namespace InsuranceWebsite.Controllers
 
             profile.AboutMe = model.ProfileEditModel.AboutMe;
             profile.Address = model.ProfileEditModel.Address;
+            profile.PostalCode = model.ProfileEditModel.PostalCode;
+            profile.Locality = model.ProfileEditModel.Locality;
+            profile.County = model.ProfileEditModel.County;
+            profile.District = model.ProfileEditModel.District;
             profile.Birthdate = model.ProfileEditModel.Birthdate;
             profile.ContactEmail = model.ProfileEditModel.ContactEmail;
             profile.FirstName = model.ProfileEditModel.FirstName;

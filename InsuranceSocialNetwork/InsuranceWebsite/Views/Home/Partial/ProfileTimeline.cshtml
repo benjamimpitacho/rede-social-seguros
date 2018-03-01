@@ -77,7 +77,30 @@
 
     <div class="panel panel-white" style="display:block;padding:10px 0px;font-weight:bold;color:#4B5C66">
         <div style="width:100%;text-align:center;display:table;padding-bottom:10px;">
-            <div style="display:table-cell;vertical-align:middle;"><span style="display:block;font-size:20px;">@Model.ProfileInfo.FirstName @Model.ProfileInfo.LastName</span>@Model.ProfileInfo.Address</div>
+            <div style="display:table-cell;vertical-align:middle;"><span style="display:block;font-size:20px;">@Model.ProfileInfo.FirstName @Model.ProfileInfo.LastName</span>
+            @if (string.IsNullOrEmpty(Model.ProfileInfo.Locality))
+            {
+                if (string.IsNullOrEmpty(Model.ProfileInfo.County))
+                {
+                    <div>@Model.ProfileInfo.District</div>
+                }
+                else
+                {
+                    <div>@Model.ProfileInfo.County, @Model.ProfileInfo.District</div>
+                }
+            }
+            else
+            {
+                if (string.IsNullOrEmpty(Model.ProfileInfo.County))
+                {
+                    <div>@Model.ProfileInfo.Locality, @Model.ProfileInfo.District</div>
+                }
+                else
+                {
+                    <div>@Model.ProfileInfo.Locality, @Model.ProfileInfo.County, @Model.ProfileInfo.District</div>
+                }
+            }
+            </div>
         </div>
         <div style="width:100%;text-align:center;display:grid;font-size:14px;">
             <div style="display:table-cell;vertical-align:middle;"><span style="display:block;">@Html.ActionLink(Resources.Resources.SendMessage, "SendMessage", new { id = Model.ProfileInfo.ID }, new { style= "color:#4B5C66;" })</span></div>
@@ -94,38 +117,15 @@
                 <div style="display:table-cell;vertical-align:middle;cursor:pointer;"><a class="" style="border-radius:3px;color:#00C1DE;" id="btnAddFriend" onclick="addFriendFunction(this, @Model.ProfileInfo.ID)">@Resources.Resources.Connect</a></div>
             }
         </div>
-        @*<div style="width:100%;display:flex;">
-            <div style="width:33%;display:block;justify-content: space-evenly;text-align:center;">
-                <div>
-                    <img src="~/Content/icons/icons_perfil_rede_social_falar_seguros_v24.png" class="profile-icon" />
-                    <span style="font-size:18px;">000</span>
-                </div>
-                <div style="">@Resources.Resources.Contacts</div>
-            </div>
-            <div style="width:34%;display:block;justify-content: space-evenly;text-align:center;">
-                <div>
-                    <img src="~/Content/icons/icons_perfil_rede_social_falar_seguros_v24.png" class="profile-icon" />
-                    <span style="font-size:18px;">000</span>
-                </div>
-                <div style="">@Resources.Resources.Likes</div>
-            </div>
-            <div style="width:33%;text-align:center;display:block;justify-content: space-evenly;">
-                <div>
-                    <img src="~/Content/icons/icons_perfil_rede_social_falar_seguros_v24.png" class="profile-icon" />
-                    <span style="font-size:18px;">000</span>
-                </div>
-                <div style="">@Resources.Resources.Followers</div>
-            </div>
-        </div>*@
     </div>
 
-    @if (Model.ProfileInfo.Birthdate.HasValue)
-    {
-        <div class="panel panel-white" style="width:100%;display:grid;text-align:center;font-weight:bold;color:#4B5C66;font-size:16px;padding:20px 0px;">
-            <span>@Resources.Resources.BirthDate</span>
+    <div class="panel panel-white" style="width:100%;display:grid;text-align:center;font-weight:bold;color:#4B5C66;font-size:16px;padding:20px 0px;min-height:80px;">
+        <span>@Resources.Resources.BirthDate</span>
+        @if (Model.ProfileInfo.Birthdate.HasValue)
+        {
             <span style="color:#00C1DE;">@Model.ProfileInfo.Birthdate.Value.ToShortDateString()</span>
-        </div>
-    }
+        }
+    </div>
 
     <div class="panel panel-white" style="display:block;padding:10px 20px;font-weight:bold;color:#4B5C66;font-size:12px;min-height:80px;">
         <div style="padding:10px 0px;">

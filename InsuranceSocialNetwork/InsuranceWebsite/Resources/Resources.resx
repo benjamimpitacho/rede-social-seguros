@@ -876,4 +876,7 @@
   <data name="FriendRequestPending" xml:space="preserve">
     <value>Pedido de conexão pendente</value>
   </data>
+  <data name="Locality" xml:space="preserve">
+    <value>Localidade</value>
+  </data>
 </root>

@@ -21,6 +21,7 @@ namespace InsuranceSocialNetworkDAL
         {
             return context.Garage
                 .Fetch()
+                .Include("GarageFavorite")
                 .Where(i => i.Active)
                 .FirstOrDefault(i => i.ID == id);
         }
@@ -32,6 +33,7 @@ namespace InsuranceSocialNetworkDAL
                 return context
                     .Garage
                     .Fetch()
+                    .Include("GarageFavorite")
                     .Select(i => i)
                     .OrderBy(i => i.Name)
                     .ToList();

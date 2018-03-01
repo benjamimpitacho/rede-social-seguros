@@ -2194,8 +2194,28 @@ h4, .h4 {
     opacity: .9
 }
 
-.btn.active,
-.btn:focus {
+.btn-success {
+    color: #fff;
+    background-color: #00C1DE;
+    border-color: #00C1DE;
+    font-weight:bold;
+}
+
+.btn-success:hover {
+    color: #fff;
+    background-color: #00C1DE;
+    border-color: #00C1DE;
+    font-weight: bold;
+}
+
+.btn-success:focus {
+    color: #fff;
+    background-color: #00C1DE;
+    border-color: #00C1DE;
+    font-weight: bold;
+}
+        
+.btn.active, .btn:focus {
     box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125)
 }
 

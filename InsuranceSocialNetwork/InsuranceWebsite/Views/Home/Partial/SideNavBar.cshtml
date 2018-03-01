@@ -16,7 +16,7 @@
         <img src="~/Content/images/no_photo_img.jpg" class="item-photo">
     </div>*@
     <div class="item menu-item">
-        <a href="@Url.Action("ProfileInfo", "Home")" title="@Resources.Resources.UserProfile">
+        <a href="@Url.Action("ProfileInfo", "Home", new { id=new Nullable<long>() })" title="@Resources.Resources.UserProfile">
             @if (null == Model.Profile || null == Model.Profile.ProfilePhoto || Model.Profile.ProfilePhoto.Length == 0)
             {
                 <img src="~/Content/images/no_photo_img.jpg" class="mini-avatar item-photo">

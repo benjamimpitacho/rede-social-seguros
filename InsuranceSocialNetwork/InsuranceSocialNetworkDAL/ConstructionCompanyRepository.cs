@@ -21,6 +21,7 @@ namespace InsuranceSocialNetworkDAL
         {
             return context.ConstructionCompany
                 .Fetch()
+                .Include("ConstructionCompanyFavorite")
                 .Where(i => i.Active)
                 .FirstOrDefault(i => i.ID == id);
         }
@@ -32,6 +33,7 @@ namespace InsuranceSocialNetworkDAL
                 return context
                     .ConstructionCompany
                     .Fetch()
+                    .Include("ConstructionCompanyFavorite")
                     .Select(i => i)
                     .OrderBy(i => i.Name)
                     .ToList();

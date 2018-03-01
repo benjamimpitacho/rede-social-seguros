@@ -20,6 +20,10 @@ namespace InsuranceSocialNetworkDTO.UserProfile
         public string Telephone_1 { get; set; }
         public string Telephone_2 { get; set; }
         public string Address { get; set; }
+        public string PostalCode { get; set; }
+        public string Locality { get; set; }
+        public string County { get; set; }
+        public string District { get; set; }
         public string Skype { get; set; }
         public string Whatsapp { get; set; }
         public string CompaniesWorkingWith { get; set; }

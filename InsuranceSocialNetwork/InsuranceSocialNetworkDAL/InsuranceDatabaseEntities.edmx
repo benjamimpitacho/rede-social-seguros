@@ -534,6 +534,10 @@
           <Property Name="LastChangeDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="DeleteDate" Type="datetime2" Precision="7" />
           <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="PostalCode" Type="nvarchar" MaxLength="10" />
+          <Property Name="Locality" Type="nvarchar" MaxLength="64" />
+          <Property Name="County" Type="nvarchar" MaxLength="64" />
+          <Property Name="District" Type="nvarchar" MaxLength="64" />
         </EntityType>
         <Association Name="FK_AuthorizedEmail_User">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
@@ -2421,6 +2425,10 @@
           <Property Name="DeleteDate" Type="DateTime" Precision="7" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="AspNetUsers" Relationship="InsurancePortal_dbModel.FK_Profile_AspNetUsers" FromRole="Profile" ToRole="AspNetUsers" />
+          <Property Name="PostalCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Locality" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="County" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="District" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Profile_AspNetUsers">
           <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
@@ -3521,6 +3529,10 @@
           <EntitySetMapping Name="Profile">
             <EntityTypeMapping TypeName="InsurancePortal_dbModel.Profile">
               <MappingFragment StoreEntitySet="Profile">
+                <ScalarProperty Name="District" ColumnName="District" />
+                <ScalarProperty Name="County" ColumnName="County" />
+                <ScalarProperty Name="Locality" ColumnName="Locality" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
                 <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="DeleteDate" ColumnName="DeleteDate" />
                 <ScalarProperty Name="LastChangeDate" ColumnName="LastChangeDate" />

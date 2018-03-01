@@ -22,6 +22,7 @@ namespace InsuranceSocialNetworkDAL
         {
             return context.MedicalClinic
                 .Fetch()
+                .Include("MedicalClinicFavorite")
                 .Where(i => i.Active)
                 .FirstOrDefault(i => i.ID == id);
         }
@@ -33,6 +34,7 @@ namespace InsuranceSocialNetworkDAL
                 return context
                     .MedicalClinic
                     .Fetch()
+                    .Include("MedicalClinicFavorite")
                     .Select(i => i)
                     .OrderBy(i => i.Name)
                     .ToList();

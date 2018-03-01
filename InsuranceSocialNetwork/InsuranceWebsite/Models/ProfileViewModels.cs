@@ -55,6 +55,14 @@ namespace InsuranceWebsite.Models
         public string Telephone_1 { get; set; }
         public string Telephone_2 { get; set; }
         public string Address { get; set; }
+        [MaxLength(10)]
+        public string PostalCode { get; set; }
+        [MaxLength(64)]
+        public string Locality { get; set; }
+        [MaxLength(64)]
+        public string County { get; set; }
+        [MaxLength(64)]
+        public string District { get; set; }
         public string Skype { get; set; }
         public string Whatsapp { get; set; }
         public string CompaniesWorkingWith { get; set; }

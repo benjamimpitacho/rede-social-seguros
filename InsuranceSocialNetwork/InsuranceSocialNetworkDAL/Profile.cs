@@ -37,6 +37,10 @@ namespace InsuranceSocialNetworkDAL
         public System.DateTime LastChangeDate { get; set; }
         public Nullable<System.DateTime> DeleteDate { get; set; }
         public bool Active { get; set; }
+        public string PostalCode { get; set; }
+        public string Locality { get; set; }
+        public string County { get; set; }
+        public string District { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
     }
