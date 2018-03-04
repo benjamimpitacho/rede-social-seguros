@@ -41,6 +41,10 @@ namespace InsuranceSocialNetworkDAL
         public string Locality { get; set; }
         public string County { get; set; }
         public string District { get; set; }
+        public string CompanyName { get; set; }
+        public string Facebook { get; set; }
+        public string Twitter { get; set; }
+        public string GooglePlus { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
     }

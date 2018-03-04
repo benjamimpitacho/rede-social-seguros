@@ -529,6 +529,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Empresa.
+        /// </summary>
+        public static string CompanyName {
+            get {
+                return ResourceManager.GetString("CompanyName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Configurações.
         /// </summary>
         public static string Configurations {
@@ -871,6 +880,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Facebook.
+        /// </summary>
+        public static string Facebook {
+            get {
+                return ResourceManager.GetString("Facebook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Feed.
         /// </summary>
         public static string Feed {
@@ -993,6 +1011,15 @@ namespace Resources {
         public static string GarageName {
             get {
                 return ResourceManager.GetString("GarageName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Google+.
+        /// </summary>
+        public static string GooglePlus {
+            get {
+                return ResourceManager.GetString("GooglePlus", resourceCulture);
             }
         }
         
@@ -2113,6 +2140,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Redes Sociais.
+        /// </summary>
+        public static string SocialNetworks {
+            get {
+                return ResourceManager.GetString("SocialNetworks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Publicidade.
         /// </summary>
         public static string Sponsored {
@@ -2199,6 +2235,15 @@ namespace Resources {
         public static string Title {
             get {
                 return ResourceManager.GetString("Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Twitter.
+        /// </summary>
+        public static string Twitter {
+            get {
+                return ResourceManager.GetString("Twitter", resourceCulture);
             }
         }
         

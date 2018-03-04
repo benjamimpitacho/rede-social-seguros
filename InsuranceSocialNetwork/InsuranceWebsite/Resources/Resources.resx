@@ -879,4 +879,19 @@
   <data name="Locality" xml:space="preserve">
     <value>Localidade</value>
   </data>
+  <data name="CompanyName" xml:space="preserve">
+    <value>Empresa</value>
+  </data>
+  <data name="SocialNetworks" xml:space="preserve">
+    <value>Redes Sociais</value>
+  </data>
+  <data name="Facebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="GooglePlus" xml:space="preserve">
+    <value>Google+</value>
+  </data>
+  <data name="Twitter" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
 </root>

@@ -54,16 +54,16 @@
             <div style="display:table-cell;vertical-align:middle;">
                 <img src="~/Content/icons/icons_perfil_rede_social_falar_seguros_v22.png" class="profile-icon" />
             </div>
-            <div style="display:table-cell;vertical-align:middle;"><span style="display:block;color:#00C1DE;">@Resources.Resources.UserProfile</span>@Html.ActionLink(Resources.Resources.Edit, "ProfileEdit", new { userId = Model.Profile.ID_User }, null)</div>
+            <div style="display:table-cell;vertical-align:middle;"><span style="display:block;color:#00C1DE;">@Resources.Resources.UserProfile</span>@Html.ActionLink(Resources.Resources.Edit, "ProfileEdit", new { userId = Model.ProfileInfo.ID_User }, null)</div>
         </div>
         <div style="width:120px;text-align:center;">
-            @if (null == Model.Profile || null == Model.Profile.ProfilePhoto || Model.Profile.ProfilePhoto.Length == 0)
+            @if (null == Model.Profile || null == Model.ProfileInfo.ProfilePhoto || Model.ProfileInfo.ProfilePhoto.Length == 0)
             {
                 <img src="~/Content/images/no_photo_img.jpg" class="mini-avatar item-photo main-photo">
             }
             else
             {
-                <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.Profile.ProfilePhoto))" class="mini-avatar item-photo main-photo">
+                <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.ProfileInfo.ProfilePhoto))" class="mini-avatar item-photo main-photo">
             }
         </div>
         <div style="width:calc( 50% - 60px );height:120px; text-align:right;display:table;justify-content: space-evenly;font-weight:bold;">
@@ -75,37 +75,124 @@
     </div>
 
     <div class="panel panel-white" style="display:block;padding:10px 0px;font-weight:bold;color:#4B5C66">
-        <div style="width:100%;text-align:center;display:table;padding-bottom:10px;">
-            <div style="display:table-cell;vertical-align:middle;"><span style="display:block;font-size:20px;">@Model.Profile.FirstName @Model.Profile.LastName</span>@Model.Profile.Address</div>
-        </div>
+        @*<div style="width:100%;text-align:center;display:table;padding-bottom:10px;">
+            
+        </div>*@
         <div style="width:100%;display:flex;">
-            <div style="width:33%;display:block;justify-content: space-evenly;text-align:center;">
+            <div style="max-width:120px;display:block;justify-content: space-evenly;text-align:center;padding:0px 10px 0px 30px;">
                 <div>
                     <img src="~/Content/icons/icons_perfil_rede_social_falar_seguros_v24.png" class="profile-icon" />
-                    <span style="font-size:18px;">000</span>
+                    <span style="font-size:18px;">@Model.ProfileInfo.TotalFriends</span>
                 </div>
-                <div style="">@Resources.Resources.Contacts</div>
+                <div style="">@Resources.Resources.Connections</div>
             </div>
-            <div style="width:34%;display:block;justify-content: space-evenly;text-align:center;">
+            <div style="width:100%;display:flex;justify-content: space-evenly;text-align:center;align-self:center;">
+                <div style="display:table-cell;vertical-align:middle;font-size:14px;font-weight:normal;color:#6F7D85;">
+                    <span style="display:block;font-size:20px;font-weight:bold;padding-bottom:10px;color:#4B5C66;">@Model.ProfileInfo.FirstName @Model.ProfileInfo.LastName</span>
+                    @if (string.IsNullOrEmpty(Model.ProfileInfo.CompanyName))
+                    {
+                        <span style="display:block;font-weight:bold;">-</span>
+                    }
+                    else
+                    {
+                        <span style="display:block;font-weight:bold;">@Model.ProfileInfo.CompanyName</span>
+                    }
+                    
+                    @if (string.IsNullOrEmpty(Model.ProfileInfo.District))
+                    {
+                        if (string.IsNullOrEmpty(Model.ProfileInfo.County))
+                        {
+                            if (string.IsNullOrEmpty(Model.ProfileInfo.Locality))
+                            {
+                                <span>-</span>
+                            }
+                            else
+                            {
+                                <span>@Model.ProfileInfo.Locality, @Model.ProfileInfo.County</span>
+
+                            }
+                        }
+                        else
+                        {
+                            if (string.IsNullOrEmpty(Model.ProfileInfo.Locality))
+                            {
+                                <span>@Model.ProfileInfo.County</span>
+                            }
+                            else
+                            {
+                                <span>@Model.ProfileInfo.Locality, @Model.ProfileInfo.County</span>
+
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (string.IsNullOrEmpty(Model.ProfileInfo.County))
+                        {
+                            if (string.IsNullOrEmpty(Model.ProfileInfo.Locality))
+                            {
+                                <span>@Model.ProfileInfo.District</span>
+                            }
+                            else
+                            {
+                                <span>@Model.ProfileInfo.Locality, @Model.ProfileInfo.District</span>
+
+                            }
+                        }
+                        else
+                        {
+                            if (string.IsNullOrEmpty(Model.ProfileInfo.Locality))
+                            {
+                                <span>@Model.ProfileInfo.County, @Model.ProfileInfo.District</span>
+
+                            }
+                            else
+                            {
+                                <span>@Model.ProfileInfo.Locality, @Model.ProfileInfo.County, @Model.ProfileInfo.District</span>
+
+                            }
+                        }
+                    }
+                </div>
+            </div>
+            <div style="max-width:120px;text-align:center;display:block;justify-content: space-evenly;padding:0px 30px 0px 10px;">
                 <div>
-                    <img src="~/Content/icons/icons_perfil_rede_social_falar_seguros_v24.png" class="profile-icon" />
-                    <span style="font-size:18px;">000</span>
+                    <img src="~/Content/icons/icons_perfil_rede_social_falar_seguros_AF4.png" class="profile-icon" />
+                    <span style="font-size:18px;">@Model.ProfileInfo.TotalLikes</span>
                 </div>
                 <div style="">@Resources.Resources.Likes</div>
-            </div>
-            <div style="width:33%;text-align:center;display:block;justify-content: space-evenly;">
-                <div>
-                    <img src="~/Content/icons/icons_perfil_rede_social_falar_seguros_v24.png" class="profile-icon" />
-                    <span style="font-size:18px;">000</span>
-                </div>
-                <div style="">@Resources.Resources.Followers</div>
             </div>
         </div>
     </div>
 
-    <div class="panel panel-white">
-        <div style="width:100%;display:flex;text-align:center;">
-
+    <div class="panel panel-white" style="padding:20px;">
+        <div style="width:100%;display:block;text-align:center;">
+            @if (string.IsNullOrEmpty(Model.ProfileInfo.Facebook))
+            {
+                <img style="max-width:40px;" src="~/Content/icons/icons_perfil_rede_social_falar_seguros_AF3.png" />
+            }
+            else
+            {
+                <a href="@Model.ProfileInfo.Facebook" target="_blank" class="" style="border-radius:3px;color:#00C1DE;"><img style="max-width:40px;" src="~/Content/icons/icons_perfil_rede_social_falar_seguros_AF3.png" /></a>
+            }
+            <span style="padding:10px;"></span>
+            @if (string.IsNullOrEmpty(Model.ProfileInfo.Facebook))
+            {
+                <img style="max-width:40px;" src="~/Content/icons/icons_perfil_rede_social_falar_seguros_AF2.png" />
+            }
+            else
+            {
+                <a href="@Model.ProfileInfo.Twitter" target="_blank" class="" style="border-radius:3px;color:#00C1DE;"><img style="max-width:40px;" src="~/Content/icons/icons_perfil_rede_social_falar_seguros_AF2.png" /></a>
+            }
+            <span style="padding:10px;"></span>
+            @if (string.IsNullOrEmpty(Model.ProfileInfo.Facebook))
+            {
+                <img style="max-width:40px;" src="~/Content/icons/icons_perfil_rede_social_falar_seguros_AF.png" />
+            }
+            else
+            {
+                <a href="@Model.ProfileInfo.GooglePlus" target="_blank" class="" style="border-radius:3px;color:#00C1DE;"><img style="max-width:40px;" src="~/Content/icons/icons_perfil_rede_social_falar_seguros_AF.png" /></a>
+            }
         </div>
     </div>
 
@@ -116,55 +203,55 @@
         <div>
             <p class="data-row">
                 <span class="data-name profile-label">@Resources.Resources.FirstName</span>
-                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.Profile.FirstName)</label>
+                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.ProfileInfo.FirstName)</label>
             </p>
         </div>
         <div>
             <p class="data-row">
                 <span class="data-name profile-label">@Resources.Resources.LastName</span>
-                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.Profile.LastName)</label>
+                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.ProfileInfo.LastName)</label>
             </p>
         </div>
         <div>
             <p class="data-row">
                 <span class="data-name profile-label">@Resources.Resources.BirthDate</span>
-                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.Profile.Birthdate)</label>
+                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.ProfileInfo.Birthdate)</label>
             </p>
         </div>
         <div>
             <p class="data-row">
                 <span class="data-name profile-label">@Resources.Resources.RegisterDate</span>
-                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.Profile.CreateDate)</label>
+                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.ProfileInfo.CreateDate)</label>
             </p>
         </div>
         <div>
             <p class="data-row">
                 <span class="data-name profile-label">@Resources.Resources.Address</span>
-                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.Profile.Address)</label>
+                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.ProfileInfo.Address)</label>
             </p>
         </div>
         <div>
             <p class="data-row">
                 <span class="data-name profile-label">@Resources.Resources.PostalCode</span>
-                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.Profile.PostalCode)</label>
+                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.ProfileInfo.PostalCode)</label>
             </p>
         </div>
         <div>
             <p class="data-row">
                 <span class="data-name profile-label">@Resources.Resources.Locality</span>
-                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.Profile.Locality)</label>
+                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.ProfileInfo.Locality)</label>
             </p>
         </div>
         <div>
             <p class="data-row">
                 <span class="data-name profile-label">@Resources.Resources.County</span>
-                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.Profile.County)</label>
+                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.ProfileInfo.County)</label>
             </p>
         </div>
         <div>
             <p class="data-row">
                 <span class="data-name profile-label">@Resources.Resources.District</span>
-                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.Profile.District)</label>
+                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.ProfileInfo.District)</label>
             </p>
         </div>
 
@@ -175,37 +262,37 @@
         <div>
             <p class="data-row">
                 <span class="data-name profile-label">@Resources.Resources.ContactEmail</span>
-                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.Profile.ContactEmail)</label>
+                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.ProfileInfo.ContactEmail)</label>
             </p>
         </div>
         <div>
             <p class="data-row">
                 <span class="data-name profile-label">@Resources.Resources.Website</span>
-                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.Profile.Website)</label>
+                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.ProfileInfo.Website)</label>
             </p>
         </div>
         <div>
             <p class="data-row">
                 <span class="data-name profile-label">@Resources.Resources.Telephone_1</span>
-                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.Profile.Telephone_1)</label>
+                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.ProfileInfo.Telephone_1)</label>
             </p>
         </div>
         <div>
             <p class="data-row">
                 <span class="data-name profile-label">@Resources.Resources.Telephone_2</span>
-                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.Profile.Telephone_2)</label>
+                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.ProfileInfo.Telephone_2)</label>
             </p>
         </div>
         <div>
             <p class="data-row">
                 <span class="data-name profile-label">@Resources.Resources.MobilePhone_1</span>
-                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.Profile.MobilePhone_1)</label>
+                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.ProfileInfo.MobilePhone_1)</label>
             </p>
         </div>
         <div>
             <p class="data-row">
                 <span class="data-name profile-label">@Resources.Resources.MobilePhone_2</span>
-                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.Profile.MobilePhone_2)</label>
+                <label class="form-control label-control profile-label">@Html.DisplayTextFor(i => i.ProfileInfo.MobilePhone_2)</label>
             </p>
         </div>
 
@@ -214,7 +301,7 @@
             <span style="font-size:14px;">@Resources.Resources.AboutMe</span>
         </div>
         <div>
-            @Html.TextAreaFor(i => i.Profile.AboutMe, new { @class = "form-control aboutme", @disabled = "disabled", @style= "resize:none;scroll-behaviour:auto;font-weight:normal;" })
+            @Html.TextAreaFor(i => i.ProfileInfo.AboutMe, new { @class = "form-control aboutme", @disabled = "disabled", @style= "resize:none;scroll-behaviour:auto;font-weight:normal;" })
         </div>
 
         <p></p>
@@ -222,7 +309,7 @@
             <span style="font-size:14px;">@Resources.Resources.CompaniesWorkingWith</span>
         </div>
         <div>
-            @Html.TextAreaFor(i => i.Profile.CompaniesWorkingWith, new { @class = "form-control aboutme", @disabled = "disabled", @style = "resize:none;scroll-behaviour:auto;font-weight:normal;" })
+            @Html.TextAreaFor(i => i.ProfileInfo.CompaniesWorkingWith, new { @class = "form-control aboutme", @disabled = "disabled", @style = "resize:none;scroll-behaviour:auto;font-weight:normal;" })
         </div>
 
         <p></p>

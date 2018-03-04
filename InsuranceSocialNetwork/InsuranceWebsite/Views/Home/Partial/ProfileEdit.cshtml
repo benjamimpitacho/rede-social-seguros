@@ -147,20 +147,24 @@
             <p class="data-row">
                 <span class="data-name profile-label">@Resources.Resources.FirstName</span>
                 <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.ProfileEditModel.FirstName)</label>
-                @Html.ValidationMessageFor(i => i.ProfileEditModel.FirstName)
             </p>
         </div>
         <div>
             <p class="data-row">
                 <span class="data-name profile-label">@Resources.Resources.LastName</span>
                 <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.ProfileEditModel.LastName)</label>
-                @Html.ValidationMessageFor(i => i.ProfileEditModel.FirstName)
             </p>
         </div>
         <div>
             <p class="data-row">
                 <span class="data-name profile-label">@Resources.Resources.BirthDate</span>
                 <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.ProfileEditModel.Birthdate)</label>
+            </p>
+        </div>
+        <div>
+            <p class="data-row">
+                <span class="data-name profile-label">@Resources.Resources.CompanyName</span>
+                <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.ProfileEditModel.CompanyName)</label>
             </p>
         </div>
         <div>
@@ -199,6 +203,10 @@
                 <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.ProfileEditModel.District)</label>
             </p>
         </div>
+        <div>
+            @Html.ValidationMessageFor(i => i.ProfileEditModel.FirstName)
+            @Html.ValidationMessageFor(i => i.ProfileEditModel.LastName)
+        </div>
 
         <p></p>
         <div style="padding:10px 0px;">
@@ -208,14 +216,12 @@
             <p class="data-row">
                 <span class="data-name profile-label">@Resources.Resources.ContactEmail</span>
                 <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.ProfileEditModel.ContactEmail)</label>
-                @Html.ValidationMessageFor(i => i.ProfileEditModel.ContactEmail)
             </p>
         </div>
         <div>
             <p class="data-row">
                 <span class="data-name profile-label">@Resources.Resources.Website</span>
                 <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.ProfileEditModel.Website)</label>
-                @Html.ValidationMessageFor(i => i.ProfileEditModel.Website)
             </p>
         </div>
         <div>
@@ -241,6 +247,38 @@
                 <span class="data-name profile-label">@Resources.Resources.MobilePhone_2</span>
                 <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.ProfileEditModel.MobilePhone_2)</label>
             </p>
+        </div>
+        <div>
+            @Html.ValidationMessageFor(i => i.ProfileEditModel.ContactEmail)
+            @Html.ValidationMessageFor(i => i.ProfileEditModel.Website)
+        </div>
+
+        <p></p>
+        <div style="padding:10px 0px;">
+            <span style="font-size:14px;">@Resources.Resources.SocialNetworks</span>
+        </div>
+        <div>
+            <p class="data-row">
+                <span class="data-name profile-label">@Resources.Resources.Facebook</span>
+                <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.ProfileEditModel.Facebook)</label>
+            </p>
+        </div>
+        <div>
+            <p class="data-row">
+                <span class="data-name profile-label">@Resources.Resources.Twitter</span>
+                <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.ProfileEditModel.Twitter)</label>
+            </p>
+        </div>
+        <div>
+            <p class="data-row">
+                <span class="data-name profile-label">@Resources.Resources.GooglePlus</span>
+                <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.ProfileEditModel.GooglePlus)</label>
+            </p>
+        </div>
+        <div>
+            @Html.ValidationMessageFor(i => i.ProfileEditModel.Facebook)
+            @Html.ValidationMessageFor(i => i.ProfileEditModel.Twitter)
+            @Html.ValidationMessageFor(i => i.ProfileEditModel.GooglePlus)
         </div>
 
         <p></p>

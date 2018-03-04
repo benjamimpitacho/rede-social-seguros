@@ -50,11 +50,11 @@
 
     <div class="panel topPanel" style="display:flex;padding:10px 0px;font-weight:bold;color:#4B5C66">
         <div style="width:calc( 50% - 60px );display:block;justify-content: space-evenly;text-align:center;font-size:16px;padding-top:10px;padding-right:20px;">
-            <div>
+            <div style="display:inline-grid;">
                 <img src="~/Content/icons/icons_perfil_rede_social_falar_seguros_v24.png" class="profile-icon" />
-                <span style="font-size:18px;">000</span>
+                <span style="font-size:18px;">@Model.ProfileInfo.TotalFriends</span>
             </div>
-            <div style="">@Resources.Resources.Contacts</div>
+            <div style="">@Resources.Resources.Connections</div>
         </div>
         <div style="width:120px;text-align:center;">
             @if (null == Model.Profile || null == Model.ProfileInfo.ProfilePhoto || Model.ProfileInfo.ProfilePhoto.Length == 0)
@@ -67,37 +67,79 @@
             }
         </div>
         <div style="width:calc( 50% - 60px );display:block;justify-content: space-evenly;text-align:center;font-size:16px;padding-top:10px;padding-left:20px;">
-            <div>
-                <span style="font-size:18px;">000</span>
-                <img src="~/Content/icons/icons_perfil_rede_social_falar_seguros_v24.png" class="profile-icon" />
+            <div style="display:inline-grid;">
+                <img src="~/Content/icons/icons_perfil_rede_social_falar_seguros_AF4.png" class="profile-icon" />
+                <span style="font-size:18px;">@Model.ProfileInfo.TotalLikes</span>
             </div>
-            <div style="">@Resources.Resources.Followers</div>
+            <div style="">@Resources.Resources.Likes</div>
         </div>
     </div>
 
-    <div class="panel panel-white" style="display:block;padding:10px 0px;font-weight:bold;color:#4B5C66">
-        <div style="width:100%;text-align:center;display:table;padding-bottom:10px;">
-            <div style="display:table-cell;vertical-align:middle;"><span style="display:block;font-size:20px;">@Model.ProfileInfo.FirstName @Model.ProfileInfo.LastName</span>
-            @if (string.IsNullOrEmpty(Model.ProfileInfo.Locality))
+    <div class="panel panel-white" style="display:block;padding:10px 0px;font-weight:bold;">
+        <div style="width:100%;text-align:center;display:table;padding-bottom:10px;color:#6F7D85;">
+            <div style="display:table-cell;vertical-align:middle;"><span style="display:block;font-size:20px;color:#4B5C66;padding-bottom:10px;">@Model.ProfileInfo.FirstName @Model.ProfileInfo.LastName</span>
+            @if (string.IsNullOrEmpty(Model.ProfileInfo.CompanyName))
+            {
+                <span style="display:block;font-weight:bold;">-</span>
+            }
+            else
+            {
+                <span style="display:block;font-weight:bold;">@Model.ProfileInfo.CompanyName</span>
+            }
+
+            @if (string.IsNullOrEmpty(Model.ProfileInfo.District))
             {
                 if (string.IsNullOrEmpty(Model.ProfileInfo.County))
                 {
-                    <div>@Model.ProfileInfo.District</div>
+                    if (string.IsNullOrEmpty(Model.ProfileInfo.Locality))
+                    {
+                        <span>-</span>
+                    }
+                    else
+                    {
+                        <span>@Model.ProfileInfo.Locality, @Model.ProfileInfo.County</span>
+
+                    }
                 }
                 else
                 {
-                    <div>@Model.ProfileInfo.County, @Model.ProfileInfo.District</div>
+                    if (string.IsNullOrEmpty(Model.ProfileInfo.Locality))
+                    {
+                        <span>@Model.ProfileInfo.County</span>
+                    }
+                    else
+                    {
+                        <span>@Model.ProfileInfo.Locality, @Model.ProfileInfo.County</span>
+
+                    }
                 }
             }
             else
             {
                 if (string.IsNullOrEmpty(Model.ProfileInfo.County))
                 {
-                    <div>@Model.ProfileInfo.Locality, @Model.ProfileInfo.District</div>
+                    if (string.IsNullOrEmpty(Model.ProfileInfo.Locality))
+                    {
+                        <span>@Model.ProfileInfo.District</span>
+                    }
+                    else
+                    {
+                        <span>@Model.ProfileInfo.Locality, @Model.ProfileInfo.District</span>
+
+                    }
                 }
                 else
                 {
-                    <div>@Model.ProfileInfo.Locality, @Model.ProfileInfo.County, @Model.ProfileInfo.District</div>
+                    if (string.IsNullOrEmpty(Model.ProfileInfo.Locality))
+                    {
+                        <span>@Model.ProfileInfo.County, @Model.ProfileInfo.District</span>
+
+                    }
+                    else
+                    {
+                        <span>@Model.ProfileInfo.Locality, @Model.ProfileInfo.County, @Model.ProfileInfo.District</span>
+
+                    }
                 }
             }
             </div>
@@ -119,11 +161,46 @@
         </div>
     </div>
 
+    <div class="panel panel-white" style="padding:20px;">
+        <div style="width:100%;display:block;text-align:center;">
+            @if (string.IsNullOrEmpty(Model.ProfileInfo.Facebook))
+            {
+                <img style="max-width:40px;" src="~/Content/icons/icons_perfil_rede_social_falar_seguros_AF3.png" />
+            }
+            else
+            {
+                <a href="@Model.ProfileInfo.Facebook" target="_blank" class="" style="border-radius:3px;color:#00C1DE;"><img style="max-width:40px;" src="~/Content/icons/icons_perfil_rede_social_falar_seguros_AF3.png" /></a>
+            }
+            <span style="padding:10px;"></span>
+            @if (string.IsNullOrEmpty(Model.ProfileInfo.Facebook))
+            {
+                <img style="max-width:40px;" src="~/Content/icons/icons_perfil_rede_social_falar_seguros_AF2.png" />
+            }
+            else
+            {
+                <a href="@Model.ProfileInfo.Twitter" target="_blank" class="" style="border-radius:3px;color:#00C1DE;"><img style="max-width:40px;" src="~/Content/icons/icons_perfil_rede_social_falar_seguros_AF2.png" /></a>
+            }
+            <span style="padding:10px;"></span>
+            @if (string.IsNullOrEmpty(Model.ProfileInfo.Facebook))
+            {
+                <img style="max-width:40px;" src="~/Content/icons/icons_perfil_rede_social_falar_seguros_AF.png" />
+            }
+            else
+            {
+                <a href="@Model.ProfileInfo.GooglePlus" target="_blank" class="" style="border-radius:3px;color:#00C1DE;"><img style="max-width:40px;" src="~/Content/icons/icons_perfil_rede_social_falar_seguros_AF.png" /></a>
+            }
+        </div>
+    </div>
+
     <div class="panel panel-white" style="width:100%;display:grid;text-align:center;font-weight:bold;color:#4B5C66;font-size:16px;padding:20px 0px;min-height:80px;">
         <span>@Resources.Resources.BirthDate</span>
         @if (Model.ProfileInfo.Birthdate.HasValue)
         {
             <span style="color:#00C1DE;">@Model.ProfileInfo.Birthdate.Value.ToShortDateString()</span>
+        }
+        else
+        {
+            <span style="color:#00C1DE;">-</span>
         }
     </div>
 

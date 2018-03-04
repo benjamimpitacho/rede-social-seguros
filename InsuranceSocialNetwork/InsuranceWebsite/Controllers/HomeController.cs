@@ -948,6 +948,9 @@ namespace InsuranceWebsite.Controllers
                     model.ProfileInfo = model.Profile;
                 }
 
+                model.ProfileInfo.TotalFriends = InsuranceBusiness.BusinessLayer.GetTotalFriends(model.ProfileInfo.ID_User);
+                model.ProfileInfo.TotalLikes = InsuranceBusiness.BusinessLayer.GetTotalLikes(model.ProfileInfo.ID_User);
+
                 return View("Index", model);
 
                 //return View(model);
@@ -1177,6 +1180,7 @@ namespace InsuranceWebsite.Controllers
             model.ProfileEditModel.ID = model.Profile.ID;
             model.ProfileEditModel.FirstName =  model.Profile.FirstName;
             model.ProfileEditModel.LastName =  model.Profile.LastName;
+            model.ProfileEditModel.CompanyName = model.Profile.CompanyName;
             model.ProfileEditModel.MobilePhone_1 =  model.Profile.MobilePhone_1;
             model.ProfileEditModel.MobilePhone_2 =  model.Profile.MobilePhone_2;
             model.ProfileEditModel.Telephone_1 =  model.Profile.Telephone_1;
@@ -1191,6 +1195,9 @@ namespace InsuranceWebsite.Controllers
             model.ProfileEditModel.ProfilePhoto =  model.Profile.ProfilePhoto;
             model.ProfileEditModel.Website = string.IsNullOrEmpty( model.Profile.Website) ?  model.Profile.Website :  model.Profile.Website.ToLower();
             model.ProfileEditModel.AboutMe =  model.Profile.AboutMe;
+            model.ProfileEditModel.Facebook = model.Profile.Facebook;
+            model.ProfileEditModel.Twitter = model.Profile.Twitter;
+            model.ProfileEditModel.GooglePlus = model.Profile.GooglePlus;
             model.ProfileEditModel.Skype =  model.Profile.Skype;
             model.ProfileEditModel.Whatsapp =  model.Profile.Whatsapp;
             model.ProfileEditModel.CompaniesWorkingWith = model.Profile.CompaniesWorkingWith;
@@ -1245,11 +1252,15 @@ namespace InsuranceWebsite.Controllers
             profile.County = model.ProfileEditModel.County;
             profile.District = model.ProfileEditModel.District;
             profile.Birthdate = model.ProfileEditModel.Birthdate;
+            profile.CompanyName = model.ProfileEditModel.CompanyName;
             profile.ContactEmail = model.ProfileEditModel.ContactEmail;
             profile.FirstName = model.ProfileEditModel.FirstName;
             profile.LastName = model.ProfileEditModel.LastName;
             profile.MobilePhone_1 = model.ProfileEditModel.MobilePhone_1;
             profile.MobilePhone_2 = model.ProfileEditModel.MobilePhone_2;
+            profile.Facebook = model.ProfileEditModel.Facebook;
+            profile.Twitter = model.ProfileEditModel.Twitter;
+            profile.GooglePlus = model.ProfileEditModel.GooglePlus;
             profile.Skype = model.ProfileEditModel.Skype;
             profile.Whatsapp = model.ProfileEditModel.Whatsapp;
             profile.CompaniesWorkingWith = model.ProfileEditModel.CompaniesWorkingWith;

@@ -641,6 +641,11 @@ namespace InsuranceSocialNetworkBusiness
             return PostRepository.HidePost(postId, userId);
         }
 
+        public int GetTotalLikes(string userId)
+        {
+            return PostRepository.GetTotalLikes(userId);
+        }
+
         #endregion Posts
 
         #region Comments
@@ -745,6 +750,11 @@ namespace InsuranceSocialNetworkBusiness
         public bool HasPendingFriendRequest(string currentUserId, string otherUserId)
         {
             return FriendsRepository.HasPendingFriendRequest(currentUserId, otherUserId);
+        }
+
+        public int GetTotalFriends(string userId)
+        {
+            return FriendsRepository.GetTotalFriends(userId);
         }
 
         #endregion Friends

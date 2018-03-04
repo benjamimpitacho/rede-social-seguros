@@ -128,11 +128,11 @@
           <Property Name="ID_User" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="Text" Type="nvarchar(max)" />
           <Property Name="Image" Type="image" />
+          <Property Name="ReadDate" Type="datetime2" Precision="7" />
           <Property Name="CreateDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="LastChangeDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="DeleteDate" Type="datetime2" Precision="7" />
           <Property Name="Active" Type="bit" Nullable="false" />
-          <Property Name="ReadDate" Type="datetime2" Precision="7" />
         </EntityType>
         <EntityType Name="CompanyService">
           <Key>
@@ -174,12 +174,12 @@
           <Property Name="Website" Type="nvarchar" MaxLength="256" />
           <Property Name="OfficialPartner" Type="nvarchar" MaxLength="256" />
           <Property Name="OfficialAgent" Type="nvarchar" MaxLength="256" />
+          <Property Name="BusinessName" Type="nvarchar" MaxLength="256" />
+          <Property Name="IBAN" Type="nvarchar" MaxLength="256" />
           <Property Name="CreateDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="LastChangeDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="DeleteDate" Type="datetime2" Precision="7" />
           <Property Name="Active" Type="bit" Nullable="false" />
-          <Property Name="BusinessName" Type="nvarchar" MaxLength="256" />
-          <Property Name="IBAN" Type="nvarchar" MaxLength="256" />
         </EntityType>
         <EntityType Name="ConstructionCompanyFavorite">
           <Key>
@@ -251,12 +251,12 @@
           <Property Name="Website" Type="nvarchar" MaxLength="256" />
           <Property Name="OfficialPartner" Type="nvarchar" MaxLength="256" />
           <Property Name="OfficialAgent" Type="nvarchar" MaxLength="256" />
+          <Property Name="BusinessName" Type="nvarchar" MaxLength="256" />
+          <Property Name="IBAN" Type="nvarchar" MaxLength="256" />
           <Property Name="CreateDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="LastChangeDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="DeleteDate" Type="datetime2" Precision="7" />
           <Property Name="Active" Type="bit" Nullable="false" />
-          <Property Name="BusinessName" Type="nvarchar" MaxLength="256" />
-          <Property Name="IBAN" Type="nvarchar" MaxLength="256" />
         </EntityType>
         <EntityType Name="GarageFavorite">
           <Key>
@@ -289,12 +289,12 @@
           <Property Name="Website" Type="nvarchar" MaxLength="256" />
           <Property Name="OfficialPartner" Type="nvarchar" MaxLength="256" />
           <Property Name="OfficialAgent" Type="nvarchar" MaxLength="256" />
+          <Property Name="BusinessName" Type="nvarchar" MaxLength="256" />
+          <Property Name="IBAN" Type="nvarchar" MaxLength="256" />
           <Property Name="CreateDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="LastChangeDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="DeleteDate" Type="datetime2" Precision="7" />
           <Property Name="Active" Type="bit" Nullable="false" />
-          <Property Name="BusinessName" Type="nvarchar" MaxLength="256" />
-          <Property Name="IBAN" Type="nvarchar" MaxLength="256" />
         </EntityType>
         <EntityType Name="HomeApplianceRepairFavorite">
           <Key>
@@ -327,12 +327,12 @@
           <Property Name="Website" Type="nvarchar" MaxLength="256" />
           <Property Name="OfficialPartner" Type="nvarchar" MaxLength="256" />
           <Property Name="OfficialAgent" Type="nvarchar" MaxLength="256" />
+          <Property Name="BusinessName" Type="nvarchar" MaxLength="256" />
+          <Property Name="IBAN" Type="nvarchar" MaxLength="256" />
           <Property Name="CreateDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="LastChangeDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="DeleteDate" Type="datetime2" Precision="7" />
           <Property Name="Active" Type="bit" Nullable="false" />
-          <Property Name="BusinessName" Type="nvarchar" MaxLength="256" />
-          <Property Name="IBAN" Type="nvarchar" MaxLength="256" />
         </EntityType>
         <EntityType Name="InsuranceCompanyContactFavorite">
           <Key>
@@ -365,12 +365,12 @@
           <Property Name="Website" Type="nvarchar" MaxLength="256" />
           <Property Name="OfficialPartner" Type="nvarchar" MaxLength="256" />
           <Property Name="OfficialAgent" Type="nvarchar" MaxLength="256" />
+          <Property Name="BusinessName" Type="nvarchar" MaxLength="256" />
+          <Property Name="IBAN" Type="nvarchar" MaxLength="256" />
           <Property Name="CreateDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="LastChangeDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="DeleteDate" Type="datetime2" Precision="7" />
           <Property Name="Active" Type="bit" Nullable="false" />
-          <Property Name="BusinessName" Type="nvarchar" MaxLength="256" />
-          <Property Name="IBAN" Type="nvarchar" MaxLength="256" />
         </EntityType>
         <EntityType Name="MedicalClinicFavorite">
           <Key>
@@ -424,6 +424,7 @@
           <Property Name="ID_User" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="ID_PostType" Type="bigint" Nullable="false" />
           <Property Name="ID_PostSubject" Type="bigint" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="256" />
           <Property Name="Text" Type="nvarchar(max)" />
           <Property Name="Video" Type="nvarchar" MaxLength="256" />
           <Property Name="URL" Type="nvarchar(max)" />
@@ -433,7 +434,6 @@
           <Property Name="Sticky" Type="bit" Nullable="false" />
           <Property Name="Sponsored" Type="bit" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
-          <Property Name="Title" Type="nvarchar" MaxLength="256" />
         </EntityType>
         <EntityType Name="PostComment">
           <Key>
@@ -442,7 +442,7 @@
           <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ID_User" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="ID_Post" Type="bigint" Nullable="false" />
-          <Property Name="Text" Type="nvarchar" MaxLength="1024" Nullable="false" />
+          <Property Name="Text" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Date" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
@@ -472,12 +472,12 @@
           </Key>
           <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ID_Post" Type="bigint" Nullable="false" />
+          <Property Name="FileName" Type="nvarchar" MaxLength="256" />
+          <Property Name="FileExtension" Type="nvarchar" MaxLength="8" />
           <Property Name="Image" Type="image" Nullable="false" />
           <Property Name="Type" Type="nvarchar" MaxLength="8" />
           <Property Name="Date" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
-          <Property Name="FileName" Type="nvarchar" MaxLength="256" />
-          <Property Name="FileExtension" Type="nvarchar" MaxLength="8" />
         </EntityType>
         <EntityType Name="PostLike">
           <Key>
@@ -522,6 +522,10 @@
           <Property Name="Telephone_1" Type="nvarchar" MaxLength="20" />
           <Property Name="Telephone_2" Type="nvarchar" MaxLength="20" />
           <Property Name="Address" Type="nvarchar" MaxLength="512" />
+          <Property Name="PostalCode" Type="nvarchar" MaxLength="10" />
+          <Property Name="Locality" Type="nvarchar" MaxLength="64" />
+          <Property Name="County" Type="nvarchar" MaxLength="64" />
+          <Property Name="District" Type="nvarchar" MaxLength="64" />
           <Property Name="AboutMe" Type="nvarchar(max)" />
           <Property Name="Skype" Type="nvarchar" MaxLength="32" />
           <Property Name="Whatsapp" Type="nvarchar" MaxLength="32" />
@@ -534,10 +538,10 @@
           <Property Name="LastChangeDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="DeleteDate" Type="datetime2" Precision="7" />
           <Property Name="Active" Type="bit" Nullable="false" />
-          <Property Name="PostalCode" Type="nvarchar" MaxLength="10" />
-          <Property Name="Locality" Type="nvarchar" MaxLength="64" />
-          <Property Name="County" Type="nvarchar" MaxLength="64" />
-          <Property Name="District" Type="nvarchar" MaxLength="64" />
+          <Property Name="CompanyName" Type="nvarchar" MaxLength="256" />
+          <Property Name="Facebook" Type="nvarchar" MaxLength="512" />
+          <Property Name="Twitter" Type="nvarchar" MaxLength="512" />
+          <Property Name="GooglePlus" Type="nvarchar" MaxLength="512" />
         </EntityType>
         <Association Name="FK_AuthorizedEmail_User">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
@@ -1905,7 +1909,7 @@
           <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ID_User" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="ID_Post" Type="Int64" Nullable="false" />
-          <Property Name="Text" Type="String" Nullable="false" MaxLength="1024" FixedLength="false" Unicode="true" />
+          <Property Name="Text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="AspNetUsers" Relationship="InsurancePortal_dbModel.FK_PostComment_AspNetUsers" FromRole="PostComment" ToRole="AspNetUsers" />
@@ -2429,6 +2433,10 @@
           <Property Name="Locality" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
           <Property Name="County" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
           <Property Name="District" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Facebook" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="Twitter" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="GooglePlus" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Profile_AspNetUsers">
           <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
@@ -3529,6 +3537,10 @@
           <EntitySetMapping Name="Profile">
             <EntityTypeMapping TypeName="InsurancePortal_dbModel.Profile">
               <MappingFragment StoreEntitySet="Profile">
+                <ScalarProperty Name="GooglePlus" ColumnName="GooglePlus" />
+                <ScalarProperty Name="Twitter" ColumnName="Twitter" />
+                <ScalarProperty Name="Facebook" ColumnName="Facebook" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
                 <ScalarProperty Name="District" ColumnName="District" />
                 <ScalarProperty Name="County" ColumnName="County" />
                 <ScalarProperty Name="Locality" ColumnName="Locality" />

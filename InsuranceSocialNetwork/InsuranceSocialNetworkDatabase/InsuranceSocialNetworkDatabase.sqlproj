@@ -123,6 +123,7 @@
   <ItemGroup>
     <None Include="InsuranceSocialNetworkDatabase.publish.xml" />
     <None Include="InitData\dummy_data.sql" />
+    <None Include="FalarSegurosDatabase.publish.publish.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="InitData\NotificationType.sql" />

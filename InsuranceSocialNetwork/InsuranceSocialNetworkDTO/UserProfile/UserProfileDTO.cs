@@ -15,6 +15,8 @@ namespace InsuranceSocialNetworkDTO.UserProfile
         public string LastName { get; set; }
         public string ContactEmail { get; set; }
         public Nullable<System.DateTime> Birthdate { get; set; }
+        public string CompanyName { get; set; }
+        public string ProfessionalNumber { get; set; }
         public string MobilePhone_1 { get; set; }
         public string MobilePhone_2 { get; set; }
         public string Telephone_1 { get; set; }
@@ -24,6 +26,9 @@ namespace InsuranceSocialNetworkDTO.UserProfile
         public string Locality { get; set; }
         public string County { get; set; }
         public string District { get; set; }
+        public string Facebook { get; set; }
+        public string Twitter { get; set; }
+        public string GooglePlus { get; set; }
         public string Skype { get; set; }
         public string Whatsapp { get; set; }
         public string CompaniesWorkingWith { get; set; }
@@ -37,6 +42,9 @@ namespace InsuranceSocialNetworkDTO.UserProfile
         public bool Active { get; set; }
         public UserDTO User { get; set; }
         public RoleDTO Role { get; set; }
+
+        public int TotalFriends { get; set; }
+        public int TotalLikes { get; set; }
     }
 
     public class UserDTO

@@ -168,5 +168,22 @@ namespace InsuranceSocialNetworkDAL
                 return true;
             }
         }
+
+        public static int GetTotalFriends(string userId)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                long requestAcceptedStatusId = context.FriendStatus.Fetch().FirstOrDefault(j => j.Token == "REQUEST_ACCEPTED").ID;
+
+                return context.Friend
+                    .Fetch()
+                    .Where(i =>
+                        (i.AspNetUsers.Id == userId || i.AspNetUsers1.Id == userId)
+                        &&
+                        (i.ID_FriendStatus == requestAcceptedStatusId)
+                        )
+                    .Count();
+            }
+        }
     }
 }

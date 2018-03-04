@@ -50,6 +50,8 @@ namespace InsuranceWebsite.Models
         [EmailAddress]
         public string ContactEmail { get; set; }
         public System.DateTime? Birthdate { get; set; }
+        public string CompanyName { get; set; }
+        public string ProfessionalNumber { get; set; }
         public string MobilePhone_1 { get; set; }
         public string MobilePhone_2 { get; set; }
         public string Telephone_1 { get; set; }
@@ -63,6 +65,12 @@ namespace InsuranceWebsite.Models
         public string County { get; set; }
         [MaxLength(64)]
         public string District { get; set; }
+        [Url]
+        public string Facebook { get; set; }
+        [Url]
+        public string Twitter { get; set; }
+        [Url]
+        public string GooglePlus { get; set; }
         public string Skype { get; set; }
         public string Whatsapp { get; set; }
         public string CompaniesWorkingWith { get; set; }

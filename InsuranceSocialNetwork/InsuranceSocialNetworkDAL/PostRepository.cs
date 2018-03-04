@@ -384,5 +384,17 @@ namespace InsuranceSocialNetworkDAL
                 return post.ID_User == userId;
             }
         }
+
+        public static int GetTotalLikes(string userId)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                return context.Post
+                    .Fetch()
+                    .Include(i => i.PostLike)
+                    .Where(i => i.ID_User == userId)
+                    .Sum(i => i.PostLike.Count);
+            }
+        }
     }
 }

@@ -17,6 +17,10 @@
         z-index: 1000 !important;
     }
 
+    .post-icon{
+        max-width: 30px;
+    }
+
     .ui-widget-overlay{
         z-index: 999 !important;
         opacity: 0.3;
@@ -48,25 +52,7 @@
                     <div class="h5" style="font-weight: bold;">
 
                         <a href="@Url.Action("ProfileInfo", "Home", new { id = post.PostOwner.ID })" class="post-user-name">@post.PostOwner.FirstName</a>
-
-                        @*@switch (post.PostType.Token)
-                            {
-                                case "IMAGE_POST":
-                                    @Resources.Resources.UploadedPhoto;
-                                    break;
-                                case "TEXT_POST":
-                                    @Resources.Resources.MadePost;
-                                    break;
-                                case "LINK_POST":
-                                    @Resources.Resources.MadePost;
-                                    break;
-                                case "VIDEO_POST":
-                                    @Resources.Resources.UploadedVideo;
-                                    break;
-                                default:
-                                    break;
-                            }*@
-
+                        
                     </div>
 
                     @if (post.PostSubject.Token == InsuranceSocialNetworkCore.Enums.PostSubjectEnum.SPONSORED_POST.ToString())
@@ -163,20 +149,20 @@
                     @if (null != post.PostLike && post.PostLike.Count > 0 && post.PostLike.Exists(i => i.ID_User == Model.Profile.ID_User))
                     {
                     <a onclick="UnlikePost(this, @post.ID, @post.PostLike.Count)" class="stat-item" id="unlikePost" style="color:#00C1DE">
-                        <i class="glyphicon glyphicon-star icon"></i><span style="padding-left: 8px;color:#4B5C66;font-size: 10px;">@post.PostLike.Count</span>
+                        <img class="post-icon" src="~/Content/icons/icons_diretorios_rede_social_falar_seguros_AF3.png" /><span style="padding-left: 8px;color:#4B5C66;font-size: 10px;">@post.PostLike.Count</span>
                     </a>
                     }
                     else if (null != post.PostLike && post.PostLike.Count > 0)
                     {
                     <a onclick="LikePost(this, @post.ID, @post.PostLike.Count)" class="stat-item" id="likePost">
-                        <i class="glyphicon glyphicon-star icon"></i><span style="padding-left: 8px;color:#4B5C66;font-size: 10px;">@post.PostLike.Count</span>
+                        <img class="post-icon" src="~/Content/icons/icons_diretorios_rede_social_falar_seguros_AF2.png" /><span style="padding-left: 8px;color:#4B5C66;font-size: 10px;">@post.PostLike.Count</span>
                     </a>
                     }
                     else
                     {
                     @*<a href="@Url.Action("LikePost", "Home", new { postId = post.ID, userId = Model.Profile.ID_User })" class="stat-item">*@
                     <a onclick="LikePost(this, @post.ID, @post.PostLike.Count)" class="stat-item">
-                        <i class="glyphicon glyphicon-star icon"></i>
+                        <img class="post-icon" src="~/Content/icons/icons_diretorios_rede_social_falar_seguros_AF2.png" />
                     </a>
                     }
 
@@ -188,7 +174,7 @@
 
                     <a class="stat-item">
 
-                        <i class="glyphicon glyphicon-option-horizontal icon"></i>
+                        <img class="post-icon" src="~/Content/icons/home_page_rede_social_falar_seguros_AF14.png" />
                         @if (post.PostComment.Count > 0)
                         {
                         <span style="padding-left: 8px;color:#4B5C66;font-size: 10px;">
@@ -346,10 +332,10 @@
                 }
             },
             items: {
-                "edit": { name: "@Resources.Resources.Edit", icon: "edit" },
-                "hide": { name: "@Resources.Resources.Hide", icon: "hide" },
+                "edit": { name: "@Resources.Resources.Edit", icon: "" },
+                "hide": { name: "@Resources.Resources.Hide", icon: "" },
                 "sep1": "---------",
-                "delete": { name: "@Resources.Resources.Delete", icon: "delete" }
+                "delete": { name: "@Resources.Resources.Delete", icon: "" }
             }
         });
 
