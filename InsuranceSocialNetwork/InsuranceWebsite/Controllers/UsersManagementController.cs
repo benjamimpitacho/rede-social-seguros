@@ -103,7 +103,7 @@ namespace InsuranceWebsite.Controllers
                     cols.Add("Active").WithHtmlEncoding(false)
                         .WithSorting(false)
                         .WithHeaderText(Resources.Resources.Active)
-                        .WithValueExpression((p, c) => p.User.EmailConfirmed ? "checked" : "")
+                        .WithValueExpression((p, c) => !p.User.LockoutEndDateUtc.HasValue ? "checked" : "")
                         .WithValueTemplate("<input type=\"checkbox\" disabled=\"disabled\" {Value}>")
                         .WithCellCssClassExpression(p => "mvcgrid-cell")
                         .WithVisibility(true, true);
@@ -358,6 +358,34 @@ namespace InsuranceWebsite.Controllers
             return true;
         }
 
+        private async Task<bool> SendAccountActivation(ApplicationUser user, string name)
+        {
+            System.Net.Mail.MailMessage m = new System.Net.Mail.MailMessage(
+                new System.Net.Mail.MailAddress(ConfigurationSettings.AppEmailAddress, Resources.Resources.ApplicationNAme),
+                new System.Net.Mail.MailAddress(user.Email));
+            m.Subject = Resources.Resources.EmailRegisterConfirmation;
+            //m.Body = string.Format(Resources.Resources.RegisterConfirmationMessage, name, Url.Action("ConfirmEmail", "Account", new { token = code, code = user.Id }, Request.Url.Scheme));
+
+            using (StreamReader reader = new StreamReader(Server.MapPath("~/Views/Account/EmailTemplates/ActivationApprovedTemplate.html")))
+            {
+                m.Body = reader.ReadToEnd();
+            }
+
+            m.Body = m.Body.Replace("{NAME}", name); //replacing the required things
+            //m.Body = m.Body.Replace("{URL}", ConfigurationSettings.ApplicationSiteUrl);
+            m.Body = m.Body.Replace("{URL}", ConfigurationSettings.ApplicationSiteUrl);
+            m.IsBodyHtml = true;
+
+            SmtpClient smtp = new SmtpClient(ConfigurationSettings.SmtpHost, ConfigurationSettings.SmtpPort)
+            {
+                Credentials = new System.Net.NetworkCredential(ConfigurationSettings.SmtpUsername, ConfigurationSettings.SmtpPassword),
+                EnableSsl = false
+            };
+            smtp.Send(m);
+
+            return true;
+        }
+
         // GET: /User/Edit/5
         [FunctionalityAutorizeAttribute("USERS_MANAGEMENT")]
         public ActionResult Edit(long id = 0)
@@ -382,6 +410,8 @@ namespace InsuranceWebsite.Controllers
                 {
                     Email = profile.User.Email,
                     EmailConfirmed = profile.User.EmailConfirmed,
+                    LockoutEnabled = profile.User.LockoutEnabled,
+                    LockoutEndDateUtc = profile.User.LockoutEndDateUtc,
                     Id = profile.User.Id,
                     UserName = profile.User.UserName
                 }
@@ -430,11 +460,21 @@ namespace InsuranceWebsite.Controllers
         }
 
         [FunctionalityAutorizeAttribute("USERS_MANAGEMENT")]
-        public ActionResult Activate(long id)
+        public async Task<ActionResult> Activate(long id)
         {
             try
             {
-                InsuranceBusiness.BusinessLayer.ActivateUser(id);
+                var userProfile = InsuranceBusiness.BusinessLayer.GetUserProfile(id);
+                var user = UserManager.FindById(userProfile.ID_User);
+
+                if (UserManager.IsLockedOut(userProfile.ID_User))
+                {
+                    InsuranceBusiness.BusinessLayer.ActivateUser(userProfile.ID);
+                    //await UnlockUserAccount(userProfile.ID_User);
+                    await SendAccountActivation(user, userProfile.FirstName);
+                }
+
+                //InsuranceBusiness.BusinessLayer.ActivateUser(id);
             }
             catch (Exception ex)
             {
@@ -445,11 +485,14 @@ namespace InsuranceWebsite.Controllers
         }
 
         [FunctionalityAutorizeAttribute("USERS_MANAGEMENT")]
-        public ActionResult Deactivate(long id)
+        public async Task<ActionResult> Deactivate(long id)
         {
             try
             {
-                InsuranceBusiness.BusinessLayer.DeactivateUser(id);
+                //InsuranceBusiness.BusinessLayer.DeactivateUser(id);
+                UserProfileDTO userProfile = InsuranceBusiness.BusinessLayer.GetUserProfile(id);
+                InsuranceBusiness.BusinessLayer.DeactivateUser(userProfile.ID);
+                //await LockUserAccount(userProfile.ID_User, 5000);
             }
             catch (Exception ex)
             {
@@ -485,6 +528,33 @@ namespace InsuranceWebsite.Controllers
             {
                 _userManager = value;
             }
+        }
+
+        public virtual async Task<IdentityResult> LockUserAccount(string userId, int? forDays)
+        {
+            var result = await UserManager.SetLockoutEnabledAsync(userId, true);
+            if (result.Succeeded)
+            {
+                if (forDays.HasValue)
+                {
+                    result = await UserManager.SetLockoutEndDateAsync(userId, DateTimeOffset.UtcNow.AddDays(forDays.Value));
+                }
+                else
+                {
+                    result = await UserManager.SetLockoutEndDateAsync(userId, DateTimeOffset.MaxValue);
+                }
+            }
+            return result;
+        }
+
+        public virtual async Task<IdentityResult> UnlockUserAccount(string userId)
+        {
+            var result = await UserManager.SetLockoutEnabledAsync(userId, false);
+            if (result.Succeeded)
+            {
+                result = await UserManager.SetLockoutEndDateAsync(userId, DateTimeOffset.MaxValue);
+            }
+            return result;
         }
     }
 }

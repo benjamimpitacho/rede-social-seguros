@@ -17,6 +17,7 @@ namespace InsuranceSocialNetworkCore.Enums
         NEW_CURRENT_DISCUSSION_POST,
         NEW_APS_POST,
         NEW_ASF_POST,
-        NEW_APROSE_POST
+        NEW_APROSE_POST,
+        USER_APPROVAL_PENDING
     }
 }

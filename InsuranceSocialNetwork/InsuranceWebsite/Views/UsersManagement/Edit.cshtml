@@ -43,7 +43,7 @@
             </div>
         </div>
 
-        if (Model.User.EmailConfirmed)
+        if (!Model.User.LockoutEndDateUtc.HasValue)
         {
             <p>@Html.ActionLink(Resources.Resources.Deactivate, "Deactivate", "UsersManagement", new { id = Model.ID }, new { @class= "btn btn-danger lnkDeactivate" })</p>
         }

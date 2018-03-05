@@ -626,6 +626,7 @@
     <Content Include="Views\Account\EmailTemplates\RegisterActivationTemplate.html" />
     <Content Include="Views\Account\EmailTemplates\RegisterConfirmationWithPasswordTemplate.html" />
     <Content Include="Views\Account\EmailTemplates\RegisterConfirmationTemplate.html" />
+    <Content Include="Views\Account\EmailTemplates\ActivationApprovedTemplate.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -722,9 +723,11 @@
     <Content Include="Views\Home\Partial\_EditPost.cshtml" />
     <Content Include="Views\Home\Partial\ProfileOwn.cshtml" />
     <Content Include="Views\Home\Partial\ProfileEdit.cshtml" />
+    <Content Include="Views\Account\PendingApproval.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\UsersManagement\EmailTemplates\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

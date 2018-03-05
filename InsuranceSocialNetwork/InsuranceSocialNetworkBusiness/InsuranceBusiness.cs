@@ -383,6 +383,29 @@ namespace InsuranceSocialNetworkBusiness
             return NotificationRepository.CreateNotification(notification);
         }
 
+        public bool CreateNotificationForAdministrators(string fromUserId, NotificationTypeEnum type)
+        {
+            Notification notification = new Notification()
+            {
+                Active = true,
+                CreateDate = DateTime.Now,
+                Read = false,
+                ID_NotificationType = NotificationRepository.GetNotificationType(type.ToString()).ID,
+                //ToUserID = toUserId,
+                FromUserID = string.IsNullOrEmpty(fromUserId) ? null : fromUserId
+            };
+
+            List<AspNetUsers> admins = UserProfileRepository.GetAdministratorsList();
+
+            foreach(AspNetUsers admin in admins)
+            {
+                notification.ToUserID = admin.Id;
+                NotificationRepository.CreateNotification(notification);
+            }
+
+            return true;
+        }
+
         public bool CreateNotificationForPost(long postId, string fromUserId, NotificationTypeEnum type)
         {
             string postOwnerUserId = PostRepository.GetPostOwnerUserId(postId);

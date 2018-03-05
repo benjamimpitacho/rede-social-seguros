@@ -97,6 +97,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A sua conta aguarda aprovação da equipa do portal Falar Seguros. Aguarde a recepção do e-mail a indicar a activação da sua conta. Obrigado..
+        /// </summary>
+        public static string AccountLocked {
+            get {
+                return ResourceManager.GetString("AccountLocked", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ativar.
         /// </summary>
         public static string Activate {
@@ -1812,6 +1821,15 @@ namespace Resources {
         public static string RegisterDate {
             get {
                 return ResourceManager.GetString("RegisterDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O seu registo aguarda aprovação da equipa do portal Falar Seguros. Aguarde a recepção do e-mail a confirmar a activação do seu registo para poder aceder à plataforma. Obrigado..
+        /// </summary>
+        public static string RegisterPendingApproval {
+            get {
+                return ResourceManager.GetString("RegisterPendingApproval", resourceCulture);
             }
         }
         

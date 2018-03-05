@@ -1,0 +1,40 @@
+﻿@using InsuranceWebsite.Models
+@model RegisterViewModel
+@{
+    ViewBag.Title = "Register Confirmation";
+}
+
+@{
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+<div class="welcome-inputs">
+
+    <div class="widget panel-inputs panel-home animated fadeInUp">
+
+        <div class="widget-body">
+
+            <div class="row" style="padding-top:0px; margin-bottom: 8px; color:#4B5C66; font-size:13px; font-weight:bold;">
+
+                <div class="form-group" style="margin-bottom: 35px !important;">
+                    <a href="@Url.Action("Index", "Home")" title="@Resources.Resources.Home"><img src="~/Content/logos/logotipo_falar_seguros.png" style="padding: 30px 50px;" /></a>
+                </div>
+
+                <div style="background-color:#eee; margin:0px 25px; height: 4px;"></div>
+
+                <div style="padding: 45px 30px;">
+                    <div style="text-align:center;">
+                        <span style="color:#00C1DE; display:block; font-size: 14px;">@Resources.Resources.Hello, @Model.Name</span>
+                        <span>@Resources.Resources.RegisterPendingApproval</span>
+                    </div>
+                </div>
+
+                <div style="background-color:#eee; margin:0px 25px; height: 4px;"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

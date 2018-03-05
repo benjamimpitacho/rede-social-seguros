@@ -894,4 +894,10 @@
   <data name="Twitter" xml:space="preserve">
     <value>Twitter</value>
   </data>
+  <data name="RegisterPendingApproval" xml:space="preserve">
+    <value>O seu registo aguarda aprovação da equipa do portal Falar Seguros. Aguarde a recepção do e-mail a confirmar a activação do seu registo para poder aceder à plataforma. Obrigado.</value>
+  </data>
+  <data name="AccountLocked" xml:space="preserve">
+    <value>A sua conta aguarda aprovação da equipa do portal Falar Seguros. Aguarde a recepção do e-mail a indicar a activação da sua conta. Obrigado.</value>
+  </data>
 </root>

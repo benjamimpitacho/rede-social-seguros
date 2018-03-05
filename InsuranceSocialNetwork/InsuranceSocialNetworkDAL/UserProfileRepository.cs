@@ -238,7 +238,8 @@ namespace InsuranceSocialNetworkDAL
             {
                 Profile profile = context.Profile.Get(profileId);
 
-                profile.AspNetUsers.EmailConfirmed = true;
+                //profile.AspNetUsers.EmailConfirmed = true;
+                profile.AspNetUsers.LockoutEndDateUtc = null;
                 profile.LastChangeDate = DateTime.Now;
                 context.Profile.Update(profile);
 
@@ -254,7 +255,7 @@ namespace InsuranceSocialNetworkDAL
             {
                 Profile profile = context.Profile.Get(profileId);
 
-                profile.AspNetUsers.EmailConfirmed = false;
+                profile.AspNetUsers.LockoutEndDateUtc = DateTime.MaxValue;
                 profile.LastChangeDate = DateTime.Now;
                 context.Profile.Update(profile);
 
@@ -300,6 +301,21 @@ namespace InsuranceSocialNetworkDAL
                 }
             }
             return false;
+        }
+
+        public static List<AspNetUsers> GetAdministratorsList()
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                AspNetRoles adminRole = RoleRepository.GetRole(context, InsuranceSocialNetworkCore.Enums.RoleEnum.ADMINISTRATOR);
+
+                return context
+                    .AspNetUsers
+                    .Fetch()
+                    .Include(i => i.AspNetRoles)
+                    .Where(i => i.AspNetRoles.Select(j => j.Id).ToList().Contains(adminRole.Id))
+                    .Select(i => i).ToList();
+            }
         }
     }
 }

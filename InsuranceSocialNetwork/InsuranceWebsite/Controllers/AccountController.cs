@@ -201,7 +201,8 @@ namespace InsuranceWebsite.Controllers
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 user.EmailConfirmed = false;
-                await SendActivationEmail(user, model.Name);
+                //user.LockoutEnabled = true;
+                //await SendActivationEmail(user, model.Name);
                 var result = await UserManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
@@ -239,32 +240,49 @@ namespace InsuranceWebsite.Controllers
                     {
                         InsuranceBusiness.BusinessLayer.CreateNotification(user.Id, null, NotificationTypeEnum.COMPLETE_PROFILE_INFO);
 
-                        if(InsuranceBusiness.BusinessLayer.IsEmailAuthorizedForAutomaticApproval(user.UserName))
+                        if(!InsuranceBusiness.BusinessLayer.IsEmailAuthorizedForAutomaticApproval(user.UserName))
                         {
-                            // Authorized
-                            try
-                            {
-                                var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                                var activationResult = await UserManager.ConfirmEmailAsync(user.Id, code);
-
-                                if (activationResult.Succeeded)
-                                {
-                                    await SendActivationEmail(user, model.Name);
-                                }
-                            }
-                            catch(Exception ex)
-                            {
-                                InsuranceBusiness.BusinessLayer.DeleteUserProfile(userId);
-                                await UserManager.DeleteAsync(user);
-
-                                return View(model);
-                            }
+                            await LockUserAccount(user.Id, 5000);
                         }
-                        else
+
+                        try
                         {
-                            // Not authorized - pending activation
                             await SendConfirmationEmail(user, model.Name);
                         }
+                        catch (Exception ex)
+                        {
+                            InsuranceBusiness.BusinessLayer.DeleteUserProfile(userId);
+                            await UserManager.DeleteAsync(user);
+                            return View(model);
+                        }
+
+                        //if(InsuranceBusiness.BusinessLayer.IsEmailAuthorizedForAutomaticApproval(user.UserName))
+                        //{
+                        //    // Authorized
+                        //    try
+                        //    {
+                        //        var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                        //        var activationResult = await UserManager.ConfirmEmailAsync(user.Id, code);
+
+                        //        if (activationResult.Succeeded)
+                        //        {
+                        //            await SendActivationEmail(user, model.Name);
+                        //        }
+                        //    }
+                        //    catch(Exception ex)
+                        //    {
+                        //        InsuranceBusiness.BusinessLayer.DeleteUserProfile(userId);
+                        //        await UserManager.DeleteAsync(user);
+
+                        //        return View(model);
+                        //    }
+                        //}
+                        //else
+                        //{
+                        //    // Not authorized - pending activation
+                        //    await SendConfirmationEmail(user, model.Name);
+                        //}
+
                     }
                     catch (Exception ex)
                     {
@@ -362,7 +380,24 @@ namespace InsuranceWebsite.Controllers
 
             var result = await UserManager.ConfirmEmailAsync(code, token);
 
-            return View(result.Succeeded ? "Login" : "Error");
+            var user = UserManager.FindById(code);
+            var userProfile = InsuranceBusiness.BusinessLayer.GetUserProfile(code);
+
+            if(result.Succeeded)
+            {
+                if (UserManager.IsLockedOut(user.Id))
+                {
+                    RegisterViewModel model = new RegisterViewModel() { Name = userProfile.FirstName };
+                    InsuranceBusiness.BusinessLayer.CreateNotificationForAdministrators(userProfile.ID_User, NotificationTypeEnum.USER_APPROVAL_PENDING);
+                    return View("PendingApproval", model);
+                }
+                else
+                {
+                    return View("Login");
+                }
+            }
+
+            return View("Error");
         }
 
         //
@@ -659,6 +694,23 @@ namespace InsuranceWebsite.Controllers
                 }
                 context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
             }
+        }
+
+        public virtual async Task<IdentityResult> LockUserAccount(string userId, int? forDays)
+        {
+            var result = await UserManager.SetLockoutEnabledAsync(userId, true);
+            if (result.Succeeded)
+            {
+                if (forDays.HasValue)
+                {
+                    result = await UserManager.SetLockoutEndDateAsync(userId, DateTimeOffset.UtcNow.AddDays(forDays.Value));
+                }
+                else
+                {
+                    result = await UserManager.SetLockoutEndDateAsync(userId, DateTimeOffset.MaxValue);
+                }
+            }
+            return result;
         }
         #endregion
     }

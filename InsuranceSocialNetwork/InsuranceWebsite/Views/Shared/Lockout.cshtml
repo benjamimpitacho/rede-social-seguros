@@ -1,10 +1,39 @@
-﻿@model System.Web.Mvc.HandleErrorInfo
-
+﻿@using InsuranceWebsite.Models
+@model RegisterViewModel
 @{
-    ViewBag.Title = "Locked Out";
+    ViewBag.Title = "Register Confirmation";
 }
 
-<hgroup>
-    <h1 class="text-danger">Locked out.</h1>
-    <h2 class="text-danger">This account has been locked out, please try again later.</h2>
-</hgroup>
+@{
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+<div class="welcome-inputs">
+
+    <div class="widget panel-inputs panel-home animated fadeInUp">
+
+        <div class="widget-body">
+
+            <div class="row" style="padding-top:0px; margin-bottom: 8px; color:#4B5C66; font-size:13px; font-weight:bold;">
+
+                <div class="form-group" style="margin-bottom: 35px !important;">
+                    <a href="@Url.Action("Index", "Home")" title="@Resources.Resources.Home"><img src="~/Content/logos/logotipo_falar_seguros.png" style="padding: 30px 50px;" /></a>
+                </div>
+
+                <div style="background-color:#eee; margin:0px 25px; height: 4px;"></div>
+
+                <div style="padding: 45px 30px;">
+                    <div style="text-align:center;">
+                        <span>@Resources.Resources.AccountLocked</span>
+                    </div>
+                </div>
+
+                <div style="background-color:#eee; margin:0px 25px; height: 4px;"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
