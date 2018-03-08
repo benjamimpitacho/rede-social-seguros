@@ -790,6 +790,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Não receber notificações.
+        /// </summary>
+        public static string DoNotReceiveNotifications {
+            get {
+                return ResourceManager.GetString("DoNotReceiveNotifications", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Data limite.
         /// </summary>
         public static string DueDate {
@@ -1272,6 +1281,15 @@ namespace Resources {
         public static string MarkAllAsRead {
             get {
                 return ResourceManager.GetString("MarkAllAsRead", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Marcar como não lida.
+        /// </summary>
+        public static string MarkAsNotRead {
+            get {
+                return ResourceManager.GetString("MarkAsNotRead", resourceCulture);
             }
         }
         
@@ -1987,6 +2005,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pesquisar mensagens.
+        /// </summary>
+        public static string SearchMessages {
+            get {
+                return ResourceManager.GetString("SearchMessages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pesquisar novos contactos.
         /// </summary>
         public static string SearchNewFriends {
@@ -2397,6 +2424,15 @@ namespace Resources {
         public static string WhatsInYourMindToday {
             get {
                 return ResourceManager.GetString("WhatsInYourMindToday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Escreva a mensagem ou anexe um arquivo.
+        /// </summary>
+        public static string WriteMessageOrAttachAnArchive {
+            get {
+                return ResourceManager.GetString("WriteMessageOrAttachAnArchive", resourceCulture);
             }
         }
         

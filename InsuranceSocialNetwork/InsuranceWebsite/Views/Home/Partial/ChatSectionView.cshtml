@@ -9,24 +9,129 @@
 @Html.HiddenFor(i => i.Profile.FirstName, new { id = "firstName" })
 @Html.HiddenFor(i => i.Profile.LastName, new { id = "lastName" })
 
+<div class="panel panel-body post panel-shadow animated fadeInUp" style="margin-bottom:2px;max-height:80px;padding:10px 15px;">
+    <div class="pull-left image">
+        @*<a href="@Url.Action("ProfileTimeline", "Home", new { id = chat.ID })" style="padding: 0px; text-align: -webkit-center;">*@
+        @if (null == Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).ProfilePhoto || Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).ProfilePhoto.Length == 0)
+        {
+            <img class="thumb media-object" src="~/Content/images/no_photo_img.jpg" alt="" style="border-radius:100px;max-height:60px;border: 2px solid #EDEFF0;">
+        }
+        else
+        {
+            <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.Chat.ChatMemberProfile.FirstOrDefault(i=>i.ID_User != Model.Profile.ID_User).ProfilePhoto))" class="thumb media-object" style="border-radius:100px;max-height:60px;border: 2px solid #EDEFF0;">
+        }
+        @*</a>*@
+    </div>
+    <div style="float:left; padding:0px 15px; width: calc(100% - 268px);">
+        <div style="color:#4B5C66;font-weight:bold;font-size:14px;">@Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).FirstName @Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).LastName</div>
+        @if (string.IsNullOrEmpty(Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).CompanyName))
+        {
+            <div style="color:#939DA3;font-size:11px;font-weight:bold;">-</div>
+        }
+        else
+        {
+            <div style="color:#939DA3;font-size:11px;font-weight:bold;">@Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).CompanyName</div>
+        }
+
+        @if (string.IsNullOrEmpty(Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).District))
+        {
+            if (string.IsNullOrEmpty(Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).County))
+            {
+                if (string.IsNullOrEmpty(Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).Locality))
+                {
+                    <div style="color:#939DA3;font-size:11px;font-weight:bold;">-</div>
+                }
+                else
+                {
+                    <div style="color:#939DA3;font-size:11px;font-weight:bold;">@Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).Locality, @Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).County</div>
+
+                }
+            }
+            else
+            {
+                if (string.IsNullOrEmpty(Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).Locality))
+                {
+                    <div style="color:#939DA3;font-size:11px;font-weight:bold;">@Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).County</div>
+                }
+                else
+                {
+                    <div style="color:#939DA3;font-size:11px;font-weight:bold;">@Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).Locality, @Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).County</div>
+
+                }
+            }
+        }
+        else
+        {
+            if (string.IsNullOrEmpty(Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).County))
+            {
+                if (string.IsNullOrEmpty(Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).Locality))
+                {
+                    <div style="color:#939DA3;font-size:11px;font-weight:bold;">@Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).District</div>
+                }
+                else
+                {
+                    <div style="color:#939DA3;font-size:11px;font-weight:bold;">@Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).Locality, @Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).District</div>
+
+                }
+            }
+            else
+            {
+                if (string.IsNullOrEmpty(Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).Locality))
+                {
+                    <div style="color:#939DA3;font-size:11px;font-weight:bold;">@Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).County, @Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).District</div>
+
+                }
+                else
+                {
+                    <div style="color:#939DA3;font-size:11px;font-weight:bold;">@Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).Locality, @Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).County, @Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).District</div>
+
+                }
+            }
+        }
+    </div>
+    <div style="float:right; padding-top:13px; display:table; font-size:11px; font-weight:bold;">
+        <div style="display:table-cell;vertical-align:middle;padding:0px 10px;">
+            <span style="color:#00C1DE;">@Resources.Resources.Linked</span>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-white post panel-shadow animated fadeInUp" style="margin-bottom:2px;height:70px;background-color:#EDEFF0;">
+    <div class="post-heading" style="padding: 10px 15px;vertical-align:middle;">
+        <div class="pull-left" style="padding-top:12px;">
+            <span style="font-size:14px;font-weight:bold;color:#4B5C66;padding-right:20px;">@Resources.Resources.MarkAsNotRead</span>
+            <span style="font-size:14px;font-weight:bold;color:#4B5C66;">@Resources.Resources.DoNotReceiveNotifications</span>
+        </div>
+        <div style="float:right; display:table; font-size:11px; font-weight:bold;">
+            <div style="display:table-cell;">
+                <img src="~/Content/icons/icons_mensagens_rede_social_falar_seguros_AF.png" class="" style="border:none;height:40px; width:40px;" />
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="col-inside-lg decor-default" style="width:100%">
     @*<h6>Chat with @string.Join(",", Model.Chat.ChatMember.Where(i => i.ID_User != Model.Profile.ID_User).Select(i => i.AspNetUsers.Email).ToArray())</h6>*@
 
     @*<ul>*@
     <div class="chat-body" id="discussion">
-        <h6>@string.Format(Resources.Resources.ChatWith, Model.ChatOtherNames)</h6>
         @foreach (ChatMessageDTO message in Model.Chat.ChatMessage)
         {
             if (message.ID_User == Model.Profile.ID_User)
             {
                 <div class="answer right">
                     <div class="avatar">
-                        <img src="~/Content/images/no_photo_img.jpg" alt="User name">
+                        @if (null == Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User == Model.Profile.ID_User).ProfilePhoto || Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User == Model.Profile.ID_User).ProfilePhoto.Length == 0)
+                        {
+                            <img class="" src="~/Content/images/no_photo_img.jpg" alt="" style="max-width: 40px;border-radius: 50px;border: 1px solid #939DA3;margin-bottom: 10px;">
+                        }
+                        else
+                        {
+                            <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.Chat.ChatMemberProfile.FirstOrDefault(i=>i.ID_User == Model.Profile.ID_User).ProfilePhoto))" class="" style="max-width: 40px;border-radius: 50px;border: 1px solid #939DA3;margin-bottom: 10px;">
+                        }
+                        @*<img src="~/Content/images/no_photo_img.jpg" alt="User name" style="max-width: 40px;border-radius: 50px;border: 1px solid #939DA3;margin-bottom: 10px;">*@
                         @*<div class="status offline"></div>*@
                     </div>
-                    @*<div class="name">
-                        @message.AspNetUsers.Email
-                    </div>*@
                     <div class="text">
                         @message.Text
                     </div>
@@ -56,11 +161,16 @@
             {
                 <div class="answer left">
                     <div class="avatar">
-                        <img src="~/Content/images/no_photo_img.jpg" alt="User name">
+                        @if (null == Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).ProfilePhoto || Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).ProfilePhoto.Length == 0)
+                        {
+                            <img class="thumb media-object" src="~/Content/images/no_photo_img.jpg" alt="" style="max-width: 40px;border-radius: 50px;border: 1px solid #939DA3;margin-bottom: 10px;">
+                        }
+                        else
+                        {
+                            <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.Chat.ChatMemberProfile.FirstOrDefault(i=>i.ID_User != Model.Profile.ID_User).ProfilePhoto))" class="thumb media-object" style="max-width: 40px;border-radius: 50px;border: 1px solid #939DA3;margin-bottom: 10px;">
+                        }
+                        @*<img src="~/Content/images/no_photo_img.jpg" alt="User name" style="max-width: 40px;border-radius: 50px;border: 1px solid #939DA3;margin-bottom: 10px;">*@
                         @*<div class="status offline"></div>*@
-                    </div>
-                    <div class="name">
-                        @message.AspNetUsers.Email
                     </div>
                     <div class="text">
                         @message.Text
@@ -103,27 +213,33 @@
             </li>*@
         }
 
-        <div class="answer-add" id="sendMessageDiv">
-            <input placeholder="Write a message" id="message">
-            @*<span class="answer-btn answer-btn-1"></span>*@
-            <span class="answer-btn answer-btn-2" id="sendmessage"></span>
+        <div class="answer-add" id="sendMessageDiv" style="visibility:hidden;">
+            @*<input placeholder="Write a message" id="message">
+            <span class="answer-btn answer-btn-2" id="sendmessage"></span>*@
         </div>
-    @*</ul>*@
-
+    </div>
 </div>
-@*<div class="message-list-footer">
-    <form>
-        <textarea class="form-control input-lg p-text-area" rows="3" placeholder="Write a message..." id="message" style="resize: none;"></textarea>
-    </form>
-    <div class="panel-footer">
-        <button type="button" class="btn btn-info pull-right" id="sendmessage">Send</button>
+<div class="col-inside-lg decor-default" style="width:100%; margin-top:5px;">
+    <textarea placeholder="@Resources.Resources.WriteMessageOrAttachAnArchive" rows="1" class="form-control input-lg p-text-area" id="message" name="message" style="resize:none;"></textarea>
+    <img id="imgPlaceholder" src="#" alt="" style="visibility:hidden;position:absolute" />
+    <div class="panel-footer" style="border-top: 0px; padding: 10px 10px">
+        <button class="btn btn-info pull-right" id="sendmessage">@Resources.Resources.Send</button>
         <ul class="nav nav-pills">
-            <li><a href="#"><i class="fa fa-camera"></i></a></li>
+            <li>
+                <input type='file' id="imgUpload" style="visibility:hidden;position:absolute" name="imgUpload" />
+                <a href="javascript:$('#imgUpload').click()" style="padding: 3px 5px">
+                    <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF110.png" class="icon-normal" />
+                </a>
+            </li>
+            <li>
+                <input type='file' id="fileUpload" style="visibility:hidden;position:absolute" name="fileUpload" />
+                <a href="javascript:$('#fileUpload').click()" style="padding: 3px 5px">
+                    <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF111.png" class="icon-normal" />
+                </a>
+            </li>
         </ul>
     </div>
-</div>*@
 </div>
-
 
 
 <!--Reference the SignalR library. -->
@@ -147,12 +263,10 @@
             //alert($('#messageListPanel').height());
             if (connectionid == $('#chatId').val()) {
                 $('#sendMessageDiv').before('<div class="answer right"><div class="avatar">'
-                    + '<img src="/Content/images/no_photo_img.jpg" alt="User name"></div></div>'
-                    + '<div class="name">'
-                    + htmlEncode(name)
-                    + '</div><div class="text">'
+                    + '<img src="/Content/images/no_photo_img.jpg" alt="User name" style="max-width: 40px;border-radius: 50px;border: 1px solid #939DA3;margin-bottom: 10px;"></div>'
+                    + '<div class="text">'
                     + htmlEncode(message)
-                    + '</div><div class="time"></div></div>');
+                    + '</div><div class="time">now</div></div>');
                 //$('#discussion').append('<div class="answer right"><div class="avatar">'
                 //    + '<img src="~/Content/images/no_photo_img.jpg" alt="User name"><div class="status offline"></div></div>'
                 //    + '<div class="name">'

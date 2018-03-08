@@ -102,13 +102,13 @@ namespace InsuranceSocialNetworkDAL
                     //.Include(i => i.AspNetUsers.Profile)
                     .Include(i => i.ChatMember)
                     .Include(i => i.ChatMember.Select(j => j.AspNetUsers))
+                    .Include(i => i.ChatMember.Select(j => j.AspNetUsers.Profile))
                     .Include(i => i.ChatMessage)
                     .Where(i => (
                             (i.ID_ChatCreator_User == userId)
                             || (i.ChatMember.Where(j => j.ID_User == userId).Count() > 0)
                         )
                         && i.Active)
-                    //.Select(i => i)
                     .OrderByDescending(i => i.LastChangeDate)
                     .ToList();
 

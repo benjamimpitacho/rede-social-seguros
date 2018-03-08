@@ -295,7 +295,11 @@ namespace InsuranceSocialNetworkBusiness
             {
                 List<Chat> chats = ChatRepository.GetChats(context, userId);
 
-                return AutoMapper.Mapper.Map<List<ChatDTO>>(chats);
+                List<ChatDTO> result = AutoMapper.Mapper.Map<List<ChatDTO>>(chats);
+
+                result.ForEach(i => i.ChatMemberProfile = AutoMapper.Mapper.Map<List<UserProfileDTO>>(chats.FirstOrDefault(c => c.ID == i.ID).ChatMember.Select(m => m.AspNetUsers.Profile.FirstOrDefault()).ToList()));
+
+                return result;
             }
         }
 

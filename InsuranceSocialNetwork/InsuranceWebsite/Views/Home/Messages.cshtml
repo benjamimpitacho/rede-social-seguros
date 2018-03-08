@@ -10,8 +10,191 @@
 
 @Html.Partial("~/Views/Home/Partial/NavBar.cshtml", Model)
 
-<!-- Timeline content -->
 <div class="container">
+
+    <div class="col-md-12 no-paddin-xs" style="background-color:#E3E6E8">
+
+        <div class="row" style="display:flex">
+
+            @Html.Partial("~/Views/Home/Partial/SideNavBar.cshtml", Model)
+
+            <!-- left  content-->
+            <div class="profile-info col-md-6 animated fadeInUp" tabindex="5001" id="messageListPanel">
+
+                @*@using (Html.BeginForm("SearchConversations", "Home", FormMethod.Post, new { id = "searchForm" }))
+                {
+                    <div class="panel panel-white post panel-shadow animated fadeInUp" style="margin-bottom:0px;height:80px;">
+                        <div class="post-heading" style="padding: 10px 15px;">
+                            <div class="title" style="border:0px;background-color:inherit; font-weight:bold; font-size: 17px; overflow: auto;">
+                                <div class="pull-left image" style="max-width:60px;">
+                                    <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF122.png" class="avatar img-circle" style="border:none;height:60px; width:60px;">
+                                </div>
+
+                                <div style="float:left; padding-top:8px;width: calc(100% - 125px);">@Html.TextBoxFor(m => m.SearchModel.SearchTerm, new { @class = "form-control", @placeholder = Resources.Resources.SearchByCompanyNameEmailLocality, @style = "padding:18px;border-radius:0px;border:0px;box-shadow: none;font-weight:normal;" })</div>
+                                <div style="float:right; max-width: 50px;">
+                                    <a href="#" onclick="document.getElementById('searchForm').submit();">
+                                        <img src="~/Content/icons/icone_pesquisa_rede_social_falar_seguros_AF.png" />
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                }*@
+
+                @if (null == Model.ActiveChat)
+                {
+                    <div class="col-md-12 alert alert-info" style="text-align:center">
+                        @Resources.Resources.NoActiveChatSelected
+                    </div>
+                }
+                else
+                {
+                    @Html.Partial("~/Views/Home/Partial/ChatSectionView.cshtml", new ChatViewModel() { Chat = Model.ActiveChat, Profile = Model.Profile })
+                }
+
+            </div>
+            <!--end left  content-->
+
+            <div class="profile-info col-md-6 animated fadeInUp">
+
+                @using (Html.BeginForm("SearchConversations", "Home", FormMethod.Post, new { id = "searchForm" }))
+                {
+                    <div class="panel panel-white post panel-shadow animated fadeInUp" style="margin-bottom:0px;height:80px;">
+                        <div class="post-heading" style="padding: 10px 15px;">
+                            <div class="title" style="border:0px;background-color:inherit; font-weight:bold; font-size: 17px; overflow: auto;">
+                                <div class="pull-left image" style="max-width:60px;">
+                                    <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF122.png" class="avatar img-circle" style="border:none;height:60px; width:60px;">
+                                </div>
+
+                                <div style="float:left; padding-top:8px;width: calc(100% - 175px);">@Html.TextBoxFor(m => m.SearchModel.SearchTerm, new { @class = "form-control", @placeholder = Resources.Resources.SearchMessages, @style = "padding:18px;border-radius:0px;border:0px;box-shadow: none;font-weight:normal;" })</div>
+                                <div style="float:right; max-width: 105px;">
+                                    <a href="#" onclick="document.getElementById('searchForm').submit();">
+                                        <img src="~/Content/icons/icone_pesquisa_rede_social_falar_seguros_AF.png" style="max-width:50px;" />
+                                    </a>
+                                    <img src="~/Content/icons/icons_mensagens_rede_social_falar_seguros_AF16.png" style="max-width:50px;" />
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                }
+
+                <div class="" style="background-color:transparent; box-shadow:none; margin-bottom: 10px; margin-top: 2px;">
+                    @if (null == Model.Chats || Model.Chats.Count == 0)
+                    {
+                        @Resources.Resources.NoChats
+                    }
+                    else
+                    {
+                        foreach (ChatDTO chat in Model.Chats)
+                        {
+                            <div class="panel panel-body post panel-shadow animated fadeInUp @((null != Model.ActiveChat && Model.ActiveChat.ID == chat.ID) ? "active" : "")" style="margin-bottom:2px;max-height:80px;padding:10px 15px;" onclick="$('.user').removeClass('active');$(this).addClass('active');$('#messageListPanel').load('@Url.Action("LoadChat", "Home", new { id = chat.ID })');">
+                                <div class="pull-left image">
+                                    @*<a href="@Url.Action("ProfileTimeline", "Home", new { id = chat.ID })" style="padding: 0px; text-align: -webkit-center;">*@
+                                        @if (null == chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).ProfilePhoto || chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).ProfilePhoto.Length == 0)
+                                        {
+                                            <img class="thumb media-object" src="~/Content/images/no_photo_img.jpg" alt="" style="border-radius:100px;max-height:60px;border: 2px solid #EDEFF0;">
+                                        }
+                                        else
+                                        {
+                                            <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(chat.ChatMemberProfile.FirstOrDefault(i=>i.ID_User != Model.Profile.ID_User).ProfilePhoto))" class="thumb media-object" style="border-radius:100px;max-height:60px;border: 2px solid #EDEFF0;">
+                                        }
+                                    @*</a>*@
+                                </div>
+                                <div style="float:left; padding:0px 15px; width: calc(100% - 268px);">
+                                    <div style="color:#4B5C66;font-weight:bold;font-size:14px;">@chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).FirstName @chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).LastName</div>
+                                    @if (string.IsNullOrEmpty(chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).CompanyName))
+                                    {
+                                        <div style="color:#939DA3;font-size:11px;font-weight:bold;">-</div>
+                                    }
+                                    else
+                                    {
+                                        <div style="color:#939DA3;font-size:11px;font-weight:bold;">@chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).CompanyName</div>
+                                    }
+
+                                    @if (string.IsNullOrEmpty(chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).District))
+                                    {
+                                        if (string.IsNullOrEmpty(chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).County))
+                                        {
+                                            if (string.IsNullOrEmpty(chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).Locality))
+                                            {
+                                                <div style="color:#939DA3;font-size:11px;font-weight:bold;">-</div>
+                                            }
+                                            else
+                                            {
+                                                <div style="color:#939DA3;font-size:11px;font-weight:bold;">@chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).Locality, @chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).County</div>
+
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if (string.IsNullOrEmpty(chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).Locality))
+                                            {
+                                                <div style="color:#939DA3;font-size:11px;font-weight:bold;">@chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).County</div>
+                                            }
+                                            else
+                                            {
+                                                <div style="color:#939DA3;font-size:11px;font-weight:bold;">@chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).Locality, @chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).County</div>
+
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (string.IsNullOrEmpty(chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).County))
+                                        {
+                                            if (string.IsNullOrEmpty(chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).Locality))
+                                            {
+                                                <div style="color:#939DA3;font-size:11px;font-weight:bold;">@chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).District</div>
+                                            }
+                                            else
+                                            {
+                                                <div style="color:#939DA3;font-size:11px;font-weight:bold;">@chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).Locality, @chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).District</div>
+
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if (string.IsNullOrEmpty(chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).Locality))
+                                            {
+                                                <div style="color:#939DA3;font-size:11px;font-weight:bold;">@chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).County, @chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).District</div>
+
+                                            }
+                                            else
+                                            {
+                                                <div style="color:#939DA3;font-size:11px;font-weight:bold;">@chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).Locality, @chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).County, @chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).District</div>
+
+                                            }
+                                        }
+                                    }
+                                </div>
+                                <div style="float:right; padding-top:13px; display:table; font-size:11px; font-weight:bold;">
+                                    <div style="display:table-cell;vertical-align:middle;">
+                                        <span style="color:#4B5C66;">@Resources.Resources.SendMessage</span>
+                                    </div>
+                                    <div style="display:table-cell;vertical-align:middle;padding:0px 10px;">
+                                        <span style="color:#00C1DE;">@Resources.Resources.Linked</span>
+                                    </div>
+                                    <div style="display:table-cell;vertical-align:middle;">
+                                        <span><img src="~/Content/icons/home_page_rede_social_falar_seguros_AF112_h.png" style="max-width:30px;" /></span>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+                @*</div>*@
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Timeline content -->
+@*<div class="container">
     <div class="col-md-12 no-paddin-xs" style="background-color:#E3E6E8">
 
         <!--  chat content -->
@@ -20,7 +203,6 @@
             @Html.Partial("~/Views/Home/Partial/SideNavBar.cshtml", Model)
 
             <div class="container">
-                @*<div class="col-md-4 bg-white ">*@
 
                 <div class="row">
 
@@ -52,7 +234,6 @@
 
                                                         <img src="~/Content/images/no_photo_img.jpg" alt="User name">
 
-                                                        @*<div class="status online"></div>*@
 
                                                     </div>
 
@@ -92,6 +273,6 @@
             </div>
         </div><!-- end chat content -->
     </div>
-</div>
+</div>*@
 
 @*@Html.Partial("~/Views/Home/Partial/Footer.cshtml", Model)*@

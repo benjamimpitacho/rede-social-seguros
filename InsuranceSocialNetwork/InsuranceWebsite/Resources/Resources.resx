@@ -900,4 +900,16 @@
   <data name="AccountLocked" xml:space="preserve">
     <value>A sua conta aguarda aprovação da equipa do portal Falar Seguros. Aguarde a recepção do e-mail a indicar a activação da sua conta. Obrigado.</value>
   </data>
+  <data name="DoNotReceiveNotifications" xml:space="preserve">
+    <value>Não receber notificações</value>
+  </data>
+  <data name="MarkAsNotRead" xml:space="preserve">
+    <value>Marcar como não lida</value>
+  </data>
+  <data name="SearchMessages" xml:space="preserve">
+    <value>Pesquisar mensagens</value>
+  </data>
+  <data name="WriteMessageOrAttachAnArchive" xml:space="preserve">
+    <value>Escreva a mensagem ou anexe um arquivo</value>
+  </data>
 </root>

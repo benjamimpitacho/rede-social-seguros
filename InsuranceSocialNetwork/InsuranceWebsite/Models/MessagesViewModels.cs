@@ -19,5 +19,7 @@ namespace InsuranceWebsite.Models
 
         public ChatDTO ActiveChat { get; set; }
 
+        public SearchMessagesModel SearchModel { get; set; }
+
     }
 }

@@ -231,6 +231,7 @@
     <Compile Include="Models\FriendsViewModels.cs" />
     <Compile Include="Models\ChatViewModel.cs" />
     <Compile Include="Models\PostViewModels.cs" />
+    <Compile Include="Models\SearchMessagesModel.cs" />
     <Compile Include="Models\SinglePostViewModel.cs" />
     <Compile Include="Models\MessagesViewModels.cs" />
     <Compile Include="Models\BannersManagementViewModels.cs" />
