@@ -21,14 +21,16 @@ namespace InsuranceWebsite.Models
         public int TotalUnreadMessages { get; set; }
 
         public bool IsOwnProfile { get; set; }
+        public bool IsProfileConfigurations { get; set; }
 
         public bool IsProfileEdit { get; set; }
+        public bool IsProfileEditConfiguations { get; set; }
 
         public bool IsFriendRequest { get; set; }
 
         public bool IsFriend { get; set; }
 
-        public ProfileSettingsModel Settings { get; set; }
+        public ProfileSettingsModel ProfileSettings { get; set; }
 
         public List<SelectListItem> AllowedEmails { get; set; }
         public string[] SelectedAllowedEmails { get; set; }
@@ -99,8 +101,11 @@ namespace InsuranceWebsite.Models
     public class ProfileSettingsModel
     {
         #region Password
+        [Required]
         public string OldPassword { get; set; }
+        [Required]
         public string NewPassword { get; set; }
+        [System.ComponentModel.DataAnnotations.Compare("NewPassword", ErrorMessageResourceType = typeof(Resources.Resources), ErrorMessageResourceName = "PasswordMustMatch")]
         public string RepeatPassword { get; set; }
         #endregion Password
 
@@ -108,12 +113,13 @@ namespace InsuranceWebsite.Models
         public bool ShowDisplayName { get; set; }
         public bool ShowBirthDate { get; set; }
         public bool ShowContactInformation { get; set; }
-        public bool ShowOnlineStatus { get; set; }
+        public bool ShowSocialNetworks { get; set; }
         #endregion Privacy
 
         #region Notifications
         public bool LikesOnYourPosts { get; set; }
         public bool CommentsOnYourPosts { get; set; }
+        public bool ReceiveNotificationsByEmail { get; set; }
         #endregion Notifications
     }
 }

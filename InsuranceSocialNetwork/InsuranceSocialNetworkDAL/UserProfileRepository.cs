@@ -21,9 +21,11 @@ namespace InsuranceSocialNetworkDAL
                     .Fetch()
                     .Include(i => i.AspNetUsers)
                     .Include(i => i.AspNetUsers.AspNetRoles)
+                    .Include(i => i.ProfileSettings)
                     .FirstOrDefault(i => i.ID_User == Id);
             }
         }
+
         public static Profile GetProfile(long Id)
         {
             using (var context = new BackofficeUnitOfWork())
@@ -33,6 +35,7 @@ namespace InsuranceSocialNetworkDAL
                     .Fetch()
                     .Include(i => i.AspNetUsers)
                     .Include(i => i.AspNetUsers.AspNetRoles)
+                    .Include(i => i.ProfileSettings)
                     .FirstOrDefault(i => i.ID == Id);
             }
         }
@@ -45,6 +48,7 @@ namespace InsuranceSocialNetworkDAL
                     .Profile
                     .Fetch()
                     .Include(i => i.AspNetUsers)
+                    .Include(i => i.ProfileSettings)
                     .Select(i => i).OrderBy(i => i.AspNetUsers.UserName).ToList();
             }
         }
@@ -57,6 +61,7 @@ namespace InsuranceSocialNetworkDAL
                     .Profile
                     .Fetch()
                     .Include(i => i.AspNetUsers)
+                    .Include(i => i.ProfileSettings)
                     .Where(i => i.ID != currentUserId
                         && (
                             i.FirstName.ToLower().Contains(searchTerm.ToLower())
@@ -192,6 +197,20 @@ namespace InsuranceSocialNetworkDAL
                 profile.CreateDate = DateTime.Now;
                 profile.LastChangeDate = DateTime.Now;
 
+                profile.ProfileSettings.Add(new ProfileSettings()
+                {
+                    Active = true,
+                    CreateDate = profile.CreateDate,
+                    LastChangeDate = profile.LastChangeDate,
+                    ShowSocialNetworks = true,
+                    ShowBirthDate = true,
+                    ShowContactInformation = true,
+                    ShowDisplayName = true,
+                    LikesOnYourPosts = true,
+                    CommentsOnYourPosts = true,
+                    ReceiveNotificationsByEmail = true
+                });
+
                 context.Profile.Create(profile);
 
                 //AspNetUsers user = context.AspNetUsers.Get(profile.ID_User);
@@ -315,6 +334,30 @@ namespace InsuranceSocialNetworkDAL
                     .Include(i => i.AspNetRoles)
                     .Where(i => i.AspNetRoles.Select(j => j.Id).ToList().Contains(adminRole.Id))
                     .Select(i => i).ToList();
+            }
+        }
+
+        public static ProfileSettings GetProfileSettings(long Id)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                return context
+                    .ProfileSettings
+                    .Fetch()
+                    .Include(i => i.Profile)
+                    .FirstOrDefault(i => i.ID_Profile == Id);
+            }
+        }
+
+        public static bool UpdateUserProfileSettings(ProfileSettings profileSettings)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                profileSettings.LastChangeDate = DateTime.Now;
+                context.ProfileSettings.Update(profileSettings);
+                context.Save();
+
+                return true;
             }
         }
     }

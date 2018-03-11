@@ -17,10 +17,6 @@
         z-index: 1000 !important;
     }
 
-    .post-icon{
-        max-width: 30px;
-    }
-
     .ui-widget-overlay{
         z-index: 999 !important;
         opacity: 0.3;
@@ -416,7 +412,7 @@
 
     function LikePost(object, postId, likesCount) {
         object.style.color = "#00C1DE";
-        object.innerHTML = "<i class=\"glyphicon glyphicon-star icon\"></i><span style=\"padding-left: 8px;color:#4B5C66;font-size: 10px;\">" + (likesCount+1) + "</span>";
+        object.innerHTML = "<img class=\"post-icon\" src=\"/Content/icons/icons_diretorios_rede_social_falar_seguros_AF3.png\" /><span style=\"padding-left: 8px;color:#4B5C66;font-size: 10px;\">" + (likesCount+1) + "</span>";
         likesCount = likesCount + 1;
         object.onclick = function() { UnlikePost(object, postId, likesCount); }
 
@@ -433,11 +429,11 @@
         object.style.color = "#7f7f7f";
         if(likesCount <= 1)
         {
-            object.innerHTML = "<i class=\"glyphicon glyphicon-star icon\"></i>";
+            object.innerHTML = "<img class=\"post-icon\" src=\"/Content/icons/icons_diretorios_rede_social_falar_seguros_AF2.png\" />";
         }
         else
         {
-            object.innerHTML = "<i class=\"glyphicon glyphicon-star icon\"></i><span style=\"padding-left: 8px;color:#4B5C66;font-size: 10px;\">" + (likesCount-1) + "</span>";
+            object.innerHTML = "<img class=\"post-icon\" src=\"/Content/icons/icons_diretorios_rede_social_falar_seguros_AF2.png\" /><span style=\"padding-left: 8px;color:#4B5C66;font-size: 10px;\">" + (likesCount-1) + "</span>";
         }
         if(likesCount > 0)
         {

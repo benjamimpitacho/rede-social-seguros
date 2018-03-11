@@ -31,6 +31,9 @@ namespace InsuranceSocialNetworkBusiness
                     .ForMember(dest => dest.User, opts => opts.MapFrom(src => src.AspNetUsers));
                 cfg.CreateMap<UserProfileDTO, Profile>();
 
+                cfg.CreateMap<ProfileSettings, ProfileSettingsDTO>();
+                cfg.CreateMap<ProfileSettingsDTO, ProfileSettings>();
+
                 cfg.CreateMap<Notification, NotificationDTO>();
                 cfg.CreateMap<NotificationDTO, Notification>();
 
@@ -173,8 +176,8 @@ namespace InsuranceSocialNetworkBusiness
         public List<UserProfileDTO> GetUsers()
         {
             List<Profile> users = UserProfileRepository.GetProfiles();
-            if (users.Count > 0)
-                users[0].AspNetUsers.EmailConfirmed = false;
+            //if (users.Count > 0)
+            //    users[0].AspNetUsers.EmailConfirmed = false;
             return AutoMapper.Mapper.Map<List<UserProfileDTO>>(users);
         }
 
@@ -209,6 +212,17 @@ namespace InsuranceSocialNetworkBusiness
         public bool DeactivateUser(long profileId)
         {
             return UserProfileRepository.DeactivateUser(profileId);
+        }
+
+        public ProfileSettingsDTO GetUserProfileSettings(long Id)
+        {
+            ProfileSettings item = UserProfileRepository.GetProfileSettings(Id);
+            return AutoMapper.Mapper.Map<ProfileSettingsDTO>(item);
+        }
+
+        public bool UpdateProfileSetting(ProfileSettingsDTO profileSettings)
+        {
+            return UserProfileRepository.UpdateUserProfileSettings(AutoMapper.Mapper.Map<ProfileSettings>(profileSettings));
         }
 
         #endregion Profile

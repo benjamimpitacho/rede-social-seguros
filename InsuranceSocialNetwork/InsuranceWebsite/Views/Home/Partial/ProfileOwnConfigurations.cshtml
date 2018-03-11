@@ -1,0 +1,245 @@
+﻿@using InsuranceWebsite.Models
+@model HomeViewModel
+
+<style>
+    .panel{
+        margin-bottom: 4px !important;
+    }
+
+    .main-photo {
+        max-width: 120px;
+        max-height: 120px;
+        border-radius: 100px;
+        border: 3px solid #E3E6E8;
+    }
+
+    .profile-icon{
+        max-width: 65px;
+    }
+
+    .profile-info{
+        font-size: 12px;
+    }
+
+    .data-row{
+        display:flex;
+        margin:0px 0px 2px;
+        height:34px;
+    }
+
+    .label-control{
+        border:none;
+        box-shadow:none;
+        border-radius:0px;
+
+    }
+
+    .profile-label {
+        font-size: 12px !important;
+        font-weight: bold !important;
+        padding: 10px !important;
+    }
+
+    .label-control {
+        background-color: #F6F8F7;
+    }
+
+    input[type=checkbox], input[type=radio]
+    {
+        width:25px;
+        height:25px;
+    }
+
+    /* The container */
+    .container {
+        display: block;
+        position: relative;
+        padding-left: 35px;
+        margin-bottom: 12px;
+        cursor: pointer;
+        font-size: 22px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+        /* Hide the browser's default checkbox */
+        .container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+    /* Create a custom checkbox */
+    .checkmark {
+        position: absolute;
+        /*top: 0;
+        left: 0;*/
+        height: 25px;
+        width: 25px;
+        background-color: #F6F8F7;
+        margin: -5px;
+        cursor:pointer;
+    }
+
+    /* On mouse-over, add a grey background color */
+    .container:hover input ~ .checkmark {
+        background-color: #F6F8F7;
+    }
+
+    /* When the checkbox is checked, add a blue background */
+    .container input:checked ~ .checkmark {
+        background-color: #F6F8F7;
+    }
+
+    /* Create the checkmark/indicator (hidden when not checked) */
+    .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+
+    /* Show the checkmark when checked */
+    .container input:checked ~ .checkmark:after {
+        display: block;
+    }
+
+    /* Style the checkmark/indicator */
+    .container .checkmark:after {
+        left: 9px;
+        top: 5px;
+        width: 5px;
+        height: 10px;
+        border: solid #4B5C66;
+        border-width: 0 3px 3px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+
+    .container .checkmark:after {
+        left: 7px;
+        top: 0px;
+        width: 10px;
+        height: 20px;
+        border: solid #4B5C66;
+        border-width: 0 5px 5px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+
+</style>
+
+<div class="profile-info col-md-6 animated fadeInUp">
+
+    @Html.Partial("./Partial/TopBannerPartialView", Model)
+
+    <div class="panel topPanel" style="display:flex;padding:10px 0px;font-weight:bold;color:#4B5C66">
+        <div style="width:calc( 50% - 60px );height:120px; display:table;justify-content: space-evenly;">
+            <div style="display:table-cell;vertical-align:middle;">
+                <img src="~/Content/icons/icons_perfil_rede_social_falar_seguros_v2.png" class="profile-icon" />
+            </div>
+            <div style="display:table-cell;vertical-align:middle;"><span style="display:block;">@Html.ActionLink(Resources.Resources.UserProfile, "ProfileInfo", new { id = Model.ProfileInfo.ID }, null)</span></div>
+        </div>
+        <div style="width:120px;text-align:center;">
+            @if (null == Model.Profile || null == Model.ProfileInfo.ProfilePhoto || Model.ProfileInfo.ProfilePhoto.Length == 0)
+            {
+                <img src="~/Content/images/no_photo_img.jpg" class="mini-avatar item-photo main-photo">
+            }
+            else
+            {
+                <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.ProfileInfo.ProfilePhoto))" class="mini-avatar item-photo main-photo">
+            }
+        </div>
+        <div style="width:calc( 50% - 60px );height:120px; text-align:right;display:table;justify-content: space-evenly;font-weight:bold;">
+            <div style="display:table-cell;vertical-align:middle;"><span style="display:block;color:#00C1DE;">@Resources.Resources.Configurations</span>@Html.ActionLink(Resources.Resources.Edit, "ProfileEditConfigurations", new { userId = Model.ProfileInfo.ID_User }, null)</div>
+            <div style="display:table-cell;vertical-align:middle;">
+                <img src="~/Content/icons/icons_perfil_rede_social_falar_seguros_v26.png" class="profile-icon" />
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-white" style="display:block;padding:10px 20px;font-weight:bold;color:#4B5C66;font-size:12px;">
+        <div style="padding:10px 0px;">
+            <span style="font-size:14px;">@Resources.Resources.ChangePassword</span>
+        </div>
+        <div>
+            <p class="data-row">
+                <span class="data-name profile-label" style="width:36em;">@Resources.Resources.OldPassword</span>
+                <label class="form-control label-control profile-label"> </label>
+            </p>
+        </div>
+        <div>
+            <p class="data-row">
+                <span class="data-name profile-label" style="width:36em;">@Resources.Resources.NewPassword</span>
+                <label class="form-control label-control profile-label"> </label>
+            </p>
+        </div>
+        <div>
+            <p class="data-row">
+                <span class="data-name profile-label" style="width:36em;">@Resources.Resources.RepeatPassword</span>
+                <label class="form-control label-control profile-label"> </label>
+            </p>
+        </div>
+        <div style="padding:10px 0px;">
+            <span style="font-size:14px;">@Resources.Resources.Privacy</span>
+        </div>
+        <div>
+            <p class="data-row">
+                <span class="data-name profile-label" style="width:36em;max-width:20em;">@Resources.Resources.ShowDisplayName</span>
+                <label class="form-control label-control profile-label" style="max-width:36px;">@Html.CheckBoxFor(i => i.ProfileInfo.ProfileSettings.FirstOrDefault().ShowDisplayName, new { style="margin:-5px;", disabled="disabled" })<span class="checkmark"></span></label>
+            </p>
+        </div>
+        <div>
+            <p class="data-row">
+                <span class="data-name profile-label" style="width:36em;max-width:20em;">@Resources.Resources.ShowBirthDate</span>
+                <label class="form-control label-control profile-label" style="max-width:36px;">@Html.CheckBoxFor(i => i.ProfileInfo.ProfileSettings.FirstOrDefault().ShowBirthDate, new { style = "margin:-5px;", disabled = "disabled" })<span class="checkmark"></span></label>
+            </p>
+        </div>
+        <div>
+            <p class="data-row">
+                <span class="data-name profile-label" style="width:36em;max-width:20em;">@Resources.Resources.ShowContactInformation</span>
+                <label class="form-control label-control profile-label" style="max-width:36px;">@Html.CheckBoxFor(i => i.ProfileInfo.ProfileSettings.FirstOrDefault().ShowContactInformation, new { style = "margin:-5px;", disabled = "disabled" })<span class="checkmark"></span></label>
+            </p>
+        </div>
+        <div>
+            <p class="data-row">
+                <span class="data-name profile-label" style="width:36em;max-width:20em;">@Resources.Resources.ShowSocialNetworks</span>
+                <label class="form-control label-control profile-label" style="max-width:36px;">@Html.CheckBoxFor(i => i.ProfileInfo.ProfileSettings.FirstOrDefault().ShowSocialNetworks, new { style = "margin:-5px;", disabled = "disabled" })<span class="checkmark"></span></label>
+            </p>
+        </div>
+        <div style="padding:10px 0px;">
+            <span style="font-size:14px;">@Resources.Resources.Notifications</span>
+        </div>
+        <div>
+            <p class="data-row">
+                <span class="data-name profile-label" style="width:36em;max-width:20em;">@Resources.Resources.LikesOnYourPosts</span>
+                <label class="form-control label-control profile-label" style="max-width:36px;">@Html.CheckBoxFor(i => i.ProfileInfo.ProfileSettings.FirstOrDefault().LikesOnYourPosts, new { style = "margin:-5px;", disabled = "disabled" })<span class="checkmark"></span></label>
+            </p>
+        </div>
+        <div>
+            <p class="data-row">
+                <span class="data-name profile-label" style="width:36em;max-width:20em;">@Resources.Resources.CommentsOnYourPosts</span>
+                <label class="form-control label-control profile-label" style="max-width:36px;">@Html.CheckBoxFor(i => i.ProfileInfo.ProfileSettings.FirstOrDefault().CommentsOnYourPosts, new { style = "margin:-5px;", disabled = "disabled" })<span class="checkmark"></span></label>
+            </p>
+        </div>
+        <div>
+            <p class="data-row">
+                <span class="data-name profile-label" style="width:36em;max-width:20em;">@Resources.Resources.ReceiveNotificationsByEmail</span>
+                <label class="form-control label-control profile-label" style="max-width:36px;">@Html.CheckBoxFor(i => i.ProfileInfo.ProfileSettings.FirstOrDefault().ReceiveNotificationsByEmail, new { style = "margin:-5px;", disabled = "disabled" })<span class="checkmark"></span></label>
+            </p>
+        </div>
+    </div>
+
+</div>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        
+    });
+
+</script>

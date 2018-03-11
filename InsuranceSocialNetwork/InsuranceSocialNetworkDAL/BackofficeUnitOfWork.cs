@@ -11,6 +11,7 @@ namespace InsuranceSocialNetworkDAL
     public class BackofficeUnitOfWork : UnitOfWork<InsurancePortal_dbEntities>
     {
         private IRepository<Profile> profileRepository;
+        private IRepository<ProfileSettings> profileSettingsRepository;
         private IRepository<Notification> notificationRepository;
         private IRepository<NotificationType> notificationTypeRepository;
         private IRepository<AspNetRoles> aspNetRolesRepository;
@@ -132,6 +133,19 @@ namespace InsuranceSocialNetworkDAL
                         new Repository<InsurancePortal_dbEntities, Profile>(DataContext, AutoDetectChangesEnabled);
                 }
                 return profileRepository;
+            }
+        }
+
+        public IRepository<ProfileSettings> ProfileSettings
+        {
+            get
+            {
+                if (this.profileSettingsRepository == null)
+                {
+                    this.profileSettingsRepository =
+                        new Repository<InsurancePortal_dbEntities, ProfileSettings>(DataContext, AutoDetectChangesEnabled);
+                }
+                return profileSettingsRepository;
             }
         }
 

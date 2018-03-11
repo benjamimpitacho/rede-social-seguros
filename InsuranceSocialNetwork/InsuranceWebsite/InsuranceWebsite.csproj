@@ -725,6 +725,8 @@
     <Content Include="Views\Home\Partial\ProfileOwn.cshtml" />
     <Content Include="Views\Home\Partial\ProfileEdit.cshtml" />
     <Content Include="Views\Account\PendingApproval.cshtml" />
+    <Content Include="Views\Home\Partial\ProfileEditConfigurations.cshtml" />
+    <Content Include="Views\Home\Partial\ProfileOwnConfigurations.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

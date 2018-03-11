@@ -42,6 +42,7 @@ namespace InsuranceSocialNetworkDTO.UserProfile
         public bool Active { get; set; }
         public UserDTO User { get; set; }
         public RoleDTO Role { get; set; }
+        public List<ProfileSettingsDTO> ProfileSettings { get; set; }
 
         public int TotalFriends { get; set; }
         public int TotalLikes { get; set; }
@@ -61,5 +62,22 @@ namespace InsuranceSocialNetworkDTO.UserProfile
         public bool LockoutEnabled { get; set; }
         public int AccessFailedCount { get; set; }
         public string UserName { get; set; }
+    }
+
+    public class ProfileSettingsDTO
+    {
+        public long ID { get; set; }
+        public long ID_Profile { get; set; }
+        public bool ShowDisplayName { get; set; }
+        public bool ShowBirthDate { get; set; }
+        public bool ShowContactInformation { get; set; }
+        public bool ShowSocialNetworks { get; set; }
+        public bool LikesOnYourPosts { get; set; }
+        public bool CommentsOnYourPosts { get; set; }
+        public bool ReceiveNotificationsByEmail { get; set; }
+        public DateTime CreateDate { get; set; }
+        public DateTime LastChangeDate { get; set; }
+        public DateTime? DeleteDate { get; set; }
+        public bool Active { get; set; }
     }
 }

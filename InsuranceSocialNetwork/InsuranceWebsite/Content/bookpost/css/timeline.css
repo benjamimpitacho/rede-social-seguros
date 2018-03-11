@@ -647,11 +647,12 @@ a {
 }
 .post .post-description .stats .stat-item .icon {
     margin-right: 1px;
-    border: 1.2px solid;
+    /*border: 1.2px solid;*/
     border-radius: 40px;
     padding: 6px;
     font-size: 16px;
     cursor: pointer;
+    max-width: 30px;
 }
 .post .post-footer {
   padding: 0px;
@@ -724,6 +725,10 @@ a {
 .post-load-more{
   height: 60px;
   padding: 20px;
+}
+
+.post-icon {
+    max-width: 30px;
 }
 /*==================== Home page ====================*/
 .home-avatar{

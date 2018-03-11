@@ -14,6 +14,12 @@ namespace InsuranceSocialNetworkDAL
     
     public partial class Profile
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Profile()
+        {
+            this.ProfileSettings = new HashSet<ProfileSettings>();
+        }
+    
         public long ID { get; set; }
         public string ID_User { get; set; }
         public string FirstName { get; set; }
@@ -47,5 +53,7 @@ namespace InsuranceSocialNetworkDAL
         public string GooglePlus { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProfileSettings> ProfileSettings { get; set; }
     }
 }

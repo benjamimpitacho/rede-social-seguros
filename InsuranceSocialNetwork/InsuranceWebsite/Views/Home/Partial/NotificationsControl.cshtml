@@ -193,6 +193,55 @@
                 </a>
                 break;
             case "NEW_MESSAGE_RECEIVED":
+                <a href="#" onclick="location.href='@Url.Action("SendMessage", "Home", new { id = notification.FromUserProfileID, ntId = notification.ID })'">
+                    <div class="panel panel-white post panel-shadow animated fadeInUp" style="margin-bottom:2px;">
+                        <div class="@("post-heading " + (notification.Read ? "read" : "unread"))">
+                            <div class="pull-left image">
+                                @if (null == Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID)
+                                || null == Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value
+                                || Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value is DBNull
+                                || ((byte[])Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value).Length == 0)
+                                {
+                                    <img src="~/Content/images/no_photo_img.jpg" class="avatar img-circle">
+                                }
+                                else
+                                {
+                                    <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String((byte[])Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value))" class="avatar img-circle">
+                                }
+                            </div>
+                            <div class="pull-left meta">
+                                <div class="title h5" style="border:0px;background-color:inherit">
+                                    <span style="font-weight:bold;">@Model.UsersNames.FirstOrDefault(i => i.Key == notification.FromUserID).Value</span>
+                                    @Resources.Resources.SentYouMessage
+                                </div>
+                                @if (DateTime.Now.Subtract(notification.CreateDate).TotalMinutes < 1)
+                                {
+                                    <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalSeconds, 0) @Resources.Resources.SecondsAgo</h6>
+                                }
+                                else if (DateTime.Now.Subtract(notification.CreateDate).TotalHours < 2)
+                                {
+                                    <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalMinutes, 0) @Resources.Resources.MinutesAgo</h6>
+                                }
+                                else if (DateTime.Now.Subtract(notification.CreateDate).TotalDays < 1)
+                                {
+                                    <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalHours, 0) @Resources.Resources.HoursAgo</h6>
+                                }
+                                else if (DateTime.Now.Subtract(notification.CreateDate).TotalDays == 1)
+                                {
+                                    <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalDays, 0) @Resources.Resources.DayAgo</h6>
+                                }
+                                else if (DateTime.Now.Subtract(notification.CreateDate).TotalDays < 3)
+                                {
+                                    <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalDays, 0) @Resources.Resources.DaysAgo</h6>
+                                }
+                                else
+                                {
+                                    <h6 class="text-muted time">@notification.CreateDate.ToShortDateString()</h6>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </a>
                 break;
             case "FRIEND_REQUEST_RECEIVED":
                 <a href="#" onclick="location.href='@Url.Action("FriendRequest", "Home", new { id = notification.FromUserID, ntId = notification.ID })'">
@@ -495,6 +544,58 @@
                         </div>
                     </div>
                 </a>
+                break;
+            case "USER_APPROVAL_PENDING":
+                <a href="#" onclick="location.href='@Url.Action("Index", "UsersManagement", new { ntId = notification.ID })'">
+                    <div class="panel panel-white post panel-shadow animated fadeInUp" style="margin-bottom:2px;">
+                        <div class="@("post-heading " + (notification.Read ? "read" : "unread"))">
+                            <div class="pull-left image">
+                                @if (null == Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID)
+                        || null == Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value
+                        || Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value is DBNull
+                        || ((byte[])Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value).Length == 0)
+                                {
+                                    <img src="~/Content/images/no_photo_img.jpg" class="avatar img-circle">
+                                }
+                                else
+                                {
+                                    <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String((byte[])Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value))" class="avatar img-circle">
+                                }
+                            </div>
+                            <div class="pull-left meta">
+                                <div class="title h5" style="border:0px;background-color:inherit">
+                                    @Resources.Resources.NewUserPendingApproval
+                                </div>
+                                @if (DateTime.Now.Subtract(notification.CreateDate).TotalMinutes < 1)
+                                {
+                                    <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalSeconds, 0) @Resources.Resources.SecondsAgo</h6>
+                                }
+                                else if (DateTime.Now.Subtract(notification.CreateDate).TotalHours < 2)
+                                {
+                                    <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalMinutes, 0) @Resources.Resources.MinutesAgo</h6>
+                                }
+                                else if (DateTime.Now.Subtract(notification.CreateDate).TotalDays < 1)
+                                {
+                                    <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalHours, 0) @Resources.Resources.HoursAgo</h6>
+                                }
+                                else if (DateTime.Now.Subtract(notification.CreateDate).TotalDays == 1)
+                                {
+                                    <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalDays, 0) @Resources.Resources.DayAgo</h6>
+                                }
+                                else if (DateTime.Now.Subtract(notification.CreateDate).TotalDays < 3)
+                                {
+                                    <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(notification.CreateDate).TotalDays, 0) @Resources.Resources.DaysAgo</h6>
+                                }
+                                else
+                                {
+                                    <h6 class="text-muted time">@notification.CreateDate.ToShortDateString()</h6>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                break;
+            default:
                 break;
         }
     }

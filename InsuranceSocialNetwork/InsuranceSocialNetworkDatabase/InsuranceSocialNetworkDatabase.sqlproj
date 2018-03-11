@@ -116,6 +116,7 @@
     <None Include="InitData\CompanyService.sql" />
     <Build Include="Tables\AuthorizedEmail.sql" />
     <Build Include="Tables\PostHidden.sql" />
+    <Build Include="Tables\ProfileSettings.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="InsuranceSocialNetworkDatabase.refactorlog" />

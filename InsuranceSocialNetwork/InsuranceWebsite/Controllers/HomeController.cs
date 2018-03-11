@@ -18,6 +18,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using System.Web.Services;
 
 namespace InsuranceWebsite.Controllers
@@ -200,10 +201,15 @@ namespace InsuranceWebsite.Controllers
         /// <param name="id">Profile ID</param>
         /// <returns>Messages view</returns>
         [FunctionalityAutorizeAttribute("MESSAGES_FUNCTIONALITY")]
-        public async Task<ActionResult> SendMessage(long id)
+        public async Task<ActionResult> SendMessage(long id, long? ntId)
         {
             try
             {
+                if (ntId.HasValue)
+                {
+                    InsuranceBusiness.BusinessLayer.MarkNotificationAsRead(ntId.Value);
+                }
+
                 var model = new MessagesViewModel();
                 if (null != this.User && this.User.Identity.IsAuthenticated)
                 {
@@ -995,6 +1001,61 @@ namespace InsuranceWebsite.Controllers
             //return View(model);
         }
 
+        [FunctionalityAutorizeAttribute("PROFILE_INFO_FUNCTIONALITY")]
+        public async Task<ActionResult> ProfileConfigurations(string userId)
+        {
+            try
+            {
+                HomeViewModel model = new HomeViewModel();
+
+                if (null != this.User && this.User.Identity.IsAuthenticated)
+                {
+                    var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                    var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
+                    if (null != user)
+                    {
+                        FillModel(model, user.Id, false);
+                    }
+                    else
+                    {
+                        return RedirectToAction("LogOff", "Account");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+
+                model.IsPostsView = false;
+                model.IsProfileTimeline = false;
+                model.IsOwnProfile = (userId == model.Profile.ID_User);
+                model.IsProfileConfigurations = true;
+                model.AllowedEmails = InsuranceBusiness.BusinessLayer.GetAuthorizedEmailsForAutomaticApproval(model.Profile.ID_User).Select(i => new SelectListItem() { Value = i, Text = i }).ToList();
+
+                if (!model.IsOwnProfile)
+                {
+                    model.ProfileInfo = InsuranceBusiness.BusinessLayer.GetUserProfile(userId);
+                    model.IsFriend = InsuranceBusiness.BusinessLayer.AreFriends(CurrentUser.ID_User, model.ProfileInfo.ID_User);
+                    model.IsFriendRequest = InsuranceBusiness.BusinessLayer.HasPendingFriendRequest(CurrentUser.ID_User, model.ProfileInfo.ID_User);
+                }
+                else
+                {
+                    model.ProfileInfo = model.Profile;
+                }
+
+                model.ProfileInfo.TotalFriends = InsuranceBusiness.BusinessLayer.GetTotalFriends(model.ProfileInfo.ID_User);
+                model.ProfileInfo.TotalLikes = InsuranceBusiness.BusinessLayer.GetTotalLikes(model.ProfileInfo.ID_User);
+
+                return View("Index", model);
+
+                //return View(model);
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public async Task<ActionResult> ProfileTimeline(long id)
         {
             try
@@ -1045,7 +1106,12 @@ namespace InsuranceWebsite.Controllers
         [FunctionalityAutorizeAttribute("ADD_FRIEND_FUNCTIONALITY")]
         public async Task<ActionResult> FriendRequest(string id, long? ntId)
         {
-            var model = new ProfileViewModel();
+            if (ntId.HasValue)
+            {
+                InsuranceBusiness.BusinessLayer.MarkNotificationAsRead(ntId.Value);
+            }
+
+            var model = new HomeViewModel();
             if (null != this.User && this.User.Identity.IsAuthenticated)
             {
                 var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
@@ -1065,16 +1131,26 @@ namespace InsuranceWebsite.Controllers
             }
 
             model.IsOwnProfile = false;
+            model.IsProfileTimeline = true;
             model.IsFriendRequest = InsuranceBusiness.BusinessLayer.HasPendingFriendRequest(CurrentUser.ID_User, id);
             model.IsFriend = InsuranceBusiness.BusinessLayer.AreFriends(CurrentUser.ID_User, id);
             model.Profile = InsuranceBusiness.BusinessLayer.GetUserProfile(id);
 
-            if (ntId.HasValue)
+            if (!model.IsOwnProfile)
             {
-                InsuranceBusiness.BusinessLayer.MarkNotificationAsRead(ntId.Value);
+                model.ProfileInfo = InsuranceBusiness.BusinessLayer.GetUserProfile(id);
+                model.IsFriend = InsuranceBusiness.BusinessLayer.AreFriends(CurrentUser.ID_User, model.ProfileInfo.ID_User);
+                model.IsFriendRequest = InsuranceBusiness.BusinessLayer.HasPendingFriendRequest(CurrentUser.ID_User, model.ProfileInfo.ID_User);
+            }
+            else
+            {
+                model.ProfileInfo = model.Profile;
             }
 
-            return View("ProfileInfo", model);
+            model.ProfileInfo.TotalFriends = InsuranceBusiness.BusinessLayer.GetTotalFriends(model.ProfileInfo.ID_User);
+            model.ProfileInfo.TotalLikes = InsuranceBusiness.BusinessLayer.GetTotalLikes(model.ProfileInfo.ID_User);
+
+            return View("Index", model);
         }
 
         [FunctionalityAutorizeAttribute("ADD_FRIEND_FUNCTIONALITY")]
@@ -1147,6 +1223,11 @@ namespace InsuranceWebsite.Controllers
         [FunctionalityAutorizeAttribute("PROFILE_INFO_FUNCTIONALITY")]
         public async Task<ActionResult> ProfileEdit(string userId, long? ntId)
         {
+            if (ntId.HasValue)
+            {
+                InsuranceBusiness.BusinessLayer.MarkNotificationAsRead(ntId.Value);
+            }
+
             //ProfileEditModel model = new ProfileEditModel();
             HomeViewModel model = new HomeViewModel();
 
@@ -1178,6 +1259,7 @@ namespace InsuranceWebsite.Controllers
 
             model.ProfileEditModel = new ProfileEditModel();
             model.ProfileEditModel.ID = model.Profile.ID;
+            model.ProfileEditModel.ID_User = model.Profile.ID_User;
             model.ProfileEditModel.FirstName =  model.Profile.FirstName;
             model.ProfileEditModel.LastName =  model.Profile.LastName;
             model.ProfileEditModel.CompanyName = model.Profile.CompanyName;
@@ -1205,14 +1287,91 @@ namespace InsuranceWebsite.Controllers
             model.ProfileEditModel.CreateDate = model.Profile.CreateDate;
 
             model.ProfileEditModel.AllowedEmails = InsuranceBusiness.BusinessLayer.GetAuthorizedEmailsForAutomaticApproval(model.Profile.ID_User).Select(i => new SelectListItem() { Value = i, Text = i }).ToList();
+            
+            return View("Index", model);
+            //return View(model);
+        }
 
-            if (ntId.HasValue)
+        [FunctionalityAutorizeAttribute("PROFILE_INFO_FUNCTIONALITY")]
+        public async Task<ActionResult> ProfileEditConfigurations(string userId)
+        {
+            //ProfileEditModel model = new ProfileEditModel();
+            HomeViewModel model = new HomeViewModel();
+
+            if (null != this.User && this.User.Identity.IsAuthenticated)
             {
-                InsuranceBusiness.BusinessLayer.MarkNotificationAsRead(ntId.Value);
+                var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
+                if (null != user)
+                {
+                    FillModel(model, user.Id, false);
+                }
+                else
+                {
+                    return RedirectToAction("LogOff", "Account");
+                }
             }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            //UserProfileDTO userProfile = InsuranceBusiness.BusinessLayer.GetUserProfile(userId);
+
+            model.IsPostsView = false;
+            model.IsProfileTimeline = false;
+            model.IsOwnProfile = (userId == model.Profile.ID_User);
+            model.IsProfileEditConfiguations = true;
+
+            model.Profile = InsuranceBusiness.BusinessLayer.GetUserProfile(userId);
+
+            FillProfileEditModel(model);
 
             return View("Index", model);
             //return View(model);
+        }
+
+        private static void FillProfileEditModel(HomeViewModel model)
+        {
+            model.ProfileEditModel = new ProfileEditModel();
+            model.ProfileEditModel.ID = model.Profile.ID;
+            model.ProfileEditModel.ID_User = model.Profile.ID_User;
+            model.ProfileEditModel.FirstName = model.Profile.FirstName;
+            model.ProfileEditModel.LastName = model.Profile.LastName;
+            model.ProfileEditModel.CompanyName = model.Profile.CompanyName;
+            model.ProfileEditModel.MobilePhone_1 = model.Profile.MobilePhone_1;
+            model.ProfileEditModel.MobilePhone_2 = model.Profile.MobilePhone_2;
+            model.ProfileEditModel.Telephone_1 = model.Profile.Telephone_1;
+            model.ProfileEditModel.Telephone_2 = model.Profile.Telephone_2;
+            model.ProfileEditModel.Address = model.Profile.Address;
+            model.ProfileEditModel.PostalCode = model.Profile.PostalCode;
+            model.ProfileEditModel.Locality = model.Profile.Locality;
+            model.ProfileEditModel.County = model.Profile.County;
+            model.ProfileEditModel.District = model.Profile.District;
+            model.ProfileEditModel.Birthdate = model.Profile.Birthdate;
+            model.ProfileEditModel.ContactEmail = model.Profile.ContactEmail;
+            model.ProfileEditModel.ProfilePhoto = model.Profile.ProfilePhoto;
+            model.ProfileEditModel.Website = string.IsNullOrEmpty(model.Profile.Website) ? model.Profile.Website : model.Profile.Website.ToLower();
+            model.ProfileEditModel.AboutMe = model.Profile.AboutMe;
+            model.ProfileEditModel.Facebook = model.Profile.Facebook;
+            model.ProfileEditModel.Twitter = model.Profile.Twitter;
+            model.ProfileEditModel.GooglePlus = model.Profile.GooglePlus;
+            model.ProfileEditModel.Skype = model.Profile.Skype;
+            model.ProfileEditModel.Whatsapp = model.Profile.Whatsapp;
+            model.ProfileEditModel.CompaniesWorkingWith = model.Profile.CompaniesWorkingWith;
+            model.ProfileEditModel.CreateDate = model.Profile.CreateDate;
+
+            model.ProfileEditModel.AllowedEmails = InsuranceBusiness.BusinessLayer.GetAuthorizedEmailsForAutomaticApproval(model.Profile.ID_User).Select(i => new SelectListItem() { Value = i, Text = i }).ToList();
+
+            model.ProfileEditModel.ProfileSettings = new ProfileSettingsModel();
+            model.ProfileEditModel.ProfileSettings.ShowDisplayName = model.Profile.ProfileSettings.FirstOrDefault().ShowDisplayName;
+            model.ProfileEditModel.ProfileSettings.ShowBirthDate = model.Profile.ProfileSettings.FirstOrDefault().ShowBirthDate;
+            model.ProfileEditModel.ProfileSettings.ShowContactInformation = model.Profile.ProfileSettings.FirstOrDefault().ShowContactInformation;
+            model.ProfileEditModel.ProfileSettings.ShowSocialNetworks = model.Profile.ProfileSettings.FirstOrDefault().ShowSocialNetworks;
+
+            model.ProfileEditModel.ProfileSettings.LikesOnYourPosts = model.Profile.ProfileSettings.FirstOrDefault().LikesOnYourPosts;
+            model.ProfileEditModel.ProfileSettings.CommentsOnYourPosts = model.Profile.ProfileSettings.FirstOrDefault().CommentsOnYourPosts;
+            model.ProfileEditModel.ProfileSettings.ReceiveNotificationsByEmail = model.Profile.ProfileSettings.FirstOrDefault().ReceiveNotificationsByEmail;
         }
 
         [FunctionalityAutorizeAttribute("PROFILE_INFO_FUNCTIONALITY")]
@@ -1293,6 +1452,100 @@ namespace InsuranceWebsite.Controllers
 
             //return View("ProfileInfo", model);
             return RedirectToAction("ProfileInfo", new { id = model.ProfileEditModel.ID });
+        }
+
+        [FunctionalityAutorizeAttribute("PROFILE_INFO_FUNCTIONALITY")]
+        public async Task<ActionResult> ProfileSaveConfigurations(HomeViewModel model)
+        {
+            if (null != this.User && this.User.Identity.IsAuthenticated)
+            {
+                var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
+                if (null != user)
+                {
+                    FillModel(model, user.Id);
+                }
+                else
+                {
+                    return RedirectToAction("LogOff", "Account");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            if (CurrentUser.ID != model.ProfileEditModel.ID)
+            {
+                return RedirectToAction("LogOff", "Account");
+            }
+
+            //model.IsOwnProfile = CurrentUser.ID == model.ProfileEditModel.ID;
+
+            ProfileSettingsDTO profileSettings = InsuranceBusiness.BusinessLayer.GetUserProfileSettings(model.ProfileEditModel.ID);
+
+            profileSettings.ShowDisplayName = model.ProfileEditModel.ProfileSettings.ShowDisplayName;
+            profileSettings.ShowBirthDate = model.ProfileEditModel.ProfileSettings.ShowBirthDate;
+            profileSettings.ShowContactInformation = model.ProfileEditModel.ProfileSettings.ShowContactInformation;
+            profileSettings.ShowSocialNetworks = model.ProfileEditModel.ProfileSettings.ShowSocialNetworks;
+
+            profileSettings.LikesOnYourPosts = model.ProfileEditModel.ProfileSettings.LikesOnYourPosts;
+            profileSettings.CommentsOnYourPosts = model.ProfileEditModel.ProfileSettings.CommentsOnYourPosts;
+            profileSettings.ReceiveNotificationsByEmail = model.ProfileEditModel.ProfileSettings.ReceiveNotificationsByEmail;
+
+            InsuranceBusiness.BusinessLayer.UpdateProfileSetting(profileSettings);
+
+            return RedirectToAction("ProfileConfigurations", new { userId = model.Profile.ID_User });
+        }
+
+        [FunctionalityAutorizeAttribute("PROFILE_INFO_FUNCTIONALITY")]
+        public async Task<ActionResult> ProfileChangePassword(HomeViewModel model)
+        {
+            if (null != this.User && this.User.Identity.IsAuthenticated)
+            {
+                var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
+                if (null != user)
+                {
+                    FillModel(model, user.Id);
+                }
+                else
+                {
+                    return RedirectToAction("LogOff", "Account");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            if (CurrentUser.ID != model.ProfileEditModel.ID)
+            {
+                return RedirectToAction("LogOff", "Account");
+            }
+
+            var result = await UserManager.PasswordValidator.ValidateAsync(model.ProfileEditModel.ProfileSettings.NewPassword);
+
+            if(result.Succeeded)
+            {
+                result = await UserManager.ChangePasswordAsync(model.Profile.ID_User, model.ProfileEditModel.ProfileSettings.OldPassword, model.ProfileEditModel.ProfileSettings.NewPassword);
+
+                if(result.Succeeded)
+                {
+                    return RedirectToAction("ProfileConfigurations", new { userId = model.Profile.ID_User });
+                }
+            }
+
+            model.IsPostsView = false;
+            model.IsProfileTimeline = false;
+            model.IsOwnProfile = true;
+            model.IsProfileEditConfiguations = true;
+
+            model.Profile = InsuranceBusiness.BusinessLayer.GetUserProfile(model.Profile.ID_User);
+
+            FillProfileEditModel(model);
+
+            return View("Index", model);
         }
 
         [FunctionalityAutorizeAttribute("PROFILE_INFO_FUNCTIONALITY")]
@@ -1415,7 +1668,7 @@ namespace InsuranceWebsite.Controllers
             model.TotalUnreadMessages = InsuranceBusiness.BusinessLayer.GetTotalUnreadMessages(userId);
             if (model is HomeViewModel)
             {
-                if (((HomeViewModel)model).IsPostsView)
+                if (((HomeViewModel)model).IsPostsView && getUserPosts)
                 {
                     ((HomeViewModel)model).Posts = InsuranceBusiness.BusinessLayer.GetUserRelatedPosts(userId);
                 }
@@ -2046,6 +2299,33 @@ namespace InsuranceWebsite.Controllers
             model.Post = InsuranceBusiness.BusinessLayer.GetPost(id);
 
             return PartialView("Partial/_EditPost", model);
+        }
+
+        private ApplicationSignInManager _signInManager;
+        private ApplicationUserManager _userManager;
+
+        public ApplicationSignInManager SignInManager
+        {
+            get
+            {
+                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            }
+            private set
+            {
+                _signInManager = value;
+            }
+        }
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
         }
     }
 }

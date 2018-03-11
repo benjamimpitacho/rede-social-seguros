@@ -198,6 +198,9 @@
     </Compile>
     <Compile Include="FunctionalityRepository.cs" />
     <Compile Include="BannerRepository.cs" />
+    <Compile Include="ProfileSettings.cs">
+      <DependentUpon>InsuranceDatabaseEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="RoleRepository.cs" />
     <Compile Include="NotificationRepository.cs" />
     <Compile Include="GarageRepository.cs" />

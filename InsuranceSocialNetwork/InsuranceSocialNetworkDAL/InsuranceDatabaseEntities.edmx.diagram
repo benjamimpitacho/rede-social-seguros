@@ -104,6 +104,8 @@
         <EntityTypeShape EntityType="InsurancePortal_dbModel.PostHidden" Width="1.5" PointX="16.5" PointY="24.5" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_PostHidden_AspNetUsers" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_PostHidden_Post" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.ProfileSettings" Width="1.5" PointX="7.5" PointY="59.625" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_ProfileSettings_Profile" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -67,7 +67,7 @@
             }
         </div>
         <div style="width:calc( 50% - 60px );height:120px; text-align:right;display:table;justify-content: space-evenly;font-weight:bold;">
-            <div style="display:table-cell;vertical-align:middle;">@Resources.Resources.Configurations</div>
+            <div style="display:table-cell;vertical-align:middle;">@Html.ActionLink(Resources.Resources.Configurations, "ProfileConfigurations", new { userId = Model.ProfileInfo.ID_User }, null)</div>
             <div style="display:table-cell;vertical-align:middle;">
                 <img src="~/Content/icons/icons_perfil_rede_social_falar_seguros_v25.png" class="profile-icon" />
             </div>

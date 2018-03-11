@@ -13,6 +13,7 @@ using MVCGrid.Models;
 using MVCGrid.Web;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net.Mail;
@@ -26,6 +27,8 @@ namespace InsuranceWebsite.Controllers
     [Authorize]
     public class UsersManagementController : Controller
     {
+        public static UserProfileDTO CurrentUser;
+
         MapperConfiguration mapperConfiguration = new MapperConfiguration(cfg =>
         {
             cfg.CreateMap<UserProfileDTO, UserProfileModelObject>();
@@ -40,8 +43,13 @@ namespace InsuranceWebsite.Controllers
         }
 
         [FunctionalityAutorizeAttribute("USERS_MANAGEMENT")]
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(long? ntId)
         {
+            if (ntId.HasValue)
+            {
+                InsuranceBusiness.BusinessLayer.MarkNotificationAsRead(ntId.Value);
+            }
+
             UsersManagementViewModel model = new UsersManagementViewModel();
 
             if (null != this.User && this.User.Identity.IsAuthenticated)
@@ -50,7 +58,8 @@ namespace InsuranceWebsite.Controllers
                 var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
                 if (null != user)
                 {
-                    model.Profile = InsuranceBusiness.BusinessLayer.GetUserProfile(user.Id);
+                    FillModel(model, user.Id, false);
+                    //model.Profile = InsuranceBusiness.BusinessLayer.GetUserProfile(user.Id);
                 }
                 else
                 {
@@ -96,12 +105,13 @@ namespace InsuranceWebsite.Controllers
                         .WithSorting(true)
                         .WithVisibility(true, true); // use the Value Expression to return the cell text for this column
                     cols.Add("CreateDate")
+                        .WithSorting(true)
                         .WithHeaderText(Resources.Resources.RegisterDate)
                         .WithCellCssClassExpression(p => "dateCell")
                         .WithValueExpression(p => p.CreateDate.ToString("dd-MM-yyyy"))
                         .WithVisibility(true, true);
                     cols.Add("Active").WithHtmlEncoding(false)
-                        .WithSorting(false)
+                        .WithSorting(true)
                         .WithHeaderText(Resources.Resources.Active)
                         .WithValueExpression((p, c) => !p.User.LockoutEndDateUtc.HasValue ? "checked" : "")
                         .WithValueTemplate("<input type=\"checkbox\" disabled=\"disabled\" {Value}>")
@@ -173,6 +183,30 @@ namespace InsuranceWebsite.Controllers
                                 else
                                 {
                                     query = query.OrderByDescending(p => p.User.UserName).ToList();
+                                }
+
+                                break;
+                            case "active":
+                                if (options.SortDirection == SortDirection.Asc
+                                    || options.SortDirection == SortDirection.Unspecified)
+                                {
+                                    query = query.OrderBy(p => p.Active).ToList();
+                                }
+                                else
+                                {
+                                    query = query.OrderByDescending(p => p.Active).ToList();
+                                }
+
+                                break;
+                            case "createdate":
+                                if (options.SortDirection == SortDirection.Asc
+                                    || options.SortDirection == SortDirection.Unspecified)
+                                {
+                                    query = query.OrderBy(p => p.CreateDate).ToList();
+                                }
+                                else
+                                {
+                                    query = query.OrderByDescending(p => p.CreateDate).ToList();
                                 }
 
                                 break;
@@ -555,6 +589,39 @@ namespace InsuranceWebsite.Controllers
                 result = await UserManager.SetLockoutEndDateAsync(userId, DateTimeOffset.MaxValue);
             }
             return result;
+        }
+
+        private void FillModel(ProfileViewModel model, string userId, bool getUserPosts = true)
+        {
+            model.Profile = InsuranceBusiness.BusinessLayer.GetUserProfile(userId);
+
+            if (null == model.Profile.ProfilePhoto || model.Profile.ProfilePhoto.Length == 0)
+            {
+                Image img = Image.FromFile(Server.MapPath("/Content/images/no_photo_img.jpg"));
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    img.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                    model.Profile.ProfilePhoto = ms.ToArray();
+                }
+            }
+
+            CurrentUser = model.Profile;
+            model.Notifications = InsuranceBusiness.BusinessLayer.GetUserNotifications(userId);
+            model.TotalUnreadMessages = InsuranceBusiness.BusinessLayer.GetTotalUnreadMessages(userId);
+
+            if (model is HomeViewModel)
+            {
+                if (((HomeViewModel)model).IsPostsView && getUserPosts)
+                {
+                    ((HomeViewModel)model).Posts = InsuranceBusiness.BusinessLayer.GetUserRelatedPosts(userId);
+                }
+                ((HomeViewModel)model).TopBanners = InsuranceBusiness.BusinessLayer.GetActiveBanners(BannerTypeEnum.WEB_PRINCIPAL_BANNER);
+                ((HomeViewModel)model).SideBanners = InsuranceBusiness.BusinessLayer.GetActiveBanners(BannerTypeEnum.WEB_SECONDARY_BANNER);
+            }
+            else if (model is MessagesViewModel)
+            {
+                ((MessagesViewModel)model).Chats = InsuranceBusiness.BusinessLayer.GetChats(userId);
+            }
         }
     }
 }

@@ -543,6 +543,24 @@
           <Property Name="Twitter" Type="nvarchar" MaxLength="512" />
           <Property Name="GooglePlus" Type="nvarchar" MaxLength="512" />
         </EntityType>
+        <EntityType Name="ProfileSettings">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Profile" Type="bigint" Nullable="false" />
+          <Property Name="ShowDisplayName" Type="bit" Nullable="false" />
+          <Property Name="ShowBirthDate" Type="bit" Nullable="false" />
+          <Property Name="ShowContactInformation" Type="bit" Nullable="false" />
+          <Property Name="ShowSocialNetworks" Type="bit" Nullable="false" />
+          <Property Name="LikesOnYourPosts" Type="bit" Nullable="false" />
+          <Property Name="CommentsOnYourPosts" Type="bit" Nullable="false" />
+          <Property Name="ReceiveNotificationsByEmail" Type="bit" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="LastChangeDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="DeleteDate" Type="datetime2" Precision="7" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
         <Association Name="FK_AuthorizedEmail_User">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
           <End Role="AuthorizedEmail" Type="Self.AuthorizedEmail" Multiplicity="*" />
@@ -1295,6 +1313,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ProfileSettings_Profile">
+          <End Role="Profile" Type="Self.Profile" Multiplicity="1" />
+          <End Role="ProfileSettings" Type="Self.ProfileSettings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profile">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ProfileSettings">
+              <PropertyRef Name="ID_Profile" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="InsurancePortal_dbModelStoreContainer">
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRolesFunctionalities" EntityType="Self.AspNetRolesFunctionalities" Schema="dbo" store:Type="Tables" />
@@ -1335,6 +1365,7 @@
           <EntitySet Name="PostSubject" EntityType="Self.PostSubject" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="PostType" EntityType="Self.PostType" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="Profile" EntityType="Self.Profile" Schema="Insurance" store:Type="Tables" />
+          <EntitySet Name="ProfileSettings" EntityType="Self.ProfileSettings" Schema="Insurance" store:Type="Tables" />
           <AssociationSet Name="FK_AuthorizedEmail_User" Association="Self.FK_AuthorizedEmail_User">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AuthorizedEmail" EntitySet="AuthorizedEmail" />
@@ -1582,6 +1613,10 @@
           <AssociationSet Name="FK_Profile_AspNetUsers" Association="Self.FK_Profile_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Profile" EntitySet="Profile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProfileSettings_Profile" Association="Self.FK_ProfileSettings_Profile">
+            <End Role="Profile" EntitySet="Profile" />
+            <End Role="ProfileSettings" EntitySet="ProfileSettings" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -1870,6 +1905,11 @@
           <AssociationSet Name="FK_PostHidden_Post" Association="InsurancePortal_dbModel.FK_PostHidden_Post">
             <End Role="Post" EntitySet="Post" />
             <End Role="PostHidden" EntitySet="PostHidden" />
+          </AssociationSet>
+          <EntitySet Name="ProfileSettings" EntityType="InsurancePortal_dbModel.ProfileSettings" />
+          <AssociationSet Name="FK_ProfileSettings_Profile" Association="InsurancePortal_dbModel.FK_ProfileSettings_Profile">
+            <End Role="Profile" EntitySet="Profile" />
+            <End Role="ProfileSettings" EntitySet="ProfileSettings" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="AspNetRoles">
@@ -2437,6 +2477,7 @@
           <Property Name="Facebook" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
           <Property Name="Twitter" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
           <Property Name="GooglePlus" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ProfileSettings" Relationship="InsurancePortal_dbModel.FK_ProfileSettings_Profile" FromRole="Profile" ToRole="ProfileSettings" />
         </EntityType>
         <Association Name="FK_Profile_AspNetUsers">
           <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
@@ -3252,6 +3293,37 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ProfileSettings">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Profile" Type="Int64" Nullable="false" />
+          <Property Name="ShowDisplayName" Type="Boolean" Nullable="false" />
+          <Property Name="ShowBirthDate" Type="Boolean" Nullable="false" />
+          <Property Name="ShowContactInformation" Type="Boolean" Nullable="false" />
+          <Property Name="ShowSocialNetworks" Type="Boolean" Nullable="false" />
+          <Property Name="LikesOnYourPosts" Type="Boolean" Nullable="false" />
+          <Property Name="CommentsOnYourPosts" Type="Boolean" Nullable="false" />
+          <Property Name="ReceiveNotificationsByEmail" Type="Boolean" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="LastChangeDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="DeleteDate" Type="DateTime" Precision="7" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Profile" Relationship="InsurancePortal_dbModel.FK_ProfileSettings_Profile" FromRole="ProfileSettings" ToRole="Profile" />
+        </EntityType>
+        <Association Name="FK_ProfileSettings_Profile">
+          <End Type="InsurancePortal_dbModel.Profile" Role="Profile" Multiplicity="1" />
+          <End Type="InsurancePortal_dbModel.ProfileSettings" Role="ProfileSettings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profile">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ProfileSettings">
+              <PropertyRef Name="ID_Profile" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3828,6 +3900,25 @@
                 <ScalarProperty Name="Hidden" ColumnName="Hidden" />
                 <ScalarProperty Name="ID_Post" ColumnName="ID_Post" />
                 <ScalarProperty Name="ID_User" ColumnName="ID_User" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProfileSettings">
+            <EntityTypeMapping TypeName="InsurancePortal_dbModel.ProfileSettings">
+              <MappingFragment StoreEntitySet="ProfileSettings">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="DeleteDate" ColumnName="DeleteDate" />
+                <ScalarProperty Name="LastChangeDate" ColumnName="LastChangeDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="ReceiveNotificationsByEmail" ColumnName="ReceiveNotificationsByEmail" />
+                <ScalarProperty Name="CommentsOnYourPosts" ColumnName="CommentsOnYourPosts" />
+                <ScalarProperty Name="LikesOnYourPosts" ColumnName="LikesOnYourPosts" />
+                <ScalarProperty Name="ShowSocialNetworks" ColumnName="ShowSocialNetworks" />
+                <ScalarProperty Name="ShowContactInformation" ColumnName="ShowContactInformation" />
+                <ScalarProperty Name="ShowBirthDate" ColumnName="ShowBirthDate" />
+                <ScalarProperty Name="ShowDisplayName" ColumnName="ShowDisplayName" />
+                <ScalarProperty Name="ID_Profile" ColumnName="ID_Profile" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

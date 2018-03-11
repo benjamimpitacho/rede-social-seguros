@@ -125,7 +125,7 @@
                         <img src="~/Content/icons/129.png" style="max-width:60px;" />
                         <span style="font-weight:bold">@Resources.Resources.CurrentDiscussions</span>
                         <a href="@Url.Action("Index", "Home")">
-                            <img src="~/Content/icons/136.png" style="max-width: 30px;float: right;margin-right: 20px;margin-top: 13px;" />
+                            <img class="post-icon" src="~/Content/icons/136.png" style="float: right;margin-right: 20px;margin-top: 13px;" />
                         </a>
                     </div>
 
@@ -173,37 +173,37 @@
                                         @if (null != post.PostLike && post.PostLike.Count > 0 && post.PostLike.Exists(i => i.ID_User == Model.Profile.ID_User))
                                         {
                                             <a onclick="UnlikePost(this, @post.ID, @post.PostLike.Count)" class="stat-item" id="unlikePost" style="color:#00C1DE">
-                                                <i class="glyphicon glyphicon-star icon"></i><span style="padding-left: 8px;color:#4B5C66;font-size: 10px;">@post.PostLike.Count</span>
+                                                <img class="post-icon" src="~/Content/icons/icons_diretorios_rede_social_falar_seguros_AF3.png" /><span style="padding-left: 8px;color:#4B5C66;font-size: 10px;">@post.PostLike.Count</span>
                                             </a>
                                         }
                                         else if (null != post.PostLike && post.PostLike.Count > 0)
                                         {
                                             <a onclick="LikePost(this, @post.ID, @post.PostLike.Count)" class="stat-item" id="likePost">
-                                                <i class="glyphicon glyphicon-star icon"></i><span style="padding-left: 8px;color:#4B5C66;font-size: 10px;">@post.PostLike.Count</span>
+                                                <img class="post-icon" src="~/Content/icons/icons_diretorios_rede_social_falar_seguros_AF2.png" /><span style="padding-left: 8px;color:#4B5C66;font-size: 10px;">@post.PostLike.Count</span>
                                             </a>
                                         }
                                         else
                                         {
                                             <a onclick="LikePost(this, @post.ID, @post.PostLike.Count)" class="stat-item">
-                                                <i class="glyphicon glyphicon-star icon"></i>
+                                                <img class="post-icon" src="~/Content/icons/icons_diretorios_rede_social_falar_seguros_AF2.png" />
                                             </a>
                                         }
 
                                         @if (null != post.PostComment && post.PostComment.Count > 0)
                                         {
                                             <a class="stat-item" style="cursor:default;">
-                                                <i class="glyphicon glyphicon-option-horizontal icon"></i><span style="padding-left: 8px;color:#4B5C66;font-size: 10px;">@post.PostComment.Count</span>
+                                                <img class="post-icon" src="~/Content/icons/home_page_rede_social_falar_seguros_AF121.png" /><span style="padding-left: 8px;color:#4B5C66;font-size: 10px;">@post.PostComment.Count</span>
                                             </a>
                                         }
                                         else
                                         {
                                             <a class="stat-item" style="cursor:default;">
-                                                <i class="glyphicon glyphicon-option-horizontal icon"></i>
+                                                <img class="post-icon" src="~/Content/icons/home_page_rede_social_falar_seguros_AF121.png" />
                                             </a>
                                         }
 
                                         <a class="stat-item" href="@Url.Action("CurrentDiscussionDetails", "Home", new { id=post.ID })">
-                                            <img src="~/Content/icons/149.png" style="max-width:32px;padding-bottom:5px;" />
+                                            <img class="post-icon" src="~/Content/icons/icons_perfil_rede_social_falar_seguros_v27.png" />
                                         </a>
                                     </div>
                                 </div>
@@ -234,7 +234,7 @@
 
     function LikePost(object, postId, likesCount) {
         object.style.color = "#00C1DE";
-        object.innerHTML = "<i class=\"glyphicon glyphicon-star icon\"></i><span style=\"padding-left: 8px;color:#4B5C66;font-size: 10px;\">" + (likesCount+1) + "</span>";
+        object.innerHTML = "<img class=\"post-icon\" src=\"/Content/icons/icons_diretorios_rede_social_falar_seguros_AF3.png\" /><span style=\"padding-left: 8px;color:#4B5C66;font-size: 10px;\">" + (likesCount+1) + "</span>";
         likesCount = likesCount + 1;
         object.onclick = function() { UnlikePost(object, postId, likesCount); }
 
@@ -251,11 +251,11 @@
         object.style.color = "#7f7f7f";
         if(likesCount <= 1)
         {
-            object.innerHTML = "<i class=\"glyphicon glyphicon-star icon\"></i>";
+            object.innerHTML = "<img class=\"post-icon\" src=\"/Content/icons/icons_diretorios_rede_social_falar_seguros_AF2.png\" />";
         }
         else
         {
-            object.innerHTML = "<i class=\"glyphicon glyphicon-star icon\"></i><span style=\"padding-left: 8px;color:#4B5C66;font-size: 10px;\">" + (likesCount-1) + "</span>";
+            object.innerHTML = "<img class=\"post-icon\" src=\"/Content/icons/icons_diretorios_rede_social_falar_seguros_AF2.png\" /><span style=\"padding-left: 8px;color:#4B5C66;font-size: 10px;\">" + (likesCount-1) + "</span>";
         }
         if(likesCount > 0)
         {

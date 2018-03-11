@@ -1510,6 +1510,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Novo utilizador aguarda aprovação do registo.
+        /// </summary>
+        public static string NewUserPendingApproval {
+            get {
+                return ResourceManager.GetString("NewUserPendingApproval", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Seguinte.
         /// </summary>
         public static string Next {
@@ -1708,6 +1717,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to As palavras-passe introduzidas não coincidem.
+        /// </summary>
+        public static string PasswordMustMatch {
+            get {
+                return ResourceManager.GetString("PasswordMustMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Palavra-passe é obrigatória.
         /// </summary>
         public static string PasswordRequired {
@@ -1803,6 +1821,15 @@ namespace Resources {
         public static string ReadMore {
             get {
                 return ResourceManager.GetString("ReadMore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Receber notificações por email.
+        /// </summary>
+        public static string ReceiveNotificationsByEmail {
+            get {
+                return ResourceManager.GetString("ReceiveNotificationsByEmail", resourceCulture);
             }
         }
         
@@ -2104,6 +2131,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to enviou-lhe uma nova mensagem.
+        /// </summary>
+        public static string SentYouMessage {
+            get {
+                return ResourceManager.GetString("SentYouMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Serviços.
         /// </summary>
         public static string Services {
@@ -2163,6 +2199,15 @@ namespace Resources {
         public static string ShowOnlineStatus {
             get {
                 return ResourceManager.GetString("ShowOnlineStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mostrar redes sociais.
+        /// </summary>
+        public static string ShowSocialNetworks {
+            get {
+                return ResourceManager.GetString("ShowSocialNetworks", resourceCulture);
             }
         }
         

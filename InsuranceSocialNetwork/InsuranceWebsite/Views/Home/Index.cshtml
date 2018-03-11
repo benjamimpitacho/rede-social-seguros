@@ -32,9 +32,21 @@
             {
                 @Html.Partial("~/Views/Home/Partial/ProfileOwn.cshtml", Model)
             }
+            else if (Model.IsProfileConfigurations && Model.IsOwnProfile)
+            {
+                @Html.Partial("~/Views/Home/Partial/ProfileOwnConfigurations.cshtml", Model)
+            }
+            else if (Model.IsProfileEditConfiguations && Model.IsOwnProfile)
+            {
+                @Html.Partial("~/Views/Home/Partial/ProfileEditConfigurations.cshtml", Model)
+            }
             else if (Model.IsProfileEdit)
             {
                 @Html.Partial("~/Views/Home/Partial/ProfileEdit.cshtml", Model)
+            }
+            else if (Model.IsProfileEditConfiguations)
+            {
+                @Html.Partial("~/Views/Home/Partial/ProfileEditConfigurations.cshtml", Model)
             }
             else if (Model.IsSearchView)
             {

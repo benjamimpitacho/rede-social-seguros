@@ -11,6 +11,7 @@ Post-Deployment Script Template
 */
 
 DECLARE @userId nvarchar(128);
+DECLARE @profileId bigint;
 
 SET @userId = CONVERT(nvarchar(128), NEWID());
 
@@ -47,4 +48,8 @@ VALUES
 INSERT [dbo].[AspNetUserRoles] (RoleId,UserId) VALUES ('1',@userId)
 
 INSERT [Insurance].[Profile]([ID_User],[FirstName]) VALUES (@userId,N'Administrator')
+
+SELECT @profileId=[ID] FROM [Insurance].[Profile] WHERE UserId = @userId
+
+INSERT [Insurance].[ProfileSettings]([ID_Profile],[ShowDisplayName],[ShowBirthDate],[ShowContactInformation],[ShowSocialNetworks],[LikesOnYourPosts],[CommentsOnYourPosts],[ReceiveNotificationsByEmail]) VALUES (@profileId,1,1,1,1,1,1,1)
 

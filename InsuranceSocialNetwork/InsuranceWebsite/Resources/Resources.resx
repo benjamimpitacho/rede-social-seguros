@@ -912,4 +912,19 @@
   <data name="WriteMessageOrAttachAnArchive" xml:space="preserve">
     <value>Escreva a mensagem ou anexe um arquivo</value>
   </data>
+  <data name="ReceiveNotificationsByEmail" xml:space="preserve">
+    <value>Receber notificações por email</value>
+  </data>
+  <data name="ShowSocialNetworks" xml:space="preserve">
+    <value>Mostrar redes sociais</value>
+  </data>
+  <data name="PasswordMustMatch" xml:space="preserve">
+    <value>As palavras-passe introduzidas não coincidem</value>
+  </data>
+  <data name="NewUserPendingApproval" xml:space="preserve">
+    <value>Novo utilizador aguarda aprovação do registo</value>
+  </data>
+  <data name="SentYouMessage" xml:space="preserve">
+    <value>enviou-lhe uma nova mensagem</value>
+  </data>
 </root>
