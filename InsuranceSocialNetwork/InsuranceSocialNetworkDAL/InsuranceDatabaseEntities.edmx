@@ -416,6 +416,69 @@
           <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
           <Property Name="Designation" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
+        <EntityType Name="Payment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Profile" Type="bigint" />
+          <Property Name="ID_Garage" Type="bigint" />
+          <Property Name="ID_HomeApplianceRepair" Type="bigint" />
+          <Property Name="ID_MedicalClinic" Type="bigint" />
+          <Property Name="ID_ConstructionCompany" Type="bigint" />
+          <Property Name="ID_InsuranceCompanyContact" Type="bigint" />
+          <Property Name="ID_PaymentType" Type="bigint" Nullable="false" />
+          <Property Name="ID_PaymentStatus" Type="bigint" Nullable="false" />
+          <Property Name="Payment_GUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ep_cin" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="ep_user" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="ep_entity" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="ep_ref_type" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="ep_type" Type="nvarchar" MaxLength="32" />
+          <Property Name="ep_currency" Type="nvarchar" MaxLength="32" />
+          <Property Name="ep_country" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="ep_language" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="t_value" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="t_key" Type="nvarchar" MaxLength="128" />
+          <Property Name="o_name" Type="nvarchar" MaxLength="128" />
+          <Property Name="o_description" Type="nvarchar" MaxLength="512" />
+          <Property Name="o_obs" Type="nvarchar" MaxLength="512" />
+          <Property Name="o_mobile" Type="nvarchar" MaxLength="32" />
+          <Property Name="o_email" Type="nvarchar" MaxLength="512" />
+          <Property Name="o_max_date" Type="nvarchar" MaxLength="32" />
+          <Property Name="ep_partner" Type="nvarchar" MaxLength="32" />
+          <Property Name="ep_rec" Type="nvarchar" MaxLength="32" />
+          <Property Name="ep_rec_freq" Type="nvarchar" MaxLength="32" />
+          <Property Name="ep_rec_url" Type="nvarchar" MaxLength="512" Nullable="false" />
+          <Property Name="ep_status" Type="nvarchar" MaxLength="32" />
+          <Property Name="ep_message" Type="nvarchar" MaxLength="512" />
+          <Property Name="ep_original_value" Type="nvarchar" MaxLength="128" />
+          <Property Name="ep_link" Type="nvarchar" MaxLength="512" />
+          <Property Name="ep_boleto" Type="nvarchar" MaxLength="512" />
+          <Property Name="CreateDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="PaymentDate" Type="datetime2" Precision="7" />
+          <Property Name="LastChangeDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="DeleteDate" Type="datetime2" Precision="7" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PaymentStatus">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Token" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PaymentType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Token" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="Post">
           <Key>
             <PropertyRef Name="ID" />
@@ -1157,6 +1220,102 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Payment_ConstructionCompany">
+          <End Role="ConstructionCompany" Type="Self.ConstructionCompany" Multiplicity="0..1" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ConstructionCompany">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="ID_ConstructionCompany" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payment_Garage">
+          <End Role="Garage" Type="Self.Garage" Multiplicity="0..1" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Garage">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="ID_Garage" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payment_HomeApplianceRepair">
+          <End Role="HomeApplianceRepair" Type="Self.HomeApplianceRepair" Multiplicity="0..1" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HomeApplianceRepair">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="ID_HomeApplianceRepair" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payment_InsuranceCompanyContact">
+          <End Role="InsuranceCompanyContact" Type="Self.InsuranceCompanyContact" Multiplicity="0..1" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InsuranceCompanyContact">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="ID_InsuranceCompanyContact" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payment_MedicalClinic">
+          <End Role="MedicalClinic" Type="Self.MedicalClinic" Multiplicity="0..1" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MedicalClinic">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="ID_MedicalClinic" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payment_PaymentStatus">
+          <End Role="PaymentStatus" Type="Self.PaymentStatus" Multiplicity="1" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PaymentStatus">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="ID_PaymentStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payment_PaymentType">
+          <End Role="PaymentType" Type="Self.PaymentType" Multiplicity="1" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PaymentType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="ID_PaymentType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payment_Profile">
+          <End Role="Profile" Type="Self.Profile" Multiplicity="0..1" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profile">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="ID_Profile" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Post_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="Post" Type="Self.Post" Multiplicity="*" />
@@ -1356,6 +1515,9 @@
           <EntitySet Name="Notification" EntityType="Self.Notification" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="NotificationType" EntityType="Self.NotificationType" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="Parish" EntityType="Self.Parish" Schema="Insurance" store:Type="Tables" />
+          <EntitySet Name="Payment" EntityType="Self.Payment" Schema="Insurance" store:Type="Tables" />
+          <EntitySet Name="PaymentStatus" EntityType="Self.PaymentStatus" Schema="Insurance" store:Type="Tables" />
+          <EntitySet Name="PaymentType" EntityType="Self.PaymentType" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="Post" EntityType="Self.Post" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="PostComment" EntityType="Self.PostComment" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="PostCommentLike" EntityType="Self.PostCommentLike" Schema="Insurance" store:Type="Tables" />
@@ -1561,6 +1723,38 @@
           <AssociationSet Name="FK_NotificationToUser_AspNetUsers" Association="Self.FK_NotificationToUser_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Notification" EntitySet="Notification" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_ConstructionCompany" Association="Self.FK_Payment_ConstructionCompany">
+            <End Role="ConstructionCompany" EntitySet="ConstructionCompany" />
+            <End Role="Payment" EntitySet="Payment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_Garage" Association="Self.FK_Payment_Garage">
+            <End Role="Garage" EntitySet="Garage" />
+            <End Role="Payment" EntitySet="Payment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_HomeApplianceRepair" Association="Self.FK_Payment_HomeApplianceRepair">
+            <End Role="HomeApplianceRepair" EntitySet="HomeApplianceRepair" />
+            <End Role="Payment" EntitySet="Payment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_InsuranceCompanyContact" Association="Self.FK_Payment_InsuranceCompanyContact">
+            <End Role="InsuranceCompanyContact" EntitySet="InsuranceCompanyContact" />
+            <End Role="Payment" EntitySet="Payment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_MedicalClinic" Association="Self.FK_Payment_MedicalClinic">
+            <End Role="MedicalClinic" EntitySet="MedicalClinic" />
+            <End Role="Payment" EntitySet="Payment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_PaymentStatus" Association="Self.FK_Payment_PaymentStatus">
+            <End Role="PaymentStatus" EntitySet="PaymentStatus" />
+            <End Role="Payment" EntitySet="Payment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_PaymentType" Association="Self.FK_Payment_PaymentType">
+            <End Role="PaymentType" EntitySet="PaymentType" />
+            <End Role="Payment" EntitySet="Payment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_Profile" Association="Self.FK_Payment_Profile">
+            <End Role="Profile" EntitySet="Profile" />
+            <End Role="Payment" EntitySet="Payment" />
           </AssociationSet>
           <AssociationSet Name="FK_Post_AspNetUsers" Association="Self.FK_Post_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -1910,6 +2104,41 @@
           <AssociationSet Name="FK_ProfileSettings_Profile" Association="InsurancePortal_dbModel.FK_ProfileSettings_Profile">
             <End Role="Profile" EntitySet="Profile" />
             <End Role="ProfileSettings" EntitySet="ProfileSettings" />
+          </AssociationSet>
+          <EntitySet Name="PaymentStatus" EntityType="InsurancePortal_dbModel.PaymentStatus" />
+          <EntitySet Name="PaymentType" EntityType="InsurancePortal_dbModel.PaymentType" />
+          <EntitySet Name="Payment" EntityType="InsurancePortal_dbModel.Payment" />
+          <AssociationSet Name="FK_Payment_ConstructionCompany" Association="InsurancePortal_dbModel.FK_Payment_ConstructionCompany">
+            <End Role="ConstructionCompany" EntitySet="ConstructionCompany" />
+            <End Role="Payment" EntitySet="Payment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_Garage" Association="InsurancePortal_dbModel.FK_Payment_Garage">
+            <End Role="Garage" EntitySet="Garage" />
+            <End Role="Payment" EntitySet="Payment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_HomeApplianceRepair" Association="InsurancePortal_dbModel.FK_Payment_HomeApplianceRepair">
+            <End Role="HomeApplianceRepair" EntitySet="HomeApplianceRepair" />
+            <End Role="Payment" EntitySet="Payment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_InsuranceCompanyContact" Association="InsurancePortal_dbModel.FK_Payment_InsuranceCompanyContact">
+            <End Role="InsuranceCompanyContact" EntitySet="InsuranceCompanyContact" />
+            <End Role="Payment" EntitySet="Payment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_MedicalClinic" Association="InsurancePortal_dbModel.FK_Payment_MedicalClinic">
+            <End Role="MedicalClinic" EntitySet="MedicalClinic" />
+            <End Role="Payment" EntitySet="Payment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_PaymentStatus" Association="InsurancePortal_dbModel.FK_Payment_PaymentStatus">
+            <End Role="PaymentStatus" EntitySet="PaymentStatus" />
+            <End Role="Payment" EntitySet="Payment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_PaymentType" Association="InsurancePortal_dbModel.FK_Payment_PaymentType">
+            <End Role="PaymentType" EntitySet="PaymentType" />
+            <End Role="Payment" EntitySet="Payment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_Profile" Association="InsurancePortal_dbModel.FK_Payment_Profile">
+            <End Role="Profile" EntitySet="Profile" />
+            <End Role="Payment" EntitySet="Payment" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="AspNetRoles">
@@ -2478,6 +2707,7 @@
           <Property Name="Twitter" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
           <Property Name="GooglePlus" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ProfileSettings" Relationship="InsurancePortal_dbModel.FK_ProfileSettings_Profile" FromRole="Profile" ToRole="ProfileSettings" />
+          <NavigationProperty Name="Payment" Relationship="InsurancePortal_dbModel.FK_Payment_Profile" FromRole="Profile" ToRole="Payment" />
         </EntityType>
         <Association Name="FK_Profile_AspNetUsers">
           <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
@@ -2546,6 +2776,7 @@
           <NavigationProperty Name="CompanyService" Relationship="InsurancePortal_dbModel.FK_ConstructionCompany_Service" FromRole="ConstructionCompany" ToRole="CompanyService" />
           <Property Name="BusinessName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="IBAN" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Payment" Relationship="InsurancePortal_dbModel.FK_Payment_ConstructionCompany" FromRole="ConstructionCompany" ToRole="Payment" />
         </EntityType>
         <EntityType Name="Garage">
           <Key>
@@ -2580,6 +2811,7 @@
           <NavigationProperty Name="CompanyService" Relationship="InsurancePortal_dbModel.FK_Garage_Service" FromRole="Garage" ToRole="CompanyService" />
           <Property Name="BusinessName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="IBAN" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Payment" Relationship="InsurancePortal_dbModel.FK_Payment_Garage" FromRole="Garage" ToRole="Payment" />
         </EntityType>
         <EntityType Name="HomeApplianceRepair">
           <Key>
@@ -2614,6 +2846,7 @@
           <NavigationProperty Name="CompanyService" Relationship="InsurancePortal_dbModel.FK_HomeApplianceRepair_Service" FromRole="HomeApplianceRepair" ToRole="CompanyService" />
           <Property Name="BusinessName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="IBAN" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Payment" Relationship="InsurancePortal_dbModel.FK_Payment_HomeApplianceRepair" FromRole="HomeApplianceRepair" ToRole="Payment" />
         </EntityType>
         <EntityType Name="InsuranceCompanyContact">
           <Key>
@@ -2648,6 +2881,7 @@
           <NavigationProperty Name="CompanyService" Relationship="InsurancePortal_dbModel.FK_InsuranceCompanyContact_Service" FromRole="InsuranceCompanyContact" ToRole="CompanyService" />
           <Property Name="BusinessName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="IBAN" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Payment" Relationship="InsurancePortal_dbModel.FK_Payment_InsuranceCompanyContact" FromRole="InsuranceCompanyContact" ToRole="Payment" />
         </EntityType>
         <EntityType Name="MedicalClinic">
           <Key>
@@ -2682,6 +2916,7 @@
           <NavigationProperty Name="CompanyService" Relationship="InsurancePortal_dbModel.FK_MedicalClinic_Service" FromRole="MedicalClinic" ToRole="CompanyService" />
           <Property Name="BusinessName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="IBAN" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Payment" Relationship="InsurancePortal_dbModel.FK_Payment_MedicalClinic" FromRole="MedicalClinic" ToRole="Payment" />
         </EntityType>
         <Association Name="FK_ConstructionCompany_County">
           <End Type="InsurancePortal_dbModel.County" Role="County" Multiplicity="0..1" />
@@ -3324,6 +3559,175 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="PaymentStatus">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Token" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Payment" Relationship="InsurancePortal_dbModel.FK_Payment_PaymentStatus" FromRole="PaymentStatus" ToRole="Payment" />
+        </EntityType>
+        <EntityType Name="PaymentType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Token" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Payment" Relationship="InsurancePortal_dbModel.FK_Payment_PaymentType" FromRole="PaymentType" ToRole="Payment" />
+        </EntityType>
+        <EntityType Name="Payment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Profile" Type="Int64" />
+          <Property Name="ID_Garage" Type="Int64" />
+          <Property Name="ID_HomeApplianceRepair" Type="Int64" />
+          <Property Name="ID_MedicalClinic" Type="Int64" />
+          <Property Name="ID_ConstructionCompany" Type="Int64" />
+          <Property Name="ID_InsuranceCompanyContact" Type="Int64" />
+          <Property Name="ID_PaymentType" Type="Int64" Nullable="false" />
+          <Property Name="ID_PaymentStatus" Type="Int64" Nullable="false" />
+          <Property Name="Payment_GUID" Type="Guid" Nullable="false" />
+          <Property Name="ep_cin" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="ep_user" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="ep_entity" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="ep_ref_type" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="ep_type" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="ep_currency" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="ep_country" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="ep_language" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="t_value" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="t_key" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="o_name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="o_description" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="o_obs" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="o_mobile" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="o_email" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="o_max_date" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="ep_partner" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="ep_rec" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="ep_rec_freq" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="ep_rec_url" Type="String" Nullable="false" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="ep_status" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="ep_message" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="ep_original_value" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ep_link" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="ep_boleto" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="PaymentDate" Type="DateTime" Precision="7" />
+          <Property Name="LastChangeDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="DeleteDate" Type="DateTime" Precision="7" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="ConstructionCompany" Relationship="InsurancePortal_dbModel.FK_Payment_ConstructionCompany" FromRole="Payment" ToRole="ConstructionCompany" />
+          <NavigationProperty Name="Garage" Relationship="InsurancePortal_dbModel.FK_Payment_Garage" FromRole="Payment" ToRole="Garage" />
+          <NavigationProperty Name="HomeApplianceRepair" Relationship="InsurancePortal_dbModel.FK_Payment_HomeApplianceRepair" FromRole="Payment" ToRole="HomeApplianceRepair" />
+          <NavigationProperty Name="InsuranceCompanyContact" Relationship="InsurancePortal_dbModel.FK_Payment_InsuranceCompanyContact" FromRole="Payment" ToRole="InsuranceCompanyContact" />
+          <NavigationProperty Name="MedicalClinic" Relationship="InsurancePortal_dbModel.FK_Payment_MedicalClinic" FromRole="Payment" ToRole="MedicalClinic" />
+          <NavigationProperty Name="PaymentStatus" Relationship="InsurancePortal_dbModel.FK_Payment_PaymentStatus" FromRole="Payment" ToRole="PaymentStatus" />
+          <NavigationProperty Name="PaymentType" Relationship="InsurancePortal_dbModel.FK_Payment_PaymentType" FromRole="Payment" ToRole="PaymentType" />
+          <NavigationProperty Name="Profile" Relationship="InsurancePortal_dbModel.FK_Payment_Profile" FromRole="Payment" ToRole="Profile" />
+        </EntityType>
+        <Association Name="FK_Payment_ConstructionCompany">
+          <End Type="InsurancePortal_dbModel.ConstructionCompany" Role="ConstructionCompany" Multiplicity="0..1" />
+          <End Type="InsurancePortal_dbModel.Payment" Role="Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ConstructionCompany">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="ID_ConstructionCompany" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payment_Garage">
+          <End Type="InsurancePortal_dbModel.Garage" Role="Garage" Multiplicity="0..1" />
+          <End Type="InsurancePortal_dbModel.Payment" Role="Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Garage">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="ID_Garage" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payment_HomeApplianceRepair">
+          <End Type="InsurancePortal_dbModel.HomeApplianceRepair" Role="HomeApplianceRepair" Multiplicity="0..1" />
+          <End Type="InsurancePortal_dbModel.Payment" Role="Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HomeApplianceRepair">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="ID_HomeApplianceRepair" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payment_InsuranceCompanyContact">
+          <End Type="InsurancePortal_dbModel.InsuranceCompanyContact" Role="InsuranceCompanyContact" Multiplicity="0..1" />
+          <End Type="InsurancePortal_dbModel.Payment" Role="Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InsuranceCompanyContact">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="ID_InsuranceCompanyContact" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payment_MedicalClinic">
+          <End Type="InsurancePortal_dbModel.MedicalClinic" Role="MedicalClinic" Multiplicity="0..1" />
+          <End Type="InsurancePortal_dbModel.Payment" Role="Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MedicalClinic">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="ID_MedicalClinic" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payment_PaymentStatus">
+          <End Type="InsurancePortal_dbModel.PaymentStatus" Role="PaymentStatus" Multiplicity="1" />
+          <End Type="InsurancePortal_dbModel.Payment" Role="Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PaymentStatus">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="ID_PaymentStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payment_PaymentType">
+          <End Type="InsurancePortal_dbModel.PaymentType" Role="PaymentType" Multiplicity="1" />
+          <End Type="InsurancePortal_dbModel.Payment" Role="Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PaymentType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="ID_PaymentType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payment_Profile">
+          <End Type="InsurancePortal_dbModel.Profile" Role="Profile" Multiplicity="0..1" />
+          <End Type="InsurancePortal_dbModel.Payment" Role="Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profile">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="ID_Profile" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3918,6 +4322,72 @@
                 <ScalarProperty Name="ShowContactInformation" ColumnName="ShowContactInformation" />
                 <ScalarProperty Name="ShowBirthDate" ColumnName="ShowBirthDate" />
                 <ScalarProperty Name="ShowDisplayName" ColumnName="ShowDisplayName" />
+                <ScalarProperty Name="ID_Profile" ColumnName="ID_Profile" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PaymentStatus">
+            <EntityTypeMapping TypeName="InsurancePortal_dbModel.PaymentStatus">
+              <MappingFragment StoreEntitySet="PaymentStatus">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Token" ColumnName="Token" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PaymentType">
+            <EntityTypeMapping TypeName="InsurancePortal_dbModel.PaymentType">
+              <MappingFragment StoreEntitySet="PaymentType">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Token" ColumnName="Token" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Payment">
+            <EntityTypeMapping TypeName="InsurancePortal_dbModel.Payment">
+              <MappingFragment StoreEntitySet="Payment">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="DeleteDate" ColumnName="DeleteDate" />
+                <ScalarProperty Name="LastChangeDate" ColumnName="LastChangeDate" />
+                <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="ep_boleto" ColumnName="ep_boleto" />
+                <ScalarProperty Name="ep_link" ColumnName="ep_link" />
+                <ScalarProperty Name="ep_original_value" ColumnName="ep_original_value" />
+                <ScalarProperty Name="ep_message" ColumnName="ep_message" />
+                <ScalarProperty Name="ep_status" ColumnName="ep_status" />
+                <ScalarProperty Name="ep_rec_url" ColumnName="ep_rec_url" />
+                <ScalarProperty Name="ep_rec_freq" ColumnName="ep_rec_freq" />
+                <ScalarProperty Name="ep_rec" ColumnName="ep_rec" />
+                <ScalarProperty Name="ep_partner" ColumnName="ep_partner" />
+                <ScalarProperty Name="o_max_date" ColumnName="o_max_date" />
+                <ScalarProperty Name="o_email" ColumnName="o_email" />
+                <ScalarProperty Name="o_mobile" ColumnName="o_mobile" />
+                <ScalarProperty Name="o_obs" ColumnName="o_obs" />
+                <ScalarProperty Name="o_description" ColumnName="o_description" />
+                <ScalarProperty Name="o_name" ColumnName="o_name" />
+                <ScalarProperty Name="t_key" ColumnName="t_key" />
+                <ScalarProperty Name="t_value" ColumnName="t_value" />
+                <ScalarProperty Name="ep_language" ColumnName="ep_language" />
+                <ScalarProperty Name="ep_country" ColumnName="ep_country" />
+                <ScalarProperty Name="ep_currency" ColumnName="ep_currency" />
+                <ScalarProperty Name="ep_type" ColumnName="ep_type" />
+                <ScalarProperty Name="ep_ref_type" ColumnName="ep_ref_type" />
+                <ScalarProperty Name="ep_entity" ColumnName="ep_entity" />
+                <ScalarProperty Name="ep_user" ColumnName="ep_user" />
+                <ScalarProperty Name="ep_cin" ColumnName="ep_cin" />
+                <ScalarProperty Name="Payment_GUID" ColumnName="Payment_GUID" />
+                <ScalarProperty Name="ID_PaymentStatus" ColumnName="ID_PaymentStatus" />
+                <ScalarProperty Name="ID_PaymentType" ColumnName="ID_PaymentType" />
+                <ScalarProperty Name="ID_InsuranceCompanyContact" ColumnName="ID_InsuranceCompanyContact" />
+                <ScalarProperty Name="ID_ConstructionCompany" ColumnName="ID_ConstructionCompany" />
+                <ScalarProperty Name="ID_MedicalClinic" ColumnName="ID_MedicalClinic" />
+                <ScalarProperty Name="ID_HomeApplianceRepair" ColumnName="ID_HomeApplianceRepair" />
+                <ScalarProperty Name="ID_Garage" ColumnName="ID_Garage" />
                 <ScalarProperty Name="ID_Profile" ColumnName="ID_Profile" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>

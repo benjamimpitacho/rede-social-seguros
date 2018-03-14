@@ -1,0 +1,9 @@
+﻿CREATE TABLE [Insurance].[PaymentStatus]
+(
+	[ID] BIGINT IDENTITY NOT NULL,
+	[Token] NVARCHAR (64) NOT NULL,
+	[Description] NVARCHAR (256) NOT NULL,
+	[Active] BIT NOT NULL DEFAULT 1,	
+    CONSTRAINT [PK_PaymentStatus] PRIMARY KEY CLUSTERED ([ID] ASC)
+)
+

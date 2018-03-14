@@ -927,4 +927,25 @@
   <data name="SentYouMessage" xml:space="preserve">
     <value>enviou-lhe uma nova mensagem</value>
   </data>
+  <data name="PaymentType" xml:space="preserve">
+    <value>Tipo de pagamento</value>
+  </data>
+  <data name="ATM" xml:space="preserve">
+    <value>Multibanco</value>
+  </data>
+  <data name="BOLETO" xml:space="preserve">
+    <value>Boleto</value>
+  </data>
+  <data name="CREDIT_CARD" xml:space="preserve">
+    <value>Cartão de Crédito</value>
+  </data>
+  <data name="CREDIT_CARD_FREQUENT" xml:space="preserve">
+    <value>Cartão de Crédito (frequente)</value>
+  </data>
+  <data name="CREDIT_CARD_RECURRENT" xml:space="preserve">
+    <value>Cartão de Crédito (recorrente)</value>
+  </data>
+  <data name="DIRECT_DEBIT" xml:space="preserve">
+    <value>Débito Directo</value>
+  </data>
 </root>

@@ -18,6 +18,7 @@ namespace InsuranceSocialNetworkDAL
         public Profile()
         {
             this.ProfileSettings = new HashSet<ProfileSettings>();
+            this.Payment = new HashSet<Payment>();
         }
     
         public long ID { get; set; }
@@ -55,5 +56,7 @@ namespace InsuranceSocialNetworkDAL
         public virtual AspNetUsers AspNetUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProfileSettings> ProfileSettings { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Payment> Payment { get; set; }
     }
 }

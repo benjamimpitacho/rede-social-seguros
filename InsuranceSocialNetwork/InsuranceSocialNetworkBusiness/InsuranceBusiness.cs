@@ -227,6 +227,15 @@ namespace InsuranceSocialNetworkBusiness
 
         #endregion Profile
 
+        #region Payment
+
+        public List<ListItem> GetPaymentTypes()
+        {
+            return PaymentRepository.GetPaymentTypes();
+        }
+
+        #endregion
+
         #region Authorized Emails for Automatic Approval
 
 

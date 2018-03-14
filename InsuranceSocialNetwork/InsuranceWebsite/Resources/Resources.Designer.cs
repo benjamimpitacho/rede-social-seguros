@@ -349,6 +349,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Multibanco.
+        /// </summary>
+        public static string ATM {
+            get {
+                return ResourceManager.GetString("ATM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Banner.
         /// </summary>
         public static string Banner {
@@ -399,6 +408,15 @@ namespace Resources {
         public static string BlockedFriends {
             get {
                 return ResourceManager.GetString("BlockedFriends", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Boleto.
+        /// </summary>
+        public static string BOLETO {
+            get {
+                return ResourceManager.GetString("BOLETO", resourceCulture);
             }
         }
         
@@ -700,6 +718,33 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cartão de Crédito.
+        /// </summary>
+        public static string CREDIT_CARD {
+            get {
+                return ResourceManager.GetString("CREDIT_CARD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cartão de Crédito (frequente).
+        /// </summary>
+        public static string CREDIT_CARD_FREQUENT {
+            get {
+                return ResourceManager.GetString("CREDIT_CARD_FREQUENT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cartão de Crédito (recorrente).
+        /// </summary>
+        public static string CREDIT_CARD_RECURRENT {
+            get {
+                return ResourceManager.GetString("CREDIT_CARD_RECURRENT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Em discussão.
         /// </summary>
         public static string CurrentDiscussions {
@@ -777,6 +822,15 @@ namespace Resources {
         public static string Developers {
             get {
                 return ResourceManager.GetString("Developers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Débito Directo.
+        /// </summary>
+        public static string DIRECT_DEBIT {
+            get {
+                return ResourceManager.GetString("DIRECT_DEBIT", resourceCulture);
             }
         }
         
@@ -1740,6 +1794,15 @@ namespace Resources {
         public static string Payments {
             get {
                 return ResourceManager.GetString("Payments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tipo de pagamento.
+        /// </summary>
+        public static string PaymentType {
+            get {
+                return ResourceManager.GetString("PaymentType", resourceCulture);
             }
         }
         

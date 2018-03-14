@@ -63,7 +63,11 @@ namespace InsuranceWebsite.Models
         public string Website { get; set; }
         public string OfficialPartner { get; set; }
         public string OfficialAgent { get; set; }
+
+        [Required]
+        public long ID_PaymentType { get; set; }
         public string IBAN { get; set; }
+
         public bool Active { get; set; }
 
         public List<SelectListItem> DistrictList { get; set; }
@@ -73,5 +77,7 @@ namespace InsuranceWebsite.Models
         public List<SelectListItem> ParishList { get; set; }
 
         public List<SelectListItem> ServiceList { get; set; }
+
+        public List<SelectListItem> PaymentTypeList { get; set; }
     }
 }

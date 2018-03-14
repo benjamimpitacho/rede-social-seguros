@@ -49,6 +49,10 @@ namespace InsuranceSocialNetworkDAL
         private IRepository<CompanyService> companyServiceRepository;
         private IRepository<AuthorizedEmail> authorizedEmailRepository;
 
+        private IRepository<Payment> paymentRepository;
+        private IRepository<PaymentType> paymentTypeRepository;
+        private IRepository<PaymentStatus> paymentStatusRepository;
+
         private bool AutoDetectChangesEnabled;
         private int DatabaseTimeout;
 
@@ -562,6 +566,45 @@ namespace InsuranceSocialNetworkDAL
                         new Repository<InsurancePortal_dbEntities, AuthorizedEmail>(DataContext, AutoDetectChangesEnabled);
                 }
                 return authorizedEmailRepository;
+            }
+        }
+
+        public IRepository<Payment> Payment
+        {
+            get
+            {
+                if (this.paymentRepository == null)
+                {
+                    this.paymentRepository =
+                        new Repository<InsurancePortal_dbEntities, Payment>(DataContext, AutoDetectChangesEnabled);
+                }
+                return paymentRepository;
+            }
+        }
+
+        public IRepository<PaymentType> PaymentType
+        {
+            get
+            {
+                if (this.paymentTypeRepository == null)
+                {
+                    this.paymentTypeRepository =
+                        new Repository<InsurancePortal_dbEntities, PaymentType>(DataContext, AutoDetectChangesEnabled);
+                }
+                return paymentTypeRepository;
+            }
+        }
+
+        public IRepository<PaymentStatus> PaymentStatus
+        {
+            get
+            {
+                if (this.paymentStatusRepository == null)
+                {
+                    this.paymentStatusRepository =
+                        new Repository<InsurancePortal_dbEntities, PaymentStatus>(DataContext, AutoDetectChangesEnabled);
+                }
+                return paymentStatusRepository;
             }
         }
     }

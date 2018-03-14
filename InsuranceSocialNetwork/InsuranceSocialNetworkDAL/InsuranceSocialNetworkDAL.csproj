@@ -143,6 +143,15 @@
       <DependentUpon>InsuranceDatabaseEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="CompanyRepository.cs" />
+    <Compile Include="Payment.cs">
+      <DependentUpon>InsuranceDatabaseEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PaymentStatus.cs">
+      <DependentUpon>InsuranceDatabaseEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PaymentType.cs">
+      <DependentUpon>InsuranceDatabaseEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="PostalCodeRepository.cs" />
     <Compile Include="MedicalClinicRepository.cs" />
     <Compile Include="InsuranceDatabaseEntities.Context.cs">
@@ -174,6 +183,7 @@
       <DependentUpon>InsuranceDatabaseEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="ChatRepository.cs" />
+    <Compile Include="PaymentRepository.cs" />
     <Compile Include="PostRepository.cs" />
     <Compile Include="NotificationType.cs">
       <DependentUpon>InsuranceDatabaseEntities.tt</DependentUpon>

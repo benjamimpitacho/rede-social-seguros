@@ -226,6 +226,13 @@
             <div class="tab-pane settings" id="payments-tab">
                 <div>
                     <p class="data-row">
+                        <span class="data-name profile-label">@Resources.Resources.PaymentType</span>
+                        <label class="form-control label-control profile-label" style="padding: 3px !important;">@Html.DropDownListFor(m => m.ID_Service, Model.PaymentTypeList, new { @class = "text ui-widget-content ui-corner-all", @style = "color:#777;min-height:28px;width:100%;", @placeholder = Resources.Resources.PaymentType, id = "paymentTypeList" })</label>
+                        @Html.HiddenFor(i => i.ID_PaymentType, new { id = "paymentTypeId" })
+                    </p>
+                </div>
+                <div id="ibanSection">
+                    <p class="data-row">
                         <span class="data-name profile-label">@Resources.Resources.IBAN</span>
                         <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.IBAN)</label>
                         @Html.ValidationMessageFor(i => i.IBAN)
@@ -328,7 +335,6 @@
         $("#districtList").change(function () {
             var selectedItem = $("#districtList").val(); //dropdownlist for states
 
-            //$('#countyList').show();
             $('#countyList').prop('disabled', false);
 
             $.ajax({
@@ -348,6 +354,19 @@
                 }
             });
 
+        });
+
+        $("#paymentTypeList").change(function () {
+            var selectedItem = $("#paymentTypeList").val();
+
+            if (selectedItem == "DIRECT_DEBIT")
+            {
+                $('#ibanSection').prop('visible', true);
+            }
+            else
+            {
+                $('#ibanSection').prop('visible', true);
+            }
         });
 
     } );

@@ -389,6 +389,14 @@ namespace InsuranceSocialNetworkDAL
         {
             using (var context = new BackofficeUnitOfWork())
             {
+                var posts = context.Post
+                    .Fetch()
+                    .Include(i => i.PostLike)
+                    .Where(i => i.ID_User == userId);
+
+                if (posts == null || posts.Count() == 0)
+                    return 0;
+
                 return context.Post
                     .Fetch()
                     .Include(i => i.PostLike)

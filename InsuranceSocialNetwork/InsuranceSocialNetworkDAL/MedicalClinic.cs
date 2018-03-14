@@ -18,6 +18,7 @@ namespace InsuranceSocialNetworkDAL
         public MedicalClinic()
         {
             this.MedicalClinicFavorite = new HashSet<MedicalClinicFavorite>();
+            this.Payment = new HashSet<Payment>();
         }
     
         public long ID { get; set; }
@@ -51,5 +52,7 @@ namespace InsuranceSocialNetworkDAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MedicalClinicFavorite> MedicalClinicFavorite { get; set; }
         public virtual CompanyService CompanyService { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Payment> Payment { get; set; }
     }
 }

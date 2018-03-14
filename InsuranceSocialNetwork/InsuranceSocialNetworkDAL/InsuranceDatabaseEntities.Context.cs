@@ -64,5 +64,8 @@ namespace InsuranceSocialNetworkDAL
         public virtual DbSet<Notification> Notification { get; set; }
         public virtual DbSet<PostHidden> PostHidden { get; set; }
         public virtual DbSet<ProfileSettings> ProfileSettings { get; set; }
+        public virtual DbSet<PaymentStatus> PaymentStatus { get; set; }
+        public virtual DbSet<PaymentType> PaymentType { get; set; }
+        public virtual DbSet<Payment> Payment { get; set; }
     }
 }
