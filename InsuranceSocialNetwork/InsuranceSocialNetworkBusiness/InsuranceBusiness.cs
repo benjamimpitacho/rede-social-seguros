@@ -84,6 +84,9 @@ namespace InsuranceSocialNetworkBusiness
                 cfg.CreateMap<BannerType, BannerTypeDTO>();
                 cfg.CreateMap<BannerTypeDTO, BannerType>();
 
+                cfg.CreateMap<Payment, PaymentDTO>();
+                cfg.CreateMap<PaymentDTO, Payment>();
+
                 cfg.CreateMap<Garage, CompanyDTO>()
                     .ForMember(dest => dest.IsFavorite,
                        opts => opts.MapFrom(src => src.GarageFavorite != null && src.GarageFavorite.Count > 0));

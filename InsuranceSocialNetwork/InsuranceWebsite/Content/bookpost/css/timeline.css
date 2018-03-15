@@ -233,6 +233,10 @@ a {
     margin-right: 3px;
 }
 
+.row {
+    /*min-height: 100vh !important;*/
+}
+
 .row-welcome {
     border-bottom: 0;
     width: 100vw;
@@ -2879,8 +2883,9 @@ a:hover, a:active, a:focus {
 }
 
 .left {
-        display: inline-block;
-    }
+    display: inline-block;
+    min-height: 100vh !important;
+}
 
 @media (max-device-width: 480px)
 {

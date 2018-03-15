@@ -11,12 +11,15 @@ using MVCGrid.Models;
 using MVCGrid.Web;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Xml;
 
 namespace InsuranceWebsite.Controllers
 {
@@ -266,6 +269,7 @@ namespace InsuranceWebsite.Controllers
 
             List<SelectListItem>  initList = new List<SelectListItem>() { new SelectListItem() { Value = "", Text = Resources.Resources.SelectService } };
             model.ServiceList = initList.Concat(InsuranceBusiness.BusinessLayer.GetCompanyServices(id).Select(i => new SelectListItem() { Value = i.Key.ToString(), Text = i.Value }).ToList()).ToList();
+            model.PaymentTypeList = initList.Concat(InsuranceBusiness.BusinessLayer.GetPaymentTypes().Select(i => new SelectListItem() { Value = i.Key.ToString(), Text = Resources.Resources.ResourceManager.GetString(i.Value) }).ToList()).ToList();
             model.CompanyType = id;
 
             return PartialView(model);
@@ -311,7 +315,91 @@ namespace InsuranceWebsite.Controllers
                     newCompany.LogoPhoto = data;
                 }
 
-                switch(model.CompanyType)
+                if (model.ID_PaymentType > 0)
+                {
+                    string baseUrl = string.Format("{0}?ep_cin={1}&ep_user={2}&ep_entity={3}&ep_ref_type={4}&ep_country={5}&ep_language={6}&t_value={7}"
+                        , ConfigurationManager.AppSettings["ep_url"]
+                        , ConfigurationManager.AppSettings["ep_cin"]
+                        , ConfigurationManager.AppSettings["ep_user"]
+                        , ConfigurationManager.AppSettings["ep_entity"]
+                        , ConfigurationManager.AppSettings["ep_ref_type"]
+                        , ConfigurationManager.AppSettings["ep_country"]
+                        , ConfigurationManager.AppSettings["ep_language"]
+                        , model.Value.ToString().Replace(",", "."));
+
+                    using (var client = new WebClient())
+                    {
+                        XmlDocument response = new XmlDocument();
+                        bool skipProcessing = false;
+                        switch (model.ID_PaymentType)
+                        {
+                            case (int)PaymentTypeEnum.ATM:
+                                var result = client.DownloadString(baseUrl);
+                                response.LoadXml(result);
+                                break;
+                            case (int)PaymentTypeEnum.DIRECT_DEBIT:
+                                skipProcessing = true;
+                                break;
+                            default:
+                                skipProcessing = true;
+                                break;
+                        }
+
+                        if (!skipProcessing)
+                        {
+                            PaymentDTO payment = new PaymentDTO()
+                            {
+                                CreateDate = DateTime.Now,
+                                LastChangeDate = DateTime.Now,
+                                ID_PaymentType = model.ID_PaymentType,
+                                Payment_GUID = Guid.NewGuid(),
+                                Active = true,
+                                t_value = model.Value.ToString().Replace(",", ".")
+                            };
+                            var node = response.SelectSingleNode("getautoMB/ep_status");
+                            if (node.InnerText.Equals("ok0"))
+                            {
+                                // Sucesso
+                                payment.ep_status = response.SelectSingleNode("getautoMB/ep_status").InnerText;
+                                payment.ep_message = response.SelectSingleNode("getautoMB/ep_message").InnerText;
+                                payment.ep_cin = response.SelectSingleNode("getautoMB/ep_cin").InnerText;
+                                payment.ep_user = response.SelectSingleNode("getautoMB/ep_user").InnerText;
+                                payment.ep_entity = response.SelectSingleNode("getautoMB/ep_entity").InnerText;
+                                payment.ep_ref_type = ConfigurationManager.AppSettings["ep_ref_type"];
+                                payment.ep_country = ConfigurationManager.AppSettings["ep_country"];
+                                payment.ep_language = ConfigurationManager.AppSettings["ep_language"];
+                                payment.ep_rec_url = "";
+                                payment.ep_reference = response.SelectSingleNode("getautoMB/ep_reference").InnerText;
+                                payment.ep_value = response.SelectSingleNode("getautoMB/ep_value").InnerText;
+                                payment.t_key = response.SelectSingleNode("getautoMB/t_key").InnerText;
+                                payment.ep_link = response.SelectSingleNode("getautoMB/ep_link").InnerText;
+                                payment.ID_PaymentStatus = (int)PaymentStatusEnum.PENDING;
+                            }
+                            else
+                            {
+                                // Erro
+                                payment.ep_status = response.SelectSingleNode("getautoMB/ep_status").InnerText;
+                                payment.ep_message = response.SelectSingleNode("getautoMB/ep_message").InnerText;
+                                payment.ep_cin = response.SelectSingleNode("getautoMB/ep_cin").InnerText;
+                                payment.ep_user = response.SelectSingleNode("getautoMB/ep_user").InnerText;
+                                payment.ep_entity = response.SelectSingleNode("getautoMB/ep_entity").InnerText;
+                                payment.ep_ref_type = ConfigurationManager.AppSettings["ep_ref_type"];
+                                payment.ep_country = ConfigurationManager.AppSettings["ep_country"];
+                                payment.ep_language = ConfigurationManager.AppSettings["ep_language"];
+                                payment.ep_rec_url = "";
+                                payment.ID_PaymentStatus = (int)PaymentStatusEnum.ERROR;
+                            }
+
+                            if (null == newCompany.Payment)
+                            {
+                                newCompany.Payment = new List<PaymentDTO>();
+                            }
+                            newCompany.Payment.Add(payment);
+                        }
+                    }
+                }
+
+                switch (model.CompanyType)
                 {
                     case CompanyTypeEnum.GARAGE:
                         InsuranceBusiness.BusinessLayer.CreateGarage(newCompany);
@@ -385,14 +473,15 @@ namespace InsuranceWebsite.Controllers
                 OfficialPartner = company.OfficialPartner,
                 Telephone_1 = company.Telephone_1,
                 Telephone_2 = company.Telephone_2,
-                Website = company.Website
+                Website = company.Website,
+                Payments = company.Payment,
+                CompanyType = idType
             };
 
             List<SelectListItem> initList = new List<SelectListItem>() { new SelectListItem() { Value = "", Text = Resources.Resources.SelectService } };
             model.ServiceList = initList.Concat(InsuranceBusiness.BusinessLayer.GetCompanyServices(idType).Select(i => new SelectListItem() { Value = i.Key.ToString(), Text = i.Value }).ToList()).ToList();
             model.PaymentTypeList = initList.Concat(InsuranceBusiness.BusinessLayer.GetPaymentTypes().Select(i => new SelectListItem() { Value = i.Key.ToString(), Text = Resources.Resources.ResourceManager.GetString(i.Value) }).ToList()).ToList();
-            model.CompanyType = idType;
-
+            
             if (model.ID_District.HasValue)
             {
                 model.CountyList = model.CountyList.Concat(InsuranceBusiness.BusinessLayer.GetCountiesByDistrict(model.ID_District.Value).Select(i => new SelectListItem() { Value = i.Key.ToString(), Text = i.Value }).ToList()).ToList();
@@ -450,6 +539,113 @@ namespace InsuranceWebsite.Controllers
                 company.Website = model.Website;
                 company.BusinessName = model.BusinessName;
                 company.IBAN = model.IBAN;
+
+                bool hasPendingPayment = (null == company.Payment || company.Payment.Count == 0) ? false : company.Payment.Exists(i => i.ID_PaymentStatus == (int)PaymentStatusEnum.PENDING);
+
+                if (!hasPendingPayment && model.ID_PaymentType > 0)
+                {
+                    string baseUrl = string.Format("{0}?ep_cin={1}&ep_user={2}&ep_entity={3}&ep_ref_type={4}&ep_country={5}&ep_language={6}&t_value={7}"
+                        , ConfigurationManager.AppSettings["ep_url"]
+                        , ConfigurationManager.AppSettings["ep_cin"]
+                        , ConfigurationManager.AppSettings["ep_user"]
+                        , ConfigurationManager.AppSettings["ep_entity"]
+                        , ConfigurationManager.AppSettings["ep_ref_type"]
+                        , ConfigurationManager.AppSettings["ep_country"]
+                        , ConfigurationManager.AppSettings["ep_language"]
+                        , model.Value.ToString().Replace(",", "."));
+
+                    using (var client = new WebClient())
+                    {
+                        XmlDocument response = new XmlDocument();
+                        bool skipProcessing = false;
+                        switch (model.ID_PaymentType)
+                        {
+                            case (int)PaymentTypeEnum.ATM:
+                                var result = client.DownloadString(baseUrl);
+                                response.LoadXml(result);
+                                break;
+                            case (int)PaymentTypeEnum.DIRECT_DEBIT:
+                                skipProcessing = true;
+                                break;
+                            default:
+                                skipProcessing = true;
+                                break;
+                        }
+
+                        if (!skipProcessing)
+                        {
+                            PaymentDTO payment = new PaymentDTO()
+                            {
+                                CreateDate = DateTime.Now,
+                                LastChangeDate = DateTime.Now,
+                                ID_PaymentType = model.ID_PaymentType,
+                                Payment_GUID = Guid.NewGuid(),
+                                Active = true,
+                                t_value = model.Value.ToString().Replace(",", ".")
+                            };
+                            var node = response.SelectSingleNode("getautoMB/ep_status");
+                            if (node.InnerText.Equals("ok0"))
+                            {
+                                // Sucesso
+                                payment.ep_status = response.SelectSingleNode("getautoMB/ep_status").InnerText;
+                                payment.ep_message = response.SelectSingleNode("getautoMB/ep_message").InnerText;
+                                payment.ep_cin = response.SelectSingleNode("getautoMB/ep_cin").InnerText;
+                                payment.ep_user = response.SelectSingleNode("getautoMB/ep_user").InnerText;
+                                payment.ep_entity = response.SelectSingleNode("getautoMB/ep_entity").InnerText;
+                                payment.ep_ref_type = ConfigurationManager.AppSettings["ep_ref_type"];
+                                payment.ep_country = ConfigurationManager.AppSettings["ep_country"];
+                                payment.ep_language = ConfigurationManager.AppSettings["ep_language"];
+                                payment.ep_rec_url = "";
+                                payment.ep_reference = response.SelectSingleNode("getautoMB/ep_reference").InnerText;
+                                payment.ep_value = response.SelectSingleNode("getautoMB/ep_value").InnerText;
+                                payment.t_key = response.SelectSingleNode("getautoMB/t_key").InnerText;
+                                payment.ep_link = response.SelectSingleNode("getautoMB/ep_link").InnerText;
+                                payment.ID_PaymentStatus = (int)PaymentStatusEnum.PENDING;
+                            }
+                            else
+                            {
+                                // Erro
+                                payment.ep_status = response.SelectSingleNode("getautoMB/ep_status").InnerText;
+                                payment.ep_message = response.SelectSingleNode("getautoMB/ep_message").InnerText;
+                                payment.ep_cin = response.SelectSingleNode("getautoMB/ep_cin").InnerText;
+                                payment.ep_user = response.SelectSingleNode("getautoMB/ep_user").InnerText;
+                                payment.ep_entity = response.SelectSingleNode("getautoMB/ep_entity").InnerText;
+                                payment.ep_ref_type = ConfigurationManager.AppSettings["ep_ref_type"];
+                                payment.ep_country = ConfigurationManager.AppSettings["ep_country"];
+                                payment.ep_language = ConfigurationManager.AppSettings["ep_language"];
+                                payment.ep_rec_url = "";
+                                payment.ID_PaymentStatus = (int)PaymentStatusEnum.ERROR;
+                            }
+
+                            switch (model.CompanyType)
+                            {
+                                case CompanyTypeEnum.GARAGE:
+                                    payment.ID_Garage = company.ID;
+                                    break;
+                                case CompanyTypeEnum.MEDICAL_CLINIC:
+                                    payment.ID_MedicalClinic = company.ID;
+                                    break;
+                                case CompanyTypeEnum.CONSTRUCTION_COMPANY:
+                                    payment.ID_ConstructionCompany = company.ID;
+                                    break;
+                                case CompanyTypeEnum.HOME_APPLIANCES_REPAIR:
+                                    payment.ID_HomeApplianceRepair = company.ID;
+                                    break;
+                                case CompanyTypeEnum.INSURANCE_COMPANY_CONTACT:
+                                    payment.ID_InsuranceCompanyContact = company.ID;
+                                    break;
+                                default:
+                                    break;
+                            }
+
+                            if (null == company.Payment)
+                            {
+                                company.Payment = new List<PaymentDTO>();
+                            }
+                            company.Payment.Add(payment);
+                        }
+                    }
+                }
 
                 switch (model.CompanyType)
                 {

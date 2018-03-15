@@ -26,7 +26,7 @@ namespace InsuranceSocialNetworkDAL
             }
         }
 
-        public static long CreatePayment(Post post)
+        public static long CreatePayment(Payment payment)
         {
             using (var context = new BackofficeUnitOfWork())
             {
@@ -34,12 +34,12 @@ namespace InsuranceSocialNetworkDAL
             }
         }
 
-        public static long EditPayment(Post post)
+        public static long EditPayment(Payment payment)
         {
             throw new NotImplementedException();
         }
 
-        public static bool DeletePayment(long postId, string userId)
+        public static bool DeletePayment(long paymentId, string userId)
         {
             throw new NotImplementedException();
         }

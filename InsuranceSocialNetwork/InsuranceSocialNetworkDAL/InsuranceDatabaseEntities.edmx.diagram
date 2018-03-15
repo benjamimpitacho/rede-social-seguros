@@ -108,7 +108,7 @@
         <AssociationConnector Association="InsurancePortal_dbModel.FK_ProfileSettings_Profile" />
         <EntityTypeShape EntityType="InsurancePortal_dbModel.PaymentStatus" Width="1.5" PointX="8.25" PointY="56.125" />
         <EntityTypeShape EntityType="InsurancePortal_dbModel.PaymentType" Width="1.5" PointX="8.25" PointY="64.875" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.Payment" Width="1.5" PointX="13.5" PointY="35.5" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.Payment" Width="1.5" PointX="13.5" PointY="34.75" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_Payment_ConstructionCompany" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_Payment_Garage" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_Payment_HomeApplianceRepair" />

@@ -79,6 +79,15 @@ namespace InsuranceSocialNetworkDAL
                 item.Website = medicalClinic.Website;
                 item.LogoPhoto = null != medicalClinic.LogoPhoto ? medicalClinic.LogoPhoto : item.LogoPhoto;
 
+                if (null == item.Payment && null != medicalClinic.Payment)
+                {
+                    item.Payment = medicalClinic.Payment;
+                }
+                else if (null != item.Payment && null != medicalClinic.Payment && item.Payment.Count != medicalClinic.Payment.Count)
+                {
+                    item.Payment.Add(medicalClinic.Payment.Last());
+                }
+
                 context.MedicalClinic.Update(item);
                 context.Save();
 

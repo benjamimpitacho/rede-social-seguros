@@ -943,6 +943,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Entidade.
+        /// </summary>
+        public static string Entity {
+            get {
+                return ResourceManager.GetString("Entity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exportar.
         /// </summary>
         public static string Export {
@@ -1807,6 +1816,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pagamento pendente.
+        /// </summary>
+        public static string PendingPayment {
+            get {
+                return ResourceManager.GetString("PendingPayment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Código postal.
         /// </summary>
         public static string PostalCode {
@@ -1893,6 +1911,15 @@ namespace Resources {
         public static string ReceiveNotificationsByEmail {
             get {
                 return ResourceManager.GetString("ReceiveNotificationsByEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Referência.
+        /// </summary>
+        public static string Reference {
+            get {
+                return ResourceManager.GetString("Reference", resourceCulture);
             }
         }
         
@@ -2460,6 +2487,15 @@ namespace Resources {
         public static string UsersManagement {
             get {
                 return ResourceManager.GetString("UsersManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valor.
+        /// </summary>
+        public static string Value {
+            get {
+                return ResourceManager.GetString("Value", resourceCulture);
             }
         }
         

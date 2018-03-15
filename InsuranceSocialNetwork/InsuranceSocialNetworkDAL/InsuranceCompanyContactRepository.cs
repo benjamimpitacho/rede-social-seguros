@@ -78,6 +78,15 @@ namespace InsuranceSocialNetworkDAL
                 item.Website = insuranceCompanyContact.Website;
                 item.LogoPhoto = null != insuranceCompanyContact.LogoPhoto ? insuranceCompanyContact.LogoPhoto : item.LogoPhoto;
 
+                if (null == item.Payment && null != insuranceCompanyContact.Payment)
+                {
+                    item.Payment = insuranceCompanyContact.Payment;
+                }
+                else if (null != item.Payment && null != insuranceCompanyContact.Payment && item.Payment.Count != insuranceCompanyContact.Payment.Count)
+                {
+                    item.Payment.Add(insuranceCompanyContact.Payment.Last());
+                }
+
                 context.InsuranceCompanyContact.Update(item);
                 context.Save();
 

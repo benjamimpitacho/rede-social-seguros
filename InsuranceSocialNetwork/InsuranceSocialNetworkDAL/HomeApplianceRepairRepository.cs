@@ -78,6 +78,15 @@ namespace InsuranceSocialNetworkDAL
                 item.Website = homeApplianceRepair.Website;
                 item.LogoPhoto = null != homeApplianceRepair.LogoPhoto ? homeApplianceRepair.LogoPhoto : item.LogoPhoto;
 
+                if (null == item.Payment && null != homeApplianceRepair.Payment)
+                {
+                    item.Payment = homeApplianceRepair.Payment;
+                }
+                else if (null != item.Payment && null != homeApplianceRepair.Payment && item.Payment.Count != homeApplianceRepair.Payment.Count)
+                {
+                    item.Payment.Add(homeApplianceRepair.Payment.Last());
+                }
+
                 context.HomeApplianceRepair.Update(item);
                 context.Save();
 

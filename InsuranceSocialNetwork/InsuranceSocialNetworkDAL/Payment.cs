@@ -32,6 +32,8 @@ namespace InsuranceSocialNetworkDAL
         public string ep_currency { get; set; }
         public string ep_country { get; set; }
         public string ep_language { get; set; }
+        public string ep_reference { get; set; }
+        public string ep_value { get; set; }
         public string t_value { get; set; }
         public string t_key { get; set; }
         public string o_name { get; set; }
@@ -48,12 +50,18 @@ namespace InsuranceSocialNetworkDAL
         public string ep_message { get; set; }
         public string ep_original_value { get; set; }
         public string ep_link { get; set; }
+        public string ep_link_rp_cc { get; set; }
+        public string ep_link_rp_dd { get; set; }
+        public string ep_k1 { get; set; }
+        public string ep_periodicity { get; set; }
         public string ep_boleto { get; set; }
         public System.DateTime CreateDate { get; set; }
         public Nullable<System.DateTime> PaymentDate { get; set; }
         public System.DateTime LastChangeDate { get; set; }
         public Nullable<System.DateTime> DeleteDate { get; set; }
+        public Nullable<System.DateTime> ExpiracyDate { get; set; }
         public bool Active { get; set; }
+        public string Message { get; set; }
     
         public virtual ConstructionCompany ConstructionCompany { get; set; }
         public virtual Garage Garage { get; set; }

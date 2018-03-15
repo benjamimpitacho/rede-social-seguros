@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\PaymentStatusEnum.cs" />
+    <Compile Include="Enums\PaymentTypeEnum.cs" />
     <Compile Include="Enums\CompanyEnum.cs" />
     <Compile Include="Enums\FriendStatusEnum.cs" />
     <Compile Include="Enums\PostSubjectEnum.cs" />

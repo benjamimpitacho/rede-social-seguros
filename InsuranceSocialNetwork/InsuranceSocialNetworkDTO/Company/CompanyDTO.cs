@@ -34,5 +34,7 @@ namespace InsuranceSocialNetworkDTO.Company
         public bool IsFavorite { get; set; }
         public string BusinessName { get; set; }
         public string IBAN { get; set; }
+
+        public List<PaymentDTO> Payment { get; set; }
     }
 }

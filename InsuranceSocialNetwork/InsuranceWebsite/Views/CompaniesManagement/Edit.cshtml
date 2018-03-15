@@ -1,5 +1,5 @@
 ﻿@using InsuranceWebsite.Models
-@using MVCGrid.Web
+@using InsuranceSocialNetworkCore.Enums
 @model CompanyModelObject
 
 @{
@@ -223,21 +223,82 @@
                     </p>
                 </div>
             </div>
-            <div class="tab-pane settings" id="payments-tab">
+            <div class="tab-pane settings" id="payments-tab" contenteditable="false">
                 <div>
                     <p class="data-row">
                         <span class="data-name profile-label">@Resources.Resources.PaymentType</span>
-                        <label class="form-control label-control profile-label" style="padding: 3px !important;">@Html.DropDownListFor(m => m.ID_Service, Model.PaymentTypeList, new { @class = "text ui-widget-content ui-corner-all", @style = "color:#777;min-height:28px;width:100%;", @placeholder = Resources.Resources.PaymentType, id = "paymentTypeList" })</label>
+                        @if (Model.HasPendingPayment)
+                        {
+                            <label class="form-control label-control profile-label" style="padding: 3px !important;">@Html.DropDownListFor(m => m.ID_PaymentType, Model.PaymentTypeList, new { @class = "text ui-widget-content ui-corner-all", @style = "color:#777;min-height:28px;width:100%;", @placeholder = Resources.Resources.PaymentType, id = "paymentTypeList", disabled = "true" })</label>
+                        }
+                        else
+                        {
+                            <label class="form-control label-control profile-label" style="padding: 3px !important;">@Html.DropDownListFor(m => m.ID_PaymentType, Model.PaymentTypeList, new { @class = "text ui-widget-content ui-corner-all", @style = "color:#777;min-height:28px;width:100%;", @placeholder = Resources.Resources.PaymentType, id = "paymentTypeList" })</label>
+                        }
                         @Html.HiddenFor(i => i.ID_PaymentType, new { id = "paymentTypeId" })
                     </p>
                 </div>
                 <div id="ibanSection">
                     <p class="data-row">
                         <span class="data-name profile-label">@Resources.Resources.IBAN</span>
-                        <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.IBAN)</label>
-                        @Html.ValidationMessageFor(i => i.IBAN)
+                        @if (Model.HasPendingPayment)
+                        {
+                            <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.IBAN, new { disabled = "true" })</label>
+                        }
+                        else
+                        {
+                            <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.IBAN)</label>
+                        }
                     </p>
                 </div>
+                <div>
+                    <p class="data-row">
+                        <span class="data-name profile-label">@Resources.Resources.Value</span>
+                        @if (Model.HasPendingPayment)
+                        {
+                            <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.Value, new { disabled = "true" })</label>
+                        }
+                        else
+                        {
+                            <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.Value)</label>
+                        }                        
+                    </p>
+                </div>
+                <div>
+                    <p class="data-row">
+                        @Html.ValidationMessageFor(i => i.IBAN)
+                        @Html.ValidationMessageFor(i => i.Value)
+                    </p>
+                </div>
+                @if (Model.HasPendingPayment)
+                {
+                    <p style="border-top: 0.5px solid #dddddd;padding-bottom: 20px;"></p>
+                    <div style="font-weight: bold;width: 100%;text-align: center;padding-bottom: 10px;">@Resources.Resources.PendingPayment</div>
+                    <div>
+                        <p class="data-row">
+                            <span class="data-name profile-label">@Resources.Resources.PaymentType</span>
+                            <label class="form-control label-control profile-label" style="font-weight:bold;">@Html.TextBox("PaymentType", Model.PaymentTypeList.FirstOrDefault(i=>i.Value== Model.Payments.FirstOrDefault(j => j.ID_PaymentStatus == (int)PaymentStatusEnum.PENDING).ID_PaymentType.ToString()).Text, new { disabled = "true" })</label>
+                        </p>
+                    </div>
+                    <div>
+                        <p class="data-row">
+                            <span class="data-name profile-label">@Resources.Resources.Entity</span>
+                            <label class="form-control label-control profile-label" style="font-weight:bold;">@Html.TextBoxFor(i => i.Payments.FirstOrDefault(j=>j.ID_PaymentStatus==(int)PaymentStatusEnum.PENDING).ep_entity, new { disabled = "true" })</label>
+                        </p>
+                    </div>
+                    <div>
+                        <p class="data-row">
+                            <span class="data-name profile-label">@Resources.Resources.Reference</span>
+                            <label class="form-control label-control profile-label" style="font-weight:bold;">@Html.TextBoxFor(i => i.Payments.FirstOrDefault(j => j.ID_PaymentStatus == (int)PaymentStatusEnum.PENDING).ep_reference, new { disabled = "true" })</label>
+                        </p>
+                    </div>
+                    <div>
+                        <p class="data-row">
+                            <span class="data-name profile-label">@Resources.Resources.Value</span>
+                            <label class="form-control label-control profile-label" style="font-weight:bold;">@Html.TextBoxFor(i => i.Payments.FirstOrDefault(j => j.ID_PaymentStatus == (int)PaymentStatusEnum.PENDING).ep_value, new { disabled = "true" })</label>
+                        </p>
+                    </div>
+                }
             </div>
         </div>
     }
@@ -358,14 +419,14 @@
 
         $("#paymentTypeList").change(function () {
             var selectedItem = $("#paymentTypeList").val();
-
-            if (selectedItem == "DIRECT_DEBIT")
+            
+            if (selectedItem == 4)
             {
-                $('#ibanSection').prop('visible', true);
+                $('#ibanSection :input').attr('disabled', false);
             }
             else
             {
-                $('#ibanSection').prop('visible', true);
+                $('#ibanSection :input').attr('disabled', true);
             }
         });
 

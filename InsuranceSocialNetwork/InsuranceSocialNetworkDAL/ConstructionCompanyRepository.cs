@@ -78,6 +78,15 @@ namespace InsuranceSocialNetworkDAL
                 item.Website = constructionCompany.Website;
                 item.LogoPhoto = null != constructionCompany.LogoPhoto ? constructionCompany.LogoPhoto : item.LogoPhoto;
 
+                if (null == item.Payment && null != constructionCompany.Payment)
+                {
+                    item.Payment = constructionCompany.Payment;
+                }
+                else if (null != item.Payment && null != constructionCompany.Payment && item.Payment.Count != constructionCompany.Payment.Count)
+                {
+                    item.Payment.Add(constructionCompany.Payment.Last());
+                }
+
                 context.ConstructionCompany.Update(item);
                 context.Save();
 

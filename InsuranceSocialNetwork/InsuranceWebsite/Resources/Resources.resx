@@ -948,4 +948,16 @@
   <data name="DIRECT_DEBIT" xml:space="preserve">
     <value>Débito Directo</value>
   </data>
+  <data name="Value" xml:space="preserve">
+    <value>Valor</value>
+  </data>
+  <data name="Entity" xml:space="preserve">
+    <value>Entidade</value>
+  </data>
+  <data name="Reference" xml:space="preserve">
+    <value>Referência</value>
+  </data>
+  <data name="PendingPayment" xml:space="preserve">
+    <value>Pagamento pendente</value>
+  </data>
 </root>

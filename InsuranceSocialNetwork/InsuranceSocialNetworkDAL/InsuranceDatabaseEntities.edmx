@@ -438,6 +438,8 @@
           <Property Name="ep_currency" Type="nvarchar" MaxLength="32" />
           <Property Name="ep_country" Type="nvarchar" MaxLength="32" Nullable="false" />
           <Property Name="ep_language" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="ep_reference" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ep_value" Type="nvarchar" MaxLength="32" Nullable="false" />
           <Property Name="t_value" Type="nvarchar" MaxLength="32" Nullable="false" />
           <Property Name="t_key" Type="nvarchar" MaxLength="128" />
           <Property Name="o_name" Type="nvarchar" MaxLength="128" />
@@ -454,12 +456,18 @@
           <Property Name="ep_message" Type="nvarchar" MaxLength="512" />
           <Property Name="ep_original_value" Type="nvarchar" MaxLength="128" />
           <Property Name="ep_link" Type="nvarchar" MaxLength="512" />
+          <Property Name="ep_link_rp_cc" Type="nvarchar" MaxLength="512" />
+          <Property Name="ep_link_rp_dd" Type="nvarchar" MaxLength="512" />
+          <Property Name="ep_k1" Type="nvarchar" MaxLength="128" />
+          <Property Name="ep_periodicity" Type="nvarchar" MaxLength="32" />
           <Property Name="ep_boleto" Type="nvarchar" MaxLength="512" />
           <Property Name="CreateDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="PaymentDate" Type="datetime2" Precision="7" />
           <Property Name="LastChangeDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="DeleteDate" Type="datetime2" Precision="7" />
+          <Property Name="ExpiracyDate" Type="datetime2" Precision="7" />
           <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="Message" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="PaymentStatus">
           <Key>
@@ -3601,6 +3609,8 @@
           <Property Name="ep_currency" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
           <Property Name="ep_country" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
           <Property Name="ep_language" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="ep_reference" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ep_value" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
           <Property Name="t_value" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
           <Property Name="t_key" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="o_name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
@@ -3617,12 +3627,18 @@
           <Property Name="ep_message" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
           <Property Name="ep_original_value" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="ep_link" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="ep_link_rp_cc" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="ep_link_rp_dd" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="ep_k1" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ep_periodicity" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
           <Property Name="ep_boleto" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="PaymentDate" Type="DateTime" Precision="7" />
           <Property Name="LastChangeDate" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="DeleteDate" Type="DateTime" Precision="7" />
+          <Property Name="ExpiracyDate" Type="DateTime" Precision="7" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ConstructionCompany" Relationship="InsurancePortal_dbModel.FK_Payment_ConstructionCompany" FromRole="Payment" ToRole="ConstructionCompany" />
           <NavigationProperty Name="Garage" Relationship="InsurancePortal_dbModel.FK_Payment_Garage" FromRole="Payment" ToRole="Garage" />
           <NavigationProperty Name="HomeApplianceRepair" Relationship="InsurancePortal_dbModel.FK_Payment_HomeApplianceRepair" FromRole="Payment" ToRole="HomeApplianceRepair" />
@@ -4350,12 +4366,18 @@
           <EntitySetMapping Name="Payment">
             <EntityTypeMapping TypeName="InsurancePortal_dbModel.Payment">
               <MappingFragment StoreEntitySet="Payment">
+                <ScalarProperty Name="Message" ColumnName="Message" />
                 <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="ExpiracyDate" ColumnName="ExpiracyDate" />
                 <ScalarProperty Name="DeleteDate" ColumnName="DeleteDate" />
                 <ScalarProperty Name="LastChangeDate" ColumnName="LastChangeDate" />
                 <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="ep_boleto" ColumnName="ep_boleto" />
+                <ScalarProperty Name="ep_periodicity" ColumnName="ep_periodicity" />
+                <ScalarProperty Name="ep_k1" ColumnName="ep_k1" />
+                <ScalarProperty Name="ep_link_rp_dd" ColumnName="ep_link_rp_dd" />
+                <ScalarProperty Name="ep_link_rp_cc" ColumnName="ep_link_rp_cc" />
                 <ScalarProperty Name="ep_link" ColumnName="ep_link" />
                 <ScalarProperty Name="ep_original_value" ColumnName="ep_original_value" />
                 <ScalarProperty Name="ep_message" ColumnName="ep_message" />
@@ -4372,6 +4394,8 @@
                 <ScalarProperty Name="o_name" ColumnName="o_name" />
                 <ScalarProperty Name="t_key" ColumnName="t_key" />
                 <ScalarProperty Name="t_value" ColumnName="t_value" />
+                <ScalarProperty Name="ep_value" ColumnName="ep_value" />
+                <ScalarProperty Name="ep_reference" ColumnName="ep_reference" />
                 <ScalarProperty Name="ep_language" ColumnName="ep_language" />
                 <ScalarProperty Name="ep_country" ColumnName="ep_country" />
                 <ScalarProperty Name="ep_currency" ColumnName="ep_currency" />

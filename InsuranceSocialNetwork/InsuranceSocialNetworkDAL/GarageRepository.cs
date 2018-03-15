@@ -21,7 +21,8 @@ namespace InsuranceSocialNetworkDAL
         {
             return context.Garage
                 .Fetch()
-                .Include("GarageFavorite")
+                .Include(i => i.GarageFavorite)
+                .Include(i => i.Payment)
                 .Where(i => i.Active)
                 .FirstOrDefault(i => i.ID == id);
         }
@@ -33,7 +34,8 @@ namespace InsuranceSocialNetworkDAL
                 return context
                     .Garage
                     .Fetch()
-                    .Include("GarageFavorite")
+                    .Include(i => i.GarageFavorite)
+                    .Include(i => i.Payment)
                     .Select(i => i)
                     .OrderBy(i => i.Name)
                     .ToList();
@@ -58,7 +60,7 @@ namespace InsuranceSocialNetworkDAL
         {
             using (var context = new BackofficeUnitOfWork())
             {
-                Garage item = context.Garage.Get(garage.ID);
+                Garage item = GetGarage(garage.ID);
                 item.LastChangeDate = DateTime.Now;
                 item.Address = garage.Address;
                 item.ContactEmail = garage.ContactEmail;
@@ -77,6 +79,15 @@ namespace InsuranceSocialNetworkDAL
                 item.Telephone_2 = garage.Telephone_2;
                 item.Website = garage.Website;
                 item.LogoPhoto = null != garage.LogoPhoto ? garage.LogoPhoto : item.LogoPhoto;
+
+                if (null == item.Payment && null != garage.Payment)
+                {
+                    item.Payment = garage.Payment;
+                }
+                else if (null != item.Payment && null != garage.Payment && item.Payment.Count != garage.Payment.Count)
+                {
+                    item.Payment.Add(garage.Payment.Last());
+                }
 
                 context.Garage.Update(item);
                 context.Save();

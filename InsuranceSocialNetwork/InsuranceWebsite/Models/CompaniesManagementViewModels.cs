@@ -1,5 +1,6 @@
 ﻿using InsuranceSocialNetworkBusiness;
 using InsuranceSocialNetworkCore.Enums;
+using InsuranceSocialNetworkDTO.Company;
 using InsuranceSocialNetworkDTO.Notification;
 using InsuranceSocialNetworkDTO.Post;
 using InsuranceSocialNetworkDTO.UserProfile;
@@ -48,8 +49,10 @@ namespace InsuranceWebsite.Models
         [Required]
         [EmailAddress]
         public string ContactEmail { get; set; }
+        [Required]
         public string MobilePhone_1 { get; set; }
         public string MobilePhone_2 { get; set; }
+        [Required]
         public string Telephone_1 { get; set; }
         public string Telephone_2 { get; set; }
         public string Address { get; set; }
@@ -64,9 +67,9 @@ namespace InsuranceWebsite.Models
         public string OfficialPartner { get; set; }
         public string OfficialAgent { get; set; }
 
-        [Required]
         public long ID_PaymentType { get; set; }
         public string IBAN { get; set; }
+        public decimal Value { get; set; }
 
         public bool Active { get; set; }
 
@@ -79,5 +82,12 @@ namespace InsuranceWebsite.Models
         public List<SelectListItem> ServiceList { get; set; }
 
         public List<SelectListItem> PaymentTypeList { get; set; }
+
+        public List<PaymentDTO> Payments { get; set; }
+
+        public bool HasPendingPayment
+        {
+            get { return (null == Payments || Payments.Count == 0) ? false : Payments.Exists(i => i.ID_PaymentStatus == (int)PaymentStatusEnum.PENDING); }
+        }
     }
 }
