@@ -26,6 +26,55 @@ namespace InsuranceSocialNetworkDAL
             }
         }
 
+        public static PaymentType GetPaymentType(string typeToken)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                return context.PaymentType
+                    .Fetch()
+                    .Where(i => i.Active && i.Token == typeToken)
+                    .FirstOrDefault();
+            }
+        }
+
+        public static PaymentStatus GetPaymentStatus(string statusToken)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                return context.PaymentStatus
+                    .Fetch()
+                    .Where(i => i.Active && i.Token == statusToken)
+                    .FirstOrDefault();
+            }
+        }
+
+        public static Payment GetPayment(long id)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                return context.Payment
+                    .Fetch()
+                    .Include(i => i.PaymentType)
+                    .Include(i => i.PaymentStatus)
+                    .Where(i => i.ID == id)
+                    .FirstOrDefault();
+            }
+        }
+
+        public static Payment GetPayment(string paymentId)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                Guid id = new Guid(paymentId);
+                return context.Payment
+                    .Fetch()
+                    .Include(i => i.PaymentType)
+                    .Include(i => i.PaymentStatus)
+                    .Where(i => i.Payment_GUID == id)
+                    .FirstOrDefault();
+            }
+        }
+
         public static long CreatePayment(Payment payment)
         {
             using (var context = new BackofficeUnitOfWork())
@@ -34,7 +83,7 @@ namespace InsuranceSocialNetworkDAL
             }
         }
 
-        public static long EditPayment(Payment payment)
+        public static bool UpdatePayment(Payment payment)
         {
             throw new NotImplementedException();
         }

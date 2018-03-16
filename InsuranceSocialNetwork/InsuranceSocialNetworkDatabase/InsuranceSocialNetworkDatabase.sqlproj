@@ -122,6 +122,9 @@
     <Build Include="Tables\PaymentStatus.sql" />
     <None Include="InitData\PaymentType.sql" />
     <None Include="InitData\PaymentStatus.sql" />
+    <Build Include="Tables\SystemSettings.sql" />
+    <None Include="InitData\SystemSettings.sql" />
+    <Build Include="Tables\SystemLog.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="InsuranceSocialNetworkDatabase.refactorlog" />

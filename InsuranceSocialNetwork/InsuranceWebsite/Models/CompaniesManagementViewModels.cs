@@ -1,9 +1,6 @@
 ﻿using InsuranceSocialNetworkBusiness;
 using InsuranceSocialNetworkCore.Enums;
-using InsuranceSocialNetworkDTO.Company;
-using InsuranceSocialNetworkDTO.Notification;
-using InsuranceSocialNetworkDTO.Post;
-using InsuranceSocialNetworkDTO.UserProfile;
+using InsuranceSocialNetworkDTO.Payment;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

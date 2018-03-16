@@ -1,0 +1,12 @@
+﻿CREATE TABLE [Insurance].[SystemSettings]
+(
+	[ID] BIGINT IDENTITY NOT NULL, 
+    [Token] NVARCHAR(64) NOT NULL,
+    [Description] NVARCHAR(128) NULL, 
+	[Type] NVARCHAR(32) NOT NULL,
+	[Value] NVARCHAR(512) NOT NULL,
+    [LastChangeDate] DATETIME2 NOT NULL DEFAULT GETDATE(),
+    [Active] BIT NOT NULL DEFAULT 1,
+    CONSTRAINT [PK_SystemSettings] PRIMARY KEY CLUSTERED ([ID] ASC)
+)
+

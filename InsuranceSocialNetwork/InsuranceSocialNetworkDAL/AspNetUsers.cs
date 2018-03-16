@@ -38,6 +38,7 @@ namespace InsuranceSocialNetworkDAL
             this.Notification = new HashSet<Notification>();
             this.Notification1 = new HashSet<Notification>();
             this.PostHidden = new HashSet<PostHidden>();
+            this.SystemLog = new HashSet<SystemLog>();
         }
     
         public string Id { get; set; }
@@ -95,5 +96,7 @@ namespace InsuranceSocialNetworkDAL
         public virtual ICollection<Notification> Notification1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PostHidden> PostHidden { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SystemLog> SystemLog { get; set; }
     }
 }

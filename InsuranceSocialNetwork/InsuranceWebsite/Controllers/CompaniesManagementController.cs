@@ -2,6 +2,7 @@
 using InsuranceSocialNetworkBusiness;
 using InsuranceSocialNetworkCore.Enums;
 using InsuranceSocialNetworkDTO.Company;
+using InsuranceSocialNetworkDTO.Payment;
 using InsuranceSocialNetworkDTO.PostalCode;
 using InsuranceWebsite.Commons;
 using InsuranceWebsite.Models;
@@ -73,6 +74,9 @@ namespace InsuranceWebsite.Controllers
                 {
                     return RedirectToAction("LogOff", "Account");
                 }
+
+                model.TotalUnreadMessages = InsuranceBusiness.BusinessLayer.GetTotalUnreadMessages(user.Id); ;
+                model.Notifications = InsuranceBusiness.BusinessLayer.GetUserNotifications(user.Id);
             }
             else
             {
@@ -267,6 +271,11 @@ namespace InsuranceWebsite.Controllers
         {
             CompanyModelObject model = new CompanyModelObject();
 
+            decimal subscriptionValue = decimal.Parse(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.YEAR_SUBSCRIPTION_PRICE_WITHOUT_VAT).Value);
+            decimal vatValue = decimal.Parse(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.VAT_PERCENTAGE).Value);
+            model.ID_PaymentType = InsuranceBusiness.BusinessLayer.GetPaymentTypeID(PaymentTypeEnum.ATM);
+            model.Value = decimal.Round((vatValue * subscriptionValue) + subscriptionValue, 2, MidpointRounding.AwayFromZero);
+
             List<SelectListItem>  initList = new List<SelectListItem>() { new SelectListItem() { Value = "", Text = Resources.Resources.SelectService } };
             model.ServiceList = initList.Concat(InsuranceBusiness.BusinessLayer.GetCompanyServices(id).Select(i => new SelectListItem() { Value = i.Key.ToString(), Text = i.Value }).ToList()).ToList();
             model.PaymentTypeList = initList.Concat(InsuranceBusiness.BusinessLayer.GetPaymentTypes().Select(i => new SelectListItem() { Value = i.Key.ToString(), Text = Resources.Resources.ResourceManager.GetString(i.Value) }).ToList()).ToList();
@@ -317,7 +326,8 @@ namespace InsuranceWebsite.Controllers
 
                 if (model.ID_PaymentType > 0)
                 {
-                    string baseUrl = string.Format("{0}?ep_cin={1}&ep_user={2}&ep_entity={3}&ep_ref_type={4}&ep_country={5}&ep_language={6}&t_value={7}"
+                    Guid paymentId = Guid.NewGuid();
+                    string baseUrl = string.Format("{0}?ep_cin={1}&ep_user={2}&ep_entity={3}&ep_ref_type={4}&ep_country={5}&ep_language={6}&t_value={7}&t_key={8}"
                         , ConfigurationManager.AppSettings["ep_url"]
                         , ConfigurationManager.AppSettings["ep_cin"]
                         , ConfigurationManager.AppSettings["ep_user"]
@@ -325,7 +335,8 @@ namespace InsuranceWebsite.Controllers
                         , ConfigurationManager.AppSettings["ep_ref_type"]
                         , ConfigurationManager.AppSettings["ep_country"]
                         , ConfigurationManager.AppSettings["ep_language"]
-                        , model.Value.ToString().Replace(",", "."));
+                        , model.Value.ToString().Replace(",", ".")
+                        , paymentId.ToString());
 
                     using (var client = new WebClient())
                     {
@@ -352,9 +363,10 @@ namespace InsuranceWebsite.Controllers
                                 CreateDate = DateTime.Now,
                                 LastChangeDate = DateTime.Now,
                                 ID_PaymentType = model.ID_PaymentType,
-                                Payment_GUID = Guid.NewGuid(),
+                                Payment_GUID = paymentId,
                                 Active = true,
-                                t_value = model.Value.ToString().Replace(",", ".")
+                                t_value = model.Value.ToString().Replace(",", "."),
+                                ExpiracyDate = DateTime.Now.AddDays(Int32.Parse(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.SUBSCRIPTION_PAYMENT_DEADLINE_DAYS).Value))
                             };
                             var node = response.SelectSingleNode("getautoMB/ep_status");
                             if (node.InnerText.Equals("ok0"))
@@ -453,6 +465,9 @@ namespace InsuranceWebsite.Controllers
                     break;
             }
 
+            decimal subscriptionValue = decimal.Parse(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.YEAR_SUBSCRIPTION_PRICE_WITHOUT_VAT).Value);
+            decimal vatValue = decimal.Parse(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.VAT_PERCENTAGE).Value);
+
             CompanyModelObject model = new CompanyModelObject()
             {
                 ID = company.ID,
@@ -475,7 +490,9 @@ namespace InsuranceWebsite.Controllers
                 Telephone_2 = company.Telephone_2,
                 Website = company.Website,
                 Payments = company.Payment,
-                CompanyType = idType
+                CompanyType = idType,
+                ID_PaymentType = InsuranceBusiness.BusinessLayer.GetPaymentTypeID(PaymentTypeEnum.ATM),
+                Value = decimal.Round((vatValue * subscriptionValue) + subscriptionValue, 2, MidpointRounding.AwayFromZero)
             };
 
             List<SelectListItem> initList = new List<SelectListItem>() { new SelectListItem() { Value = "", Text = Resources.Resources.SelectService } };
@@ -498,6 +515,8 @@ namespace InsuranceWebsite.Controllers
         {
             try
             {
+                InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, "", string.Format("Company ID[{0}] will be edited", model.ID), string.Format("Company ID[{0}] will be edited.", model.ID));
+
                 CompanyDTO company = null;
 
                 switch (model.CompanyType)
@@ -544,7 +563,10 @@ namespace InsuranceWebsite.Controllers
 
                 if (!hasPendingPayment && model.ID_PaymentType > 0)
                 {
-                    string baseUrl = string.Format("{0}?ep_cin={1}&ep_user={2}&ep_entity={3}&ep_ref_type={4}&ep_country={5}&ep_language={6}&t_value={7}"
+                    InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, "", string.Format("Adding payment to company ID[{0}] will be edited", model.ID), string.Format("Adding payment to company ID[{ 0}] will be edited", model.ID));
+
+                    Guid paymentId = Guid.NewGuid();
+                    string baseUrl = string.Format("{0}?ep_cin={1}&ep_user={2}&ep_entity={3}&ep_ref_type={4}&ep_country={5}&ep_language={6}&t_value={7}&t_key={8}"
                         , ConfigurationManager.AppSettings["ep_url"]
                         , ConfigurationManager.AppSettings["ep_cin"]
                         , ConfigurationManager.AppSettings["ep_user"]
@@ -552,7 +574,8 @@ namespace InsuranceWebsite.Controllers
                         , ConfigurationManager.AppSettings["ep_ref_type"]
                         , ConfigurationManager.AppSettings["ep_country"]
                         , ConfigurationManager.AppSettings["ep_language"]
-                        , model.Value.ToString().Replace(",", "."));
+                        , model.Value.ToString().Replace(",", ".")
+                        , paymentId.ToString());
 
                     using (var client = new WebClient())
                     {
@@ -579,9 +602,10 @@ namespace InsuranceWebsite.Controllers
                                 CreateDate = DateTime.Now,
                                 LastChangeDate = DateTime.Now,
                                 ID_PaymentType = model.ID_PaymentType,
-                                Payment_GUID = Guid.NewGuid(),
+                                Payment_GUID = paymentId,
                                 Active = true,
-                                t_value = model.Value.ToString().Replace(",", ".")
+                                t_value = model.Value.ToString().Replace(",", "."),
+                                ExpiracyDate = DateTime.Now.AddDays(Int32.Parse(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.SUBSCRIPTION_PAYMENT_DEADLINE_DAYS).Value))
                             };
                             var node = response.SelectSingleNode("getautoMB/ep_status");
                             if (node.InnerText.Equals("ok0"))

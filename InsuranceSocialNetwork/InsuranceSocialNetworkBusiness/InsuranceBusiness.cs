@@ -7,7 +7,7 @@ using InsuranceSocialNetworkDTO.Chat;
 using InsuranceSocialNetworkDTO.Company;
 using InsuranceSocialNetworkDTO.Notification;
 using InsuranceSocialNetworkDTO.Post;
-using InsuranceSocialNetworkDTO.PostalCode;
+using InsuranceSocialNetworkDTO.Payment;
 using InsuranceSocialNetworkDTO.Role;
 using InsuranceSocialNetworkDTO.UserProfile;
 using System;
@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using InsuranceSocialNetworkDTO.SystemSettings;
 
 namespace InsuranceSocialNetworkBusiness
 {
@@ -107,6 +108,9 @@ namespace InsuranceSocialNetworkBusiness
                     .ForMember(dest => dest.IsFavorite,
                        opts => opts.MapFrom(src => src.InsuranceCompanyContactFavorite != null && src.InsuranceCompanyContactFavorite.Count > 0));
                 cfg.CreateMap<CompanyDTO, InsuranceCompanyContact>();
+
+                cfg.CreateMap<SystemSettings, SystemSettingsDTO>();
+                cfg.CreateMap<SystemSettingsDTO, SystemSettings>();
             });
 
             #endregion
@@ -235,6 +239,38 @@ namespace InsuranceSocialNetworkBusiness
         public List<ListItem> GetPaymentTypes()
         {
             return PaymentRepository.GetPaymentTypes();
+        }
+
+        public long GetPaymentTypeID(PaymentTypeEnum type)
+        {
+            return PaymentRepository.GetPaymentType(type.ToString()).ID;
+        }
+
+        public long GetPaymentStatusID(PaymentStatusEnum status)
+        {
+            return PaymentRepository.GetPaymentStatus(status.ToString()).ID;
+        }
+
+        public PaymentDTO GetPayment(string paymentId)
+        {
+            return AutoMapper.Mapper.Map<PaymentDTO>(PaymentRepository.GetPayment(paymentId));
+        }
+
+        public PaymentDTO GetPayment(long id)
+        {
+            return AutoMapper.Mapper.Map<PaymentDTO>(PaymentRepository.GetPayment(id));
+        }
+
+        public bool ConfirmEasypayPayment(PaymentDTO paymentDto)
+        {
+            Payment payment = PaymentRepository.GetPayment(paymentDto.ID);
+
+            payment.PaymentDate = DateTime.Now;
+            payment.ID_PaymentStatus = GetPaymentStatusID(PaymentStatusEnum.PAYED);
+            payment.ep_key = paymentDto.ep_key;
+            payment.ep_doc = paymentDto.ep_doc;
+
+            return PaymentRepository.UpdatePayment(payment);
         }
 
         #endregion
@@ -509,6 +545,11 @@ namespace InsuranceSocialNetworkBusiness
         public bool MarkAllNotificationsAsRead(string id)
         {
             return NotificationRepository.MarkNotificationsAsRead(id);
+        }
+
+        public void CreateNotificationForPaymentDone(bool isCompany, long id, CompanyTypeEnum companyType = CompanyTypeEnum.NONE)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion Notifications
@@ -1176,5 +1217,33 @@ namespace InsuranceSocialNetworkBusiness
         }
 
         #endregion Search Operations
+
+        #region System Settings
+
+        public SystemSettingsDTO GetSystemSetting(SystemSettingsEnum setting)
+        {
+            SystemSettings settingObject = SystemSettingsRepository.Get(setting.ToString());
+            return AutoMapper.Mapper.Map<SystemSettingsDTO>(settingObject);
+        }
+
+        public void SetSystemSetting(SystemSettingsEnum setting, string value)
+        {
+            SystemSettingsRepository.Set(setting.ToString(), value);
+        }
+
+        #endregion System Settings
+
+        #region System Logs
+
+        public void Log(SystemLogLevelEnum level, string idUser, string title, string message)
+        {
+            try
+            {
+                SystemLogRepository.Log(level.ToString(), idUser, title, message);
+            }
+            catch (Exception) { }
+        }
+
+        #endregion System Logs
     }
 }

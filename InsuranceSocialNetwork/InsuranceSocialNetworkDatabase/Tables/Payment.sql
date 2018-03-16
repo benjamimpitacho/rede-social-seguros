@@ -41,6 +41,8 @@
 	[ep_k1] NVARCHAR(128) NULL,
 	[ep_periodicity] NVARCHAR(32) NULL,
 	[ep_boleto] NVARCHAR(512) NULL,
+	[ep_key] NVARCHAR(128) NULL,
+	[ep_doc] NVARCHAR(128) NULL,
     [CreateDate] DATETIME2 NOT NULL DEFAULT GETDATE(),
     [PaymentDate] DATETIME2 NULL,  
     [LastChangeDate] DATETIME2 NOT NULL DEFAULT GETDATE(), 

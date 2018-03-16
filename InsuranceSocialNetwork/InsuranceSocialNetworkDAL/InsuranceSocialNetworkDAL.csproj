@@ -215,6 +215,14 @@
     <Compile Include="NotificationRepository.cs" />
     <Compile Include="GarageRepository.cs" />
     <Compile Include="FriendsRepository.cs" />
+    <Compile Include="SystemLog.cs">
+      <DependentUpon>InsuranceDatabaseEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SystemSettings.cs">
+      <DependentUpon>InsuranceDatabaseEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SystemLogRepository.cs" />
+    <Compile Include="SystemSettingsRepository.cs" />
     <Compile Include="UserProfileRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -1,5 +1,8 @@
 ﻿using AutoMapper;
 using InsuranceSocialNetworkBusiness;
+using InsuranceSocialNetworkCore.Enums;
+using InsuranceSocialNetworkDTO.Company;
+using InsuranceSocialNetworkDTO.Payment;
 using InsuranceSocialNetworkDTO.Role;
 using InsuranceWebsite.Commons;
 using InsuranceWebsite.Models;
@@ -170,6 +173,74 @@ namespace InsuranceWebsite.Controllers
         public JsonResult Get()
         {
             return Json(BusinessItemsLists.GetUsers().ToArray(), JsonRequestBehavior.AllowGet);
+        }
+
+        [AllowAnonymous]
+        public void EasypayPaymentNotification(string ep_cin, string ep_user, string ep_doc, string ep_key)
+        {
+            try
+            {
+                InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, "", string.Format("Easypay payment notification received"), string.Format("Easypay infromation received is ep_cin {0}, ep_user {1}, ep_doc {2}, ep_key {3},", ep_cin , ep_user, ep_doc, ep_key));
+
+                PaymentDTO payment = InsuranceBusiness.BusinessLayer.GetPayment(ep_key);
+                if(null == payment || payment.ep_cin != ep_cin || payment.ep_user != ep_user)
+                {
+                    throw new Exception("INVALID_PAYMENT_INFORMATION");
+                }
+                payment.ep_key = ep_key;
+                payment.ep_doc = ep_doc;
+                if(InsuranceBusiness.BusinessLayer.ConfirmEasypayPayment(payment))
+                {
+                    if (payment.ID_Profile.HasValue)
+                    {
+                        // Activate user
+                        InsuranceBusiness.BusinessLayer.ActivateUser(payment.ID_Profile.Value);
+                        // Send user notification
+                        InsuranceBusiness.BusinessLayer.CreateNotificationForPaymentDone(false, payment.ID_Profile.Value);
+
+                    }
+                    else if (payment.ID_Garage.HasValue)
+                    {
+                        // Activate user
+                        InsuranceBusiness.BusinessLayer.ActivateGarage(payment.ID_Garage.Value);
+                        // Send user notification
+                        InsuranceBusiness.BusinessLayer.CreateNotificationForPaymentDone(true, payment.ID_Garage.Value, CompanyTypeEnum.GARAGE);
+                    }
+                    else if (payment.ID_ConstructionCompany.HasValue)
+                    {
+                        // Activate user
+                        InsuranceBusiness.BusinessLayer.ActivateConstructionCompany(payment.ID_ConstructionCompany.Value);
+                        // Send user notification
+                        InsuranceBusiness.BusinessLayer.CreateNotificationForPaymentDone(true, payment.ID_ConstructionCompany.Value, CompanyTypeEnum.GARAGE);
+                    }
+                    else if (payment.ID_HomeApplianceRepair.HasValue)
+                    {
+                        // Activate user
+                        InsuranceBusiness.BusinessLayer.ActivateHomeApplianceRepair(payment.ID_HomeApplianceRepair.Value);
+                        // Send user notification
+                        InsuranceBusiness.BusinessLayer.CreateNotificationForPaymentDone(true, payment.ID_HomeApplianceRepair.Value, CompanyTypeEnum.GARAGE);
+                    }
+                    else if (payment.ID_InsuranceCompanyContact.HasValue)
+                    {
+                        // Activate user
+                        InsuranceBusiness.BusinessLayer.ActivateInsuranceCompanyContact(payment.ID_InsuranceCompanyContact.Value);
+                        // Send user notification
+                        InsuranceBusiness.BusinessLayer.CreateNotificationForPaymentDone(true, payment.ID_InsuranceCompanyContact.Value, CompanyTypeEnum.GARAGE);
+                    }
+                    else if (payment.ID_MedicalClinic.HasValue)
+                    {
+                        // Activate user
+                        InsuranceBusiness.BusinessLayer.ActivateMedicalClinic(payment.ID_MedicalClinic.Value);
+                        // Send user notification
+                        InsuranceBusiness.BusinessLayer.CreateNotificationForPaymentDone(true, payment.ID_MedicalClinic.Value, CompanyTypeEnum.GARAGE);
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, "", string.Format("Easypay payment notification ERROR"), ex.Message + "\r\n" + ex.StackTrace);
+                throw new NotImplementedException();
+            }
         }
     }
 }

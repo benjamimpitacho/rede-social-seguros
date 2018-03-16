@@ -1,0 +1,12 @@
+﻿CREATE TABLE [Insurance].[SystemLog]
+(
+	[ID] BIGINT IDENTITY NOT NULL, 
+    [LogDate] DATETIME2 NOT NULL DEFAULT GETDATE(),
+    [Level] NVARCHAR(64) NOT NULL,
+    [ID_User] NVARCHAR(128) NULL, 
+	[Title] NVARCHAR(128) NULL,
+	[Message] NVARCHAR(MAX) NULL,
+    CONSTRAINT [PK_SystemLog] PRIMARY KEY CLUSTERED ([ID] ASC),
+	CONSTRAINT [FK_SystemLog_AspNetUsers] FOREIGN KEY([ID_User]) REFERENCES [dbo].[AspNetUsers] ([Id])
+)
+

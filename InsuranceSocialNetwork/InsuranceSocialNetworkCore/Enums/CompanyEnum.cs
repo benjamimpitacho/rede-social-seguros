@@ -12,6 +12,7 @@ namespace InsuranceSocialNetworkCore.Enums
         MEDICAL_CLINIC = 2,
         CONSTRUCTION_COMPANY = 3,
         HOME_APPLIANCES_REPAIR = 4,
-        INSURANCE_COMPANY_CONTACT = 5
+        INSURANCE_COMPANY_CONTACT = 5,
+        NONE
     }
 }

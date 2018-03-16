@@ -83,10 +83,12 @@ namespace InsuranceSocialNetworkDAL
                 if (null == item.Payment && null != garage.Payment)
                 {
                     item.Payment = garage.Payment;
+                    context.Payment.Create(garage.Payment.Last());
                 }
                 else if (null != item.Payment && null != garage.Payment && item.Payment.Count != garage.Payment.Count)
                 {
                     item.Payment.Add(garage.Payment.Last());
+                    context.Payment.Create(garage.Payment.Last());
                 }
 
                 context.Garage.Update(item);

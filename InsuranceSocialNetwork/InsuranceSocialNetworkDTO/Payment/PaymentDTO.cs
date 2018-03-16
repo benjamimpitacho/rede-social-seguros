@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InsuranceSocialNetworkDTO.Company
+namespace InsuranceSocialNetworkDTO.Payment
 {
     public class PaymentDTO
     {
@@ -49,6 +49,8 @@ namespace InsuranceSocialNetworkDTO.Company
         public string ep_k1 { get; set; }
         public string ep_periodicity { get; set; }
         public string ep_boleto { get; set; }
+        public string ep_key { get; set; }
+        public string ep_doc { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime? PaymentDate { get; set; }
         public DateTime LastChangeDate { get; set; }

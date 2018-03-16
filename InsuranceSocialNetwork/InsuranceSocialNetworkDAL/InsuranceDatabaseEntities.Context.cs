@@ -67,5 +67,7 @@ namespace InsuranceSocialNetworkDAL
         public virtual DbSet<PaymentStatus> PaymentStatus { get; set; }
         public virtual DbSet<PaymentType> PaymentType { get; set; }
         public virtual DbSet<Payment> Payment { get; set; }
+        public virtual DbSet<SystemSettings> SystemSettings { get; set; }
+        public virtual DbSet<SystemLog> SystemLog { get; set; }
     }
 }

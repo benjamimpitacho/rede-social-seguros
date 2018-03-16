@@ -53,6 +53,9 @@ namespace InsuranceSocialNetworkDAL
         private IRepository<PaymentType> paymentTypeRepository;
         private IRepository<PaymentStatus> paymentStatusRepository;
 
+        private IRepository<SystemSettings> systemSettingsRepository;
+        private IRepository<SystemLog> systemLogRepository;
+
         private bool AutoDetectChangesEnabled;
         private int DatabaseTimeout;
 
@@ -605,6 +608,32 @@ namespace InsuranceSocialNetworkDAL
                         new Repository<InsurancePortal_dbEntities, PaymentStatus>(DataContext, AutoDetectChangesEnabled);
                 }
                 return paymentStatusRepository;
+            }
+        }
+
+        public IRepository<SystemSettings> SystemSettings
+        {
+            get
+            {
+                if (this.systemSettingsRepository == null)
+                {
+                    this.systemSettingsRepository =
+                        new Repository<InsurancePortal_dbEntities, SystemSettings>(DataContext, AutoDetectChangesEnabled);
+                }
+                return systemSettingsRepository;
+            }
+        }
+
+        public IRepository<SystemLog> SystemLog
+        {
+            get
+            {
+                if (this.systemLogRepository == null)
+                {
+                    this.systemLogRepository =
+                        new Repository<InsurancePortal_dbEntities, SystemLog>(DataContext, AutoDetectChangesEnabled);
+                }
+                return systemLogRepository;
             }
         }
     }

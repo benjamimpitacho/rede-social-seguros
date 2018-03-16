@@ -461,6 +461,8 @@
           <Property Name="ep_k1" Type="nvarchar" MaxLength="128" />
           <Property Name="ep_periodicity" Type="nvarchar" MaxLength="32" />
           <Property Name="ep_boleto" Type="nvarchar" MaxLength="512" />
+          <Property Name="ep_key" Type="nvarchar" MaxLength="128" />
+          <Property Name="ep_doc" Type="nvarchar" MaxLength="128" />
           <Property Name="CreateDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="PaymentDate" Type="datetime2" Precision="7" />
           <Property Name="LastChangeDate" Type="datetime2" Precision="7" Nullable="false" />
@@ -630,6 +632,29 @@
           <Property Name="CreateDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="LastChangeDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="DeleteDate" Type="datetime2" Precision="7" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SystemLog">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LogDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="Level" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="ID_User" Type="nvarchar" MaxLength="128" />
+          <Property Name="Title" Type="nvarchar" MaxLength="128" />
+          <Property Name="Message" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="SystemSettings">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Token" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="128" />
+          <Property Name="Type" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="Value" Type="nvarchar" MaxLength="512" Nullable="false" />
+          <Property Name="LastChangeDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
         <Association Name="FK_AuthorizedEmail_User">
@@ -1492,6 +1517,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SystemLog_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="SystemLog" Type="Self.SystemLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SystemLog">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="InsurancePortal_dbModelStoreContainer">
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRolesFunctionalities" EntityType="Self.AspNetRolesFunctionalities" Schema="dbo" store:Type="Tables" />
@@ -1536,6 +1573,8 @@
           <EntitySet Name="PostType" EntityType="Self.PostType" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="Profile" EntityType="Self.Profile" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="ProfileSettings" EntityType="Self.ProfileSettings" Schema="Insurance" store:Type="Tables" />
+          <EntitySet Name="SystemLog" EntityType="Self.SystemLog" Schema="Insurance" store:Type="Tables" />
+          <EntitySet Name="SystemSettings" EntityType="Self.SystemSettings" Schema="Insurance" store:Type="Tables" />
           <AssociationSet Name="FK_AuthorizedEmail_User" Association="Self.FK_AuthorizedEmail_User">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AuthorizedEmail" EntitySet="AuthorizedEmail" />
@@ -1819,6 +1858,10 @@
           <AssociationSet Name="FK_ProfileSettings_Profile" Association="Self.FK_ProfileSettings_Profile">
             <End Role="Profile" EntitySet="Profile" />
             <End Role="ProfileSettings" EntitySet="ProfileSettings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SystemLog_AspNetUsers" Association="Self.FK_SystemLog_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="SystemLog" EntitySet="SystemLog" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -2116,6 +2159,7 @@
           <EntitySet Name="PaymentStatus" EntityType="InsurancePortal_dbModel.PaymentStatus" />
           <EntitySet Name="PaymentType" EntityType="InsurancePortal_dbModel.PaymentType" />
           <EntitySet Name="Payment" EntityType="InsurancePortal_dbModel.Payment" />
+          <EntitySet Name="SystemSettings" EntityType="InsurancePortal_dbModel.SystemSettings" />
           <AssociationSet Name="FK_Payment_ConstructionCompany" Association="InsurancePortal_dbModel.FK_Payment_ConstructionCompany">
             <End Role="ConstructionCompany" EntitySet="ConstructionCompany" />
             <End Role="Payment" EntitySet="Payment" />
@@ -2147,6 +2191,11 @@
           <AssociationSet Name="FK_Payment_Profile" Association="InsurancePortal_dbModel.FK_Payment_Profile">
             <End Role="Profile" EntitySet="Profile" />
             <End Role="Payment" EntitySet="Payment" />
+          </AssociationSet>
+          <EntitySet Name="SystemLog" EntityType="InsurancePortal_dbModel.SystemLog" />
+          <AssociationSet Name="FK_SystemLog_AspNetUsers" Association="InsurancePortal_dbModel.FK_SystemLog_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="SystemLog" EntitySet="SystemLog" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="AspNetRoles">
@@ -2262,6 +2311,7 @@
           <NavigationProperty Name="Notification" Relationship="InsurancePortal_dbModel.FK_NotificationFromUser_AspNetUsers" FromRole="AspNetUsers" ToRole="Notification" />
           <NavigationProperty Name="Notification1" Relationship="InsurancePortal_dbModel.FK_NotificationToUser_AspNetUsers" FromRole="AspNetUsers" ToRole="Notification" />
           <NavigationProperty Name="PostHidden" Relationship="InsurancePortal_dbModel.FK_PostHidden_AspNetUsers" FromRole="AspNetUsers" ToRole="PostHidden" />
+          <NavigationProperty Name="SystemLog" Relationship="InsurancePortal_dbModel.FK_SystemLog_AspNetUsers" FromRole="AspNetUsers" ToRole="SystemLog" />
           </EntityType>
         <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
           <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
@@ -3632,6 +3682,8 @@
           <Property Name="ep_k1" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="ep_periodicity" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
           <Property Name="ep_boleto" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="ep_key" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ep_doc" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="PaymentDate" Type="DateTime" Precision="7" />
           <Property Name="LastChangeDate" Type="DateTime" Nullable="false" Precision="7" />
@@ -3647,6 +3699,18 @@
           <NavigationProperty Name="PaymentStatus" Relationship="InsurancePortal_dbModel.FK_Payment_PaymentStatus" FromRole="Payment" ToRole="PaymentStatus" />
           <NavigationProperty Name="PaymentType" Relationship="InsurancePortal_dbModel.FK_Payment_PaymentType" FromRole="Payment" ToRole="PaymentType" />
           <NavigationProperty Name="Profile" Relationship="InsurancePortal_dbModel.FK_Payment_Profile" FromRole="Payment" ToRole="Profile" />
+        </EntityType>
+        <EntityType Name="SystemSettings">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Token" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="Value" Type="String" Nullable="false" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="LastChangeDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="FK_Payment_ConstructionCompany">
           <End Type="InsurancePortal_dbModel.ConstructionCompany" Role="ConstructionCompany" Multiplicity="0..1" />
@@ -3741,6 +3805,30 @@
             </Principal>
             <Dependent Role="Payment">
               <PropertyRef Name="ID_Profile" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SystemLog">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LogDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="Level" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="ID_User" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="InsurancePortal_dbModel.FK_SystemLog_AspNetUsers" FromRole="SystemLog" ToRole="AspNetUsers" />
+        </EntityType>
+        <Association Name="FK_SystemLog_AspNetUsers">
+          <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+          <End Type="InsurancePortal_dbModel.SystemLog" Role="SystemLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SystemLog">
+              <PropertyRef Name="ID_User" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4373,6 +4461,8 @@
                 <ScalarProperty Name="LastChangeDate" ColumnName="LastChangeDate" />
                 <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="ep_doc" ColumnName="ep_doc" />
+                <ScalarProperty Name="ep_key" ColumnName="ep_key" />
                 <ScalarProperty Name="ep_boleto" ColumnName="ep_boleto" />
                 <ScalarProperty Name="ep_periodicity" ColumnName="ep_periodicity" />
                 <ScalarProperty Name="ep_k1" ColumnName="ep_k1" />
@@ -4413,6 +4503,31 @@
                 <ScalarProperty Name="ID_HomeApplianceRepair" ColumnName="ID_HomeApplianceRepair" />
                 <ScalarProperty Name="ID_Garage" ColumnName="ID_Garage" />
                 <ScalarProperty Name="ID_Profile" ColumnName="ID_Profile" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SystemSettings">
+            <EntityTypeMapping TypeName="InsurancePortal_dbModel.SystemSettings">
+              <MappingFragment StoreEntitySet="SystemSettings">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="LastChangeDate" ColumnName="LastChangeDate" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Token" ColumnName="Token" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SystemLog">
+            <EntityTypeMapping TypeName="InsurancePortal_dbModel.SystemLog">
+              <MappingFragment StoreEntitySet="SystemLog">
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
+                <ScalarProperty Name="Level" ColumnName="Level" />
+                <ScalarProperty Name="LogDate" ColumnName="LogDate" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

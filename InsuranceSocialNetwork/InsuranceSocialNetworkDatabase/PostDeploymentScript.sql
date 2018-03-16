@@ -25,5 +25,6 @@ Post-Deployment Script Template
 :r .\InitData\CompanyService.sql
 :r .\InitData\PaymentType.sql
 :r .\InitData\PaymentStatus.sql
+:r .\InitData\SystemSettings.sql
 
 :r .\InitData\dummy_data.sql
