@@ -11,3 +11,4 @@ INSERT INTO Insurance.NotificationType ([Token],[Description],[Active]) VALUES (
 INSERT INTO Insurance.NotificationType ([Token],[Description],[Active]) VALUES ('NEW_ASF_POST', 'NEW_ASF_POST', 1);
 INSERT INTO Insurance.NotificationType ([Token],[Description],[Active]) VALUES ('NEW_APROSE_POST', 'NEW_APROSE_POST', 1);
 INSERT INTO Insurance.NotificationType ([Token],[Description],[Active]) VALUES ('USER_APPROVAL_PENDING', 'USER_APPROVAL_PENDING', 1);
+INSERT INTO Insurance.NotificationType ([Token],[Description],[Active]) VALUES ('PAYMENT_CONFIRMED', 'PAYMENT_CONFIRMED', 1);

@@ -31,7 +31,7 @@
     [ep_partner] NVARCHAR(32) NULL, 
     [ep_rec] NVARCHAR(32) NULL,  
     [ep_rec_freq] NVARCHAR(32) NULL, 
-    [ep_rec_url] NVARCHAR(512) NOT NULL,
+    [ep_rec_url] NVARCHAR(512) NULL,
 	[ep_status] NVARCHAR(32) NULL,
 	[ep_message] NVARCHAR(512) NULL,
 	[ep_original_value] NVARCHAR(128) NULL,

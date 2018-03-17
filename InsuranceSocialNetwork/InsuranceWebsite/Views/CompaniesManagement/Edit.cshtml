@@ -266,6 +266,18 @@
                 </div>
                 <div>
                     <p class="data-row">
+                        @if (!Model.HasPendingPayment)
+                        {
+                            <span class="data-name profile-label" style="width:40em;">@Resources.Resources.CreateNewPayment?</span>
+                            <label class="form-control label-control profile-label" style="font-weight:bold;">@Html.CheckBoxFor(i => i.CreatePayment)</label>
+                        }
+                    </p>
+                </div>
+                <div>
+                    <a href="@Url.Action("SetupDirectDebit", "CompaniesManagement", new { id=Model.ID, idType=Model.CompanyType })" class="btn btn-warning lnkDirectDebit">@Resources.Resources.SetupDirectDebit</a>
+                </div>
+                <div>
+                    <p class="data-row">
                         @Html.ValidationMessageFor(i => i.IBAN)
                         @Html.ValidationMessageFor(i => i.Value)
                     </p>
@@ -419,7 +431,7 @@
 
         $("#paymentTypeList").change(function () {
             var selectedItem = $("#paymentTypeList").val();
-            
+
             if (selectedItem == 4)
             {
                 $('#ibanSection :input').attr('disabled', false);
@@ -427,6 +439,34 @@
             else
             {
                 $('#ibanSection :input').attr('disabled', true);
+            }
+        });
+
+        $(".lnkDirectDebit").click(function (e) {
+            e.preventDefault(); //use this or return false
+            url = $(this).attr('href');
+            $(".ui-dialog-title").html("@Resources.Resources.SetupDirectDebit");
+            $("#dialog-direct-debit").dialog('open');
+
+            return false;
+        });
+
+        $("#dialog-direct-debit").dialog({
+            title: 'Create User',
+            autoOpen: false,
+            resizable: false,
+            width: 450,
+            show: { effect: 'drop', direction: "up" },
+            modal: true,
+            draggable: true,
+            position: { my: "center top", at: "center top", of: window },
+            open: function (event, ui) {
+                $(this).load(url);
+            },
+            buttons: {
+                "@Resources.Resources.Save": function () { $("#dialog-direct-debit").find("form").submit(); }
+            },
+            close: function() {
             }
         });
 
@@ -446,4 +486,7 @@
         <span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>
         @Resources.Resources.AreYouSureToDeactivateCompany
     </p>
+</div>
+
+<div id="dialog-direct-debit" style="display: none; top:10%;">
 </div>

@@ -709,6 +709,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Criar novo pagamento.
+        /// </summary>
+        public static string CreateNewPayment {
+            get {
+                return ResourceManager.GetString("CreateNewPayment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Criar novo utilizador.
         /// </summary>
         public static string CreateNewUser {
@@ -903,6 +912,15 @@ namespace Resources {
         public static string Email {
             get {
                 return ResourceManager.GetString("Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pagamento confirmado.
+        /// </summary>
+        public static string EmailPaymentConfirmation {
+            get {
+                return ResourceManager.GetString("EmailPaymentConfirmation", resourceCulture);
             }
         }
         
@@ -2244,6 +2262,15 @@ namespace Resources {
         public static string Settings {
             get {
                 return ResourceManager.GetString("Settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Configurar Débito Directo.
+        /// </summary>
+        public static string SetupDirectDebit {
+            get {
+                return ResourceManager.GetString("SetupDirectDebit", resourceCulture);
             }
         }
         

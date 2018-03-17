@@ -64,6 +64,7 @@ namespace InsuranceWebsite.Models
         public string OfficialPartner { get; set; }
         public string OfficialAgent { get; set; }
 
+        public bool CreatePayment { get; set; }
         public long ID_PaymentType { get; set; }
         public string IBAN { get; set; }
         public decimal Value { get; set; }

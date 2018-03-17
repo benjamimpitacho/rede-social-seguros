@@ -280,6 +280,7 @@ namespace InsuranceWebsite.Controllers
             model.ServiceList = initList.Concat(InsuranceBusiness.BusinessLayer.GetCompanyServices(id).Select(i => new SelectListItem() { Value = i.Key.ToString(), Text = i.Value }).ToList()).ToList();
             model.PaymentTypeList = initList.Concat(InsuranceBusiness.BusinessLayer.GetPaymentTypes().Select(i => new SelectListItem() { Value = i.Key.ToString(), Text = Resources.Resources.ResourceManager.GetString(i.Value) }).ToList()).ToList();
             model.CompanyType = id;
+            model.CreatePayment = true;
 
             return PartialView(model);
         }
@@ -324,7 +325,7 @@ namespace InsuranceWebsite.Controllers
                     newCompany.LogoPhoto = data;
                 }
 
-                if (model.ID_PaymentType > 0)
+                if (model.CreatePayment && model.ID_PaymentType > 0)
                 {
                     Guid paymentId = Guid.NewGuid();
                     string baseUrl = string.Format("{0}?ep_cin={1}&ep_user={2}&ep_entity={3}&ep_ref_type={4}&ep_country={5}&ep_language={6}&t_value={7}&t_key={8}"
@@ -492,7 +493,8 @@ namespace InsuranceWebsite.Controllers
                 Payments = company.Payment,
                 CompanyType = idType,
                 ID_PaymentType = InsuranceBusiness.BusinessLayer.GetPaymentTypeID(PaymentTypeEnum.ATM),
-                Value = decimal.Round((vatValue * subscriptionValue) + subscriptionValue, 2, MidpointRounding.AwayFromZero)
+                Value = decimal.Round((vatValue * subscriptionValue) + subscriptionValue, 2, MidpointRounding.AwayFromZero),
+                CreatePayment = false
             };
 
             List<SelectListItem> initList = new List<SelectListItem>() { new SelectListItem() { Value = "", Text = Resources.Resources.SelectService } };
@@ -518,7 +520,7 @@ namespace InsuranceWebsite.Controllers
                 InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, "", string.Format("Company ID[{0}] will be edited", model.ID), string.Format("Company ID[{0}] will be edited.", model.ID));
 
                 CompanyDTO company = null;
-
+                InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, Request.UserHostAddress, "Ponto#0", "Ponto#0");
                 switch (model.CompanyType)
                 {
                     case CompanyTypeEnum.GARAGE:
@@ -537,7 +539,7 @@ namespace InsuranceWebsite.Controllers
                         company = InsuranceBusiness.BusinessLayer.GetInsuranceCompanyContact(model.ID);
                         break;
                 }
-
+                InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, Request.UserHostAddress, "Ponto#0.1", "Ponto#0.1");
                 company.Active = model.Active;
                 company.Name = model.Name;
                 company.Description = model.Description;
@@ -560,10 +562,11 @@ namespace InsuranceWebsite.Controllers
                 company.IBAN = model.IBAN;
 
                 bool hasPendingPayment = (null == company.Payment || company.Payment.Count == 0) ? false : company.Payment.Exists(i => i.ID_PaymentStatus == (int)PaymentStatusEnum.PENDING);
+                InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, Request.UserHostAddress, "Ponto#0.2", "Ponto#0.2");
 
-                if (!hasPendingPayment && model.ID_PaymentType > 0)
+                if (model.CreatePayment && !hasPendingPayment && model.ID_PaymentType > 0)
                 {
-                    InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, "", string.Format("Adding payment to company ID[{0}] will be edited", model.ID), string.Format("Adding payment to company ID[{ 0}] will be edited", model.ID));
+                    InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, Request.UserHostAddress, string.Format("Adding payment to company ID[{0}] will be edited", model.ID), string.Format("Adding payment to company ID[{0}] will be edited", model.ID));
 
                     Guid paymentId = Guid.NewGuid();
                     string baseUrl = string.Format("{0}?ep_cin={1}&ep_user={2}&ep_entity={3}&ep_ref_type={4}&ep_country={5}&ep_language={6}&t_value={7}&t_key={8}"
@@ -594,7 +597,7 @@ namespace InsuranceWebsite.Controllers
                                 skipProcessing = true;
                                 break;
                         }
-
+                        InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, Request.UserHostAddress, "Ponto#1", "Ponto#1");
                         if (!skipProcessing)
                         {
                             PaymentDTO payment = new PaymentDTO()
@@ -607,6 +610,7 @@ namespace InsuranceWebsite.Controllers
                                 t_value = model.Value.ToString().Replace(",", "."),
                                 ExpiracyDate = DateTime.Now.AddDays(Int32.Parse(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.SUBSCRIPTION_PAYMENT_DEADLINE_DAYS).Value))
                             };
+                            InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, Request.UserHostAddress, "Ponto#2", "Ponto#2");
                             var node = response.SelectSingleNode("getautoMB/ep_status");
                             if (node.InnerText.Equals("ok0"))
                             {
@@ -640,7 +644,7 @@ namespace InsuranceWebsite.Controllers
                                 payment.ep_rec_url = "";
                                 payment.ID_PaymentStatus = (int)PaymentStatusEnum.ERROR;
                             }
-
+                            InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, Request.UserHostAddress, "Ponto#3", "Ponto#3");
                             switch (model.CompanyType)
                             {
                                 case CompanyTypeEnum.GARAGE:
@@ -667,6 +671,7 @@ namespace InsuranceWebsite.Controllers
                                 company.Payment = new List<PaymentDTO>();
                             }
                             company.Payment.Add(payment);
+                            InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, Request.UserHostAddress, "Ponto#4", "Ponto#4");
                         }
                     }
                 }
@@ -694,6 +699,7 @@ namespace InsuranceWebsite.Controllers
             }
             catch (Exception ex)
             {
+                InsuranceBusiness.BusinessLayer.LogException(Request.UserHostAddress, "Edit Company", ex);
                 throw new NotImplementedException();
             }
 
@@ -732,6 +738,159 @@ namespace InsuranceWebsite.Controllers
             }
 
             return RedirectToAction("Index");
+        }
+
+        [FunctionalityAutorizeAttribute("COMPANIES_MANAGEMENT")]
+        public ActionResult SetupDirectDebit(long id, CompanyTypeEnum idType)
+        {
+            try
+            {
+                CompanyDTO company = null;
+
+                switch (idType)
+                {
+                    case CompanyTypeEnum.GARAGE:
+                        company = InsuranceBusiness.BusinessLayer.GetGarage(id);
+                        break;
+                    case CompanyTypeEnum.MEDICAL_CLINIC:
+                        company = InsuranceBusiness.BusinessLayer.GetMedicalClinic(id);
+                        break;
+                    case CompanyTypeEnum.CONSTRUCTION_COMPANY:
+                        company = InsuranceBusiness.BusinessLayer.GetConstructionCompany(id);
+                        break;
+                    case CompanyTypeEnum.HOME_APPLIANCES_REPAIR:
+                        company = InsuranceBusiness.BusinessLayer.GetHomeApplianceRepair(id);
+                        break;
+                    case CompanyTypeEnum.INSURANCE_COMPANY_CONTACT:
+                        company = InsuranceBusiness.BusinessLayer.GetInsuranceCompanyContact(id);
+                        break;
+                }
+
+                decimal subscriptionValue = decimal.Parse(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.YEAR_SUBSCRIPTION_PRICE_WITHOUT_VAT).Value);
+                decimal vatValue = decimal.Parse(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.VAT_PERCENTAGE).Value);
+
+                Guid paymentId = Guid.NewGuid();
+                string baseUrl = string.Format("{0}?ep_cin={1}&ep_user={2}&ep_entity={3}&ep_ref_type={4}&ep_country={5}&ep_language={6}&t_value={7}&t_key={8}&ep_rec=yes&ep_rec_freq=1Y&ep_rec_url={9}"
+                    , ConfigurationManager.AppSettings["ep_url"]
+                    , ConfigurationManager.AppSettings["ep_cin"]
+                    , ConfigurationManager.AppSettings["ep_user"]
+                    , ConfigurationManager.AppSettings["ep_entity"]
+                    , ConfigurationManager.AppSettings["ep_ref_type"]
+                    , ConfigurationManager.AppSettings["ep_country"]
+                    , ConfigurationManager.AppSettings["ep_language"]
+                    , decimal.Round((vatValue * subscriptionValue) + subscriptionValue, 2, MidpointRounding.AwayFromZero)
+                    , paymentId.ToString()
+                    , "http://www.google.com");
+
+                using (var client = new WebClient())
+                {
+                    XmlDocument response = new XmlDocument();
+                    var result = client.DownloadString(baseUrl);
+                    response.LoadXml(result);
+
+                    PaymentDTO payment = new PaymentDTO()
+                    {
+                        CreateDate = DateTime.Now,
+                        LastChangeDate = DateTime.Now,
+                        ID_PaymentType = InsuranceBusiness.BusinessLayer.GetPaymentTypeID(PaymentTypeEnum.DIRECT_DEBIT),
+                        Payment_GUID = paymentId,
+                        Active = true,
+                        t_value = decimal.Round((vatValue * subscriptionValue) + subscriptionValue, 2, MidpointRounding.AwayFromZero).ToString(),
+                        ExpiracyDate = DateTime.Now.AddDays(Int32.Parse(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.SUBSCRIPTION_PAYMENT_DEADLINE_DAYS).Value))
+                    };
+
+                    var node = response.SelectSingleNode("getautoMB/ep_status");
+                    if (node.InnerText.Equals("ok0"))
+                    {
+                        // Sucesso
+                        payment.ep_status = response.SelectSingleNode("getautoMB/ep_status").InnerText;
+                        payment.ep_message = response.SelectSingleNode("getautoMB/ep_message").InnerText;
+                        payment.ep_cin = response.SelectSingleNode("getautoMB/ep_cin").InnerText;
+                        payment.ep_user = response.SelectSingleNode("getautoMB/ep_user").InnerText;
+                        payment.ep_entity = response.SelectSingleNode("getautoMB/ep_entity").InnerText;
+                        payment.ep_ref_type = ConfigurationManager.AppSettings["ep_ref_type"];
+                        payment.ep_country = ConfigurationManager.AppSettings["ep_country"];
+                        payment.ep_language = ConfigurationManager.AppSettings["ep_language"];
+                        //payment.ep_rec_url = response.SelectSingleNode("getautoMB/ep_rec_url").InnerText; ;
+                        payment.ep_reference = response.SelectSingleNode("getautoMB/ep_reference").InnerText;
+                        payment.ep_value = response.SelectSingleNode("getautoMB/ep_value").InnerText;
+                        payment.t_key = response.SelectSingleNode("getautoMB/t_key").InnerText;
+                        payment.ep_link = response.SelectSingleNode("getautoMB/ep_link").InnerText;
+                        payment.ep_link_rp_cc = response.SelectSingleNode("getautoMB/ep_link_rp_cc").InnerText;
+                        payment.ep_link_rp_dd = response.SelectSingleNode("getautoMB/ep_link_rp_dd").InnerText;
+                        payment.ID_PaymentStatus = (int)PaymentStatusEnum.PENDING;
+                    }
+                    else
+                    {
+                        // Erro
+                        payment.ep_status = response.SelectSingleNode("getautoMB/ep_status").InnerText;
+                        payment.ep_message = response.SelectSingleNode("getautoMB/ep_message").InnerText;
+                        payment.ep_cin = response.SelectSingleNode("getautoMB/ep_cin").InnerText;
+                        payment.ep_user = response.SelectSingleNode("getautoMB/ep_user").InnerText;
+                        payment.ep_entity = response.SelectSingleNode("getautoMB/ep_entity").InnerText;
+                        payment.ep_ref_type = ConfigurationManager.AppSettings["ep_ref_type"];
+                        payment.ep_country = ConfigurationManager.AppSettings["ep_country"];
+                        payment.ep_language = ConfigurationManager.AppSettings["ep_language"];
+                        //payment.ep_rec_url = "";
+                        payment.ID_PaymentStatus = (int)PaymentStatusEnum.ERROR;
+                    }
+
+                    switch (idType)
+                    {
+                        case CompanyTypeEnum.GARAGE:
+                            payment.ID_Garage = company.ID;
+                            break;
+                        case CompanyTypeEnum.MEDICAL_CLINIC:
+                            payment.ID_MedicalClinic = company.ID;
+                            break;
+                        case CompanyTypeEnum.CONSTRUCTION_COMPANY:
+                            payment.ID_ConstructionCompany = company.ID;
+                            break;
+                        case CompanyTypeEnum.HOME_APPLIANCES_REPAIR:
+                            payment.ID_HomeApplianceRepair = company.ID;
+                            break;
+                        case CompanyTypeEnum.INSURANCE_COMPANY_CONTACT:
+                            payment.ID_InsuranceCompanyContact = company.ID;
+                            break;
+                        default:
+                            break;
+                    }
+
+                    if (null == company.Payment)
+                    {
+                        company.Payment = new List<PaymentDTO>();
+                    }
+                    company.Payment.Add(payment);
+
+                    switch (idType)
+                    {
+                        case CompanyTypeEnum.GARAGE:
+                            InsuranceBusiness.BusinessLayer.EditGarage(company);
+                            break;
+                        case CompanyTypeEnum.MEDICAL_CLINIC:
+                            InsuranceBusiness.BusinessLayer.EditMedicalClinic(company);
+                            break;
+                        case CompanyTypeEnum.CONSTRUCTION_COMPANY:
+                            InsuranceBusiness.BusinessLayer.EditConstructionCompany(company);
+                            break;
+                        case CompanyTypeEnum.HOME_APPLIANCES_REPAIR:
+                            InsuranceBusiness.BusinessLayer.EditHomeApplianceRepair(company);
+                            break;
+                        case CompanyTypeEnum.INSURANCE_COMPANY_CONTACT:
+                            InsuranceBusiness.BusinessLayer.EditInsuranceCompanyContact(company);
+                            break;
+                        default:
+                            break;
+                    }
+
+                    return Redirect(payment.ep_link);
+                }
+            }
+            catch(Exception ex)
+            {
+                InsuranceBusiness.BusinessLayer.LogException(Request.UserHostAddress, "Setup Direct Debit", ex);
+                throw new NotImplementedException();
+            }
         }
 
         //[FunctionalityAutorizeAttribute("COMPANIES_MANAGEMENT")]

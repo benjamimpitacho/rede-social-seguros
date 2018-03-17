@@ -960,4 +960,13 @@
   <data name="PendingPayment" xml:space="preserve">
     <value>Pagamento pendente</value>
   </data>
+  <data name="EmailPaymentConfirmation" xml:space="preserve">
+    <value>Pagamento confirmado</value>
+  </data>
+  <data name="CreateNewPayment" xml:space="preserve">
+    <value>Criar novo pagamento</value>
+  </data>
+  <data name="SetupDirectDebit" xml:space="preserve">
+    <value>Configurar Débito Directo</value>
+  </data>
 </root>

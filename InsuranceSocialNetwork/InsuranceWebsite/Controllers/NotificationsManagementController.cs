@@ -4,6 +4,7 @@ using InsuranceSocialNetworkCore.Enums;
 using InsuranceSocialNetworkDTO.Company;
 using InsuranceSocialNetworkDTO.Payment;
 using InsuranceSocialNetworkDTO.Role;
+using InsuranceSocialNetworkDTO.UserProfile;
 using InsuranceWebsite.Commons;
 using InsuranceWebsite.Models;
 using InsuranceWebsite.Utils;
@@ -12,10 +13,14 @@ using MVCGrid.Models;
 using MVCGrid.Web;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Xml;
 
 namespace InsuranceWebsite.Controllers
 {
@@ -176,71 +181,177 @@ namespace InsuranceWebsite.Controllers
         }
 
         [AllowAnonymous]
-        public void EasypayPaymentNotification(string ep_cin, string ep_user, string ep_doc, string ep_key)
+        public void EasypayPaymentNotification(string ep_cin, string ep_user, string ep_doc, string ep_type)
         {
             try
             {
-                InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, "", string.Format("Easypay payment notification received"), string.Format("Easypay infromation received is ep_cin {0}, ep_user {1}, ep_doc {2}, ep_key {3},", ep_cin , ep_user, ep_doc, ep_key));
+                PaymentDTO payment = null;
 
-                PaymentDTO payment = InsuranceBusiness.BusinessLayer.GetPayment(ep_key);
-                if(null == payment || payment.ep_cin != ep_cin || payment.ep_user != ep_user)
+                InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, "", string.Format("Easypay payment notification received"), string.Format("Easypay infromation received is ep_cin {0}, ep_user {1}, ep_doc {2}, ep_type {3}", ep_cin, ep_user, ep_doc, ep_type));
+
+                long notificationId = InsuranceBusiness.BusinessLayer.CreatePaymentNotification(ep_cin, ep_user, ep_doc, ep_type);
+                if (notificationId <= 0)
                 {
-                    throw new Exception("INVALID_PAYMENT_INFORMATION");
+                    InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.ERROR, Request.UserHostAddress, "Could not create Payment Notification on easypay notification call", "Could not create Payment Notification on easypay notification call");
+                    return;
                 }
-                payment.ep_key = ep_key;
-                payment.ep_doc = ep_doc;
-                if(InsuranceBusiness.BusinessLayer.ConfirmEasypayPayment(payment))
-                {
-                    if (payment.ID_Profile.HasValue)
-                    {
-                        // Activate user
-                        InsuranceBusiness.BusinessLayer.ActivateUser(payment.ID_Profile.Value);
-                        // Send user notification
-                        InsuranceBusiness.BusinessLayer.CreateNotificationForPaymentDone(false, payment.ID_Profile.Value);
+                PaymentNotificationDTO paymentNotification = InsuranceBusiness.BusinessLayer.GetPaymentNotification(notificationId);
 
-                    }
-                    else if (payment.ID_Garage.HasValue)
+                string baseUrl = string.Format("{0}?ep_cin={1}&ep_user={2}&ep_doc={3}"
+                        , InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_URL_FETCH_PAYMENT_DETAIL_URL).Value
+                        , ep_cin
+                        , ep_user
+                        , ep_doc);
+
+                if (!string.IsNullOrEmpty(ep_type))
+                {
+                    baseUrl += string.Format("&ep_type={0}", ep_type);
+                }
+
+                using (var client = new WebClient())
+                {
+                    XmlDocument response = new XmlDocument();
+                    var result = client.DownloadString(baseUrl);
+                    response.LoadXml(result);
+
+                    var node = response.SelectSingleNode("getautoMB_detail/ep_status");
+                    if (node.InnerText.Equals("ok0"))
                     {
-                        // Activate user
-                        InsuranceBusiness.BusinessLayer.ActivateGarage(payment.ID_Garage.Value);
-                        // Send user notification
-                        InsuranceBusiness.BusinessLayer.CreateNotificationForPaymentDone(true, payment.ID_Garage.Value, CompanyTypeEnum.GARAGE);
+                        // Sucesso
+                        // Update Notification information
+                        paymentNotification.ep_date = response.SelectSingleNode("getautoMB_detail/ep_date_read").InnerText;
+                        paymentNotification.ep_date_transf = response.SelectSingleNode("getautoMB_detail/ep_date_transf").InnerText;
+                        paymentNotification.ep_key = response.SelectSingleNode("getautoMB_detail/ep_key").InnerText;
+                        paymentNotification.ep_payment_type = response.SelectSingleNode("getautoMB_detail/ep_payment_type").InnerText;
+                        paymentNotification.ep_reference = response.SelectSingleNode("getautoMB_detail/ep_reference").InnerText;
+                        paymentNotification.ep_status = response.SelectSingleNode("getautoMB_detail/ep_status_read").InnerText;
+                        paymentNotification.ep_value = response.SelectSingleNode("getautoMB_detail/ep_value").InnerText;
+                        paymentNotification.ep_value_fixed = response.SelectSingleNode("getautoMB_detail/ep_value_fixed").InnerText;
+                        paymentNotification.ep_value_var = response.SelectSingleNode("getautoMB_detail/ep_value_var").InnerText;
+                        paymentNotification.ep_value_tax = response.SelectSingleNode("getautoMB_detail/ep_value_tax").InnerText;
+                        paymentNotification.ep_value_transf = response.SelectSingleNode("getautoMB_detail/ep_value_transf").InnerText;
+                        paymentNotification.t_key = response.SelectSingleNode("getautoMB_detail/t_key").InnerText;
+                        paymentNotification.LastChangeDate = DateTime.Now;
+                        paymentNotification.NotificationDate = DateTime.Now;
+
+                        payment = InsuranceBusiness.BusinessLayer.GetPayment(paymentNotification.t_key);
+                        payment.PaymentDate = DateTime.Now;
+                        payment.o_obs = response.SelectSingleNode("getautoMB_detail/o_obs").InnerText;
+                        payment.o_email = response.SelectSingleNode("getautoMB_detail/o_email").InnerText;
+                        payment.o_mobile = response.SelectSingleNode("getautoMB_detail/o_mobile").InnerText;
+                        payment.ep_doc = response.SelectSingleNode("getautoMB_detail/ep_doc").InnerText;
+                        payment.ep_key = response.SelectSingleNode("getautoMB_detail/ep_key").InnerText;
+                        payment.ID_PaymentStatus = (int)PaymentStatusEnum.PAYED;
+
+                        if (null == payment || payment.ep_cin != ep_cin || payment.ep_user != ep_user)
+                        {
+                            InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.ERROR, Request.UserHostAddress, "Easypay notification infromation doesn't match payment information", string.Format("Easypay infromation received is ep_cin {0}, ep_user {1}, ep_doc {2}, ep_type {3} for payment {4}", ep_cin, ep_user, ep_doc, ep_type, payment.Payment_GUID));
+                            return;
+                        }
+
+                        InsuranceBusiness.BusinessLayer.UpdatePayment(payment);
+                        InsuranceBusiness.BusinessLayer.UpdatePaymentNotification(paymentNotification);
                     }
-                    else if (payment.ID_ConstructionCompany.HasValue)
+                    else
                     {
-                        // Activate user
-                        InsuranceBusiness.BusinessLayer.ActivateConstructionCompany(payment.ID_ConstructionCompany.Value);
-                        // Send user notification
-                        InsuranceBusiness.BusinessLayer.CreateNotificationForPaymentDone(true, payment.ID_ConstructionCompany.Value, CompanyTypeEnum.GARAGE);
+                        // Erro
+                        InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.ERROR, Request.UserHostAddress, "Easypay returned error fetching payment details", result);
+                        return;
                     }
-                    else if (payment.ID_HomeApplianceRepair.HasValue)
-                    {
-                        // Activate user
-                        InsuranceBusiness.BusinessLayer.ActivateHomeApplianceRepair(payment.ID_HomeApplianceRepair.Value);
-                        // Send user notification
-                        InsuranceBusiness.BusinessLayer.CreateNotificationForPaymentDone(true, payment.ID_HomeApplianceRepair.Value, CompanyTypeEnum.GARAGE);
-                    }
-                    else if (payment.ID_InsuranceCompanyContact.HasValue)
-                    {
-                        // Activate user
-                        InsuranceBusiness.BusinessLayer.ActivateInsuranceCompanyContact(payment.ID_InsuranceCompanyContact.Value);
-                        // Send user notification
-                        InsuranceBusiness.BusinessLayer.CreateNotificationForPaymentDone(true, payment.ID_InsuranceCompanyContact.Value, CompanyTypeEnum.GARAGE);
-                    }
-                    else if (payment.ID_MedicalClinic.HasValue)
-                    {
-                        // Activate user
-                        InsuranceBusiness.BusinessLayer.ActivateMedicalClinic(payment.ID_MedicalClinic.Value);
-                        // Send user notification
-                        InsuranceBusiness.BusinessLayer.CreateNotificationForPaymentDone(true, payment.ID_MedicalClinic.Value, CompanyTypeEnum.GARAGE);
-                    }
+                }
+
+                if (payment.ID_Profile.HasValue)
+                {
+                    // Activate user
+                    InsuranceBusiness.BusinessLayer.ActivateUser(payment.ID_Profile.Value);
+                    // Send user notification
+                    InsuranceBusiness.BusinessLayer.CreateNotificationForPaymentDone(NotificationTypeEnum.PAYMENT_CONFIRMED, false, payment.ID_Profile.Value, payment.ID);
+                    // Send user email
+                    UserProfileDTO profile = InsuranceBusiness.BusinessLayer.GetUserProfile(payment.ID_Profile.Value);
+                    SendPaymentConfirmationEmail(string.Format("{0} {1}", profile.FirstName, profile.LastName), profile.User.UserName);
+                }
+                else if (payment.ID_Garage.HasValue)
+                {
+                    // Activate user
+                    InsuranceBusiness.BusinessLayer.ActivateGarage(payment.ID_Garage.Value);
+                    // Send user notification
+                    //InsuranceBusiness.BusinessLayer.CreateNotificationForPaymentDone(NotificationTypeEnum.PAYMENT_CONFIRMED, true, payment.ID_Garage.Value, payment.ID, CompanyTypeEnum.GARAGE);
+                    // Send user email
+                    CompanyDTO company = InsuranceBusiness.BusinessLayer.GetGarage(payment.ID_Garage.Value);
+                    SendPaymentConfirmationEmail(company.Name, company.ContactEmail);
+                }
+                else if (payment.ID_ConstructionCompany.HasValue)
+                {
+                    // Activate user
+                    InsuranceBusiness.BusinessLayer.ActivateConstructionCompany(payment.ID_ConstructionCompany.Value);
+                    // Send user notification
+                    //InsuranceBusiness.BusinessLayer.CreateNotificationForPaymentDone(NotificationTypeEnum.PAYMENT_CONFIRMED, true, payment.ID_ConstructionCompany.Value, payment.ID, CompanyTypeEnum.CONSTRUCTION_COMPANY);
+                    // Send user email
+                    CompanyDTO company = InsuranceBusiness.BusinessLayer.GetConstructionCompany(payment.ID_ConstructionCompany.Value);
+                    SendPaymentConfirmationEmail(company.Name, company.ContactEmail);
+                }
+                else if (payment.ID_HomeApplianceRepair.HasValue)
+                {
+                    // Activate user
+                    InsuranceBusiness.BusinessLayer.ActivateHomeApplianceRepair(payment.ID_HomeApplianceRepair.Value);
+                    // Send user notification
+                    //InsuranceBusiness.BusinessLayer.CreateNotificationForPaymentDone(NotificationTypeEnum.PAYMENT_CONFIRMED, true, payment.ID_HomeApplianceRepair.Value, payment.ID, CompanyTypeEnum.HOME_APPLIANCES_REPAIR);
+                    // Send user email
+                    CompanyDTO company = InsuranceBusiness.BusinessLayer.GetHomeApplianceRepair(payment.ID_HomeApplianceRepair.Value);
+                    SendPaymentConfirmationEmail(company.Name, company.ContactEmail);
+                }
+                else if (payment.ID_InsuranceCompanyContact.HasValue)
+                {
+                    // Activate user
+                    InsuranceBusiness.BusinessLayer.ActivateInsuranceCompanyContact(payment.ID_InsuranceCompanyContact.Value);
+                    // Send user notification
+                    //InsuranceBusiness.BusinessLayer.CreateNotificationForPaymentDone(NotificationTypeEnum.PAYMENT_CONFIRMED, true, payment.ID_InsuranceCompanyContact.Value, payment.ID, CompanyTypeEnum.INSURANCE_COMPANY_CONTACT);
+                    // Send user email
+                    CompanyDTO company = InsuranceBusiness.BusinessLayer.GetInsuranceCompanyContact(payment.ID_InsuranceCompanyContact.Value);
+                    SendPaymentConfirmationEmail(company.Name, company.ContactEmail);
+                }
+                else if (payment.ID_MedicalClinic.HasValue)
+                {
+                    // Activate user
+                    InsuranceBusiness.BusinessLayer.ActivateMedicalClinic(payment.ID_MedicalClinic.Value);
+                    // Send user notification
+                    //InsuranceBusiness.BusinessLayer.CreateNotificationForPaymentDone(NotificationTypeEnum.PAYMENT_CONFIRMED, true, payment.ID_MedicalClinic.Value, payment.ID, CompanyTypeEnum.MEDICAL_CLINIC);
+                    // Send user email
+                    CompanyDTO company = InsuranceBusiness.BusinessLayer.GetMedicalClinic(payment.ID_MedicalClinic.Value);
+                    SendPaymentConfirmationEmail(company.Name, company.ContactEmail);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, "", string.Format("Easypay payment notification ERROR"), ex.Message + "\r\n" + ex.StackTrace);
+                InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.ERROR, Request.UserHostAddress, string.Format("Easypay payment notification ERROR"), ex.Message + "\r\n" + ex.StackTrace);
                 throw new NotImplementedException();
             }
+        }
+
+        private bool SendPaymentConfirmationEmail(string name, string email)
+        {
+            System.Net.Mail.MailMessage m = new System.Net.Mail.MailMessage(
+                new System.Net.Mail.MailAddress(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.PLATFORM_EMAIL).Value, Resources.Resources.ApplicationNAme),
+                new System.Net.Mail.MailAddress(email));
+            m.Subject = Resources.Resources.EmailPaymentConfirmation;
+
+            using (StreamReader reader = new StreamReader(Server.MapPath("~/Views/NotificationsManagement/EmailTemplates/PaymentConfirmationTemplate.html")))
+            {
+                m.Body = reader.ReadToEnd();
+            }
+
+            m.Body = m.Body.Replace("{NAME}", name); //replacing the required things
+            m.Body = m.Body.Replace("{URL}", InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.APPLICATION_SITE_URL).Value);
+            m.IsBodyHtml = true;
+
+            SmtpClient smtp = new SmtpClient(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.SMTP_HOST).Value, Int32.Parse(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.SMTP_PORT).Value))
+            {
+                Credentials = new System.Net.NetworkCredential(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.SMTP_USERNAME).Value, InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.SMTP_PASSWORD).Value),
+                EnableSsl = false
+            };
+            smtp.Send(m);
+
+            return true;
         }
     }
 }

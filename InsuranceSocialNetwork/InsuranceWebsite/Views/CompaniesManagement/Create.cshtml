@@ -246,6 +246,12 @@
                 </div>
                 <div>
                     <p class="data-row">
+                        <span class="data-name profile-label" style="width:40em;">@Resources.Resources.CreateNewPayment?</span>
+                        <label class="form-control label-control profile-label" style="font-weight:bold;">@Html.CheckBoxFor(i => i.CreatePayment)</label>
+                    </p>
+                </div>
+                <div>
+                    <p class="data-row">
                         @Html.ValidationMessageFor(i => i.IBAN)
                         @Html.ValidationMessageFor(i => i.Value)
                     </p>

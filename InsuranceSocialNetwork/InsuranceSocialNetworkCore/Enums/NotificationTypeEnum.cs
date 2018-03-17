@@ -18,6 +18,7 @@ namespace InsuranceSocialNetworkCore.Enums
         NEW_APS_POST,
         NEW_ASF_POST,
         NEW_APROSE_POST,
-        USER_APPROVAL_PENDING
+        USER_APPROVAL_PENDING,
+        PAYMENT_CONFIRMED
     }
 }

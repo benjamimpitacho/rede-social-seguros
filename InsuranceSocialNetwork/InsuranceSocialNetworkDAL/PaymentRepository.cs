@@ -83,14 +83,56 @@ namespace InsuranceSocialNetworkDAL
             }
         }
 
-        public static bool UpdatePayment(Payment payment)
+        public static bool EditPayment(Payment payment)
         {
-            throw new NotImplementedException();
+            using (var context = new BackofficeUnitOfWork())
+            {
+                payment.LastChangeDate = DateTime.Now;
+
+                context.Payment.Update(payment);
+                context.Save();
+
+                return true;
+            }
         }
 
         public static bool DeletePayment(long paymentId, string userId)
         {
             throw new NotImplementedException();
+        }
+
+        public static PaymentNotification GetPaymentNotification(long id)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                return context.PaymentNotification
+                    .Fetch()
+                    .Where(i => i.ID == id)
+                    .FirstOrDefault();
+            }
+        }
+
+        public static long CreatePaymentNotification(PaymentNotification paymentNotification)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                context.PaymentNotification.Create(paymentNotification);
+                context.Save();
+                return paymentNotification.ID;
+            }
+        }
+
+        public static bool EditPaymentNotification(PaymentNotification paymentNotification)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                paymentNotification.LastChangeDate = DateTime.Now;
+
+                context.PaymentNotification.Update(paymentNotification);
+                context.Save();
+
+                return true;
+            }
         }
     }
 }

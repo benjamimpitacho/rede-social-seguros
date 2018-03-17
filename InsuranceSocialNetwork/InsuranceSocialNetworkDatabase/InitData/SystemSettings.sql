@@ -22,3 +22,5 @@ INSERT INTO Insurance.SystemSettings ([Token],[Description],[Type],[Value],[Last
 INSERT INTO Insurance.SystemSettings ([Token],[Description],[Type],[Value],[LastChangeDate],[Active]) VALUES ('EP_COUNTRY', 'EP_COUNTRY_DESCRIPTION', 'STRING', 'PT', GETDATE(), 1);
 INSERT INTO Insurance.SystemSettings ([Token],[Description],[Type],[Value],[LastChangeDate],[Active]) VALUES ('EP_LANGUAGE', 'EP_LANGUAGE_DESCRIPTION', 'STRING', 'PT', GETDATE(), 1);
 INSERT INTO Insurance.SystemSettings ([Token],[Description],[Type],[Value],[LastChangeDate],[Active]) VALUES ('EP_REC_URL', 'EP_REC_URL_DESCRIPTION', 'STRING', '', GETDATE(), 1);
+INSERT INTO Insurance.SystemSettings ([Token],[Description],[Type],[Value],[LastChangeDate],[Active]) VALUES ('EP_URL_FETCH_PAYMENT_DETAIL_URL', 'EP_URL_FETCH_PAYMENT_DETAIL_URL_DESCRIPTION', 'STRING', 'http://test.easypay.pt/_s/api_easypay_03AG.php', GETDATE(), 1);
+INSERT INTO Insurance.SystemSettings ([Token],[Description],[Type],[Value],[LastChangeDate],[Active]) VALUES ('EP_URL_FETCH_ALL_PAYMENT_URL', 'EP_URL_FETCH_ALL_PAYMENT_URL_DESCRIPTION', 'STRING', 'http://test.easypay.pt/_s/api_easypay_040BG1.php', GETDATE(), 1);

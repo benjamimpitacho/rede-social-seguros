@@ -52,6 +52,7 @@ namespace InsuranceSocialNetworkDAL
         private IRepository<Payment> paymentRepository;
         private IRepository<PaymentType> paymentTypeRepository;
         private IRepository<PaymentStatus> paymentStatusRepository;
+        private IRepository<PaymentNotification> paymentNotificationRepository;
 
         private IRepository<SystemSettings> systemSettingsRepository;
         private IRepository<SystemLog> systemLogRepository;
@@ -608,6 +609,19 @@ namespace InsuranceSocialNetworkDAL
                         new Repository<InsurancePortal_dbEntities, PaymentStatus>(DataContext, AutoDetectChangesEnabled);
                 }
                 return paymentStatusRepository;
+            }
+        }
+
+        public IRepository<PaymentNotification> PaymentNotification
+        {
+            get
+            {
+                if (this.paymentNotificationRepository == null)
+                {
+                    this.paymentNotificationRepository =
+                        new Repository<InsurancePortal_dbEntities, PaymentNotification>(DataContext, AutoDetectChangesEnabled);
+                }
+                return paymentNotificationRepository;
             }
         }
 

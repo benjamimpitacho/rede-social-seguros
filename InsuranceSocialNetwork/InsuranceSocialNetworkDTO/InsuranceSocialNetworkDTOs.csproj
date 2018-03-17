@@ -47,6 +47,7 @@
     <Compile Include="Chat\ChatDTO.cs" />
     <Compile Include="Company\CompanyDTO.cs" />
     <Compile Include="Company\CompanySearchDTO.cs" />
+    <Compile Include="Payment\PaymentNotificationDTO.cs" />
     <Compile Include="Payment\PaymentDTO.cs" />
     <Compile Include="PostalCode\PostalCodeDTO.cs" />
     <Compile Include="Notification\NotificationTypeDTO.cs" />

@@ -87,6 +87,8 @@ namespace InsuranceSocialNetworkBusiness
 
                 cfg.CreateMap<Payment, PaymentDTO>();
                 cfg.CreateMap<PaymentDTO, Payment>();
+                cfg.CreateMap<PaymentNotification, PaymentNotificationDTO>();
+                cfg.CreateMap<PaymentNotificationDTO, PaymentNotification>();
 
                 cfg.CreateMap<Garage, CompanyDTO>()
                     .ForMember(dest => dest.IsFavorite,
@@ -167,12 +169,14 @@ namespace InsuranceSocialNetworkBusiness
 
         public string GetUserIdFromProfileId(long profileId)
         {
-            return UserProfileRepository.GetProfile(profileId).ID_User;
+            //return UserProfileRepository.GetProfile(profileId).ID_User;
+            return UserProfileRepository.GetProfileId(profileId);
         }
 
         public long GetUserProfileIdFromId(string id)
         {
-            return UserProfileRepository.GetProfile(id).ID;
+            //return UserProfileRepository.GetProfile(id).ID;
+            return UserProfileRepository.GetProfileId(id);
         }
 
         public bool IsUserAuthorizedToFunctionality(string username, string functionality)
@@ -261,17 +265,45 @@ namespace InsuranceSocialNetworkBusiness
             return AutoMapper.Mapper.Map<PaymentDTO>(PaymentRepository.GetPayment(id));
         }
 
-        public bool ConfirmEasypayPayment(PaymentDTO paymentDto)
+        public bool UpdatePayment(PaymentDTO payment)
         {
-            Payment payment = PaymentRepository.GetPayment(paymentDto.ID);
-
-            payment.PaymentDate = DateTime.Now;
-            payment.ID_PaymentStatus = GetPaymentStatusID(PaymentStatusEnum.PAYED);
-            payment.ep_key = paymentDto.ep_key;
-            payment.ep_doc = paymentDto.ep_doc;
-
-            return PaymentRepository.UpdatePayment(payment);
+            return PaymentRepository.EditPayment(AutoMapper.Mapper.Map<Payment>(payment));
         }
+
+        public PaymentNotificationDTO GetPaymentNotification(long id)
+        {
+            return AutoMapper.Mapper.Map<PaymentNotificationDTO>(PaymentRepository.GetPaymentNotification(id));
+        }
+
+        public long CreatePaymentNotification(string ep_cin, string ep_user, string ep_doc, string ep_type)
+        {
+            return PaymentRepository.CreatePaymentNotification(new PaymentNotification()
+            {
+                ep_cin = ep_cin,
+                ep_user = ep_user,
+                ep_doc = ep_doc,
+                ep_type = ep_type
+            });
+        }
+
+        public bool UpdatePaymentNotification(PaymentNotificationDTO paymentNotification)
+        {
+            return PaymentRepository.EditPaymentNotification(AutoMapper.Mapper.Map<PaymentNotification>(paymentNotification));
+        }
+
+        //public bool ConfirmEasypayPayment(PaymentDTO paymentDto)
+        //{
+        //    Payment payment = PaymentRepository.GetPayment(paymentDto.ID);
+        //    PaymentStatus status = PaymentRepository.GetPaymentStatus(PaymentStatusEnum.PAYED.ToString());
+
+        //    payment.PaymentDate = DateTime.Now;
+        //    payment.PaymentStatus = status;
+        //    payment.ID_PaymentStatus = status.ID;
+        //    payment.ep_key = paymentDto.ep_key;
+        //    payment.ep_doc = paymentDto.ep_doc;
+
+        //    return PaymentRepository.EditPayment(payment);
+        //}
 
         #endregion
 
@@ -537,6 +569,22 @@ namespace InsuranceSocialNetworkBusiness
             return true;
         }
 
+        public bool CreateNotificationForPaymentDone(NotificationTypeEnum type, bool isCompany, long profileId, long paymentId, CompanyTypeEnum companyType = CompanyTypeEnum.NONE)
+        {
+            Notification notification = new Notification()
+            {
+                Active = true,
+                CreateDate = DateTime.Now,
+                Read = false,
+                ID_NotificationType = NotificationRepository.GetNotificationType(type.ToString()).ID,
+                ToUserID = UserProfileRepository.GetProfileId(profileId)
+            };
+
+            NotificationRepository.CreateNotification(notification);
+
+            return true;
+        }
+
         public bool MarkNotificationAsRead(long id)
         {
             return NotificationRepository.MarkNotificationAsRead(id);
@@ -545,11 +593,6 @@ namespace InsuranceSocialNetworkBusiness
         public bool MarkAllNotificationsAsRead(string id)
         {
             return NotificationRepository.MarkNotificationsAsRead(id);
-        }
-
-        public void CreateNotificationForPaymentDone(bool isCompany, long id, CompanyTypeEnum companyType = CompanyTypeEnum.NONE)
-        {
-            throw new NotImplementedException();
         }
 
         #endregion Notifications
@@ -1240,6 +1283,21 @@ namespace InsuranceSocialNetworkBusiness
             try
             {
                 SystemLogRepository.Log(level.ToString(), idUser, title, message);
+            }
+            catch (Exception) { }
+        }
+
+        public void LogException(string idUser, string title, Exception ex)
+        {
+            try
+            {
+                string entireMessageWithStack = string.Format("{0}\r\n{1}", ex.Message, ex.StackTrace);
+                while(null != ex.InnerException)
+                {
+                    ex = ex.InnerException;
+                    entireMessageWithStack += string.Format("{0}\r\n{1}", ex.Message, ex.StackTrace);
+                }
+                SystemLogRepository.Log(SystemLogLevelEnum.ERROR.ToString(), idUser, title, entireMessageWithStack);
             }
             catch (Exception) { }
         }

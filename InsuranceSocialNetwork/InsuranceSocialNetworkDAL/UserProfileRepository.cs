@@ -40,6 +40,30 @@ namespace InsuranceSocialNetworkDAL
             }
         }
 
+        public static string GetProfileId(long Id)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                return context
+                    .Profile
+                    .Fetch()
+                    .FirstOrDefault(i => i.ID == Id)
+                    .ID_User;
+            }
+        }
+
+        public static long GetProfileId(string Id)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                return context
+                    .Profile
+                    .Fetch()
+                    .FirstOrDefault(i => i.ID_User == Id)
+                    .ID;
+            }
+        }
+
         public static List<Profile> GetProfiles()
         {
             using (var context = new BackofficeUnitOfWork())
