@@ -12,3 +12,5 @@ InsuranceSocialNetwork/InsuranceSocialNetworkDTO/bin/
 InsuranceSocialNetwork/InsuranceSocialNetworkDTO/obj/
 InsuranceSocialNetwork/InsuranceWebsite/bin/
 InsuranceSocialNetwork/InsuranceWebsite/obj/
+InsuranceSocialNetwork/InsuranceWebsite/Web.config
+InsuranceSocialNetwork/InsuranceWebsite/Commons/ConfigurationSettings.cs
