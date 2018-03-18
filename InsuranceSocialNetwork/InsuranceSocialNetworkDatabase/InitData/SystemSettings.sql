@@ -12,7 +12,7 @@ INSERT INTO Insurance.SystemSettings ([Token],[Description],[Type],[Value],[Last
 INSERT INTO Insurance.SystemSettings ([Token],[Description],[Type],[Value],[LastChangeDate],[Active]) VALUES ('SMTP_HOST', 'SMTP_HOST_DESCRIPTION', 'STRING', 'smtp-pt.securemail.pro', GETDATE(), 1);
 INSERT INTO Insurance.SystemSettings ([Token],[Description],[Type],[Value],[LastChangeDate],[Active]) VALUES ('SMTP_PORT', 'SMTP_PORT_DESCRIPTION', 'INT', '25', GETDATE(), 1);
 INSERT INTO Insurance.SystemSettings ([Token],[Description],[Type],[Value],[LastChangeDate],[Active]) VALUES ('SMTP_USERNAME', 'SMTP_USERNAME_DESCRIPTION', 'STRING', 'geral@falarseguros.pt', GETDATE(), 1);
-INSERT INTO Insurance.SystemSettings ([Token],[Description],[Type],[Value],[LastChangeDate],[Active]) VALUES ('SMTP_PASSWORD', 'SMTP_PASSWORD_DESCRIPTION', 'STRING', 'fsarruda33', GETDATE(), 1);
+INSERT INTO Insurance.SystemSettings ([Token],[Description],[Type],[Value],[LastChangeDate],[Active]) VALUES ('SMTP_PASSWORD', 'SMTP_PASSWORD_DESCRIPTION', 'STRING', '', GETDATE(), 1);
 
 INSERT INTO Insurance.SystemSettings ([Token],[Description],[Type],[Value],[LastChangeDate],[Active]) VALUES ('EP_URL', 'EP_URL_DESCRIPTION', 'STRING', 'http://test.easypay.pt/_s/api_easypay_01BG.php', GETDATE(), 1);
 INSERT INTO Insurance.SystemSettings ([Token],[Description],[Type],[Value],[LastChangeDate],[Active]) VALUES ('EP_CIN', 'EP_CIN_DESCRIPTION', 'STRING', '6983', GETDATE(), 1);

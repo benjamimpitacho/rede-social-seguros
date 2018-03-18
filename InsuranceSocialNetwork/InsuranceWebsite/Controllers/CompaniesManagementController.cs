@@ -329,13 +329,13 @@ namespace InsuranceWebsite.Controllers
                 {
                     Guid paymentId = Guid.NewGuid();
                     string baseUrl = string.Format("{0}?ep_cin={1}&ep_user={2}&ep_entity={3}&ep_ref_type={4}&ep_country={5}&ep_language={6}&t_value={7}&t_key={8}"
-                        , ConfigurationManager.AppSettings["ep_url"]
-                        , ConfigurationManager.AppSettings["ep_cin"]
-                        , ConfigurationManager.AppSettings["ep_user"]
-                        , ConfigurationManager.AppSettings["ep_entity"]
-                        , ConfigurationManager.AppSettings["ep_ref_type"]
-                        , ConfigurationManager.AppSettings["ep_country"]
-                        , ConfigurationManager.AppSettings["ep_language"]
+                        , InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_URL).Value
+                        , InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_CIN).Value
+                        , InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_USER).Value
+                        , InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_ENTITY).Value
+                        , InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_REF_TYPE).Value
+                        , InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_COUNTRY).Value
+                        , InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_LANGUAGE).Value
                         , model.Value.ToString().Replace(",", ".")
                         , paymentId.ToString());
 
@@ -378,9 +378,9 @@ namespace InsuranceWebsite.Controllers
                                 payment.ep_cin = response.SelectSingleNode("getautoMB/ep_cin").InnerText;
                                 payment.ep_user = response.SelectSingleNode("getautoMB/ep_user").InnerText;
                                 payment.ep_entity = response.SelectSingleNode("getautoMB/ep_entity").InnerText;
-                                payment.ep_ref_type = ConfigurationManager.AppSettings["ep_ref_type"];
-                                payment.ep_country = ConfigurationManager.AppSettings["ep_country"];
-                                payment.ep_language = ConfigurationManager.AppSettings["ep_language"];
+                                payment.ep_ref_type = InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_REF_TYPE).Value;
+                                payment.ep_country = InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_COUNTRY).Value;
+                                payment.ep_language = InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_LANGUAGE).Value;
                                 payment.ep_rec_url = "";
                                 payment.ep_reference = response.SelectSingleNode("getautoMB/ep_reference").InnerText;
                                 payment.ep_value = response.SelectSingleNode("getautoMB/ep_value").InnerText;
@@ -396,9 +396,9 @@ namespace InsuranceWebsite.Controllers
                                 payment.ep_cin = response.SelectSingleNode("getautoMB/ep_cin").InnerText;
                                 payment.ep_user = response.SelectSingleNode("getautoMB/ep_user").InnerText;
                                 payment.ep_entity = response.SelectSingleNode("getautoMB/ep_entity").InnerText;
-                                payment.ep_ref_type = ConfigurationManager.AppSettings["ep_ref_type"];
-                                payment.ep_country = ConfigurationManager.AppSettings["ep_country"];
-                                payment.ep_language = ConfigurationManager.AppSettings["ep_language"];
+                                payment.ep_ref_type = InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_REF_TYPE).Value;
+                                payment.ep_country = InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_COUNTRY).Value;
+                                payment.ep_language = InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_LANGUAGE).Value;
                                 payment.ep_rec_url = "";
                                 payment.ID_PaymentStatus = (int)PaymentStatusEnum.ERROR;
                             }
@@ -570,13 +570,13 @@ namespace InsuranceWebsite.Controllers
 
                     Guid paymentId = Guid.NewGuid();
                     string baseUrl = string.Format("{0}?ep_cin={1}&ep_user={2}&ep_entity={3}&ep_ref_type={4}&ep_country={5}&ep_language={6}&t_value={7}&t_key={8}"
-                        , ConfigurationManager.AppSettings["ep_url"]
-                        , ConfigurationManager.AppSettings["ep_cin"]
-                        , ConfigurationManager.AppSettings["ep_user"]
-                        , ConfigurationManager.AppSettings["ep_entity"]
-                        , ConfigurationManager.AppSettings["ep_ref_type"]
-                        , ConfigurationManager.AppSettings["ep_country"]
-                        , ConfigurationManager.AppSettings["ep_language"]
+                        , InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_URL).Value
+                        , InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_CIN).Value
+                        , InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_USER).Value
+                        , InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_ENTITY).Value
+                        , InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_REF_TYPE).Value
+                        , InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_COUNTRY).Value
+                        , InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_LANGUAGE).Value
                         , model.Value.ToString().Replace(",", ".")
                         , paymentId.ToString());
 
@@ -620,9 +620,9 @@ namespace InsuranceWebsite.Controllers
                                 payment.ep_cin = response.SelectSingleNode("getautoMB/ep_cin").InnerText;
                                 payment.ep_user = response.SelectSingleNode("getautoMB/ep_user").InnerText;
                                 payment.ep_entity = response.SelectSingleNode("getautoMB/ep_entity").InnerText;
-                                payment.ep_ref_type = ConfigurationManager.AppSettings["ep_ref_type"];
-                                payment.ep_country = ConfigurationManager.AppSettings["ep_country"];
-                                payment.ep_language = ConfigurationManager.AppSettings["ep_language"];
+                                payment.ep_ref_type = InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_REF_TYPE).Value;
+                                payment.ep_country = InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_COUNTRY).Value;
+                                payment.ep_language = InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_LANGUAGE).Value;
                                 payment.ep_rec_url = "";
                                 payment.ep_reference = response.SelectSingleNode("getautoMB/ep_reference").InnerText;
                                 payment.ep_value = response.SelectSingleNode("getautoMB/ep_value").InnerText;
@@ -638,9 +638,9 @@ namespace InsuranceWebsite.Controllers
                                 payment.ep_cin = response.SelectSingleNode("getautoMB/ep_cin").InnerText;
                                 payment.ep_user = response.SelectSingleNode("getautoMB/ep_user").InnerText;
                                 payment.ep_entity = response.SelectSingleNode("getautoMB/ep_entity").InnerText;
-                                payment.ep_ref_type = ConfigurationManager.AppSettings["ep_ref_type"];
-                                payment.ep_country = ConfigurationManager.AppSettings["ep_country"];
-                                payment.ep_language = ConfigurationManager.AppSettings["ep_language"];
+                                payment.ep_ref_type = InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_REF_TYPE).Value;
+                                payment.ep_country = InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_COUNTRY).Value;
+                                payment.ep_language = InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_LANGUAGE).Value;
                                 payment.ep_rec_url = "";
                                 payment.ID_PaymentStatus = (int)PaymentStatusEnum.ERROR;
                             }
@@ -771,13 +771,13 @@ namespace InsuranceWebsite.Controllers
 
                 Guid paymentId = Guid.NewGuid();
                 string baseUrl = string.Format("{0}?ep_cin={1}&ep_user={2}&ep_entity={3}&ep_ref_type={4}&ep_country={5}&ep_language={6}&t_value={7}&t_key={8}&ep_rec=yes&ep_rec_freq=1Y&ep_rec_url={9}"
-                    , ConfigurationManager.AppSettings["ep_url"]
-                    , ConfigurationManager.AppSettings["ep_cin"]
-                    , ConfigurationManager.AppSettings["ep_user"]
-                    , ConfigurationManager.AppSettings["ep_entity"]
-                    , ConfigurationManager.AppSettings["ep_ref_type"]
-                    , ConfigurationManager.AppSettings["ep_country"]
-                    , ConfigurationManager.AppSettings["ep_language"]
+                    , InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_URL).Value
+                    , InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_CIN).Value
+                    , InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_USER).Value
+                    , InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_ENTITY).Value
+                    , InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_REF_TYPE).Value
+                    , InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_COUNTRY).Value
+                    , InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_LANGUAGE).Value
                     , decimal.Round((vatValue * subscriptionValue) + subscriptionValue, 2, MidpointRounding.AwayFromZero)
                     , paymentId.ToString()
                     , "http://www.google.com");
@@ -808,10 +808,9 @@ namespace InsuranceWebsite.Controllers
                         payment.ep_cin = response.SelectSingleNode("getautoMB/ep_cin").InnerText;
                         payment.ep_user = response.SelectSingleNode("getautoMB/ep_user").InnerText;
                         payment.ep_entity = response.SelectSingleNode("getautoMB/ep_entity").InnerText;
-                        payment.ep_ref_type = ConfigurationManager.AppSettings["ep_ref_type"];
-                        payment.ep_country = ConfigurationManager.AppSettings["ep_country"];
-                        payment.ep_language = ConfigurationManager.AppSettings["ep_language"];
-                        //payment.ep_rec_url = response.SelectSingleNode("getautoMB/ep_rec_url").InnerText; ;
+                        payment.ep_ref_type = InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_REF_TYPE).Value;
+                        payment.ep_country = InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_COUNTRY).Value;
+                        payment.ep_language = InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_LANGUAGE).Value;
                         payment.ep_reference = response.SelectSingleNode("getautoMB/ep_reference").InnerText;
                         payment.ep_value = response.SelectSingleNode("getautoMB/ep_value").InnerText;
                         payment.t_key = response.SelectSingleNode("getautoMB/t_key").InnerText;
@@ -828,10 +827,9 @@ namespace InsuranceWebsite.Controllers
                         payment.ep_cin = response.SelectSingleNode("getautoMB/ep_cin").InnerText;
                         payment.ep_user = response.SelectSingleNode("getautoMB/ep_user").InnerText;
                         payment.ep_entity = response.SelectSingleNode("getautoMB/ep_entity").InnerText;
-                        payment.ep_ref_type = ConfigurationManager.AppSettings["ep_ref_type"];
-                        payment.ep_country = ConfigurationManager.AppSettings["ep_country"];
-                        payment.ep_language = ConfigurationManager.AppSettings["ep_language"];
-                        //payment.ep_rec_url = "";
+                        payment.ep_ref_type = InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_REF_TYPE).Value;
+                        payment.ep_country = InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_COUNTRY).Value;
+                        payment.ep_language = InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_LANGUAGE).Value;
                         payment.ID_PaymentStatus = (int)PaymentStatusEnum.ERROR;
                     }
 
