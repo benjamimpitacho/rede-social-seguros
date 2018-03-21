@@ -732,6 +732,8 @@
     <Content Include="Views\Account\PendingApproval.cshtml" />
     <Content Include="Views\Home\Partial\ProfileEditConfigurations.cshtml" />
     <Content Include="Views\Home\Partial\ProfileOwnConfigurations.cshtml" />
+    <Content Include="Views\CompaniesManagement\DirectDebitModal.cshtml" />
+    <Content Include="Views\NotificationsManagement\ConfirmDirectDebitOperation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

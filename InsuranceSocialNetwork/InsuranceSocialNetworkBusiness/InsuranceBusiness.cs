@@ -1284,7 +1284,7 @@ namespace InsuranceSocialNetworkBusiness
             {
                 SystemLogRepository.Log(level.ToString(), idUser, title, message);
             }
-            catch (Exception) { }
+            catch (Exception ex) { }
         }
 
         public void LogException(string idUser, string title, Exception ex)

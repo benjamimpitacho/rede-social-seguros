@@ -64,7 +64,7 @@ namespace InsuranceWebsite.Controllers
             {
                 var grid = MVCGridDefinitionTable.GetDefinition<UserProfileModelObject>("RolesManagementGrid");
             }
-            catch(Exception)
+            catch (Exception)
             {
                 //InsuranceBusiness.BusinessLayer.GetRoles
 
@@ -323,7 +323,44 @@ namespace InsuranceWebsite.Controllers
             }
             catch (Exception ex)
             {
-                InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.ERROR, Request.UserHostAddress, string.Format("Easypay payment notification ERROR"), ex.Message + "\r\n" + ex.StackTrace);
+                InsuranceBusiness.BusinessLayer.LogException(Request.UserHostAddress, "NotificationsManagementController::EasypayPaymentNotification", ex);
+                throw new NotImplementedException();
+            }
+        }
+
+        [AllowAnonymous]
+        public PartialViewResult EasypayDirectDebitNotification(string e, string r, string v, string k, string s, string t_key)
+        {
+            try
+            {
+                InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, Request.UserHostAddress, string.Format("NotificationsManagementController::EasypayDirectDebitNotification"), string.Format("e:{0},r:{1},v:{2},k:{3},s:{4},t_key:{5}", e, r, v, k, s, t_key));
+
+                DirectDebitConfirmViewModel model = new DirectDebitConfirmViewModel();
+                PaymentDTO payment = InsuranceBusiness.BusinessLayer.GetPayment(t_key);
+                if (s.ToLower().Equals("ok"))
+                {
+                    payment.ID_PaymentStatus = (int)PaymentStatusEnum.VALID;
+                    payment.ep_k1 = k;
+                    model.IsSuccess = true;
+                    model.Title = Resources.Resources.DirectDebitConfirmationSuccessTitle;
+                    model.Message = Resources.Resources.DirectDebitConfirmationSuccessMessage;
+                }
+                else
+                {
+                    payment.ID_PaymentStatus = (int)PaymentStatusEnum.ERROR;
+                    payment.ep_k1 = k;
+                    model.IsSuccess = false;
+                    model.Title = Resources.Resources.DirectDebitConfirmationErrorTitle;
+                    model.Message = Resources.Resources.DirectDebitConfirmationErrorMessage;
+                }
+
+                InsuranceBusiness.BusinessLayer.UpdatePayment(payment);
+
+                return PartialView("ConfirmDirectDebitOperation", model);
+            }
+            catch(Exception ex)
+            {
+                InsuranceBusiness.BusinessLayer.LogException(Request.UserHostAddress, "NotificationsManagementController::EasypayDirectDebitNotification", ex);
                 throw new NotImplementedException();
             }
         }

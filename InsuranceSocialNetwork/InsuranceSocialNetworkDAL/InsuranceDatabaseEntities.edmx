@@ -2185,11 +2185,6 @@
           <EntitySet Name="PaymentStatus" EntityType="InsurancePortal_dbModel.PaymentStatus" />
           <EntitySet Name="PaymentType" EntityType="InsurancePortal_dbModel.PaymentType" />
           <EntitySet Name="SystemSettings" EntityType="InsurancePortal_dbModel.SystemSettings" />
-          <EntitySet Name="SystemLog" EntityType="InsurancePortal_dbModel.SystemLog" />
-          <AssociationSet Name="FK_SystemLog_AspNetUsers" Association="InsurancePortal_dbModel.FK_SystemLog_AspNetUsers">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="SystemLog" EntitySet="SystemLog" />
-          </AssociationSet>
           <EntitySet Name="PaymentNotification" EntityType="InsurancePortal_dbModel.PaymentNotification" />
           <EntitySet Name="Payment" EntityType="InsurancePortal_dbModel.Payment" />
           <AssociationSet Name="FK_Payment_ConstructionCompany" Association="InsurancePortal_dbModel.FK_Payment_ConstructionCompany">
@@ -2223,6 +2218,11 @@
           <AssociationSet Name="FK_Payment_Profile" Association="InsurancePortal_dbModel.FK_Payment_Profile">
             <End Role="Profile" EntitySet="Profile" />
             <End Role="Payment" EntitySet="Payment" />
+          </AssociationSet>
+          <EntitySet Name="SystemLog" EntityType="InsurancePortal_dbModel.SystemLog" />
+          <AssociationSet Name="FK_SystemLog_AspNetUsers" Association="InsurancePortal_dbModel.FK_SystemLog_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="SystemLog" EntitySet="SystemLog" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="AspNetRoles">
@@ -3676,30 +3676,6 @@
           <Property Name="LastChangeDate" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
         </EntityType>
-        <EntityType Name="SystemLog">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="LogDate" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="Level" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
-          <Property Name="ID_User" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Title" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUsers" Relationship="InsurancePortal_dbModel.FK_SystemLog_AspNetUsers" FromRole="SystemLog" ToRole="AspNetUsers" />
-        </EntityType>
-        <Association Name="FK_SystemLog_AspNetUsers">
-          <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
-          <End Type="InsurancePortal_dbModel.SystemLog" Role="SystemLog" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="SystemLog">
-              <PropertyRef Name="ID_User" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="PaymentNotification">
           <Key>
             <PropertyRef Name="ID" />
@@ -3881,6 +3857,30 @@
             </Principal>
             <Dependent Role="Payment">
               <PropertyRef Name="ID_Profile" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SystemLog">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LogDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="Level" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="ID_User" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="InsurancePortal_dbModel.FK_SystemLog_AspNetUsers" FromRole="SystemLog" ToRole="AspNetUsers" />
+        </EntityType>
+        <Association Name="FK_SystemLog_AspNetUsers">
+          <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+          <End Type="InsurancePortal_dbModel.SystemLog" Role="SystemLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SystemLog">
+              <PropertyRef Name="ID_User" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4516,18 +4516,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="SystemLog">
-            <EntityTypeMapping TypeName="InsurancePortal_dbModel.SystemLog">
-              <MappingFragment StoreEntitySet="SystemLog">
-                <ScalarProperty Name="Message" ColumnName="Message" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
-                <ScalarProperty Name="Level" ColumnName="Level" />
-                <ScalarProperty Name="LogDate" ColumnName="LogDate" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="PaymentNotification">
             <EntityTypeMapping TypeName="InsurancePortal_dbModel.PaymentNotification">
               <MappingFragment StoreEntitySet="PaymentNotification">
@@ -4606,6 +4594,18 @@
                 <ScalarProperty Name="ID_HomeApplianceRepair" ColumnName="ID_HomeApplianceRepair" />
                 <ScalarProperty Name="ID_Garage" ColumnName="ID_Garage" />
                 <ScalarProperty Name="ID_Profile" ColumnName="ID_Profile" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SystemLog">
+            <EntityTypeMapping TypeName="InsurancePortal_dbModel.SystemLog">
+              <MappingFragment StoreEntitySet="SystemLog">
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
+                <ScalarProperty Name="Level" ColumnName="Level" />
+                <ScalarProperty Name="LogDate" ColumnName="LogDate" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

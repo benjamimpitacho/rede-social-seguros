@@ -844,6 +844,42 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ocorreu um erro ao configurar o seu débito directo. Por favor, tente novamente..
+        /// </summary>
+        public static string DirectDebitConfirmationErrorMessage {
+            get {
+                return ResourceManager.GetString("DirectDebitConfirmationErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Falha na configuração do Débito Directo.
+        /// </summary>
+        public static string DirectDebitConfirmationErrorTitle {
+            get {
+                return ResourceManager.GetString("DirectDebitConfirmationErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O seu débito directo foi configurado com sucesso. Obrigado..
+        /// </summary>
+        public static string DirectDebitConfirmationSuccessMessage {
+            get {
+                return ResourceManager.GetString("DirectDebitConfirmationSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Débito Directo configurado com sucesso.
+        /// </summary>
+        public static string DirectDebitConfirmationSuccessTitle {
+            get {
+                return ResourceManager.GetString("DirectDebitConfirmationSuccessTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Distrito.
         /// </summary>
         public static string District {

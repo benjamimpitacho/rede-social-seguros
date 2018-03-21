@@ -274,7 +274,7 @@
                     </p>
                 </div>
                 <div>
-                    <a href="@Url.Action("SetupDirectDebit", "CompaniesManagement", new { id=Model.ID, idType=Model.CompanyType })" class="btn btn-warning lnkDirectDebit">@Resources.Resources.SetupDirectDebit</a>
+                    <a href="" class="btn btn-warning lnkDirectDebit">@Resources.Resources.SetupDirectDebit</a>
                 </div>
                 <div>
                     <p class="data-row">
@@ -444,15 +444,36 @@
 
         $(".lnkDirectDebit").click(function (e) {
             e.preventDefault(); //use this or return false
-            url = $(this).attr('href');
-            $(".ui-dialog-title").html("@Resources.Resources.SetupDirectDebit");
-            $("#dialog-direct-debit").dialog('open');
+
+            $.ajax({
+            url: '@(Url.Action("SetupDirectDebit", "CompaniesManagement", new { id=Model.ID, idType=Model.CompanyType }))',
+            type: "GET",
+            dataType: "html",
+            cache: false,
+            success: function (data) {
+                $('#dialog-direct-debit').html(data); //write the dialog content into the diaog container
+                $("#dialog-direct-debit").dialog({ //dialogize it with JqueryUI
+                    autoOpen: false,
+                    height: 750,
+                    width: 1050,
+                    modal: true,
+                    buttons: {
+                        //"Chiudi": function () { $(this).dialog("close"); }
+                    },
+                    close: function () { }
+                });
+                $("#dialog-direct-debit").dialog("open"); //open it!
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert('Error');
+            }
+        });
 
             return false;
         });
 
         $("#dialog-direct-debit").dialog({
-            title: 'Create User',
+            title: '@Resources.Resources.SetupDirectDebit',
             autoOpen: false,
             resizable: false,
             width: 450,
@@ -488,5 +509,5 @@
     </p>
 </div>
 
-<div id="dialog-direct-debit" style="display: none; top:10%;">
+<div id="dialog-direct-debit" style="display: none;">
 </div>

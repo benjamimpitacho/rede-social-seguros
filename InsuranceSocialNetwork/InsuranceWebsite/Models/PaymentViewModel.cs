@@ -20,4 +20,28 @@ namespace InsuranceWebsite.Models
         public decimal Value { get; set; }
 
     }
+
+    public class DirectDebitExternalViewModel
+    {
+        public DirectDebitExternalViewModel()
+        {
+        }
+
+        [Url]
+        [Required]
+        public string ExternalURL { get; set; }
+
+    }
+
+    public class DirectDebitConfirmViewModel
+    {
+        public DirectDebitConfirmViewModel()
+        {
+        }
+
+        public bool IsSuccess { get; set; }
+        public string Title { get; set; }
+        public string Message { get; set; }
+
+    }
 }

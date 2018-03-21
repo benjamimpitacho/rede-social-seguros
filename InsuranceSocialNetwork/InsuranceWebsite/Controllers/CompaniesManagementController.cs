@@ -741,7 +741,7 @@ namespace InsuranceWebsite.Controllers
         }
 
         [FunctionalityAutorizeAttribute("COMPANIES_MANAGEMENT")]
-        public ActionResult SetupDirectDebit(long id, CompanyTypeEnum idType)
+        public PartialViewResult SetupDirectDebit(long id, CompanyTypeEnum idType)
         {
             try
             {
@@ -881,7 +881,8 @@ namespace InsuranceWebsite.Controllers
                             break;
                     }
 
-                    return Redirect(payment.ep_link);
+                    //return Redirect(payment.ep_link);
+                    return PartialView("DirectDebitModal", new DirectDebitExternalViewModel() { ExternalURL = payment.ep_link });
                 }
             }
             catch(Exception ex)
