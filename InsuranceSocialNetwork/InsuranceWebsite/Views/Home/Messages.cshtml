@@ -12,7 +12,7 @@
 
 <div class="container">
 
-    <div class="col-md-12 no-paddin-xs" style="background-color:#E3E6E8">
+    <div class="col-md-12 no-paddin-xs" style="background-color:#BDC6C9">
 
         <div class="row" style="display:flex">
 
@@ -89,7 +89,7 @@
                     {
                         foreach (ChatDTO chat in Model.Chats)
                         {
-                            <div class="panel panel-body post panel-shadow animated fadeInUp @((null != Model.ActiveChat && Model.ActiveChat.ID == chat.ID) ? "active" : "")" style="margin-bottom:2px;max-height:80px;padding:10px 15px;" onclick="$('.user').removeClass('active');$(this).addClass('active');$('#messageListPanel').load('@Url.Action("LoadChat", "Home", new { id = chat.ID })');">
+                            <div class="panel panel-body post panel-shadow animated fadeInUp @(chat.HasUnreadMessages ? "unread_chat" : "read_chat") @((null != Model.ActiveChat && Model.ActiveChat.ID == chat.ID) ? "active" : "")" style="margin-bottom:2px;max-height:80px;padding:10px 15px;cursor:pointer;" onclick="$('.user').removeClass('active');$(this).addClass('active');$('#messageListPanel').load('@Url.Action("LoadChat", "Home", new { id = chat.ID })');">
                                 <div class="pull-left image">
                                     @*<a href="@Url.Action("ProfileTimeline", "Home", new { id = chat.ID })" style="padding: 0px; text-align: -webkit-center;">*@
                                         @if (null == chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).ProfilePhoto || chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).ProfilePhoto.Length == 0)
@@ -174,7 +174,9 @@
                                         <img src="~/Content/icons/icons_mensagens_rede_social_falar_seguros_AF10.png" style="max-width:30px;" />
                                     </div>
                                     <div style="display:table-cell;vertical-align:middle;padding:0px 10px;">
-                                        <img src="~/Content/icons/icons_mensagens_rede_social_falar_seguros_AF2.png" style="max-width:30px;" />
+                                        <a href="@Url.Action("DeleteChat","Home",new {id=chat.ID })">
+                                            <img src="~/Content/icons/icons_mensagens_rede_social_falar_seguros_AF2.png" style="max-width:30px;" />
+                                        </a>
                                     </div>
                                     <div style="display:table-cell;vertical-align:middle;">
                                         <span><img src="~/Content/icons/icons_mensagens_rede_social_falar_seguros_AF6.png" style="max-width:30px;" /></span>
@@ -192,87 +194,3 @@
     </div>
 
 </div>
-
-<!-- Timeline content -->
-@*<div class="container">
-    <div class="col-md-12 no-paddin-xs" style="background-color:#E3E6E8">
-
-        <!--  chat content -->
-        <div class="row" style="display:flex">
-
-            @Html.Partial("~/Views/Home/Partial/SideNavBar.cshtml", Model)
-
-            <div class="container">
-
-                <div class="row">
-
-                    <div class="col-md-10 animated fadeInUp">
-
-                        <div class="row row-broken">
-
-                            <div class="col-sm-4 col-xs-12">
-
-                                <div class="col-inside-lg decor-default chat" style="overflow-x: hidden; overflow-y: scroll; outline: none;" tabindex="5000">
-
-                                    <div class="chat-users">
-
-                                        <h6>@Resources.Resources.Chats</h6>
-
-                                        @if (null == Model.Chats || Model.Chats.Count == 0)
-                                        {
-                                            <div class="col-md-12 alert alert-info" style="text-align:center">
-                                                @Resources.Resources.NoChats
-                                            </div>
-                                        }
-                                        else
-                                        {
-                                            foreach (ChatDTO chat in Model.Chats)
-                                            {
-                                                <div style="display:block" class="@((null != Model.ActiveChat && Model.ActiveChat.ID == chat.ID) ? "active" : "") user" onclick="$('.user').removeClass('active');$(this).addClass('active');$('#messageListPanel').load('@Url.Action("LoadChat", "Home", new { id = chat.ID })');">
-
-                                                    <div class="avatar">
-
-                                                        <img src="~/Content/images/no_photo_img.jpg" alt="User name">
-
-
-                                                    </div>
-
-                                                    <div class="name">@string.Join(",", chat.ChatMember.Where(i => i.ID_User != Model.Profile.ID_User).Select(i => i.AspNetUsers.Email).ToArray())</div>
-
-                                                    @if (null != chat.ChatMessage && chat.ChatMessage.Count > 0)
-                                                    {
-                                                        <div class="mood">@chat.ChatMessage[0].Text</div>
-                                                    }
-                                                    else
-                                                    {
-                                                        <div class="mood"><p></p></div>
-                                                    }
-
-                                                </div>
-                                            }
-                                        }
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-8 col-xs-12 chat" style="overflow-x: hidden; overflow-y: scroll; outline: none;" tabindex="5001" id="messageListPanel">
-                                @if (null == Model.ActiveChat)
-                                {
-                                    <div class="col-md-12 alert alert-info" style="text-align:center;margin-top: 60px;">
-                                        @Resources.Resources.NoActiveChatSelected
-                                    </div>
-                                }
-                                else
-                                {
-                                    @Html.Partial("~/Views/Home/Partial/ChatSectionView.cshtml", new ChatViewModel() { Chat = Model.ActiveChat, Profile = Model.Profile })
-                                }
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div><!-- end chat content -->
-    </div>
-</div>*@
-
-@*@Html.Partial("~/Views/Home/Partial/Footer.cshtml", Model)*@

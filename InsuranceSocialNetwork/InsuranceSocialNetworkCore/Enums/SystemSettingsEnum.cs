@@ -28,6 +28,7 @@ namespace InsuranceSocialNetworkCore.Enums
         EP_LANGUAGE,
         EP_REC_URL,
         EP_URL_FETCH_PAYMENT_DETAIL_URL,
-        EP_URL_FETCH_ALL_PAYMENT_URL
+        EP_URL_FETCH_ALL_PAYMENT_URL,
+        EP_URL_REQUEST_PAYMENT_URL
     }
 }

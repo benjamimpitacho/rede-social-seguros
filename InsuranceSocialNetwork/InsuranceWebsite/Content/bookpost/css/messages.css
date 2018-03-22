@@ -81,6 +81,10 @@
     background-color: #f1f5fc;
 }
 
+.unread_chat {
+    background-color: #DDE9F1;
+}
+
 /*****************CHAT BODY *******************/
 .chat-body h6 {
     font-size: 20px;
@@ -91,6 +95,7 @@
     text-align: left;
     float: left;
     margin-top: 20px;
+    min-height: unset !important;
 }
 .chat-body .answer {
     position: relative;
@@ -100,6 +105,7 @@
 }
 .chat-body .answer.left .avatar {
     left: 0;
+    max-width:none;
 }
 .chat-body .answer .avatar {
     bottom: 36px;
@@ -171,6 +177,7 @@
 
 .chat-body .answer.right .avatar {
     right: 0;
+    max-width:none;
 }
 .chat-body .answer.right .avatar .status {
     left: 4px;

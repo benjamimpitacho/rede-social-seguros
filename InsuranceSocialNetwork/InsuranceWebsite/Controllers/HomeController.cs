@@ -249,6 +249,8 @@ namespace InsuranceWebsite.Controllers
             model.Profile = CurrentUser;
             model.Chat = InsuranceBusiness.BusinessLayer.GetChat(id);
 
+            InsuranceBusiness.BusinessLayer.MarkAllChatMessagesRead(id, CurrentUser.ID_User);
+
             return PartialView("Partial/ChatSectionView", model);
         }
 

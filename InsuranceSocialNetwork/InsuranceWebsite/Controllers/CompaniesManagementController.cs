@@ -770,7 +770,7 @@ namespace InsuranceWebsite.Controllers
                 decimal vatValue = decimal.Parse(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.VAT_PERCENTAGE).Value);
 
                 Guid paymentId = Guid.NewGuid();
-                string baseUrl = string.Format("{0}?ep_cin={1}&ep_user={2}&ep_entity={3}&ep_ref_type={4}&ep_country={5}&ep_language={6}&t_value={7}&t_key={8}&ep_rec=yes&ep_rec_freq=1Y&ep_rec_url={9}"
+                string baseUrl = string.Format("{0}?ep_cin={1}&ep_user={2}&ep_entity={3}&ep_ref_type={4}&ep_country={5}&ep_language={6}&t_value={7}&t_key={8}&ep_rec=yes&ep_rec_freq=1Y"
                     , InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_URL).Value
                     , InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_CIN).Value
                     , InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_USER).Value
@@ -779,8 +779,7 @@ namespace InsuranceWebsite.Controllers
                     , InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_COUNTRY).Value
                     , InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_LANGUAGE).Value
                     , decimal.Round((vatValue * subscriptionValue) + subscriptionValue, 2, MidpointRounding.AwayFromZero)
-                    , paymentId.ToString()
-                    , "http://www.google.com");
+                    , paymentId.ToString());
 
                 using (var client = new WebClient())
                 {
@@ -795,6 +794,8 @@ namespace InsuranceWebsite.Controllers
                         ID_PaymentType = InsuranceBusiness.BusinessLayer.GetPaymentTypeID(PaymentTypeEnum.DIRECT_DEBIT),
                         Payment_GUID = paymentId,
                         Active = true,
+                        ep_rec="yes",
+                        ep_rec_freq="1Y",
                         t_value = decimal.Round((vatValue * subscriptionValue) + subscriptionValue, 2, MidpointRounding.AwayFromZero).ToString(),
                         ExpiracyDate = DateTime.Now.AddDays(Int32.Parse(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.SUBSCRIPTION_PAYMENT_DEADLINE_DAYS).Value))
                     };

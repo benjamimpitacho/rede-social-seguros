@@ -279,6 +279,39 @@ namespace InsuranceWebsite.Controllers
                     // Send user email
                     CompanyDTO company = InsuranceBusiness.BusinessLayer.GetGarage(payment.ID_Garage.Value);
                     SendPaymentConfirmationEmail(company.Name, company.ContactEmail);
+
+                    // Request Direct Debit payment to be executed in one year
+                    PaymentDTO directDebitPayment = InsuranceBusiness.BusinessLayer.GetPaymentByUserAndType(payment.ID_Garage.Value, PaymentTypeEnum.DIRECT_DEBIT, CompanyTypeEnum.GARAGE);
+                    if (null != directDebitPayment)
+                    {
+                        baseUrl = string.Format("{0}?e={1}&r={2}&v={3}&ep_k1={4}&rec=yes&ep_key_rec={5}&request_date={6}-{7}-{8}"
+                            , InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_URL_REQUEST_PAYMENT_URL).Value
+                            , directDebitPayment.ep_entity
+                            , directDebitPayment.ep_reference
+                            , directDebitPayment.ep_value
+                            , directDebitPayment.ep_k1
+                            , directDebitPayment.Payment_GUID
+                            , DateTime.Now.AddYears(1).Year
+                            , DateTime.Now.AddYears(1).Month
+                            , DateTime.Now.AddYears(1).Day);
+
+                        using (var client = new WebClient())
+                        {
+                            XmlDocument response = new XmlDocument();
+                            var result = client.DownloadString(baseUrl);
+                            response.LoadXml(result);
+
+                            var node = response.SelectSingleNode("request_recurring_payment/ep_status");
+                            if (node.InnerText.Equals("ok"))
+                            {
+
+                            }
+                            else
+                            {
+
+                            }
+                        }
+                    }
                 }
                 else if (payment.ID_ConstructionCompany.HasValue)
                 {
@@ -358,7 +391,52 @@ namespace InsuranceWebsite.Controllers
 
                 return PartialView("ConfirmDirectDebitOperation", model);
             }
-            catch(Exception ex)
+            catch (Exception ex)
+            {
+                InsuranceBusiness.BusinessLayer.LogException(Request.UserHostAddress, "NotificationsManagementController::EasypayDirectDebitNotification", ex);
+                throw new NotImplementedException();
+            }
+        }
+
+        [AllowAnonymous]
+        public ActionResult EasypayDirectDebitDetails(string e, string r, string v, string c, string l, string t_key)
+        {
+            InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, Request.UserHostAddress, string.Format("NotificationsManagementController::EasypayDirectDebitDetails"), string.Format("e:{0},r:{1},v:{2},c:{3},l:{4},t_key:{5}", e, r, v, c, l, t_key));
+            
+            return this.Content(string.Format("<!--?xml version=\"1.0\" encoding=\"ISO-8859-1\"?--><get_detail><ep_status>ok</ep_status><ep_message>success message</ep_message><ep_entity>{0}</ep_entity><ep_reference>{1}</ep_reference><ep_value>{2}</ep_value><t_key>{3}</t_key><order_info><total_taxes>2.50</total_taxes><total_including_taxes>{2}</total_including_taxes><bill_fiscal_number>123456789</bill_fiscal_number><bill_name>John Doe</bill_name><bill_address_1>Morada de teste 1</bill_address_1><bill_address_2>Nº 5 - 1º Dto</bill_address_2><bill_city>Lisboa</bill_city><bill_zip_code>1300-000</bill_zip_code><bill_country>Portugal</bill_country><shipp_fiscal_number>123456789</shipp_fiscal_number><shipp_name>John Doe</shipp_name><shipp_address_1>Morada de teste 1</shipp_address_1><shipp_address_2>Nº 5 - 1º Dto</shipp_address_2><shipp_city>Lisboa</shipp_city><shipp_zip_code>1300-000</shipp_zip_code><shipp_country>Portugal</shipp_country></order_info><order_detail><item><item_description>item 1</item_description><item_quantity>1</item_quantity><item_total>{2}</item_total></item></order_detail></get_detail>", e, r, v, t_key), "text/xml");
+        }
+
+        [AllowAnonymous]
+        public ActionResult EasypayDirectDebitForward(string e, string r, string v, string k, string s, string t_key)
+        {
+            try
+            {
+                InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, Request.UserHostAddress, string.Format("NotificationsManagementController::EasypayDirectDebitForward"), string.Format("e:{0},r:{1},v:{2},k:{3},s:{4},t_key:{5}", e, r, v, k, s, t_key));
+
+                DirectDebitConfirmViewModel model = new DirectDebitConfirmViewModel();
+                PaymentDTO payment = InsuranceBusiness.BusinessLayer.GetPayment(t_key);
+                if (s.ToLower().Equals("ok"))
+                {
+                    payment.ID_PaymentStatus = (int)PaymentStatusEnum.VALID;
+                    payment.ep_k1 = k;
+                    model.IsSuccess = true;
+                    model.Title = Resources.Resources.DirectDebitConfirmationSuccessTitle;
+                    model.Message = Resources.Resources.DirectDebitConfirmationSuccessMessage;
+                }
+                else
+                {
+                    payment.ID_PaymentStatus = (int)PaymentStatusEnum.ERROR;
+                    payment.ep_k1 = k;
+                    model.IsSuccess = false;
+                    model.Title = Resources.Resources.DirectDebitConfirmationErrorTitle;
+                    model.Message = Resources.Resources.DirectDebitConfirmationErrorMessage;
+                }
+
+                InsuranceBusiness.BusinessLayer.UpdatePayment(payment);
+
+                return PartialView("ConfirmDirectDebitOperation", model);
+            }
+            catch (Exception ex)
             {
                 InsuranceBusiness.BusinessLayer.LogException(Request.UserHostAddress, "NotificationsManagementController::EasypayDirectDebitNotification", ex);
                 throw new NotImplementedException();

@@ -24,5 +24,6 @@ namespace InsuranceSocialNetworkDTO.Chat
         public List<UserProfileDTO> ChatMemberProfile { get; set; }
         public List<ChatMessageDTO> ChatMessage { get; set; }
 
+        public bool HasUnreadMessages { get; set; }
     }
 }

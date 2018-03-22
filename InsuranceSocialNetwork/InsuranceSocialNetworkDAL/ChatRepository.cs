@@ -153,5 +153,24 @@ namespace InsuranceSocialNetworkDAL
                     .Count();
             }
         }
+
+        public static void MarkAllChatMessagesRead(long chatId, string userId)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                var messageList = context.ChatMessage
+                    .Fetch()
+                    .Include(i => i.Chat)
+                    .Where(i => null == i.ReadDate
+                        && i.ID_Chat == chatId
+                        && i.ID_User != userId)
+                    .Select(i => i)
+                    .ToList();
+
+                messageList.ForEach(i => i.ReadDate = DateTime.Now);
+
+                context.Save();
+            }
+        }
     }
 }

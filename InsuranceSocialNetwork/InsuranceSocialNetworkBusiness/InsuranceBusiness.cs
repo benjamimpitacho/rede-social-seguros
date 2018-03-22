@@ -265,6 +265,11 @@ namespace InsuranceSocialNetworkBusiness
             return AutoMapper.Mapper.Map<PaymentDTO>(PaymentRepository.GetPayment(id));
         }
 
+        public PaymentDTO GetPaymentByUserAndType(long id, PaymentTypeEnum paymentType, CompanyTypeEnum companyType = CompanyTypeEnum.NONE)
+        {
+            return AutoMapper.Mapper.Map<PaymentDTO>(PaymentRepository.GetPayment(id, paymentType.ToString(), companyType));
+        }
+
         public bool UpdatePayment(PaymentDTO payment)
         {
             return PaymentRepository.EditPayment(AutoMapper.Mapper.Map<Payment>(payment));
@@ -392,6 +397,7 @@ namespace InsuranceSocialNetworkBusiness
                 List<ChatDTO> result = AutoMapper.Mapper.Map<List<ChatDTO>>(chats);
 
                 result.ForEach(i => i.ChatMemberProfile = AutoMapper.Mapper.Map<List<UserProfileDTO>>(chats.FirstOrDefault(c => c.ID == i.ID).ChatMember.Select(m => m.AspNetUsers.Profile.FirstOrDefault()).ToList()));
+                result.ForEach(i => i.HasUnreadMessages = i.ChatMessage.Exists(j => j.ID_User != userId && null == j.ReadDate));
 
                 return result;
             }
@@ -431,6 +437,11 @@ namespace InsuranceSocialNetworkBusiness
         public int GetTotalUnreadMessages(string Id)
         {
             return ChatRepository.GetTotalUnreadMessages(Id);
+        }
+
+        public void MarkAllChatMessagesRead(long chatId, string userId)
+        {
+            ChatRepository.MarkAllChatMessagesRead(chatId, userId);
         }
 
         #endregion Messages / Chats

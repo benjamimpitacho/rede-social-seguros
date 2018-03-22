@@ -75,6 +75,58 @@ namespace InsuranceSocialNetworkDAL
             }
         }
 
+        public static Payment GetPayment(long id, string paymentType, CompanyTypeEnum companyType)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                switch(companyType)
+                {
+                    case CompanyTypeEnum.GARAGE:
+                        return context.Payment
+                            .Fetch()
+                            .Include(i => i.PaymentType)
+                            .Include(i => i.PaymentStatus)
+                            .Where(i => i.ID_Garage == id && i.PaymentType.Token == paymentType && i.Active)
+                            .FirstOrDefault();
+                    case CompanyTypeEnum.CONSTRUCTION_COMPANY:
+                        return context.Payment
+                            .Fetch()
+                            .Include(i => i.PaymentType)
+                            .Include(i => i.PaymentStatus)
+                            .Where(i => i.ID_ConstructionCompany == id && i.PaymentType.Token == paymentType && i.Active)
+                            .FirstOrDefault();
+                    case CompanyTypeEnum.HOME_APPLIANCES_REPAIR:
+                        return context.Payment
+                            .Fetch()
+                            .Include(i => i.PaymentType)
+                            .Include(i => i.PaymentStatus)
+                            .Where(i => i.ID_HomeApplianceRepair == id && i.PaymentType.Token == paymentType && i.Active)
+                            .FirstOrDefault();
+                    case CompanyTypeEnum.INSURANCE_COMPANY_CONTACT:
+                        return context.Payment
+                            .Fetch()
+                            .Include(i => i.PaymentType)
+                            .Include(i => i.PaymentStatus)
+                            .Where(i => i.ID_InsuranceCompanyContact == id && i.PaymentType.Token == paymentType && i.Active)
+                            .FirstOrDefault();
+                    case CompanyTypeEnum.MEDICAL_CLINIC:
+                        return context.Payment
+                            .Fetch()
+                            .Include(i => i.PaymentType)
+                            .Include(i => i.PaymentStatus)
+                            .Where(i => i.ID_MedicalClinic == id && i.PaymentType.Token == paymentType && i.Active)
+                            .FirstOrDefault();
+                    default:
+                        return context.Payment
+                            .Fetch()
+                            .Include(i => i.PaymentType)
+                            .Include(i => i.PaymentStatus)
+                            .Where(i => i.ID_Profile == id && i.PaymentType.Token == paymentType && i.Active)
+                            .FirstOrDefault();
+                }
+            }
+        }
+
         public static long CreatePayment(Payment payment)
         {
             using (var context = new BackofficeUnitOfWork())
