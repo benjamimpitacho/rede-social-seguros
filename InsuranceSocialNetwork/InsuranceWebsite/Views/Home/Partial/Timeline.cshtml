@@ -19,6 +19,25 @@
 
             <textarea placeholder="@Resources.Resources.WhatsInYourMindToday" rows="1" class="form-control input-lg p-text-area" id="postContentTextarea" name="postContentTextarea"></textarea>
             <img id="imgPlaceholder" src="#" alt="" style="visibility:hidden;position:absolute" />
+            <div id="livePreviewBox">
+                <div style="padding:10px;" style="visibility:hidden;">
+                    <div class="lfloat _ohe" style="border: 1px #ccc solid;">
+                        <div class="_6l- __c_">
+                            <div class="uiScaledImageContainer _6m5 fbStoryAttachmentImage" style="" id="livePreviewImg"></div>
+                        </div>
+                        <div class="_6m3 _--6" style="border-top: 1px #ccc solid;padding: 10px;">
+                            <div class="mbs _6m6 _2cnj _5s6c"><a target="_blank" data-lynx-mode="asynclazy" tabindex="0" id="livePreviewTitle" style="font-weight: bold;font-size: 16px;color:#333;"></a></div>
+                            <div class="_6m7 _3bt9" id="livePreviewDescription" style="font-size: 12px;"></div>
+                            <div class="_59tj _2iau">
+                                <div>
+                                    <div class="_6lz _6mb _1t62 ellipsis" id="livePreviewDomain" style="color: #6F7D85;"></div>
+                                    <div class=""></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="panel-footer" style="border-top: 0px; padding: 10px 10px">
                 <button class="btn btn-info pull-right" id="publishButton">@Resources.Resources.Publish</button>
                 <ul class="nav nav-pills">
@@ -37,7 +56,22 @@
                 </ul>
             </div>
         }
-    </div>    
+    </div> 
+
+    @*<div class="panel topPanel">
+        <div class="col-md-12">
+            <textarea placeholder="@Resources.Resources.WhatsInYourMindToday" rows="1" class="form-control input-lg p-text-area" id="txtUrl"></textarea>
+            <button type="button" id="btnPreview">Generate Preview</button>
+        </div>
+        <div class="col-md-12">
+
+            <h1>Preview</h1>
+            <h3 id="title"></h3>
+            <div id="imgdiv"></div>
+            <p class="lead" id="desc"></p>
+            <p class="lead" id="url"></p>
+        </div>
+    </div>*@
     
     <div class="news">
         <div class="partialContents" data-url="/home/posts">
@@ -54,8 +88,36 @@
 
     var site = site || {};
     site.baseUrl = site.baseUrl || "";
-
+    
     $(document).ready(function () {
+
+        $("#postContentTextarea").keyup(function () {
+            var urls = $("#postContentTextarea").val().match(/\b(http|https)?(:\/\/)?(\S*)\.(\w{2,4})\b/ig);
+            //alert(urls);
+            if (urls == null || urls.length == 0)
+            {
+                return;
+            }
+            //alert(urls[0]);
+            $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Preview", "Home")',
+                    data: { url: urls[0] },
+                    success: function (data) {
+                        $("#livePreviewTitle").text(data.title);
+                        $("#livePreviewDescription").text(data.description);
+                        $("#livePreviewDomain").text(data.url);
+                        $("#livePreviewImg").html('');
+                        $.each(data.lstImages, function (e, element) {
+                            $("#livePreviewImg").append("<img src='" + element + "' style='max-height:400px;max-width:460px'/>");
+                        });
+                        $('#livePreviewBox').attr('style', '');
+                        $('#imgPlaceholder').attr('src', '');
+                        $("#imgUpload").files = null;
+                        $("#fileUpload").files = null;
+                    }
+                });
+        });
 
         // locate each partial section.
         // if it has a URL set, load the contents into the area.
@@ -69,12 +131,14 @@
         $("#imgUpload").change(function () {
             readURL(this);
             $("#fileUpload").files = null;
+            $('#livePreviewBox').attr('style', 'visibility:hidden;');
         });
 
         $("#fileUpload").change(function () {
             $('#imgPlaceholder').attr('style', 'visibility:hidden;position:absolute');
             $('#imgPlaceholder').attr('src', '');
             $("#imgUpload").files = null;
+            $('#livePreviewBox').attr('style', 'visibility:hidden;');
         });
 
         $("#publishButton").click(function (event) {

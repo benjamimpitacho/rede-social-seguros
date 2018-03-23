@@ -3,7 +3,6 @@ using InsuranceSocialNetworkCore.Enums;
 using InsuranceSocialNetworkCore.Utils;
 using InsuranceSocialNetworkDTO.Company;
 using InsuranceSocialNetworkDTO.Post;
-using InsuranceSocialNetworkDTO.PostalCode;
 using InsuranceSocialNetworkDTO.UserProfile;
 using InsuranceWebsite.Commons;
 using InsuranceWebsite.Models;
@@ -2301,6 +2300,25 @@ namespace InsuranceWebsite.Controllers
             model.Post = InsuranceBusiness.BusinessLayer.GetPost(id);
 
             return PartialView("Partial/_EditPost", model);
+        }
+
+        [HttpPost]
+        public JsonResult Preview(string url)
+        {
+            try
+            {
+                Scrap scrap = new Scrap();
+                if (!string.IsNullOrWhiteSpace(url))
+                {
+                    scrap = LivePreviewUtils.GetScrap(url);
+                }
+                return Json(scrap, JsonRequestBehavior.AllowGet);
+            }
+            catch(Exception ex)
+            {
+                InsuranceBusiness.BusinessLayer.LogException("", "HomeController::Preview", ex);
+                throw new NotImplementedException();
+            }
         }
 
         private ApplicationSignInManager _signInManager;
