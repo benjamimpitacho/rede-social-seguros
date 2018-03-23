@@ -14,7 +14,7 @@
 
     <div class="col-md-12 no-paddin-xs" style="background-color:#BDC6C9">
 
-        <div class="row" style="display:flex">
+        <div class="row" style="display:flex;max-height:100vh;">
 
             @Html.Partial("~/Views/Home/Partial/SideNavBar.cshtml", Model)
 
@@ -56,7 +56,7 @@
             </div>
             <!--end left  content-->
 
-            <div class="profile-info col-md-6 animated fadeInUp">
+            <div class="profile-info col-md-6 animated fadeInUp" style="overflow:auto;">
 
                 @using (Html.BeginForm("SearchConversations", "Home", FormMethod.Post, new { id = "searchForm" }))
                 {

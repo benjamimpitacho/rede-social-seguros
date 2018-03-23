@@ -265,8 +265,18 @@ namespace InsuranceSocialNetworkDAL
                 Profile profile = context.Profile.Get(userId);
 
                 context.Notification.Delete(i => i.ToUserID == profile.ID_User);
+                context.Notification.Delete(i => i.FromUserID == profile.ID_User);
+                context.ProfileSettings.Delete(i => i.ID_Profile == profile.ID);
+                context.Payment.Delete(i => i.ID_Profile == profile.ID);
+                context.PostHidden.Delete(i => i.ID_User == profile.ID_User);
+                context.PostComment.Delete(i => i.ID_User == profile.ID_User);
+                //context.PostCommentLike.Delete(i => i.ID_User == profile.ID_User);
+                context.PostLike.Delete(i => i.ID_User == profile.ID_User);
+                context.Post.Delete(i => i.ID_User == profile.ID_User);
+                context.Friend.Delete(i => i.ID_User == profile.ID_User);
+                context.Friend.Delete(i => i.ID_User_Friend == profile.ID_User);
+
                 context.AspNetUsers.Delete(profile.ID_User);
-                //user.AspNetRoles.Add(RoleRepository.GetRole(context, InsuranceSocialNetworkCore.Enums.RoleEnum.USER));
                 context.Profile.Delete(userId);
 
                 context.Save();

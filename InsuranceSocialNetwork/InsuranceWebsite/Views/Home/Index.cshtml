@@ -13,9 +13,9 @@
 <!-- Timeline content -->
 <div class="container">
 
-    <div class="col-md-12 no-paddin-xs" style="background-color:#BDC6C9">
+    <div class="col-md-12 no-paddin-xs" style="background-color:#BDC6C9;max-height:100vh;">
 
-        <div class="row" style="display:flex">
+        <div class="row" style="display:flex;max-height:100vh;">
 
             @Html.Partial("~/Views/Home/Partial/SideNavBar.cshtml", Model)
 
@@ -44,10 +44,10 @@
             {
                 @Html.Partial("~/Views/Home/Partial/ProfileEdit.cshtml", Model)
             }
-            else if (Model.IsProfileEditConfiguations)
+            @*else if (Model.IsProfileEditConfiguations)
             {
                 @Html.Partial("~/Views/Home/Partial/ProfileEditConfigurations.cshtml", Model)
-            }
+            }*@
             else if (Model.IsSearchView)
             {
                 @Html.Partial("~/Views/Home/Partial/SearchResult.cshtml", Model)

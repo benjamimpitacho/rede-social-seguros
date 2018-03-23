@@ -110,11 +110,11 @@
     </div>
 </div>
 
-<div class="col-inside-lg decor-default" style="width:100%">
+<div class="col-inside-lg decor-default" style="width:100%;max-height: calc(100vh - 270px);overflow:auto;">
     @*<h6>Chat with @string.Join(",", Model.Chat.ChatMember.Where(i => i.ID_User != Model.Profile.ID_User).Select(i => i.AspNetUsers.Email).ToArray())</h6>*@
 
     @*<ul>*@
-    <div class="chat-body" id="discussion">
+    <div class="chat-body" id="discussion" style="width: calc(100% - 20px);">
         @foreach (ChatMessageDTO message in Model.Chat.ChatMessage)
         {
             if (message.ID_User == Model.Profile.ID_User)

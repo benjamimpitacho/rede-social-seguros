@@ -373,31 +373,43 @@ namespace InsuranceWebsite.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(string token, string code)
         {
-            if (code == null || token == null)
+            try
             {
-                return View("Error");
+                InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, code, "AccountController::ConfirmEmail", string.Format("Received token={0} | code={1}", token, code));
+
+                if (code == null || token == null)
+                {
+                    return View("Error");
+                }
+
+                var result = await UserManager.ConfirmEmailAsync(code, token);
+
+                var user = UserManager.FindById(code);
+                var userProfile = InsuranceBusiness.BusinessLayer.GetUserProfile(code);
+
+                if (result.Succeeded)
+                {
+                    if (UserManager.IsLockedOut(user.Id))
+                    {
+                        RegisterViewModel model = new RegisterViewModel() { Name = userProfile.FirstName };
+                        InsuranceBusiness.BusinessLayer.CreateNotificationForAdministrators(userProfile.ID_User, NotificationTypeEnum.USER_APPROVAL_PENDING);
+                        return View("PendingApproval", model);
+                    }
+                    else
+                    {
+                        return View("Login");
+                    }
+                }
+
+                throw new Exception(String.Join(", ", result.Errors.ToArray()));
+
+                //return View("Error");
             }
-
-            var result = await UserManager.ConfirmEmailAsync(code, token);
-
-            var user = UserManager.FindById(code);
-            var userProfile = InsuranceBusiness.BusinessLayer.GetUserProfile(code);
-
-            if(result.Succeeded)
+            catch(Exception ex)
             {
-                if (UserManager.IsLockedOut(user.Id))
-                {
-                    RegisterViewModel model = new RegisterViewModel() { Name = userProfile.FirstName };
-                    InsuranceBusiness.BusinessLayer.CreateNotificationForAdministrators(userProfile.ID_User, NotificationTypeEnum.USER_APPROVAL_PENDING);
-                    return View("PendingApproval", model);
-                }
-                else
-                {
-                    return View("Login");
-                }
+                InsuranceBusiness.BusinessLayer.LogException("", "AccountController::ConfirmEmail", ex);
+                throw new NotImplementedException();
             }
-
-            return View("Error");
         }
 
         //
