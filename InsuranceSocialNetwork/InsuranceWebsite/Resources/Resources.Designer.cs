@@ -304,6 +304,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tem a certeza que pretende apagar a conversa?.
+        /// </summary>
+        public static string AreYouSureToDeleteChat {
+            get {
+                return ResourceManager.GetString("AreYouSureToDeleteChat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tem a certeza que pretende apagar a publicação?.
         /// </summary>
         public static string AreYouSureToDeletePost {

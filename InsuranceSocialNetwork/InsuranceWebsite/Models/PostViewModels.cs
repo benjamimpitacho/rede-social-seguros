@@ -17,5 +17,6 @@ namespace InsuranceWebsite.Models
 
         public bool RemoveImage { get; set; }
         public bool RemoveFile { get; set; }
+        public bool RemoveURL { get; set; }
     }
 }

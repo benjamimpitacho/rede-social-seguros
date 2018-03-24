@@ -282,7 +282,7 @@ namespace InsuranceSocialNetworkDAL
                 if (null == post)
                     return false;
 
-                context.Post.Delete(post);
+                context.Post.Delete(post.ID);
                 context.Save();
 
                 return true;

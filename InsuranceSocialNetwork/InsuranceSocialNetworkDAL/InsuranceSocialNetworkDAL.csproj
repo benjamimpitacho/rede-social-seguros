@@ -79,6 +79,9 @@
     <Compile Include="Chat.cs">
       <DependentUpon>InsuranceDatabaseEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="ChatDelete.cs">
+      <DependentUpon>InsuranceDatabaseEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="ChatMember.cs">
       <DependentUpon>InsuranceDatabaseEntities.tt</DependentUpon>
     </Compile>

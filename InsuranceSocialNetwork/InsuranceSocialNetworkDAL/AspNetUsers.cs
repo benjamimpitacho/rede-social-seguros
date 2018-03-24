@@ -33,12 +33,13 @@ namespace InsuranceSocialNetworkDAL
             this.MedicalClinicFavorite = new HashSet<MedicalClinicFavorite>();
             this.Profile = new HashSet<Profile>();
             this.AuthorizedEmail = new HashSet<AuthorizedEmail>();
-            this.Post = new HashSet<Post>();
             this.ChatMessage = new HashSet<ChatMessage>();
             this.Notification = new HashSet<Notification>();
             this.Notification1 = new HashSet<Notification>();
             this.PostHidden = new HashSet<PostHidden>();
             this.SystemLog = new HashSet<SystemLog>();
+            this.Post = new HashSet<Post>();
+            this.ChatDelete = new HashSet<ChatDelete>();
         }
     
         public string Id { get; set; }
@@ -87,8 +88,6 @@ namespace InsuranceSocialNetworkDAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AuthorizedEmail> AuthorizedEmail { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Post> Post { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChatMessage> ChatMessage { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Notification> Notification { get; set; }
@@ -98,5 +97,9 @@ namespace InsuranceSocialNetworkDAL
         public virtual ICollection<PostHidden> PostHidden { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SystemLog> SystemLog { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Post> Post { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ChatDelete> ChatDelete { get; set; }
     }
 }

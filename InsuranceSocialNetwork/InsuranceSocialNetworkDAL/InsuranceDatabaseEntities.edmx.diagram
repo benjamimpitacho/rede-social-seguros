@@ -86,13 +86,6 @@
         <EntityTypeShape EntityType="InsurancePortal_dbModel.AuthorizedEmail" Width="1.5" PointX="5.25" PointY="64.125" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_AuthorizedEmail_User" />
         <EntityTypeShape EntityType="InsurancePortal_dbModel.PostImage" Width="1.5" PointX="13.5" PointY="24.25" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.Post" Width="1.5" PointX="11.25" PointY="23.125" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_Post_AspNetUsers" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_Post_PostSubject" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_Post_PostType" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_PostComment_Post" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_PostImage_Post" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_PostLike_Post" />
         <EntityTypeShape EntityType="InsurancePortal_dbModel.ChatMessage" Width="1.5" PointX="10.5" PointY="48.5" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_ChatMessage_AspNetUsers" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_ChatMessage_Chat" />
@@ -100,10 +93,8 @@
         <AssociationConnector Association="InsurancePortal_dbModel.FK_NotificationFromUser_AspNetUsers" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_NotificationToUser_AspNetUsers" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_Notification_NotificationType" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_Notification_Post" />
         <EntityTypeShape EntityType="InsurancePortal_dbModel.PostHidden" Width="1.5" PointX="16.5" PointY="24.5" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_PostHidden_AspNetUsers" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_PostHidden_Post" />
         <EntityTypeShape EntityType="InsurancePortal_dbModel.ProfileSettings" Width="1.5" PointX="7.5" PointY="59.625" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_ProfileSettings_Profile" />
         <EntityTypeShape EntityType="InsurancePortal_dbModel.PaymentStatus" Width="1.5" PointX="8.25" PointY="56.125" />
@@ -121,6 +112,18 @@
         <AssociationConnector Association="InsurancePortal_dbModel.FK_Payment_Profile" />
         <EntityTypeShape EntityType="InsurancePortal_dbModel.SystemLog" Width="1.5" PointX="5.25" PointY="38.625" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_SystemLog_AspNetUsers" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.Post" Width="1.5" PointX="11.25" PointY="21.75" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_Post_AspNetUsers" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_Notification_Post" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_Post_PostSubject" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_Post_PostType" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_PostComment_Post" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_PostHidden_Post" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_PostImage_Post" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_PostLike_Post" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.ChatDelete" Width="1.5" PointX="7.5" PointY="53.125" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_ChatDelete_AspNetUsers" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_ChatDelete_Chat" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

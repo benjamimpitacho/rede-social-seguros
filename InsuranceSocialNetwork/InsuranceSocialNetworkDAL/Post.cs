@@ -17,17 +17,18 @@ namespace InsuranceSocialNetworkDAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Post()
         {
+            this.Notification = new HashSet<Notification>();
             this.PostComment = new HashSet<PostComment>();
+            this.PostHidden = new HashSet<PostHidden>();
             this.PostImage = new HashSet<PostImage>();
             this.PostLike = new HashSet<PostLike>();
-            this.Notification = new HashSet<Notification>();
-            this.PostHidden = new HashSet<PostHidden>();
         }
     
         public long ID { get; set; }
         public string ID_User { get; set; }
         public long ID_PostType { get; set; }
         public long ID_PostSubject { get; set; }
+        public string Title { get; set; }
         public string Text { get; set; }
         public string Video { get; set; }
         public string URL { get; set; }
@@ -37,20 +38,23 @@ namespace InsuranceSocialNetworkDAL
         public bool Sticky { get; set; }
         public bool Sponsored { get; set; }
         public bool Active { get; set; }
-        public string Title { get; set; }
+        public string URL_Domain { get; set; }
+        public string URL_Title { get; set; }
+        public string URL_Description { get; set; }
+        public string URL_Image_Address { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Notification> Notification { get; set; }
         public virtual PostSubject PostSubject { get; set; }
         public virtual PostType PostType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PostComment> PostComment { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PostHidden> PostHidden { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PostImage> PostImage { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PostLike> PostLike { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Notification> Notification { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PostHidden> PostHidden { get; set; }
     }
 }

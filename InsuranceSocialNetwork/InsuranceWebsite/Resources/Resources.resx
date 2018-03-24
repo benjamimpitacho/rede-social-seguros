@@ -981,4 +981,7 @@
   <data name="DirectDebitConfirmationSuccessTitle" xml:space="preserve">
     <value>Débito Directo configurado com sucesso</value>
   </data>
+  <data name="AreYouSureToDeleteChat" xml:space="preserve">
+    <value>Tem a certeza que pretende apagar a conversa?</value>
+  </data>
 </root>

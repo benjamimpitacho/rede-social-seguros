@@ -60,14 +60,22 @@ namespace InsuranceSocialNetworkDAL
 
             if (null != chat && null != chat.ChatMessage)
             {
-                chat.ChatMessage = chat.ChatMessage.OrderByDescending(j => j.CreateDate).Take(20).OrderBy(j => j.CreateDate).ToList();
+                ChatDelete chatDelete = context.ChatDelete.Fetch().Where(i => i.ID_Chat == chat.ID && i.ID_User == userId).FirstOrDefault();
+                if (null == chatDelete)
+                {
+                    chat.ChatMessage = chat.ChatMessage.OrderByDescending(j => j.CreateDate).Take(20).OrderBy(j => j.CreateDate).ToList();
+                }
+                else
+                {
+                    chat.ChatMessage = chat.ChatMessage.Where(i => i.CreateDate > chatDelete.LastChatDeleteDate).OrderByDescending(j => j.CreateDate).Take(20).OrderBy(j => j.CreateDate).ToList();
+                }
             }
 
             return chat;
             //}
         }
 
-        public static Chat GetChat(BackofficeUnitOfWork context, long chatId)
+        public static Chat GetChat(BackofficeUnitOfWork context, long chatId, string userId)
         {
             //using (var context = new BackofficeUnitOfWork())
             //{
@@ -85,7 +93,15 @@ namespace InsuranceSocialNetworkDAL
 
             if (null != chat && null != chat.ChatMessage)
             {
-                chat.ChatMessage = chat.ChatMessage.OrderByDescending(j => j.CreateDate).Take(20).OrderBy(j => j.CreateDate).ToList();
+                ChatDelete chatDelete = context.ChatDelete.Fetch().Where(i => i.ID_Chat == chatId && i.ID_User == userId).FirstOrDefault();
+                if (null == chatDelete)
+                {
+                    chat.ChatMessage = chat.ChatMessage.OrderByDescending(j => j.CreateDate).Take(20).OrderBy(j => j.CreateDate).ToList();
+                }
+                else
+                {
+                    chat.ChatMessage = chat.ChatMessage.Where(i => i.CreateDate > chatDelete.LastChatDeleteDate).OrderByDescending(j => j.CreateDate).Take(20).OrderBy(j => j.CreateDate).ToList();
+                }
             }
 
             return chat;
@@ -170,6 +186,43 @@ namespace InsuranceSocialNetworkDAL
                 messageList.ForEach(i => i.ReadDate = DateTime.Now);
 
                 context.Save();
+            }
+        }
+
+        public static bool DeleteChat(long chatId, string userId)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                ChatMember chatMember = context.ChatMember
+                    .Fetch()
+                    .Where(i => i.ID_Chat == chatId && i.ID_User == userId)
+                    .FirstOrDefault();
+
+                if (null == chatMember)
+                    return false;
+
+                ChatDelete deleteEntry = context.ChatDelete
+                    .Fetch()
+                    .Where(i => i.ID_Chat == chatId && i.ID_User == userId)
+                    .FirstOrDefault();
+
+                if(null == deleteEntry)
+                {
+                    context.ChatDelete.Create(new ChatDelete() {
+                        ID_Chat = chatId,
+                        ID_User = userId,
+                        LastChatDeleteDate = DateTime.Now
+                    });
+                }
+                else
+                {
+                    deleteEntry.LastChatDeleteDate = DateTime.Now;
+                    context.ChatDelete.Update(deleteEntry);
+                }
+
+                context.Save();
+
+                return true;
             }
         }
     }

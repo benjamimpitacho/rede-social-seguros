@@ -1,6 +1,9 @@
 ﻿@using InsuranceWebsite.Models
 @model PostViewModel
 
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 <style>
@@ -13,30 +16,164 @@
 </style>
 
 <div class="panel topPanel" style="margin-bottom: 0px;">
-    @using (Html.BeginForm("EditPost", "Home", FormMethod.Post, new { enctype = "multipart/form-data", id="editForm" }))
+    @using (Html.BeginForm("EditPost", "Home", FormMethod.Post, new { enctype = "multipart/form-data", id = "editForm" }))
     {
         @Html.HiddenFor(m => m.Profile.ID_User)
         @Html.HiddenFor(m => m.Profile.ID)
         @Html.HiddenFor(m => m.Post.ID)
         @Html.HiddenFor(m => m.RemoveFile)
         @Html.HiddenFor(m => m.RemoveImage)
+        @Html.HiddenFor(m => m.RemoveURL)
+
+        <textarea id="editPostLivePreviewImgHidden" name="editPostLivePreviewImgHidden" style="visibility:hidden;display:none;">@Model.Post.URL_Image_Address</textarea>
+        <textarea id="editPostLivePreviewTitleHidden" name="editPostLivePreviewTitleHidden" style="visibility:hidden;display:none;">@Model.Post.URL_Title</textarea>
+        <textarea id="editPostLivePreviewDescriptionHidden" name="editPostLivePreviewDescriptionHidden" style="visibility:hidden;display:none;">@Model.Post.URL_Description</textarea>
+        <textarea id="editPostLivePreviewDomainHidden" name="editPostLivePreviewDomainHidden" style="visibility:hidden;display:none;">@Model.Post.URL_Domain</textarea>
+        <textarea id="editPostLivePreviewUrlHidden" name="editPostLivePreviewUrlHidden" style="visibility:hidden;display:none;">@Model.Post.URL</textarea>
 
         if (Model.Post.PostType.Token == InsuranceSocialNetworkCore.Enums.PostTypeEnum.IMAGE_POST.ToString() && null != Model.Post.PostImage && Model.Post.PostImage.Count > 0)
         {
-            <textarea placeholder="@Resources.Resources.WhatsInYourMindToday" rows="1" class="form-control input-lg p-text-area" id="postContentTextarea" name="postContentTextarea" style="resize: vertical;word-break:normal;height:100px;max-height:500px; text-align:justify;">@Model.Post.Text</textarea>
+            <textarea placeholder="@Resources.Resources.WhatsInYourMindToday" rows="1" class="form-control input-lg p-text-area" id="editPostContentTextarea" name="editPostContentTextarea" style="resize: vertical;word-break:normal;height:100px;max-height:500px; text-align:justify;">@Model.Post.Text</textarea>
             <button id="removeImageButton" type="button" class="ui-button ui-corner-all ui-widget ui-button-icon-only" style="position: absolute;width: 20px;height: 20px;padding: 1px;margin-left: 415px;margin-top: 4px;" title="@Resources.Resources.Remove"><span class="ui-button-icon ui-icon ui-icon-closethick"></span><span class="ui-button-icon-space"> </span>@Resources.Resources.Remove</button>
-            <img id="imgPlaceholderEdit" src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.Post.PostImage[0].Image))" alt="" style="" />
+            <img id="editPostImgPlaceholderEdit" src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.Post.PostImage[0].Image))" alt="" style="" />
+            <div id="editPostLivePreviewBox" style="display:none;">
+                <div style="padding:10px;">
+                    <div style="border: 1px #ccc solid;">
+                        <div id="editPostLivePreviewImageBlock">
+                            <div>
+                                <button type="button" id="editPostRemoveImgButton" style="float:right;margin-top:10px;margin-right:10px;width:20px;height:20px;background-color:transparent;border:none;background-image:url(../../../Content/icons/136_20x20.png)"></button>
+                                <div style="text-align: center;" id="editPostLivePreviewImg"></div>
+                            </div>
+                        </div>
+                        <div id="editPostLivePreviewTextBlock" style="border-top: 1px #ccc solid;padding: 10px;min-height:40px;">
+                            <button type="button" id="editPostRemoveTextButton" style="float:right;margin-top:0px;margin-right:0px;width:20px;height:20px;background-color:transparent;border:none;background-image:url(../../../Content/icons/136_20x20.png)"></button>
+                            <div id="editPostLivePreviewTitle" name="editPostLivePreviewTitle" style="font-weight: bold;font-size: 16px;color:#333;"></div>
+                            <div id="editPostLivePreviewDescription" style="font-size: 12px;"></div>
+                            <div>
+                                <div>
+                                    <div class="" id="editPostLivePreviewDomain" style="color: #6F7D85;"></div>
+                                    <div class=""></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         }
         else if (Model.Post.PostType.Token == InsuranceSocialNetworkCore.Enums.PostTypeEnum.FILE_POST.ToString())
         {
-            <textarea placeholder="@Resources.Resources.WhatsInYourMindToday" rows="1" class="form-control input-lg p-text-area" id="postContentTextarea" name="postContentTextarea" style="resize: vertical;word-break:normal;height:300px;max-height:500px; text-align:justify;">@Model.Post.Text</textarea>
+            <textarea placeholder="@Resources.Resources.WhatsInYourMindToday" rows="1" class="form-control input-lg p-text-area" id="editPostContentTextarea" name="editPostContentTextarea" style="resize: vertical;word-break:normal;height:100px;max-height:500px; text-align:justify;">@Model.Post.Text</textarea>
+            <img id="editPostImgPlaceholderEdit" src="#" alt="" style="visibility:hidden;position:absolute" />
             <button id="removeFileButton" type="button" class="ui-button ui-corner-all ui-widget ui-button-icon-only" style="position: absolute;width: 20px;height: 20px;padding: 1px;margin-left: 50px;margin-top: 4px;" title="@Resources.Resources.Remove"><span class="ui-button-icon ui-icon ui-icon-closethick"></span><span class="ui-button-icon-space"> </span>@Resources.Resources.Remove</button>
-            <a id="fileLink" href="@Url.Action("Download", "Home", new { id = Model.Post.ID })"><i class="fa fa-file-text-o" aria-hidden="true" style="font-size:30px;padding-left: 15px;padding-right:10px;"></i></a>
+            <a id="editPostFileLink" href="@Url.Action("Download", "Home", new { id = Model.Post.ID })"><i class="fa fa-file-text-o" aria-hidden="true" style="font-size:30px;padding-left: 15px;padding-right:10px;"></i></a>
+            <div id="editPostLivePreviewBox" style="display:none;">
+                <div style="padding:10px;">
+                    <div style="border: 1px #ccc solid;">
+                        <div id="editPostLivePreviewImageBlock">
+                            <div>
+                                <button type="button" id="editPostRemoveImgButton" style="float:right;margin-top:10px;margin-right:10px;width:20px;height:20px;background-color:transparent;border:none;background-image:url(../../../Content/icons/136_20x20.png)"></button>
+                                <div style="text-align: center;" id="editPostLivePreviewImg"></div>
+                            </div>
+                        </div>
+                        <div id="editPostLivePreviewTextBlock" style="border-top: 1px #ccc solid;padding: 10px;min-height:40px;">
+                            <button type="button" id="editPostRemoveTextButton" style="float:right;margin-top:0px;margin-right:0px;width:20px;height:20px;background-color:transparent;border:none;background-image:url(../../../Content/icons/136_20x20.png)"></button>
+                            <div id="editPostLivePreviewTitle" name="editPostLivePreviewTitle" style="font-weight: bold;font-size: 16px;color:#333;"></div>
+                            <div id="editPostLivePreviewDescription" style="font-size: 12px;"></div>
+                            <div>
+                                <div>
+                                    <div class="" id="editPostLivePreviewDomain" style="color: #6F7D85;"></div>
+                                    <div class=""></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        else if (Model.Post.PostType.Token == InsuranceSocialNetworkCore.Enums.PostTypeEnum.LINK_POST.ToString())
+        {
+            <textarea placeholder="@Resources.Resources.WhatsInYourMindToday" rows="1" class="form-control input-lg p-text-area" id="editPostContentTextarea" name="editPostContentTextarea" style="resize: vertical;word-break:normal;height:100px;max-height:500px; text-align:justify;" onkeyup="checkForURL()">@Model.Post.Text</textarea>
+            <img id="editPostImgPlaceholderEdit" src="#" alt="" style="visibility:hidden;position:absolute" />
+            <div id="editPostLivePreviewBox">
+                <div style="padding:10px;">
+                    <div style="border: 1px #ccc solid;">
+                        @if (null != Model.Post.PostImage && Model.Post.PostImage.Count > 0)
+                        {
+                            <div id="editPostLivePreviewImageBlock">
+                                <div>
+                                    <button type="button" id="editPostRemoveImgButton" style="float:right;margin-top:10px;margin-right:10px;width:20px;height:20px;background-color:transparent;border:none;background-image:url(../../../Content/icons/136_20x20.png)"></button>
+                                    <div style="text-align: center;" id="editPostLivePreviewImg"><img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.Post.PostImage[0].Image))" alt="" style="" /></div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div id="editPostLivePreviewImageBlock">
+                                <div>
+                                    <button type="button" id="editPostRemoveImgButton" style="float:right;margin-top:10px;margin-right:10px;width:20px;height:20px;background-color:transparent;border:none;background-image:url(../../../Content/icons/136_20x20.png)"></button>
+                                    <div style="text-align: center;" id="editPostLivePreviewImg"></div>
+                                </div>
+                            </div>
+                        }
+                        @if (!string.IsNullOrEmpty(Model.Post.URL_Title) || !string.IsNullOrEmpty(Model.Post.URL_Description) || !string.IsNullOrEmpty(Model.Post.URL_Domain))
+                        {
+                            <div id="editPostLivePreviewTextBlock" style="border-top: 1px #ccc solid;padding: 10px;min-height:40px;">
+                                <button type="button" id="editPostRemoveTextButton" style="float:right;margin-top:0px;margin-right:0px;width:20px;height:20px;background-color:transparent;border:none;background-image:url(../../../Content/icons/136_20x20.png)"></button>
+                                <div id="editPostLivePreviewTitle" name="editPostLivePreviewTitle" style="font-weight: bold;font-size: 16px;color:#333;">@Model.Post.URL_Title</div>
+                                <div id="editPostLivePreviewDescription" style="font-size: 12px;">@Model.Post.URL_Description</div>
+                                <div>
+                                    <div>
+                                        <div class="" id="editPostLivePreviewDomain" style="color: #6F7D85;">@Model.Post.URL_Domain</div>
+                                        <div class=""></div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div id="editPostLivePreviewTextBlock" style="border-top: 1px #ccc solid;padding: 10px;min-height:40px;">
+                                <div id="editPostLivePreviewTextBlockRemoveButton" style="visibility:hidden;"><button type="button" id="editPostRemoveTextButton" style="float:right;margin-top:0px;margin-right:0px;width:20px;height:20px;background-color:transparent;border:none;background-image:url(../../../Content/icons/136_20x20.png);"></button></div>
+                                <div id="editPostLivePreviewTitle" name="editPostLivePreviewTitle" style="font-weight: bold;font-size: 16px;color:#333;"></div>
+                                <div id="editPostLivePreviewDescription" style="font-size: 12px;"></div>
+                                <div>
+                                    <div>
+                                        <div class="" id="editPostLivePreviewDomain" style="color: #6F7D85;"></div>
+                                        <div class=""></div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
         }
         else
         {
-            <textarea placeholder="@Resources.Resources.WhatsInYourMindToday" rows="1" class="form-control input-lg p-text-area" id="postContentTextarea" name="postContentTextarea" style="resize: vertical;word-break:normal;height:300px;max-height:500px; text-align:justify;">@Model.Post.Text</textarea>
-            <img id="imgPlaceholderEdit" src="#" alt="" style="visibility:hidden;position:absolute" />
+            <textarea placeholder="@Resources.Resources.WhatsInYourMindToday" rows="1" class="form-control input-lg p-text-area" id="editPostContentTextarea" name="editPostContentTextarea" style="resize: vertical;word-break:normal;height:300px;max-height:500px; text-align:justify;">@Model.Post.Text</textarea>
+            <img id="editPostImgPlaceholderEdit" src="#" alt="" style="visibility:hidden;position:absolute" />
+            <div id="editPostLivePreviewBox" style="display:none;">
+                <div style="padding:10px;">
+                    <div style="border: 1px #ccc solid;">
+                        <div id="editPostLivePreviewImageBlock">
+                            <div>
+                                <button type="button" id="editPostRemoveImgButton" style="float:right;margin-top:10px;margin-right:10px;width:20px;height:20px;background-color:transparent;border:none;background-image:url(../../../Content/icons/136_20x20.png)"></button>
+                                <div style="text-align: center;" id="editPostLivePreviewImg"></div>
+                            </div>
+                        </div>
+                        <div id="editPostLivePreviewTextBlock" style="border-top: 1px #ccc solid;padding: 10px;min-height:40px;">
+                            <button type="button" id="editPostRemoveTextButton" style="float:right;margin-top:0px;margin-right:0px;width:20px;height:20px;background-color:transparent;border:none;background-image:url(../../../Content/icons/136_20x20.png)"></button>
+                            <div id="editPostLivePreviewTitle" name="editPostLivePreviewTitle" style="font-weight: bold;font-size: 16px;color:#333;"></div>
+                            <div id="editPostLivePreviewDescription" style="font-size: 12px;"></div>
+                            <div>
+                                <div>
+                                    <div class="" id="editPostLivePreviewDomain" style="color: #6F7D85;"></div>
+                                    <div class=""></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         }
 
         <div class="panel-footer" style="border-top: 0px; padding: 10px 10px">
@@ -67,7 +204,93 @@
 
 <script type="text/javascript">
 
+    function checkForURL()
+    {
+        var urls = $("#editPostContentTextarea").val().match(/\b(http|https)?(:\/\/)?(\S*)\.(\w{2,4})\b/ig);
+        
+        if (urls == null || urls.length == 0)
+        {
+            return;
+        }
+        if (urls[0] == $("#livePreviewUrlHidden").text())
+        {
+            return;
+        }
+        
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("Preview", "Home")',
+            data: { url: urls[0] },
+            success: function (data) {
+                $("#editPostLivePreviewTitle").text(data.title);
+                $("#editPostLivePreviewTitleHidden").text(data.title);
+                $("#editPostLivePreviewDescription").text(data.description);
+                $("#editPostLivePreviewDescriptionHidden").text(data.description);
+                $("#editPostLivePreviewDomain").text(data.url);
+                $("#editPostLivePreviewDomainHidden").text(data.url);
+                $("#editPostLivePreviewUrlHidden").text(data.url);
+                $("#editPostLivePreviewImg").html('');
+                $.each(data.lstImages, function (e, element) {
+                    $("#editPostLivePreviewImg").append("<img src='" + element + "' style='max-height:400px;max-width:460px'/>");
+                    $("#editPostLivePreviewImgHidden").text(element);
+                });
+
+                $('#editPostLivePreviewBox').attr('style', '');
+                $('#editPostLivePreviewTextBlockRemoveButton').attr('style', '');
+                $('#imgPlaceholder').attr('src', '');
+                $("#imgUpload").files = null;
+                $("#fileUpload").files = null;
+                $("#RemoveFile").val("True");
+                $("#RemoveImage").val("True");
+            }
+        });
+    }
+
     $(document).ready(function () {
+
+        @*$("#editPostContentTextarea").keyup(function () {
+            alert('p');
+            var urls = $("#editPostContentTextarea").val().match(/\b(http|https)?(:\/\/)?(\S*)\.(\w{2,4})\b/ig);
+            //alert(urls);
+            if (urls == null || urls.length == 0)
+            {
+                alert("no urls");
+                return;
+            }
+            if (urls[0] == $("#livePreviewUrlHidden").text())
+            {
+                alert($("#livePreviewUrlHidden").text());
+                //alert(urls[0])
+                return;
+            }
+            alert(urls[0]);
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("Preview", "Home")',
+                data: { url: urls[0] },
+                success: function (data) {
+                    $("#editPostLivePreviewTitle").text(data.title);
+                    $("#editPostLivePreviewTitleHidden").text(data.title);
+                    $("#editPostLivePreviewDescription").text(data.description);
+                    $("#editPostLivePreviewDescriptionHidden").text(data.description);
+                    $("#editPostLivePreviewDomain").text(data.url);
+                    $("#editPostLivePreviewDomainHidden").text(data.url);
+                    $("#livePreviewUrlHidden").text(data.url);
+                    $("#editPostLivePreviewImg").html('');
+                    $.each(data.lstImages, function (e, element) {
+                        $("#editPostLivePreviewImg").append("<img src='" + element + "' style='max-height:400px;max-width:460px'/>");
+                        $("#editPostLivePreviewImgHidden").text(element);
+                    });
+
+                    $('#editPostLivePreviewBox').attr('style', '');
+                    $('#imgPlaceholder').attr('src', '');
+                    $("#imgUpload").files = null;
+                    $("#fileUpload").files = null;
+                    $("#RemoveFile").val("True");
+                    $("#RemoveImage").val("True");
+                }
+            });
+        });*@
 
         $("#cancelButton").on("click", function (e) {
             $("#dialog-confirm-edit").dialog("close");
@@ -79,17 +302,17 @@
         });
 
         $("#removeFileButton").on("click", function (e) {
-            $("#fileLink").hide();
+            $("#editPostFileLink").hide();
             $("#removeFileButton").hide();
             $("#fileEditUpload").files = null;
             $("#RemoveFile").val("True");
         });
 
         $("#removeImageButton").on("click", function (e) {
-            $("#fileLink").hide();
+            $("#editPostFileLink").hide();
             $("#removeImageButton").hide();
-            $('#imgPlaceholderEdit').attr('style', 'visibility:hidden;position:absolute');
-            $('#imgPlaceholderEdit').attr('src', '');
+            $('#editPostImgPlaceholderEdit').attr('style', 'visibility:hidden;position:absolute');
+            $('#editPostImgPlaceholderEdit').attr('src', '');
             $("#imgEditUpload").files = null;
             $("#RemoveImage").val("True");
         });
@@ -98,26 +321,60 @@
             readURL(this);
             $("#fileEditUpload").files = null;
             $("#RemoveFile").val("True");
+            $("#RemoveURL").val("True");
+            $('#editPostLivePreviewBox').attr('style', 'display:none;');
+            clearLivePreviewFields();
         });
 
         $("#fileEditUpload").change(function () {
-            $('#imgPlaceholderEdit').attr('style', 'visibility:hidden;position:absolute');
-            $('#imgPlaceholderEdit').attr('src', '');
+            $('#editPostImgPlaceholderEdit').attr('style', 'visibility:hidden;position:absolute');
+            $('#editPostImgPlaceholderEdit').attr('src', '');
             $("#imgEditUpload").files = null;
             $("#RemoveImage").val("True");
+            $("#RemoveURL").val("True");
+            $('#editPostLivePreviewBox').attr('style', 'display:none;');
+            clearLivePreviewFields();
         });
 
+        $("#editPostRemoveImgButton").click(function (event) {
+            $("#editPostLivePreviewImgHidden").text("");
+            $("#editPostLivePreviewImageBlock").attr('style', 'display:none;');
+
+            if ($("#editPostLivePreviewTitleHidden").text() == "") {
+                $("#livePreviewUrlHidden").text("");
+            }
+        });
+
+        $("#editPostRemoveTextButton").click(function (event) {
+            $("#editPostLivePreviewTitleHidden").text("");
+            $("#editPostLivePreviewDescriptionHidden").text("");
+            $("#editPostLivePreviewDomainHidden").text("");
+            $("#editPostLivePreviewTextBlock").attr('style', 'display:none;');
+
+            if ($("#editPostLivePreviewImgHidden").text() == "") {
+                $("#livePreviewUrlHidden").text("");
+            }
+        });
     });
 
+    function clearLivePreviewFields() {
+        $("#editPostLivePreviewTitleHidden").text("");
+        $("#editPostLivePreviewDescriptionHidden").text("");
+        $("#editPostLivePreviewDomainHidden").text("");
+        $("#editPostLivePreviewImgHidden").text("");
+        $("#livePreviewUrlHidden").text("");
+        $("#editPostLivePreviewImg").html('');
+    }
+
     function readURL(input) {
-        
+
         if (input.files && input.files[0]) {
             var reader = new FileReader();
 
             reader.onload = function (e) {
                 alert(e.target.result)
-                $('#imgPlaceholderEdit').attr('style', '');
-                $('#imgPlaceholderEdit').attr('src', e.target.result);
+                $('#editPostImgPlaceholderEdit').attr('style', '');
+                $('#editPostImgPlaceholderEdit').attr('src', e.target.result);
             }
 
             reader.readAsDataURL(input.files[0]);

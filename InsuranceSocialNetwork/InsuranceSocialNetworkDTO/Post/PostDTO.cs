@@ -21,6 +21,10 @@ namespace InsuranceSocialNetworkDTO.Post
         public string FileExtension { get; set; }
         public string Video { get; set; }
         public string URL { get; set; }
+        public string URL_Domain { get; set; }
+        public string URL_Title { get; set; }
+        public string URL_Description { get; set; }
+        public string URL_Image_Address { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime LastChangeDate { get; set; }
         public DateTime? DeleteDate { get; set; }

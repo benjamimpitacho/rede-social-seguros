@@ -13,6 +13,7 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
@@ -246,11 +247,27 @@ namespace InsuranceWebsite.Controllers
             ChatViewModel model = new ChatViewModel();
 
             model.Profile = CurrentUser;
-            model.Chat = InsuranceBusiness.BusinessLayer.GetChat(id);
+            model.Chat = InsuranceBusiness.BusinessLayer.GetChat(id, CurrentUser.ID_User);
 
             InsuranceBusiness.BusinessLayer.MarkAllChatMessagesRead(id, CurrentUser.ID_User);
 
             return PartialView("Partial/ChatSectionView", model);
+        }
+
+        //[HttpPost]
+        [FunctionalityAutorizeAttribute("NEW_POST_FUNCTIONALITY")]
+        public ActionResult DeleteChat(long id)
+        {
+            try
+            {
+                InsuranceBusiness.BusinessLayer.DeleteChat(id, CurrentUser.ID_User);
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException();
+            }
+
+            return RedirectToAction("Index");
         }
 
         [FunctionalityAutorizeAttribute("NOTIFICATIONS_FUNCTIONALITY")]
@@ -507,8 +524,9 @@ namespace InsuranceWebsite.Controllers
         }
 
         [HttpPost]
+        [ValidateInput(false)]
         [FunctionalityAutorizeAttribute("NEW_POST_FUNCTIONALITY")]
-        public ActionResult NewPost(HomeViewModel model, string postContentTextarea, HttpPostedFileBase imgUpload, HttpPostedFileBase fileUpload)
+        public ActionResult NewPost(HomeViewModel model, string postContentTextarea, HttpPostedFileBase imgUpload, HttpPostedFileBase fileUpload, string livePreviewUrlHidden, string livePreviewImgHidden, string livePreviewTitleHidden, string livePreviewDescriptionHidden, string livePreviewDomainHidden)
         {
             try
             {
@@ -522,6 +540,45 @@ namespace InsuranceWebsite.Controllers
                     Type = null == imgUpload ? InsuranceSocialNetworkCore.Enums.PostTypeEnum.TEXT_POST : InsuranceSocialNetworkCore.Enums.PostTypeEnum.IMAGE_POST,
                     Subject = InsuranceSocialNetworkCore.Enums.PostSubjectEnum.PERSONAL_POST
                 };
+
+                if(!string.IsNullOrEmpty(livePreviewImgHidden))
+                {
+                    newPost.Type = InsuranceSocialNetworkCore.Enums.PostTypeEnum.LINK_POST;
+                    var webClient = new WebClient();
+                    byte[] imageBytes = webClient.DownloadData(livePreviewImgHidden);
+                    MemoryStream imgStream = new MemoryStream(imageBytes);
+                    Image img = Image.FromStream(imgStream);
+                    if (img.Width > 1024 || img.Height > 1024)
+                    {
+                        newPost.Image = InsuranceSocialNetworkCore.Utils.ConvertionUtils.ScaleImage(imageBytes, 1024, 1024);
+                    }
+                    else
+                    {
+                        newPost.Image = imageBytes;
+                    }
+                    newPost.URL_Image_Address = livePreviewImgHidden;
+                    newPost.URL = livePreviewUrlHidden;
+                    if (!string.IsNullOrEmpty(livePreviewDomainHidden))
+                    {
+                        Uri myUri = new Uri(livePreviewDomainHidden);
+                        newPost.URL_Domain = myUri.Host;
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(livePreviewTitleHidden)
+                    || !string.IsNullOrEmpty(livePreviewDescriptionHidden)
+                    || !string.IsNullOrEmpty(livePreviewDomainHidden))
+                {
+                    newPost.Type = InsuranceSocialNetworkCore.Enums.PostTypeEnum.LINK_POST;
+                    newPost.URL_Title = livePreviewTitleHidden;
+                    newPost.URL_Description = livePreviewDescriptionHidden;
+                    newPost.URL = livePreviewUrlHidden;
+                    if (!string.IsNullOrEmpty(livePreviewDomainHidden))
+                    {
+                        Uri myUri = new Uri(livePreviewDomainHidden);
+                        newPost.URL_Domain = myUri.Host;
+                    }
+                }
 
                 if (null != imgUpload)
                 {
@@ -550,21 +607,23 @@ namespace InsuranceWebsite.Controllers
         }
 
         [HttpPost]
+        [ValidateInput(false)]
         [FunctionalityAutorizeAttribute("NEW_POST_FUNCTIONALITY")]
-        public ActionResult EditPost(PostViewModel model, string postContentTextarea, HttpPostedFileBase imgEditUpload, HttpPostedFileBase fileEditUpload)
+        public ActionResult EditPost(PostViewModel model, string editPostContentTextarea, HttpPostedFileBase imgEditUpload, HttpPostedFileBase fileEditUpload, string editPostLivePreviewUrlHidden, string editPostLivePreviewImgHidden, string editPostLivePreviewTitleHidden, string editPostLivePreviewDescriptionHidden, string editPostLivePreviewDomainHidden)
         {
             try
             {
                 PostDTO editedPost = InsuranceBusiness.BusinessLayer.GetPost(model.Post.ID);
 
                 editedPost.LastChangeDate = DateTime.Now;
-                editedPost.Text = postContentTextarea;
+                editedPost.Text = editPostContentTextarea;
                 editedPost.Type = InsuranceSocialNetworkCore.Enums.PostTypeEnum.TEXT_POST;
                 editedPost.Subject = InsuranceSocialNetworkCore.Enums.PostSubjectEnum.PERSONAL_POST;
 
                 editedPost.Image = null;
                 editedPost.FileName = null;
                 editedPost.FileExtension = null;
+
                 if (model.RemoveImage && null != imgEditUpload)
                 {
                     editedPost.Type = InsuranceSocialNetworkCore.Enums.PostTypeEnum.IMAGE_POST;
@@ -579,6 +638,45 @@ namespace InsuranceWebsite.Controllers
                     editedPost.Image = InsuranceSocialNetworkCore.Utils.ConvertionUtils.ReadFully(fileEditUpload.InputStream);
                     editedPost.FileName = Path.GetFileNameWithoutExtension(fileEditUpload.FileName);
                     editedPost.FileExtension = Path.GetExtension(fileEditUpload.FileName);
+                }
+
+                if (!string.IsNullOrEmpty(editPostLivePreviewImgHidden))
+                {
+                    editedPost.Type = InsuranceSocialNetworkCore.Enums.PostTypeEnum.LINK_POST;
+                    var webClient = new WebClient();
+                    byte[] imageBytes = webClient.DownloadData(editPostLivePreviewImgHidden);
+                    MemoryStream imgStream = new MemoryStream(imageBytes);
+                    Image img = Image.FromStream(imgStream);
+                    if (img.Width > 1024 || img.Height > 1024)
+                    {
+                        editedPost.Image = InsuranceSocialNetworkCore.Utils.ConvertionUtils.ScaleImage(imageBytes, 1024, 1024);
+                    }
+                    else
+                    {
+                        editedPost.Image = imageBytes;
+                    }
+                    editedPost.URL_Image_Address = editPostLivePreviewImgHidden;
+                    editedPost.URL = editPostLivePreviewUrlHidden;
+                    if (!string.IsNullOrEmpty(editPostLivePreviewDomainHidden))
+                    {
+                        Uri myUri = new Uri(editPostLivePreviewDomainHidden);
+                        editedPost.URL_Domain = myUri.Host;
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(editPostLivePreviewTitleHidden)
+                    || !string.IsNullOrEmpty(editPostLivePreviewDescriptionHidden)
+                    || !string.IsNullOrEmpty(editPostLivePreviewDomainHidden))
+                {
+                    editedPost.Type = InsuranceSocialNetworkCore.Enums.PostTypeEnum.LINK_POST;
+                    editedPost.URL_Title = editPostLivePreviewTitleHidden;
+                    editedPost.URL_Description = editPostLivePreviewDescriptionHidden;
+                    editedPost.URL = editPostLivePreviewUrlHidden;
+                    if (!string.IsNullOrEmpty(editPostLivePreviewDomainHidden))
+                    {
+                        Uri myUri = new Uri(editPostLivePreviewDomainHidden);
+                        editedPost.URL_Domain = myUri.Host;
+                    }
                 }
 
                 InsuranceBusiness.BusinessLayer.EditPost(editedPost);
@@ -2292,6 +2390,12 @@ namespace InsuranceWebsite.Controllers
             return PartialView("Partial/_ConfirmPostHide");
         }
 
+        public ActionResult ConfirmChatDelete(long id)
+        {
+            ViewBag.chatId = id;
+            return PartialView("Partial/_ConfirmChatDelete");
+        }
+
         public ActionResult EditPostDialog(long id)
         {
             PostViewModel model = new PostViewModel();
@@ -2316,8 +2420,8 @@ namespace InsuranceWebsite.Controllers
             }
             catch(Exception ex)
             {
-                InsuranceBusiness.BusinessLayer.LogException("", "HomeController::Preview", ex);
-                throw new NotImplementedException();
+                //InsuranceBusiness.BusinessLayer.LogException("", "HomeController::Preview", ex);
+                throw ex;
             }
         }
 

@@ -17,20 +17,30 @@
             @Html.HiddenFor(m => m.Profile.ID_User)
             @Html.HiddenFor(m => m.Profile.ID)
 
+            <textarea id="livePreviewImgHidden" name="livePreviewImgHidden" style="visibility:hidden;display:none;"></textarea>
+            <textarea id="livePreviewTitleHidden" name="livePreviewTitleHidden" style="visibility:hidden;display:none;"></textarea>
+            <textarea id="livePreviewDescriptionHidden" name="livePreviewDescriptionHidden" style="visibility:hidden;display:none;"></textarea>
+            <textarea id="livePreviewDomainHidden" name="livePreviewDomainHidden" style="visibility:hidden;display:none;"></textarea>
+            <textarea id="livePreviewUrlHidden" name="livePreviewUrlHidden" style="visibility:hidden;display:none;"></textarea>
+
             <textarea placeholder="@Resources.Resources.WhatsInYourMindToday" rows="1" class="form-control input-lg p-text-area" id="postContentTextarea" name="postContentTextarea"></textarea>
             <img id="imgPlaceholder" src="#" alt="" style="visibility:hidden;position:absolute" />
-            <div id="livePreviewBox">
-                <div style="padding:10px;" style="visibility:hidden;">
-                    <div class="lfloat _ohe" style="border: 1px #ccc solid;">
-                        <div class="_6l- __c_">
-                            <div class="uiScaledImageContainer _6m5 fbStoryAttachmentImage" style="" id="livePreviewImg"></div>
+            <div id="livePreviewBox" style="display:none;">
+                <div style="padding:10px;">
+                    <div style="border: 1px #ccc solid;">
+                        <div id="livePreviewImageBlock">
+                            <div>
+                                <button type="button" id="removeImgButton" style="float:right;margin-top:10px;margin-right:10px;width:20px;height:20px;background-color:transparent;border:none;background-image:url(../../../Content/icons/136_20x20.png)"></button>
+                                <div style="text-align: center;" id="livePreviewImg"></div>
+                            </div>
                         </div>
-                        <div class="_6m3 _--6" style="border-top: 1px #ccc solid;padding: 10px;">
-                            <div class="mbs _6m6 _2cnj _5s6c"><a target="_blank" data-lynx-mode="asynclazy" tabindex="0" id="livePreviewTitle" style="font-weight: bold;font-size: 16px;color:#333;"></a></div>
-                            <div class="_6m7 _3bt9" id="livePreviewDescription" style="font-size: 12px;"></div>
-                            <div class="_59tj _2iau">
+                        <div id="livePreviewTextBlock" style="border-top: 1px #ccc solid;padding: 10px;min-height:40px;">
+                            <button type="button" id="removeTextButton" style="float:right;margin-top:0px;margin-right:0px;width:20px;height:20px;background-color:transparent;border:none;background-image:url(../../../Content/icons/136_20x20.png)"></button>
+                            <div id="livePreviewTitle" name="livePreviewTitle" style="font-weight: bold;font-size: 16px;color:#333;"></div>
+                            <div id="livePreviewDescription" style="font-size: 12px;"></div>
+                            <div>
                                 <div>
-                                    <div class="_6lz _6mb _1t62 ellipsis" id="livePreviewDomain" style="color: #6F7D85;"></div>
+                                    <div class="" id="livePreviewDomain" style="color: #6F7D85;"></div>
                                     <div class=""></div>
                                 </div>
                             </div>
@@ -56,22 +66,7 @@
                 </ul>
             </div>
         }
-    </div> 
-
-    @*<div class="panel topPanel">
-        <div class="col-md-12">
-            <textarea placeholder="@Resources.Resources.WhatsInYourMindToday" rows="1" class="form-control input-lg p-text-area" id="txtUrl"></textarea>
-            <button type="button" id="btnPreview">Generate Preview</button>
-        </div>
-        <div class="col-md-12">
-
-            <h1>Preview</h1>
-            <h3 id="title"></h3>
-            <div id="imgdiv"></div>
-            <p class="lead" id="desc"></p>
-            <p class="lead" id="url"></p>
-        </div>
-    </div>*@
+    </div>
     
     <div class="news">
         <div class="partialContents" data-url="/home/posts">
@@ -96,6 +91,13 @@
             //alert(urls);
             if (urls == null || urls.length == 0)
             {
+                //alert("no urls");
+                return;
+            }
+            if (urls[0] == $("#livePreviewUrlHidden").text())
+            {
+                //alert($("#livePreviewUrlHidden").text());
+                //alert(urls[0])
                 return;
             }
             //alert(urls[0]);
@@ -105,12 +107,19 @@
                     data: { url: urls[0] },
                     success: function (data) {
                         $("#livePreviewTitle").text(data.title);
+                        $("#livePreviewTitleHidden").text(data.title);
                         $("#livePreviewDescription").text(data.description);
+                        $("#livePreviewDescriptionHidden").text(data.description);
                         $("#livePreviewDomain").text(data.url);
+                        $("#livePreviewDomainHidden").text(data.url);
+                        //alert('afectar url');
+                        $("#livePreviewUrlHidden").text(data.url);
                         $("#livePreviewImg").html('');
                         $.each(data.lstImages, function (e, element) {
                             $("#livePreviewImg").append("<img src='" + element + "' style='max-height:400px;max-width:460px'/>");
+                            $("#livePreviewImgHidden").text(element);
                         });
+
                         $('#livePreviewBox').attr('style', '');
                         $('#imgPlaceholder').attr('src', '');
                         $("#imgUpload").files = null;
@@ -131,14 +140,16 @@
         $("#imgUpload").change(function () {
             readURL(this);
             $("#fileUpload").files = null;
-            $('#livePreviewBox').attr('style', 'visibility:hidden;');
+            $('#livePreviewBox').attr('style', 'display:none;');
+            clearLivePreviewFields();
         });
 
         $("#fileUpload").change(function () {
             $('#imgPlaceholder').attr('style', 'visibility:hidden;position:absolute');
             $('#imgPlaceholder').attr('src', '');
             $("#imgUpload").files = null;
-            $('#livePreviewBox').attr('style', 'visibility:hidden;');
+            $('#livePreviewBox').attr('style', 'display:none;');
+            clearLivePreviewFields();
         });
 
         $("#publishButton").click(function (event) {
@@ -150,7 +161,38 @@
                 return false;
             }
         });
+
+        $("#removeImgButton").click(function (event) {
+            $("#livePreviewImgHidden").text("");
+            $("#livePreviewImageBlock").attr('style', 'display:none;');
+
+            if ($("#livePreviewTitleHidden").text() == "") {
+                $("#livePreviewUrlHidden").text("");
+            }
+        });
+
+        $("#removeTextButton").click(function (event) {
+            $("#livePreviewTitleHidden").text("");
+            $("#livePreviewDescriptionHidden").text("");
+            $("#livePreviewDomainHidden").text("");
+            $("#livePreviewTextBlock").attr('style', 'display:none;');
+            
+            if ($("#livePreviewImgHidden").text() == "")
+            {
+                $("#livePreviewUrlHidden").text("");
+            }
+        });
     });
+
+    function clearLivePreviewFields()
+    {
+        $("#livePreviewTitleHidden").text("");
+        $("#livePreviewDescriptionHidden").text("");
+        $("#livePreviewDomainHidden").text("");
+        $("#livePreviewImgHidden").text("");
+        $("#livePreviewUrlHidden").text("");
+        $("#livePreviewImg").html('');
+    }
 
     function readURL(input) {
         if (input.files && input.files[0]) {

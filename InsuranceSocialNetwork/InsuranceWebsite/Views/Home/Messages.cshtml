@@ -89,8 +89,8 @@
                     {
                         foreach (ChatDTO chat in Model.Chats)
                         {
-                            <div class="panel panel-body post panel-shadow animated fadeInUp @(chat.HasUnreadMessages ? "unread_chat" : "read_chat") @((null != Model.ActiveChat && Model.ActiveChat.ID == chat.ID) ? "active" : "")" style="margin-bottom:2px;max-height:80px;padding:10px 15px;cursor:pointer;" onclick="$('.user').removeClass('active');$(this).addClass('active');$('#messageListPanel').load('@Url.Action("LoadChat", "Home", new { id = chat.ID })');">
-                                <div class="pull-left image">
+                            <div class="panel panel-body post panel-shadow animated fadeInUp @(chat.HasUnreadMessages ? "unread_chat" : "read_chat") @((null != Model.ActiveChat && Model.ActiveChat.ID == chat.ID) ? "active" : "")" style="margin-bottom:2px;max-height:80px;padding:10px 15px;cursor:pointer;">
+                                <div class="pull-left image" style="cursor:pointer;" onclick="$('.user').removeClass('active');$(this).addClass('active');$('#messageListPanel').load('@Url.Action("LoadChat", "Home", new { id = chat.ID })');">
                                     @*<a href="@Url.Action("ProfileTimeline", "Home", new { id = chat.ID })" style="padding: 0px; text-align: -webkit-center;">*@
                                         @if (null == chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).ProfilePhoto || chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).ProfilePhoto.Length == 0)
                                         {
@@ -102,7 +102,7 @@
                                         }
                                     @*</a>*@
                                 </div>
-                                <div style="float:left; padding:0px 15px; width: calc(100% - 268px);">
+                                <div style="float:left; padding:0px 15px; width: calc(100% - 170px);cursor:pointer;" onclick="$('.user').removeClass('active');$(this).addClass('active');$('#messageListPanel').load('@Url.Action("LoadChat", "Home", new { id = chat.ID })');">
                                     <div style="color:#4B5C66;font-weight:bold;font-size:14px;">@chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).FirstName @chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).LastName</div>
                                     @if (string.IsNullOrEmpty(chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).CompanyName))
                                     {
@@ -170,15 +170,13 @@
                                     }
                                 </div>
                                 <div style="float:right; padding-top:13px; display:table; font-size:11px; font-weight:bold;">
-                                    <div style="display:table-cell;vertical-align:middle;">
+                                    <div style="display:table-cell;vertical-align:middle;cursor:pointer;">
                                         <img src="~/Content/icons/icons_mensagens_rede_social_falar_seguros_AF10.png" style="max-width:30px;" />
                                     </div>
-                                    <div style="display:table-cell;vertical-align:middle;padding:0px 10px;">
-                                        <a href="@Url.Action("DeleteChat","Home",new {id=chat.ID })">
-                                            <img src="~/Content/icons/icons_mensagens_rede_social_falar_seguros_AF2.png" style="max-width:30px;" />
-                                        </a>
+                                    <div style="display:table-cell;vertical-align:middle;padding:0px 10px;cursor:pointer;">
+                                        <img src="~/Content/icons/icons_mensagens_rede_social_falar_seguros_AF2.png" style="max-width:30px;" onclick="ConfirmDeleteChat(@chat.ID)" />
                                     </div>
-                                    <div style="display:table-cell;vertical-align:middle;">
+                                    <div style="display:table-cell;vertical-align:middle;cursor:pointer;">
                                         <span><img src="~/Content/icons/icons_mensagens_rede_social_falar_seguros_AF6.png" style="max-width:30px;" /></span>
                                     </div>
                                 </div>
@@ -194,3 +192,36 @@
     </div>
 
 </div>
+
+<div id="dialog-confirm-delete" style="display: none"></div>
+
+<script type="text/javascript">
+
+    var chatId;
+
+    $(function () {
+        
+        $("#dialog-confirm-delete").dialog({
+            title: '@Resources.Resources.Delete',
+            autoOpen: false,
+            resizable: false,
+            width: 400,
+            height: 150,
+            show: { effect: 'drop', direction: "up" },
+            modal: true,
+            draggable: true,
+            open: function (e, ui) {
+                $(this).load("@Url.Action("ConfirmChatDelete", "Home")" + "/" + chatId);
+            },
+            buttons: {}
+        });
+
+    }); 
+
+    function ConfirmDeleteChat(id)
+    {
+        alert(id);
+        chatId = id;
+        $("#dialog-confirm-delete").dialog('open');
+    }
+</script>

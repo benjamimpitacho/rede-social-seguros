@@ -318,6 +318,7 @@
     <Content Include="Content\icons\134.png" />
     <Content Include="Content\icons\135.png" />
     <Content Include="Content\icons\136.png" />
+    <Content Include="Content\icons\136_20x20.png" />
     <Content Include="Content\icons\137.png" />
     <Content Include="Content\icons\138.png" />
     <Content Include="Content\icons\139.png" />
@@ -734,6 +735,7 @@
     <Content Include="Views\Home\Partial\ProfileOwnConfigurations.cshtml" />
     <Content Include="Views\CompaniesManagement\DirectDebitModal.cshtml" />
     <Content Include="Views\NotificationsManagement\ConfirmDirectDebitOperation.cshtml" />
+    <Content Include="Views\Home\Partial\_ConfirmChatDelete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

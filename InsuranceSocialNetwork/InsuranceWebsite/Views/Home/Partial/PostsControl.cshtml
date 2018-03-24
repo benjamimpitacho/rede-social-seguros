@@ -86,14 +86,7 @@
                 </div>
 
                 <div class="pull-right">
-                    @if (post.ID_User == Model.Profile.ID_User)
-                    {
-                        <i class="glyphicon glyphicon-option-vertical icon context-menu-one" id="menu_@post.ID" style="border:0px;font-size: 24px;margin-right: 10px;"></i>
-                    }
-                    else
-                    {
-                        <i class="glyphicon glyphicon-option-vertical icon context-menu-two" id="menu_@post.ID" style="border:0px;font-size: 24px;margin-right: 10px;"></i>
-                    }
+                    <i class="glyphicon glyphicon-option-vertical icon context-menu-one" id="menu_@post.ID" style="border:0px;font-size: 24px;margin-right: 10px;"></i>
                 </div>
 
             </div>
@@ -109,7 +102,7 @@
             </div>
 
             @if (post.PostType.Token == InsuranceSocialNetworkCore.Enums.PostTypeEnum.IMAGE_POST.ToString())
-                {
+            {
 
                 <div class="post-image">
 
@@ -135,6 +128,40 @@
 
                     </script>
 
+                </div>
+            }
+
+            @if (post.PostType.Token == InsuranceSocialNetworkCore.Enums.PostTypeEnum.LINK_POST.ToString())
+            {
+
+                <div id="livePreviewBox">
+                    <div style="padding:10px;">
+                        <a href="@post.URL" target="_blank">
+                            <div style="border: 1px #ccc solid;">
+                                @if (!string.IsNullOrEmpty(post.ImageSource))
+                                {
+                                    <div>
+                                        <div>
+                                            <div style="text-align:center;"><img src="@post.ImageSource" class="image" alt="image post"></div>
+                                        </div>
+                                    </div>
+                                }
+                                @if (!string.IsNullOrEmpty(post.URL_Title) || !string.IsNullOrEmpty(post.URL_Description) || !string.IsNullOrEmpty(post.URL_Domain))
+                                {
+                                    <div style="border-top: 1px #ccc solid;padding: 10px;">
+                                        <div style="font-weight: bold;font-size: 16px;color:#333;">@post.URL_Title</div>
+                                        <div style="font-size: 12px;">@post.URL_Description</div>
+                                        <div>
+                                            <div>
+                                                <div style="color: #6F7D85;">@post.URL_Domain</div>
+                                                <div class=""></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </a>
+                    </div>
                 </div>
             }
 
@@ -311,17 +338,12 @@
                 switch (key)
                 {
                     case "hide":
-                        @*url = "@Url.Action("HidePost", "Home")" + "/" + postId;*@
                         $("#dialog-confirm-hide").dialog('open');
                         break;
                     case "edit":
                         $("#dialog-confirm-edit").dialog('open');
-                        //alert($("#postContentTextarea").id);
-                        //alert($("#text_" + options.$trigger.attr("id").replace("menu_", "")).text());
-                        //$("#postContentTextarea").text = $("#text_" + options.$trigger.attr("id").replace("menu_", "")).text();
                         break;
                     case "delete":
-                        //url = "@Url.Action("DeletePost", "Home")" + "/" + postId;
                         $("#dialog-confirm-delete").dialog('open');
                         break;
                     default: break;

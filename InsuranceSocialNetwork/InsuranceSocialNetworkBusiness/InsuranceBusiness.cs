@@ -365,21 +365,22 @@ namespace InsuranceSocialNetworkBusiness
                         }
                     };
 
-                    ChatRepository.CreateChat(context, chat);
+                    chat = ChatRepository.CreateChat(context, chat);
                 }
 
-                ChatDTO chatDTO = AutoMapper.Mapper.Map<ChatDTO>(ChatRepository.GetChat(context, userId, userId2));
+                //ChatDTO chatDTO = AutoMapper.Mapper.Map<ChatDTO>(ChatRepository.GetChat(context, userId, userId2));
+                ChatDTO chatDTO = AutoMapper.Mapper.Map<ChatDTO>(chat);
                 chatDTO.ChatMemberProfile = AutoMapper.Mapper.Map<List<UserProfileDTO>>(chat.ChatMember.Select(i => i.AspNetUsers.Profile.FirstOrDefault()).ToList());
 
                 return chatDTO;
             }
         }
 
-        public ChatDTO GetChat(long chatId)
+        public ChatDTO GetChat(long chatId, string userId)
         {
             using (var context = new BackofficeUnitOfWork())
             {
-                Chat chat = ChatRepository.GetChat(context, chatId);
+                Chat chat = ChatRepository.GetChat(context, chatId, userId);
 
                 ChatDTO chatDTO = AutoMapper.Mapper.Map<ChatDTO>(chat);
                 chatDTO.ChatMemberProfile = AutoMapper.Mapper.Map<List<UserProfileDTO>>(chat.ChatMember.Select(i => i.AspNetUsers.Profile.FirstOrDefault()).ToList());
@@ -442,6 +443,11 @@ namespace InsuranceSocialNetworkBusiness
         public void MarkAllChatMessagesRead(long chatId, string userId)
         {
             ChatRepository.MarkAllChatMessagesRead(chatId, userId);
+        }
+        
+        public bool DeleteChat(long postId, string userId)
+        {
+            return ChatRepository.DeleteChat(postId, userId);
         }
 
         #endregion Messages / Chats
