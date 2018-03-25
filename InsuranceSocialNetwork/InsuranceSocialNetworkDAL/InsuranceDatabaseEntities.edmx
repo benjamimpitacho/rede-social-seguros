@@ -143,6 +143,27 @@
           <Property Name="DeleteDate" Type="datetime2" Precision="7" />
           <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="ChatNote">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Chat" Type="bigint" Nullable="false" />
+          <Property Name="ID_User" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Note" Type="nvarchar(max)" />
+          <Property Name="CreateDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="LastUpdateDate" Type="datetime2" Precision="7" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ChatNotification">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Chat" Type="bigint" Nullable="false" />
+          <Property Name="ID_User" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ReceiveNotifications" Type="bit" Nullable="false" />
+          <Property Name="LastUpdateDate" Type="datetime2" Precision="7" Nullable="false" />
+        </EntityType>
         <EntityType Name="CompanyService">
           <Key>
             <PropertyRef Name="ID" />
@@ -799,6 +820,62 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="ChatMessage">
+              <PropertyRef Name="ID_Chat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChatNote_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ChatNote" Type="Self.ChatNote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ChatNote">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChatNote_Chat">
+          <End Role="Chat" Type="Self.Chat" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ChatNote" Type="Self.ChatNote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Chat">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ChatNote">
+              <PropertyRef Name="ID_Chat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChatNotification_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ChatNotification" Type="Self.ChatNotification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ChatNotification">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChatNotification_Chat">
+          <End Role="Chat" Type="Self.Chat" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ChatNotification" Type="Self.ChatNotification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Chat">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ChatNotification">
               <PropertyRef Name="ID_Chat" />
             </Dependent>
           </ReferentialConstraint>
@@ -1592,6 +1669,8 @@
           <EntitySet Name="ChatDelete" EntityType="Self.ChatDelete" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="ChatMember" EntityType="Self.ChatMember" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="ChatMessage" EntityType="Self.ChatMessage" Schema="Insurance" store:Type="Tables" />
+          <EntitySet Name="ChatNote" EntityType="Self.ChatNote" Schema="Insurance" store:Type="Tables" />
+          <EntitySet Name="ChatNotification" EntityType="Self.ChatNotification" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="CompanyService" EntityType="Self.CompanyService" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="CompanyType" EntityType="Self.CompanyType" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="ConstructionCompany" EntityType="Self.ConstructionCompany" Schema="Insurance" store:Type="Tables" />
@@ -1662,6 +1741,22 @@
           <AssociationSet Name="FK_ChatMessage_Chat" Association="Self.FK_ChatMessage_Chat">
             <End Role="Chat" EntitySet="Chat" />
             <End Role="ChatMessage" EntitySet="ChatMessage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChatNote_AspNetUsers" Association="Self.FK_ChatNote_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="ChatNote" EntitySet="ChatNote" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChatNote_Chat" Association="Self.FK_ChatNote_Chat">
+            <End Role="Chat" EntitySet="Chat" />
+            <End Role="ChatNote" EntitySet="ChatNote" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChatNotification_AspNetUsers" Association="Self.FK_ChatNotification_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="ChatNotification" EntitySet="ChatNotification" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChatNotification_Chat" Association="Self.FK_ChatNotification_Chat">
+            <End Role="Chat" EntitySet="Chat" />
+            <End Role="ChatNotification" EntitySet="ChatNotification" />
           </AssociationSet>
           <AssociationSet Name="FK_Company_Type" Association="Self.FK_Company_Type">
             <End Role="CompanyType" EntitySet="CompanyType" />
@@ -2263,6 +2358,24 @@
             <End Role="Chat" EntitySet="Chat" />
             <End Role="ChatDelete" EntitySet="ChatDelete" />
           </AssociationSet>
+          <EntitySet Name="ChatNote" EntityType="InsurancePortal_dbModel.ChatNote" />
+          <EntitySet Name="ChatNotification" EntityType="InsurancePortal_dbModel.ChatNotification" />
+          <AssociationSet Name="FK_ChatNote_AspNetUsers" Association="InsurancePortal_dbModel.FK_ChatNote_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="ChatNote" EntitySet="ChatNote" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChatNotification_AspNetUsers" Association="InsurancePortal_dbModel.FK_ChatNotification_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="ChatNotification" EntitySet="ChatNotification" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChatNote_Chat" Association="InsurancePortal_dbModel.FK_ChatNote_Chat">
+            <End Role="Chat" EntitySet="Chat" />
+            <End Role="ChatNote" EntitySet="ChatNote" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChatNotification_Chat" Association="InsurancePortal_dbModel.FK_ChatNotification_Chat">
+            <End Role="Chat" EntitySet="Chat" />
+            <End Role="ChatNotification" EntitySet="ChatNotification" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="AspNetRoles">
           <Key>
@@ -2379,6 +2492,8 @@
           <NavigationProperty Name="SystemLog" Relationship="InsurancePortal_dbModel.FK_SystemLog_AspNetUsers" FromRole="AspNetUsers" ToRole="SystemLog" />
           <NavigationProperty Name="Post" Relationship="InsurancePortal_dbModel.FK_Post_AspNetUsers" FromRole="AspNetUsers" ToRole="Post" />
           <NavigationProperty Name="ChatDelete" Relationship="InsurancePortal_dbModel.FK_ChatDelete_AspNetUsers" FromRole="AspNetUsers" ToRole="ChatDelete" />
+          <NavigationProperty Name="ChatNote" Relationship="InsurancePortal_dbModel.FK_ChatNote_AspNetUsers" FromRole="AspNetUsers" ToRole="ChatNote" />
+          <NavigationProperty Name="ChatNotification" Relationship="InsurancePortal_dbModel.FK_ChatNotification_AspNetUsers" FromRole="AspNetUsers" ToRole="ChatNotification" />
           </EntityType>
         <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
           <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
@@ -2561,6 +2676,8 @@
           <NavigationProperty Name="ChatMember" Relationship="InsurancePortal_dbModel.FK_ChatMember_Chat" FromRole="Chat" ToRole="ChatMember" />
           <NavigationProperty Name="ChatMessage" Relationship="InsurancePortal_dbModel.FK_ChatMessage_Chat" FromRole="Chat" ToRole="ChatMessage" />
           <NavigationProperty Name="ChatDelete" Relationship="InsurancePortal_dbModel.FK_ChatDelete_Chat" FromRole="Chat" ToRole="ChatDelete" />
+          <NavigationProperty Name="ChatNote" Relationship="InsurancePortal_dbModel.FK_ChatNote_Chat" FromRole="Chat" ToRole="ChatNote" />
+          <NavigationProperty Name="ChatNotification" Relationship="InsurancePortal_dbModel.FK_ChatNotification_Chat" FromRole="Chat" ToRole="ChatNotification" />
         </EntityType>
         <EntityType Name="ChatMember">
           <Key>
@@ -3964,6 +4081,87 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ChatNote">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Chat" Type="Int64" Nullable="false" />
+          <Property Name="ID_User" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="LastUpdateDate" Type="DateTime" Nullable="false" Precision="7" />
+          <NavigationProperty Name="AspNetUsers" Relationship="InsurancePortal_dbModel.FK_ChatNote_AspNetUsers" FromRole="ChatNote" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Chat" Relationship="InsurancePortal_dbModel.FK_ChatNote_Chat" FromRole="ChatNote" ToRole="Chat" />
+        </EntityType>
+        <EntityType Name="ChatNotification">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Chat" Type="Int64" Nullable="false" />
+          <Property Name="ID_User" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ReceiveNotifications" Type="Boolean" Nullable="false" />
+          <Property Name="LastUpdateDate" Type="DateTime" Nullable="false" Precision="7" />
+          <NavigationProperty Name="AspNetUsers" Relationship="InsurancePortal_dbModel.FK_ChatNotification_AspNetUsers" FromRole="ChatNotification" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Chat" Relationship="InsurancePortal_dbModel.FK_ChatNotification_Chat" FromRole="ChatNotification" ToRole="Chat" />
+        </EntityType>
+        <Association Name="FK_ChatNote_AspNetUsers">
+          <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="InsurancePortal_dbModel.ChatNote" Role="ChatNote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ChatNote">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChatNotification_AspNetUsers">
+          <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="InsurancePortal_dbModel.ChatNotification" Role="ChatNotification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ChatNotification">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChatNote_Chat">
+          <End Type="InsurancePortal_dbModel.Chat" Role="Chat" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="InsurancePortal_dbModel.ChatNote" Role="ChatNote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Chat">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ChatNote">
+              <PropertyRef Name="ID_Chat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChatNotification_Chat">
+          <End Type="InsurancePortal_dbModel.Chat" Role="Chat" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="InsurancePortal_dbModel.ChatNotification" Role="ChatNotification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Chat">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ChatNotification">
+              <PropertyRef Name="ID_Chat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4698,6 +4896,29 @@
             <EntityTypeMapping TypeName="InsurancePortal_dbModel.ChatDelete">
               <MappingFragment StoreEntitySet="ChatDelete">
                 <ScalarProperty Name="LastChatDeleteDate" ColumnName="LastChatDeleteDate" />
+                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
+                <ScalarProperty Name="ID_Chat" ColumnName="ID_Chat" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChatNote">
+            <EntityTypeMapping TypeName="InsurancePortal_dbModel.ChatNote">
+              <MappingFragment StoreEntitySet="ChatNote">
+                <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
+                <ScalarProperty Name="ID_Chat" ColumnName="ID_Chat" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChatNotification">
+            <EntityTypeMapping TypeName="InsurancePortal_dbModel.ChatNotification">
+              <MappingFragment StoreEntitySet="ChatNotification">
+                <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
+                <ScalarProperty Name="ReceiveNotifications" ColumnName="ReceiveNotifications" />
                 <ScalarProperty Name="ID_User" ColumnName="ID_User" />
                 <ScalarProperty Name="ID_Chat" ColumnName="ID_Chat" />
                 <ScalarProperty Name="ID" ColumnName="ID" />

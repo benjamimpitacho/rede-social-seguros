@@ -40,6 +40,8 @@ namespace InsuranceSocialNetworkDAL
         private IRepository<ChatMember> chatMemberRepository;
         private IRepository<ChatDelete> chatDeleteRepository;
         private IRepository<ChatMessage> chatMessageRepository;
+        private IRepository<ChatNotification> chatNotificationRepository;
+        private IRepository<ChatNote> chatNoteRepository;
         private IRepository<Banner> bannerRepository;
         private IRepository<BannerType> bannerTypeRepository;
         private IRepository<District> districtRepository;
@@ -142,6 +144,32 @@ namespace InsuranceSocialNetworkDAL
                         new Repository<InsurancePortal_dbEntities, ChatDelete>(DataContext, AutoDetectChangesEnabled);
                 }
                 return chatDeleteRepository;
+            }
+        }
+
+        public IRepository<ChatNotification> ChatNotification
+        {
+            get
+            {
+                if (this.chatNotificationRepository == null)
+                {
+                    this.chatNotificationRepository =
+                        new Repository<InsurancePortal_dbEntities, ChatNotification>(DataContext, AutoDetectChangesEnabled);
+                }
+                return chatNotificationRepository;
+            }
+        }
+
+        public IRepository<ChatNote> ChatNote
+        {
+            get
+            {
+                if (this.chatNoteRepository == null)
+                {
+                    this.chatNoteRepository =
+                        new Repository<InsurancePortal_dbEntities, ChatNote>(DataContext, AutoDetectChangesEnabled);
+                }
+                return chatNoteRepository;
             }
         }
 

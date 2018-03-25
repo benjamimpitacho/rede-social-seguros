@@ -40,7 +40,7 @@
                         <div class="post-heading" style="height:50px;padding:5px 15px;">
 
                             @*<div class="pull-left image" style="padding:5px">
-                                <a href="@Url.Action("ProfileTimeline", "Home", new { id = Model.Posts[0].PostOwner.ID })">
+                                <a href="@Url.Action("ProfileInfo", "Home", new { id = Model.Posts[0].PostOwner.ID })">
                                     @if (null != Model.Posts[0].PostOwner.ProfilePhoto && Model.Posts[0].PostOwner.ProfilePhoto.Length > 0)
                                     {
                                         <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.Posts[0].PostOwner.ProfilePhoto))" class="avatar" alt="user profile image">
@@ -149,7 +149,7 @@
                                     {
                                         <li class="comment">
 
-                                            <a class="pull-left" href="@Url.Action("ProfileTimeline", "Home", new { id = comment.CommentOwner.ID })">
+                                            <a class="pull-left" href="@Url.Action("ProfileInfo", "Home", new { id = comment.CommentOwner.ID })">
 
                                                 @if (null != comment.CommentOwner.ProfilePhoto && comment.CommentOwner.ProfilePhoto.Length > 0)
                                                 {
@@ -164,7 +164,7 @@
                                               
                                             <div class="comment-body" style="font-size:12px">
 
-                                                <h6 class="comment-user-name"><a href="@Url.Action("ProfileTimeline", "Home", new { id = comment.CommentOwner.ID })">@comment.CommentOwner.FirstName</a></h6> @comment.Text
+                                                <h6 class="comment-user-name"><a href="@Url.Action("ProfileInfo", "Home", new { id = comment.CommentOwner.ID })">@comment.CommentOwner.FirstName</a></h6> @comment.Text
 
                                                 <div class="comment-heading">
 
@@ -233,7 +233,7 @@
                 $(e.target).parent().prepend("<ul class=\"comments-list\"></ul>");
             }
 
-            $(e.target).parent().children(".comments-list").append("<li class=\"comment\"><a class=\"pull-left\" href=\"/Home/ProfileTimeline/@Model.Profile.ID\"><img src=\"@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.Profile.ProfilePhoto))\" class=\"avatar\" ></a><div class=\"comment-body\" style=\"font-size:12px\"><h6 class=\"comment-user-name\"><a href=\"/Home/ProfileInfo/1\">Administrator</a></h6> " + $(e.target).children("#postNewComment").val() + "<div class=\"comment-heading\"><h6 class=\"time\">@Resources.Resources.Now</h6></div></div></li>");
+            $(e.target).parent().children(".comments-list").append("<li class=\"comment\"><a class=\"pull-left\" href=\"/Home/ProfileInfo/@Model.Profile.ID\"><img src=\"@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.Profile.ProfilePhoto))\" class=\"avatar\" ></a><div class=\"comment-body\" style=\"font-size:12px\"><h6 class=\"comment-user-name\"><a href=\"/Home/ProfileInfo/1\">Administrator</a></h6> " + $(e.target).children("#postNewComment").val() + "<div class=\"comment-heading\"><h6 class=\"time\">@Resources.Resources.Now</h6></div></div></li>");
             jQuery.post('@Url.Action("NewComment", "Home")',
                 { postId: $(e.target).children("#postId").val(), postNewComment: $(e.target).children("#postNewComment").val(), hasNotification: false }
             )

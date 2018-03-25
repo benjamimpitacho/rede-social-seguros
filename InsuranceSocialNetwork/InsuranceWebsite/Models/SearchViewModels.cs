@@ -12,6 +12,8 @@ namespace InsuranceWebsite.Models
         public SearchViewModel()
         {
         }
+
+        [Required]
         public string SearchTerm { get; set; }
 
         public List<UserProfileDTO> Users { get; set; }

@@ -26,8 +26,16 @@
         });
 
         $("#okButton").on("click", function (e) {
-            $(this).load("@Url.Action("DeleteChat", "Home")" + "/" + @ViewBag.chatId);
+            $("chatEntry_" +@ViewBag.chatId).attr('style', 'display:none');
+            $.post("@Url.Action("DeleteChat", "Home")" + "/" + @ViewBag.chatId)
+                .done(function (response, status, jqxhr) {
+                    location.reload(true);
+                })
+                .fail(function (jqxhr, status, error) {
+                })
             $("#dialog-confirm-delete").dialog("close");
+            @*$(this).load("@Url.Action("DeleteChat", "Home")" + "/" + @ViewBag.chatId);
+            $("#dialog-confirm-delete").dialog("close");*@
         });
 
     });

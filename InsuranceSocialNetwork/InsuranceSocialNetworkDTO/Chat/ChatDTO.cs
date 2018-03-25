@@ -17,6 +17,10 @@ namespace InsuranceSocialNetworkDTO.Chat
         public DateTime CreateDate { get; set; }
         public DateTime LastChangeDate { get; set; }
         public DateTime? DeleteDate { get; set; }
+
+        public bool NotificationsEnabled { get; set; }
+        public bool HasNotebook { get; set; }
+
         public bool Active { get; set; }
 
         public UserDTO AspNetUsers { get; set; }

@@ -82,7 +82,7 @@
                     {
                         <div class="panel panel-body post panel-shadow animated fadeInUp" style="margin-bottom:2px;max-height:80px;padding:10px 15px;">
                             <div class="pull-left image">
-                                <a href="@Url.Action("ProfileTimeline", "Home", new { id = friend.ID })" style="padding: 0px; text-align: -webkit-center;">
+                                <a href="@Url.Action("ProfileInfo", "Home", new { id = friend.ID })" style="padding: 0px; text-align: -webkit-center;">
                                     @if (null == friend.ProfilePhoto || friend.ProfilePhoto.Length == 0)
                                     {
                                         <img class="thumb media-object" src="~/Content/images/no_photo_img.jpg" alt="" style="border-radius:100px;max-height:60px;border: 2px solid #EDEFF0;">
@@ -95,12 +95,76 @@
                             </div>
                             <div style="float:left; padding:0px 15px; width: calc(100% - 268px);">
                                 <div style="color:#4B5C66;font-weight:bold;font-size:14px;">@friend.FirstName @friend.LastName</div>
-                                <div style="color:#939DA3;font-size:11px;font-weight:bold;">[empresa]</div>
-                                <div style="color:#939DA3;font-size:11px;">[localidade]</div>
+                                @if (string.IsNullOrEmpty(friend.CompanyName))
+                                {
+                                    <div style="color:#939DA3;font-size:11px;font-weight:bold;">-</div>
+                                }
+                                else
+                                {
+                                    <div style="color:#939DA3;font-size:11px;font-weight:bold;">@friend.CompanyName</div>
+                                }
+                                <div style="color:#939DA3;font-size:11px;font-weight:bold;">@friend.CompanyName</div>
+                                @if (string.IsNullOrEmpty(friend.District))
+                                {
+                                    if (string.IsNullOrEmpty(friend.County))
+                                    {
+                                        if (string.IsNullOrEmpty(friend.Locality))
+                                        {
+                                            <div style="color:#939DA3;font-size:11px;font-weight:bold;">-</div>
+                                        }
+                                        else
+                                        {
+                                            <div style="color:#939DA3;font-size:11px;font-weight:bold;">@friend.Locality, @friend.County</div>
+
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (string.IsNullOrEmpty(friend.Locality))
+                                        {
+                                            <div style="color:#939DA3;font-size:11px;font-weight:bold;">@friend.County</div>
+                                        }
+                                        else
+                                        {
+                                            <div style="color:#939DA3;font-size:11px;font-weight:bold;">@friend.Locality, @friend.County</div>
+
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    if (string.IsNullOrEmpty(friend.County))
+                                    {
+                                        if (string.IsNullOrEmpty(friend.Locality))
+                                        {
+                                            <div style="color:#939DA3;font-size:11px;font-weight:bold;">@friend.District</div>
+                                        }
+                                        else
+                                        {
+                                            <div style="color:#939DA3;font-size:11px;font-weight:bold;">@friend.Locality, @friend.District</div>
+
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (string.IsNullOrEmpty(friend.Locality))
+                                        {
+                                            <div style="color:#939DA3;font-size:11px;font-weight:bold;">@friend.County, @friend.District</div>
+
+                                        }
+                                        else
+                                        {
+                                            <div style="color:#939DA3;font-size:11px;font-weight:bold;">@friend.Locality, @friend.County, @friend.District</div>
+
+                                        }
+                                    }
+                                }
                             </div>
                             <div style="float:right; padding-top:13px; display:table; font-size:11px; font-weight:bold;">
                                 <div style="display:table-cell;vertical-align:middle;">
-                                    <span style="color:#4B5C66;">@Resources.Resources.SendMessage</span>
+                                    <a href="@Url.Action("SendMessage", new { id = friend.ID })">
+                                        <span style="color:#4B5C66;">@Resources.Resources.SendMessage</span>
+                                    </a>
                                 </div>
                                 <div style="display:table-cell;vertical-align:middle;padding:0px 10px;">
                                     <span style="color:#00C1DE;">@Resources.Resources.Linked</span>
@@ -110,21 +174,6 @@
                                 </div>
                             </div>
                             
-                            @*<div class="media-body" style="text-align:center">
-                                <h5 style="text-align:center">@friend.FirstName @friend.LastName</h5>
-                                <ul class="social-links">
-                                    @if (!Model.SearchModel.AlreadyFriends.Contains(friend.ID))
-                                        {
-                                            <li><a title="" data-placement="top" data-toggle="tooltip" class="tooltips" onclick="addFriendFunction(this, @profile.ID)" data-original-title="@Resources.Resources.AddFriend"><i class="fa fa-user-plus"></i></a></li>
-                                        }
-                                        else
-                                        {
-                                            <li><a title="" data-placement="top" data-toggle="tooltip" class="tooltips" data-original-title="@Resources.Resources.RemoveFriend"><i class="fa fa-user-times"></i></a></li>
-                                        }   
-                                    <li><a href="@Url.Action("SendMessage", new { id = friend.ID })" title="" data-placement="top" data-toggle="tooltip" class="tooltips" data-original-title="@Resources.Resources.SendMessage"><i class="fa fa-comments"></i></a></li>
-                                    <li><a href="@Html.DisplayTextFor(i => i.Profile.Website)" target="_blank" title="" data-placement="top" data-toggle="tooltip" class="tooltips" data-original-title="@Resources.Resources.Website"><i class="fa fa-globe"></i></a></li>
-                                </ul>
-                            </div>*@
                         </div>
                     }
                 }

@@ -71,5 +71,7 @@ namespace InsuranceSocialNetworkDAL
         public virtual DbSet<SystemLog> SystemLog { get; set; }
         public virtual DbSet<Post> Post { get; set; }
         public virtual DbSet<ChatDelete> ChatDelete { get; set; }
+        public virtual DbSet<ChatNote> ChatNote { get; set; }
+        public virtual DbSet<ChatNotification> ChatNotification { get; set; }
     }
 }

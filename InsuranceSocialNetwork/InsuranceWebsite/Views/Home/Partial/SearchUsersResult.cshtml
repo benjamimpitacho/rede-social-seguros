@@ -11,7 +11,9 @@
 
         @using (Html.BeginForm("SearchUsers", "Home", FormMethod.Post, new { id = "searchForm" }))
         {
-            <div class="panel panel-white post panel-shadow animated fadeInUp" style="margin-bottom:2px;">
+            @Html.AntiForgeryToken();
+
+            <div class="panel panel-white post panel-shadow animated fadeInUp" style="margin-bottom:2px;height:70px;">
                 <div class="post-heading" style="padding: 10px 15px;">
                     <div class="title" style="border:0px;background-color:inherit; font-weight:bold; font-size: 17px; overflow: auto;">
                         <div style="float:left; padding-top:8px;width: calc(100% - 50px);">@Html.TextBoxFor(m => m.SearchModel.SearchTerm, new { @class = "form-control", @placeholder = Resources.Resources.Search, @style = "padding:18px;border-radius:0px;border:0px;box-shadow: none;font-weight:normal;" })</div>
@@ -36,15 +38,106 @@
                 </div>
             </div>*@
         }
+        @if (!string.IsNullOrEmpty(Model.SearchModel.SearchTerm))
+        {
+            <div class="panel panel-white post panel-shadow animated fadeInUp" style="margin-bottom:2px;height:70px;background-color:#00C1DE;">
+                <div class="post-heading" style="vertical-align:middle;">
+                    <div class="pull-left" style="padding: 10px 15px;">
+                        <span style="font-size:14px;color:#fff;">@Resources.Resources.ShowingResultsFor</span>
+                        <span style="font-size:14px;font-weight:bold;color:#fff;">@Model.SearchModel.SearchTerm</span>
+                    </div>
+                </div>
+            </div>
+        }
     </div>
     <div class="news">       
 
-        @if (null != Model && null != Model.SearchModel && null != Model.SearchModel.Users)
+        @if (null != Model && null != Model.SearchModel && null != Model.SearchModel.Users && Model.SearchModel.Users.Count > 0)
         {
             foreach (UserProfileDTO profile in Model.SearchModel.Users)
             {
+                <div class="panel panel-body post panel-shadow animated fadeInUp" style="margin-bottom:2px;max-height:80px;padding:10px 15px;">
+                    <a href="@Url.Action("ProfileInfo", "Home", new { id = profile.ID })" style="padding: 0px;">
+                        <div class="pull-left image">
+                            @if (null == profile.ProfilePhoto || profile.ProfilePhoto.Length == 0)
+                            {
+                                <img class="thumb media-object" src="~/Content/images/no_photo_img.jpg" alt="" style="border-radius:100px;max-height:60px;border: 2px solid #EDEFF0;">
+                            }
+                            else
+                            {
+                                <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(profile.ProfilePhoto))" class="thumb media-object" style="border-radius:100px;max-height:60px;border: 2px solid #EDEFF0;">
+                            }
+                        </div>
+                        <div style="float:left; padding:0px 15px; width: calc(100% - 60px);">
+                            <div style="color:#4B5C66;font-weight:bold;font-size:14px;">@profile.FirstName @profile.LastName</div>
+                            @if (string.IsNullOrEmpty(profile.CompanyName))
+                            {
+                                <div style="color:#939DA3;font-size:11px;font-weight:bold;">-</div>
+                            }
+                            else
+                            {
+                                <div style="color:#939DA3;font-size:11px;font-weight:bold;">@profile.CompanyName</div>
+                            }
+                            @if (string.IsNullOrEmpty(profile.District))
+                            {
+                                if (string.IsNullOrEmpty(profile.County))
+                                {
+                                    if (string.IsNullOrEmpty(profile.Locality))
+                                    {
+                                        <div style="color:#939DA3;font-size:11px;font-weight:bold;">-</div>
+                                    }
+                                    else
+                                    {
+                                        <div style="color:#939DA3;font-size:11px;font-weight:bold;">@profile.Locality, @profile.County</div>
 
-                <div class="col-md-4 col-sm-4">
+                                    }
+                                }
+                                else
+                                {
+                                    if (string.IsNullOrEmpty(profile.Locality))
+                                    {
+                                        <div style="color:#939DA3;font-size:11px;font-weight:bold;">@profile.County</div>
+                                    }
+                                    else
+                                    {
+                                        <div style="color:#939DA3;font-size:11px;font-weight:bold;">@profile.Locality, @profile.County</div>
+
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                if (string.IsNullOrEmpty(profile.County))
+                                {
+                                    if (string.IsNullOrEmpty(profile.Locality))
+                                    {
+                                        <div style="color:#939DA3;font-size:11px;font-weight:bold;">@profile.District</div>
+                                    }
+                                    else
+                                    {
+                                        <div style="color:#939DA3;font-size:11px;font-weight:bold;">@profile.Locality, @profile.District</div>
+
+                                    }
+                                }
+                                else
+                                {
+                                    if (string.IsNullOrEmpty(profile.Locality))
+                                    {
+                                        <div style="color:#939DA3;font-size:11px;font-weight:bold;">@profile.County, @profile.District</div>
+
+                                    }
+                                    else
+                                    {
+                                        <div style="color:#939DA3;font-size:11px;font-weight:bold;">@profile.Locality, @profile.County, @profile.District</div>
+
+                                    }
+                                }
+                            }
+                        </div>
+                    </a>
+                </div>
+
+                @*<div class="col-md-4 col-sm-4">
                     <div class="panel">
                         <div class="panel-body">
                             <div class="media">
@@ -76,9 +169,15 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            
+                </div>*@
+
             }
+        }
+        else if (!string.IsNullOrEmpty(Model.SearchModel.SearchTerm))
+        {
+            <div class="col-md-12 alert alert-info" style="text-align:center">
+                @Resources.Resources.NoResults
+            </div>
         }
 
     </div>

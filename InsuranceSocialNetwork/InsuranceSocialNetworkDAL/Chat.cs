@@ -20,6 +20,8 @@ namespace InsuranceSocialNetworkDAL
             this.ChatMember = new HashSet<ChatMember>();
             this.ChatMessage = new HashSet<ChatMessage>();
             this.ChatDelete = new HashSet<ChatDelete>();
+            this.ChatNote = new HashSet<ChatNote>();
+            this.ChatNotification = new HashSet<ChatNotification>();
         }
     
         public long ID { get; set; }
@@ -39,5 +41,9 @@ namespace InsuranceSocialNetworkDAL
         public virtual ICollection<ChatMessage> ChatMessage { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChatDelete> ChatDelete { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ChatNote> ChatNote { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ChatNotification> ChatNotification { get; set; }
     }
 }

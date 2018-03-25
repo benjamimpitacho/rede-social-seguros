@@ -1735,6 +1735,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Não existem resultados.
+        /// </summary>
+        public static string NoResults {
+            get {
+                return ResourceManager.GetString("NoResults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Utilizador Comum.
         /// </summary>
         public static string NORMAL_USER {
@@ -1965,6 +1974,15 @@ namespace Resources {
         public static string ReadMore {
             get {
                 return ResourceManager.GetString("ReadMore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Receber notificações.
+        /// </summary>
+        public static string ReceiveNotifications {
+            get {
+                return ResourceManager.GetString("ReceiveNotifications", resourceCulture);
             }
         }
         
@@ -2352,6 +2370,15 @@ namespace Resources {
         public static string ShowingGridEntries {
             get {
                 return ResourceManager.GetString("ShowingGridEntries", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A mostrar resultados para.
+        /// </summary>
+        public static string ShowingResultsFor {
+            get {
+                return ResourceManager.GetString("ShowingResultsFor", resourceCulture);
             }
         }
         

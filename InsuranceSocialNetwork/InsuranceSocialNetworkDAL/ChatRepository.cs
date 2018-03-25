@@ -48,6 +48,8 @@ namespace InsuranceSocialNetworkDAL
                 .Include(i => i.AspNetUsers.Profile)
                 .Include(i => i.ChatMember)
                 .Include(i => i.ChatMessage)
+                .Include(i => i.ChatNotification)
+                .Include(i => i.ChatNote)
                 //.Include(i => i.ChatMessage.OrderByDescending(j => j.CreateDate).Take(20))
                 .Where(i => (
                         (i.AspNetUsers.Id == userId && i.ChatMember.Where(j => j.AspNetUsers.Id == userId2).Count() > 0)
@@ -85,6 +87,8 @@ namespace InsuranceSocialNetworkDAL
                 .Include(i => i.AspNetUsers.Profile)
                 .Include(i => i.ChatMember)
                 .Include(i => i.ChatMessage)
+                .Include(i => i.ChatNotification)
+                .Include(i => i.ChatNote)
                 //.Include(i => i.ChatMessage.OrderByDescending(j => j.CreateDate).Take(20))
                 .Where(i => i.ID == chatId && i.Active)
                 //.Select(i => i)
@@ -112,21 +116,29 @@ namespace InsuranceSocialNetworkDAL
         {
             //using (var context = new BackofficeUnitOfWork())
             //{
-                List<Chat> chats = context.Chat
-                    .Fetch()
-                    .Include(i => i.AspNetUsers)
-                    //.Include(i => i.AspNetUsers.Profile)
-                    .Include(i => i.ChatMember)
-                    .Include(i => i.ChatMember.Select(j => j.AspNetUsers))
-                    .Include(i => i.ChatMember.Select(j => j.AspNetUsers.Profile))
-                    .Include(i => i.ChatMessage)
-                    .Where(i => (
-                            (i.ID_ChatCreator_User == userId)
-                            || (i.ChatMember.Where(j => j.ID_User == userId).Count() > 0)
-                        )
-                        && i.Active)
-                    .OrderByDescending(i => i.LastChangeDate)
-                    .ToList();
+            List<Chat> chats = context.Chat
+                .Fetch()
+                .Include(i => i.AspNetUsers)
+                //.Include(i => i.AspNetUsers.Profile)
+                .Include(i => i.ChatMember)
+                .Include(i => i.ChatMember.Select(j => j.AspNetUsers))
+                .Include(i => i.ChatMember.Select(j => j.AspNetUsers.Profile))
+                .Include(i => i.ChatMessage)
+                .Include(i => i.ChatNotification)
+                .Include(i => i.ChatNote)
+                .Include(i => i.ChatDelete)
+                .Where(i => (
+                        (i.ID_ChatCreator_User == userId)
+                        || (i.ChatMember.Where(j => j.ID_User == userId).Count() > 0)
+                    )
+                    && i.Active
+                    && (
+                        i.ChatDelete.Count == 0
+                        || null == i.ChatDelete.FirstOrDefault(j => j.ID_User == userId)
+                        || i.ChatMessage.Max(j => j.CreateDate) > i.ChatDelete.Where(j => j.ID_User == userId).Max(j => j.LastChatDeleteDate))
+                    )
+                .OrderByDescending(i => i.LastChangeDate)
+                .ToList();
 
                 return chats;
             //}
@@ -218,6 +230,106 @@ namespace InsuranceSocialNetworkDAL
                 {
                     deleteEntry.LastChatDeleteDate = DateTime.Now;
                     context.ChatDelete.Update(deleteEntry);
+                }
+
+                context.Save();
+
+                return true;
+            }
+        }
+
+        public static bool MarkChatAsUnread(long chatId, string userId)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                ChatMember chatMember = context.ChatMember
+                    .Fetch()
+                    .Where(i => i.ID_Chat == chatId && i.ID_User == userId)
+                    .FirstOrDefault();
+
+                if (null == chatMember)
+                    return false;
+
+                ChatDelete deleteEntry = context.ChatDelete
+                    .Fetch()
+                    .Where(i => i.ID_Chat == chatId && i.ID_User == userId)
+                    .FirstOrDefault();
+
+                ChatMessage lastMessage = null;
+                if (null == deleteEntry)
+                {
+                    lastMessage = context.ChatMessage
+                        .Fetch()
+                        .Where(i => i.ID_Chat == chatId && i.ID_User != userId)
+                        .OrderByDescending(i => i.CreateDate)
+                        .FirstOrDefault();
+                }
+                else
+                {
+                    lastMessage = context.ChatMessage
+                        .Fetch()
+                        .Where(i => i.ID_Chat == chatId && i.ID_User != userId && i.CreateDate > deleteEntry.LastChatDeleteDate)
+                        .OrderByDescending(i => i.CreateDate)
+                        .FirstOrDefault();
+                }
+
+                if (null == lastMessage)
+                    return false;
+
+                lastMessage.ReadDate = null;
+                lastMessage.LastChangeDate = DateTime.Now;
+                context.ChatMessage.Update(lastMessage);
+                context.Save();
+
+                return true;
+            }
+        }
+
+        public static List<ChatNotification> GetChatNotificationsState(string chatId)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                return context.Chat
+                    .Fetch()
+                    .Include(i => i.ChatNotification)
+                    .FirstOrDefault(i => i.ID_Chat == chatId)
+                    .ChatNotification
+                    .ToList();
+            }
+        }
+
+        public static bool ChangeChatNotificationsState(long chatId, string userId, bool state)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                ChatMember chatMember = context.ChatMember
+                    .Fetch()
+                    .Where(i => i.ID_Chat == chatId && i.ID_User == userId)
+                    .FirstOrDefault();
+
+                if (null == chatMember)
+                    return false;
+
+                ChatNotification notification = context.ChatNotification
+                    .Fetch()
+                    .Where(i => i.ID_Chat == chatId && i.ID_User == userId)
+                    .FirstOrDefault();
+
+                if (null == notification)
+                {
+                    context.ChatNotification.Create(new ChatNotification()
+                    {
+                        ID_Chat = chatId,
+                        ID_User = userId,
+                        ReceiveNotifications = state,
+                        LastUpdateDate = DateTime.Now
+                    });
+                }
+                else
+                {
+                    notification.LastUpdateDate = DateTime.Now;
+                    notification.ReceiveNotifications = state;
+                    context.ChatNotification.Update(notification);
                 }
 
                 context.Save();

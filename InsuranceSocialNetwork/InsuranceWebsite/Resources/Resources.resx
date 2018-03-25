@@ -984,4 +984,13 @@
   <data name="AreYouSureToDeleteChat" xml:space="preserve">
     <value>Tem a certeza que pretende apagar a conversa?</value>
   </data>
+  <data name="ReceiveNotifications" xml:space="preserve">
+    <value>Receber notificações</value>
+  </data>
+  <data name="ShowingResultsFor" xml:space="preserve">
+    <value>A mostrar resultados para</value>
+  </data>
+  <data name="NoResults" xml:space="preserve">
+    <value>Não existem resultados</value>
+  </data>
 </root>

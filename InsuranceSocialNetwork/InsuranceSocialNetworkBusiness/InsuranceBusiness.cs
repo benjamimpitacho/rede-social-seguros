@@ -371,6 +371,8 @@ namespace InsuranceSocialNetworkBusiness
                 //ChatDTO chatDTO = AutoMapper.Mapper.Map<ChatDTO>(ChatRepository.GetChat(context, userId, userId2));
                 ChatDTO chatDTO = AutoMapper.Mapper.Map<ChatDTO>(chat);
                 chatDTO.ChatMemberProfile = AutoMapper.Mapper.Map<List<UserProfileDTO>>(chat.ChatMember.Select(i => i.AspNetUsers.Profile.FirstOrDefault()).ToList());
+                chatDTO.HasNotebook = (null != chat.ChatNote && null != chat.ChatNote.FirstOrDefault(i => i.ID_User == userId));
+                chatDTO.NotificationsEnabled = (null == chat.ChatNotification || null == chat.ChatNotification.FirstOrDefault(i => i.ID_User == userId) || chat.ChatNotification.FirstOrDefault(i => i.ID_User == userId).ReceiveNotifications);
 
                 return chatDTO;
             }
@@ -384,6 +386,8 @@ namespace InsuranceSocialNetworkBusiness
 
                 ChatDTO chatDTO = AutoMapper.Mapper.Map<ChatDTO>(chat);
                 chatDTO.ChatMemberProfile = AutoMapper.Mapper.Map<List<UserProfileDTO>>(chat.ChatMember.Select(i => i.AspNetUsers.Profile.FirstOrDefault()).ToList());
+                chatDTO.HasNotebook = (null != chat.ChatNote && null != chat.ChatNote.FirstOrDefault(i => i.ID_User == userId));
+                chatDTO.NotificationsEnabled = (null == chat.ChatNotification || null == chat.ChatNotification.FirstOrDefault(i => i.ID_User == userId) || chat.ChatNotification.FirstOrDefault(i => i.ID_User == userId).ReceiveNotifications);
 
                 return chatDTO;
             }
@@ -448,6 +452,16 @@ namespace InsuranceSocialNetworkBusiness
         public bool DeleteChat(long postId, string userId)
         {
             return ChatRepository.DeleteChat(postId, userId);
+        }
+
+        public bool MarkChatAsUnread(long postId, string userId)
+        {
+            return ChatRepository.MarkChatAsUnread(postId, userId);
+        }
+
+        public bool ChangeChatNotificationsState(long postId, string userId, bool state)
+        {
+            return ChatRepository.ChangeChatNotificationsState(postId, userId, state);
         }
 
         #endregion Messages / Chats
@@ -553,8 +567,14 @@ namespace InsuranceSocialNetworkBusiness
                 FromUserID = string.IsNullOrEmpty(fromUserId) ? null : fromUserId
             };
 
+            List<ChatNotification> chatNotificationState = ChatRepository.GetChatNotificationsState(chatId);
+
             foreach(string userId in chatMembersUserIds)
             {
+                if(chatNotificationState.Exists(i=>i.ID_User == userId && !i.ReceiveNotifications))
+                {
+                    continue;
+                }
                 notification.ToUserID = userId;
                 NotificationRepository.CreateNotification(notification);
             }

@@ -40,7 +40,7 @@
                         <div class="post-heading">
 
                             <div class="pull-left image" style="padding:5px">
-                                <a href="@Url.Action("ProfileTimeline", "Home", new { id = Model.Posts[0].PostOwner.ID })">
+                                <a href="@Url.Action("ProfileInfo", "Home", new { id = Model.Posts[0].PostOwner.ID })">
                                     @if (null != Model.Posts[0].PostOwner.ProfilePhoto && Model.Posts[0].PostOwner.ProfilePhoto.Length > 0)
                                     {
                                         <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.Posts[0].PostOwner.ProfilePhoto))" class="avatar" alt="user profile image">
@@ -56,7 +56,7 @@
 
                                 <div class="h5" style="font-weight: bold;">
 
-                                    <a href="@Url.Action("ProfileTimeline", "Home", new { id = Model.Posts[0].PostOwner.ID })" class="post-user-name">@Model.Posts[0].PostOwner.FirstName</a>
+                                    <a href="@Url.Action("ProfileInfo", "Home", new { id = Model.Posts[0].PostOwner.ID })" class="post-user-name">@Model.Posts[0].PostOwner.FirstName</a>
                                     
                                 </div>
 
@@ -150,26 +150,26 @@
                                 @if (null != Model.Posts[0].PostLike && Model.Posts[0].PostLike.Count > 0 && Model.Posts[0].PostLike.Exists(i => i.ID_User == Model.Profile.ID_User))
                                 {
                                     <a onclick="UnlikePost(this, @Model.Posts[0].ID, @Model.Posts[0].PostLike.Count)" class="stat-item" id="unlikePost" style="color:#00C1DE">
-                                        <i class="glyphicon glyphicon-star icon"></i><span style="padding-left: 8px;color:#4B5C66;font-size: 10px;">@Model.Posts[0].PostLike.Count</span>
+                                        <img class="post-icon" src="~/Content/icons/icons_diretorios_rede_social_falar_seguros_AF3.png" /><span style="padding-left: 8px;color:#4B5C66;font-size: 10px;">@Model.Posts[0].PostLike.Count</span>
                                     </a>
                                 }
                                 else if (null != Model.Posts[0].PostLike && Model.Posts[0].PostLike.Count > 0)
                                 {
                                     <a onclick="LikePost(this, @Model.Posts[0].ID, @Model.Posts[0].PostLike.Count)" class="stat-item" id="likePost">
-                                        <i class="glyphicon glyphicon-star icon"></i><span style="padding-left: 8px;color:#4B5C66;font-size: 10px;">@Model.Posts[0].PostLike.Count</span>
+                                        <img class="post-icon" src="~/Content/icons/icons_diretorios_rede_social_falar_seguros_AF3.png" /><span style="padding-left: 8px;color:#4B5C66;font-size: 10px;">@Model.Posts[0].PostLike.Count</span>
                                     </a>
                                 }
                                 else
                                 {
                                     @*<a href="@Url.Action("LikePost", "Home", new { postId = post.ID, userId = Model.Profile.ID_User })" class="stat-item">*@
                                     <a onclick="LikePost(this, @Model.Posts[0].ID, @Model.Posts[0].PostLike.Count)" class="stat-item">
-                                        <i class="glyphicon glyphicon-star icon"></i>
+                                        <img class="post-icon" src="~/Content/icons/icons_diretorios_rede_social_falar_seguros_AF3.png" />
                                     </a>
                                 }
 
                                 <a class="stat-item">
 
-                                    <i class="glyphicon glyphicon-option-horizontal icon"></i>
+                                    <img class="post-icon" src="~/Content/icons/home_page_rede_social_falar_seguros_AF14.png" />
                                     @if (Model.Posts[0].PostComment.Count > 0)
                                     {
                                         <span style="padding-left: 8px;color:#4B5C66;font-size: 10px;">
@@ -193,7 +193,7 @@
                                     {
                                         <li class="comment">
 
-                                            <a class="pull-left" href="@Url.Action("ProfileTimeline", "Home", new { id = comment.CommentOwner.ID })">
+                                            <a class="pull-left" href="@Url.Action("ProfileInfo", "Home", new { id = comment.CommentOwner.ID })">
 
                                                 @if (null != comment.CommentOwner.ProfilePhoto && comment.CommentOwner.ProfilePhoto.Length > 0)
                                                 {
@@ -208,7 +208,7 @@
 
                                             <div class="comment-body" style="font-size:12px">
 
-                                                <h6 class="comment-user-name"><a href="@Url.Action("ProfileTimeline", "Home", new { id = comment.CommentOwner.ID })">@comment.CommentOwner.FirstName</a></h6> @comment.Text
+                                                <h6 class="comment-user-name"><a href="@Url.Action("ProfileInfo", "Home", new { id = comment.CommentOwner.ID })">@comment.CommentOwner.FirstName</a></h6> @comment.Text
 
                                                 <div class="comment-heading">
 
@@ -277,7 +277,7 @@
                 $(e.target).parent().prepend("<ul class=\"comments-list\"></ul>");
             }
 
-            $(e.target).parent().children(".comments-list").append("<li class=\"comment\"><a class=\"pull-left\" href=\"/Home/ProfileTimeline/@Model.Profile.ID\"><img src=\"@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.Profile.ProfilePhoto))\" class=\"avatar\" ></a><div class=\"comment-body\" style=\"font-size:12px\"><h6 class=\"comment-user-name\"><a href=\"/Home/ProfileInfo/1\">Administrator</a></h6> " + $(e.target).children("#postNewComment").val() + "<div class=\"comment-heading\"><h6 class=\"time\">@Resources.Resources.Now</h6></div></div></li>");
+            $(e.target).parent().children(".comments-list").append("<li class=\"comment\"><a class=\"pull-left\" href=\"/Home/ProfileInfo/@Model.Profile.ID\"><img src=\"@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.Profile.ProfilePhoto))\" class=\"avatar\" ></a><div class=\"comment-body\" style=\"font-size:12px\"><h6 class=\"comment-user-name\"><a href=\"/Home/ProfileInfo/1\">Administrator</a></h6> " + $(e.target).children("#postNewComment").val() + "<div class=\"comment-heading\"><h6 class=\"time\">@Resources.Resources.Now</h6></div></div></li>");
             jQuery.post('@Url.Action("NewComment", "Home")',
                 { postId: $(e.target).children("#postId").val(), postNewComment: $(e.target).children("#postNewComment").val(), hasNotification: false }
             )

@@ -124,6 +124,12 @@
         <EntityTypeShape EntityType="InsurancePortal_dbModel.ChatDelete" Width="1.5" PointX="7.5" PointY="53.125" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_ChatDelete_AspNetUsers" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_ChatDelete_Chat" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.ChatNote" Width="1.5" PointX="7.5" PointY="45.125" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.ChatNotification" Width="1.5" PointX="10.5" PointY="53.25" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_ChatNote_AspNetUsers" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_ChatNotification_AspNetUsers" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_ChatNote_Chat" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_ChatNotification_Chat" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

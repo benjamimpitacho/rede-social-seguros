@@ -105,6 +105,7 @@ namespace InsuranceSocialNetworkDAL
                     .Profile
                     .Fetch()
                     .Include(i => i.AspNetUsers)
+                    .Include(i => i.ProfileSettings)
                     .Where(i => list.Contains(i.ID_User))
                     .Select(i => new ListItemString() { Key = i.ID_User, Value = i.FirstName + " " + i.LastName })
                     .ToList();
@@ -119,6 +120,7 @@ namespace InsuranceSocialNetworkDAL
                     .Profile
                     .Fetch()
                     .Include(i => i.AspNetUsers)
+                    .Include(i => i.ProfileSettings)
                     .Where(i => list.Contains(i.ID_User))
                     .Select(i => new ListItemObject() { Key = i.ID_User, Value = i.ProfilePhoto })
                     .ToList();
@@ -163,6 +165,7 @@ namespace InsuranceSocialNetworkDAL
                     .Profile
                     .Fetch()
                     .Include(i => i.AspNetUsers)
+                    .Include(i => i.ProfileSettings)
                     .Where(i => friends1Ids.Contains(i.AspNetUsers.Id))
                     .Select(i => i)
                     .ToList();
@@ -183,6 +186,7 @@ namespace InsuranceSocialNetworkDAL
                     .Profile
                     .Fetch()
                     .Include(i => i.AspNetUsers)
+                    .Include(i => i.ProfileSettings)
                     .Where(i => friends1Ids.Contains(i.AspNetUsers.Id))
                     .Select(i => i)
                     .ToList();

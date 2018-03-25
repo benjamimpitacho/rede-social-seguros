@@ -267,7 +267,55 @@ namespace InsuranceWebsite.Controllers
                 throw new NotImplementedException();
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Messages");
+        }
+
+        //[HttpPost]
+        [FunctionalityAutorizeAttribute("NEW_POST_FUNCTIONALITY")]
+        public ActionResult MarkChatAsUnread(long id)
+        {
+            try
+            {
+                InsuranceBusiness.BusinessLayer.MarkChatAsUnread(id, CurrentUser.ID_User);
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException();
+            }
+
+            return RedirectToAction("Messages");
+        }
+
+        //[HttpPost]
+        [FunctionalityAutorizeAttribute("NEW_POST_FUNCTIONALITY")]
+        public ActionResult DisableChatNotifications(long id)
+        {
+            try
+            {
+                InsuranceBusiness.BusinessLayer.ChangeChatNotificationsState(id, CurrentUser.ID_User, false);
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException();
+            }
+
+            return RedirectToAction("Messages");
+        }
+
+        //[HttpPost]
+        [FunctionalityAutorizeAttribute("NEW_POST_FUNCTIONALITY")]
+        public ActionResult EnableChatNotifications(long id)
+        {
+            try
+            {
+                InsuranceBusiness.BusinessLayer.ChangeChatNotificationsState(id, CurrentUser.ID_User, true);
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException();
+            }
+
+            return RedirectToAction("Messages");
         }
 
         [FunctionalityAutorizeAttribute("NOTIFICATIONS_FUNCTIONALITY")]
@@ -1155,52 +1203,52 @@ namespace InsuranceWebsite.Controllers
             }
         }
 
-        public async Task<ActionResult> ProfileTimeline(long id)
-        {
-            try
-            {
-                HomeViewModel model = new HomeViewModel();
+        //public async Task<ActionResult> ProfileTimeline(long id)
+        //{
+        //    try
+        //    {
+        //        HomeViewModel model = new HomeViewModel();
 
-                if (null != this.User && this.User.Identity.IsAuthenticated)
-                {
-                    var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-                    var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
-                    if (null != user)
-                    {
-                        FillModel(model, user.Id, false);
-                    }
-                    else
-                    {
-                        return RedirectToAction("LogOff", "Account");
-                    }
-                }
-                else
-                {
-                    return RedirectToAction("Login", "Account");
-                }
+        //        if (null != this.User && this.User.Identity.IsAuthenticated)
+        //        {
+        //            var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+        //            var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
+        //            if (null != user)
+        //            {
+        //                FillModel(model, user.Id, false);
+        //            }
+        //            else
+        //            {
+        //                return RedirectToAction("LogOff", "Account");
+        //            }
+        //        }
+        //        else
+        //        {
+        //            return RedirectToAction("Login", "Account");
+        //        }
 
-                string targetUserId = InsuranceBusiness.BusinessLayer.GetUserIdFromProfileId(id);
+        //        string targetUserId = InsuranceBusiness.BusinessLayer.GetUserIdFromProfileId(id);
 
-                model.SearchModel.Users = InsuranceBusiness.BusinessLayer.SearchUsers(model.SearchModel.SearchTerm, CurrentUser.ID);
-                model.SearchModel.AlreadyFriends = InsuranceBusiness.BusinessLayer.GetFriendsIDs(CurrentUser.ID);
-                model.IsFriend = InsuranceBusiness.BusinessLayer.AreFriends(CurrentUser.ID_User, targetUserId);
-                model.IsProfileTimeline = true;
-                model.TimelineProfileId = id;
+        //        model.SearchModel.Users = InsuranceBusiness.BusinessLayer.SearchUsers(model.SearchModel.SearchTerm, CurrentUser.ID);
+        //        model.SearchModel.AlreadyFriends = InsuranceBusiness.BusinessLayer.GetFriendsIDs(CurrentUser.ID);
+        //        model.IsFriend = InsuranceBusiness.BusinessLayer.AreFriends(CurrentUser.ID_User, targetUserId);
+        //        model.IsProfileTimeline = true;
+        //        model.TimelineProfileId = id;
 
-                if (model.IsFriend)
-                {
-                    model.Posts = InsuranceBusiness.BusinessLayer.GetUserPostsOnly(targetUserId);
-                }
+        //        if (model.IsFriend)
+        //        {
+        //            model.Posts = InsuranceBusiness.BusinessLayer.GetUserPostsOnly(targetUserId);
+        //        }
 
-                return View("Index", model);
+        //        return View("Index", model);
 
-                //return View(model);
-            }
-            catch (Exception ex)
-            {
-                throw new NotImplementedException();
-            }
-        }
+        //        //return View(model);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new NotImplementedException();
+        //    }
+        //}
 
         [FunctionalityAutorizeAttribute("ADD_FRIEND_FUNCTIONALITY")]
         public async Task<ActionResult> FriendRequest(string id, long? ntId)

@@ -127,6 +127,8 @@
     <Build Include="Tables\SystemLog.sql" />
     <Build Include="Tables\PaymentNotification.sql" />
     <Build Include="Tables\ChatDelete.sql" />
+    <Build Include="Tables\ChatNotification.sql" />
+    <Build Include="Tables\ChatNote.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="InsuranceSocialNetworkDatabase.refactorlog" />
