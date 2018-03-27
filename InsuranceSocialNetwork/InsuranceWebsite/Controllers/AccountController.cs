@@ -314,6 +314,7 @@ namespace InsuranceWebsite.Controllers
         private async Task<bool> SendConfirmationEmail(ApplicationUser user, string name)
         {
             var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+            code = System.Web.HttpUtility.UrlEncode(code);
 
             System.Net.Mail.MailMessage m = new System.Net.Mail.MailMessage(
                 new System.Net.Mail.MailAddress(ConfigurationSettings.AppEmailAddress, Resources.Resources.ApplicationNAme),

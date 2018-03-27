@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using InsuranceSocialNetworkBusiness;
 using InsuranceSocialNetworkCore.Enums;
+using InsuranceSocialNetworkCore.Utils;
 using InsuranceSocialNetworkDTO.Post;
 using InsuranceSocialNetworkDTO.Role;
 using InsuranceSocialNetworkDTO.UserProfile;
@@ -293,6 +294,10 @@ namespace InsuranceWebsite.Controllers
                     var user = new ApplicationUser { UserName = model.User.Email, Email = model.User.Email };
                     user.EmailConfirmed = false;
                     string password = Membership.GeneratePassword(8, 2);
+                    while(!PasswordUtils.ValidatePassword(password))
+                    {
+                        password = Membership.GeneratePassword(8, 2);
+                    }
                     Random rnd = new Random();
                     password = password + rnd.Next(1, 99);
                     var result = await this.UserManager.CreateAsync(user, password);
@@ -333,6 +338,7 @@ namespace InsuranceWebsite.Controllers
                             InsuranceBusiness.BusinessLayer.CreateNotification(user.Id, null, NotificationTypeEnum.COMPLETE_PROFILE_INFO);
 
                             string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                            code = System.Web.HttpUtility.UrlEncode(code);
                             var callbackUrl = Url.Action("ConfirmEmail", "Account", new { code = user.Id, token = code }, protocol: Request.Url.Scheme);
                             await SendNewRegisterEmail(user, model.FirstName + " " + model.LastName, callbackUrl, password);
 

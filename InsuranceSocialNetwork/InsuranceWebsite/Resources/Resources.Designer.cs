@@ -1267,6 +1267,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Seguradora.
+        /// </summary>
+        public static string INSURANCE_COMPANY {
+            get {
+                return ResourceManager.GetString("INSURANCE_COMPANY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mediador de Seguros.
         /// </summary>
         public static string INSURANCE_PROFESSIONAL {

@@ -993,4 +993,7 @@
   <data name="NoResults" xml:space="preserve">
     <value>Não existem resultados</value>
   </data>
+  <data name="INSURANCE_COMPANY" xml:space="preserve">
+    <value>Seguradora</value>
+  </data>
 </root>
