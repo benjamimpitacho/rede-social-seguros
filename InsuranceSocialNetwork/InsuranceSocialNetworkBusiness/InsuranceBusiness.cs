@@ -270,6 +270,11 @@ namespace InsuranceSocialNetworkBusiness
             return AutoMapper.Mapper.Map<PaymentDTO>(PaymentRepository.GetPayment(id, paymentType.ToString(), companyType));
         }
 
+        public long CreatePayment(PaymentDTO payment)
+        {
+            return PaymentRepository.CreatePayment(AutoMapper.Mapper.Map<Payment>(payment));
+        }
+
         public bool UpdatePayment(PaymentDTO payment)
         {
             return PaymentRepository.EditPayment(AutoMapper.Mapper.Map<Payment>(payment));

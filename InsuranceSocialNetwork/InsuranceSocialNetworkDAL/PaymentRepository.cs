@@ -131,7 +131,13 @@ namespace InsuranceSocialNetworkDAL
         {
             using (var context = new BackofficeUnitOfWork())
             {
-                throw new NotImplementedException();
+                payment.CreateDate = DateTime.Now;
+                payment.LastChangeDate = DateTime.Now;
+
+                context.Payment.Create(payment);
+                context.Save();
+
+                return payment.ID;
             }
         }
 

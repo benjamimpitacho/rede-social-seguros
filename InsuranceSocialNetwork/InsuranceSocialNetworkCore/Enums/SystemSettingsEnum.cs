@@ -29,6 +29,10 @@ namespace InsuranceSocialNetworkCore.Enums
         EP_REC_URL,
         EP_URL_FETCH_PAYMENT_DETAIL_URL,
         EP_URL_FETCH_ALL_PAYMENT_URL,
-        EP_URL_REQUEST_PAYMENT_URL
+        EP_URL_REQUEST_PAYMENT_URL,
+        LIBAX_API_URL,
+        LIBAX_API_USERNAME,
+        LIBAX_API_PASSWORD,
+        LIBAX_API_CLIENT_ID
     }
 }

@@ -26,3 +26,7 @@ INSERT INTO Insurance.SystemSettings ([Token],[Description],[Type],[Value],[Last
 INSERT INTO Insurance.SystemSettings ([Token],[Description],[Type],[Value],[LastChangeDate],[Active]) VALUES ('EP_URL_FETCH_ALL_PAYMENT_URL', 'EP_URL_FETCH_ALL_PAYMENT_URL_DESCRIPTION', 'STRING', 'http://test.easypay.pt/_s/api_easypay_040BG1.php', GETDATE(), 1);
 INSERT INTO Insurance.SystemSettings ([Token],[Description],[Type],[Value],[LastChangeDate],[Active]) VALUES ('EP_URL_REQUEST_PAYMENT_URL', 'EP_URL_REQUEST_PAYMENT_URL', 'STRING', 'http://test.easypay.pt/_s/api_easypay_05AG.php', GETDATE(), 1);
 
+INSERT INTO Insurance.SystemSettings ([Token],[Description],[Type],[Value],[LastChangeDate],[Active]) VALUES ('LIBAX_API_URL', 'LIBAX_API_URL_DESCRIPTION', 'STRING', 'https://businessapi.libax.com', GETDATE(), 1);
+INSERT INTO Insurance.SystemSettings ([Token],[Description],[Type],[Value],[LastChangeDate],[Active]) VALUES ('LIBAX_API_USERNAME', 'LIBAX_API_USERNAME_DESCRIPTION', 'STRING', 'benjamim_pitacho@hotmail.com', GETDATE(), 1);
+INSERT INTO Insurance.SystemSettings ([Token],[Description],[Type],[Value],[LastChangeDate],[Active]) VALUES ('LIBAX_API_PASSWORD', 'LIBAX_API_PASSWORD_DESCRIPTION', 'STRING', 'bpfs2603', GETDATE(), 1);
+INSERT INTO Insurance.SystemSettings ([Token],[Description],[Type],[Value],[LastChangeDate],[Active]) VALUES ('LIBAX_API_CLIENT_ID', 'LIBAX_API_CLIENT_ID_DESCRIPTION', 'STRING', '102', GETDATE(), 1);

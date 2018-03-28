@@ -10,6 +10,21 @@
 
 @Scripts.Render("~/bundles/jqueryval")
 
+<script>
+    $.validator.setDefaults({
+        ignore: ".ignore"
+    });
+    //$("#createCompanyForm").validate({
+    //    ignore: []
+    //});
+
+    //$.validator.setDefaults({
+    //    ignore: ":reset, :image, [disabled]"
+    //});
+</script>
+
+
+
 <style>
     .panel {
         margin-bottom: 4px !important;
@@ -82,13 +97,13 @@
 
 <div id="dialog-form" title="@Resources.Resources.CreateNewCompany">
 
-    @using (Html.BeginForm("Create", "CompaniesManagement", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+    @using (Html.BeginForm("Create", "CompaniesManagement", FormMethod.Post, new { id= "createCompanyForm", @class = "form-horizontal", enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken();
-        @Html.HiddenFor(i => i.ID);
-        @Html.HiddenFor(i => i.CompanyType);
+        @Html.HiddenFor(i => i.ID, new { @class="ignore" });
+        @Html.HiddenFor(i => i.CompanyType, new { @class = "ignore" });
 
-        <ul class="nav nav-tabs nav-tabs-custom-colored tabs-iconized">
+        <ul class="nav nav-tabs nav-tabs-custom-colored tabs-iconized" id="tabsHeader">
             <li class="active">
                 <a href="#info-tab" data-toggle="tab" aria-expanded="false">
                     <i class="fa fa-user"></i> @Resources.Resources.CompanyData
@@ -111,22 +126,19 @@
                 <div>
                     <p class="data-row">
                         <span class="data-name profile-label">@Resources.Resources.Name</span>
-                        <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.Name)</label>
-                        @Html.ValidationMessageFor(i => i.Name)
+                        <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.Name)</label>                        
                     </p>
                 </div>
                 <div>
                     <p class="data-row">
                         <span class="data-name profile-label">@Resources.Resources.NIF</span>
                         <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.NIF)</label>
-                        @Html.ValidationMessageFor(i => i.NIF)
                     </p>
                 </div>
                 <div>
                     <p class="data-row" style="height: 55px;">
                         <span class="data-name profile-label">@Resources.Resources.BusinessName</span>
                         <label class="form-control label-control profile-label" style="height: 55px;">@Html.TextBoxFor(i => i.BusinessName, new { style = "height: 34px;" })</label>
-                        @Html.ValidationMessageFor(i => i.BusinessName)
                     </p>
                 </div>
                 <div>
@@ -140,14 +152,12 @@
                     <p class="data-row">
                         <span class="data-name profile-label">@Resources.Resources.Description</span>
                         <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.Description)</label>
-                        @Html.ValidationMessageFor(i => i.Description)
                     </p>
                 </div>
                 <div>
                     <p class="data-row">
                         <span class="data-name profile-label">@Resources.Resources.Address</span>
                         <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.Address)</label>
-                        @Html.ValidationMessageFor(i => i.Address)
                     </p>
                 </div>
                 <div>
@@ -168,14 +178,30 @@
                     <p class="data-row">
                         <span class="data-name profile-label">@Resources.Resources.OfficialAgent</span>
                         <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.OfficialAgent)</label>
-                        @Html.ValidationMessageFor(i => i.OfficialAgent)
                     </p>
                 </div>
                 <div>
                     <p class="data-row">
                         <span class="data-name profile-label">@Resources.Resources.OfficialPartner</span>
                         <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.OfficialPartner)</label>
+                        
+                    </p>
+                </div>
+                <div>
+                    <p>
+                        @Html.ValidationMessageFor(i => i.Name)
+                    </p><p>
+                        @Html.ValidationMessageFor(i => i.NIF)
+                    </p><p>
+                        @Html.ValidationMessageFor(i => i.BusinessName)
+                    </p><p>
+                        @Html.ValidationMessageFor(i => i.Address)
+                    </p><p>
+                        @Html.ValidationMessageFor(i => i.OfficialAgent)
+                    </p><p>
                         @Html.ValidationMessageFor(i => i.OfficialPartner)
+                    </p><p>
+                        @Html.ValidationMessageFor(i => i.Description)
                     </p>
                 </div>
             </div>
@@ -184,41 +210,50 @@
                     <p class="data-row">
                         <span class="data-name profile-label">@Resources.Resources.ContactEmail</span>
                         <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.ContactEmail)</label>
-                        @Html.ValidationMessageFor(i => i.ContactEmail)
                     </p>
                 </div>
                 <div>
                     <p class="data-row">
                         <span class="data-name profile-label">@Resources.Resources.Telephone_1</span>
                         <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.Telephone_1)</label>
-                        @Html.ValidationMessageFor(i => i.Telephone_1)
                     </p>
                 </div>
                 <div>
                     <p class="data-row">
                         <span class="data-name profile-label">@Resources.Resources.Telephone_2</span>
                         <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.Telephone_2)</label>
-                        @Html.ValidationMessageFor(i => i.Telephone_2)
                     </p>
                 </div>
                 <div>
                     <p class="data-row">
                         <span class="data-name profile-label">@Resources.Resources.MobilePhone_1</span>
                         <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.MobilePhone_1)</label>
-                        @Html.ValidationMessageFor(i => i.MobilePhone_1)
                     </p>
                 </div>
                 <div>
                     <p class="data-row">
                         <span class="data-name profile-label">@Resources.Resources.MobilePhone_2</span>
                         <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.MobilePhone_2)</label>
-                        @Html.ValidationMessageFor(i => i.MobilePhone_2)
                     </p>
                 </div>
                 <div>
                     <p class="data-row">
                         <span class="data-name profile-label">@Resources.Resources.Website</span>
                         <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.Website)</label>
+                    </p>
+                </div>
+                <div>
+                    <p>
+                        @Html.ValidationMessageFor(i => i.ContactEmail)
+                    </p><p>
+                        @Html.ValidationMessageFor(i => i.Telephone_1)
+                    </p><p>
+                        @Html.ValidationMessageFor(i => i.Telephone_2)
+                    </p><p>
+                        @Html.ValidationMessageFor(i => i.MobilePhone_1)
+                    </p><p>
+                        @Html.ValidationMessageFor(i => i.MobilePhone_2)
+                    </p><p>
                         @Html.ValidationMessageFor(i => i.Website)
                     </p>
                 </div>
@@ -251,19 +286,52 @@
                     </p>
                 </div>
                 <div>
-                    <p class="data-row">
+                    <p>
                         @Html.ValidationMessageFor(i => i.IBAN)
+                    </p><p>
                         @Html.ValidationMessageFor(i => i.Value)
                     </p>
                 </div>
             </div>
+        </div>
+        <div>
+            <input id="submitButton" type="submit" value="@Resources.Resources.Save" />
         </div>
     }
 </div>
 
 <script>
 
-    $(function () {
+    $(document).ready(function () {
+
+        
+
+        //$("#submitButton").click(function () {
+            //$("#createCompanyForm").validate({
+            //    ignore: ""
+            //});
+            //if ($("#createCompanyForm").valid()) {
+            //    alert('valid')
+            //    $("#createCompanyForm").submit();
+            //}
+            //else
+            //{ alert('invalid');}
+            //$("#createCompanyForm").submit();
+        //});
+
+        //$.validator.setDefaults({
+        //    ignore: ""
+        //});
+
+        //$("#createCompanyForm").submit(function () {
+        //    //alert($("#createCompanyForm .input-validation-error").closest(".tab-pane").get(0).id);
+        //    //$('#tabs').tabs('select', $('#tabs div[class="tab-pane"]').parent().index());
+        //    //$("#tabsHeader").tabs({ active: 2 });/*"active", $("#createCompanyForm .input-validation-error").closest(".tab-pane").get(0).id);*/
+        //});
+
+        //$("#createCompanyForm").submit(function (e) {
+        //    //alert("submit 2");
+        //});
 
         $.validator.addMethod('date', function (value, element) {
             if (this.optional(element)) {

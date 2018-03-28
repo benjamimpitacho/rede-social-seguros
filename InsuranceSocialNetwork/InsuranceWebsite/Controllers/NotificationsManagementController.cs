@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Web;
@@ -189,6 +190,47 @@ namespace InsuranceWebsite.Controllers
 
                 InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, "", string.Format("Easypay payment notification received"), string.Format("Easypay infromation received is ep_cin {0}, ep_user {1}, ep_doc {2}, ep_type {3}", ep_cin, ep_user, ep_doc, ep_type));
 
+                // TEST
+
+                //using (HttpClient client = new HttpClient())
+                //{
+                //    client.BaseAddress = new Uri(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.LIBAX_API_URL).Value);
+
+                //    // Get Auth token
+                //    var request = new HttpRequestMessage(HttpMethod.Post, "/token");
+                //    var formData = new List<KeyValuePair<string, string>>()
+                //    {
+                //        new KeyValuePair<string, string>("grant_type", "password"),
+                //        new KeyValuePair<string, string>("username", InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.LIBAX_API_USERNAME).Value),
+                //        new KeyValuePair<string, string>("password", InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.LIBAX_API_PASSWORD).Value),
+                //        new KeyValuePair<string, string>("client_id", InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.LIBAX_API_CLIENT_ID).Value)
+                //    };
+
+                //    request.Content = new FormUrlEncodedContent(formData);
+                //    HttpResponseMessage response = client.SendAsync(request).Result;
+                //    string resultJSON = response.Content.ReadAsStringAsync().Result;
+                //    dynamic result = Newtonsoft.Json.JsonConvert.DeserializeObject(resultJSON);
+                //    string AccessToken = result.access_token;
+
+                //    // Get Entity
+                //    request = new HttpRequestMessage(HttpMethod.Post, "/api/v1/entities");
+                //    formData = new List<KeyValuePair<string, string>>()
+                //    {
+                //        new KeyValuePair<string, string>("name", "TEST"),
+                //        new KeyValuePair<string, string>("vatNumber", "123456789"),
+                //        new KeyValuePair<string, string>("status", "0"),
+                //        new KeyValuePair<string, string>("email", "benjamim_pitacho@hotmail.com"),
+                //        new KeyValuePair<string, string>("ignoreAdvertising", "true")
+                //    };
+
+                //    request.Content = new FormUrlEncodedContent(formData);
+                //    response = client.SendAsync(request).Result;
+                //    resultJSON = response.Content.ReadAsStringAsync().Result;
+                //    result = Newtonsoft.Json.JsonConvert.DeserializeObject(resultJSON);
+                //}
+
+                // END TEST
+
                 long notificationId = InsuranceBusiness.BusinessLayer.CreatePaymentNotification(ep_cin, ep_user, ep_doc, ep_type);
                 if (notificationId <= 0)
                 {
@@ -235,6 +277,7 @@ namespace InsuranceWebsite.Controllers
                         paymentNotification.NotificationDate = DateTime.Now;
 
                         payment = InsuranceBusiness.BusinessLayer.GetPayment(paymentNotification.t_key);
+                        payment.LastChangeDate = DateTime.Now;
                         payment.PaymentDate = DateTime.Now;
                         payment.o_obs = response.SelectSingleNode("getautoMB_detail/o_obs").InnerText;
                         payment.o_email = response.SelectSingleNode("getautoMB_detail/o_email").InnerText;
@@ -256,6 +299,10 @@ namespace InsuranceWebsite.Controllers
                     {
                         // Erro
                         InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.ERROR, Request.UserHostAddress, "Easypay returned error fetching payment details", result);
+                        payment = InsuranceBusiness.BusinessLayer.GetPayment(paymentNotification.t_key);
+                        payment.LastChangeDate = DateTime.Now;
+                        payment.Message = response.InnerXml;
+                        InsuranceBusiness.BusinessLayer.UpdatePayment(payment);
                         return;
                     }
                 }
@@ -304,11 +351,36 @@ namespace InsuranceWebsite.Controllers
                             var node = response.SelectSingleNode("request_recurring_payment/ep_status");
                             if (node.InnerText.Equals("ok"))
                             {
+                                PaymentDTO recurrentDebitDirectPayment = new PaymentDTO()
+                                {
+                                    ID_Garage = directDebitPayment.ID_Garage,
+                                    Active = true,
+                                    CreateDate = DateTime.Now,
+                                    ExpiracyDate = DateTime.Now.AddYears(1),
+                                    ID_PaymentStatus = (int)PaymentStatusEnum.PENDING,
+                                    ID_PaymentType = directDebitPayment.ID_PaymentType,
+                                    LastChangeDate = DateTime.Now,
+                                    Payment_GUID = Guid.NewGuid()
+                                };
 
+                                InsuranceBusiness.BusinessLayer.CreatePayment(payment);
                             }
                             else
                             {
+                                PaymentDTO recurrentDebitDirectPayment = new PaymentDTO()
+                                {
+                                    ID_Garage = directDebitPayment.ID_Garage,
+                                    Active = true,
+                                    CreateDate = DateTime.Now,
+                                    ExpiracyDate = DateTime.Now.AddYears(1),
+                                    ID_PaymentStatus = (int)PaymentStatusEnum.ERROR,
+                                    ID_PaymentType = directDebitPayment.ID_PaymentType,
+                                    LastChangeDate = DateTime.Now,
+                                    Payment_GUID = Guid.NewGuid(),
+                                    Message = node.InnerXml
+                                };
 
+                                InsuranceBusiness.BusinessLayer.CreatePayment(payment);
                             }
                         }
                     }
