@@ -14,32 +14,40 @@ namespace InsuranceSocialNetworkDTO.UserProfile
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string ContactEmail { get; set; }
-        public Nullable<System.DateTime> Birthdate { get; set; }
-        public string CompanyName { get; set; }
-        public string ProfessionalNumber { get; set; }
+        public DateTime? Birthdate { get; set; }
         public string MobilePhone_1 { get; set; }
         public string MobilePhone_2 { get; set; }
         public string Telephone_1 { get; set; }
         public string Telephone_2 { get; set; }
         public string Address { get; set; }
         public string PostalCode { get; set; }
-        public string Locality { get; set; }
-        public string County { get; set; }
-        public string District { get; set; }
+        public string AboutMe { get; set; }
+        public string Skype { get; set; }
+        public string Whatsapp { get; set; }
+        public string Website { get; set; }
+        public string ProfessionalNumber { get; set; }
+        public string CompaniesWorkingWith { get; set; }
+        public long? ID_PostalCode { get; set; }
+        public byte[] ProfilePhoto { get; set; }
+        public DateTime CreateDate { get; set; }
+        public DateTime LastChangeDate { get; set; }
+        public DateTime? DeleteDate { get; set; }
+        public bool Active { get; set; }
+        public string CompanyName { get; set; }
         public string Facebook { get; set; }
         public string Twitter { get; set; }
         public string GooglePlus { get; set; }
-        public string Skype { get; set; }
-        public string Whatsapp { get; set; }
-        public string CompaniesWorkingWith { get; set; }
-        public Nullable<long> ID_PostalCode { get; set; }
-        public byte[] ProfilePhoto { get; set; }
-        public string Website { get; set; }
-        public string AboutMe { get; set; }
-        public System.DateTime CreateDate { get; set; }
-        public System.DateTime LastChangeDate { get; set; }
-        public Nullable<System.DateTime> DeleteDate { get; set; }
-        public bool Active { get; set; }
+        public string Fax { get; set; }
+        public bool SameInformationForInvoice { get; set; }
+        public string Invoice_Address { get; set; }
+        public string Invoice_PostalCode { get; set; }
+        public long? Invoice_ID_Parish { get; set; }
+        public long? Invoice_ID_County { get; set; }
+        public long? Invoice_ID_District { get; set; }
+        public long? ID_Parish { get; set; }
+        public long? ID_County { get; set; }
+        public long? ID_District { get; set; }
+
         public UserDTO User { get; set; }
         public RoleDTO Role { get; set; }
         public List<ProfileSettingsDTO> ProfileSettings { get; set; }
@@ -58,7 +66,7 @@ namespace InsuranceSocialNetworkDTO.UserProfile
         public string PhoneNumber { get; set; }
         public bool PhoneNumberConfirmed { get; set; }
         public bool TwoFactorEnabled { get; set; }
-        public Nullable<System.DateTime> LockoutEndDateUtc { get; set; }
+        public DateTime? LockoutEndDateUtc { get; set; }
         public bool LockoutEnabled { get; set; }
         public int AccessFailedCount { get; set; }
         public string UserName { get; set; }

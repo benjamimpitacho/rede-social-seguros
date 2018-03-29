@@ -215,6 +215,7 @@
     <Compile Include="App_Start\MVCGridConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Commons\LibaxUtils.cs" />
     <Compile Include="Commons\FunctionalityAutorizeAttribute.cs" />
     <Compile Include="Commons\CommonUtils.cs" />
     <Compile Include="Commons\ConfigurationSettings.cs" />

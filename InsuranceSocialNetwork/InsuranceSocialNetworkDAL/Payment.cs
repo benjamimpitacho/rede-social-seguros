@@ -65,13 +65,13 @@ namespace InsuranceSocialNetworkDAL
         public bool Active { get; set; }
         public string Message { get; set; }
     
+        public virtual PaymentStatus PaymentStatus { get; set; }
+        public virtual PaymentType PaymentType { get; set; }
         public virtual ConstructionCompany ConstructionCompany { get; set; }
         public virtual Garage Garage { get; set; }
         public virtual HomeApplianceRepair HomeApplianceRepair { get; set; }
         public virtual InsuranceCompanyContact InsuranceCompanyContact { get; set; }
         public virtual MedicalClinic MedicalClinic { get; set; }
-        public virtual PaymentStatus PaymentStatus { get; set; }
-        public virtual PaymentType PaymentType { get; set; }
         public virtual Profile Profile { get; set; }
     }
 }

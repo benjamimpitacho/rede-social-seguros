@@ -63,12 +63,21 @@ namespace InsuranceSocialNetworkDAL
                 item.Address = constructionCompany.Address;
                 item.ContactEmail = constructionCompany.ContactEmail;
                 item.Description = constructionCompany.Description;
+                item.Address = constructionCompany.Address;
+                item.PostalCode = constructionCompany.PostalCode;
                 item.ID_District = constructionCompany.ID_District;
                 item.ID_County = constructionCompany.ID_County;
                 item.ID_Parish = constructionCompany.ID_Parish;
+                item.SameInformationForInvoice = constructionCompany.SameInformationForInvoice;
+                item.Address = constructionCompany.Address;
+                item.PostalCode = constructionCompany.PostalCode;
+                item.ID_District = constructionCompany.Invoice_ID_District;
+                item.ID_County = constructionCompany.Invoice_ID_County;
+                item.ID_Parish = constructionCompany.Invoice_ID_Parish;
                 item.ID_Service = constructionCompany.ID_Service;
                 item.MobilePhone_1 = constructionCompany.MobilePhone_1;
                 item.MobilePhone_2 = constructionCompany.MobilePhone_2;
+                item.Fax = constructionCompany.Fax;
                 item.Name = constructionCompany.Name;
                 item.NIF = constructionCompany.NIF;
                 item.OfficialAgent = constructionCompany.OfficialAgent;
@@ -77,6 +86,7 @@ namespace InsuranceSocialNetworkDAL
                 item.Telephone_2 = constructionCompany.Telephone_2;
                 item.Website = constructionCompany.Website;
                 item.LogoPhoto = null != constructionCompany.LogoPhoto ? constructionCompany.LogoPhoto : item.LogoPhoto;
+                item.LibaxEntityID = constructionCompany.LibaxEntityID;
 
                 if (null == item.Payment && null != constructionCompany.Payment)
                 {

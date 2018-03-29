@@ -189,48 +189,7 @@ namespace InsuranceWebsite.Controllers
                 PaymentDTO payment = null;
 
                 InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, "", string.Format("Easypay payment notification received"), string.Format("Easypay infromation received is ep_cin {0}, ep_user {1}, ep_doc {2}, ep_type {3}", ep_cin, ep_user, ep_doc, ep_type));
-
-                // TEST
-
-                //using (HttpClient client = new HttpClient())
-                //{
-                //    client.BaseAddress = new Uri(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.LIBAX_API_URL).Value);
-
-                //    // Get Auth token
-                //    var request = new HttpRequestMessage(HttpMethod.Post, "/token");
-                //    var formData = new List<KeyValuePair<string, string>>()
-                //    {
-                //        new KeyValuePair<string, string>("grant_type", "password"),
-                //        new KeyValuePair<string, string>("username", InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.LIBAX_API_USERNAME).Value),
-                //        new KeyValuePair<string, string>("password", InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.LIBAX_API_PASSWORD).Value),
-                //        new KeyValuePair<string, string>("client_id", InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.LIBAX_API_CLIENT_ID).Value)
-                //    };
-
-                //    request.Content = new FormUrlEncodedContent(formData);
-                //    HttpResponseMessage response = client.SendAsync(request).Result;
-                //    string resultJSON = response.Content.ReadAsStringAsync().Result;
-                //    dynamic result = Newtonsoft.Json.JsonConvert.DeserializeObject(resultJSON);
-                //    string AccessToken = result.access_token;
-
-                //    // Get Entity
-                //    request = new HttpRequestMessage(HttpMethod.Post, "/api/v1/entities");
-                //    formData = new List<KeyValuePair<string, string>>()
-                //    {
-                //        new KeyValuePair<string, string>("name", "TEST"),
-                //        new KeyValuePair<string, string>("vatNumber", "123456789"),
-                //        new KeyValuePair<string, string>("status", "0"),
-                //        new KeyValuePair<string, string>("email", "benjamim_pitacho@hotmail.com"),
-                //        new KeyValuePair<string, string>("ignoreAdvertising", "true")
-                //    };
-
-                //    request.Content = new FormUrlEncodedContent(formData);
-                //    response = client.SendAsync(request).Result;
-                //    resultJSON = response.Content.ReadAsStringAsync().Result;
-                //    result = Newtonsoft.Json.JsonConvert.DeserializeObject(resultJSON);
-                //}
-
-                // END TEST
-
+                
                 long notificationId = InsuranceBusiness.BusinessLayer.CreatePaymentNotification(ep_cin, ep_user, ep_doc, ep_type);
                 if (notificationId <= 0)
                 {
@@ -253,6 +212,7 @@ namespace InsuranceWebsite.Controllers
                 using (var client = new WebClient())
                 {
                     XmlDocument response = new XmlDocument();
+                    InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, Request.UserHostAddress, "NotificationsManagementController::EasypayPaymentNotification", baseUrl);
                     var result = client.DownloadString(baseUrl);
                     response.LoadXml(result);
 
@@ -319,12 +279,14 @@ namespace InsuranceWebsite.Controllers
                 }
                 else if (payment.ID_Garage.HasValue)
                 {
+                    CompanyDTO company = InsuranceBusiness.BusinessLayer.GetGarage(payment.ID_Garage.Value);
+                    // Get Invoice to send to Client
+                    LibaxUtils.LibaxUtils.CreateInvoice(company, payment);
                     // Activate user
                     InsuranceBusiness.BusinessLayer.ActivateGarage(payment.ID_Garage.Value);
                     // Send user notification
                     //InsuranceBusiness.BusinessLayer.CreateNotificationForPaymentDone(NotificationTypeEnum.PAYMENT_CONFIRMED, true, payment.ID_Garage.Value, payment.ID, CompanyTypeEnum.GARAGE);
                     // Send user email
-                    CompanyDTO company = InsuranceBusiness.BusinessLayer.GetGarage(payment.ID_Garage.Value);
                     SendPaymentConfirmationEmail(company.Name, company.ContactEmail);
 
                     // Request Direct Debit payment to be executed in one year
@@ -345,6 +307,7 @@ namespace InsuranceWebsite.Controllers
                         using (var client = new WebClient())
                         {
                             XmlDocument response = new XmlDocument();
+                            InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, Request.UserHostAddress, "NotificationsManagementController::EasypayPaymentNotification", baseUrl);
                             var result = client.DownloadString(baseUrl);
                             response.LoadXml(result);
 

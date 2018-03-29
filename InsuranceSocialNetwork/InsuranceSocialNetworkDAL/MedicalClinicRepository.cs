@@ -64,12 +64,21 @@ namespace InsuranceSocialNetworkDAL
                 item.Address = medicalClinic.Address;
                 item.ContactEmail = medicalClinic.ContactEmail;
                 item.Description = medicalClinic.Description;
+                item.Address = medicalClinic.Address;
+                item.PostalCode = medicalClinic.PostalCode;
                 item.ID_District = medicalClinic.ID_District;
                 item.ID_County = medicalClinic.ID_County;
                 item.ID_Parish = medicalClinic.ID_Parish;
+                item.SameInformationForInvoice = medicalClinic.SameInformationForInvoice;
+                item.Address = medicalClinic.Address;
+                item.PostalCode = medicalClinic.PostalCode;
+                item.ID_District = medicalClinic.Invoice_ID_District;
+                item.ID_County = medicalClinic.Invoice_ID_County;
+                item.ID_Parish = medicalClinic.Invoice_ID_Parish;
                 item.ID_Service = medicalClinic.ID_Service;
                 item.MobilePhone_1 = medicalClinic.MobilePhone_1;
                 item.MobilePhone_2 = medicalClinic.MobilePhone_2;
+                item.Fax = medicalClinic.Fax;
                 item.Name = medicalClinic.Name;
                 item.NIF = medicalClinic.NIF;
                 item.OfficialAgent = medicalClinic.OfficialAgent;
@@ -78,6 +87,7 @@ namespace InsuranceSocialNetworkDAL
                 item.Telephone_2 = medicalClinic.Telephone_2;
                 item.Website = medicalClinic.Website;
                 item.LogoPhoto = null != medicalClinic.LogoPhoto ? medicalClinic.LogoPhoto : item.LogoPhoto;
+                item.LibaxEntityID = medicalClinic.LibaxEntityID;
 
                 if (null == item.Payment && null != medicalClinic.Payment)
                 {

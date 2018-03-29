@@ -63,12 +63,21 @@ namespace InsuranceSocialNetworkDAL
                 item.Address = homeApplianceRepair.Address;
                 item.ContactEmail = homeApplianceRepair.ContactEmail;
                 item.Description = homeApplianceRepair.Description;
+                item.Address = homeApplianceRepair.Address;
+                item.PostalCode = homeApplianceRepair.PostalCode;
                 item.ID_District = homeApplianceRepair.ID_District;
                 item.ID_County = homeApplianceRepair.ID_County;
                 item.ID_Parish = homeApplianceRepair.ID_Parish;
+                item.SameInformationForInvoice = homeApplianceRepair.SameInformationForInvoice;
+                item.Address = homeApplianceRepair.Address;
+                item.PostalCode = homeApplianceRepair.PostalCode;
+                item.ID_District = homeApplianceRepair.Invoice_ID_District;
+                item.ID_County = homeApplianceRepair.Invoice_ID_County;
+                item.ID_Parish = homeApplianceRepair.Invoice_ID_Parish;
                 item.ID_Service = homeApplianceRepair.ID_Service;
                 item.MobilePhone_1 = homeApplianceRepair.MobilePhone_1;
                 item.MobilePhone_2 = homeApplianceRepair.MobilePhone_2;
+                item.Fax = homeApplianceRepair.Fax;
                 item.Name = homeApplianceRepair.Name;
                 item.NIF = homeApplianceRepair.NIF;
                 item.OfficialAgent = homeApplianceRepair.OfficialAgent;
@@ -77,6 +86,7 @@ namespace InsuranceSocialNetworkDAL
                 item.Telephone_2 = homeApplianceRepair.Telephone_2;
                 item.Website = homeApplianceRepair.Website;
                 item.LogoPhoto = null != homeApplianceRepair.LogoPhoto ? homeApplianceRepair.LogoPhoto : item.LogoPhoto;
+                item.LibaxEntityID = homeApplianceRepair.LibaxEntityID;
 
                 if (null == item.Payment && null != homeApplianceRepair.Payment)
                 {

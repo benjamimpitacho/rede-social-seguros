@@ -16,6 +16,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using InsuranceSocialNetworkDTO.SystemSettings;
+using InsuranceSocialNetworkDTO.PostalCode;
 
 namespace InsuranceSocialNetworkBusiness
 {
@@ -113,6 +114,13 @@ namespace InsuranceSocialNetworkBusiness
 
                 cfg.CreateMap<SystemSettings, SystemSettingsDTO>();
                 cfg.CreateMap<SystemSettingsDTO, SystemSettings>();
+
+                cfg.CreateMap<Parish, ParishDTO>();
+                cfg.CreateMap<ParishDTO, Parish>();
+                cfg.CreateMap<County, CountyDTO>();
+                cfg.CreateMap<CountyDTO, County>();
+                cfg.CreateMap<District, DistrictDTO>();
+                cfg.CreateMap<DistrictDTO, District>();
             });
 
             #endregion
@@ -938,12 +946,37 @@ namespace InsuranceSocialNetworkBusiness
 
         #endregion Friends
 
+        #region Company
+
+        public bool EditCompany(CompanyDTO item)
+        {
+            switch(item.CompanyType)
+            {
+                case CompanyTypeEnum.GARAGE:
+                    return EditGarage(item);
+                case CompanyTypeEnum.MEDICAL_CLINIC:
+                    return EditMedicalClinic(item);
+                case CompanyTypeEnum.CONSTRUCTION_COMPANY:
+                    return EditConstructionCompany(item);
+                case CompanyTypeEnum.HOME_APPLIANCES_REPAIR:
+                    return EditHomeApplianceRepair(item);
+                case CompanyTypeEnum.INSURANCE_COMPANY_CONTACT:
+                    return EditInsuranceCompanyContact(item);
+                default:
+                    return false;
+            }
+        }
+
+        #endregion Company
+
         #region Garages
 
         public CompanyDTO GetGarage(long id)
         {
             Garage item = GarageRepository.GetGarage(id);
-            return AutoMapper.Mapper.Map<CompanyDTO>(item);
+            CompanyDTO company = AutoMapper.Mapper.Map<CompanyDTO>(item);
+            company.CompanyType = CompanyTypeEnum.GARAGE;
+            return company;
         }
 
         public List<CompanyDTO> GetGarages()
@@ -991,7 +1024,9 @@ namespace InsuranceSocialNetworkBusiness
         public CompanyDTO GetMedicalClinic(long id)
         {
             MedicalClinic item = MedicalClinicRepository.GetMedicalClinic(id);
-            return AutoMapper.Mapper.Map<CompanyDTO>(item);
+            CompanyDTO company = AutoMapper.Mapper.Map<CompanyDTO>(item);
+            company.CompanyType = CompanyTypeEnum.MEDICAL_CLINIC;
+            return company;
         }
 
         public List<CompanyDTO> GetMedicalClinics()
@@ -1034,7 +1069,9 @@ namespace InsuranceSocialNetworkBusiness
         public CompanyDTO GetConstructionCompany(long id)
         {
             ConstructionCompany item = ConstructionCompanyRepository.GetConstructionCompany(id);
-            return AutoMapper.Mapper.Map<CompanyDTO>(item);
+            CompanyDTO company = AutoMapper.Mapper.Map<CompanyDTO>(item);
+            company.CompanyType = CompanyTypeEnum.CONSTRUCTION_COMPANY;
+            return company;
         }
 
         public List<CompanyDTO> GetConstructionCompanies()
@@ -1077,7 +1114,9 @@ namespace InsuranceSocialNetworkBusiness
         public CompanyDTO GetHomeApplianceRepair(long id)
         {
             HomeApplianceRepair item = HomeApplianceRepairRepository.GetHomeApplianceRepair(id);
-            return AutoMapper.Mapper.Map<CompanyDTO>(item);
+            CompanyDTO company = AutoMapper.Mapper.Map<CompanyDTO>(item);
+            company.CompanyType = CompanyTypeEnum.HOME_APPLIANCES_REPAIR;
+            return company;
         }
 
         public List<CompanyDTO> GetHomeApplianceRepairs()
@@ -1120,7 +1159,9 @@ namespace InsuranceSocialNetworkBusiness
         public CompanyDTO GetInsuranceCompanyContact(long id)
         {
             InsuranceCompanyContact item = InsuranceCompanyContactRepository.GetInsuranceCompanyContact(id);
-            return AutoMapper.Mapper.Map<CompanyDTO>(item);
+            CompanyDTO company = AutoMapper.Mapper.Map<CompanyDTO>(item);
+            company.CompanyType = CompanyTypeEnum.INSURANCE_COMPANY_CONTACT;
+            return company;
         }
 
         public List<CompanyDTO> GetInsuranceCompanyContacts()
@@ -1206,10 +1247,25 @@ namespace InsuranceSocialNetworkBusiness
             return PostalCodeRepository.GetCountyListByDistrict(districtId);
         }
 
+        public ParishDTO GetParish(long id)
+        {
+            return AutoMapper.Mapper.Map<ParishDTO>(PostalCodeRepository.GetParish(id));
+        }
+
+        public CountyDTO GetCounty(long id)
+        {
+            return AutoMapper.Mapper.Map<CountyDTO>(PostalCodeRepository.GetCounty(id));
+        }
+
+        public DistrictDTO GetDistrict(long id)
+        {
+            return AutoMapper.Mapper.Map<DistrictDTO>(PostalCodeRepository.GetDistrict(id));
+        }
+
         #endregion Postal Code
 
         #region Search Operations
-        
+
         public List<CompanyDTO> SearchGarages(CompanySearchFilterDTO searchFilter)
         {
             List<Garage> itemsList = CompanyRepository.SearchGarages(searchFilter);

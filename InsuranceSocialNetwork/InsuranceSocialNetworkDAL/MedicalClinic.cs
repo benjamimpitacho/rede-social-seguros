@@ -39,19 +39,31 @@ namespace InsuranceSocialNetworkDAL
         public string Website { get; set; }
         public string OfficialPartner { get; set; }
         public string OfficialAgent { get; set; }
+        public string BusinessName { get; set; }
+        public string IBAN { get; set; }
         public System.DateTime CreateDate { get; set; }
         public System.DateTime LastChangeDate { get; set; }
         public Nullable<System.DateTime> DeleteDate { get; set; }
         public bool Active { get; set; }
-        public string BusinessName { get; set; }
-        public string IBAN { get; set; }
+        public string Fax { get; set; }
+        public string PostalCode { get; set; }
+        public bool SameInformationForInvoice { get; set; }
+        public string Invoice_Address { get; set; }
+        public string Invoice_PostalCode { get; set; }
+        public Nullable<long> Invoice_ID_Parish { get; set; }
+        public Nullable<long> Invoice_ID_County { get; set; }
+        public Nullable<long> Invoice_ID_District { get; set; }
+        public Nullable<int> LibaxEntityID { get; set; }
     
+        public virtual CompanyService CompanyService { get; set; }
         public virtual County County { get; set; }
+        public virtual County County1 { get; set; }
         public virtual District District { get; set; }
+        public virtual District District1 { get; set; }
         public virtual Parish Parish { get; set; }
+        public virtual Parish Parish1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MedicalClinicFavorite> MedicalClinicFavorite { get; set; }
-        public virtual CompanyService CompanyService { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Payment> Payment { get; set; }
     }

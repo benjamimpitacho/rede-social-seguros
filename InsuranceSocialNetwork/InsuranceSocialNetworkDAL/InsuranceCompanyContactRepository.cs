@@ -63,12 +63,21 @@ namespace InsuranceSocialNetworkDAL
                 item.Address = insuranceCompanyContact.Address;
                 item.ContactEmail = insuranceCompanyContact.ContactEmail;
                 item.Description = insuranceCompanyContact.Description;
+                item.Address = insuranceCompanyContact.Address;
+                item.PostalCode = insuranceCompanyContact.PostalCode;
                 item.ID_District = insuranceCompanyContact.ID_District;
                 item.ID_County = insuranceCompanyContact.ID_County;
                 item.ID_Parish = insuranceCompanyContact.ID_Parish;
+                item.SameInformationForInvoice = insuranceCompanyContact.SameInformationForInvoice;
+                item.Address = insuranceCompanyContact.Address;
+                item.PostalCode = insuranceCompanyContact.PostalCode;
+                item.ID_District = insuranceCompanyContact.Invoice_ID_District;
+                item.ID_County = insuranceCompanyContact.Invoice_ID_County;
+                item.ID_Parish = insuranceCompanyContact.Invoice_ID_Parish;
                 item.ID_Service = insuranceCompanyContact.ID_Service;
                 item.MobilePhone_1 = insuranceCompanyContact.MobilePhone_1;
                 item.MobilePhone_2 = insuranceCompanyContact.MobilePhone_2;
+                item.Fax = insuranceCompanyContact.Fax;
                 item.Name = insuranceCompanyContact.Name;
                 item.NIF = insuranceCompanyContact.NIF;
                 item.OfficialAgent = insuranceCompanyContact.OfficialAgent;
@@ -77,6 +86,7 @@ namespace InsuranceSocialNetworkDAL
                 item.Telephone_2 = insuranceCompanyContact.Telephone_2;
                 item.Website = insuranceCompanyContact.Website;
                 item.LogoPhoto = null != insuranceCompanyContact.LogoPhoto ? insuranceCompanyContact.LogoPhoto : item.LogoPhoto;
+                item.LibaxEntityID = insuranceCompanyContact.LibaxEntityID;
 
                 if (null == item.Payment && null != insuranceCompanyContact.Payment)
                 {

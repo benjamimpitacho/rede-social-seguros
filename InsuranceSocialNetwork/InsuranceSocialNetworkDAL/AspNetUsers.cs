@@ -31,7 +31,6 @@ namespace InsuranceSocialNetworkDAL
             this.HomeApplianceRepairFavorite = new HashSet<HomeApplianceRepairFavorite>();
             this.InsuranceCompanyContactFavorite = new HashSet<InsuranceCompanyContactFavorite>();
             this.MedicalClinicFavorite = new HashSet<MedicalClinicFavorite>();
-            this.Profile = new HashSet<Profile>();
             this.AuthorizedEmail = new HashSet<AuthorizedEmail>();
             this.ChatMessage = new HashSet<ChatMessage>();
             this.Notification = new HashSet<Notification>();
@@ -42,6 +41,7 @@ namespace InsuranceSocialNetworkDAL
             this.ChatDelete = new HashSet<ChatDelete>();
             this.ChatNote = new HashSet<ChatNote>();
             this.ChatNotification = new HashSet<ChatNotification>();
+            this.Profile = new HashSet<Profile>();
         }
     
         public string Id { get; set; }
@@ -86,8 +86,6 @@ namespace InsuranceSocialNetworkDAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MedicalClinicFavorite> MedicalClinicFavorite { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Profile> Profile { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AuthorizedEmail> AuthorizedEmail { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChatMessage> ChatMessage { get; set; }
@@ -107,5 +105,7 @@ namespace InsuranceSocialNetworkDAL
         public virtual ICollection<ChatNote> ChatNote { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChatNotification> ChatNotification { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Profile> Profile { get; set; }
     }
 }

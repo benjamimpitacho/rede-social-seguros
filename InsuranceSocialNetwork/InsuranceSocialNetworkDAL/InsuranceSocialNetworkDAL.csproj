@@ -127,16 +127,16 @@
     <Compile Include="GarageFavorite.cs">
       <DependentUpon>InsuranceDatabaseEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="HomeApplianceRepairRepository.cs" />
-    <Compile Include="InsuranceCompanyContactRepository.cs" />
-    <Compile Include="ConstructionCompanyRepository.cs" />
     <Compile Include="HomeApplianceRepair.cs">
       <DependentUpon>InsuranceDatabaseEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="HomeApplianceRepairFavorite.cs">
+    <Compile Include="HomeApplianceRepairRepository.cs" />
+    <Compile Include="InsuranceCompanyContact.cs">
       <DependentUpon>InsuranceDatabaseEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="InsuranceCompanyContact.cs">
+    <Compile Include="InsuranceCompanyContactRepository.cs" />
+    <Compile Include="ConstructionCompanyRepository.cs" />
+    <Compile Include="HomeApplianceRepairFavorite.cs">
       <DependentUpon>InsuranceDatabaseEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="InsuranceCompanyContactFavorite.cs">
@@ -215,11 +215,11 @@
     <Compile Include="PostType.cs">
       <DependentUpon>InsuranceDatabaseEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="FunctionalityRepository.cs" />
+    <Compile Include="BannerRepository.cs" />
     <Compile Include="Profile.cs">
       <DependentUpon>InsuranceDatabaseEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="FunctionalityRepository.cs" />
-    <Compile Include="BannerRepository.cs" />
     <Compile Include="ProfileSettings.cs">
       <DependentUpon>InsuranceDatabaseEntities.tt</DependentUpon>
     </Compile>

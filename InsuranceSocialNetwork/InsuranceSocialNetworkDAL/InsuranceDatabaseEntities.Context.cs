@@ -49,13 +49,7 @@ namespace InsuranceSocialNetworkDAL
         public virtual DbSet<InsuranceCompanyContactFavorite> InsuranceCompanyContactFavorite { get; set; }
         public virtual DbSet<MedicalClinicFavorite> MedicalClinicFavorite { get; set; }
         public virtual DbSet<Banner> Banner { get; set; }
-        public virtual DbSet<Profile> Profile { get; set; }
         public virtual DbSet<CompanyType> CompanyType { get; set; }
-        public virtual DbSet<ConstructionCompany> ConstructionCompany { get; set; }
-        public virtual DbSet<Garage> Garage { get; set; }
-        public virtual DbSet<HomeApplianceRepair> HomeApplianceRepair { get; set; }
-        public virtual DbSet<InsuranceCompanyContact> InsuranceCompanyContact { get; set; }
-        public virtual DbSet<MedicalClinic> MedicalClinic { get; set; }
         public virtual DbSet<CompanyService> CompanyService { get; set; }
         public virtual DbSet<AuthorizedEmail> AuthorizedEmail { get; set; }
         public virtual DbSet<PostImage> PostImage { get; set; }
@@ -73,5 +67,11 @@ namespace InsuranceSocialNetworkDAL
         public virtual DbSet<ChatDelete> ChatDelete { get; set; }
         public virtual DbSet<ChatNote> ChatNote { get; set; }
         public virtual DbSet<ChatNotification> ChatNotification { get; set; }
+        public virtual DbSet<ConstructionCompany> ConstructionCompany { get; set; }
+        public virtual DbSet<Garage> Garage { get; set; }
+        public virtual DbSet<HomeApplianceRepair> HomeApplianceRepair { get; set; }
+        public virtual DbSet<InsuranceCompanyContact> InsuranceCompanyContact { get; set; }
+        public virtual DbSet<MedicalClinic> MedicalClinic { get; set; }
+        public virtual DbSet<Profile> Profile { get; set; }
     }
 }

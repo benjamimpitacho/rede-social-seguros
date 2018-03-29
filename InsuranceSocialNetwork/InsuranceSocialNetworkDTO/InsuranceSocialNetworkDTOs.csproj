@@ -49,6 +49,9 @@
     <Compile Include="Company\CompanySearchDTO.cs" />
     <Compile Include="Payment\PaymentNotificationDTO.cs" />
     <Compile Include="Payment\PaymentDTO.cs" />
+    <Compile Include="PostalCode\CountyDTO.cs" />
+    <Compile Include="PostalCode\DistrictDTO.cs" />
+    <Compile Include="PostalCode\ParishDTO.cs" />
     <Compile Include="PostalCode\PostalCodeDTO.cs" />
     <Compile Include="Notification\NotificationTypeDTO.cs" />
     <Compile Include="Notification\NotificationDTO.cs" />

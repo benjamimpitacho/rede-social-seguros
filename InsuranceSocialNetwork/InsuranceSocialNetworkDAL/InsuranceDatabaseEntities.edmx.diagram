@@ -5,114 +5,75 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="4ad3967af0064543bc009e66a511e24c" Name="Diagram1" ZoomLevel="71">
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.AspNetRoles" Width="1.5" PointX="0.75" PointY="31" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.AspNetUserLogins" Width="1.5" PointX="5.25" PointY="67.5" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.NotificationType" Width="1.5" PointX="6" PointY="35.625" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.PostComment" Width="1.5" PointX="11.25" PointY="29.25" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.PostLike" Width="1.5" PointX="8.25" PointY="33.375" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.PostSubject" Width="1.5" PointX="9" PointY="19" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.PostType" Width="1.5" PointX="9" PointY="22.25" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.AspNetUsers" Width="1.5" PointX="3" PointY="27" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.AspNetRoles" Width="1.5" PointX="0.75" PointY="46.625" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.AspNetUserLogins" Width="1.5" PointX="5.25" PointY="96.625" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.NotificationType" Width="1.5" PointX="11.25" PointY="53.25" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.PostComment" Width="1.5" PointX="10.5" PointY="38.75" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.PostLike" Width="1.5" PointX="13.5" PointY="39" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.PostSubject" Width="1.5" PointX="6" PointY="33.75" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.PostType" Width="1.5" PointX="6" PointY="30.5" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.AspNetUsers" Width="1.5" PointX="3" PointY="42.125" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_PostComment_AspNetUsers" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_PostLike_AspNetUsers" />
         <AssociationConnector Association="InsurancePortal_dbModel.AspNetUserRoles" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.PostCommentLike" Width="1.5" PointX="13.5" PointY="29.375" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.PostCommentLike" Width="1.5" PointX="15.75" PointY="43.375" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_PostCommentLike_AspNetUsers" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_PostCommentLike_Comment" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.AspNetRolesFunctionalities" Width="1.5" PointX="3" PointY="39.125" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.AspNetRolesFunctionalities" Width="1.5" PointX="3" PointY="53.375" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_dbo_AspNetUserRolesFunctionalities_dbo_AspNetRoles_RoleId" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.FriendStatus" Width="1.5" PointX="9" PointY="36.625" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.Friend" Width="1.5" PointX="11.25" PointY="33" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.FriendStatus" Width="1.5" PointX="3" PointY="37.125" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.Friend" Width="1.5" PointX="5.25" PointY="36.625" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_FriendUser_AspNetUsers" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_FriendUserFriend_AspNetUsers" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_FriendStatus_FriendStatus" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.Chat" Width="1.5" PointX="5.25" PointY="70" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.ChatMember" Width="1.5" PointX="7.5" PointY="48.75" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.Chat" Width="1.5" PointX="5.25" PointY="99.125" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.ChatMember" Width="1.5" PointX="10.5" PointY="71.125" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_Chat_AspNetUsers" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_ChatMember_AspNetUsers" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_ChatMember_Chat" />
         <EntityTypeShape EntityType="InsurancePortal_dbModel.BannerType" Width="1.5" PointX="0.75" PointY="1.625" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.County" Width="1.5" PointX="0.75" PointY="11.875" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.District" Width="1.5" PointX="0.75" PointY="15.375" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.Parish" Width="1.5" PointX="0.75" PointY="18.625" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.ConstructionCompanyFavorite" Width="1.5" PointX="8.25" PointY="25.5" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.GarageFavorite" Width="1.5" PointX="5.25" PointY="23.5" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.HomeApplianceRepairFavorite" Width="1.5" PointX="5.25" PointY="32.5" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.InsuranceCompanyContactFavorite" Width="1.5" PointX="5.25" PointY="29.5" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.MedicalClinicFavorite" Width="1.5" PointX="5.25" PointY="26.5" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.County" Width="1.5" PointX="3.75" PointY="11.375" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.District" Width="1.5" PointX="3.75" PointY="16.25" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.Parish" Width="1.5" PointX="3.75" PointY="20.875" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.ConstructionCompanyFavorite" Width="1.5" PointX="8.25" PointY="48.125" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.GarageFavorite" Width="1.5" PointX="8.25" PointY="45.125" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.HomeApplianceRepairFavorite" Width="1.5" PointX="11.25" PointY="50.125" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.InsuranceCompanyContactFavorite" Width="1.5" PointX="11.25" PointY="47.125" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.MedicalClinicFavorite" Width="1.5" PointX="8.25" PointY="51.125" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_ConstructionCompanyFavorite_User" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_GarageFavorite_User" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_HomeApplianceRepairFavorite_User" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_InsuranceCompanyContactFavorite_User" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_MedicalClinicFavorite_User" />
         <EntityTypeShape EntityType="InsurancePortal_dbModel.Banner" Width="1.5" PointX="3" PointY="1" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.Profile" Width="1.5" PointX="5.25" PointY="57.75" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_Profile_AspNetUsers" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_Banner_BannerType" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.CompanyType" Width="1.5" PointX="1.5" PointY="35.875" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.ConstructionCompany" Width="1.5" PointX="6" PointY="16.5" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.Garage" Width="1.5" PointX="3" PointY="15.5" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.HomeApplianceRepair" Width="1.5" PointX="3" PointY="49.5" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.InsuranceCompanyContact" Width="1.5" PointX="3" PointY="42.5" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.MedicalClinic" Width="1.5" PointX="3" PointY="8.5" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_ConstructionCompany_County" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_ConstructionCompany_District" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_ConstructionCompany_Parish" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_ConstructionCompanyFavorite_ConstructionCompany" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_Garage_County" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_HomeApplianceRepair_County" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_InsuranceCompanyContact_County" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_MedicalClinic_County" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_Garage_District" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_HomeApplianceRepair_District" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_InsuranceCompanyContact_District" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_MedicalClinic_District" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_Garage_Parish" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_GarageFavorite_Garage" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_HomeApplianceRepair_Parish" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_HomeApplianceRepairFavorite_HomeApplianceRepair" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_InsuranceCompanyContact_Parish" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_InsuranceCompanyContactFavorite_InsuranceCompanyContact" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_MedicalClinic_Parish" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_MedicalClinicFavorite_MedicalClinic" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.CompanyService" Width="1.5" PointX="0.75" PointY="22.375" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.CompanyType" Width="1.5" PointX="1.5" PointY="26.375" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.CompanyService" Width="1.5" PointX="3.75" PointY="26" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_Company_Type" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_ConstructionCompany_Service" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_Garage_Service" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_HomeApplianceRepair_Service" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_InsuranceCompanyContact_Service" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_MedicalClinic_Service" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.AuthorizedEmail" Width="1.5" PointX="5.25" PointY="64.125" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.AuthorizedEmail" Width="1.5" PointX="5.25" PointY="93.25" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_AuthorizedEmail_User" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.PostImage" Width="1.5" PointX="13.5" PointY="24.25" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.ChatMessage" Width="1.5" PointX="10.5" PointY="48.5" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.PostImage" Width="1.5" PointX="10.5" PointY="34.75" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.ChatMessage" Width="1.5" PointX="7.5" PointY="74.875" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_ChatMessage_AspNetUsers" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_ChatMessage_Chat" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.Notification" Width="1.5" PointX="16.5" PointY="28.375" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.Notification" Width="1.5" PointX="13.5" PointY="42.25" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_NotificationFromUser_AspNetUsers" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_NotificationToUser_AspNetUsers" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_Notification_NotificationType" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.PostHidden" Width="1.5" PointX="16.5" PointY="24.5" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.PostHidden" Width="1.5" PointX="10.5" PointY="43" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_PostHidden_AspNetUsers" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.ProfileSettings" Width="1.5" PointX="7.5" PointY="59.625" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_ProfileSettings_Profile" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.PaymentStatus" Width="1.5" PointX="8.25" PointY="56.125" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.PaymentType" Width="1.5" PointX="8.25" PointY="64.875" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.SystemSettings" Width="1.5" PointX="5.375" PointY="0.75" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.PaymentNotification" Width="1.5" PointX="5.375" PointY="4.75" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.Payment" Width="1.5" PointX="13.5" PointY="34.625" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_Payment_ConstructionCompany" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_Payment_Garage" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_Payment_HomeApplianceRepair" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_Payment_InsuranceCompanyContact" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_Payment_MedicalClinic" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.ProfileSettings" Width="1.5" PointX="7.5" PointY="57.25" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.PaymentStatus" Width="1.5" PointX="11.25" PointY="68.125" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.PaymentType" Width="1.5" PointX="11.25" PointY="98.875" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.SystemSettings" Width="1.5" PointX="5.75" PointY="0.75" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.PaymentNotification" Width="1.5" PointX="0.75" PointY="5.75" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.Payment" Width="1.5" PointX="13.5" PointY="47.125" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_Payment_PaymentStatus" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_Payment_PaymentType" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_Payment_Profile" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.SystemLog" Width="1.5" PointX="5.25" PointY="38.625" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.SystemLog" Width="1.5" PointX="5.25" PointY="90.125" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_SystemLog_AspNetUsers" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.Post" Width="1.5" PointX="11.25" PointY="21.75" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.Post" Width="1.5" PointX="8.25" PointY="38.125" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_Post_AspNetUsers" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_Notification_Post" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_Post_PostSubject" />
@@ -121,15 +82,75 @@
         <AssociationConnector Association="InsurancePortal_dbModel.FK_PostHidden_Post" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_PostImage_Post" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_PostLike_Post" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.ChatDelete" Width="1.5" PointX="7.5" PointY="53.125" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.ChatDelete" Width="1.5" PointX="7.5" PointY="67.5" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_ChatDelete_AspNetUsers" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_ChatDelete_Chat" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.ChatNote" Width="1.5" PointX="7.5" PointY="45.125" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.ChatNotification" Width="1.5" PointX="10.5" PointY="53.25" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.ChatNote" Width="1.5" PointX="7.5" PointY="71.25" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.ChatNotification" Width="1.5" PointX="10.5" PointY="75.375" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_ChatNote_AspNetUsers" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_ChatNotification_AspNetUsers" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_ChatNote_Chat" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_ChatNotification_Chat" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.ConstructionCompany" Width="1.5" PointX="11.25" PointY="78.75" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.Garage" Width="1.5" PointX="6" PointY="15.75" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.HomeApplianceRepair" Width="1.5" PointX="11.25" PointY="88.5" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.InsuranceCompanyContact" Width="1.5" PointX="11.25" PointY="24.5" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.MedicalClinic" Width="1.5" PointX="11.25" PointY="56.125" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.Profile" Width="1.5" PointX="5.25" PointY="41.125" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_Profile_AspNetUsers" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_ConstructionCompany_Service" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_Garage_Service" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_HomeApplianceRepair_Service" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_InsuranceCompanyContact_Service" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_MedicalClinic_Service" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_ConstructionCompany_County" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_ConstructionCompany_District" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_ConstructionCompany_InvoiceCounty" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_ConstructionCompany_InvoiceDistrict" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_ConstructionCompany_InvoiceParish" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_ConstructionCompany_Parish" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_ConstructionCompanyFavorite_ConstructionCompany" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_Payment_ConstructionCompany" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_Garage_County" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_Garage_InvoiceCounty" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_HomeApplianceRepair_County" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_HomeApplianceRepair_InvoiceCounty" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_InsuranceCompanyContact_County" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_InsuranceCompanyContact_InvoiceCounty" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_MedicalClinic_County" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_MedicalClinic_InvoiceCounty" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_Profile_County" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_Profile_InvoiceCounty" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_Garage_District" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_Garage_InvoiceDistrict" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_HomeApplianceRepair_District" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_HomeApplianceRepair_InvoiceDistrict" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_InsuranceCompanyContact_District" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_InsuranceCompanyContact_InvoiceDistrict" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_MedicalClinic_District" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_MedicalClinic_InvoiceDistrict" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_Profile_District" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_Profile_InvoiceDistrict" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_Garage_InvoiceParish" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_Garage_Parish" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_GarageFavorite_Garage" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_Payment_Garage" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_HomeApplianceRepair_InvoiceParish" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_HomeApplianceRepair_Parish" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_HomeApplianceRepairFavorite_HomeApplianceRepair" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_Payment_HomeApplianceRepair" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_InsuranceCompanyContact_InvoiceParish" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_InsuranceCompanyContact_Parish" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_InsuranceCompanyContactFavorite_InsuranceCompanyContact" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_Payment_InsuranceCompanyContact" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_MedicalClinic_InvoiceParish" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_MedicalClinic_Parish" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_MedicalClinicFavorite_MedicalClinic" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_Payment_MedicalClinic" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_Profile_InvoiceParish" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_Profile_Parish" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_Payment_Profile" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_ProfileSettings_Profile" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

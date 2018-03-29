@@ -65,12 +65,21 @@ namespace InsuranceSocialNetworkDAL
                 item.Address = garage.Address;
                 item.ContactEmail = garage.ContactEmail;
                 item.Description = garage.Description;
+                item.Address = garage.Address;
+                item.PostalCode = garage.PostalCode;
                 item.ID_District = garage.ID_District;
                 item.ID_County = garage.ID_County;
                 item.ID_Parish = garage.ID_Parish;
+                item.SameInformationForInvoice = garage.SameInformationForInvoice;
+                item.Address = garage.Address;
+                item.PostalCode = garage.PostalCode;
+                item.ID_District = garage.Invoice_ID_District;
+                item.ID_County = garage.Invoice_ID_County;
+                item.ID_Parish = garage.Invoice_ID_Parish;
                 item.ID_Service = garage.ID_Service;
                 item.MobilePhone_1 = garage.MobilePhone_1;
                 item.MobilePhone_2 = garage.MobilePhone_2;
+                item.Fax = garage.Fax;
                 item.Name = garage.Name;
                 item.NIF = garage.NIF;
                 item.OfficialAgent = garage.OfficialAgent;
@@ -79,6 +88,7 @@ namespace InsuranceSocialNetworkDAL
                 item.Telephone_2 = garage.Telephone_2;
                 item.Website = garage.Website;
                 item.LogoPhoto = null != garage.LogoPhoto ? garage.LogoPhoto : item.LogoPhoto;
+                item.LibaxEntityID = garage.LibaxEntityID;
 
                 if (null == item.Payment && null != garage.Payment)
                 {

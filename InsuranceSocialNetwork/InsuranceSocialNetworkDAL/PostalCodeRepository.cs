@@ -55,5 +55,38 @@ namespace InsuranceSocialNetworkDAL
                     .ToList();
             }
         }
+
+        public static Parish GetParish(long id)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                return context.Parish
+                    .Fetch()
+                    .Where(i => i.ID == id)
+                    .FirstOrDefault();
+            }
+        }
+
+        public static County GetCounty(long id)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                return context.County
+                    .Fetch()
+                    .Where(i => i.ID == id)
+                    .FirstOrDefault();
+            }
+        }
+
+        public static District GetDistrict(long id)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                return context.District
+                    .Fetch()
+                    .Where(i => i.ID == id)
+                    .FirstOrDefault();
+            }
+        }
     }
 }

@@ -58,15 +58,22 @@ namespace InsuranceWebsite.Models
         public string MobilePhone_2 { get; set; }
         public string Telephone_1 { get; set; }
         public string Telephone_2 { get; set; }
+        public string Fax { get; set; }
         public string Address { get; set; }
         [MaxLength(10)]
         public string PostalCode { get; set; }
-        [MaxLength(64)]
-        public string Locality { get; set; }
-        [MaxLength(64)]
-        public string County { get; set; }
-        [MaxLength(64)]
-        public string District { get; set; }
+        //[MaxLength(64)]
+        public long? ID_Parish { get; set; }
+        //[MaxLength(64)]
+        public long? ID_County { get; set; }
+        //[MaxLength(64)]
+        public long? ID_District { get; set; }
+        public bool SameInformationForInvoice { get; set; }
+        public string Invoice_Address { get; set; }
+        public string Invoice_PostalCode { get; set; }
+        public long? Invoice_ID_Parish { get; set; }
+        public long? Invoice_ID_County { get; set; }
+        public long? Invoice_ID_District { get; set; }
         [Url]
         public string Facebook { get; set; }
         [Url]

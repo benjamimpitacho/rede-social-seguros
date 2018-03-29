@@ -346,6 +346,7 @@ namespace InsuranceWebsite.Controllers
                         switch (model.ID_PaymentType)
                         {
                             case (int)PaymentTypeEnum.ATM:
+                                InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, Request.UserHostAddress, "CompaniesManagementController::Create", baseUrl);
                                 var result = client.DownloadString(baseUrl);
                                 response.LoadXml(result);
                                 break;
@@ -587,6 +588,7 @@ namespace InsuranceWebsite.Controllers
                         switch (model.ID_PaymentType)
                         {
                             case (int)PaymentTypeEnum.ATM:
+                                InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, Request.UserHostAddress, "CompaniesManagementController::Edit", baseUrl);
                                 var result = client.DownloadString(baseUrl);
                                 response.LoadXml(result);
                                 break;
@@ -784,6 +786,7 @@ namespace InsuranceWebsite.Controllers
                 using (var client = new WebClient())
                 {
                     XmlDocument response = new XmlDocument();
+                    InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, Request.UserHostAddress, "CompaniesManagementController::SetupDirectDebit", baseUrl);
                     var result = client.DownloadString(baseUrl);
                     response.LoadXml(result);
 

@@ -17,8 +17,8 @@ namespace InsuranceSocialNetworkDAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Profile()
         {
-            this.ProfileSettings = new HashSet<ProfileSettings>();
             this.Payment = new HashSet<Payment>();
+            this.ProfileSettings = new HashSet<ProfileSettings>();
         }
     
         public long ID { get; set; }
@@ -32,6 +32,7 @@ namespace InsuranceSocialNetworkDAL
         public string Telephone_1 { get; set; }
         public string Telephone_2 { get; set; }
         public string Address { get; set; }
+        public string PostalCode { get; set; }
         public string AboutMe { get; set; }
         public string Skype { get; set; }
         public string Whatsapp { get; set; }
@@ -44,19 +45,32 @@ namespace InsuranceSocialNetworkDAL
         public System.DateTime LastChangeDate { get; set; }
         public Nullable<System.DateTime> DeleteDate { get; set; }
         public bool Active { get; set; }
-        public string PostalCode { get; set; }
-        public string Locality { get; set; }
-        public string County { get; set; }
-        public string District { get; set; }
         public string CompanyName { get; set; }
         public string Facebook { get; set; }
         public string Twitter { get; set; }
         public string GooglePlus { get; set; }
+        public string Fax { get; set; }
+        public bool SameInformationForInvoice { get; set; }
+        public string Invoice_Address { get; set; }
+        public string Invoice_PostalCode { get; set; }
+        public Nullable<long> Invoice_ID_Parish { get; set; }
+        public Nullable<long> Invoice_ID_County { get; set; }
+        public Nullable<long> Invoice_ID_District { get; set; }
+        public Nullable<long> ID_Parish { get; set; }
+        public Nullable<long> ID_County { get; set; }
+        public Nullable<long> ID_District { get; set; }
+        public Nullable<int> LibaxEntityID { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProfileSettings> ProfileSettings { get; set; }
+        public virtual County County { get; set; }
+        public virtual County County1 { get; set; }
+        public virtual District District { get; set; }
+        public virtual District District1 { get; set; }
+        public virtual Parish Parish { get; set; }
+        public virtual Parish Parish1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Payment> Payment { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProfileSettings> ProfileSettings { get; set; }
     }
 }
