@@ -1,0 +1,147 @@
+﻿@using InsuranceWebsite.Models
+@using InsuranceSocialNetworkDTO.Chat;
+@model ChatViewModel
+
+<link href="~/Content/bookpost/css/messages.css" rel="stylesheet">
+
+@*@Html.HiddenFor(i=>i.Chat.ID_Chat, new { id="chatId" })*@
+@*@Html.HiddenFor(i => i.Profile.ID_User, new { id = "userId" })
+@Html.HiddenFor(i => i.Profile.FirstName, new { id = "firstName" })
+@Html.HiddenFor(i => i.Profile.LastName, new { id = "lastName" })*@
+
+<div class="panel panel-body post panel-shadow animated fadeInUp" style="margin-bottom:2px;max-height:80px;background-color:#EDEFF0;">
+    <div class="post-heading" style="vertical-align:middle;">
+        <span style="font-size:16px;font-weight:bold;color:#4B5C66;">@Resources.Resources.NewMessage</span>
+    </div>
+</div>
+
+<div class="panel panel-white post panel-shadow animated fadeInUp" style="overflow:auto;margin-bottom:5px;">
+
+    @using (Html.BeginForm("SearchConversations", "Home", FormMethod.Post, new { id = "searchForm" }))
+    {
+        <div class="panel panel-white post panel-shadow animated fadeInUp" style="margin-bottom:0px;height:80px;">
+            <div class="post-heading" style="padding: 10px 15px;">
+                <div class="title" style="border:0px;background-color:inherit; font-weight:bold; font-size: 17px; overflow: auto;">
+                    <div class="pull-left image" style="max-width:60px;">
+                        <a href="@Url.Action("NewMessage")">
+                            <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF122.png" class="avatar img-circle" style="border:none;height:60px; width:60px;border-radius:0px;">
+                        </a>
+                    </div>
+
+                    <div style="float:left; padding-top:8px;width: calc(100% - 175px);">@Html.TextBoxFor(m => m.AllowedEmailsText, new { @class = "form-control", @placeholder = Resources.Resources.InsertOneOrMoreContacts+"...", @style = "padding:18px;border-radius:0px;border:0px;box-shadow: none;font-weight:normal;" })</div>
+                    
+                </div>
+
+            </div>
+        </div>
+    }
+</div>
+
+<div class="col-inside-lg decor-default" style="width:100%;max-height: calc(100vh - 270px);min-height:300px; overflow:auto;">
+    
+    <div class="chat-body" id="discussion" style="width: calc(100% - 20px);">
+        @*@foreach (ChatMessageDTO message in Model.Chat.ChatMessage)
+        {
+            if (message.ID_User == Model.Profile.ID_User)
+            {
+                <div class="answer right">
+                    <div class="text">
+                        @message.Text
+                    </div>
+                    @if (DateTime.Now.Subtract(message.CreateDate).TotalMinutes < 1)
+                    {
+                        <div class="time">@Math.Round(DateTime.Now.Subtract(message.CreateDate).TotalSeconds, 0) @Resources.Resources.SecondsAgo</div>
+                    }
+                    else if (DateTime.Now.Subtract(message.CreateDate).TotalHours < 1)
+                    {
+                        <div class="time">@Math.Round(DateTime.Now.Subtract(message.CreateDate).TotalMinutes, 0) @Resources.Resources.MinutesAgo</div>
+                    }
+                    else if (DateTime.Now.Subtract(message.CreateDate).TotalDays < 1)
+                    {
+                        <div class="time">@Math.Round(DateTime.Now.Subtract(message.CreateDate).TotalHours, 0) @Resources.Resources.HoursAgo</div>
+                    }
+                    else if (DateTime.Now.Subtract(message.CreateDate).TotalDays < 5)
+                    {
+                        <div class="time">@Math.Round(DateTime.Now.Subtract(message.CreateDate).TotalDays, 0) @Resources.Resources.DaysAgo</div>
+                    }
+                    else
+                    {
+                        <div class="time">@message.CreateDate.ToShortDateString()</div>
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="answer left">
+                    <div class="avatar">
+                        @if (null == Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).ProfilePhoto || Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).ProfilePhoto.Length == 0)
+                        {
+                            <img class="thumb media-object" src="~/Content/images/no_photo_img.jpg" alt="" style="max-width: 25px;border-radius: 50px;border: 1px solid #939DA3;margin-bottom: 5px;">
+                        }
+                        else
+                        {
+                            <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.Chat.ChatMemberProfile.FirstOrDefault(i=>i.ID_User != Model.Profile.ID_User).ProfilePhoto))" class="thumb media-object" style="max-width: 40px;border-radius: 50px;border: 1px solid #939DA3;margin-bottom: 10px;">
+                        }
+                    </div>
+                    <div class="text">
+                        @message.Text
+                    </div>
+                    @if (DateTime.Now.Subtract(message.CreateDate).TotalMinutes < 1)
+                    {
+                        <div class="time">@Math.Round(DateTime.Now.Subtract(message.CreateDate).TotalSeconds, 0) @Resources.Resources.SecondsAgo</div>
+                    }
+                    else if (DateTime.Now.Subtract(message.CreateDate).TotalHours < 1)
+                    {
+                        <div class="time">@Math.Round(DateTime.Now.Subtract(message.CreateDate).TotalMinutes, 0) @Resources.Resources.MinutesAgo</div>
+                    }
+                    else if (DateTime.Now.Subtract(message.CreateDate).TotalDays < 1)
+                    {
+                        <div class="time">@Math.Round(DateTime.Now.Subtract(message.CreateDate).TotalHours, 0) @Resources.Resources.HoursAgo</div>
+                    }
+                    else if (DateTime.Now.Subtract(message.CreateDate).TotalDays < 5)
+                    {
+                        <div class="time">@Math.Round(DateTime.Now.Subtract(message.CreateDate).TotalDays, 0) @Resources.Resources.DaysAgo</div>
+                    }
+                    else
+                    {
+                        <div class="time">@message.CreateDate.ToShortDateString()</div>
+                    }
+                </div>
+            }
+        }*@
+
+        <div class="answer-add" id="sendMessageDiv" style="visibility:hidden;">
+        </div>
+    </div>
+</div>
+<div class="col-inside-lg decor-default" style="width:100%; margin-top:5px;">
+    <textarea placeholder="@Resources.Resources.WriteMessageOrAttachAnArchive" rows="1" class="form-control input-lg p-text-area" id="message" name="message" style="resize:none;"></textarea>
+    <img id="imgPlaceholder" src="#" alt="" style="visibility:hidden;position:absolute" />
+    <div class="panel-footer" style="border-top: 0px; padding: 10px 10px;">
+        <button class="btn btn-info pull-right" id="sendmessage" style="font-weight:bold;">@Resources.Resources.Send</button>
+        <ul class="nav nav-pills">
+            <li>
+                <input type='file' id="imgUpload" style="visibility:hidden;position:absolute" name="imgUpload" />
+                <a href="javascript:$('#imgUpload').click()" style="padding: 3px 5px">
+                    <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF110.png" class="icon-normal" />
+                </a>
+            </li>
+            <li>
+                <input type='file' id="fileUpload" style="visibility:hidden;position:absolute" name="fileUpload" />
+                <a href="javascript:$('#fileUpload').click()" style="padding: 3px 5px">
+                    <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF111.png" class="icon-normal" />
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+<!--Reference the SignalR library. -->
+@*<script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>*@
+<!--Reference the autogenerated SignalR hub script. -->
+@*<script src="~/signalr/hubs"></script>*@
+
+<script type="text/javascript">
+    
+</script>

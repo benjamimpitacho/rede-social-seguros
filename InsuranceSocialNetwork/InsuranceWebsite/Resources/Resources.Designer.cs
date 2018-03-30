@@ -142,6 +142,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Adicionar email.
+        /// </summary>
+        public static string AddEmail {
+            get {
+                return ResourceManager.GetString("AddEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Adicionar email/dominio.
         /// </summary>
         public static string AddEmailOrDomain {
@@ -1267,6 +1276,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Inserir email.
+        /// </summary>
+        public static string InsertEmail {
+            get {
+                return ResourceManager.GetString("InsertEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insira um ou mais contactos.
+        /// </summary>
+        public static string InsertOneOrMoreContacts {
+            get {
+                return ResourceManager.GetString("InsertOneOrMoreContacts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Seguradora.
         /// </summary>
         public static string INSURANCE_COMPANY {
@@ -1596,6 +1623,15 @@ namespace Resources {
         public static string NewCurrentDiscussionPostNotification {
             get {
                 return ResourceManager.GetString("NewCurrentDiscussionPostNotification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mensagem nova.
+        /// </summary>
+        public static string NewMessage {
+            get {
+                return ResourceManager.GetString("NewMessage", resourceCulture);
             }
         }
         
@@ -2086,6 +2122,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remove email.
+        /// </summary>
+        public static string RemoveEmail {
+            get {
+                return ResourceManager.GetString("RemoveEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remover email/dominio.
         /// </summary>
         public static string RemoveEmailOrDomain {
@@ -2262,6 +2307,15 @@ namespace Resources {
         public static string SelectDistrict {
             get {
                 return ResourceManager.GetString("SelectDistrict", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Seleccione a freguesia.
+        /// </summary>
+        public static string SelectParish {
+            get {
+                return ResourceManager.GetString("SelectParish", resourceCulture);
             }
         }
         

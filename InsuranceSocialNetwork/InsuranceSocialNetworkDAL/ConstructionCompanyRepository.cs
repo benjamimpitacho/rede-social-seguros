@@ -21,7 +21,14 @@ namespace InsuranceSocialNetworkDAL
         {
             return context.ConstructionCompany
                 .Fetch()
-                .Include("ConstructionCompanyFavorite")
+                .Include(i=>i.ConstructionCompanyFavorite)
+                .Include(i => i.Payment)
+                .Include(i => i.Parish)
+                .Include(i => i.County)
+                .Include(i => i.District)
+                .Include(i => i.Parish1)
+                .Include(i => i.County1)
+                .Include(i => i.District1)
                 .Where(i => i.Active)
                 .FirstOrDefault(i => i.ID == id);
         }
@@ -33,7 +40,14 @@ namespace InsuranceSocialNetworkDAL
                 return context
                     .ConstructionCompany
                     .Fetch()
-                    .Include("ConstructionCompanyFavorite")
+                    .Include(i => i.ConstructionCompanyFavorite)
+                    .Include(i => i.Payment)
+                    .Include(i => i.Parish)
+                    .Include(i => i.County)
+                    .Include(i => i.District)
+                    .Include(i => i.Parish1)
+                    .Include(i => i.County1)
+                    .Include(i => i.District1)
                     .Select(i => i)
                     .OrderBy(i => i.Name)
                     .ToList();

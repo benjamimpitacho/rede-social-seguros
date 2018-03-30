@@ -36,32 +36,15 @@
             <!-- left  content-->
             <div class="profile-info col-md-6 animated fadeInUp" tabindex="5001" id="messageListPanel">
 
-                @*@using (Html.BeginForm("SearchConversations", "Home", FormMethod.Post, new { id = "searchForm" }))
-                {
-                    <div class="panel panel-white post panel-shadow animated fadeInUp" style="margin-bottom:0px;height:80px;">
-                        <div class="post-heading" style="padding: 10px 15px;">
-                            <div class="title" style="border:0px;background-color:inherit; font-weight:bold; font-size: 17px; overflow: auto;">
-                                <div class="pull-left image" style="max-width:60px;">
-                                    <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF122.png" class="avatar img-circle" style="border:none;height:60px; width:60px;">
-                                </div>
-
-                                <div style="float:left; padding-top:8px;width: calc(100% - 125px);">@Html.TextBoxFor(m => m.SearchModel.SearchTerm, new { @class = "form-control", @placeholder = Resources.Resources.SearchByCompanyNameEmailLocality, @style = "padding:18px;border-radius:0px;border:0px;box-shadow: none;font-weight:normal;" })</div>
-                                <div style="float:right; max-width: 50px;">
-                                    <a href="#" onclick="document.getElementById('searchForm').submit();">
-                                        <img src="~/Content/icons/icone_pesquisa_rede_social_falar_seguros_AF.png" />
-                                    </a>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                }*@
-
-                @if (null == Model.ActiveChat)
+                @if (null == Model.ActiveChat && !Model.IsNewMessage)
                 {
                     <div class="col-md-12 alert alert-info" style="text-align:center">
                         @Resources.Resources.NoActiveChatSelected
                     </div>
+                }
+                else if (Model.IsNewMessage)
+                {
+                    @Html.Partial("~/Views/Home/Partial/NewChatSectionView.cshtml", new ChatViewModel() { Chat = Model.ActiveChat, Profile = Model.Profile })
                 }
                 else
                 {
@@ -79,7 +62,9 @@
                         <div class="post-heading" style="padding: 10px 15px;">
                             <div class="title" style="border:0px;background-color:inherit; font-weight:bold; font-size: 17px; overflow: auto;">
                                 <div class="pull-left image" style="max-width:60px;">
-                                    <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF122.png" class="avatar img-circle" style="border:none;height:60px; width:60px;">
+                                    <a href="@Url.Action("NewMessage")">
+                                        <img src="~/Content/icons/mais_icons_mensagens_rede_social_falar_seguros_AF.png" class="avatar img-circle" style="border:none;height:60px; width:60px;border-radius:0px;">
+                                    </a>
                                 </div>
 
                                 <div style="float:left; padding-top:8px;width: calc(100% - 175px);">@Html.TextBoxFor(m => m.SearchModel.SearchTerm, new { @class = "form-control", @placeholder = Resources.Resources.SearchMessages, @style = "padding:18px;border-radius:0px;border:0px;box-shadow: none;font-weight:normal;" })</div>
@@ -128,57 +113,57 @@
                                         <div style="color:#939DA3;font-size:11px;font-weight:bold;">@chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).CompanyName</div>
                                     }
 
-                                    @if (string.IsNullOrEmpty(chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).District))
+                                    @if (!chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).ID_District.HasValue)
                                     {
-                                        if (string.IsNullOrEmpty(chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).County))
+                                        if (!chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).ID_County.HasValue)
                                         {
-                                            if (string.IsNullOrEmpty(chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).Locality))
+                                            if (!chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).ID_Parish.HasValue)
                                             {
                                                 <div style="color:#939DA3;font-size:11px;font-weight:bold;">-</div>
                                             }
                                             else
                                             {
-                                                <div style="color:#939DA3;font-size:11px;font-weight:bold;">@chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).Locality, @chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).County</div>
+                                                <div style="color:#939DA3;font-size:11px;font-weight:bold;">@chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).Parish.Name</div>
 
                                             }
                                         }
                                         else
                                         {
-                                            if (string.IsNullOrEmpty(chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).Locality))
+                                            if (!chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).ID_Parish.HasValue)
                                             {
-                                                <div style="color:#939DA3;font-size:11px;font-weight:bold;">@chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).County</div>
+                                                <div style="color:#939DA3;font-size:11px;font-weight:bold;">@chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).County.Name</div>
                                             }
                                             else
                                             {
-                                                <div style="color:#939DA3;font-size:11px;font-weight:bold;">@chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).Locality, @chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).County</div>
+                                                <div style="color:#939DA3;font-size:11px;font-weight:bold;">@chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).Parish.Name, @chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).County.Name</div>
 
                                             }
                                         }
                                     }
                                     else
                                     {
-                                        if (string.IsNullOrEmpty(chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).County))
+                                        if (!chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).ID_County.HasValue)
                                         {
-                                            if (string.IsNullOrEmpty(chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).Locality))
+                                            if (!chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).ID_Parish.HasValue)
                                             {
-                                                <div style="color:#939DA3;font-size:11px;font-weight:bold;">@chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).District</div>
+                                                <div style="color:#939DA3;font-size:11px;font-weight:bold;">@chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).District.Name</div>
                                             }
                                             else
                                             {
-                                                <div style="color:#939DA3;font-size:11px;font-weight:bold;">@chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).Locality, @chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).District</div>
+                                                <div style="color:#939DA3;font-size:11px;font-weight:bold;">@chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).Parish.Name, @chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).District.Name</div>
 
                                             }
                                         }
                                         else
                                         {
-                                            if (string.IsNullOrEmpty(chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).Locality))
+                                            if (!chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).ID_Parish.HasValue)
                                             {
-                                                <div style="color:#939DA3;font-size:11px;font-weight:bold;">@chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).County, @chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).District</div>
+                                                <div style="color:#939DA3;font-size:11px;font-weight:bold;">@chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).County.Name, @chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).District.Name</div>
 
                                             }
                                             else
                                             {
-                                                <div style="color:#939DA3;font-size:11px;font-weight:bold;">@chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).Locality, @chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).County, @chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).District</div>
+                                                <div style="color:#939DA3;font-size:11px;font-weight:bold;">@chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).Parish.Name, @chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).County.Name, @chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).District.Name</div>
 
                                             }
                                         }

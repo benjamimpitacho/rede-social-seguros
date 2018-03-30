@@ -15,6 +15,8 @@ namespace InsuranceWebsite.Models
             this.Chats = new List<ChatDTO>();
         }
 
+        public bool IsNewMessage{ get; set; }
+
         public List<ChatDTO> Chats { get; set; }
 
         public ChatDTO ActiveChat { get; set; }

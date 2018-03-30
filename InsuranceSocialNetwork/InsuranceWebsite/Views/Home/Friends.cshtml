@@ -104,57 +104,57 @@
                                     <div style="color:#939DA3;font-size:11px;font-weight:bold;">@friend.CompanyName</div>
                                 }
                                 <div style="color:#939DA3;font-size:11px;font-weight:bold;">@friend.CompanyName</div>
-                                @if (string.IsNullOrEmpty(friend.District))
+                                @if (!friend.ID_District.HasValue)
                                 {
-                                    if (string.IsNullOrEmpty(friend.County))
+                                    if (!friend.ID_County.HasValue)
                                     {
-                                        if (string.IsNullOrEmpty(friend.Locality))
+                                        if (!friend.ID_Parish.HasValue)
                                         {
                                             <div style="color:#939DA3;font-size:11px;font-weight:bold;">-</div>
                                         }
                                         else
                                         {
-                                            <div style="color:#939DA3;font-size:11px;font-weight:bold;">@friend.Locality, @friend.County</div>
+                                            <div style="color:#939DA3;font-size:11px;font-weight:bold;">@friend.Parish.Name</div>
 
                                         }
                                     }
                                     else
                                     {
-                                        if (string.IsNullOrEmpty(friend.Locality))
+                                        if (!friend.ID_Parish.HasValue)
                                         {
-                                            <div style="color:#939DA3;font-size:11px;font-weight:bold;">@friend.County</div>
+                                            <div style="color:#939DA3;font-size:11px;font-weight:bold;">@friend.County.Name</div>
                                         }
                                         else
                                         {
-                                            <div style="color:#939DA3;font-size:11px;font-weight:bold;">@friend.Locality, @friend.County</div>
+                                            <div style="color:#939DA3;font-size:11px;font-weight:bold;">@friend.Parish.Name, @friend.County.Name</div>
 
                                         }
                                     }
                                 }
                                 else
                                 {
-                                    if (string.IsNullOrEmpty(friend.County))
+                                    if (!friend.ID_County.HasValue)
                                     {
-                                        if (string.IsNullOrEmpty(friend.Locality))
+                                        if (!friend.ID_Parish.HasValue)
                                         {
-                                            <div style="color:#939DA3;font-size:11px;font-weight:bold;">@friend.District</div>
+                                            <div style="color:#939DA3;font-size:11px;font-weight:bold;">@friend.District.Name</div>
                                         }
                                         else
                                         {
-                                            <div style="color:#939DA3;font-size:11px;font-weight:bold;">@friend.Locality, @friend.District</div>
+                                            <div style="color:#939DA3;font-size:11px;font-weight:bold;">@friend.Parish.Name, @friend.District.Name</div>
 
                                         }
                                     }
                                     else
                                     {
-                                        if (string.IsNullOrEmpty(friend.Locality))
+                                        if (!friend.ID_Parish.HasValue)
                                         {
-                                            <div style="color:#939DA3;font-size:11px;font-weight:bold;">@friend.County, @friend.District</div>
+                                            <div style="color:#939DA3;font-size:11px;font-weight:bold;">@friend.County.Name, @friend.District.Name</div>
 
                                         }
                                         else
                                         {
-                                            <div style="color:#939DA3;font-size:11px;font-weight:bold;">@friend.Locality, @friend.County, @friend.District</div>
+                                            <div style="color:#939DA3;font-size:11px;font-weight:bold;">@friend.Parish.Name, @friend.County.Name, @friend.District.Name</div>
 
                                         }
                                     }

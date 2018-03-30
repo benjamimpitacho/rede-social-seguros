@@ -996,4 +996,22 @@
   <data name="INSURANCE_COMPANY" xml:space="preserve">
     <value>Seguradora</value>
   </data>
+  <data name="NewMessage" xml:space="preserve">
+    <value>Mensagem nova</value>
+  </data>
+  <data name="InsertOneOrMoreContacts" xml:space="preserve">
+    <value>Insira um ou mais contactos</value>
+  </data>
+  <data name="SelectParish" xml:space="preserve">
+    <value>Seleccione a freguesia</value>
+  </data>
+  <data name="AddEmail" xml:space="preserve">
+    <value>Adicionar email</value>
+  </data>
+  <data name="InsertEmail" xml:space="preserve">
+    <value>Inserir email</value>
+  </data>
+  <data name="RemoveEmail" xml:space="preserve">
+    <value>Remove email</value>
+  </data>
 </root>

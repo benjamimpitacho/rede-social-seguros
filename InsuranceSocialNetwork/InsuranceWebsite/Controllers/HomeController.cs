@@ -18,8 +18,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Security;
-using System.Web.Services;
 
 namespace InsuranceWebsite.Controllers
 {
@@ -193,6 +191,29 @@ namespace InsuranceWebsite.Controllers
             //model.Chats = InsuranceBusiness.BusinessLayer.GetChats(CurrentUser.ID_User);
 
             return View(model);
+        }
+
+        [FunctionalityAutorizeAttribute("MESSAGES_FUNCTIONALITY")]
+        public async Task<ActionResult> NewMessage()
+        {
+            var model = new MessagesViewModel();
+            if (null != this.User && this.User.Identity.IsAuthenticated)
+            {
+                var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
+                if (null != user)
+                {
+                    FillModel(model, user.Id);
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            model.IsNewMessage = true;
+
+            return View("Messages", model);
         }
 
         /// <summary>
@@ -1088,6 +1109,7 @@ namespace InsuranceWebsite.Controllers
 
                 model.IsProfileTimeline = true;
                 model.IsOwnProfile = (!id.HasValue || (id.HasValue && id.Value == model.Profile.ID));
+                model.CompaniesWorkingWith = InsuranceBusiness.BusinessLayer.GetInsuranceCompaniesWorkingWith(model.Profile.ID_User).Select(i => new SelectListItem() { Value = i.Key.ToString(), Text = i.Value }).ToList();
                 model.AllowedEmails = InsuranceBusiness.BusinessLayer.GetAuthorizedEmailsForAutomaticApproval(model.Profile.ID_User).Select(i => new SelectListItem() { Value = i, Text = i }).ToList();
 
                 if (!model.IsOwnProfile && id.HasValue)
@@ -1436,12 +1458,29 @@ namespace InsuranceWebsite.Controllers
             model.ProfileEditModel.GooglePlus = model.Profile.GooglePlus;
             model.ProfileEditModel.Skype =  model.Profile.Skype;
             model.ProfileEditModel.Whatsapp =  model.Profile.Whatsapp;
-            model.ProfileEditModel.CompaniesWorkingWith = model.Profile.CompaniesWorkingWith;
-
             model.ProfileEditModel.CreateDate = model.Profile.CreateDate;
 
+            var companiesWorkingWith = InsuranceBusiness.BusinessLayer.GetInsuranceCompaniesWorkingWith(model.Profile.ID_User);
+            model.ProfileEditModel.CompaniesWorkingWith = companiesWorkingWith.Select(i => new SelectListItem() { Value = i.Key.ToString(), Text = i.Value }).ToList();
+            model.ProfileEditModel.AvailableCompaniesToWorkWith = InsuranceBusiness.BusinessLayer.GetInsuranceCompanyContacts().Where(i => !companiesWorkingWith.Exists(j => j.Key == i.ID)).Select(i => new SelectListItem() { Value = i.ID.ToString(), Text = i.BusinessName }).ToList();
+
             model.ProfileEditModel.AllowedEmails = InsuranceBusiness.BusinessLayer.GetAuthorizedEmailsForAutomaticApproval(model.Profile.ID_User).Select(i => new SelectListItem() { Value = i, Text = i }).ToList();
-            
+
+            if(model.ProfileEditModel.ID_County.HasValue)
+            {
+                List<SelectListItem> initList = new List<SelectListItem>() { new SelectListItem() { Value = "", Text = Resources.Resources.SelectCounty } };
+                model.ProfileEditModel.CountyList = initList.Concat(InsuranceBusiness.BusinessLayer.GetCountiesByDistrict(model.ProfileEditModel.ID_District.Value).Select(i => new SelectListItem() { Value = i.Key.ToString(), Text = i.Value }).ToList()).ToList();
+            }
+
+            if (model.ProfileEditModel.ID_Parish.HasValue)
+            {
+                List<SelectListItem> initList = new List<SelectListItem>() { new SelectListItem() { Value = "", Text = Resources.Resources.SelectParish } };
+                model.ProfileEditModel.ParishList = initList.Concat(InsuranceBusiness.BusinessLayer.GetParishesByCounties(model.ProfileEditModel.ID_County.Value).Select(i => new SelectListItem() { Value = i.Key.ToString(), Text = i.Value }).ToList()).ToList();
+            }
+
+            model.Profile.TotalFriends = InsuranceBusiness.BusinessLayer.GetTotalFriends(model.Profile.ID_User);
+            model.Profile.TotalLikes = InsuranceBusiness.BusinessLayer.GetTotalLikes(model.Profile.ID_User);
+
             return View("Index", model);
             //return View(model);
         }
@@ -1519,8 +1558,12 @@ namespace InsuranceWebsite.Controllers
             model.ProfileEditModel.GooglePlus = model.Profile.GooglePlus;
             model.ProfileEditModel.Skype = model.Profile.Skype;
             model.ProfileEditModel.Whatsapp = model.Profile.Whatsapp;
-            model.ProfileEditModel.CompaniesWorkingWith = model.Profile.CompaniesWorkingWith;
+            //model.ProfileEditModel.CompaniesWorkingWith = model.Profile.CompaniesWorkingWith;
             model.ProfileEditModel.CreateDate = model.Profile.CreateDate;
+
+            var companiesWorkingWith = InsuranceBusiness.BusinessLayer.GetInsuranceCompaniesWorkingWith(model.Profile.ID_User);
+            model.ProfileEditModel.CompaniesWorkingWith = companiesWorkingWith.Select(i => new SelectListItem() { Value = i.Key.ToString(), Text = i.Value }).ToList();
+            model.ProfileEditModel.AvailableCompaniesToWorkWith = InsuranceBusiness.BusinessLayer.GetInsuranceCompanyContacts().Where(i => companiesWorkingWith.Exists(j => j.Key == i.ID)).Select(i => new SelectListItem() { Value = i.ID.ToString(), Text = i.BusinessName }).ToList();
 
             model.ProfileEditModel.AllowedEmails = InsuranceBusiness.BusinessLayer.GetAuthorizedEmailsForAutomaticApproval(model.Profile.ID_User).Select(i => new SelectListItem() { Value = i, Text = i }).ToList();
 
@@ -1589,7 +1632,7 @@ namespace InsuranceWebsite.Controllers
             profile.GooglePlus = model.ProfileEditModel.GooglePlus;
             profile.Skype = model.ProfileEditModel.Skype;
             profile.Whatsapp = model.ProfileEditModel.Whatsapp;
-            profile.CompaniesWorkingWith = model.ProfileEditModel.CompaniesWorkingWith;
+            //profile.CompaniesWorkingWith = model.ProfileEditModel.CompaniesWorkingWith;
             if (null != fileUploaderControl)
             {
                 Bitmap resizedImage = ImageUtils.ResizeImage(Bitmap.FromStream(fileUploaderControl.InputStream), 250, 250);
@@ -1606,17 +1649,26 @@ namespace InsuranceWebsite.Controllers
             profile.Telephone_2 = model.ProfileEditModel.Telephone_2;
             profile.Fax = model.ProfileEditModel.Fax;
             profile.Website = model.ProfileEditModel.Website;
-
+            
             InsuranceBusiness.BusinessLayer.UpdateProfile(profile);
 
-            //try
-            //{
-            //    InsuranceBusiness.BusinessLayer.UpdateEmailAuthorizedForAutomaticApproval(model.Profile.ID_User, model.ProfileEditModel.SelectedAllowedEmails);
-            //}
-            //catch (Exception ex)
-            //{
-            //    throw new NotImplementedException();
-            //}
+            try
+            {
+                InsuranceBusiness.BusinessLayer.UpdateEmailAuthorizedForAutomaticApproval(model.Profile.ID_User, model.ProfileEditModel.SelectedAllowedEmails);
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException();
+            }
+
+            try
+            {
+                InsuranceBusiness.BusinessLayer.UpdateCompaniesWorkingWith(model.Profile.ID_User, model.ProfileEditModel.SelectedCompaniesWorkingWith, CompanyTypeEnum.INSURANCE_COMPANY_CONTACT);
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException();
+            }
 
             //return View("ProfileInfo", model);
             return RedirectToAction("ProfileInfo", new { id = model.ProfileEditModel.ID });
@@ -1874,6 +1926,28 @@ namespace InsuranceWebsite.Controllers
                 List<SelectListItem> initList = new List<SelectListItem>() { new SelectListItem() { Value = "", Text = Resources.Resources.SelectCounty } };
 
                 List<SelectListItem> items = initList.Concat(InsuranceBusiness.BusinessLayer.GetCountiesByDistrict(Int64.Parse(districtId)).Select(i => new SelectListItem() { Value = i.Key.ToString(), Text = i.Value }).ToList()).ToList();
+
+                return Json(items, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        [HttpGet]
+        public ActionResult GetParishesByCounty(string countyId)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(countyId))
+                {
+                    return Json(new List<SelectListItem>() { new SelectListItem() { Value = "", Text = Resources.Resources.SelectParish } }, JsonRequestBehavior.AllowGet);
+                }
+
+                List<SelectListItem> initList = new List<SelectListItem>() { new SelectListItem() { Value = "", Text = Resources.Resources.SelectParish } };
+
+                List<SelectListItem> items = initList.Concat(InsuranceBusiness.BusinessLayer.GetParishesByCounties(Int64.Parse(countyId)).Select(i => new SelectListItem() { Value = i.Key.ToString(), Text = i.Value }).ToList()).ToList();
 
                 return Json(items, JsonRequestBehavior.AllowGet);
             }

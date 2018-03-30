@@ -355,5 +355,72 @@ namespace InsuranceSocialNetworkDAL
                     .ToList();
             }
         }
+
+        public static CompanyType GetCompanyType(CompanyTypeEnum type)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                string companyType = type.ToString();
+
+                return context.CompanyType
+                    .Fetch()
+                    .Where(i => i.Token == companyType && i.Active)
+                    .FirstOrDefault();
+            }
+        }
+
+        public static List<InsuranceCompanyContact> GetInsuranceCompaniesWorkingWith(string userId)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                var companyIds = context.CompanyWorkingWith
+                    .Fetch()
+                    .Include(i => i.CompanyType)
+                    .Where(i => i.CompanyType.Token == CompanyTypeEnum.INSURANCE_COMPANY_CONTACT.ToString())
+                    .OrderBy(i => i.Order)
+                    .Select(i => i.ID_Company)
+                    .ToList();
+
+                var companies = context.InsuranceCompanyContact
+                    .Fetch()
+                    .Where(i => i.Active && companyIds.Contains(i.ID))
+                    .ToList();
+
+                return companies.OrderBy(i => companyIds.IndexOf(i.ID)).ToList();
+            }
+        }
+
+        public static bool UpdateCompaniesWorkingWith(string userId, long[] companiesIds, CompanyTypeEnum type)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                context.CompanyWorkingWith.Delete(i => i.ID_User == userId);
+
+                if (null != companiesIds && companiesIds.Length > 0)
+                {
+                    var companyType = GetCompanyType(type);
+
+                    int index = 0;
+                    foreach (long companyId in companiesIds)
+                    {
+                        context.CompanyWorkingWith.Create(new CompanyWorkingWith()
+                        {
+                            ID_User = userId,
+                            Active = true,
+                            ID_Company = companyId,
+                            ID_CompanyType = companyType.ID,
+                            Order = index,
+                            CreateDate = DateTime.Now,
+                            LastChangeDate = DateTime.Now
+                        });
+                        ++index;
+                    }
+                }
+
+                context.Save();
+
+                return true;
+            }
+        }
     }
 }

@@ -22,6 +22,9 @@ namespace InsuranceSocialNetworkDAL
                     .Include(i => i.AspNetUsers)
                     .Include(i => i.AspNetUsers.AspNetRoles)
                     .Include(i => i.ProfileSettings)
+                    .Include(i => i.Parish)
+                    .Include(i => i.County)
+                    .Include(i => i.District)
                     .FirstOrDefault(i => i.ID_User == Id);
             }
         }
@@ -36,6 +39,9 @@ namespace InsuranceSocialNetworkDAL
                     .Include(i => i.AspNetUsers)
                     .Include(i => i.AspNetUsers.AspNetRoles)
                     .Include(i => i.ProfileSettings)
+                    .Include(i => i.Parish)
+                    .Include(i => i.County)
+                    .Include(i => i.District)
                     .FirstOrDefault(i => i.ID == Id);
             }
         }
@@ -73,6 +79,9 @@ namespace InsuranceSocialNetworkDAL
                     .Fetch()
                     .Include(i => i.AspNetUsers)
                     .Include(i => i.ProfileSettings)
+                    .Include(i => i.Parish)
+                    .Include(i => i.County)
+                    .Include(i => i.District)
                     .Select(i => i).OrderBy(i => i.AspNetUsers.UserName).ToList();
             }
         }
@@ -86,6 +95,9 @@ namespace InsuranceSocialNetworkDAL
                     .Fetch()
                     .Include(i => i.AspNetUsers)
                     .Include(i => i.ProfileSettings)
+                    .Include(i => i.Parish)
+                    .Include(i => i.County)
+                    .Include(i => i.District)
                     .Where(i => i.ID != currentUserId
                         && (
                             i.FirstName.ToLower().Contains(searchTerm.ToLower())
@@ -104,8 +116,6 @@ namespace InsuranceSocialNetworkDAL
                 return context
                     .Profile
                     .Fetch()
-                    .Include(i => i.AspNetUsers)
-                    .Include(i => i.ProfileSettings)
                     .Where(i => list.Contains(i.ID_User))
                     .Select(i => new ListItemString() { Key = i.ID_User, Value = i.FirstName + " " + i.LastName })
                     .ToList();
@@ -119,8 +129,6 @@ namespace InsuranceSocialNetworkDAL
                 return context
                     .Profile
                     .Fetch()
-                    .Include(i => i.AspNetUsers)
-                    .Include(i => i.ProfileSettings)
                     .Where(i => list.Contains(i.ID_User))
                     .Select(i => new ListItemObject() { Key = i.ID_User, Value = i.ProfilePhoto })
                     .ToList();
@@ -166,6 +174,9 @@ namespace InsuranceSocialNetworkDAL
                     .Fetch()
                     .Include(i => i.AspNetUsers)
                     .Include(i => i.ProfileSettings)
+                    .Include(i => i.Parish)
+                    .Include(i => i.County)
+                    .Include(i => i.District)
                     .Where(i => friends1Ids.Contains(i.AspNetUsers.Id))
                     .Select(i => i)
                     .ToList();
@@ -187,6 +198,9 @@ namespace InsuranceSocialNetworkDAL
                     .Fetch()
                     .Include(i => i.AspNetUsers)
                     .Include(i => i.ProfileSettings)
+                    .Include(i => i.Parish)
+                    .Include(i => i.County)
+                    .Include(i => i.District)
                     .Where(i => friends1Ids.Contains(i.AspNetUsers.Id))
                     .Select(i => i)
                     .ToList();

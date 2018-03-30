@@ -182,6 +182,20 @@
           <Property Name="Description" Type="nvarchar" MaxLength="256" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="CompanyWorkingWith">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_User" Type="nvarchar" MaxLength="128" />
+          <Property Name="ID_CompanyType" Type="bigint" Nullable="false" />
+          <Property Name="ID_Company" Type="bigint" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="LastChangeDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="DeleteDate" Type="datetime2" Precision="7" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="Order" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="ConstructionCompany">
           <Key>
             <PropertyRef Name="ID" />
@@ -942,6 +956,32 @@
             </Principal>
             <Dependent Role="CompanyService">
               <PropertyRef Name="ID_CompanyType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompanyWorkingWith_CompanyType">
+          <End Role="CompanyType" Type="Self.CompanyType" Multiplicity="1" />
+          <End Role="CompanyWorkingWith" Type="Self.CompanyWorkingWith" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CompanyType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CompanyWorkingWith">
+              <PropertyRef Name="ID_CompanyType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompanyWorkingWith_User">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CompanyWorkingWith" Type="Self.CompanyWorkingWith" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CompanyWorkingWith">
+              <PropertyRef Name="ID_User" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1978,6 +2018,7 @@
           <EntitySet Name="ChatNotification" EntityType="Self.ChatNotification" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="CompanyService" EntityType="Self.CompanyService" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="CompanyType" EntityType="Self.CompanyType" Schema="Insurance" store:Type="Tables" />
+          <EntitySet Name="CompanyWorkingWith" EntityType="Self.CompanyWorkingWith" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="ConstructionCompany" EntityType="Self.ConstructionCompany" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="ConstructionCompanyFavorite" EntityType="Self.ConstructionCompanyFavorite" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="County" EntityType="Self.County" Schema="Insurance" store:Type="Tables" />
@@ -2066,6 +2107,14 @@
           <AssociationSet Name="FK_Company_Type" Association="Self.FK_Company_Type">
             <End Role="CompanyType" EntitySet="CompanyType" />
             <End Role="CompanyService" EntitySet="CompanyService" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompanyWorkingWith_CompanyType" Association="Self.FK_CompanyWorkingWith_CompanyType">
+            <End Role="CompanyType" EntitySet="CompanyType" />
+            <End Role="CompanyWorkingWith" EntitySet="CompanyWorkingWith" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompanyWorkingWith_User" Association="Self.FK_CompanyWorkingWith_User">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="CompanyWorkingWith" EntitySet="CompanyWorkingWith" />
           </AssociationSet>
           <AssociationSet Name="FK_ConstructionCompany_County" Association="Self.FK_ConstructionCompany_County">
             <End Role="County" EntitySet="County" />
@@ -2849,6 +2898,15 @@
             <End Role="Profile" EntitySet="Profile" />
             <End Role="ProfileSettings" EntitySet="ProfileSettings" />
           </AssociationSet>
+          <EntitySet Name="CompanyWorkingWith" EntityType="InsurancePortal_dbModel.CompanyWorkingWith" />
+          <AssociationSet Name="FK_CompanyWorkingWith_User" Association="InsurancePortal_dbModel.FK_CompanyWorkingWith_User">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="CompanyWorkingWith" EntitySet="CompanyWorkingWith" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompanyWorkingWith_CompanyType" Association="InsurancePortal_dbModel.FK_CompanyWorkingWith_CompanyType">
+            <End Role="CompanyType" EntitySet="CompanyType" />
+            <End Role="CompanyWorkingWith" EntitySet="CompanyWorkingWith" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="AspNetRoles">
           <Key>
@@ -2967,6 +3025,7 @@
           <NavigationProperty Name="ChatNote" Relationship="InsurancePortal_dbModel.FK_ChatNote_AspNetUsers" FromRole="AspNetUsers" ToRole="ChatNote" />
           <NavigationProperty Name="ChatNotification" Relationship="InsurancePortal_dbModel.FK_ChatNotification_AspNetUsers" FromRole="AspNetUsers" ToRole="ChatNotification" />
           <NavigationProperty Name="Profile" Relationship="InsurancePortal_dbModel.FK_Profile_AspNetUsers" FromRole="AspNetUsers" ToRole="Profile" />
+          <NavigationProperty Name="CompanyWorkingWith" Relationship="InsurancePortal_dbModel.FK_CompanyWorkingWith_User" FromRole="AspNetUsers" ToRole="CompanyWorkingWith" />
           </EntityType>
         <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
           <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
@@ -3428,6 +3487,7 @@
           <Property Name="Description" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="CompanyService" Relationship="InsurancePortal_dbModel.FK_Company_Type" FromRole="CompanyType" ToRole="CompanyService" />
+          <NavigationProperty Name="CompanyWorkingWith" Relationship="InsurancePortal_dbModel.FK_CompanyWorkingWith_CompanyType" FromRole="CompanyType" ToRole="CompanyWorkingWith" />
         </EntityType>
         <EntityType Name="CompanyService">
           <Key>
@@ -4982,6 +5042,48 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="CompanyWorkingWith">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_User" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ID_CompanyType" Type="Int64" Nullable="false" />
+          <Property Name="ID_Company" Type="Int64" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="LastChangeDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="DeleteDate" Type="DateTime" Precision="7" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="InsurancePortal_dbModel.FK_CompanyWorkingWith_User" FromRole="CompanyWorkingWith" ToRole="AspNetUsers" />
+          <NavigationProperty Name="CompanyType" Relationship="InsurancePortal_dbModel.FK_CompanyWorkingWith_CompanyType" FromRole="CompanyWorkingWith" ToRole="CompanyType" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_CompanyWorkingWith_User">
+          <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="InsurancePortal_dbModel.CompanyWorkingWith" Role="CompanyWorkingWith" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CompanyWorkingWith">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompanyWorkingWith_CompanyType">
+          <End Type="InsurancePortal_dbModel.CompanyType" Role="CompanyType" Multiplicity="1" />
+          <End Type="InsurancePortal_dbModel.CompanyWorkingWith" Role="CompanyWorkingWith" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CompanyType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CompanyWorkingWith">
+              <PropertyRef Name="ID_CompanyType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -5793,6 +5895,21 @@
                 <ScalarProperty Name="ContactEmail" ColumnName="ContactEmail" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CompanyWorkingWith">
+            <EntityTypeMapping TypeName="InsurancePortal_dbModel.CompanyWorkingWith">
+              <MappingFragment StoreEntitySet="CompanyWorkingWith">
+                <ScalarProperty Name="Order" ColumnName="Order" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="DeleteDate" ColumnName="DeleteDate" />
+                <ScalarProperty Name="LastChangeDate" ColumnName="LastChangeDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="ID_Company" ColumnName="ID_Company" />
+                <ScalarProperty Name="ID_CompanyType" ColumnName="ID_CompanyType" />
                 <ScalarProperty Name="ID_User" ColumnName="ID_User" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>

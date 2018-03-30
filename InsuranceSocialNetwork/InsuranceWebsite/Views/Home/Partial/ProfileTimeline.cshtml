@@ -77,67 +77,68 @@
 
     <div class="panel panel-white" style="display:block;padding:10px 0px;font-weight:bold;">
         <div style="width:100%;text-align:center;display:table;padding-bottom:10px;color:#6F7D85;">
-            <div style="display:table-cell;vertical-align:middle;"><span style="display:block;font-size:20px;color:#4B5C66;padding-bottom:10px;">@Model.ProfileInfo.FirstName @Model.ProfileInfo.LastName</span>
-            @if (string.IsNullOrEmpty(Model.ProfileInfo.CompanyName))
+            <div style="display:table-cell;vertical-align:middle;">
+                <span style="display:block;font-size:20px;color:#4B5C66;padding-bottom:10px;">@Model.ProfileInfo.FirstName @Model.ProfileInfo.LastName</span>
+                @if (string.IsNullOrEmpty(Model.ProfileInfo.CompanyName))
             {
-                <span style="display:block;font-weight:bold;">-</span>
+            <span style="display:block;font-weight:bold;">-</span>
             }
             else
             {
-                <span style="display:block;font-weight:bold;">@Model.ProfileInfo.CompanyName</span>
+            <span style="display:block;font-weight:bold;">@Model.ProfileInfo.CompanyName</span>
             }
 
-            @if (string.IsNullOrEmpty(Model.ProfileInfo.District))
+                @if (!Model.ProfileInfo.ID_District.HasValue)
             {
-                if (string.IsNullOrEmpty(Model.ProfileInfo.County))
+                if (!Model.ProfileInfo.ID_County.HasValue)
                 {
-                    if (string.IsNullOrEmpty(Model.ProfileInfo.Locality))
+                    if (!Model.ProfileInfo.ID_Parish.HasValue)
                     {
-                        <span>-</span>
+            <span>-</span>
                     }
                     else
                     {
-                        <span>@Model.ProfileInfo.Locality, @Model.ProfileInfo.County</span>
+            <span>@Model.ProfileInfo.Parish.Name</span>
 
                     }
                 }
                 else
                 {
-                    if (string.IsNullOrEmpty(Model.ProfileInfo.Locality))
+                    if (!Model.ProfileInfo.ID_Parish.HasValue)
                     {
-                        <span>@Model.ProfileInfo.County</span>
+            <span>@Model.ProfileInfo.County</span>
                     }
                     else
                     {
-                        <span>@Model.ProfileInfo.Locality, @Model.ProfileInfo.County</span>
+            <span>@Model.ProfileInfo.Parish.Name, @Model.ProfileInfo.County.Name</span>
 
                     }
                 }
             }
             else
             {
-                if (string.IsNullOrEmpty(Model.ProfileInfo.County))
+                if (!Model.ProfileInfo.ID_County.HasValue)
                 {
-                    if (string.IsNullOrEmpty(Model.ProfileInfo.Locality))
+                    if (!Model.ProfileInfo.ID_Parish.HasValue)
                     {
-                        <span>@Model.ProfileInfo.District</span>
+            <span>@Model.ProfileInfo.District.Name</span>
                     }
                     else
                     {
-                        <span>@Model.ProfileInfo.Locality, @Model.ProfileInfo.District</span>
+            <span>@Model.ProfileInfo.Parish.Name, @Model.ProfileInfo.District.Name</span>
 
                     }
                 }
                 else
                 {
-                    if (string.IsNullOrEmpty(Model.ProfileInfo.Locality))
+                    if (!Model.ProfileInfo.ID_Parish.HasValue)
                     {
-                        <span>@Model.ProfileInfo.County, @Model.ProfileInfo.District</span>
+            <span>@Model.ProfileInfo.County.Name, @Model.ProfileInfo.District.Name</span>
 
                     }
                     else
                     {
-                        <span>@Model.ProfileInfo.Locality, @Model.ProfileInfo.County, @Model.ProfileInfo.District</span>
+            <span>@Model.ProfileInfo.Parish.Name, @Model.ProfileInfo.County.Name, @Model.ProfileInfo.District.Name</span>
 
                     }
                 }
@@ -148,15 +149,15 @@
             <div style="display:table-cell;vertical-align:middle;"><span style="display:block;">@Html.ActionLink(Resources.Resources.SendMessage, "SendMessage", new { id = Model.ProfileInfo.ID }, new { style= "color:#4B5C66;" })</span></div>
             @if (Model.IsFriend)
             {
-                <div style="display:table-cell;vertical-align:middle;color:#00C1DE;"><span style="display:block;color:#00C1DE;">@Resources.Resources.Connected</span></div>
+            <div style="display:table-cell;vertical-align:middle;color:#00C1DE;"><span style="display:block;color:#00C1DE;">@Resources.Resources.Connected</span></div>
             }
             else if (Model.IsFriendRequest)
             {
-                <div style="display:table-cell;vertical-align:middle;cursor:pointer;color:#00C1DE;">@Resources.Resources.FriendRequestPending</div>
+            <div style="display:table-cell;vertical-align:middle;cursor:pointer;color:#00C1DE;">@Resources.Resources.FriendRequestPending</div>
             }
             else
             {
-                <div style="display:table-cell;vertical-align:middle;cursor:pointer;"><a class="" style="border-radius:3px;color:#00C1DE;" id="btnAddFriend" onclick="addFriendFunction(this, @Model.ProfileInfo.ID)">@Resources.Resources.Connect</a></div>
+            <div style="display:table-cell;vertical-align:middle;cursor:pointer;"><a class="" style="border-radius:3px;color:#00C1DE;" id="btnAddFriend" onclick="addFriendFunction(this, @Model.ProfileInfo.ID)">@Resources.Resources.Connect</a></div>
             }
         </div>
     </div>
@@ -165,29 +166,29 @@
         <div style="width:100%;display:block;text-align:center;">
             @if (string.IsNullOrEmpty(Model.ProfileInfo.Facebook))
             {
-                <img style="max-width:40px;" src="~/Content/icons/icons_perfil_rede_social_falar_seguros_AF3.png" />
+            <img style="max-width:40px;" src="~/Content/icons/icons_perfil_rede_social_falar_seguros_AF3.png" />
             }
             else
             {
-                <a href="@Model.ProfileInfo.Facebook" target="_blank" class="" style="border-radius:3px;color:#00C1DE;"><img style="max-width:40px;" src="~/Content/icons/icons_perfil_rede_social_falar_seguros_AF3.png" /></a>
+            <a href="@Model.ProfileInfo.Facebook" target="_blank" class="" style="border-radius:3px;color:#00C1DE;"><img style="max-width:40px;" src="~/Content/icons/icons_perfil_rede_social_falar_seguros_AF3.png" /></a>
             }
             <span style="padding:10px;"></span>
             @if (string.IsNullOrEmpty(Model.ProfileInfo.Facebook))
             {
-                <img style="max-width:40px;" src="~/Content/icons/icons_perfil_rede_social_falar_seguros_AF2.png" />
+            <img style="max-width:40px;" src="~/Content/icons/icons_perfil_rede_social_falar_seguros_AF2.png" />
             }
             else
             {
-                <a href="@Model.ProfileInfo.Twitter" target="_blank" class="" style="border-radius:3px;color:#00C1DE;"><img style="max-width:40px;" src="~/Content/icons/icons_perfil_rede_social_falar_seguros_AF2.png" /></a>
+            <a href="@Model.ProfileInfo.Twitter" target="_blank" class="" style="border-radius:3px;color:#00C1DE;"><img style="max-width:40px;" src="~/Content/icons/icons_perfil_rede_social_falar_seguros_AF2.png" /></a>
             }
             <span style="padding:10px;"></span>
             @if (string.IsNullOrEmpty(Model.ProfileInfo.Facebook))
             {
-                <img style="max-width:40px;" src="~/Content/icons/icons_perfil_rede_social_falar_seguros_AF.png" />
+            <img style="max-width:40px;" src="~/Content/icons/icons_perfil_rede_social_falar_seguros_AF.png" />
             }
             else
             {
-                <a href="@Model.ProfileInfo.GooglePlus" target="_blank" class="" style="border-radius:3px;color:#00C1DE;"><img style="max-width:40px;" src="~/Content/icons/icons_perfil_rede_social_falar_seguros_AF.png" /></a>
+            <a href="@Model.ProfileInfo.GooglePlus" target="_blank" class="" style="border-radius:3px;color:#00C1DE;"><img style="max-width:40px;" src="~/Content/icons/icons_perfil_rede_social_falar_seguros_AF.png" /></a>
             }
         </div>
     </div>
@@ -216,8 +217,8 @@
         <div style="padding:10px 0px;">
             <span style="font-size:14px;">@Resources.Resources.CompaniesWorkingWith</span>
         </div>
-        <div style="font-weight:normal;">
-            @Model.ProfileInfo.CompaniesWorkingWith
+        <div>
+            @Html.ListBoxFor(m => m.SelectedCompaniesWorkingWith, new MultiSelectList(Model.CompaniesWorkingWith, "Value", "Text"), new { @class = "form-control listbox", id = "companiesListbox", style = "display: inline-flex;min-height: 100px;", disabled = "disabled" })
         </div>
     </div>
 

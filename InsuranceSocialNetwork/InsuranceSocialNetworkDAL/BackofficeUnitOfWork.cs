@@ -50,6 +50,7 @@ namespace InsuranceSocialNetworkDAL
 
         private IRepository<CompanyType> companyTypeRepository;
         private IRepository<CompanyService> companyServiceRepository;
+        private IRepository<CompanyWorkingWith> companyWorkingWithRepository;
         private IRepository<AuthorizedEmail> authorizedEmailRepository;
 
         private IRepository<Payment> paymentRepository;
@@ -599,6 +600,19 @@ namespace InsuranceSocialNetworkDAL
                         new Repository<InsurancePortal_dbEntities, CompanyService>(DataContext, AutoDetectChangesEnabled);
                 }
                 return companyServiceRepository;
+            }
+        }
+
+        public IRepository<CompanyWorkingWith> CompanyWorkingWith
+        {
+            get
+            {
+                if (this.companyWorkingWithRepository == null)
+                {
+                    this.companyWorkingWithRepository =
+                        new Repository<InsurancePortal_dbEntities, CompanyWorkingWith>(DataContext, AutoDetectChangesEnabled);
+                }
+                return companyWorkingWithRepository;
             }
         }
 

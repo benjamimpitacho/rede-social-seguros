@@ -343,6 +343,11 @@ namespace InsuranceSocialNetworkBusiness
             return AuthorizedEmailRepository.UpdateEmailAuthorizedForAutomaticApproval(userId, emailPatterns);
         }
 
+        public bool UpdateCompaniesWorkingWith(string userId, long[] companies, CompanyTypeEnum type)
+        {
+            return CompanyRepository.UpdateCompaniesWorkingWith(userId, companies, type);
+        }
+
         public List<string> GetAuthorizedEmailsForAutomaticApproval()
         {
             return AuthorizedEmailRepository.GetAuthorizedEmailsForAutomaticApproval().Select(i => i.Email).ToList();
@@ -966,6 +971,10 @@ namespace InsuranceSocialNetworkBusiness
                     return false;
             }
         }
+        public List<ListItem> GetInsuranceCompaniesWorkingWith(string userId)
+        {
+            return CompanyRepository.GetInsuranceCompaniesWorkingWith(userId).Select(i => new ListItem() { Key = i.ID, Value = i.BusinessName }).ToList();
+        }
 
         #endregion Company
 
@@ -1245,6 +1254,11 @@ namespace InsuranceSocialNetworkBusiness
         public List<ListItem> GetCountiesByDistrict(long districtId)
         {
             return PostalCodeRepository.GetCountyListByDistrict(districtId);
+        }
+
+        public List<ListItem> GetParishesByCounties(long countyId)
+        {
+            return PostalCodeRepository.GetParishListByCounty(countyId);
         }
 
         public ParishDTO GetParish(long id)

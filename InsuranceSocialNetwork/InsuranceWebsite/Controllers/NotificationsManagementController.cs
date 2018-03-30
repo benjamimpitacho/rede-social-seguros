@@ -140,10 +140,10 @@ namespace InsuranceWebsite.Controllers
                         if (null != globalSearch)
                         {
                             query = query.Where(i =>
-                                i.FirstName.Contains(globalSearch)
-                                || i.LastName.Contains(globalSearch)
-                                || i.User.UserName.Contains(globalSearch)
-                                || i.ContactEmail.Contains(globalSearch)
+                                i.FirstName.ToLower().Contains(globalSearch.ToLower())
+                                || i.LastName.ToLower().Contains(globalSearch.ToLower())
+                                || i.User.UserName.ToLower().Contains(globalSearch.ToLower())
+                                || i.ContactEmail.ToLower().Contains(globalSearch.ToLower())
                             ).ToList();
                         }
 
@@ -237,6 +237,13 @@ namespace InsuranceWebsite.Controllers
                         paymentNotification.NotificationDate = DateTime.Now;
 
                         payment = InsuranceBusiness.BusinessLayer.GetPayment(paymentNotification.t_key);
+
+                        if (null == payment || payment.ep_cin != ep_cin || payment.ep_user != ep_user)
+                        {
+                            InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.ERROR, Request.UserHostAddress, "Easypay notification infromation doesn't match payment information", string.Format("Easypay infromation received is ep_cin {0}, ep_user {1}, ep_doc {2}, ep_type {3} for payment {4}", ep_cin, ep_user, ep_doc, ep_type, payment.Payment_GUID));
+                            return;
+                        }
+
                         payment.LastChangeDate = DateTime.Now;
                         payment.PaymentDate = DateTime.Now;
                         payment.o_obs = response.SelectSingleNode("getautoMB_detail/o_obs").InnerText;
@@ -246,12 +253,6 @@ namespace InsuranceWebsite.Controllers
                         payment.ep_key = response.SelectSingleNode("getautoMB_detail/ep_key").InnerText;
                         payment.ID_PaymentStatus = (int)PaymentStatusEnum.PAYED;
 
-                        if (null == payment || payment.ep_cin != ep_cin || payment.ep_user != ep_user)
-                        {
-                            InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.ERROR, Request.UserHostAddress, "Easypay notification infromation doesn't match payment information", string.Format("Easypay infromation received is ep_cin {0}, ep_user {1}, ep_doc {2}, ep_type {3} for payment {4}", ep_cin, ep_user, ep_doc, ep_type, payment.Payment_GUID));
-                            return;
-                        }
-
                         InsuranceBusiness.BusinessLayer.UpdatePayment(payment);
                         InsuranceBusiness.BusinessLayer.UpdatePaymentNotification(paymentNotification);
                     }
@@ -259,33 +260,35 @@ namespace InsuranceWebsite.Controllers
                     {
                         // Erro
                         InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.ERROR, Request.UserHostAddress, "Easypay returned error fetching payment details", result);
-                        payment = InsuranceBusiness.BusinessLayer.GetPayment(paymentNotification.t_key);
-                        payment.LastChangeDate = DateTime.Now;
-                        payment.Message = response.InnerXml;
-                        InsuranceBusiness.BusinessLayer.UpdatePayment(payment);
+                        //payment = InsuranceBusiness.BusinessLayer.GetPayment(paymentNotification.t_key);
+                        //payment.LastChangeDate = DateTime.Now;
+                        //payment.Message = response.InnerXml;
+                        //InsuranceBusiness.BusinessLayer.UpdatePayment(payment);
                         return;
                     }
                 }
 
                 if (payment.ID_Profile.HasValue)
                 {
+                    UserProfileDTO profile = InsuranceBusiness.BusinessLayer.GetUserProfile(payment.ID_Profile.Value);
                     // Activate user
                     InsuranceBusiness.BusinessLayer.ActivateUser(payment.ID_Profile.Value);
                     // Send user notification
                     InsuranceBusiness.BusinessLayer.CreateNotificationForPaymentDone(NotificationTypeEnum.PAYMENT_CONFIRMED, false, payment.ID_Profile.Value, payment.ID);
+                    // Get Invoice to send to Client
+                    //LibaxUtils.LibaxUtils.CreateInvoice(profile, payment);
                     // Send user email
-                    UserProfileDTO profile = InsuranceBusiness.BusinessLayer.GetUserProfile(payment.ID_Profile.Value);
                     SendPaymentConfirmationEmail(string.Format("{0} {1}", profile.FirstName, profile.LastName), profile.User.UserName);
                 }
                 else if (payment.ID_Garage.HasValue)
                 {
                     CompanyDTO company = InsuranceBusiness.BusinessLayer.GetGarage(payment.ID_Garage.Value);
-                    // Get Invoice to send to Client
-                    LibaxUtils.LibaxUtils.CreateInvoice(company, payment);
                     // Activate user
                     InsuranceBusiness.BusinessLayer.ActivateGarage(payment.ID_Garage.Value);
                     // Send user notification
                     //InsuranceBusiness.BusinessLayer.CreateNotificationForPaymentDone(NotificationTypeEnum.PAYMENT_CONFIRMED, true, payment.ID_Garage.Value, payment.ID, CompanyTypeEnum.GARAGE);
+                    // Get Invoice to send to Client
+                    LibaxUtils.LibaxUtils.CreateInvoice(company, payment);
                     // Send user email
                     SendPaymentConfirmationEmail(company.Name, company.ContactEmail);
 

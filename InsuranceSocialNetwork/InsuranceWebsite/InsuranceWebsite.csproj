@@ -345,6 +345,8 @@
     <Content Include="Content\icons\icone_negocios_seguros_rede_social_falar_seguros_AF3.png" />
     <Content Include="Content\icons\icone_pesquisa_rede_social_falar_seguros_AF2.png" />
     <Content Include="Content\icons\icone_pesquisa_rede_social_falar_seguros_AF3.png" />
+    <Content Include="Content\icons\mais_icons_mensagens_rede_social_falar_seguros_AF.png" />
+    <Content Include="Content\icons\mais_icons_mensagens_rede_social_falar_seguros_AF2.png" />
     <Content Include="Content\logos\aps_logo" />
     <Content Include="Content\logos\asf_logo" />
     <Content Include="Content\icons\business_user.png" />
@@ -737,6 +739,7 @@
     <Content Include="Views\CompaniesManagement\DirectDebitModal.cshtml" />
     <Content Include="Views\NotificationsManagement\ConfirmDirectDebitOperation.cshtml" />
     <Content Include="Views\Home\Partial\_ConfirmChatDelete.cshtml" />
+    <Content Include="Views\Home\Partial\NewChatSectionView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

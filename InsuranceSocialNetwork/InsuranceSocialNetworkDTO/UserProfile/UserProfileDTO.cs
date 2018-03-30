@@ -1,4 +1,5 @@
-﻿using InsuranceSocialNetworkDTO.Role;
+﻿using InsuranceSocialNetworkDTO.PostalCode;
+using InsuranceSocialNetworkDTO.Role;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,7 @@ namespace InsuranceSocialNetworkDTO.UserProfile
         public string Whatsapp { get; set; }
         public string Website { get; set; }
         public string ProfessionalNumber { get; set; }
-        public string CompaniesWorkingWith { get; set; }
+        //public string CompaniesWorkingWith { get; set; }
         public long? ID_PostalCode { get; set; }
         public byte[] ProfilePhoto { get; set; }
         public DateTime CreateDate { get; set; }
@@ -50,6 +51,9 @@ namespace InsuranceSocialNetworkDTO.UserProfile
 
         public UserDTO User { get; set; }
         public RoleDTO Role { get; set; }
+        public ParishDTO Parish { get; set; }
+        public CountyDTO County { get; set; }
+        public DistrictDTO District { get; set; }
         public List<ProfileSettingsDTO> ProfileSettings { get; set; }
 
         public int TotalFriends { get; set; }

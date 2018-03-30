@@ -44,7 +44,7 @@ namespace InsuranceSocialNetworkDAL
             }
         }
 
-        public static List<ListItem> GetParishListByCounty(int countyId)
+        public static List<ListItem> GetParishListByCounty(long countyId)
         {
             using (var context = new BackofficeUnitOfWork())
             {

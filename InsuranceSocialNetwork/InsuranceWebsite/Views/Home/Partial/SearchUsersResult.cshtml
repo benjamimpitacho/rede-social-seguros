@@ -78,57 +78,57 @@
                             {
                                 <div style="color:#939DA3;font-size:11px;font-weight:bold;">@profile.CompanyName</div>
                             }
-                            @if (string.IsNullOrEmpty(profile.District))
+                            @if (!profile.ID_District.HasValue)
                             {
-                                if (string.IsNullOrEmpty(profile.County))
+                                if (!profile.ID_County.HasValue)
                                 {
-                                    if (string.IsNullOrEmpty(profile.Locality))
+                                    if (!profile.ID_Parish.HasValue)
                                     {
                                         <div style="color:#939DA3;font-size:11px;font-weight:bold;">-</div>
                                     }
                                     else
                                     {
-                                        <div style="color:#939DA3;font-size:11px;font-weight:bold;">@profile.Locality, @profile.County</div>
+                                        <div style="color:#939DA3;font-size:11px;font-weight:bold;">@profile.Parish.Name</div>
 
                                     }
                                 }
                                 else
                                 {
-                                    if (string.IsNullOrEmpty(profile.Locality))
+                                    if (!profile.ID_Parish.HasValue)
                                     {
-                                        <div style="color:#939DA3;font-size:11px;font-weight:bold;">@profile.County</div>
+                                        <div style="color:#939DA3;font-size:11px;font-weight:bold;">@profile.County.Name</div>
                                     }
                                     else
                                     {
-                                        <div style="color:#939DA3;font-size:11px;font-weight:bold;">@profile.Locality, @profile.County</div>
+                                        <div style="color:#939DA3;font-size:11px;font-weight:bold;">@profile.Parish.Name, @profile.County.Name</div>
 
                                     }
                                 }
                             }
                             else
                             {
-                                if (string.IsNullOrEmpty(profile.County))
+                                if (!profile.ID_County.HasValue)
                                 {
-                                    if (string.IsNullOrEmpty(profile.Locality))
+                                    if (!profile.ID_Parish.HasValue)
                                     {
-                                        <div style="color:#939DA3;font-size:11px;font-weight:bold;">@profile.District</div>
+                                        <div style="color:#939DA3;font-size:11px;font-weight:bold;">@profile.District.Name</div>
                                     }
                                     else
                                     {
-                                        <div style="color:#939DA3;font-size:11px;font-weight:bold;">@profile.Locality, @profile.District</div>
+                                        <div style="color:#939DA3;font-size:11px;font-weight:bold;">@profile.Parish.Name, @profile.District.Name</div>
 
                                     }
                                 }
                                 else
                                 {
-                                    if (string.IsNullOrEmpty(profile.Locality))
+                                    if (!profile.ID_Parish.HasValue)
                                     {
-                                        <div style="color:#939DA3;font-size:11px;font-weight:bold;">@profile.County, @profile.District</div>
+                                        <div style="color:#939DA3;font-size:11px;font-weight:bold;">@profile.County.Name, @profile.District.Name</div>
 
                                     }
                                     else
                                     {
-                                        <div style="color:#939DA3;font-size:11px;font-weight:bold;">@profile.Locality, @profile.County, @profile.District</div>
+                                        <div style="color:#939DA3;font-size:11px;font-weight:bold;">@profile.Parish.Name, @profile.County.Name, @profile.District.Name</div>
 
                                     }
                                 }

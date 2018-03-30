@@ -98,6 +98,125 @@
     </div>
 
     <div class="panel panel-white" style="display:block;padding:10px 0px;font-weight:bold;color:#4B5C66">
+        <div style="width:100%;display:flex;">
+            <div style="max-width:120px;display:block;justify-content: space-evenly;text-align:center;padding:0px 10px 0px 30px;">
+                <div>
+                    <img src="~/Content/icons/icons_perfil_rede_social_falar_seguros_v24.png" class="profile-icon" />
+                    <span style="font-size:18px;">@Model.Profile.TotalFriends</span>
+                </div>
+                <div style="">@Resources.Resources.Connections</div>
+            </div>
+            <div style="width:100%;display:flex;justify-content: space-evenly;text-align:center;align-self:center;">
+                <div style="display:table-cell;vertical-align:middle;font-size:14px;font-weight:normal;color:#6F7D85;">
+                    <span style="display:block;font-size:20px;font-weight:bold;padding-bottom:10px;color:#4B5C66;">@Model.Profile.FirstName @Model.Profile.LastName</span>
+                    @if (string.IsNullOrEmpty(Model.Profile.CompanyName))
+                    {
+                        <span style="display:block;font-weight:bold;">-</span>
+                    }
+                    else
+                    {
+                        <span style="display:block;font-weight:bold;">@Model.Profile.CompanyName</span>
+                    }
+
+                    @if (!Model.Profile.ID_District.HasValue)
+                    {
+                        if (!Model.Profile.ID_County.HasValue)
+                        {
+                            if (!Model.Profile.ID_Parish.HasValue)
+                            {
+                                <span>-</span>
+                            }
+                            else
+                            {
+                                <span>@Model.Profile.Parish.Name</span>
+
+                            }
+                        }
+                        else
+                        {
+                            if (!Model.Profile.ID_Parish.HasValue)
+                            {
+                                <span>@Model.Profile.County.Name</span>
+                            }
+                            else
+                            {
+                                <span>@Model.Profile.Parish.Name, @Model.Profile.County.Name</span>
+
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (!Model.Profile.ID_County.HasValue)
+                        {
+                            if (!Model.Profile.ID_Parish.HasValue)
+                            {
+                                <span>@Model.Profile.District</span>
+                            }
+                            else
+                            {
+                                <span>@Model.Profile.Parish.Name, @Model.Profile.District.Name</span>
+
+                            }
+                        }
+                        else
+                        {
+                            if (!Model.Profile.ID_Parish.HasValue)
+                            {
+                                <span>@Model.Profile.County.Name, @Model.Profile.District.Name</span>
+
+                            }
+                            else
+                            {
+                                <span>@Model.Profile.Parish.Name, @Model.Profile.County.Name, @Model.Profile.District.Name</span>
+
+                            }
+                        }
+                    }
+                </div>
+            </div>
+            <div style="max-width:120px;text-align:center;display:block;justify-content: space-evenly;padding:0px 30px 0px 10px;">
+                <div>
+                    <img src="~/Content/icons/icons_perfil_rede_social_falar_seguros_AF4.png" class="profile-icon" />
+                    <span style="font-size:18px;">@Model.Profile.TotalLikes</span>
+                </div>
+                <div style="">@Resources.Resources.Likes</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-white" style="padding:20px;">
+        <div style="width:100%;display:block;text-align:center;">
+            @if (string.IsNullOrEmpty(Model.Profile.Facebook))
+            {
+                <img style="max-width:40px;" src="~/Content/icons/icons_perfil_rede_social_falar_seguros_AF3.png" />
+            }
+            else
+            {
+                <a href="@Model.Profile.Facebook" target="_blank" class="" style="border-radius:3px;color:#00C1DE;"><img style="max-width:40px;" src="~/Content/icons/icons_perfil_rede_social_falar_seguros_AF3.png" /></a>
+            }
+            <span style="padding:10px;"></span>
+            @if (string.IsNullOrEmpty(Model.Profile.Facebook))
+            {
+                <img style="max-width:40px;" src="~/Content/icons/icons_perfil_rede_social_falar_seguros_AF2.png" />
+            }
+            else
+            {
+                <a href="@Model.Profile.Twitter" target="_blank" class="" style="border-radius:3px;color:#00C1DE;"><img style="max-width:40px;" src="~/Content/icons/icons_perfil_rede_social_falar_seguros_AF2.png" /></a>
+            }
+            <span style="padding:10px;"></span>
+            @if (string.IsNullOrEmpty(Model.Profile.Facebook))
+            {
+                <img style="max-width:40px;" src="~/Content/icons/icons_perfil_rede_social_falar_seguros_AF.png" />
+            }
+            else
+            {
+                <a href="@Model.Profile.GooglePlus" target="_blank" class="" style="border-radius:3px;color:#00C1DE;"><img style="max-width:40px;" src="~/Content/icons/icons_perfil_rede_social_falar_seguros_AF.png" /></a>
+            }
+        </div>
+    </div>
+
+    @*<div class="panel panel-white" style="display:block;padding:10px 0px;font-weight:bold;color:#4B5C66">
         <div style="width:100%;text-align:center;display:table;">
             <div style="display:table-cell;vertical-align:middle;"><span style="display:block;font-size:20px;">@Model.Profile.FirstName @Model.Profile.LastName</span>@Model.Profile.Address</div>
         </div>
@@ -130,7 +249,7 @@
         <div style="width:100%;display:flex;text-align:center;">
 
         </div>
-    </div>
+    </div>*@
 
     <div class="panel panel-white" style="display:block;padding:10px 20px;font-weight:bold;color:#4B5C66;font-size:12px;">
 @using (Html.BeginForm("ProfileSave", "Home", FormMethod.Post, new { @class = "", enctype = "multipart/form-data", id = "profileInformationForm" }))
@@ -183,22 +302,25 @@
         </div>
         <div>
             <p class="data-row">
-                <span class="data-name profile-label">@Resources.Resources.Locality</span>
-                <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.ProfileEditModel.Locality)</label>
+                <span class="data-name profile-label">@Resources.Resources.District</span>
+                <label class="form-control label-control profile-label" style="padding: 3px !important;">@Html.DropDownListFor(i => i.ProfileEditModel.ID_District, Model.ProfileEditModel.DistrictList, new { @class = "text ui-widget-content ui-corner-all", @style = "color:#777;min-height:28px;width:100%;", @placeholder = Resources.Resources.Location, id = "districtList" })</label>
+                @Html.HiddenFor(i => i.ProfileEditModel.ID_District, new { id = "districtId" })
             </p>
         </div>
         <div>
             <p class="data-row">
                 <span class="data-name profile-label">@Resources.Resources.County</span>
-                <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.ProfileEditModel.County)</label>
+                <label class="form-control label-control profile-label" style="padding: 3px !important;">@Html.DropDownListFor(i => i.ProfileEditModel.ID_County, Model.ProfileEditModel.CountyList, new { @class = "text ui-widget-content ui-corner-all", @style = "color:#777;min-height:28px;width:100%;", @placeholder = Resources.Resources.Location, id = "countyList" })</label>
+                @Html.HiddenFor(i => i.ProfileEditModel.ID_County, new { id = "countyId" })
             </p>
         </div>
-        <div>
+        @*<div>
             <p class="data-row">
-                <span class="data-name profile-label">@Resources.Resources.District</span>
-                <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.ProfileEditModel.District)</label>
+                <span class="data-name profile-label">@Resources.Resources.Locality</span>
+                <label class="form-control label-control profile-label" style="padding: 3px !important;">@Html.DropDownListFor(i => i.ProfileEditModel.ID_Parish, Model.ProfileEditModel.ParishList, new { @class = "text ui-widget-content ui-corner-all", @style = "color:#777;min-height:28px;width:100%;", @placeholder = Resources.Resources.Location, id = "parishList" })</label>
+                @Html.HiddenFor(i => i.ProfileEditModel.ID_Parish, new { id = "parishId" })
             </p>
-        </div>
+        </div>*@
         <div>
             @Html.ValidationMessageFor(i => i.ProfileEditModel.FirstName)
             @Html.ValidationMessageFor(i => i.ProfileEditModel.LastName)
@@ -289,23 +411,48 @@
         <div style="padding:10px 0px;">
             <span style="font-size:14px;">@Resources.Resources.CompaniesWorkingWith</span>
         </div>
-        <div>
-            @Html.TextAreaFor(i => i.ProfileEditModel.CompaniesWorkingWith, new { @class = "form-control aboutme profile-textarea", @disabled = "disabled", @style = "resize:none;scroll-behaviour:auto;font-weight:normal;" })
+        <div style="padding:10px 0px;display:flex;">
+            @*@Html.TextAreaFor(i => i.ProfileEditModel.AllowedEmailsText, new { @class = "form-control aboutme profile-textarea", @disabled = "disabled", @style = "resize:none;scroll-behaviour:auto;font-weight:normal;" })*@
+            <div style="width: 50%;margin-right: 5px;height:152px;">
+                @Html.ListBox("AvailableCompanies", new MultiSelectList(Model.ProfileEditModel.AvailableCompaniesToWorkWith, "Value", "Text"), new { @class = "form-control listbox", id = "companiesListbox", style = "display: inline-flex;height:100%;" })
+            </div>
+            <div style="width:50%;">
+                <div style="width: 100%;margin-right: 5px;">
+                    @Html.ListBoxFor(m => m.ProfileEditModel.SelectedCompaniesWorkingWith, new MultiSelectList(Model.ProfileEditModel.CompaniesWorkingWith, "Value", "Text"), new { @class = "form-control listbox", id = "companiesListbox", style = "display: inline-flex;min-height: 120px;" })
+                </div>
+                <div>
+                    <img src="~/Content/icons/icons_perfil_rede_social_falar_seguros_v210.png" class="profile-icon" style="max-width:30px;" />
+                    <img src="~/Content/icons/icons_perfil_rede_social_falar_seguros_v29.png" class="profile-icon" style="max-width:30px;" />
+                    <img src="~/Content/icons/icons_perfil_rede_social_falar_seguros_v216.png" class="profile-icon" style="max-width:30px;float:right;" />
+                    <img src="~/Content/icons/icons_perfil_rede_social_falar_seguros_v217.png" class="profile-icon" style="max-width:30px;float:right;" />
+                </div>
+            </div>
         </div>
+        @*<div>
+            @Html.TextAreaFor(i => i.ProfileEditModel.CompaniesWorkingWith, new { @class = "form-control aboutme profile-textarea", @disabled = "disabled", @style = "resize:none;scroll-behaviour:auto;font-weight:normal;" })
+            
+        </div>*@
 
         <p></p>
         <div style="padding:10px 0px;">
             <span style="font-size:14px;">@Resources.Resources.AllowedEmailDomains</span>
         </div>
-        <div style="padding:10px 0px;">
-            @Html.TextAreaFor(i => i.ProfileEditModel.AllowedEmailsText, new { @class = "form-control aboutme profile-textarea", @disabled = "disabled", @style = "resize:none;scroll-behaviour:auto;font-weight:normal;" })
-            @*@Html.ListBoxFor(m => m.SelectedAllowedEmails, new MultiSelectList(Model.AllowedEmails, "Text", "Text"), new { @class = "form-control listbox", id = "emailListbox", style = "max-width:49%;display: inline-flex;min-height: 103px;" })*@
+        <div style="padding:10px 0px;display:flex;">
+            @*@Html.TextAreaFor(i => i.ProfileEditModel.AllowedEmailsText, new { @class = "form-control aboutme profile-textarea", @disabled = "disabled", @style = "resize:none;scroll-behaviour:auto;font-weight:normal;" })*@
+            <div style="width: 100%;margin-right: 5px;">
+                @Html.ListBoxFor(m => m.ProfileEditModel.SelectedAllowedEmails, new MultiSelectList(Model.ProfileEditModel.AllowedEmails, "Text", "Text"), new { @class = "form-control listbox", id = "emailListbox", style = "display: inline-flex;min-height: 120px;" })
+            </div>
+            <div>
+                <input type="email" id="emailDomainTextbox" style="width: 100%;border: 4px solid lightgrey;height: 40px;" placeholder="@Resources.Resources.InsertEmail"  />
+                <input type="button" style="width:100%;" class="btn btn-blue" value="@Resources.Resources.AddEmail" id="addEmailDomain" />
+                <input type="button" style="width:100%;" class="btn btn-darkblue" value="@Resources.Resources.RemoveEmail" id="removeEmailDomain" />
+            </div>
         </div>
 
         <p></p>
         <div class="action-buttons" style="display:block; text-align:center;">
             @Html.ActionLink(Resources.Resources.Cancel, "ProfileInfo", new { id = Model.Profile.ID }, new { @class = "btn btn-darkblue" })
-            <input type="submit" class="btn btn-blue" value="@Resources.Resources.Save" />
+            <input type="button" class="btn btn-blue" value="@Resources.Resources.Save" id="submitButton" />
         </div>
 }
     </div>
@@ -316,7 +463,91 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
+        var ddlCounties = $("#countyList"); //dropdownlist for counties
+        var ddlParishes = $("#parishList"); //dropdownlist for parishes
+
+        if ($("#countyId").val() == null || $("#countyId").val() == '')
+        {
+            $('#countyList').prop('disabled', true);
+        }
         
+        if ($("#parishId").val() == null || $("#parishId").val() == '') {
+            $('#parishList').prop('disabled', true);
+        }
+        
+        $("#districtList").change(function () {
+            var selectedItem = $("#districtList").val(); //dropdownlist for states
+
+            $('#countyList').prop('disabled', false);
+
+            $.ajax({
+                cache: false,
+                type: "GET",
+                url: '@Url.Action("GetCountiesByDistrict", "Home")',
+                data: { "districtId": selectedItem },
+                success: function (data) {
+                    ddlCounties.html('')
+                    $.each(data, function (id, option) {
+                        ddlCounties.append($('<option></option>').val(option.Value).html(option.Text));
+                    });
+                },
+
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert('Failed to retrieve counties.');
+                }
+            });
+
+        });
+
+        $("#countyList").change(function () {
+            var selectedItem = $("#countyList").val(); //dropdownlist for states
+
+            $('#parishList').prop('disabled', false);
+
+            $.ajax({
+                cache: false,
+                type: "GET",
+                url: '@Url.Action("GetParishesByCounty", "Home")',
+                data: { "countyId": selectedItem },
+                success: function (data) {
+                    ddlParishes.html('')
+                    $.each(data, function (id, option) {
+                        ddlParishes.append($('<option></option>').val(option.Value).html(option.Text));
+                    });
+                },
+
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert('Failed to retrieve parishes.');
+                }
+            });
+
+        });
+
+        $("#addEmailDomain").click(function () {
+            if ($('#emailDomainTextbox').val() == null || $('#emailDomainTextbox').val() == '')
+                return;
+
+            if (!$('#emailDomainTextbox').valid())
+                return;
+
+            $('#emailListbox').append('<option value="' + $('#emailDomainTextbox').val() + '">' + $('#emailDomainTextbox').val() + '</option>');
+            $('#emailDomainTextbox').val('');
+        });
+
+        $('#removeEmailDomain').click(function () {
+            $("#emailListbox option:selected").remove();
+        });
+
+        $("#submitButton").click(function () {
+            //$("#emailListbox option").attr("selected", "selected");
+            $('#emailListbox option').prop('selected', true);
+            $("#profileInformationForm").submit();
+        });
+
+        //$("#profileInformationForm").submit(function (e) {
+        //    $('#emailListbox').append('');
+        //    $("#emailListbox option").attr("selected", "selected");
+        //});
     });
 
 </script>

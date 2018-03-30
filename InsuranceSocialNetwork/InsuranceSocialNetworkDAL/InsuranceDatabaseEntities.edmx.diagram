@@ -151,6 +151,9 @@
         <AssociationConnector Association="InsurancePortal_dbModel.FK_Profile_Parish" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_Payment_Profile" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_ProfileSettings_Profile" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.CompanyWorkingWith" Width="1.5" PointX="8.25" PointY="34" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_CompanyWorkingWith_User" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_CompanyWorkingWith_CompanyType" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

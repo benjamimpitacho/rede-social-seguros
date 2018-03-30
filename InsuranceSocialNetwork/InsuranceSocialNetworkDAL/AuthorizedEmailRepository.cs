@@ -64,9 +64,12 @@ namespace InsuranceSocialNetworkDAL
             {
                 context.AuthorizedEmail.Delete(i => string.IsNullOrEmpty(i.ID_User));
 
-                foreach (string emailPattern in emailPatterns)
+                if (null != emailPatterns && emailPatterns.Length > 0)
                 {
-                    context.AuthorizedEmail.Create(new AuthorizedEmail() { Active = true, Email = emailPattern.ToLower(), CreateDate = DateTime.Now, LastChangeDate = DateTime.Now });
+                    foreach (string emailPattern in emailPatterns)
+                    {
+                        context.AuthorizedEmail.Create(new AuthorizedEmail() { Active = true, Email = emailPattern.ToLower(), CreateDate = DateTime.Now, LastChangeDate = DateTime.Now });
+                    }
                 }
 
                 context.Save();
@@ -79,17 +82,21 @@ namespace InsuranceSocialNetworkDAL
         {
             using (var context = new BackofficeUnitOfWork())
             {
-                context.AuthorizedEmail.Delete(i => string.IsNullOrEmpty(i.ID_User));
+                context.AuthorizedEmail.Delete(i => i.ID_User == userId);
 
-                foreach (string emailPattern in emailPatterns)
+                if (null != emailPatterns && emailPatterns.Length > 0)
                 {
-                    context.AuthorizedEmail.Create(new AuthorizedEmail() {
-                        ID_User = userId,
-                        Active = true,
-                        Email = emailPattern.ToLower(),
-                        CreateDate = DateTime.Now,
-                        LastChangeDate = DateTime.Now
-                    });
+                    foreach (string emailPattern in emailPatterns)
+                    {
+                        context.AuthorizedEmail.Create(new AuthorizedEmail()
+                        {
+                            ID_User = userId,
+                            Active = true,
+                            Email = emailPattern.ToLower(),
+                            CreateDate = DateTime.Now,
+                            LastChangeDate = DateTime.Now
+                        });
+                    }
                 }
 
                 context.Save();

@@ -131,10 +131,10 @@ namespace InsuranceWebsite.Controllers
                         if (null != globalSearch)
                         {
                             query = query.Where(i =>
-                                i.FirstName.Contains(globalSearch)
-                                || i.LastName.Contains(globalSearch)
-                                || i.User.UserName.Contains(globalSearch)
-                                || i.ContactEmail.Contains(globalSearch)
+                                i.FirstName.ToLower().Contains(globalSearch.ToLower())
+                                || i.LastName.ToLower().Contains(globalSearch.ToLower())
+                                || i.User.UserName.ToLower().Contains(globalSearch.ToLower())
+                                || i.ContactEmail.ToLower().Contains(globalSearch.ToLower())
                             ).ToList();
                         }
 

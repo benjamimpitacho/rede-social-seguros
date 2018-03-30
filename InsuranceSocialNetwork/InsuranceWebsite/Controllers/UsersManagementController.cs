@@ -218,9 +218,9 @@ namespace InsuranceWebsite.Controllers
                     if (null != globalSearch)
                     {
                         query = query.Where(i =>
-                            (null != i.FirstName && i.FirstName.Contains(globalSearch))
-                            || (null != i.LastName && i.LastName.Contains(globalSearch))
-                            || (null != i.User && null != i.User.UserName && i.User.UserName.Contains(globalSearch))
+                            (null != i.FirstName && i.FirstName.ToLower().Contains(globalSearch.ToLower()))
+                            || (null != i.LastName && i.LastName.ToLower().Contains(globalSearch.ToLower()))
+                            || (null != i.User && null != i.User.UserName && i.User.UserName.ToLower().Contains(globalSearch.ToLower()))
                             //|| (null != i.ContactEmail && i.ContactEmail.Contains(globalSearch))
                         ).ToList();
                     }

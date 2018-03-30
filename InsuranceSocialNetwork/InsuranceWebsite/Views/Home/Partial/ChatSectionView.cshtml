@@ -33,57 +33,57 @@
             <div style="color:#939DA3;font-size:11px;font-weight:bold;">@Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).CompanyName</div>
         }
 
-        @if (string.IsNullOrEmpty(Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).District))
+        @if (!Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).ID_District.HasValue)
         {
-            if (string.IsNullOrEmpty(Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).County))
+            if (!Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).ID_County.HasValue)
             {
-                if (string.IsNullOrEmpty(Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).Locality))
+                if (!Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).ID_Parish.HasValue)
                 {
                     <div style="color:#939DA3;font-size:11px;font-weight:bold;">-</div>
                 }
                 else
                 {
-                    <div style="color:#939DA3;font-size:11px;font-weight:bold;">@Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).Locality, @Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).County</div>
+                    <div style="color:#939DA3;font-size:11px;font-weight:bold;">@Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).Parish.Name</div>
 
                 }
             }
             else
             {
-                if (string.IsNullOrEmpty(Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).Locality))
+                if (!Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).ID_Parish.HasValue)
                 {
-                    <div style="color:#939DA3;font-size:11px;font-weight:bold;">@Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).County</div>
+                    <div style="color:#939DA3;font-size:11px;font-weight:bold;">@Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).County.Name</div>
                 }
                 else
                 {
-                    <div style="color:#939DA3;font-size:11px;font-weight:bold;">@Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).Locality, @Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).County</div>
+                    <div style="color:#939DA3;font-size:11px;font-weight:bold;">@Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).Parish.Name, @Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).County.Name</div>
 
                 }
             }
         }
         else
         {
-            if (string.IsNullOrEmpty(Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).County))
+            if (!Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).ID_County.HasValue)
             {
-                if (string.IsNullOrEmpty(Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).Locality))
+                if (!Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).ID_Parish.HasValue)
                 {
                     <div style="color:#939DA3;font-size:11px;font-weight:bold;">@Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).District</div>
                 }
                 else
                 {
-                    <div style="color:#939DA3;font-size:11px;font-weight:bold;">@Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).Locality, @Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).District</div>
+                    <div style="color:#939DA3;font-size:11px;font-weight:bold;">@Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).Parish.Name, @Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).District.Name</div>
 
                 }
             }
             else
             {
-                if (string.IsNullOrEmpty(Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).Locality))
+                if (!Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).ID_Parish.HasValue)
                 {
-                    <div style="color:#939DA3;font-size:11px;font-weight:bold;">@Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).County, @Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).District</div>
+                    <div style="color:#939DA3;font-size:11px;font-weight:bold;">@Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).County.Name, @Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).District.Name</div>
 
                 }
                 else
                 {
-                    <div style="color:#939DA3;font-size:11px;font-weight:bold;">@Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).Locality, @Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).County, @Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).District</div>
+                    <div style="color:#939DA3;font-size:11px;font-weight:bold;">@Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).Parish.Name, @Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).County.Name, @Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).District.Name</div>
 
                 }
             }

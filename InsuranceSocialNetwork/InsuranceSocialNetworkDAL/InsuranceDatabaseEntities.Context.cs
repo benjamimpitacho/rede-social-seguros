@@ -73,5 +73,6 @@ namespace InsuranceSocialNetworkDAL
         public virtual DbSet<InsuranceCompanyContact> InsuranceCompanyContact { get; set; }
         public virtual DbSet<MedicalClinic> MedicalClinic { get; set; }
         public virtual DbSet<Profile> Profile { get; set; }
+        public virtual DbSet<CompanyWorkingWith> CompanyWorkingWith { get; set; }
     }
 }

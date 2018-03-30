@@ -1,4 +1,5 @@
-﻿using InsuranceSocialNetworkDTO.Notification;
+﻿using InsuranceSocialNetworkBusiness;
+using InsuranceSocialNetworkDTO.Notification;
 using InsuranceSocialNetworkDTO.Post;
 using InsuranceSocialNetworkDTO.UserProfile;
 using System.Collections.Generic;
@@ -32,10 +33,16 @@ namespace InsuranceWebsite.Models
 
         public ProfileSettingsModel ProfileSettings { get; set; }
 
+        public List<SelectListItem> CompaniesWorkingWith { get; set; }
+        public long[] SelectedCompaniesWorkingWith { get; set; }
+
         public List<SelectListItem> AllowedEmails { get; set; }
         public string[] SelectedAllowedEmails { get; set; }
         public string AllowedEmailsText {
             get {
+                if (null == AllowedEmails)
+                    return "";
+
                 return string.Join(";", AllowedEmails.Select(o => o.Text));
             }
         }
@@ -43,6 +50,14 @@ namespace InsuranceWebsite.Models
 
     public class ProfileEditModel : ProfileViewModel
     {
+        public ProfileEditModel()
+        {
+            List<SelectListItem> initList = new List<SelectListItem>() { new SelectListItem() { Value = "", Text = Resources.Resources.SelectDistrict } };
+            this.DistrictList = initList.Concat(InsuranceBusiness.BusinessLayer.GetDistricts().Select(i => new SelectListItem() { Value = i.Key.ToString(), Text = i.Value }).ToList()).ToList();
+            this.CountyList = new List<SelectListItem>() { new SelectListItem() { Value = "", Text = Resources.Resources.SelectCounty } };
+            this.ParishList = new List<SelectListItem>() { new SelectListItem() { Value = "", Text = Resources.Resources.SelectParish } };
+        }
+
         public long ID { get; set; }
         public string ID_User { get; set; }
         [Required]
@@ -82,7 +97,7 @@ namespace InsuranceWebsite.Models
         public string GooglePlus { get; set; }
         public string Skype { get; set; }
         public string Whatsapp { get; set; }
-        public string CompaniesWorkingWith { get; set; }
+        //public string CompaniesWorkingWith { get; set; }
         public long? ID_PostalCode { get; set; }
         public byte[] ProfilePhoto { get; set; }
         [Url]
@@ -92,17 +107,13 @@ namespace InsuranceWebsite.Models
         public System.DateTime LastChangeDate { get; set; }
         public bool Active { get; set; }
 
-        //public List<SelectListItem> AllowedEmails { get; set; }
-        //public string[] SelectedAllowedEmails { get; set; }
-        //public string AllowedEmailsText
-        //{
-        //    get
-        //    {
-        //        return string.Join(";", AllowedEmails.Select(o => o.Text));
-        //    }
-        //}
+        public List<SelectListItem> DistrictList { get; set; }
 
-        //public ProfileSettingsModel Settings { get; set; }
+        public List<SelectListItem> CountyList { get; set; }
+
+        public List<SelectListItem> ParishList { get; set; }
+
+        public List<SelectListItem> AvailableCompaniesToWorkWith { get; set; }
     }
 
     public class ProfileSettingsModel
