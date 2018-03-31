@@ -258,7 +258,8 @@ namespace InsuranceWebsite.Controllers
             }
             catch (Exception ex)
             {
-                throw new NotImplementedException();
+                InsuranceBusiness.BusinessLayer.LogException(string.Format("{0} [{1}]", Request.UserHostAddress, id), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+                return View("Error");
             }
         }
 
@@ -285,7 +286,8 @@ namespace InsuranceWebsite.Controllers
             }
             catch (Exception ex)
             {
-                throw new NotImplementedException();
+                InsuranceBusiness.BusinessLayer.LogException(string.Format("{0} [{1}]", Request.UserHostAddress, id), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+                return View("Error");
             }
 
             return RedirectToAction("Messages");
@@ -301,7 +303,8 @@ namespace InsuranceWebsite.Controllers
             }
             catch (Exception ex)
             {
-                throw new NotImplementedException();
+                InsuranceBusiness.BusinessLayer.LogException(string.Format("{0} [{1}]", Request.UserHostAddress, id), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+                return View("Error");
             }
 
             return RedirectToAction("Messages");
@@ -317,7 +320,8 @@ namespace InsuranceWebsite.Controllers
             }
             catch (Exception ex)
             {
-                throw new NotImplementedException();
+                InsuranceBusiness.BusinessLayer.LogException(string.Format("{0} [{1}]", Request.UserHostAddress, id), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+                return View("Error");
             }
 
             return RedirectToAction("Messages");
@@ -333,7 +337,8 @@ namespace InsuranceWebsite.Controllers
             }
             catch (Exception ex)
             {
-                throw new NotImplementedException();
+                InsuranceBusiness.BusinessLayer.LogException(string.Format("{0} [{1}]", Request.UserHostAddress, id), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+                return View("Error");
             }
 
             return RedirectToAction("Messages");
@@ -371,7 +376,8 @@ namespace InsuranceWebsite.Controllers
             }
             catch (Exception ex)
             {
-                throw new NotImplementedException();
+                InsuranceBusiness.BusinessLayer.LogException(string.Format("{0} [{1}]", Request.UserHostAddress, model.Profile.ID_User), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+                return View("Error");
             }
         }
 
@@ -388,7 +394,8 @@ namespace InsuranceWebsite.Controllers
             }
             catch (Exception ex)
             {
-                throw new NotImplementedException();
+                InsuranceBusiness.BusinessLayer.LogException(string.Format("{0} [{1}]", Request.UserHostAddress, id), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+                return View("Error");
             }
         }
 
@@ -407,7 +414,8 @@ namespace InsuranceWebsite.Controllers
             }
             catch (Exception ex)
             {
-                throw new NotImplementedException();
+                InsuranceBusiness.BusinessLayer.LogException(string.Format("{0}", Request.UserHostAddress), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+                return View("Error");
             }
         }
 
@@ -448,7 +456,8 @@ namespace InsuranceWebsite.Controllers
             }
             catch (Exception ex)
             {
-                throw new NotImplementedException();
+                InsuranceBusiness.BusinessLayer.LogException(string.Format("{0} [{1}]", Request.UserHostAddress, model.Profile.ID_User), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+                return View("Error");
             }
         }
 
@@ -490,7 +499,8 @@ namespace InsuranceWebsite.Controllers
             }
             catch (Exception ex)
             {
-                throw new NotImplementedException();
+                InsuranceBusiness.BusinessLayer.LogException(string.Format("{0} [{1}]", Request.UserHostAddress, model.Profile.ID_User), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+                return View("Error");
             }
         }
 
@@ -669,7 +679,8 @@ namespace InsuranceWebsite.Controllers
             }
             catch (Exception ex)
             {
-                throw new NotImplementedException();
+                InsuranceBusiness.BusinessLayer.LogException(string.Format("{0} [{1}]", Request.UserHostAddress, model.Profile.ID_User), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+                return View("Error");
             }
 
             return RedirectToAction("Index");
@@ -752,7 +763,8 @@ namespace InsuranceWebsite.Controllers
             }
             catch (Exception ex)
             {
-                throw new NotImplementedException();
+                InsuranceBusiness.BusinessLayer.LogException(string.Format("{0} [{1}]", Request.UserHostAddress, model.Profile.ID_User), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+                return View("Error");
             }
 
             return RedirectToAction("Index");
@@ -775,7 +787,8 @@ namespace InsuranceWebsite.Controllers
             }
             catch (Exception ex)
             {
-                throw new NotImplementedException();
+                InsuranceBusiness.BusinessLayer.LogException(string.Format("{0} [{1}]", Request.UserHostAddress, id), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+                return View("Error");
             }
 
             return RedirectToAction("Index");
@@ -791,7 +804,8 @@ namespace InsuranceWebsite.Controllers
             }
             catch (Exception ex)
             {
-                throw new NotImplementedException();
+                InsuranceBusiness.BusinessLayer.LogException(string.Format("{0} [{1}]", Request.UserHostAddress, id), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+                return View("Error");
             }
 
             return RedirectToAction("Index");
@@ -837,7 +851,8 @@ namespace InsuranceWebsite.Controllers
             }
             catch (Exception ex)
             {
-                throw new NotImplementedException();
+                InsuranceBusiness.BusinessLayer.LogException(string.Format("{0} [{1}]", Request.UserHostAddress, model.Profile.ID_User), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+                return View("Error");
             }
 
             return RedirectToAction("CurrentDiscussions");
@@ -883,7 +898,8 @@ namespace InsuranceWebsite.Controllers
             }
             catch (Exception ex)
             {
-                throw new NotImplementedException();
+                InsuranceBusiness.BusinessLayer.LogException(string.Format("{0} [{1}]", Request.UserHostAddress, model.Profile.ID_User), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+                return View("Error");
             }
 
             return RedirectToAction("AsfPage");
@@ -929,7 +945,8 @@ namespace InsuranceWebsite.Controllers
             }
             catch (Exception ex)
             {
-                throw new NotImplementedException();
+                InsuranceBusiness.BusinessLayer.LogException(string.Format("{0} [{1}]", Request.UserHostAddress, model.Profile.ID_User), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+                return View("Error");
             }
 
             return RedirectToAction("ApsPage");
@@ -975,7 +992,8 @@ namespace InsuranceWebsite.Controllers
             }
             catch (Exception ex)
             {
-                throw new NotImplementedException();
+                InsuranceBusiness.BusinessLayer.LogException(string.Format("{0} [{1}]", Request.UserHostAddress, model.Profile.ID_User), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+                return View("Error");
             }
 
             return RedirectToAction("AprosePage");
@@ -1071,7 +1089,8 @@ namespace InsuranceWebsite.Controllers
             }
             catch (Exception ex)
             {
-                throw new NotImplementedException();
+                InsuranceBusiness.BusinessLayer.LogException(string.Format("{0} [{1}]", Request.UserHostAddress, postId), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+                return Json(new { ok = false, message = commentId });
             }
 
             return Json(new { ok = true, message = commentId });
@@ -1132,7 +1151,8 @@ namespace InsuranceWebsite.Controllers
             }
             catch (Exception ex)
             {
-                throw new NotImplementedException();
+                InsuranceBusiness.BusinessLayer.LogException(string.Format("{0} [{1}]", Request.UserHostAddress, (id.HasValue ? id.Value.ToString() : "")), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+                return View("Error");
             }
             //var model = new ProfileViewModel();
             //if (null != this.User && this.User.Identity.IsAuthenticated)
@@ -1221,7 +1241,8 @@ namespace InsuranceWebsite.Controllers
             }
             catch (Exception ex)
             {
-                throw new NotImplementedException();
+                InsuranceBusiness.BusinessLayer.LogException(string.Format("{0} [{1}]", Request.UserHostAddress, userId), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+                return View("Error");
             }
         }
 
@@ -1658,7 +1679,8 @@ namespace InsuranceWebsite.Controllers
             }
             catch (Exception ex)
             {
-                throw new NotImplementedException();
+                InsuranceBusiness.BusinessLayer.LogException(string.Format("{0} [{1}]", Request.UserHostAddress, model.Profile.ID_User), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+                return View("Error");
             }
 
             try
@@ -1667,7 +1689,8 @@ namespace InsuranceWebsite.Controllers
             }
             catch (Exception ex)
             {
-                throw new NotImplementedException();
+                InsuranceBusiness.BusinessLayer.LogException(string.Format("{0} [{1}]", Request.UserHostAddress, model.Profile.ID_User), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+                return View("Error");
             }
 
             //return View("ProfileInfo", model);
@@ -1931,7 +1954,8 @@ namespace InsuranceWebsite.Controllers
             }
             catch (Exception ex)
             {
-                throw new NotImplementedException();
+                InsuranceBusiness.BusinessLayer.LogException(string.Format("{0} [{1}]", Request.UserHostAddress, districtId), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+                return View("Error");
             }
         }
 
@@ -1953,7 +1977,8 @@ namespace InsuranceWebsite.Controllers
             }
             catch (Exception ex)
             {
-                throw new NotImplementedException();
+                InsuranceBusiness.BusinessLayer.LogException(string.Format("{0} [{1}]", Request.UserHostAddress, countyId), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+                return View("Error");
             }
         }
 
@@ -1986,7 +2011,8 @@ namespace InsuranceWebsite.Controllers
             }
             catch (Exception ex)
             {
-                throw new NotImplementedException();
+                InsuranceBusiness.BusinessLayer.LogException(string.Format("{0} [{1}]", Request.UserHostAddress, model.Profile.ID_User), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+                return View("Error");
             }
             return View("Index", model);
         }
@@ -2018,7 +2044,8 @@ namespace InsuranceWebsite.Controllers
             }
             catch (Exception ex)
             {
-                throw new NotImplementedException();
+                InsuranceBusiness.BusinessLayer.LogException(string.Format("{0} [{1}]", Request.UserHostAddress, model.Profile.ID_User), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+                return View("Error");
             }
             return View("Index", model);
         }
@@ -2050,7 +2077,8 @@ namespace InsuranceWebsite.Controllers
             }
             catch (Exception ex)
             {
-                throw new NotImplementedException();
+                InsuranceBusiness.BusinessLayer.LogException(string.Format("{0} [{1}]", Request.UserHostAddress, model.Profile.ID_User), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+                return View("Error");
             }
             return View("Index", model);
         }
@@ -2082,7 +2110,8 @@ namespace InsuranceWebsite.Controllers
             }
             catch (Exception ex)
             {
-                throw new NotImplementedException();
+                InsuranceBusiness.BusinessLayer.LogException(string.Format("{0} [{1}]", Request.UserHostAddress, model.Profile.ID_User), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+                return View("Error");
             }
             return View("Index", model);
         }
@@ -2114,7 +2143,8 @@ namespace InsuranceWebsite.Controllers
             }
             catch (Exception ex)
             {
-                throw new NotImplementedException();
+                InsuranceBusiness.BusinessLayer.LogException(string.Format("{0} [{1}]", Request.UserHostAddress, model.Profile.ID_User), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+                return View("Error");
             }
             return View("Index", model);
         }

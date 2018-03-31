@@ -192,8 +192,6 @@ namespace InsuranceWebsite.LibaxUtils
                 HttpResponseMessage response = client.SendAsync(request).Result;
                 string resultJSON = response.Content.ReadAsStringAsync().Result;
                 dynamic result = Newtonsoft.Json.JsonConvert.DeserializeObject(resultJSON);
-
-                //throw new NotImplementedException();
             }
         }
 

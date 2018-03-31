@@ -1014,4 +1014,13 @@
   <data name="RemoveEmail" xml:space="preserve">
     <value>Remove email</value>
   </data>
+  <data name="Error" xml:space="preserve">
+    <value>Erro</value>
+  </data>
+  <data name="TechnicalTeamWillBeNotified" xml:space="preserve">
+    <value>A equipa técnica do portal Falar Seguros será notificada sobre esta situação e resolveremos a situação o mais breve possivel. Obrigado pela compreensão.</value>
+  </data>
+  <data name="UnexpectedErrorOcurred" xml:space="preserve">
+    <value>Ocorreu um erro inesperado e não foi possível completar a sua operação.</value>
+  </data>
 </root>

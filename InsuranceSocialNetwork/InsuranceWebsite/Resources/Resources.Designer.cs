@@ -1024,6 +1024,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Erro.
+        /// </summary>
+        public static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exportar.
         /// </summary>
         public static string Export {
@@ -2518,6 +2527,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A equipa técnica do portal Falar Seguros será notificada sobre esta situação e resolveremos a situação o mais breve possivel. Obrigado pela compreensão..
+        /// </summary>
+        public static string TechnicalTeamWillBeNotified {
+            get {
+                return ResourceManager.GetString("TechnicalTeamWillBeNotified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Telefone #1.
         /// </summary>
         public static string Telephone_1 {
@@ -2595,6 +2613,15 @@ namespace Resources {
         public static string Type {
             get {
                 return ResourceManager.GetString("Type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ocorreu um erro inesperado e não foi possível completar a sua operação..
+        /// </summary>
+        public static string UnexpectedErrorOcurred {
+            get {
+                return ResourceManager.GetString("UnexpectedErrorOcurred", resourceCulture);
             }
         }
         

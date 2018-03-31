@@ -414,17 +414,17 @@
         <div style="padding:10px 0px;display:flex;">
             @*@Html.TextAreaFor(i => i.ProfileEditModel.AllowedEmailsText, new { @class = "form-control aboutme profile-textarea", @disabled = "disabled", @style = "resize:none;scroll-behaviour:auto;font-weight:normal;" })*@
             <div style="width: 50%;margin-right: 5px;height:152px;">
-                @Html.ListBox("AvailableCompanies", new MultiSelectList(Model.ProfileEditModel.AvailableCompaniesToWorkWith, "Value", "Text"), new { @class = "form-control listbox", id = "companiesListbox", style = "display: inline-flex;height:100%;" })
+                @Html.ListBox("AvailableCompanies", new MultiSelectList(Model.ProfileEditModel.AvailableCompaniesToWorkWith, "Value", "Text"), new { @class = "form-control listbox", id = "availableCompaniesListbox", style = "display: inline-flex;height:100%;" })
             </div>
             <div style="width:50%;">
                 <div style="width: 100%;margin-right: 5px;">
                     @Html.ListBoxFor(m => m.ProfileEditModel.SelectedCompaniesWorkingWith, new MultiSelectList(Model.ProfileEditModel.CompaniesWorkingWith, "Value", "Text"), new { @class = "form-control listbox", id = "companiesListbox", style = "display: inline-flex;min-height: 120px;" })
                 </div>
                 <div>
-                    <img src="~/Content/icons/icons_perfil_rede_social_falar_seguros_v210.png" class="profile-icon" style="max-width:30px;" />
-                    <img src="~/Content/icons/icons_perfil_rede_social_falar_seguros_v29.png" class="profile-icon" style="max-width:30px;" />
-                    <img src="~/Content/icons/icons_perfil_rede_social_falar_seguros_v216.png" class="profile-icon" style="max-width:30px;float:right;" />
-                    <img src="~/Content/icons/icons_perfil_rede_social_falar_seguros_v217.png" class="profile-icon" style="max-width:30px;float:right;" />
+                    <img src="~/Content/icons/icons_perfil_rede_social_falar_seguros_v210.png" class="profile-icon" style="max-width:30px;" id="removeCompany" />
+                    <img src="~/Content/icons/icons_perfil_rede_social_falar_seguros_v29.png" class="profile-icon" style="max-width:30px;" id="addCompany" />
+                    <img src="~/Content/icons/icons_perfil_rede_social_falar_seguros_v216.png" class="profile-icon" style="max-width:30px;float:right;" id="moveCompanyDown" />
+                    <img src="~/Content/icons/icons_perfil_rede_social_falar_seguros_v217.png" class="profile-icon" style="max-width:30px;float:right;" id="moveCompanyUp" />
                 </div>
             </div>
         </div>
@@ -539,15 +539,72 @@
         });
 
         $("#submitButton").click(function () {
-            //$("#emailListbox option").attr("selected", "selected");
             $('#emailListbox option').prop('selected', true);
+            $('#companiesListbox option').prop('selected', true);
             $("#profileInformationForm").submit();
         });
 
-        //$("#profileInformationForm").submit(function (e) {
-        //    $('#emailListbox').append('');
-        //    $("#emailListbox option").attr("selected", "selected");
+        $('#addCompany').click(function (e) {
+            var selectedOpts = $('#availableCompaniesListbox option:selected');
+            if (selectedOpts.length == 0) {
+                //alert("Nothing to move.");
+                e.preventDefault();
+            }
+            $('#companiesListbox').append($(selectedOpts).clone());
+            $(selectedOpts).remove();
+            e.preventDefault();
+        });
+        //$('#btnAllRight').click(function (e) {
+        //    var selectedOpts = $('#lstBox1 option');
+        //    if (selectedOpts.length == 0) {
+        //        alert("Nothing to move.");
+        //        e.preventDefault();
+        //    }
+        //    $('#lstBox2').append($(selectedOpts).clone());
+        //    $(selectedOpts).remove();
+        //    e.preventDefault();
         //});
+        $('#removeCompany').click(function (e) {
+            var selectedOpts = $('#companiesListbox option:selected');
+            if (selectedOpts.length == 0) {
+                //alert("Nothing to move.");
+                e.preventDefault();
+            }
+            $('#availableCompaniesListbox').append($(selectedOpts).clone());
+            $(selectedOpts).remove();
+            e.preventDefault();
+        });
+        //$('#btnAllLeft').click(function (e) {
+        //    var selectedOpts = $('#lstBox2 option');
+        //    if (selectedOpts.length == 0) {
+        //        alert("Nothing to move.");
+        //        e.preventDefault();
+        //    }
+        //    $('#lstBox1').append($(selectedOpts).clone());
+        //    $(selectedOpts).remove();
+        //    e.preventDefault();
+        //});
+        $('#moveCompanyUp').click(function (e) {
+
+            var selectedOption = $('#companiesListbox option:selected');
+            var nextOption = $('#companiesListbox option:selected').next("option");
+
+            if ($(nextOption).text() != "") {
+                $(selectedOption).remove();
+                $(nextOption).after($(selectedOption));
+            }
+        });
+
+        $('#moveCompanyDown').click(function (e) {
+
+            var selectedOption = $('#companiesListbox option:selected');
+            var prevOption = $('#companiesListbox option:selected').prev("option");
+
+            if ($(prevOption).text() != "") {
+                $(selectedOption).remove();
+                $(prevOption).before($(selectedOption));
+            }
+        });
     });
 
 </script>

@@ -436,7 +436,8 @@ namespace InsuranceWebsite.Controllers
             }
             catch (Exception ex)
             {
-                throw new NotImplementedException();
+                InsuranceBusiness.BusinessLayer.LogException(Request.UserHostAddress, string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+                return View("Error");
             }
 
             return RedirectToAction("Index", new { id = model.CompanyType });
@@ -701,8 +702,8 @@ namespace InsuranceWebsite.Controllers
             }
             catch (Exception ex)
             {
-                InsuranceBusiness.BusinessLayer.LogException(Request.UserHostAddress, "Edit Company", ex);
-                throw new NotImplementedException();
+                InsuranceBusiness.BusinessLayer.LogException(Request.UserHostAddress, string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+                return View("Error");
             }
 
             return RedirectToAction("Index", new { id = model.CompanyType });
@@ -736,7 +737,8 @@ namespace InsuranceWebsite.Controllers
             }
             catch (Exception ex)
             {
-                throw new NotImplementedException();
+                InsuranceBusiness.BusinessLayer.LogException(Request.UserHostAddress, string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+                return View("Error");
             }
 
             return RedirectToAction("Index");
@@ -891,8 +893,8 @@ namespace InsuranceWebsite.Controllers
             }
             catch(Exception ex)
             {
-                InsuranceBusiness.BusinessLayer.LogException(Request.UserHostAddress, "Setup Direct Debit", ex);
-                throw new NotImplementedException();
+                InsuranceBusiness.BusinessLayer.LogException(Request.UserHostAddress, string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+                return PartialView("Error");
             }
         }
 

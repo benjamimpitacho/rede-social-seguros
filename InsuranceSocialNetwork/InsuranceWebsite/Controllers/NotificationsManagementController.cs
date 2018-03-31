@@ -193,7 +193,7 @@ namespace InsuranceWebsite.Controllers
                 long notificationId = InsuranceBusiness.BusinessLayer.CreatePaymentNotification(ep_cin, ep_user, ep_doc, ep_type);
                 if (notificationId <= 0)
                 {
-                    InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.ERROR, Request.UserHostAddress, "Could not create Payment Notification on easypay notification call", "Could not create Payment Notification on easypay notification call");
+                    InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.ERROR, string.Format("{0}", Request.UserHostAddress), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), string.Format("Cannot create notification. {0}, {1}, {2}, {3}", ep_cin, ep_user, ep_doc, ep_type));
                     return;
                 }
                 PaymentNotificationDTO paymentNotification = InsuranceBusiness.BusinessLayer.GetPaymentNotification(notificationId);
@@ -240,7 +240,7 @@ namespace InsuranceWebsite.Controllers
 
                         if (null == payment || payment.ep_cin != ep_cin || payment.ep_user != ep_user)
                         {
-                            InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.ERROR, Request.UserHostAddress, "Easypay notification infromation doesn't match payment information", string.Format("Easypay infromation received is ep_cin {0}, ep_user {1}, ep_doc {2}, ep_type {3} for payment {4}", ep_cin, ep_user, ep_doc, ep_type, payment.Payment_GUID));
+                            InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.ERROR, string.Format("{0}", Request.UserHostAddress), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), string.Format("Easypay payment information doesn't match Payment information. {0}, {1}, {2}, {3}", ep_cin, ep_user, ep_doc, ep_type));
                             return;
                         }
 
@@ -259,7 +259,7 @@ namespace InsuranceWebsite.Controllers
                     else
                     {
                         // Erro
-                        InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.ERROR, Request.UserHostAddress, "Easypay returned error fetching payment details", result);
+                        InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.ERROR, string.Format("{0}", Request.UserHostAddress), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), string.Format("Easypay returned error fetching payment details: {0} {1}, {2}, {3}, {4}", result, ep_cin, ep_user, ep_doc, ep_type));
                         //payment = InsuranceBusiness.BusinessLayer.GetPayment(paymentNotification.t_key);
                         //payment.LastChangeDate = DateTime.Now;
                         //payment.Message = response.InnerXml;
@@ -394,8 +394,8 @@ namespace InsuranceWebsite.Controllers
             }
             catch (Exception ex)
             {
-                InsuranceBusiness.BusinessLayer.LogException(Request.UserHostAddress, "NotificationsManagementController::EasypayPaymentNotification", ex);
-                throw new NotImplementedException();
+                InsuranceBusiness.BusinessLayer.LogException(string.Format("{0} [{1}]", Request.UserHostAddress, string.Format("ep_cin={0}&ep_user={1}&ep_doc={2}", ep_cin, ep_user, ep_doc)), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+                return;
             }
         }
 
@@ -431,8 +431,8 @@ namespace InsuranceWebsite.Controllers
             }
             catch (Exception ex)
             {
-                InsuranceBusiness.BusinessLayer.LogException(Request.UserHostAddress, "NotificationsManagementController::EasypayDirectDebitNotification", ex);
-                throw new NotImplementedException();
+                InsuranceBusiness.BusinessLayer.LogException(string.Format("{0} [{1}]", Request.UserHostAddress, string.Format("e={0}&r={1}&v={2}&k={3}&s={4}&t_key={5}", e, r, v, k, s, t_key)), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+                return PartialView("Error");
             }
         }
 
@@ -476,8 +476,8 @@ namespace InsuranceWebsite.Controllers
             }
             catch (Exception ex)
             {
-                InsuranceBusiness.BusinessLayer.LogException(Request.UserHostAddress, "NotificationsManagementController::EasypayDirectDebitNotification", ex);
-                throw new NotImplementedException();
+                InsuranceBusiness.BusinessLayer.LogException(string.Format("{0} [{1}]", Request.UserHostAddress, string.Format("e={0}&r={1}&v={2}&k={3}&s={4}&t_key={5}", e, r, v, k, s, t_key)), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+                return View("Error");
             }
         }
 
