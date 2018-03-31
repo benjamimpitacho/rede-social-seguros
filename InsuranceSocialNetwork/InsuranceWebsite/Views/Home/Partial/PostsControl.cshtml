@@ -17,7 +17,7 @@
         z-index: 1000 !important;
     }
 
-    .ui-widget-overlay{
+    .ui-widget-overlay {
         z-index: 999 !important;
         opacity: 0.3;
     }
@@ -28,17 +28,17 @@
     {
         <div class="panel panel-white post panel-shadow">
 
-            <div class="post-heading">
+            <div class="post-heading post">
 
                 <div class="pull-left image" style="padding:5px">
                     <a href="@Url.Action("ProfileInfo", "Home", new { id = post.PostOwner.ID })">
                         @if (null != post.PostOwner.ProfilePhoto && post.PostOwner.ProfilePhoto.Length > 0)
                         {
-                        <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(post.PostOwner.ProfilePhoto))" class="avatar" alt="user profile image">
+                            <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(post.PostOwner.ProfilePhoto))" class="avatar" alt="user profile image">
                         }
                         else
                         {
-                        <img src="~/Content/images/no_photo_img.jpg" class="avatar" alt="user profile image">
+                            <img src="~/Content/images/no_photo_img.jpg" class="avatar" alt="user profile image">
                         }
                     </a>
                 </div>
@@ -48,38 +48,42 @@
                     <div class="h5" style="font-weight: bold;">
 
                         <a href="@Url.Action("ProfileInfo", "Home", new { id = post.PostOwner.ID })" class="post-user-name">@post.PostOwner.FirstName</a>
-                        
+                        @if (post.IsRepost)
+                        {
+                            <span style="font-weight:normal;color:#939DA3;"> @string.Format(Resources.Resources.SharedPostOf, "") <span style="font-weight:bold;">@post.RepostPost.PostOwner.FirstName</span></span>
+                        }
+
                     </div>
 
                     @if (post.PostSubject.Token == InsuranceSocialNetworkCore.Enums.PostSubjectEnum.SPONSORED_POST.ToString())
                     {
-                    <h6 class="text-muted time">@Resources.Resources.Sponsored.ToUpper()</h6>
+                        <h6 class="text-muted time">@Resources.Resources.Sponsored.ToUpper()</h6>
                     }
                     else
                     {
                         if (DateTime.Now.Subtract(post.CreateDate).TotalMinutes < 1)
                         {
-                    <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(post.CreateDate).TotalSeconds, 0) @Resources.Resources.SecondsAgo</h6>
+                            <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(post.CreateDate).TotalSeconds, 0) @Resources.Resources.SecondsAgo</h6>
                         }
                         else if (DateTime.Now.Subtract(post.CreateDate).TotalHours < 2)
                         {
-                    <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(post.CreateDate).TotalMinutes, 0) @Resources.Resources.MinutesAgo</h6>
+                            <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(post.CreateDate).TotalMinutes, 0) @Resources.Resources.MinutesAgo</h6>
                         }
                         else if (DateTime.Now.Subtract(post.CreateDate).TotalDays < 1)
                         {
-                    <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(post.CreateDate).TotalHours, 0) @Resources.Resources.HoursAgo</h6>
+                            <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(post.CreateDate).TotalHours, 0) @Resources.Resources.HoursAgo</h6>
                         }
                         else if (DateTime.Now.Subtract(post.CreateDate).TotalDays == 1)
                         {
-                    <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(post.CreateDate).TotalDays, 0) @Resources.Resources.DayAgo</h6>
+                            <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(post.CreateDate).TotalDays, 0) @Resources.Resources.DayAgo</h6>
                         }
                         else if (DateTime.Now.Subtract(post.CreateDate).TotalDays < 3)
                         {
-                    <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(post.CreateDate).TotalDays, 0) @Resources.Resources.DaysAgo</h6>
+                            <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(post.CreateDate).TotalDays, 0) @Resources.Resources.DaysAgo</h6>
                         }
                         else
                         {
-                    <h6 class="text-muted time">@post.CreateDate.ToShortDateString()</h6>
+                            <h6 class="text-muted time">@post.CreateDate.ToShortDateString()</h6>
                         }
                     }
 
@@ -95,11 +99,159 @@
 
                 @if (post.PostType.Token == InsuranceSocialNetworkCore.Enums.PostTypeEnum.FILE_POST.ToString())
                 {
-                    <a id="file_@post.ID" href="@Url.Action("Download", "Home", new { id = post.ID })"><i class="fa fa-file-text-o" aria-hidden="true" style="font-size:30px;padding-left: 15px;padding-right:10px;"></i></a>
+                    <a id="file_@post.ID" href="@Url.Action("Download", "Home", new { id = post.ID })">
+                        <i class="fa fa-file-text-o" aria-hidden="true" style="font-size:30px;padding-left: 15px;padding-right:10px;"></i>
+                    </a>
                 }
                 <span id="text_@post.ID">@post.Text</span>
 
             </div>
+
+            @*Reported Post Details*@
+            @if (post.IsRepost && post.PostType.Token == InsuranceSocialNetworkCore.Enums.PostTypeEnum.TEXT_POST.ToString())
+            {
+                <a href="@Url.Action("PostDetail", "Home", new { idPost = post.RepostPost.ID})">
+                    <div class="panel panel-white post panel-shadow" style="border: 1px #ccc solid;">
+
+                        <div class="post-heading">
+
+                            <div class="pull-left image" style="padding:5px">
+                                @*<a href="@Url.Action("ProfileInfo", "Home", new { id = post.PostOwner.ID })">*@
+                                @if (null != post.RepostPost.PostOwner.ProfilePhoto && post.RepostPost.PostOwner.ProfilePhoto.Length > 0)
+                    {
+                                <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(post.RepostPost.PostOwner.ProfilePhoto))" class="avatar" alt="user profile image">
+                                }
+                                else
+                                {
+                                <img src="~/Content/images/no_photo_img.jpg" class="avatar" alt="user profile image">
+                                }
+                                @*</a>*@
+                            </div>
+
+                            <div class="pull-left meta" style="margin-bottom: 0px;">
+
+                                <div class="h5" style="font-weight: bold;">
+
+                                    @*<a href="@Url.Action("ProfileInfo", "Home", new { id = post.RepostPost.PostOwner.ID })" class="post-user-name">*@@post.RepostPost.PostOwner.FirstName@*</a>*@
+
+                                </div>
+
+                                @if (post.RepostPost.PostSubject.Token == InsuranceSocialNetworkCore.Enums.PostSubjectEnum.SPONSORED_POST.ToString())
+                                {
+                                <h6 class="text-muted time">@Resources.Resources.Sponsored.ToUpper()</h6>
+                                }
+                                else
+                                {
+                                    if (DateTime.Now.Subtract(post.RepostPost.CreateDate).TotalMinutes < 1)
+                                    {
+                                <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(post.RepostPost.CreateDate).TotalSeconds, 0) @Resources.Resources.SecondsAgo</h6>
+                                    }
+                                    else if (DateTime.Now.Subtract(post.RepostPost.CreateDate).TotalHours < 2)
+                                    {
+                                <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(post.RepostPost.CreateDate).TotalMinutes, 0) @Resources.Resources.MinutesAgo</h6>
+                                    }
+                                    else if (DateTime.Now.Subtract(post.RepostPost.CreateDate).TotalDays < 1)
+                                    {
+                                <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(post.RepostPost.CreateDate).TotalHours, 0) @Resources.Resources.HoursAgo</h6>
+                                    }
+                                    else if (DateTime.Now.Subtract(post.RepostPost.CreateDate).TotalDays == 1)
+                                    {
+                                <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(post.RepostPost.CreateDate).TotalDays, 0) @Resources.Resources.DayAgo</h6>
+                                    }
+                                    else if (DateTime.Now.Subtract(post.RepostPost.CreateDate).TotalDays < 3)
+                                    {
+                                <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(post.RepostPost.CreateDate).TotalDays, 0) @Resources.Resources.DaysAgo</h6>
+                                    }
+                                    else
+                                    {
+                                <h6 class="text-muted time">@post.RepostPost.CreateDate.ToShortDateString()</h6>
+                                    }
+                                }
+
+                            </div>
+
+                            @*<div class="pull-right">
+                                    <i class="glyphicon glyphicon-option-vertical icon context-menu-one" id="menu_@post.RepostPost.ID" style="border:0px;font-size: 24px;margin-right: 10px;"></i>
+                                </div>*@
+
+                        </div>
+
+                        <div class="post-description" style="word-break:normal; text-align:justify;">
+
+                            @if (post.RepostPost.PostType.Token == InsuranceSocialNetworkCore.Enums.PostTypeEnum.FILE_POST.ToString())
+                            {
+                            @*<a id="file_@post.RepostPost.ID" href="@Url.Action("Download", "Home", new { id = post.RepostPost.ID })">*@<i class="fa fa-file-text-o" aria-hidden="true" style="font-size:30px;padding-left: 15px;padding-right:10px;"></i>@*</a>*@
+                            }
+                            <span id="text_@post.RepostPost.ID">@post.RepostPost.Text</span>
+
+                        </div>
+
+                        @if (post.RepostPost.PostType.Token == InsuranceSocialNetworkCore.Enums.PostTypeEnum.IMAGE_POST.ToString())
+                    {
+
+                        <div class="post-image">
+
+                            @*<img src="@post.RepostPost.ImageSource" class="image show-in-modal" alt="image post">*@
+
+                            <div id="gallery_@post.RepostPost.ID" class="image show-in-modal"></div>
+
+                            <script>
+
+                        $(function () {
+
+                            $('#gallery_'+@post.RepostPost.ID).imagesGrid({
+                                images: [
+                                    {
+                                        src: '@post.RepostPost.ImageSource'
+                                    }
+                                ],
+                                align: true,
+                                getViewAllText: function (imgsCount) { return 'View all' }
+                            });
+
+                        });
+
+                            </script>
+
+                        </div>
+                        }
+
+                        @if (post.RepostPost.PostType.Token == InsuranceSocialNetworkCore.Enums.PostTypeEnum.LINK_POST.ToString())
+                    {
+
+                        <div id="livePreviewBox">
+                            <div style="padding:10px;">
+                                @*<a href="@post.RepostPost.URL" target="_blank">*@
+                                <div style="border: 1px #ccc solid;">
+                                    @if (!string.IsNullOrEmpty(post.RepostPost.ImageSource))
+                                        {
+                                        <div>
+                                            <div>
+                                                <div style="text-align:center;"><img src="@post.RepostPost.ImageSource" class="image" alt="image post"></div>
+                                            </div>
+                                        </div>
+                                        }
+                                    @if (!string.IsNullOrEmpty(post.RepostPost.URL_Title) || !string.IsNullOrEmpty(post.RepostPost.URL_Description) || !string.IsNullOrEmpty(post.RepostPost.URL_Domain))
+                                        {
+                                        <div style="border-top: 1px #ccc solid;padding: 10px;">
+                                            <div style="font-weight: bold;font-size: 16px;color:#333;">@post.RepostPost.URL_Title</div>
+                                            <div style="font-size: 12px;">@post.RepostPost.URL_Description</div>
+                                            <div>
+                                                <div>
+                                                    <div style="color: #6F7D85;">@post.RepostPost.URL_Domain</div>
+                                                    <div class=""></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        }
+                                </div>
+                                @*</a>*@
+                            </div>
+                        </div>
+                        }
+                    </div>
+                </a>
+            }
 
             @if (post.PostType.Token == InsuranceSocialNetworkCore.Enums.PostTypeEnum.IMAGE_POST.ToString())
             {
@@ -171,40 +323,35 @@
 
                     @if (null != post.PostLike && post.PostLike.Count > 0 && post.PostLike.Exists(i => i.ID_User == Model.Profile.ID_User))
                     {
-                    <a onclick="UnlikePost(this, @post.ID, @post.PostLike.Count)" class="stat-item" id="unlikePost" style="color:#00C1DE">
-                        <img class="post-icon" src="~/Content/icons/icons_diretorios_rede_social_falar_seguros_AF3.png" /><span style="padding-left: 8px;color:#4B5C66;font-size: 10px;">@post.PostLike.Count</span>
-                    </a>
+                        <a onclick="UnlikePost(this, @post.ID, @post.PostLike.Count)" class="stat-item" id="unlikePost" style="color:#00C1DE;min-width: 50px;">
+                            <img class="post-icon" src="~/Content/icons/icons_diretorios_rede_social_falar_seguros_AF3.png" /><span style="padding-left: 8px;color:#4B5C66;font-size: 10px;">@post.PostLike.Count</span>
+                        </a>
                     }
                     else if (null != post.PostLike && post.PostLike.Count > 0)
                     {
-                    <a onclick="LikePost(this, @post.ID, @post.PostLike.Count)" class="stat-item" id="likePost">
-                        <img class="post-icon" src="~/Content/icons/icons_diretorios_rede_social_falar_seguros_AF2.png" /><span style="padding-left: 8px;color:#4B5C66;font-size: 10px;">@post.PostLike.Count</span>
-                    </a>
+                        <a onclick="LikePost(this, @post.ID, @post.PostLike.Count)" class="stat-item" id="likePost" style="min-width: 50px;">
+                            <img class="post-icon" src="~/Content/icons/icons_diretorios_rede_social_falar_seguros_AF2.png" /><span style="padding-left: 8px;color:#4B5C66;font-size: 10px;">@post.PostLike.Count</span>
+                        </a>
                     }
                     else
                     {
-                    @*<a href="@Url.Action("LikePost", "Home", new { postId = post.ID, userId = Model.Profile.ID_User })" class="stat-item">*@
-                    <a onclick="LikePost(this, @post.ID, @post.PostLike.Count)" class="stat-item">
-                        <img class="post-icon" src="~/Content/icons/icons_diretorios_rede_social_falar_seguros_AF2.png" />
-                    </a>
+                        <a onclick="LikePost(this, @post.ID, @post.PostLike.Count)" class="stat-item" style="min-width: 50px;">
+                            <img class="post-icon" src="~/Content/icons/icons_diretorios_rede_social_falar_seguros_AF2.png" />
+                        </a>
                     }
 
-                    @*<a href="#" class="stat-item">
-
-                            <i class="fa fa-retweet icon"></i>12
-
-                        </a>*@
-
-                    <a class="stat-item">
-
+                    <a class="stat-item" style="min-width: 50px;">
                         <img class="post-icon" src="~/Content/icons/home_page_rede_social_falar_seguros_AF14.png" />
                         @if (post.PostComment.Count > 0)
                         {
-                        <span style="padding-left: 8px;color:#4B5C66;font-size: 10px;">
-                            @post.PostComment.Count
-                        </span>
+                            <span style="padding-left: 8px;color:#4B5C66;font-size: 10px;">
+                                @post.PostComment.Count
+                            </span>
                         }
+                    </a>
 
+                    <a id="sharePostButton" onclick="SharePost(@post.ID)" class="stat-item" style="min-width: 50px;">
+                        <img class="post-icon" src="~/Content/icons/icons_perfil_rede_social_falar_seguros_v27.png" />
                     </a>
 
                 </div>
@@ -217,69 +364,69 @@
 
                 @if (null != post.PostComment && post.PostComment.Count > 0)
                 {
-                <ul class="comments-list">
+                    <ul class="comments-list">
 
-                    @foreach (PostCommentDTO comment in post.PostComment)
+                        @foreach (PostCommentDTO comment in post.PostComment)
                         {
-                        <li class="comment">
+                            <li class="comment">
 
-                            <a class="pull-left" href="@Url.Action("ProfileInfo", "Home", new { id = comment.CommentOwner.ID })">
+                                <a class="pull-left" href="@Url.Action("ProfileInfo", "Home", new { id = comment.CommentOwner.ID })">
 
-                                @if (null != comment.CommentOwner.ProfilePhoto && comment.CommentOwner.ProfilePhoto.Length > 0)
+                                    @if (null != comment.CommentOwner.ProfilePhoto && comment.CommentOwner.ProfilePhoto.Length > 0)
                                     {
-                                    <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(comment.CommentOwner.ProfilePhoto))" class="avatar" alt="user profile image">
+                                        <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(comment.CommentOwner.ProfilePhoto))" class="avatar" alt="user profile image">
                                     }
                                     else
                                     {
-                                    <img src="~/Content/images/no_photo_img.jpg" class="avatar" alt="user profile image">
+                                        <img src="~/Content/images/no_photo_img.jpg" class="avatar" alt="user profile image">
                                     }
 
-                            </a>
+                                </a>
 
-                            <div class="comment-body" style="font-size:12px">
+                                <div class="comment-body" style="font-size:12px">
 
-                                <h6 class="comment-user-name"><a href="@Url.Action("ProfileInfo", "Home", new { id = comment.CommentOwner.ID })">@comment.CommentOwner.FirstName</a></h6> @comment.Text
+                                    <h6 class="comment-user-name"><a href="@Url.Action("ProfileInfo", "Home", new { id = comment.CommentOwner.ID })">@comment.CommentOwner.FirstName</a></h6> @comment.Text
 
-                                <div class="comment-heading">
+                                    <div class="comment-heading">
 
-                                    @if (DateTime.Now.Subtract(comment.Date).TotalMinutes < 1)
+                                        @if (DateTime.Now.Subtract(comment.Date).TotalMinutes < 1)
                                         {
-                                        <h6 class="time">@Math.Round(DateTime.Now.Subtract(comment.Date).TotalSeconds, 0) @Resources.Resources.SecondsAgo</h6>
+                                            <h6 class="time">@Math.Round(DateTime.Now.Subtract(comment.Date).TotalSeconds, 0) @Resources.Resources.SecondsAgo</h6>
                                         }
                                         else if (DateTime.Now.Subtract(comment.Date).TotalHours < 1)
                                         {
-                                        <h6 class="time">@Math.Round(DateTime.Now.Subtract(comment.Date).TotalMinutes, 0) @Resources.Resources.MinutesAgo</h6>
+                                            <h6 class="time">@Math.Round(DateTime.Now.Subtract(comment.Date).TotalMinutes, 0) @Resources.Resources.MinutesAgo</h6>
                                         }
                                         else if (DateTime.Now.Subtract(comment.Date).TotalDays < 1)
                                         {
-                                        <h6 class="time">@Math.Round(DateTime.Now.Subtract(comment.Date).TotalHours, 0) @Resources.Resources.HoursAgo</h6>
+                                            <h6 class="time">@Math.Round(DateTime.Now.Subtract(comment.Date).TotalHours, 0) @Resources.Resources.HoursAgo</h6>
                                         }
                                         else if (DateTime.Now.Subtract(comment.Date).TotalDays == 1)
                                         {
-                                        <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(comment.Date).TotalDays, 0) @Resources.Resources.DayAgo</h6>
+                                            <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(comment.Date).TotalDays, 0) @Resources.Resources.DayAgo</h6>
                                         }
                                         else if (DateTime.Now.Subtract(comment.Date).TotalDays < 3)
                                         {
-                                        <h6 class="time">@Math.Round(DateTime.Now.Subtract(comment.Date).TotalDays, 0) @Resources.Resources.DaysAgo</h6>
+                                            <h6 class="time">@Math.Round(DateTime.Now.Subtract(comment.Date).TotalDays, 0) @Resources.Resources.DaysAgo</h6>
                                         }
                                         else
                                         {
-                                        <h6 class="time">@comment.Date.ToShortDateString()</h6>
+                                            <h6 class="time">@comment.Date.ToShortDateString()</h6>
                                         }
 
+                                    </div>
                                 </div>
-                            </div>
 
-                        </li>
+                            </li>
                         }
 
-                </ul>
+                    </ul>
                 }
 
                 @using (Html.BeginForm("NewComment", "Home", FormMethod.Post, new { @class = "commentForm" }))
                 {
-                <input type="hidden" id="postId" name="postId" value="@post.ID" />
-                <input id="postNewComment" name="postNewComment" class="form-control add-comment-input" placeholder="@Resources.Resources.AddComment" type="text" />
+                    <input type="hidden" id="postId" name="postId" value="@post.ID" />
+                            <input id="postNewComment" name="postNewComment" class="form-control add-comment-input" placeholder="@Resources.Resources.AddComment" type="text" />
                 }
             </div>
             @*}*@
@@ -291,13 +438,19 @@
 <div id="dialog-confirm-delete" style="display: none"></div>
 <div id="dialog-confirm-hide" style="display: none"></div>
 <div id="dialog-confirm-edit" style="display:none;height:auto;"></div>
+<div id="dialog-confirm-repost" style="display:none;height:auto;"></div>
 
 <script type="text/javascript">
+    var url = "";
+    var postId = 0;
+
+    function SharePost(id)
+    {
+        postId = id;
+        $("#dialog-confirm-repost").dialog('open');
+    }
 
     $(function () {
-
-        var url = "";
-        var postId = 0;
 
         $('.post-description').expander({
             slicePoint: 500,
@@ -328,6 +481,10 @@
             $(e.target).children("#postNewComment").val("");
 
         });
+
+        //$("#sharePostButton").click(function (e) {
+        //    $("#dialog-confirm-repost").dialog('open');
+        //});
 
         $.contextMenu({
             selector: '.context-menu-one',
@@ -427,6 +584,21 @@
             draggable: true,
             open: function (event, ui) {
                 $(this).load("@Url.Action("EditPostDialog", "Home")" + "/" + postId);
+            },
+            buttons: {}
+        });
+
+        $("#dialog-confirm-repost").dialog({
+            title: '@Resources.Resources.Publish',
+            autoOpen: false,
+            resizable: false,
+            height: 550,
+            width: 450,
+            show: { effect: 'drop', direction: "up" },
+            modal: true,
+            draggable: true,
+            open: function (event, ui) {
+                $(this).load("@Url.Action("SharePostDialog", "Home")" + "/" + postId);
             },
             buttons: {}
         });

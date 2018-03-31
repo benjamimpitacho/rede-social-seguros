@@ -42,6 +42,10 @@ namespace InsuranceSocialNetworkDAL
         public string URL_Title { get; set; }
         public string URL_Description { get; set; }
         public string URL_Image_Address { get; set; }
+        public bool IsRepost { get; set; }
+        public string Repost_Text { get; set; }
+        public Nullable<long> Repost_PostID { get; set; }
+        public Nullable<long> Repost_ProfileID { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

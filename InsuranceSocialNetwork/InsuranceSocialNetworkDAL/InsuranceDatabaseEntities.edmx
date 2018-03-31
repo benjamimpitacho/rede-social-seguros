@@ -625,6 +625,10 @@
           <Property Name="URL_Title" Type="nvarchar(max)" />
           <Property Name="URL_Description" Type="nvarchar(max)" />
           <Property Name="URL_Image_Address" Type="nvarchar(max)" />
+          <Property Name="IsRepost" Type="bit" Nullable="false" />
+          <Property Name="Repost_Text" Type="nvarchar(max)" />
+          <Property Name="Repost_PostID" Type="bigint" />
+          <Property Name="Repost_ProfileID" Type="bigint" />
         </EntityType>
         <EntityType Name="PostComment">
           <Key>
@@ -3893,6 +3897,10 @@
           <NavigationProperty Name="PostHidden" Relationship="InsurancePortal_dbModel.FK_PostHidden_Post" FromRole="Post" ToRole="PostHidden" />
           <NavigationProperty Name="PostImage" Relationship="InsurancePortal_dbModel.FK_PostImage_Post" FromRole="Post" ToRole="PostImage" />
           <NavigationProperty Name="PostLike" Relationship="InsurancePortal_dbModel.FK_PostLike_Post" FromRole="Post" ToRole="PostLike" />
+          <Property Name="IsRepost" Type="Boolean" Nullable="false" />
+          <Property Name="Repost_Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Repost_PostID" Type="Int64" />
+          <Property Name="Repost_ProfileID" Type="Int64" />
         </EntityType>
         <Association Name="FK_Post_AspNetUsers">
           <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
@@ -5606,6 +5614,10 @@
           <EntitySetMapping Name="Post">
             <EntityTypeMapping TypeName="InsurancePortal_dbModel.Post">
               <MappingFragment StoreEntitySet="Post">
+                <ScalarProperty Name="Repost_ProfileID" ColumnName="Repost_ProfileID" />
+                <ScalarProperty Name="Repost_PostID" ColumnName="Repost_PostID" />
+                <ScalarProperty Name="Repost_Text" ColumnName="Repost_Text" />
+                <ScalarProperty Name="IsRepost" ColumnName="IsRepost" />
                 <ScalarProperty Name="URL_Image_Address" ColumnName="URL_Image_Address" />
                 <ScalarProperty Name="URL_Description" ColumnName="URL_Description" />
                 <ScalarProperty Name="URL_Title" ColumnName="URL_Title" />

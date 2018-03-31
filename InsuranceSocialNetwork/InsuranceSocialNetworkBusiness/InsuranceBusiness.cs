@@ -671,11 +671,11 @@ namespace InsuranceSocialNetworkBusiness
             {
                 List<Post> list = PostRepository.GetUserRelatedPosts(context, Id);
 
-                //list.ForEach(p => p.PostComment = p.PostComment.Where(c => c.Active).Select(c => c).ToList());
-                //list.ForEach(p => p.PostImage = p.PostImage.Where(c => c.Active).Select(c => c).ToList());
+                List<PostDTO> result = AutoMapper.Mapper.Map<List<PostDTO>>(list);
 
+                result.Where(i => i.IsRepost && i.Repost_PostID.HasValue).ToList().ForEach(i => i.RepostPost = GetPost(i.Repost_PostID.Value));
 
-                return AutoMapper.Mapper.Map<List<PostDTO>>(list);
+                return result;
             }
         }
 

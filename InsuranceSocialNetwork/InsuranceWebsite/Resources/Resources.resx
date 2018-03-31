@@ -1023,4 +1023,7 @@
   <data name="UnexpectedErrorOcurred" xml:space="preserve">
     <value>Ocorreu um erro inesperado e não foi possível completar a sua operação.</value>
   </data>
+  <data name="SharedPostOf" xml:space="preserve">
+    <value>partilhou a publicação de {0}</value>
+  </data>
 </root>

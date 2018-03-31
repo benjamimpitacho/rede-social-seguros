@@ -770,6 +770,39 @@ namespace InsuranceWebsite.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
+        [ValidateInput(false)]
+        [FunctionalityAutorizeAttribute("NEW_POST_FUNCTIONALITY")]
+        public ActionResult SharePost(PostViewModel model, string editPostContentTextarea)
+        {
+            try
+            {
+                PostDTO sharedPost = InsuranceBusiness.BusinessLayer.GetPost(model.Post.ID);
+
+                sharedPost.IsRepost = true;
+                sharedPost.Repost_PostID = sharedPost.ID;
+                sharedPost.Repost_ProfileID = InsuranceBusiness.BusinessLayer.GetUserProfileIdFromId(sharedPost.ID_User);
+                sharedPost.Repost_Text = editPostContentTextarea;
+                sharedPost.Text = editPostContentTextarea;
+                sharedPost.Type = PostTypeEnum.TEXT_POST;
+                sharedPost.Subject = PostSubjectEnum.PERSONAL_POST;
+
+                sharedPost.ID_User = CurrentUser.ID_User;
+
+                sharedPost.CreateDate = DateTime.Now;
+                sharedPost.LastChangeDate = DateTime.Now;
+
+                InsuranceBusiness.BusinessLayer.CreatePost(sharedPost);
+            }
+            catch (Exception ex)
+            {
+                InsuranceBusiness.BusinessLayer.LogException(string.Format("{0} [{1}]", Request.UserHostAddress, model.Profile.ID_User), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+                return View("Error");
+            }
+
+            return RedirectToAction("Index");
+        }
+
         public JsonResult GetPost(long id)
         {
             var result = InsuranceBusiness.BusinessLayer.GetPost(id);
@@ -2577,6 +2610,16 @@ namespace InsuranceWebsite.Controllers
             model.Post = InsuranceBusiness.BusinessLayer.GetPost(id);
 
             return PartialView("Partial/_EditPost", model);
+        }
+
+        public ActionResult SharePostDialog(long id)
+        {
+            PostViewModel model = new PostViewModel();
+
+            FillModel(model, CurrentUser.ID_User, false);
+            model.Post = InsuranceBusiness.BusinessLayer.GetPost(id);
+
+            return PartialView("Partial/_SharePost", model);
         }
 
         [HttpPost]

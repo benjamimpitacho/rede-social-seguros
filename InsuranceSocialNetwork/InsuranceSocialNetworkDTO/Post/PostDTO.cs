@@ -25,6 +25,12 @@ namespace InsuranceSocialNetworkDTO.Post
         public string URL_Title { get; set; }
         public string URL_Description { get; set; }
         public string URL_Image_Address { get; set; }
+
+        public bool IsRepost { get; set; }
+        public string Repost_Text { get; set; }
+        public long? Repost_PostID { get; set; }
+        public long? Repost_ProfileID { get; set; }
+
         public DateTime CreateDate { get; set; }
         public DateTime LastChangeDate { get; set; }
         public DateTime? DeleteDate { get; set; }
@@ -36,6 +42,8 @@ namespace InsuranceSocialNetworkDTO.Post
         public PostSubjectEnum Subject { get; set; }
         public PostTypeDTO PostType { get; set; }
         public PostSubjectDTO PostSubject { get; set; }
+
+        public PostDTO RepostPost { get; set; }
 
         public UserProfileDTO PostOwner { get; set; }
 

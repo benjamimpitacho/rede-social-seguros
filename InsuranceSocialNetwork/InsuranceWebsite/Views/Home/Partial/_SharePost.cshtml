@@ -1,0 +1,295 @@
+﻿@using InsuranceWebsite.Models
+@model PostViewModel
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<style>
+
+    .ui-dialog .ui-dialog-content{
+        padding: 0px !important;
+        height: auto !important;
+    }
+
+</style>
+
+<div class="panel topPanel" style="margin-bottom: 0px;">
+    @using (Html.BeginForm("SharePost", "Home", FormMethod.Post, new { enctype = "multipart/form-data", id = "sharePostForm" }))
+    {
+        @Html.HiddenFor(m => m.Profile.ID_User)
+        @Html.HiddenFor(m => m.Profile.ID)
+        @Html.HiddenFor(m => m.Post.ID)
+        
+        <textarea placeholder="@Resources.Resources.WhatsInYourMindToday" rows="1" class="form-control input-lg p-text-area" id="editPostContentTextarea" name="editPostContentTextarea" style="resize: vertical;word-break:normal;height:100px;max-height:200px; text-align:justify;"></textarea>
+        <img id="editPostImgPlaceholderEdit" src="#" alt="" style="visibility:hidden;position:absolute" />
+        <div id="editPostLivePreviewBox" style="display:none;">
+            <div style="padding:10px;">
+                <div style="border: 1px #ccc solid;">
+                    <div id="editPostLivePreviewImageBlock">
+                        <div>
+                            <button type="button" id="editPostRemoveImgButton" style="float:right;margin-top:10px;margin-right:10px;width:20px;height:20px;background-color:transparent;border:none;background-image:url(../../../Content/icons/136_20x20.png)"></button>
+                            <div style="text-align: center;" id="editPostLivePreviewImg"></div>
+                        </div>
+                    </div>
+                    <div id="editPostLivePreviewTextBlock" style="border-top: 1px #ccc solid;padding: 10px;min-height:40px;">
+                        <button type="button" id="editPostRemoveTextButton" style="float:right;margin-top:0px;margin-right:0px;width:20px;height:20px;background-color:transparent;border:none;background-image:url(../../../Content/icons/136_20x20.png)"></button>
+                        <div id="editPostLivePreviewTitle" name="editPostLivePreviewTitle" style="font-weight: bold;font-size: 16px;color:#333;"></div>
+                        <div id="editPostLivePreviewDescription" style="font-size: 12px;"></div>
+                        <div>
+                            <div>
+                                <div class="" id="editPostLivePreviewDomain" style="color: #6F7D85;"></div>
+                                <div class=""></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    @*Post to re-post*@
+    <div class="panel panel-white post panel-shadow" style="border: 1px #ccc solid;">
+
+        <div class="post-heading">
+
+            <div class="pull-left image" style="padding:5px">
+                @*<a href="@Url.Action("ProfileInfo", "Home", new { id = Model.Post.PostOwner.ID })">*@
+                    @if (null != Model.Post.PostOwner.ProfilePhoto && Model.Post.PostOwner.ProfilePhoto.Length > 0)
+                    {
+                        <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.Post.PostOwner.ProfilePhoto))" class="avatar" alt="user profile image">
+                    }
+                    else
+                    {
+                        <img src="~/Content/images/no_photo_img.jpg" class="avatar" alt="user profile image">
+                    }
+                @*</a>*@
+            </div>
+
+            <div class="pull-left meta" style="margin-bottom: 0px;">
+
+                <div class="h5" style="font-weight: bold;">
+
+                    @*<a href="@Url.Action("ProfileInfo", "Home", new { id = Model.Post.PostOwner.ID })" class="post-user-name">*@@Model.Post.PostOwner.FirstName@*</a>*@
+
+                </div>
+
+                @if (Model.Post.PostSubject.Token == InsuranceSocialNetworkCore.Enums.PostSubjectEnum.SPONSORED_POST.ToString())
+                {
+                    <h6 class="text-muted time">@Resources.Resources.Sponsored.ToUpper()</h6>
+                }
+                else
+                {
+                    if (DateTime.Now.Subtract(Model.Post.CreateDate).TotalMinutes < 1)
+                    {
+                        <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(Model.Post.CreateDate).TotalSeconds, 0) @Resources.Resources.SecondsAgo</h6>
+                    }
+                    else if (DateTime.Now.Subtract(Model.Post.CreateDate).TotalHours < 2)
+                    {
+                        <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(Model.Post.CreateDate).TotalMinutes, 0) @Resources.Resources.MinutesAgo</h6>
+                    }
+                    else if (DateTime.Now.Subtract(Model.Post.CreateDate).TotalDays < 1)
+                    {
+                        <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(Model.Post.CreateDate).TotalHours, 0) @Resources.Resources.HoursAgo</h6>
+                    }
+                    else if (DateTime.Now.Subtract(Model.Post.CreateDate).TotalDays == 1)
+                    {
+                        <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(Model.Post.CreateDate).TotalDays, 0) @Resources.Resources.DayAgo</h6>
+                    }
+                    else if (DateTime.Now.Subtract(Model.Post.CreateDate).TotalDays < 3)
+                    {
+                        <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(Model.Post.CreateDate).TotalDays, 0) @Resources.Resources.DaysAgo</h6>
+                    }
+                    else
+                    {
+                        <h6 class="text-muted time">@Model.Post.CreateDate.ToShortDateString()</h6>
+                    }
+                }
+
+            </div>
+
+            @*<div class="pull-right">
+                <i class="glyphicon glyphicon-option-vertical icon context-menu-one" id="menu_@Model.Post.ID" style="border:0px;font-size: 24px;margin-right: 10px;"></i>
+            </div>*@
+
+        </div>
+
+        <div class="post-description" style="word-break:normal; text-align:justify;">
+
+            @if (Model.Post.PostType.Token == InsuranceSocialNetworkCore.Enums.PostTypeEnum.FILE_POST.ToString())
+            {
+                @*<a id="file_@Model.Post.ID" href="@Url.Action("Download", "Home", new { id = Model.Post.ID })">*@<i class="fa fa-file-text-o" aria-hidden="true" style="font-size:30px;padding-left: 15px;padding-right:10px;"></i>@*</a>*@
+            }
+            <span id="text_@Model.Post.ID">@Model.Post.Text</span>
+
+        </div>
+
+        @if (Model.Post.PostType.Token == InsuranceSocialNetworkCore.Enums.PostTypeEnum.IMAGE_POST.ToString())
+            {
+
+            <div class="post-image">
+
+                @*<img src="@post.ImageSource" class="image show-in-modal" alt="image post">*@
+
+                <div id="gallery_@Model.Post.ID" class="image show-in-modal"></div>
+
+                <script>
+
+                        $(function () {
+
+                            $('#gallery_'+@Model.Post.ID).imagesGrid({
+                                images: [
+                                    {
+                                        src: '@Model.Post.ImageSource'
+                                    }
+                                ],
+                                align: true,
+                                getViewAllText: function (imgsCount) { return 'View all' }
+                            });
+
+                        });
+
+                </script>
+
+            </div>
+        }
+
+        @if (Model.Post.PostType.Token == InsuranceSocialNetworkCore.Enums.PostTypeEnum.LINK_POST.ToString())
+            {
+
+            <div id="livePreviewBox">
+                <div style="padding:10px;">
+                    @*<a href="@Model.Post.URL" target="_blank">*@
+                        <div style="border: 1px #ccc solid;">
+                            @if (!string.IsNullOrEmpty(Model.Post.ImageSource))
+                            {
+                                <div>
+                                    <div>
+                                        <div style="text-align:center;"><img src="@Model.Post.ImageSource" class="image" alt="image post"></div>
+                                    </div>
+                                </div>
+                            }
+                            @if (!string.IsNullOrEmpty(Model.Post.URL_Title) || !string.IsNullOrEmpty(Model.Post.URL_Description) || !string.IsNullOrEmpty(Model.Post.URL_Domain))
+                            {
+                                <div style="border-top: 1px #ccc solid;padding: 10px;">
+                                    <div style="font-weight: bold;font-size: 16px;color:#333;">@Model.Post.URL_Title</div>
+                                    <div style="font-size: 12px;">@Model.Post.URL_Description</div>
+                                    <div>
+                                        <div>
+                                            <div style="color: #6F7D85;">@Model.Post.URL_Domain</div>
+                                            <div class=""></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    @*</a>*@
+                </div>
+            </div>
+        }
+    </div>
+
+</div>
+
+<div class="" style="text-align:center;">
+    <div class="ui-dialog-buttonset">
+        <button type="button" class="ui-button ui-corner-all ui-widget" id="okButton">@Resources.Resources.Save</button>
+        <button type="button" class="ui-button ui-corner-all ui-widget" id="cancelButton">@Resources.Resources.Cancel</button>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        
+        $("#cancelButton").on("click", function (e) {
+            $("#dialog-confirm-edit").dialog("close");
+        });
+
+        $("#okButton").on("click", function (e) {
+            $("#sharePostForm").submit();
+            $("#dialog-confirm-edit").dialog("close");
+        });
+
+        $("#removeFileButton").on("click", function (e) {
+            $("#editPostFileLink").hide();
+            $("#removeFileButton").hide();
+            $("#fileEditUpload").files = null;
+            $("#RemoveFile").val("True");
+        });
+
+        $("#removeImageButton").on("click", function (e) {
+            $("#editPostFileLink").hide();
+            $("#removeImageButton").hide();
+            $('#editPostImgPlaceholderEdit').attr('style', 'visibility:hidden;position:absolute');
+            $('#editPostImgPlaceholderEdit').attr('src', '');
+            $("#imgEditUpload").files = null;
+            $("#RemoveImage").val("True");
+        });
+
+        $("#imgEditUpload").change(function () {
+            readURL(this);
+            $("#fileEditUpload").files = null;
+            $("#RemoveFile").val("True");
+            $("#RemoveURL").val("True");
+            $('#editPostLivePreviewBox').attr('style', 'display:none;');
+            clearLivePreviewFields();
+        });
+
+        $("#fileEditUpload").change(function () {
+            $('#editPostImgPlaceholderEdit').attr('style', 'visibility:hidden;position:absolute');
+            $('#editPostImgPlaceholderEdit').attr('src', '');
+            $("#imgEditUpload").files = null;
+            $("#RemoveImage").val("True");
+            $("#RemoveURL").val("True");
+            $('#editPostLivePreviewBox').attr('style', 'display:none;');
+            clearLivePreviewFields();
+        });
+
+        $("#editPostRemoveImgButton").click(function (event) {
+            $("#editPostLivePreviewImgHidden").text("");
+            $("#editPostLivePreviewImageBlock").attr('style', 'display:none;');
+
+            if ($("#editPostLivePreviewTitleHidden").text() == "") {
+                $("#livePreviewUrlHidden").text("");
+            }
+        });
+
+        $("#editPostRemoveTextButton").click(function (event) {
+            $("#editPostLivePreviewTitleHidden").text("");
+            $("#editPostLivePreviewDescriptionHidden").text("");
+            $("#editPostLivePreviewDomainHidden").text("");
+            $("#editPostLivePreviewTextBlock").attr('style', 'display:none;');
+
+            if ($("#editPostLivePreviewImgHidden").text() == "") {
+                $("#livePreviewUrlHidden").text("");
+            }
+        });
+    });
+
+    function clearLivePreviewFields() {
+        $("#editPostLivePreviewTitleHidden").text("");
+        $("#editPostLivePreviewDescriptionHidden").text("");
+        $("#editPostLivePreviewDomainHidden").text("");
+        $("#editPostLivePreviewImgHidden").text("");
+        $("#livePreviewUrlHidden").text("");
+        $("#editPostLivePreviewImg").html('');
+    }
+
+    function readURL(input) {
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                alert(e.target.result)
+                $('#editPostImgPlaceholderEdit').attr('style', '');
+                $('#editPostImgPlaceholderEdit').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+</script>

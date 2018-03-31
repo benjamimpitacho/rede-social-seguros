@@ -48,7 +48,7 @@ namespace InsuranceSocialNetworkDAL
             }
         }
 
-        public static List<Post> GetUserRelatedPosts(BackofficeUnitOfWork context, string Id)
+        public static List<Post> GetUserRelatedPosts(BackofficeUnitOfWork context, string Id, int skipInterval = 0, int itemsCount = 20)
         {
             List<string> friendsUserIds = context
                 .Friend
@@ -98,6 +98,8 @@ namespace InsuranceSocialNetworkDAL
                     ))
                 .OrderByDescending(i => i.Sticky)
                 .ThenByDescending(i => i.CreateDate)
+                .Skip(skipInterval)
+                .Take(itemsCount)
                 .ToList();
 
             postList.ForEach(p => p.PostComment = p.PostComment.Where(c => c.Active).Select(c => c).OrderBy(i => i.Date).ToList());

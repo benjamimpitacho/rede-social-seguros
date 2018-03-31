@@ -2410,6 +2410,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to partilhou a publicação de {0}.
+        /// </summary>
+        public static string SharedPostOf {
+            get {
+                return ResourceManager.GetString("SharedPostOf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mostrar data de nascimento.
         /// </summary>
         public static string ShowBirthDate {
