@@ -54,6 +54,7 @@ namespace InsuranceWebsite.Models
         public long? TimelineProfileId { get; set; }
 
         public List<PostDTO> Posts { get; set; }
+        public List<ListItemString> QuickLinks { get; set; }
 
         public List<UserProfileDTO> Friends { get; set; }
 

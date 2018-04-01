@@ -30,3 +30,16 @@ INSERT INTO Insurance.SystemSettings ([Token],[Description],[Type],[Value],[Last
 INSERT INTO Insurance.SystemSettings ([Token],[Description],[Type],[Value],[LastChangeDate],[Active]) VALUES ('LIBAX_API_USERNAME', 'LIBAX_API_USERNAME_DESCRIPTION', 'STRING', 'benjamim_pitacho@hotmail.com', GETDATE(), 1);
 INSERT INTO Insurance.SystemSettings ([Token],[Description],[Type],[Value],[LastChangeDate],[Active]) VALUES ('LIBAX_API_PASSWORD', 'LIBAX_API_PASSWORD_DESCRIPTION', 'STRING', 'bpfs2603', GETDATE(), 1);
 INSERT INTO Insurance.SystemSettings ([Token],[Description],[Type],[Value],[LastChangeDate],[Active]) VALUES ('LIBAX_API_CLIENT_ID', 'LIBAX_API_CLIENT_ID_DESCRIPTION', 'STRING', '102', GETDATE(), 1);
+
+INSERT INTO Insurance.SystemSettings ([Token],[Description],[Type],[Value],[LastChangeDate],[Active]) VALUES ('ASF_QUICK_LINK_1_TITLE', 'ASF_QUICK_LINK_1_TITLE_DESCRIPTION', 'STRING', 'Seguros Obrigatórios Legislação', GETDATE(), 1);
+INSERT INTO Insurance.SystemSettings ([Token],[Description],[Type],[Value],[LastChangeDate],[Active]) VALUES ('ASF_QUICK_LINK_1_URL', 'ASF_QUICK_LINK_1_URL_DESCRIPTION', 'STRING', 'http://www.google.com', GETDATE(), 1);
+INSERT INTO Insurance.SystemSettings ([Token],[Description],[Type],[Value],[LastChangeDate],[Active]) VALUES ('ASF_QUICK_LINK_2_TITLE', 'ASF_QUICK_LINK_2_TITLE_DESCRIPTION', 'STRING', 'Divulgações Obrigatórias', GETDATE(), 1);
+INSERT INTO Insurance.SystemSettings ([Token],[Description],[Type],[Value],[LastChangeDate],[Active]) VALUES ('ASF_QUICK_LINK_2_URL', 'ASF_QUICK_LINK_2_URL_DESCRIPTION', 'STRING', 'http://www.google.com', GETDATE(), 1);
+INSERT INTO Insurance.SystemSettings ([Token],[Description],[Type],[Value],[LastChangeDate],[Active]) VALUES ('ASF_QUICK_LINK_3_TITLE', 'ASF_QUICK_LINK_3_TITLE_DESCRIPTION', 'STRING', 'Entendimentos', GETDATE(), 1);
+INSERT INTO Insurance.SystemSettings ([Token],[Description],[Type],[Value],[LastChangeDate],[Active]) VALUES ('ASF_QUICK_LINK_3_URL', 'ASF_QUICK_LINK_3_URL_DESCRIPTION', 'STRING', 'http://www.google.com', GETDATE(), 1);
+INSERT INTO Insurance.SystemSettings ([Token],[Description],[Type],[Value],[LastChangeDate],[Active]) VALUES ('ASF_QUICK_LINK_4_TITLE', 'ASF_QUICK_LINK_4_TITLE_DESCRIPTION', 'STRING', 'Mediação Legislação', GETDATE(), 1);
+INSERT INTO Insurance.SystemSettings ([Token],[Description],[Type],[Value],[LastChangeDate],[Active]) VALUES ('ASF_QUICK_LINK_4_URL', 'ASF_QUICK_LINK_4_URL_DESCRIPTION', 'STRING', 'http://www.google.com', GETDATE(), 1);
+INSERT INTO Insurance.SystemSettings ([Token],[Description],[Type],[Value],[LastChangeDate],[Active]) VALUES ('ASF_QUICK_LINK_5_TITLE', 'ASF_QUICK_LINK_5_TITLE_DESCRIPTION', 'STRING', 'Condições Gerais', GETDATE(), 1);
+INSERT INTO Insurance.SystemSettings ([Token],[Description],[Type],[Value],[LastChangeDate],[Active]) VALUES ('ASF_QUICK_LINK_5_URL', 'ASF_QUICK_LINK_5_URL_DESCRIPTION', 'STRING', 'http://www.google.com', GETDATE(), 1);
+INSERT INTO Insurance.SystemSettings ([Token],[Description],[Type],[Value],[LastChangeDate],[Active]) VALUES ('ASF_QUICK_LINK_6_TITLE', 'ASF_QUICK_LINK_6_TITLE_DESCRIPTION', 'STRING', '', GETDATE(), 1);
+INSERT INTO Insurance.SystemSettings ([Token],[Description],[Type],[Value],[LastChangeDate],[Active]) VALUES ('ASF_QUICK_LINK_6_URL', 'ASF_QUICK_LINK_6_URL_DESCRIPTION', 'STRING', '', GETDATE(), 1);

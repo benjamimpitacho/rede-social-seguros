@@ -78,27 +78,60 @@
 <!-- Timeline content -->
 <div class="container">
 
-    <div class="col-md-12 no-paddin-xs directory-info-row" style="background-color:#BDC6C9">
+    <div class="col-md-12 no-paddin-xs directory-info-row" style="background-color:#BDC6C9;max-height:100vh;">
 
-        <div class="row" style="display:flex">
+        <div class="row" style="display:flex;max-height:100vh;">
 
             @Html.Partial("~/Views/Home/Partial/SideNavBar.cshtml", Model)
 
             <!-- right  content-->
 
-            <div class="profile-info col-md-6 animated fadeInUp">
+            <div class="profile-info col-md-6 animated fadeInUp" style="overflow:auto;">
 
                 @Html.Partial("./Partial/TopBannerPartialView", Model)
 
-                <div style="background-color:white;margin-bottom:4px;">
-                    <div style="border-bottom: solid 0.5px lightgrey;">
-                        <img src="~/Content/icons/129.png" style="max-width:60px;" />
-                        <span style="font-weight:bold">@Resources.Resources.ASF</span>
-                        @*<a href="@Url.Action("Index", "Home")">
-                            <img class="post-icon" src="~/Content/icons/136.png" style="float: right;margin-right: 20px;margin-top: 13px;" />
-                        </a>*@
+                @using (Html.BeginForm("SearchAsfPosts", "Home", FormMethod.Post, new { id = "searchForm" }))
+                {
+                    <div class="panel panel-white post panel-shadow animated fadeInUp" style="margin-bottom:3px;height:80px;">
+                        <div class="post-heading" style="padding: 10px 15px;">
+                            <div class="title" style="border:0px;background-color:inherit; font-weight:bold; font-size: 17px; overflow: auto;">
+                                <div class="pull-left image" style="max-width:60px;">
+                                    <img src="~/Content/icons/asf_icon.png" class="avatar img-circle" style="border:none;height:60px; width:60px;border-radius:0px;">
+                                </div>
+
+                                <div style="float:left; padding-top:8px;width: calc(100% - 110px);">@Html.TextBoxFor(m => m.SearchModel.SearchTerm, new { @class = "form-control", @placeholder = Resources.Resources.SearchAsfPosts, @style = "padding:18px;border-radius:0px;border:0px;box-shadow: none;font-weight:normal;" })</div>
+                                <div style="float:right; max-width: 105px;">
+                                    <a href="#" onclick="document.getElementById('searchForm').submit();">
+                                        <img src="~/Content/icons/icone_pesquisa_rede_social_falar_seguros_AF.png" style="max-width:50px;" />
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
-                </div>
+                }
+
+                @if (null != Model.QuickLinks && Model.QuickLinks.Count > 0)
+                {
+                    for (int i = 0; i < Model.QuickLinks.Count; i++)
+                    {
+                        if (i % 2 == 0)
+                        {
+                            <div class="panel panel-white post panel-shadow animated fadeInUp" style="margin-bottom:3px;height:80px;display:table;border:0px;width:100%;background-color:transparent;color:#4B5C66;font-weight:bold;font-size:16px;">
+                                <div class="post-heading" style="padding: 10px 15px;width:50%;text-align:center;display:table-cell; vertical-align:middle;background-color:#fff;">
+                                    <a href="@Model.QuickLinks[i].Value" target="_blank">@Model.QuickLinks[i].Key</a>
+                                </div>
+                                <div style="width:3px;background-color:transparent;"></div>
+                                <div class="post-heading" style="padding: 10px 15px;width:50%;text-align:center;display:table-cell; vertical-align:middle;background-color:#fff;">
+                                    @if (i < (Model.QuickLinks.Count - 1))
+                                    {
+                                        <a href="@Model.QuickLinks[i+1].Value" target="_blank">@Model.QuickLinks[i + 1].Key</a>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    }
+                }
 
                 @if (InsuranceBusiness.BusinessLayer.IsUserAuthorizedToFunctionality(this.User.Identity.Name, Functionality.NEW_CURRENT_DISCUSSION_FUNCTIONALITY.ToString()))
                 {
@@ -151,8 +184,8 @@
                                     @if (post.PostType.Token == PostTypeEnum.IMAGE_POST.ToString())
                                     {
                                         @*<div style="width:100%;text-align:center;">
-                                            <img class="" src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(post.PostImage[0].Image))" style="max-height:500px;" />
-                                        </div>*@
+                                                <img class="" src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(post.PostImage[0].Image))" style="max-height:500px;" />
+                                            </div>*@
 
                                         <div class="post-image">
                                             <div id="gallery_@post.ID" class="image show-in-modal"></div>
@@ -172,7 +205,7 @@
                                             </script>
                                         </div>
                                     }
-                                     
+
                                     <div style="display:block;padding: 20px 30px 0px 30px;width:100%;">
                                         <div style="font-weight:bold;font-size:16px;padding-bottom:10px;">@post.Title</div>
 
@@ -191,14 +224,14 @@
                                         </div>
 
                                         @*@if (post.Text.Length > 150)
-                                        {
-                                            <span style="font-size:12px;">@post.Text.Substring(0, 150)</span>
-                                                            <span>...</span>
-                                        }
-                                        else
-                                        {
-                                            <span style="font-size:12px;">@post.Text</span>
-                                        }*@
+                                            {
+                                                <span style="font-size:12px;">@post.Text.Substring(0, 150)</span>
+                                                                <span>...</span>
+                                            }
+                                            else
+                                            {
+                                                <span style="font-size:12px;">@post.Text</span>
+                                            }*@
                                     </div>
                                 </div>
 
@@ -239,8 +272,8 @@
                                         }
 
                                         @*<a class="stat-item" href="@Url.Action("AsfDetails", "Home", new { id=post.ID })">
-                                            <img class="post-icon" src="~/Content/icons/icons_perfil_rede_social_falar_seguros_v27.png" />
-                                        </a>*@
+                                                <img class="post-icon" src="~/Content/icons/icons_perfil_rede_social_falar_seguros_v27.png" />
+                                            </a>*@
                                     </div>
                                 </div>
 

@@ -3,6 +3,7 @@ using InsuranceSocialNetworkCore.Enums;
 using InsuranceSocialNetworkCore.Utils;
 using InsuranceSocialNetworkDTO.Company;
 using InsuranceSocialNetworkDTO.Post;
+using InsuranceSocialNetworkDTO.SystemSettings;
 using InsuranceSocialNetworkDTO.UserProfile;
 using InsuranceWebsite.Commons;
 using InsuranceWebsite.Models;
@@ -2351,6 +2352,52 @@ namespace InsuranceWebsite.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        public async Task<ActionResult> SearchApsPosts(HomeViewModel model)
+        {
+            try
+            {
+                if (null == model)
+                {
+                    model = new HomeViewModel();
+                }
+
+                if (null != this.User && this.User.Identity.IsAuthenticated)
+                {
+                    var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                    var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
+                    if (null != user)
+                    {
+                        FillModel(model, user.Id);
+                    }
+                    else
+                    {
+                        return RedirectToAction("LogOff", "Account");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+
+                if (null == model.SearchModel.SearchTerm)
+                {
+                    model.Posts = InsuranceBusiness.BusinessLayer.GetAPSPosts();
+                }
+                else
+                {
+                    model.Posts = InsuranceBusiness.BusinessLayer.SearchAPSPosts(model.SearchModel.SearchTerm);
+                }
+
+                return View("ApsPage", model);
+            }
+            catch (Exception ex)
+            {
+                InsuranceBusiness.BusinessLayer.LogException(string.Format("{0} [{1}]", Request.UserHostAddress, model.Profile.ID_User), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+                return View("Error");
+            }
+        }
+
         [Authorize]
         [FunctionalityAutorizeAttribute("ASF_FUNCTIONALITY")]
         public async Task<ActionResult> AsfPage()
@@ -2375,6 +2422,24 @@ namespace InsuranceWebsite.Controllers
             }
 
             model.Posts = InsuranceBusiness.BusinessLayer.GetASFPosts();
+
+            model.QuickLinks = new List<InsuranceSocialNetworkCore.Types.ListItemString>();
+            for(int i=1;i<7;i++)
+            {
+                SystemSettingsDTO title_setting = InsuranceBusiness.BusinessLayer.GetSystemSetting(string.Format("ASF_QUICK_LINK_{0}_TITLE", i));
+                if(!string.IsNullOrEmpty(title_setting.Value))
+                {
+                    SystemSettingsDTO url_setting = InsuranceBusiness.BusinessLayer.GetSystemSetting(string.Format("ASF_QUICK_LINK_{0}_URL", i));
+                    if(!string.IsNullOrEmpty(url_setting.Value))
+                    {
+                        model.QuickLinks.Add(new InsuranceSocialNetworkCore.Types.ListItemString() { Key = title_setting.Value, Value = url_setting.Value });
+                    }
+                    else
+                    {
+                        model.QuickLinks.Add(new InsuranceSocialNetworkCore.Types.ListItemString() { Key = title_setting.Value });
+                    }
+                }
+            }
 
             return View(model);
         }
@@ -2410,6 +2475,52 @@ namespace InsuranceWebsite.Controllers
             model.Posts = new List<PostDTO>() { InsuranceBusiness.BusinessLayer.GetPost(id) };
 
             return View(model);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> SearchAsfPosts(HomeViewModel model)
+        {
+            try
+            {
+                if (null == model)
+                {
+                    model = new HomeViewModel();
+                }
+
+                if (null != this.User && this.User.Identity.IsAuthenticated)
+                {
+                    var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                    var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
+                    if (null != user)
+                    {
+                        FillModel(model, user.Id);
+                    }
+                    else
+                    {
+                        return RedirectToAction("LogOff", "Account");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+
+                if (null == model.SearchModel.SearchTerm)
+                {
+                    model.Posts = InsuranceBusiness.BusinessLayer.GetASFPosts();
+                }
+                else
+                {
+                    model.Posts = InsuranceBusiness.BusinessLayer.SearchASFPosts(model.SearchModel.SearchTerm);
+                }
+
+                return View("AsfPage", model);
+            }
+            catch (Exception ex)
+            {
+                InsuranceBusiness.BusinessLayer.LogException(string.Format("{0} [{1}]", Request.UserHostAddress, model.Profile.ID_User), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+                return View("Error");
+            }
         }
 
         [Authorize]
@@ -2473,6 +2584,52 @@ namespace InsuranceWebsite.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        public async Task<ActionResult> SearchAprosePosts(HomeViewModel model)
+        {
+            try
+            {
+                if (null == model)
+                {
+                    model = new HomeViewModel();
+                }
+
+                if (null != this.User && this.User.Identity.IsAuthenticated)
+                {
+                    var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                    var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
+                    if (null != user)
+                    {
+                        FillModel(model, user.Id);
+                    }
+                    else
+                    {
+                        return RedirectToAction("LogOff", "Account");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+
+                if (null == model.SearchModel.SearchTerm)
+                {
+                    model.Posts = InsuranceBusiness.BusinessLayer.GetAPROSEPosts();
+                }
+                else
+                {
+                    model.Posts = InsuranceBusiness.BusinessLayer.SearchAPROSEPosts(model.SearchModel.SearchTerm);
+                }
+
+                return View("AprosePage", model);
+            }
+            catch (Exception ex)
+            {
+                InsuranceBusiness.BusinessLayer.LogException(string.Format("{0} [{1}]", Request.UserHostAddress, model.Profile.ID_User), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+                return View("Error");
+            }
+        }
+
         [Authorize]
         [FunctionalityAutorizeAttribute("CURRENT_DISCUSSIONS_FUNCTIONALITY")]
         public async Task<ActionResult> CurrentDiscussions()
@@ -2532,6 +2689,52 @@ namespace InsuranceWebsite.Controllers
             model.Posts = new List<PostDTO>() { InsuranceBusiness.BusinessLayer.GetPost(id) };
 
             return View(model);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> SearchCurrentDiscussionsPosts(HomeViewModel model)
+        {
+            try
+            {
+                if (null == model)
+                {
+                    model = new HomeViewModel();
+                }
+
+                if (null != this.User && this.User.Identity.IsAuthenticated)
+                {
+                    var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                    var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
+                    if (null != user)
+                    {
+                        FillModel(model, user.Id);
+                    }
+                    else
+                    {
+                        return RedirectToAction("LogOff", "Account");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+
+                if (null == model.SearchModel.SearchTerm)
+                {
+                    model.Posts = InsuranceBusiness.BusinessLayer.GetCurrentDiscussionPosts(CurrentUser.ID_User);
+                }
+                else
+                {
+                    model.Posts = InsuranceBusiness.BusinessLayer.SearchCurrentDiscussionPosts(CurrentUser.ID_User, model.SearchModel.SearchTerm);
+                }
+
+                return View("CurrentDiscussions", model);
+            }
+            catch (Exception ex)
+            {
+                InsuranceBusiness.BusinessLayer.LogException(string.Format("{0} [{1}]", Request.UserHostAddress, model.Profile.ID_User), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+                return View("Error");
+            }
         }
 
         [Authorize]

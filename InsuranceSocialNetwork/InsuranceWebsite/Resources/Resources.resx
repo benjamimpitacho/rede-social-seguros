@@ -1026,4 +1026,16 @@
   <data name="SharedPostOf" xml:space="preserve">
     <value>partilhou a publicação de {0}</value>
   </data>
+  <data name="SearchAprosePosts" xml:space="preserve">
+    <value>Pesquisar temas em APROSE</value>
+  </data>
+  <data name="SearchApsPosts" xml:space="preserve">
+    <value>Pesquisar temas em APS</value>
+  </data>
+  <data name="SearchAsfPosts" xml:space="preserve">
+    <value>Pesquisar temas em ASF</value>
+  </data>
+  <data name="SearchCurrentDiscussionsPosts" xml:space="preserve">
+    <value>Pesquisar temas em Temas em Discussão</value>
+  </data>
 </root>

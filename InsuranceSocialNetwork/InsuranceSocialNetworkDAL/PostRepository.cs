@@ -117,7 +117,6 @@ namespace InsuranceSocialNetworkDAL
                 .Include(i => i.PostSubject)
                 .Include(i => i.PostLike)
                 .Include(i => i.PostComment)
-                //.Include(i => i.ChatMessage.OrderByDescending(j => j.CreateDate).Take(20))
                 .Include(i => i.PostImage)
                 .Where(i => i.PostSubject.Token == postSubject.ToString()
                     && i.Active)
@@ -187,11 +186,46 @@ namespace InsuranceSocialNetworkDAL
                 .Include(i => i.PostLike)
                 .Include(i => i.PostComment)
                 .Include(i => i.PostHidden)
-                //.Include(i => i.ChatMessage.OrderByDescending(j => j.CreateDate).Take(20))
                 .Include(i => i.PostImage)
                 .Where(i => i.PostSubject.Token.Equals(postSubject.ToString())
                     && i.Active
                     && !hiddenPostIds.Contains(i.ID)
+                )
+                .OrderByDescending(i => i.Sticky)
+                .ThenByDescending(i => i.CreateDate)
+                .ToList();
+
+            postList.ForEach(p => p.PostComment = p.PostComment.Where(c => c.Active).Select(c => c).OrderBy(i => i.Date).ToList());
+            postList.ForEach(p => p.PostImage = p.PostImage.Where(c => c.Active).Select(c => c).ToList());
+
+            return postList;
+        }
+
+        public static List<Post> SearchPosts(BackofficeUnitOfWork context, string Id, string searchTerm, PostSubjectEnum postSubject)
+        {
+            List<long> hiddenPostIds = context.PostHidden
+                .Fetch()
+                .Where(i => i.ID_User == Id && i.Hidden)
+                .Select(i => i.ID_Post)
+                .ToList();
+
+            List<Post> postList = context.Post
+                .Fetch()
+                .Include(i => i.AspNetUsers.Profile)
+                .Include(i => i.PostType)
+                .Include(i => i.PostSubject)
+                .Include(i => i.PostLike)
+                .Include(i => i.PostComment)
+                .Include(i => i.PostHidden)
+                .Include(i => i.PostImage)
+                .Where(i => i.PostSubject.Token.Equals(postSubject.ToString())
+                    && i.Active
+                    && !hiddenPostIds.Contains(i.ID)
+                    && (
+                        i.Title.ToLower().Contains(searchTerm)
+                        || i.Text.ToLower().Contains(searchTerm)
+                        || i.URL.ToLower().Contains(searchTerm)
+                    )
                 )
                 .OrderByDescending(i => i.Sticky)
                 .ThenByDescending(i => i.CreateDate)

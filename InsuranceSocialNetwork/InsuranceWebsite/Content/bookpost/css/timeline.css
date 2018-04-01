@@ -2754,12 +2754,12 @@ a:hover, a:active, a:focus {
 
 .bannerPanel
 {
-    height: 120px;
+    height: 127px;
     background-color: transparent;
     color: white;
     text-align: center;
     margin-bottom: 4px;
-
+    margin-top:2px;
     position:relative;
 }
 

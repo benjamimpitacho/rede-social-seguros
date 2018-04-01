@@ -707,11 +707,31 @@ namespace InsuranceSocialNetworkBusiness
             }
         }
 
+        public List<PostDTO> SearchCurrentDiscussionPosts(string Id, string searchTerm)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                List<Post> list = PostRepository.SearchPosts(context, Id, searchTerm, PostSubjectEnum.CURRENT_DISCUSSION_POST);
+
+                return AutoMapper.Mapper.Map<List<PostDTO>>(list);
+            }
+        }
+
         public List<PostDTO> GetASFPosts()
         {
             using (var context = new BackofficeUnitOfWork())
             {
                 List<Post> list = PostRepository.GetPostsBySubject(context, PostSubjectEnum.ASF_POST);
+
+                return AutoMapper.Mapper.Map<List<PostDTO>>(list);
+            }
+        }
+
+        public List<PostDTO> SearchASFPosts(string searchTerm)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                List<Post> list = PostRepository.SearchPosts(context, string.Empty, searchTerm, PostSubjectEnum.ASF_POST);
 
                 return AutoMapper.Mapper.Map<List<PostDTO>>(list);
             }
@@ -727,11 +747,31 @@ namespace InsuranceSocialNetworkBusiness
             }
         }
 
+        public List<PostDTO> SearchAPROSEPosts(string searchTerm)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                List<Post> list = PostRepository.SearchPosts(context, string.Empty, searchTerm, PostSubjectEnum.APROSE_POST);
+
+                return AutoMapper.Mapper.Map<List<PostDTO>>(list);
+            }
+        }
+
         public List<PostDTO> GetAPSPosts()
         {
             using (var context = new BackofficeUnitOfWork())
             {
                 List<Post> list = PostRepository.GetPostsBySubject(context, PostSubjectEnum.APS_POST);
+
+                return AutoMapper.Mapper.Map<List<PostDTO>>(list);
+            }
+        }
+
+        public List<PostDTO> SearchAPSPosts(string searchTerm)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                List<Post> list = PostRepository.SearchPosts(context, string.Empty, searchTerm, PostSubjectEnum.APS_POST);
 
                 return AutoMapper.Mapper.Map<List<PostDTO>>(list);
             }
@@ -1378,6 +1418,12 @@ namespace InsuranceSocialNetworkBusiness
         public SystemSettingsDTO GetSystemSetting(SystemSettingsEnum setting)
         {
             SystemSettings settingObject = SystemSettingsRepository.Get(setting.ToString());
+            return AutoMapper.Mapper.Map<SystemSettingsDTO>(settingObject);
+        }
+
+        public SystemSettingsDTO GetSystemSetting(string settingToken)
+        {
+            SystemSettings settingObject = SystemSettingsRepository.Get(settingToken);
             return AutoMapper.Mapper.Map<SystemSettingsDTO>(settingObject);
         }
 

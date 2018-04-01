@@ -338,8 +338,12 @@
     <Content Include="Content\icons\152.png" />
     <Content Include="Content\icons\153.png" />
     <Content Include="Content\icons\154.png" />
+    <Content Include="Content\icons\15x15_social_falar_seguros_v1.png" />
+    <Content Include="Content\icons\15x15_social_falar_seguros_v12.png" />
     <Content Include="Content\icons\16.png" />
     <Content Include="Content\icons\18.png" />
+    <Content Include="Content\icons\aps_icon.png" />
+    <Content Include="Content\icons\asf_icon.png" />
     <Content Include="Content\icons\icone_negocios_seguros_rede_social_falar_seguros_AF.png" />
     <Content Include="Content\icons\icone_negocios_seguros_rede_social_falar_seguros_AF2.png" />
     <Content Include="Content\icons\icone_negocios_seguros_rede_social_falar_seguros_AF3.png" />

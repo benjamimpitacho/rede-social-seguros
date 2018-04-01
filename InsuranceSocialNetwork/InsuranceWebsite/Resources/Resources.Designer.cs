@@ -2212,6 +2212,33 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pesquisar temas em APROSE.
+        /// </summary>
+        public static string SearchAprosePosts {
+            get {
+                return ResourceManager.GetString("SearchAprosePosts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pesquisar temas em APS.
+        /// </summary>
+        public static string SearchApsPosts {
+            get {
+                return ResourceManager.GetString("SearchApsPosts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pesquisar temas em ASF.
+        /// </summary>
+        public static string SearchAsfPosts {
+            get {
+                return ResourceManager.GetString("SearchAsfPosts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pesquisa por empresa, nome, email ou localidade.
         /// </summary>
         public static string SearchByCompanyNameEmailLocality {
@@ -2235,6 +2262,15 @@ namespace Resources {
         public static string SearchConstructionCompanies {
             get {
                 return ResourceManager.GetString("SearchConstructionCompanies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pesquisar temas em Temas em Discussão.
+        /// </summary>
+        public static string SearchCurrentDiscussionsPosts {
+            get {
+                return ResourceManager.GetString("SearchCurrentDiscussionsPosts", resourceCulture);
             }
         }
         

@@ -33,6 +33,18 @@ namespace InsuranceSocialNetworkCore.Enums
         LIBAX_API_URL,
         LIBAX_API_USERNAME,
         LIBAX_API_PASSWORD,
-        LIBAX_API_CLIENT_ID
+        LIBAX_API_CLIENT_ID,
+        ASF_QUICK_LINK_1_TITLE,
+        ASF_QUICK_LINK_1_URL,
+        ASF_QUICK_LINK_2_TITLE,
+        ASF_QUICK_LINK_2_URL,
+        ASF_QUICK_LINK_3_TITLE,
+        ASF_QUICK_LINK_3_URL,
+        ASF_QUICK_LINK_4_TITLE,
+        ASF_QUICK_LINK_4_URL,
+        ASF_QUICK_LINK_5_TITLE,
+        ASF_QUICK_LINK_5_URL,
+        ASF_QUICK_LINK_6_TITLE,
+        ASF_QUICK_LINK_6_URL
     }
 }

@@ -78,29 +78,40 @@
 </style>
 
 <!-- Timeline content -->
-<div class="container">
+<div class="container" >
 
-    <div class="col-md-12 no-paddin-xs directory-info-row" style="background-color:#BDC6C9">
+    <div class="col-md-12 no-paddin-xs directory-info-row" style="background-color:#BDC6C9;max-height:100vh;">
 
-        <div class="row" style="display:flex">
+        <div class="row" style="display:flex;max-height:100vh;">
 
             @Html.Partial("~/Views/Home/Partial/SideNavBar.cshtml", Model)
 
             <!-- right  content-->
 
-            <div class="profile-info col-md-6 animated fadeInUp">
+            <div class="profile-info col-md-6 animated fadeInUp" style="overflow:auto;">
 
                 @Html.Partial("./Partial/TopBannerPartialView", Model)
 
-                <div style="background-color:white;margin-bottom:4px;">
-                    <div style="border-bottom: solid 0.5px lightgrey;">
-                        <img src="~/Content/icons/129.png" style="max-width:60px;" />
-                        <span style="font-weight:bold">@Resources.Resources.CurrentDiscussions</span>
-                        @*<a href="@Url.Action("Index", "Home")">
-                            <img class="post-icon" src="~/Content/icons/136.png" style="float: right;margin-right: 20px;margin-top: 13px;" />
-                        </a>*@
+                @using (Html.BeginForm("SearchCurrentDiscussionsPosts", "Home", FormMethod.Post, new { id = "searchForm" }))
+                {
+                    <div class="panel panel-white post panel-shadow animated fadeInUp" style="margin-bottom:3px;height:80px;">
+                        <div class="post-heading" style="padding: 10px 15px;">
+                            <div class="title" style="border:0px;background-color:inherit; font-weight:bold; font-size: 17px; overflow: auto;">
+                                <div class="pull-left image" style="max-width:60px;">
+                                    <img src="~/Content/icons/129.png" class="avatar img-circle" style="border:none;height:60px; width:60px;border-radius:0px;">
+                                </div>
+
+                                <div style="float:left; padding-top:8px;width: calc(100% - 110px);">@Html.TextBoxFor(m => m.SearchModel.SearchTerm, new { @class = "form-control", @placeholder = Resources.Resources.SearchCurrentDiscussionsPosts, @style = "padding:18px;border-radius:0px;border:0px;box-shadow: none;font-weight:normal;" })</div>
+                                <div style="float:right; max-width: 105px;">
+                                    <a href="#" onclick="document.getElementById('searchForm').submit();">
+                                        <img src="~/Content/icons/icone_pesquisa_rede_social_falar_seguros_AF.png" style="max-width:50px;" />
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
-                </div>
+                }
 
                 @if (InsuranceBusiness.BusinessLayer.IsUserAuthorizedToFunctionality(this.User.Identity.Name, Functionality.NEW_CURRENT_DISCUSSION_FUNCTIONALITY.ToString()))
                 {
