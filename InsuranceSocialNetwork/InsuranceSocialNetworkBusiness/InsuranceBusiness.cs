@@ -777,6 +777,36 @@ namespace InsuranceSocialNetworkBusiness
             }
         }
 
+        public List<PostDTO> GetHumanResourcesPosts(string Id)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                List<Post> talentList = PostRepository.GetPosts(context, Id, PostSubjectEnum.HUMAN_RESOURCES_TALENT_POST);
+                List<Post> applicationsList = PostRepository.GetPosts(context, Id, PostSubjectEnum.HUMAN_RESOURCES_TALENT_POST);
+
+                //list.ForEach(p => p.PostComment = p.PostComment.Where(c => c.Active).Select(c => c).ToList());
+                //list.ForEach(p => p.PostImage = p.PostImage.Where(c => c.Active).Select(c => c).ToList());
+
+
+                return AutoMapper.Mapper.Map<List<PostDTO>>(talentList.Concat(applicationsList).OrderByDescending(i => i.CreateDate));
+            }
+        }
+
+        public List<PostDTO> GetInsuranceBusinessePosts(string Id)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                List<Post> buySellList = PostRepository.GetPosts(context, Id, PostSubjectEnum.INSURANCE_BUSINESS_BUY_SELL_POST);
+                List<Post> partnershipsList = PostRepository.GetPosts(context, Id, PostSubjectEnum.INSURANCE_BUSINESS_PARTNERSHIP_POST);
+
+                //list.ForEach(p => p.PostComment = p.PostComment.Where(c => c.Active).Select(c => c).ToList());
+                //list.ForEach(p => p.PostImage = p.PostImage.Where(c => c.Active).Select(c => c).ToList());
+
+
+                return AutoMapper.Mapper.Map<List<PostDTO>>(buySellList.Concat(partnershipsList).OrderByDescending(i=>i.CreateDate));
+            }
+        }
+
         public PostDTO GetPost(long postId)
         {
             using (var context = new BackofficeUnitOfWork())

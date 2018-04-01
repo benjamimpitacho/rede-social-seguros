@@ -747,6 +747,7 @@
     <Content Include="Views\Home\Partial\_ConfirmChatDelete.cshtml" />
     <Content Include="Views\Home\Partial\NewChatSectionView.cshtml" />
     <Content Include="Views\Home\Partial\_SharePost.cshtml" />
+    <Content Include="Views\Home\Partial\_CreateHRPost.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

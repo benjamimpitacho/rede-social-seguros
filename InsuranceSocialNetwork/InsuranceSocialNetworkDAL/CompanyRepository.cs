@@ -20,6 +20,11 @@ namespace InsuranceSocialNetworkDAL
                     .Fetch()
                     .Include(i => i.District)
                     .Include(i => i.County)
+                    .Include(i => i.Parish)
+                    .Include(i => i.District1)
+                    .Include(i => i.County1)
+                    .Include(i => i.Parish1)
+                    .Include(i => i.Payment)
                     .Include(i => i.GarageFavorite);
 
                 if(!string.IsNullOrEmpty(searchFilter.GarageName))
@@ -42,11 +47,6 @@ namespace InsuranceSocialNetworkDAL
                     query = query.Where(i => i.County != null && i.ID_County == searchFilter.GarageCountyID.Value);
                 }
 
-                if (searchFilter.GarageServiceID.HasValue)
-                {
-                    query = query.Where(i => i.ID_Service.Value == searchFilter.GarageServiceID.Value);
-                }
-
                 if (!string.IsNullOrEmpty(searchFilter.GarageOfficialAgent))
                 {
                     query = query.Where(i => i.OfficialAgent.ToLower().Contains(searchFilter.GarageOfficialAgent.ToLower()));
@@ -65,7 +65,16 @@ namespace InsuranceSocialNetworkDAL
         {
             using (var context = new BackofficeUnitOfWork())
             {
-                var query = context.MedicalClinic.Fetch();
+                var query = context.MedicalClinic
+                    .Fetch()
+                    .Include(i => i.District)
+                    .Include(i => i.County)
+                    .Include(i => i.Parish)
+                    .Include(i => i.District1)
+                    .Include(i => i.County1)
+                    .Include(i => i.Parish1)
+                    .Include(i => i.Payment)
+                    .Include(i => i.MedicalClinicFavorite);
 
                 if (!string.IsNullOrEmpty(searchFilter.ClinicName))
                 {
@@ -74,7 +83,17 @@ namespace InsuranceSocialNetworkDAL
 
                 if (searchFilter.ClinicServiceID.HasValue)
                 {
-                    query = query.Where(i => i.ID_Service == searchFilter.ClinicServiceID.Value);
+                    query = query.Where(i => i.ID_Service.Value == searchFilter.ClinicServiceID.Value);
+                }
+
+                if (searchFilter.ClinicDistrictID.HasValue)
+                {
+                    query = query.Where(i => i.District != null && i.ID_District == searchFilter.ClinicDistrictID.Value);
+                }
+
+                if (searchFilter.ClinicCountyID.HasValue)
+                {
+                    query = query.Where(i => i.County != null && i.ID_County == searchFilter.ClinicCountyID.Value);
                 }
 
                 if (!string.IsNullOrEmpty(searchFilter.ClinicOfficialAgent))
@@ -95,7 +114,16 @@ namespace InsuranceSocialNetworkDAL
         {
             using (var context = new BackofficeUnitOfWork())
             {
-                var query = context.ConstructionCompany.Fetch();
+                var query = context.ConstructionCompany
+                    .Fetch()
+                    .Include(i => i.District)
+                    .Include(i => i.County)
+                    .Include(i => i.Parish)
+                    .Include(i => i.District1)
+                    .Include(i => i.County1)
+                    .Include(i => i.Parish1)
+                    .Include(i => i.Payment)
+                    .Include(i => i.ConstructionCompanyFavorite);
 
                 if (!string.IsNullOrEmpty(searchFilter.ConstructionCompanyName))
                 {
@@ -104,7 +132,17 @@ namespace InsuranceSocialNetworkDAL
 
                 if (searchFilter.ConstructionCompanyServiceID.HasValue)
                 {
-                    query = query.Where(i => i.ID_Service == searchFilter.ConstructionCompanyServiceID.Value);
+                    query = query.Where(i => i.ID_Service.Value == searchFilter.ConstructionCompanyServiceID.Value);
+                }
+
+                if (searchFilter.ConstructionCompanyDistrictID.HasValue)
+                {
+                    query = query.Where(i => i.District != null && i.ID_District == searchFilter.ConstructionCompanyDistrictID.Value);
+                }
+
+                if (searchFilter.ConstructionCompanyCountyID.HasValue)
+                {
+                    query = query.Where(i => i.County != null && i.ID_County == searchFilter.ConstructionCompanyCountyID.Value);
                 }
 
                 if (!string.IsNullOrEmpty(searchFilter.ConstructionCompanyOfficialAgent))
@@ -125,7 +163,16 @@ namespace InsuranceSocialNetworkDAL
         {
             using (var context = new BackofficeUnitOfWork())
             {
-                var query = context.HomeApplianceRepair.Fetch();
+                var query = context.HomeApplianceRepair
+                    .Fetch()
+                    .Include(i => i.District)
+                    .Include(i => i.County)
+                    .Include(i => i.Parish)
+                    .Include(i => i.District1)
+                    .Include(i => i.County1)
+                    .Include(i => i.Parish1)
+                    .Include(i => i.Payment)
+                    .Include(i => i.HomeApplianceRepairFavorite);
 
                 if (!string.IsNullOrEmpty(searchFilter.HomeApplianceRepairName))
                 {
@@ -134,7 +181,17 @@ namespace InsuranceSocialNetworkDAL
 
                 if (searchFilter.HomeApplianceRepairServiceID.HasValue)
                 {
-                    query = query.Where(i => i.ID_Service == searchFilter.HomeApplianceRepairServiceID.Value);
+                    query = query.Where(i => i.ID_Service.Value == searchFilter.HomeApplianceRepairServiceID.Value);
+                }
+
+                if (searchFilter.HomeApplianceRepairDistrictID.HasValue)
+                {
+                    query = query.Where(i => i.District != null && i.ID_District == searchFilter.HomeApplianceRepairDistrictID.Value);
+                }
+
+                if (searchFilter.HomeApplianceRepairCountyID.HasValue)
+                {
+                    query = query.Where(i => i.County != null && i.ID_County == searchFilter.HomeApplianceRepairCountyID.Value);
                 }
 
                 if (!string.IsNullOrEmpty(searchFilter.HomeApplianceRepairOfficialAgent))
@@ -155,7 +212,16 @@ namespace InsuranceSocialNetworkDAL
         {
             using (var context = new BackofficeUnitOfWork())
             {
-                var query = context.InsuranceCompanyContact.Fetch();
+                var query = context.InsuranceCompanyContact
+                    .Fetch()
+                    .Include(i => i.District)
+                    .Include(i => i.County)
+                    .Include(i => i.Parish)
+                    .Include(i => i.District1)
+                    .Include(i => i.County1)
+                    .Include(i => i.Parish1)
+                    .Include(i => i.Payment)
+                    .Include(i => i.InsuranceCompanyContactFavorite);
 
                 if (!string.IsNullOrEmpty(searchFilter.InsuranceContactName))
                 {
@@ -164,7 +230,17 @@ namespace InsuranceSocialNetworkDAL
 
                 if (searchFilter.InsuranceContactServiceID.HasValue)
                 {
-                    query = query.Where(i => i.ID_Service == searchFilter.InsuranceContactServiceID.Value);
+                    query = query.Where(i => i.ID_Service.Value == searchFilter.InsuranceContactServiceID.Value);
+                }
+
+                if (searchFilter.InsuranceContactDistrictID.HasValue)
+                {
+                    query = query.Where(i => i.District != null && i.ID_District == searchFilter.InsuranceContactDistrictID.Value);
+                }
+
+                if (searchFilter.InsuranceContactCountyID.HasValue)
+                {
+                    query = query.Where(i => i.County != null && i.ID_County == searchFilter.InsuranceContactCountyID.Value);
                 }
 
                 if (!string.IsNullOrEmpty(searchFilter.InsuranceContactOfficialAgent))

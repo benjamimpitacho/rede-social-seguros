@@ -845,6 +845,27 @@ namespace InsuranceWebsite.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult CreateNewHRPost(PostSubjectEnum id)
+        {
+            try
+            {
+                NewPostViewModel model = new NewPostViewModel();
+
+                model.Post = new PostDTO();
+                model.Post.Subject = id;
+                model.Post.PostOwner = CurrentUser;
+
+                model.ID_District = 1;
+
+                return PartialView("Partial/_CreateHRPost");
+            }
+            catch (Exception ex)
+            {
+                InsuranceBusiness.BusinessLayer.LogException(Request.UserHostAddress, string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+                return PartialView("Error");
+            }
+        }
+
         [HttpPost]
         [FunctionalityAutorizeAttribute("NEW_CURRENT_DISCUSSION_FUNCTIONALITY")]
         public ActionResult NewCurrentDiscussionPost(HomeViewModel model, string postTitleTextarea, string postContentTextarea, HttpPostedFileBase imgUpload, HttpPostedFileBase fileUpload)
@@ -2065,8 +2086,8 @@ namespace InsuranceWebsite.Controllers
                 {
                     UserId = CurrentUser.ID_User,
                     ClinicName = model.SearchCompaniesModel.ClinicName,
-                    ClinicDistrict = model.SearchCompaniesModel.ClinicDistrict,
-                    ClinicCounty = model.SearchCompaniesModel.ClinicCounty,
+                    ClinicDistrictID = model.SearchCompaniesModel.ClinicDistrict,
+                    ClinicCountyID = model.SearchCompaniesModel.ClinicCounty,
                     ClinicServiceID = model.SearchCompaniesModel.ClinicServiceID,
                     ClinicPartnership = model.SearchCompaniesModel.ClinicPartnership,
                     ClinicOfficialAgent = model.SearchCompaniesModel.ClinicOfficialAgent
@@ -2098,8 +2119,8 @@ namespace InsuranceWebsite.Controllers
                 {
                     UserId = CurrentUser.ID_User,
                     ConstructionCompanyName = model.SearchCompaniesModel.ConstructionCompanyName,
-                    ConstructionCompanyDistrict = model.SearchCompaniesModel.ConstructionCompanyDistrict,
-                    ConstructionCompanyCounty = model.SearchCompaniesModel.ConstructionCompanyCounty,
+                    ConstructionCompanyDistrictID = model.SearchCompaniesModel.ConstructionCompanyDistrict,
+                    ConstructionCompanyCountyID = model.SearchCompaniesModel.ConstructionCompanyCounty,
                     ConstructionCompanyServiceID = model.SearchCompaniesModel.ConstructionCompanyServiceID,
                     ConstructionCompanyPartnership = model.SearchCompaniesModel.ConstructionCompanyPartnership,
                     ConstructionCompanyOfficialAgent = model.SearchCompaniesModel.ConstructionCompanyOfficialAgent
@@ -2131,8 +2152,8 @@ namespace InsuranceWebsite.Controllers
                 {
                     UserId = CurrentUser.ID_User,
                     HomeApplianceRepairName = model.SearchCompaniesModel.HomeApplianceRepairName,
-                    HomeApplianceRepairDistrict = model.SearchCompaniesModel.HomeApplianceRepairDistrict,
-                    HomeApplianceRepairCounty = model.SearchCompaniesModel.HomeApplianceRepairCounty,
+                    HomeApplianceRepairDistrictID = model.SearchCompaniesModel.HomeApplianceRepairDistrict,
+                    HomeApplianceRepairCountyID = model.SearchCompaniesModel.HomeApplianceRepairCounty,
                     HomeApplianceRepairServiceID = model.SearchCompaniesModel.HomeApplianceRepairServiceID,
                     HomeApplianceRepairPartnership = model.SearchCompaniesModel.HomeApplianceRepairPartnership,
                     HomeApplianceRepairOfficialAgent = model.SearchCompaniesModel.HomeApplianceRepairOfficialAgent
@@ -2164,8 +2185,8 @@ namespace InsuranceWebsite.Controllers
                 {
                     UserId = CurrentUser.ID_User,
                     InsuranceContactName = model.SearchCompaniesModel.InsuranceContactName,
-                    InsuranceContactDistrict = model.SearchCompaniesModel.InsuranceContactDistrict,
-                    InsuranceContactCounty = model.SearchCompaniesModel.InsuranceContactCounty,
+                    InsuranceContactDistrictID = model.SearchCompaniesModel.InsuranceContactDistrict,
+                    InsuranceContactCountyID = model.SearchCompaniesModel.InsuranceContactCounty,
                     InsuranceContactServiceID = model.SearchCompaniesModel.InsuranceContactServiceID,
                     InsuranceContactPartnership = model.SearchCompaniesModel.InsuranceContactPartnership,
                     InsuranceContactOfficialAgent = model.SearchCompaniesModel.InsuranceContactOfficialAgent
@@ -2747,7 +2768,7 @@ namespace InsuranceWebsite.Controllers
                 var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
                 if (null != user)
                 {
-                    FillModel(model, user.Id);
+                    FillModel(model, user.Id, false);
                 }
                 else
                 {
@@ -2758,6 +2779,8 @@ namespace InsuranceWebsite.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
+
+            model.Posts = InsuranceBusiness.BusinessLayer.GetHumanResourcesPosts(CurrentUser.ID_User);
 
             return View(model);
         }
@@ -2772,7 +2795,7 @@ namespace InsuranceWebsite.Controllers
                 var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
                 if (null != user)
                 {
-                    FillModel(model, user.Id);
+                    FillModel(model, user.Id, false);
                 }
                 else
                 {
@@ -2783,6 +2806,8 @@ namespace InsuranceWebsite.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
+
+            model.Posts = InsuranceBusiness.BusinessLayer.GetInsuranceBusinessePosts(CurrentUser.ID_User);
 
             return View(model);
         }

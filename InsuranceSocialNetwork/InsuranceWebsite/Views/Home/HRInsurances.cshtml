@@ -1,5 +1,7 @@
 ﻿@using InsuranceWebsite.Models
-@using InsuranceSocialNetworkDTO.UserProfile
+@using InsuranceSocialNetworkBusiness
+@using InsuranceSocialNetworkCore.Enums
+@using InsuranceSocialNetworkDTO.Post;
 @model HomeViewModel
 
 @{
@@ -9,25 +11,240 @@
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/jqueryval")
 
+<script type="text/javascript" src="~/Scripts/jquery.expander.js"></script>
+
 @Html.Partial("~/Views/Home/Partial/NavBar.cshtml", Model)
+
+<style>
+    .search-sub-title {
+        text-transform: uppercase;
+        color: #00C1DE;
+        font-weight: bold;
+        font-size: 9px;
+        margin-top: 5px;
+    }
+
+    .search-company-logo {
+        max-width: 130px;
+        max-height: 80px;
+        float: left;
+        margin-right: 15px;
+    }
+
+    .search-result {
+        padding: 2px 2px 0px 2px;
+        /*border-bottom: solid 5px lightgray;*/
+        border-top: solid 10px #BDC6C9;
+        margin-bottom: 10px;
+        /*margin-top: 10px;*/
+        /*border-top: solid 0.5px lightgrey;*/
+    }
+
+    .search-result-title {
+        display: block;
+        width: 100%;
+        padding-bottom: 10px;
+    }
+
+    .search-result-contacts {
+        width: 100%;
+        display: inline-flex;
+        font-size: 9px;
+        padding: 20px 0px;
+        border-top: solid 0.5px lightgrey;
+    }
+
+    .search-result-details {
+        border-top: solid 0.5px lightgrey;
+        font-size: 9px;
+    }
+
+    .search-result-icon {
+        max-width: 30px;
+        max-height: 30px;
+    }
+
+    .stats {
+        padding-top: 10px;
+    }
+
+    .stat-item {
+        padding-right: 40px;
+        cursor: pointer;
+        margin: 0px !important;
+    }
+
+    .ui-dialog {
+        z-index: 1000 !important;
+    }
+
+    .ui-front {
+        z-index: 1000 !important;
+    }
+
+    .ui-widget-overlay {
+        z-index: 999 !important;
+        opacity: 0.3;
+    }
+
+    .ui-dialog-titlebar {
+        display: none;
+    }
+</style>
 
 <!-- Timeline content -->
 <div class="container">
 
-    <div class="col-md-12 no-paddin-xs directory-info-row" style="background-color:#BDC6C9">
+    <div class="col-md-12 no-paddin-xs directory-info-row" style="background-color:#BDC6C9;max-height:100vh;">
 
-        <div class="row" style="display:flex">
+        <div class="row" style="display:flex;max-height:100vh;">
 
             @Html.Partial("~/Views/Home/Partial/SideNavBar.cshtml", Model)
 
             <!-- right  content-->
 
-            <div class="profile-info col-md-6 animated fadeInUp">
+            <div class="profile-info col-md-6 animated fadeInUp" style="overflow:auto;">
 
                 @Html.Partial("./Partial/TopBannerPartialView", Model)
 
-                <div class="col-md-12 alert alert-info" style="text-align:center">
-                    @Resources.Resources.HRInsurances
+                @using (Html.BeginForm("SearchHRPosts", "Home", FormMethod.Post, new { id = "searchForm" }))
+                {
+                    <div class="panel panel-white post panel-shadow animated fadeInUp" style="margin-bottom:3px;height:80px;">
+                        <div class="post-heading" style="padding: 10px 15px;">
+                            <div class="title" style="border:0px;background-color:inherit; font-weight:bold; font-size: 17px; overflow: auto;">
+                                <div class="pull-left image" style="max-width:60px;">
+                                    <a id="newPostButton" href="@Url.Action("CreateNewHRPost", "Home", new { id=PostSubjectEnum.HUMAN_RESOURCES_TALENT_POST })">
+                                        <img src="~/Content/icons/mais_icons_mensagens_rede_social_falar_seguros_AF2.png" class="avatar img-circle" style="border:none;height:60px; width:60px;border-radius:0px;">
+                                    </a>
+                                </div>
+
+                                <div style="float:left; padding-top:8px;width: calc(100% - 110px);">@Html.TextBoxFor(m => m.SearchModel.SearchTerm, new { @class = "form-control", @placeholder = Resources.Resources.SearchHRPosts, @style = "padding:18px;border-radius:0px;border:0px;box-shadow: none;font-weight:normal;" })</div>
+                                <div style="float:right; max-width: 105px;">
+                                    <a href="#" onclick="document.getElementById('searchForm').submit();">
+                                        <img src="~/Content/icons/icone_pesquisa_rede_social_falar_seguros_AF.png" style="max-width:50px;" />
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                }
+
+                <div class="panel panel-white post panel-shadow animated fadeInUp" style="margin-bottom:3px;height:80px;display:table;border:0px;width:100%;background-color:transparent;color:#4B5C66;font-weight:bold;font-size:16px;">
+                    <div class="post-heading" style="padding: 10px 15px;width:50%;text-align:center;display:table-cell; vertical-align:middle;background-color:#fff;">
+                        <a href="#">@Resources.Resources.Talent</a>
+                    </div>
+                    <div style="width:3px;background-color:transparent;"></div>
+                    <div class="post-heading" style="padding: 10px 15px;width:50%;text-align:center;display:table-cell; vertical-align:middle;background-color:#fff;">
+                        <a href="#">@Resources.Resources.Applications</a>
+                        <span style="font-size:8px;display:block;">@Resources.Resources.AvailableSoon.ToUpper()</span>
+                    </div>
+                </div>
+
+                <div style="background-color:white;">
+
+                    @if (null == Model.Posts || Model.Posts.Count == 0)
+                    {
+                        <div class="col-md-12 alert alert-info" style="text-align:center">
+                            @Resources.Resources.NoHRPosts
+                        </div>
+                    }
+                    else
+                    {
+                        foreach (var post in Model.Posts)
+                        {
+                            <div class="search-result post" href="#">
+                                <div class="search-result-title">
+
+                                    @if (post.PostType.Token == PostTypeEnum.IMAGE_POST.ToString())
+                                    {
+                                        @*<div style="width:100%;text-align:center;">
+                                                <img class="" src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(post.PostImage[0].Image))" style="max-height:500px;" />
+                                            </div>*@
+
+                                        <div class="post-image">
+                                            <div id="gallery_@post.ID" class="image show-in-modal"></div>
+                                            <script>
+                                                $(function () {
+
+                                                    $('#gallery_'+@post.ID).imagesGrid({
+                                                        images: [
+                                                            {
+                                                                src: '@post.ImageSource'
+                                                            }
+                                                        ],
+                                                        align: true,
+                                                        getViewAllText: function (imgsCount) { return 'View all' }
+                                                    });
+                                                });
+                                            </script>
+                                        </div>
+                                    }
+
+                                    <div style="display:block;padding: 20px 30px 0px 30px;width:100%;">
+                                        <div style="font-weight:bold;font-size:16px;padding-bottom:10px;">@post.Title</div>
+
+                                        <div style="display:flex;">
+                                            @if (post.PostType.Token == InsuranceSocialNetworkCore.Enums.PostTypeEnum.FILE_POST.ToString())
+                                            {
+                                                <a href="@Url.Action("Download", "Home", new { id = post.ID })">
+                                                    <img src="~/Content/icons/icons_mensagens_rede_social_falar_seguros_AF10.png" style="max-width:60px;" />
+                                                </a>
+                                                <div class="readmore" style="font-size:12px;text-align:justify;padding-top:20px;">@post.Text</div>
+                                            }
+                                            else
+                                            {
+                                                <div class="readmore" style="font-size:12px;text-align:justify">@post.Text</div>
+                                            }
+                                        </div>
+
+                                        @*@if (post.Text.Length > 150)
+                                            {
+                                                <span style="font-size:12px;">@post.Text.Substring(0, 150)</span>
+                                                                <span>...</span>
+                                            }
+                                            else
+                                            {
+                                                <span style="font-size:12px;">@post.Text</span>
+                                            }*@
+                                    </div>
+                                </div>
+
+                                <div class="post-description" style="padding: 0px 20px 0px 20px;">
+
+                                    <div class="stats" style="display:flex;">
+
+                                        @if (null != post.PostLike && post.PostLike.Count > 0 && post.PostLike.Exists(i => i.ID_User == Model.Profile.ID_User))
+                                        {
+                                            <a onclick="UnlikePost(this, @post.ID, @post.PostLike.Count)" class="stat-item" id="unlikePost" style="color:#00C1DE;min-width: 50px;">
+                                                <img class="post-icon" src="~/Content/icons/icons_diretorios_rede_social_falar_seguros_AF3.png" /><span style="padding-left: 8px;color:#4B5C66;font-size: 10px;">@post.PostLike.Count</span>
+                                            </a>
+                                        }
+                                        else if (null != post.PostLike && post.PostLike.Count > 0)
+                                        {
+                                            <a onclick="LikePost(this, @post.ID, @post.PostLike.Count)" class="stat-item" id="likePost" style="min-width: 50px;">
+                                                <img class="post-icon" src="~/Content/icons/icons_diretorios_rede_social_falar_seguros_AF2.png" /><span style="padding-left: 8px;color:#4B5C66;font-size: 10px;">@post.PostLike.Count</span>
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <a onclick="LikePost(this, @post.ID, @post.PostLike.Count)" class="stat-item" style="min-width: 50px;">
+                                                <img class="post-icon" src="~/Content/icons/icons_diretorios_rede_social_falar_seguros_AF2.png" />
+                                            </a>
+                                        }
+
+                                        <a href="mailto:@post.PostOwner.ContactEmail?subject=@string.Format("[Portal Falar Seguros] {0}", post.Title)" class="stat-item" style="cursor:default;min-width: 50px;">
+                                            <img class="post-icon" src="~/Content/icons/login_rede_social_falar_seguros_AF3.png" />
+                                        </a>
+
+                                        @*<a class="stat-item" href="@Url.Action("AsfDetails", "Home", new { id=post.ID })">
+                                                <img class="post-icon" src="~/Content/icons/icons_perfil_rede_social_falar_seguros_v27.png" />
+                                            </a>*@
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
                 </div>
 
             </div>
@@ -41,3 +258,88 @@
     </div>
 
 </div><!-- end timeline content-->
+
+<div id="dialog-create" style="display: none; top:10%;">
+</div>
+
+<script type="text/javascript">
+
+    $(function () {
+        var url = "";
+
+        $('.readmore').expander({
+            slicePoint: 500,
+            expandText: '@Resources.Resources.ReadMore',
+            userCollapseText: '@Resources.Resources.ReadLess'
+        });
+
+        $("#dialog-create").dialog({
+            title: '@Resources.Resources.CreateNewOffer',
+            autoOpen: false,
+            resizable: false,
+            width: 450,
+            height: 300,
+            show: { effect: 'drop', direction: "up" },
+            modal: true,
+            draggable: true,
+            position: { my: "center", at: "center", of: window },
+            open: function (event, ui) {
+                $(this).load(url);
+            },
+            buttons: {
+            },
+        close: function () {
+        }
+        });
+
+        $("#newPostButton").click(function (e) {
+            e.preventDefault(); //use this or return false
+            url = $(this).attr('href');
+            @*url = '@Url.Action("CreateNewHRPost", "Home", new { id=PostSubjectEnum. })';*@
+            $(".ui-dialog-title").html("@Resources.Resources.CreateNewOffer");
+            $("#dialog-create").dialog('open');
+
+            return false;
+        });
+    });
+
+    function LikePost(object, postId, likesCount) {
+        object.style.color = "#00C1DE";
+        object.innerHTML = "<img class=\"post-icon\" src=\"/Content/icons/icons_diretorios_rede_social_falar_seguros_AF3.png\" /><span style=\"padding-left: 8px;color:#4B5C66;font-size: 10px;\">" + (likesCount+1) + "</span>";
+        likesCount = likesCount + 1;
+        object.onclick = function() { UnlikePost(object, postId, likesCount); }
+
+        jQuery.post('@Url.Action("LikePost", "Home")',
+                { postId: postId }
+            )
+            .done(function (data) {
+            })
+            .fail(function () {
+            });
+    }
+
+    function UnlikePost(object, postId, likesCount) {
+        object.style.color = "#7f7f7f";
+        if(likesCount <= 1)
+        {
+            object.innerHTML = "<img class=\"post-icon\" src=\"/Content/icons/icons_diretorios_rede_social_falar_seguros_AF2.png\" />";
+        }
+        else
+        {
+            object.innerHTML = "<img class=\"post-icon\" src=\"/Content/icons/icons_diretorios_rede_social_falar_seguros_AF2.png\" /><span style=\"padding-left: 8px;color:#4B5C66;font-size: 10px;\">" + (likesCount-1) + "</span>";
+        }
+        if(likesCount > 0)
+        {
+            likesCount = likesCount - 1;
+        }
+        object.onclick = function() { LikePost(object, postId, likesCount); }
+
+        jQuery.post('@Url.Action("UnlikePost", "Home")',
+                { postId: postId }
+            )
+            .done(function (data) {
+            })
+            .fail(function () {
+            });
+    }
+</script>

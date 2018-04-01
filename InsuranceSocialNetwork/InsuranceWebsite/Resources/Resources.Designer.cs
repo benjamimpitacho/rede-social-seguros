@@ -232,6 +232,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Aplicações.
+        /// </summary>
+        public static string Applications {
+            get {
+                return ResourceManager.GetString("Applications", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to APROSE.
         /// </summary>
         public static string APROSE {
@@ -372,6 +381,15 @@ namespace Resources {
         public static string ATM {
             get {
                 return ResourceManager.GetString("ATM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disponível em breve.
+        /// </summary>
+        public static string AvailableSoon {
+            get {
+                return ResourceManager.GetString("AvailableSoon", resourceCulture);
             }
         }
         
@@ -723,6 +741,15 @@ namespace Resources {
         public static string CreateNewCompany {
             get {
                 return ResourceManager.GetString("CreateNewCompany", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Criar nova oferta.
+        /// </summary>
+        public static string CreateNewOffer {
+            get {
+                return ResourceManager.GetString("CreateNewOffer", resourceCulture);
             }
         }
         
@@ -1780,6 +1807,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Não existem publicações de recursos humanos.
+        /// </summary>
+        public static string NoHRPosts {
+            get {
+                return ResourceManager.GetString("NoHRPosts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De momento não possui notificações.
         /// </summary>
         public static string NoNotifications {
@@ -2293,6 +2329,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pesquisar recursos humanos em seguros.
+        /// </summary>
+        public static string SearchHRPosts {
+            get {
+                return ResourceManager.GetString("SearchHRPosts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Seguradoras.
         /// </summary>
         public static string SearchInsuranceContacts {
@@ -2568,6 +2613,15 @@ namespace Resources {
         public static string Statistics {
             get {
                 return ResourceManager.GetString("Statistics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Talento.
+        /// </summary>
+        public static string Talent {
+            get {
+                return ResourceManager.GetString("Talent", resourceCulture);
             }
         }
         

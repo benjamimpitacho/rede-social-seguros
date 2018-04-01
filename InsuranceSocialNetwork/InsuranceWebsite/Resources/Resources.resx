@@ -1038,4 +1038,22 @@
   <data name="SearchCurrentDiscussionsPosts" xml:space="preserve">
     <value>Pesquisar temas em Temas em Discussão</value>
   </data>
+  <data name="SearchHRPosts" xml:space="preserve">
+    <value>Pesquisar recursos humanos em seguros</value>
+  </data>
+  <data name="Applications" xml:space="preserve">
+    <value>Aplicações</value>
+  </data>
+  <data name="AvailableSoon" xml:space="preserve">
+    <value>Disponível em breve</value>
+  </data>
+  <data name="CreateNewOffer" xml:space="preserve">
+    <value>Criar nova oferta</value>
+  </data>
+  <data name="NoHRPosts" xml:space="preserve">
+    <value>Não existem publicações de recursos humanos</value>
+  </data>
+  <data name="Talent" xml:space="preserve">
+    <value>Talento</value>
+  </data>
 </root>

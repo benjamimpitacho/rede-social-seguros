@@ -117,3 +117,8 @@ INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUE
 INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('5','SEARCH_INSURANCECONTACTS_FUNCTIONALITY',1);
 INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('5','SETTINGS_FUNCTIONALITY',1);
 INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('5','CURRENT_DISCUSSIONS_FUNCTIONALITY',1);
+
+/* DIRECTORY_COMPANY */
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('6','MESSAGES_FUNCTIONALITY',1);
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('6','NOTIFICATIONS_FUNCTIONALITY',1);
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('6','SETTINGS_FUNCTIONALITY',1);

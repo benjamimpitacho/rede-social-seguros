@@ -63,7 +63,7 @@
         </a>
     </div>
     <div class="item menu-item">
-        <a href="@Url.Action("Settings", "Home")" title="@Resources.Resources.Settings">
+        <a href="@Url.Action("ProfileConfigurations", "Home", new { userId=Model.Profile.ID_User })" title="@Resources.Resources.Settings">
             @*<span class="glyphicon glyphicon-option-horizontal"></span>*@
             <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF125.png" class="mini-avatar item-photo">
         </a>

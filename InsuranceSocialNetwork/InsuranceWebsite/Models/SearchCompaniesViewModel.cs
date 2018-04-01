@@ -53,8 +53,8 @@ namespace InsuranceWebsite.Models
         #region Clinics Search
 
         public string ClinicName { get; set; }
-        public string ClinicDistrict { get; set; }
-        public string ClinicCounty { get; set; }
+        public long? ClinicDistrict { get; set; }
+        public long? ClinicCounty { get; set; }
         public long? ClinicServiceID { get; set; }
         public List<SelectListItem> ClinicServiceList { get; set; }
         public string ClinicPartnership { get; set; }
@@ -65,8 +65,8 @@ namespace InsuranceWebsite.Models
         #region ConstructionCompany Search
 
         public string ConstructionCompanyName { get; set; }
-        public string ConstructionCompanyDistrict { get; set; }
-        public string ConstructionCompanyCounty { get; set; }
+        public long? ConstructionCompanyDistrict { get; set; }
+        public long? ConstructionCompanyCounty { get; set; }
         public long? ConstructionCompanyServiceID { get; set; }
         public List<SelectListItem> ConstructionCompanyServiceList { get; set; }
         public string ConstructionCompanyPartnership { get; set; }
@@ -77,8 +77,8 @@ namespace InsuranceWebsite.Models
         #region HomeApplianceRepair Search
 
         public string HomeApplianceRepairName { get; set; }
-        public string HomeApplianceRepairDistrict { get; set; }
-        public string HomeApplianceRepairCounty { get; set; }
+        public long? HomeApplianceRepairDistrict { get; set; }
+        public long? HomeApplianceRepairCounty { get; set; }
         public long? HomeApplianceRepairServiceID { get; set; }
         public List<SelectListItem> HomeApplianceRepairServiceList { get; set; }
         public string HomeApplianceRepairPartnership { get; set; }
@@ -89,8 +89,8 @@ namespace InsuranceWebsite.Models
         #region InsuranceContact Search
 
         public string InsuranceContactName { get; set; }
-        public string InsuranceContactDistrict { get; set; }
-        public string InsuranceContactCounty { get; set; }
+        public long? InsuranceContactDistrict { get; set; }
+        public long? InsuranceContactCounty { get; set; }
         public long? InsuranceContactServiceID { get; set; }
         public List<SelectListItem> InsuranceContactServiceList { get; set; }
         public string InsuranceContactPartnership { get; set; }
