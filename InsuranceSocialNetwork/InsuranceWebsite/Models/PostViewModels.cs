@@ -32,7 +32,9 @@ namespace InsuranceWebsite.Models
 
         public PostDTO Post { get; set; }
 
+        [Required]
         public long? ID_District { get; set; }
+        [Required]
         public long? ID_County { get; set; }
 
         public List<SelectListItem> DistrictList { get; set; }

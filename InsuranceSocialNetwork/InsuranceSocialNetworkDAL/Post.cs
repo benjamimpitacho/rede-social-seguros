@@ -46,8 +46,12 @@ namespace InsuranceSocialNetworkDAL
         public string Repost_Text { get; set; }
         public Nullable<long> Repost_PostID { get; set; }
         public Nullable<long> Repost_ProfileID { get; set; }
+        public Nullable<long> ID_County { get; set; }
+        public Nullable<long> ID_District { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
+        public virtual County County { get; set; }
+        public virtual District District { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Notification> Notification { get; set; }
         public virtual PostSubject PostSubject { get; set; }

@@ -4,6 +4,109 @@
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
+@Scripts.Render("~/bundles/jqueryval")
+
+<script>
+    $.validator.setDefaults({
+        ignore: ".ignore"
+    });
+</script>
+
+<style>
+    .panel {
+        margin-bottom: 4px !important;
+    }
+
+    .main-photo {
+        max-width: 120px;
+        max-height: 120px;
+        border-radius: 100px;
+        border: 3px solid #E3E6E8;
+    }
+
+    .profile-icon {
+        max-width: 65px;
+    }
+
+    .profile-info {
+        font-size: 12px;
+    }
+
+    .data-row {
+        display: flex;
+        margin: 0px 0px 2px;
+        height: 34px;
+    }
+
+    .label-control {
+        border: none;
+        box-shadow: none;
+        border-radius: 0px;
+    }
+
+    .profile-label {
+        font-size: 12px !important;
+        font-weight: bold !important;
+        padding: 10px !important;
+    }
+
+    .label-control {
+        background-color: #F6F8F7;
+    }
+
+    .form-control input {
+        width: 100% !important;
+        border: 0px !important;
+        background-color: transparent !important;
+    }
+
+    .profile-textarea {
+        background-color: #F6F8F7;
+        border-radius: 0px;
+    }
+
+    .btn-blue {
+        background-color: #00C1DE;
+        color: #fff;
+        font-weight: bold;
+        width: 100px;
+        padding: 10px;
+    }
+
+    .btn-darkblue {
+        background-color: #4B5C66;
+        color: #fff;
+        font-weight: bold;
+        width: 100px;
+        padding: 10px;
+    }
+
+    .ui-dialog .ui-dialog-content {
+        padding: 0px;
+    }
+
+    .ui-widget.ui-widget-content {
+        padding: 0px;
+    }
+</style>
+
+<div id="dialog-form" title="@Resources.Resources.Hide">
+
+    <div style="padding: 20px;font-size: 20px;font-weight: bold;color:#4B5C66;">
+        <span>@Resources.Resources.Hide</span>
+    </div>
+
+    <div style="padding: 10px 20px 5px 20px;font-size: 16px;font-weight: bold;color: #4B5C66;">@Resources.Resources.AreYouSureToHidePost</div>
+
+    <div style="padding:10px 20px 10px 20px;width:100%;position:absolute;background-color:#EDEFF0;bottom:0px;">
+        <input class="btn btn-blue" style="float:right;" type="button" id="okButton" value="@Resources.Resources.Ok" />
+        <div style="width:4px;height:10px;float:right;"></div>
+        <input class="btn btn-darkblue" type="button" id="cancelButton" style="float:right;" value="@Resources.Resources.Cancel" />
+    </div>
+</div>
+
+@*<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
 <div id="dialog-confirm-delete" style="width: auto; min-height: 0px; max-height: none; text-align:center;" class="">
     <p style="padding:10px 0px;">
         <span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>
@@ -15,7 +118,7 @@
         <button type="button" class="ui-button ui-corner-all ui-widget" id="okButton">@Resources.Resources.Ok</button>
         <button type="button" class="ui-button ui-corner-all ui-widget" id="cancelButton">@Resources.Resources.Cancel</button>
     </div>
-</div>
+</div>*@
 
 <script type="text/javascript">
 

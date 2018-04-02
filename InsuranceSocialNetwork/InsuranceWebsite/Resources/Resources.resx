@@ -1056,4 +1056,7 @@
   <data name="Talent" xml:space="preserve">
     <value>Talento</value>
   </data>
+  <data name="InsertDescriptionText" xml:space="preserve">
+    <value>Insira texto descritivo</value>
+  </data>
 </root>

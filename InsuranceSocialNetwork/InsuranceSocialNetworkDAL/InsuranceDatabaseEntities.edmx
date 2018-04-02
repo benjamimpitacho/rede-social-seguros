@@ -629,6 +629,8 @@
           <Property Name="Repost_Text" Type="nvarchar(max)" />
           <Property Name="Repost_PostID" Type="bigint" />
           <Property Name="Repost_ProfileID" Type="bigint" />
+          <Property Name="ID_County" Type="bigint" />
+          <Property Name="ID_District" Type="bigint" />
         </EntityType>
         <EntityType Name="PostComment">
           <Key>
@@ -1777,6 +1779,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Post_County">
+          <End Role="County" Type="Self.County" Multiplicity="0..1" />
+          <End Role="Post" Type="Self.Post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="County">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Post">
+              <PropertyRef Name="ID_County" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Post_District">
+          <End Role="District" Type="Self.District" Multiplicity="0..1" />
+          <End Role="Post" Type="Self.Post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Post">
+              <PropertyRef Name="ID_District" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Post_PostSubject">
           <End Role="PostSubject" Type="Self.PostSubject" Multiplicity="1" />
           <End Role="Post" Type="Self.Post" Multiplicity="*" />
@@ -2380,6 +2406,14 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Post" EntitySet="Post" />
           </AssociationSet>
+          <AssociationSet Name="FK_Post_County" Association="Self.FK_Post_County">
+            <End Role="County" EntitySet="County" />
+            <End Role="Post" EntitySet="Post" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Post_District" Association="Self.FK_Post_District">
+            <End Role="District" EntitySet="District" />
+            <End Role="Post" EntitySet="Post" />
+          </AssociationSet>
           <AssociationSet Name="FK_Post_PostSubject" Association="Self.FK_Post_PostSubject">
             <End Role="PostSubject" EntitySet="PostSubject" />
             <End Role="Post" EntitySet="Post" />
@@ -2619,39 +2653,6 @@
           <AssociationSet Name="FK_SystemLog_AspNetUsers" Association="InsurancePortal_dbModel.FK_SystemLog_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="SystemLog" EntitySet="SystemLog" />
-          </AssociationSet>
-          <EntitySet Name="Post" EntityType="InsurancePortal_dbModel.Post" />
-          <AssociationSet Name="FK_Post_AspNetUsers" Association="InsurancePortal_dbModel.FK_Post_AspNetUsers">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="Post" EntitySet="Post" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Notification_Post" Association="InsurancePortal_dbModel.FK_Notification_Post">
-            <End Role="Post" EntitySet="Post" />
-            <End Role="Notification" EntitySet="Notification" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Post_PostSubject" Association="InsurancePortal_dbModel.FK_Post_PostSubject">
-            <End Role="PostSubject" EntitySet="PostSubject" />
-            <End Role="Post" EntitySet="Post" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Post_PostType" Association="InsurancePortal_dbModel.FK_Post_PostType">
-            <End Role="PostType" EntitySet="PostType" />
-            <End Role="Post" EntitySet="Post" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PostComment_Post" Association="InsurancePortal_dbModel.FK_PostComment_Post">
-            <End Role="Post" EntitySet="Post" />
-            <End Role="PostComment" EntitySet="PostComment" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PostHidden_Post" Association="InsurancePortal_dbModel.FK_PostHidden_Post">
-            <End Role="Post" EntitySet="Post" />
-            <End Role="PostHidden" EntitySet="PostHidden" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PostImage_Post" Association="InsurancePortal_dbModel.FK_PostImage_Post">
-            <End Role="Post" EntitySet="Post" />
-            <End Role="PostImage" EntitySet="PostImage" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PostLike_Post" Association="InsurancePortal_dbModel.FK_PostLike_Post">
-            <End Role="Post" EntitySet="Post" />
-            <End Role="PostLike" EntitySet="PostLike" />
           </AssociationSet>
           <EntitySet Name="ChatDelete" EntityType="InsurancePortal_dbModel.ChatDelete" />
           <AssociationSet Name="FK_ChatDelete_AspNetUsers" Association="InsurancePortal_dbModel.FK_ChatDelete_AspNetUsers">
@@ -2911,6 +2912,47 @@
             <End Role="CompanyType" EntitySet="CompanyType" />
             <End Role="CompanyWorkingWith" EntitySet="CompanyWorkingWith" />
           </AssociationSet>
+          <EntitySet Name="Post" EntityType="InsurancePortal_dbModel.Post" />
+          <AssociationSet Name="FK_Post_AspNetUsers" Association="InsurancePortal_dbModel.FK_Post_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Post" EntitySet="Post" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Post_County" Association="InsurancePortal_dbModel.FK_Post_County">
+            <End Role="County" EntitySet="County" />
+            <End Role="Post" EntitySet="Post" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Post_District" Association="InsurancePortal_dbModel.FK_Post_District">
+            <End Role="District" EntitySet="District" />
+            <End Role="Post" EntitySet="Post" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notification_Post" Association="InsurancePortal_dbModel.FK_Notification_Post">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="Notification" EntitySet="Notification" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Post_PostSubject" Association="InsurancePortal_dbModel.FK_Post_PostSubject">
+            <End Role="PostSubject" EntitySet="PostSubject" />
+            <End Role="Post" EntitySet="Post" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Post_PostType" Association="InsurancePortal_dbModel.FK_Post_PostType">
+            <End Role="PostType" EntitySet="PostType" />
+            <End Role="Post" EntitySet="Post" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PostComment_Post" Association="InsurancePortal_dbModel.FK_PostComment_Post">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="PostComment" EntitySet="PostComment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PostHidden_Post" Association="InsurancePortal_dbModel.FK_PostHidden_Post">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="PostHidden" EntitySet="PostHidden" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PostImage_Post" Association="InsurancePortal_dbModel.FK_PostImage_Post">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="PostImage" EntitySet="PostImage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PostLike_Post" Association="InsurancePortal_dbModel.FK_PostLike_Post">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="PostLike" EntitySet="PostLike" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="AspNetRoles">
           <Key>
@@ -3024,12 +3066,12 @@
           <NavigationProperty Name="Notification1" Relationship="InsurancePortal_dbModel.FK_NotificationToUser_AspNetUsers" FromRole="AspNetUsers" ToRole="Notification" />
           <NavigationProperty Name="PostHidden" Relationship="InsurancePortal_dbModel.FK_PostHidden_AspNetUsers" FromRole="AspNetUsers" ToRole="PostHidden" />
           <NavigationProperty Name="SystemLog" Relationship="InsurancePortal_dbModel.FK_SystemLog_AspNetUsers" FromRole="AspNetUsers" ToRole="SystemLog" />
-          <NavigationProperty Name="Post" Relationship="InsurancePortal_dbModel.FK_Post_AspNetUsers" FromRole="AspNetUsers" ToRole="Post" />
           <NavigationProperty Name="ChatDelete" Relationship="InsurancePortal_dbModel.FK_ChatDelete_AspNetUsers" FromRole="AspNetUsers" ToRole="ChatDelete" />
           <NavigationProperty Name="ChatNote" Relationship="InsurancePortal_dbModel.FK_ChatNote_AspNetUsers" FromRole="AspNetUsers" ToRole="ChatNote" />
           <NavigationProperty Name="ChatNotification" Relationship="InsurancePortal_dbModel.FK_ChatNotification_AspNetUsers" FromRole="AspNetUsers" ToRole="ChatNotification" />
           <NavigationProperty Name="Profile" Relationship="InsurancePortal_dbModel.FK_Profile_AspNetUsers" FromRole="AspNetUsers" ToRole="Profile" />
           <NavigationProperty Name="CompanyWorkingWith" Relationship="InsurancePortal_dbModel.FK_CompanyWorkingWith_User" FromRole="AspNetUsers" ToRole="CompanyWorkingWith" />
+          <NavigationProperty Name="Post" Relationship="InsurancePortal_dbModel.FK_Post_AspNetUsers" FromRole="AspNetUsers" ToRole="Post" />
           </EntityType>
         <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
           <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
@@ -3295,6 +3337,7 @@
           <NavigationProperty Name="MedicalClinic1" Relationship="InsurancePortal_dbModel.FK_MedicalClinic_InvoiceCounty" FromRole="County" ToRole="MedicalClinic" />
           <NavigationProperty Name="Profile" Relationship="InsurancePortal_dbModel.FK_Profile_County" FromRole="County" ToRole="Profile" />
           <NavigationProperty Name="Profile1" Relationship="InsurancePortal_dbModel.FK_Profile_InvoiceCounty" FromRole="County" ToRole="Profile" />
+          <NavigationProperty Name="Post" Relationship="InsurancePortal_dbModel.FK_Post_County" FromRole="County" ToRole="Post" />
           </EntityType>
         <EntityType Name="District">
           <Key>
@@ -3315,6 +3358,7 @@
           <NavigationProperty Name="MedicalClinic1" Relationship="InsurancePortal_dbModel.FK_MedicalClinic_InvoiceDistrict" FromRole="District" ToRole="MedicalClinic" />
           <NavigationProperty Name="Profile" Relationship="InsurancePortal_dbModel.FK_Profile_District" FromRole="District" ToRole="Profile" />
           <NavigationProperty Name="Profile1" Relationship="InsurancePortal_dbModel.FK_Profile_InvoiceDistrict" FromRole="District" ToRole="Profile" />
+          <NavigationProperty Name="Post" Relationship="InsurancePortal_dbModel.FK_Post_District" FromRole="District" ToRole="Post" />
         </EntityType>
         <EntityType Name="Parish">
           <Key>
@@ -3864,137 +3908,6 @@
             </Principal>
             <Dependent Role="SystemLog">
               <PropertyRef Name="ID_User" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Post">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ID_User" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="ID_PostType" Type="Int64" Nullable="false" />
-          <Property Name="ID_PostSubject" Type="Int64" Nullable="false" />
-          <Property Name="Title" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Video" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="URL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="LastChangeDate" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="DeleteDate" Type="DateTime" Precision="7" />
-          <Property Name="Sticky" Type="Boolean" Nullable="false" />
-          <Property Name="Sponsored" Type="Boolean" Nullable="false" />
-          <Property Name="Active" Type="Boolean" Nullable="false" />
-          <Property Name="URL_Domain" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="URL_Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="URL_Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="URL_Image_Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUsers" Relationship="InsurancePortal_dbModel.FK_Post_AspNetUsers" FromRole="Post" ToRole="AspNetUsers" />
-          <NavigationProperty Name="Notification" Relationship="InsurancePortal_dbModel.FK_Notification_Post" FromRole="Post" ToRole="Notification" />
-          <NavigationProperty Name="PostSubject" Relationship="InsurancePortal_dbModel.FK_Post_PostSubject" FromRole="Post" ToRole="PostSubject" />
-          <NavigationProperty Name="PostType" Relationship="InsurancePortal_dbModel.FK_Post_PostType" FromRole="Post" ToRole="PostType" />
-          <NavigationProperty Name="PostComment" Relationship="InsurancePortal_dbModel.FK_PostComment_Post" FromRole="Post" ToRole="PostComment" />
-          <NavigationProperty Name="PostHidden" Relationship="InsurancePortal_dbModel.FK_PostHidden_Post" FromRole="Post" ToRole="PostHidden" />
-          <NavigationProperty Name="PostImage" Relationship="InsurancePortal_dbModel.FK_PostImage_Post" FromRole="Post" ToRole="PostImage" />
-          <NavigationProperty Name="PostLike" Relationship="InsurancePortal_dbModel.FK_PostLike_Post" FromRole="Post" ToRole="PostLike" />
-          <Property Name="IsRepost" Type="Boolean" Nullable="false" />
-          <Property Name="Repost_Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Repost_PostID" Type="Int64" />
-          <Property Name="Repost_ProfileID" Type="Int64" />
-        </EntityType>
-        <Association Name="FK_Post_AspNetUsers">
-          <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
-          <End Type="InsurancePortal_dbModel.Post" Role="Post" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Post">
-              <PropertyRef Name="ID_User" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Notification_Post">
-          <End Type="InsurancePortal_dbModel.Post" Role="Post" Multiplicity="0..1" />
-          <End Type="InsurancePortal_dbModel.Notification" Role="Notification" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Post">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Notification">
-              <PropertyRef Name="ID_Post" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Post_PostSubject">
-          <End Type="InsurancePortal_dbModel.PostSubject" Role="PostSubject" Multiplicity="1" />
-          <End Type="InsurancePortal_dbModel.Post" Role="Post" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PostSubject">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Post">
-              <PropertyRef Name="ID_PostSubject" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Post_PostType">
-          <End Type="InsurancePortal_dbModel.PostType" Role="PostType" Multiplicity="1" />
-          <End Type="InsurancePortal_dbModel.Post" Role="Post" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PostType">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Post">
-              <PropertyRef Name="ID_PostType" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PostComment_Post">
-          <End Type="InsurancePortal_dbModel.Post" Role="Post" Multiplicity="1" />
-          <End Type="InsurancePortal_dbModel.PostComment" Role="PostComment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Post">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="PostComment">
-              <PropertyRef Name="ID_Post" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PostHidden_Post">
-          <End Type="InsurancePortal_dbModel.Post" Role="Post" Multiplicity="1" />
-          <End Type="InsurancePortal_dbModel.PostHidden" Role="PostHidden" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Post">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="PostHidden">
-              <PropertyRef Name="ID_Post" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PostImage_Post">
-          <End Type="InsurancePortal_dbModel.Post" Role="Post" Multiplicity="1" />
-          <End Type="InsurancePortal_dbModel.PostImage" Role="PostImage" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Post">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="PostImage">
-              <PropertyRef Name="ID_Post" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PostLike_Post">
-          <End Type="InsurancePortal_dbModel.Post" Role="Post" Multiplicity="1" />
-          <End Type="InsurancePortal_dbModel.PostLike" Role="PostLike" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Post">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="PostLike">
-              <PropertyRef Name="ID_Post" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5092,6 +5005,165 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Post">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_User" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ID_PostType" Type="Int64" Nullable="false" />
+          <Property Name="ID_PostSubject" Type="Int64" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Video" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="URL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="LastChangeDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="DeleteDate" Type="DateTime" Precision="7" />
+          <Property Name="Sticky" Type="Boolean" Nullable="false" />
+          <Property Name="Sponsored" Type="Boolean" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="URL_Domain" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="URL_Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="URL_Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="URL_Image_Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsRepost" Type="Boolean" Nullable="false" />
+          <Property Name="Repost_Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Repost_PostID" Type="Int64" />
+          <Property Name="Repost_ProfileID" Type="Int64" />
+          <Property Name="ID_County" Type="Int64" />
+          <Property Name="ID_District" Type="Int64" />
+          <NavigationProperty Name="AspNetUsers" Relationship="InsurancePortal_dbModel.FK_Post_AspNetUsers" FromRole="Post" ToRole="AspNetUsers" />
+          <NavigationProperty Name="County" Relationship="InsurancePortal_dbModel.FK_Post_County" FromRole="Post" ToRole="County" />
+          <NavigationProperty Name="District" Relationship="InsurancePortal_dbModel.FK_Post_District" FromRole="Post" ToRole="District" />
+          <NavigationProperty Name="Notification" Relationship="InsurancePortal_dbModel.FK_Notification_Post" FromRole="Post" ToRole="Notification" />
+          <NavigationProperty Name="PostSubject" Relationship="InsurancePortal_dbModel.FK_Post_PostSubject" FromRole="Post" ToRole="PostSubject" />
+          <NavigationProperty Name="PostType" Relationship="InsurancePortal_dbModel.FK_Post_PostType" FromRole="Post" ToRole="PostType" />
+          <NavigationProperty Name="PostComment" Relationship="InsurancePortal_dbModel.FK_PostComment_Post" FromRole="Post" ToRole="PostComment" />
+          <NavigationProperty Name="PostHidden" Relationship="InsurancePortal_dbModel.FK_PostHidden_Post" FromRole="Post" ToRole="PostHidden" />
+          <NavigationProperty Name="PostImage" Relationship="InsurancePortal_dbModel.FK_PostImage_Post" FromRole="Post" ToRole="PostImage" />
+          <NavigationProperty Name="PostLike" Relationship="InsurancePortal_dbModel.FK_PostLike_Post" FromRole="Post" ToRole="PostLike" />
+        </EntityType>
+        <Association Name="FK_Post_AspNetUsers">
+          <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="InsurancePortal_dbModel.Post" Role="Post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Post">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Post_County">
+          <End Type="InsurancePortal_dbModel.County" Role="County" Multiplicity="0..1" />
+          <End Type="InsurancePortal_dbModel.Post" Role="Post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="County">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Post">
+              <PropertyRef Name="ID_County" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Post_District">
+          <End Type="InsurancePortal_dbModel.District" Role="District" Multiplicity="0..1" />
+          <End Type="InsurancePortal_dbModel.Post" Role="Post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Post">
+              <PropertyRef Name="ID_District" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notification_Post">
+          <End Type="InsurancePortal_dbModel.Post" Role="Post" Multiplicity="0..1" />
+          <End Type="InsurancePortal_dbModel.Notification" Role="Notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Notification">
+              <PropertyRef Name="ID_Post" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Post_PostSubject">
+          <End Type="InsurancePortal_dbModel.PostSubject" Role="PostSubject" Multiplicity="1" />
+          <End Type="InsurancePortal_dbModel.Post" Role="Post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PostSubject">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Post">
+              <PropertyRef Name="ID_PostSubject" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Post_PostType">
+          <End Type="InsurancePortal_dbModel.PostType" Role="PostType" Multiplicity="1" />
+          <End Type="InsurancePortal_dbModel.Post" Role="Post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PostType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Post">
+              <PropertyRef Name="ID_PostType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PostComment_Post">
+          <End Type="InsurancePortal_dbModel.Post" Role="Post" Multiplicity="1" />
+          <End Type="InsurancePortal_dbModel.PostComment" Role="PostComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PostComment">
+              <PropertyRef Name="ID_Post" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PostHidden_Post">
+          <End Type="InsurancePortal_dbModel.Post" Role="Post" Multiplicity="1" />
+          <End Type="InsurancePortal_dbModel.PostHidden" Role="PostHidden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PostHidden">
+              <PropertyRef Name="ID_Post" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PostImage_Post">
+          <End Type="InsurancePortal_dbModel.Post" Role="Post" Multiplicity="1" />
+          <End Type="InsurancePortal_dbModel.PostImage" Role="PostImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PostImage">
+              <PropertyRef Name="ID_Post" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PostLike_Post">
+          <End Type="InsurancePortal_dbModel.Post" Role="Post" Multiplicity="1" />
+          <End Type="InsurancePortal_dbModel.PostLike" Role="PostLike" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PostLike">
+              <PropertyRef Name="ID_Post" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -5611,34 +5683,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Post">
-            <EntityTypeMapping TypeName="InsurancePortal_dbModel.Post">
-              <MappingFragment StoreEntitySet="Post">
-                <ScalarProperty Name="Repost_ProfileID" ColumnName="Repost_ProfileID" />
-                <ScalarProperty Name="Repost_PostID" ColumnName="Repost_PostID" />
-                <ScalarProperty Name="Repost_Text" ColumnName="Repost_Text" />
-                <ScalarProperty Name="IsRepost" ColumnName="IsRepost" />
-                <ScalarProperty Name="URL_Image_Address" ColumnName="URL_Image_Address" />
-                <ScalarProperty Name="URL_Description" ColumnName="URL_Description" />
-                <ScalarProperty Name="URL_Title" ColumnName="URL_Title" />
-                <ScalarProperty Name="URL_Domain" ColumnName="URL_Domain" />
-                <ScalarProperty Name="Active" ColumnName="Active" />
-                <ScalarProperty Name="Sponsored" ColumnName="Sponsored" />
-                <ScalarProperty Name="Sticky" ColumnName="Sticky" />
-                <ScalarProperty Name="DeleteDate" ColumnName="DeleteDate" />
-                <ScalarProperty Name="LastChangeDate" ColumnName="LastChangeDate" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="URL" ColumnName="URL" />
-                <ScalarProperty Name="Video" ColumnName="Video" />
-                <ScalarProperty Name="Text" ColumnName="Text" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="ID_PostSubject" ColumnName="ID_PostSubject" />
-                <ScalarProperty Name="ID_PostType" ColumnName="ID_PostType" />
-                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ChatDelete">
             <EntityTypeMapping TypeName="InsurancePortal_dbModel.ChatDelete">
               <MappingFragment StoreEntitySet="ChatDelete">
@@ -5922,6 +5966,36 @@
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="ID_Company" ColumnName="ID_Company" />
                 <ScalarProperty Name="ID_CompanyType" ColumnName="ID_CompanyType" />
+                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Post">
+            <EntityTypeMapping TypeName="InsurancePortal_dbModel.Post">
+              <MappingFragment StoreEntitySet="Post">
+                <ScalarProperty Name="ID_District" ColumnName="ID_District" />
+                <ScalarProperty Name="ID_County" ColumnName="ID_County" />
+                <ScalarProperty Name="Repost_ProfileID" ColumnName="Repost_ProfileID" />
+                <ScalarProperty Name="Repost_PostID" ColumnName="Repost_PostID" />
+                <ScalarProperty Name="Repost_Text" ColumnName="Repost_Text" />
+                <ScalarProperty Name="IsRepost" ColumnName="IsRepost" />
+                <ScalarProperty Name="URL_Image_Address" ColumnName="URL_Image_Address" />
+                <ScalarProperty Name="URL_Description" ColumnName="URL_Description" />
+                <ScalarProperty Name="URL_Title" ColumnName="URL_Title" />
+                <ScalarProperty Name="URL_Domain" ColumnName="URL_Domain" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Sponsored" ColumnName="Sponsored" />
+                <ScalarProperty Name="Sticky" ColumnName="Sticky" />
+                <ScalarProperty Name="DeleteDate" ColumnName="DeleteDate" />
+                <ScalarProperty Name="LastChangeDate" ColumnName="LastChangeDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="Video" ColumnName="Video" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ID_PostSubject" ColumnName="ID_PostSubject" />
+                <ScalarProperty Name="ID_PostType" ColumnName="ID_PostType" />
                 <ScalarProperty Name="ID_User" ColumnName="ID_User" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>

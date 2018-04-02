@@ -15,7 +15,9 @@
 	[IsRepost] BIT NOT NULL DEFAULT 0,
 	[Repost_Text] NVARCHAR (MAX),
 	[Repost_PostID] BIGINT NULL,
-	[Repost_ProfileID] BIGINT NULL,
+	[Repost_ProfileID] BIGINT NULL,  
+    [ID_County] BIGINT NULL, 
+    [ID_District] BIGINT NULL,
 	[CreateDate] DATETIME2 NOT NULL,
 	[LastChangeDate] DATETIME2 NOT NULL,
 	[DeleteDate] DATETIME2,
@@ -25,5 +27,7 @@
     CONSTRAINT [PK_Post] PRIMARY KEY CLUSTERED ([ID] ASC),
 	CONSTRAINT [FK_Post_AspNetUsers] FOREIGN KEY([ID_User]) REFERENCES [dbo].[AspNetUsers] ([Id]),
 	CONSTRAINT [FK_Post_PostType] FOREIGN KEY([ID_PostType]) REFERENCES [Insurance].[PostType] ([ID]),
-	CONSTRAINT [FK_Post_PostSubject] FOREIGN KEY([ID_PostSubject]) REFERENCES [Insurance].[PostSubject] ([ID])
+	CONSTRAINT [FK_Post_PostSubject] FOREIGN KEY([ID_PostSubject]) REFERENCES [Insurance].[PostSubject] ([ID]),
+	CONSTRAINT [FK_Post_District] FOREIGN KEY([ID_District]) REFERENCES [Insurance].[District] ([ID]),
+	CONSTRAINT [FK_Post_County] FOREIGN KEY([ID_County]) REFERENCES [Insurance].[County] ([ID]),
 )

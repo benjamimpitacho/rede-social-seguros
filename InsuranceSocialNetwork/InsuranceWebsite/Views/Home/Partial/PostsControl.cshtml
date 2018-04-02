@@ -21,6 +21,10 @@
         z-index: 999 !important;
         opacity: 0.3;
     }
+
+    .ui-dialog-titlebar {
+        display: none;
+    }
 </style>
 
 <div>
@@ -548,10 +552,11 @@
             autoOpen: false,
             resizable: false,
             width: 400,
-            height: 150,
+            height: 200,
             show: { effect: 'drop', direction: "up" },
             modal: true,
             draggable: true,
+            position: { my: "center", at: "center", of: window },
             open: function (e, ui) {
                 $(this).load("@Url.Action("ConfirmPostDelete", "Home")" + "/" + postId);
             },
@@ -563,10 +568,11 @@
             autoOpen: false,
             resizable: false,
             width: 400,
-            height: 150,
+            height: 200,
             show: { effect: 'drop', direction: "up" },
             modal: true,
             draggable: true,
+            position: { my: "center", at: "center", of: window },
             open: function (event, ui) {
                 $(this).load("@Url.Action("ConfirmPostHide", "Home")" + "/" + postId);
             },
@@ -582,6 +588,7 @@
             show: { effect: 'drop', direction: "up" },
             modal: true,
             draggable: true,
+            position: { my: "center", at: "center", of: window },
             open: function (event, ui) {
                 $(this).load("@Url.Action("EditPostDialog", "Home")" + "/" + postId);
             },
@@ -597,6 +604,7 @@
             show: { effect: 'drop', direction: "up" },
             modal: true,
             draggable: true,
+            position: { my: "center", at: "center", of: window },
             open: function (event, ui) {
                 $(this).load("@Url.Action("SharePostDialog", "Home")" + "/" + postId);
             },

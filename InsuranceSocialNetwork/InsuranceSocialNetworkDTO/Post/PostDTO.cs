@@ -1,4 +1,5 @@
 ﻿using InsuranceSocialNetworkCore.Enums;
+using InsuranceSocialNetworkDTO.PostalCode;
 using InsuranceSocialNetworkDTO.UserProfile;
 using System;
 using System.Collections.Generic;
@@ -31,6 +32,9 @@ namespace InsuranceSocialNetworkDTO.Post
         public long? Repost_PostID { get; set; }
         public long? Repost_ProfileID { get; set; }
 
+        public long? ID_County { get; set; }
+        public long? ID_District { get; set; }
+
         public DateTime CreateDate { get; set; }
         public DateTime LastChangeDate { get; set; }
         public DateTime? DeleteDate { get; set; }
@@ -52,6 +56,9 @@ namespace InsuranceSocialNetworkDTO.Post
         public List<PostLikeDTO> PostLike { get; set; }
 
         public List<PostImageDTO> PostImage { get; set; }
+
+        public CountyDTO County { get; set; }
+        public DistrictDTO District { get; set; }
 
         /*
         public virtual AspNetUsers AspNetUsers { get; set; }

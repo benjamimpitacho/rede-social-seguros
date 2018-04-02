@@ -777,18 +777,21 @@ namespace InsuranceSocialNetworkBusiness
             }
         }
 
-        public List<PostDTO> GetHumanResourcesPosts(string Id)
+        public List<PostDTO> GetHumanResourcesPosts(string Id, PostSubjectEnum? type)
         {
             using (var context = new BackofficeUnitOfWork())
             {
-                List<Post> talentList = PostRepository.GetPosts(context, Id, PostSubjectEnum.HUMAN_RESOURCES_TALENT_POST);
-                List<Post> applicationsList = PostRepository.GetPosts(context, Id, PostSubjectEnum.HUMAN_RESOURCES_TALENT_POST);
+                List<Post> posts;
+                if (!type.HasValue)
+                {
+                    posts = PostRepository.GetPosts(context, Id, PostSubjectEnum.HUMAN_RESOURCES_TALENT_POST);
+                }
+                else
+                {
+                    posts = PostRepository.GetPosts(context, Id, type.Value);
+                }
 
-                //list.ForEach(p => p.PostComment = p.PostComment.Where(c => c.Active).Select(c => c).ToList());
-                //list.ForEach(p => p.PostImage = p.PostImage.Where(c => c.Active).Select(c => c).ToList());
-
-
-                return AutoMapper.Mapper.Map<List<PostDTO>>(talentList.Concat(applicationsList).OrderByDescending(i => i.CreateDate));
+                return AutoMapper.Mapper.Map<List<PostDTO>>(posts);
             }
         }
 

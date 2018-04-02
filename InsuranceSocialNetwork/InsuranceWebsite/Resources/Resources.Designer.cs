@@ -1312,6 +1312,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Insira texto descritivo.
+        /// </summary>
+        public static string InsertDescriptionText {
+            get {
+                return ResourceManager.GetString("InsertDescriptionText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Inserir email.
         /// </summary>
         public static string InsertEmail {

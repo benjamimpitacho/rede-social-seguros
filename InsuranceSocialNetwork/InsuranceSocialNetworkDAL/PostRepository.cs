@@ -187,6 +187,8 @@ namespace InsuranceSocialNetworkDAL
                 .Include(i => i.PostComment)
                 .Include(i => i.PostHidden)
                 .Include(i => i.PostImage)
+                .Include(i => i.District)
+                .Include(i => i.County)
                 .Where(i => i.PostSubject.Token.Equals(postSubject.ToString())
                     && i.Active
                     && !hiddenPostIds.Contains(i.ID)

@@ -855,15 +855,51 @@ namespace InsuranceWebsite.Controllers
                 model.Post.Subject = id;
                 model.Post.PostOwner = CurrentUser;
 
-                model.ID_District = 1;
-
-                return PartialView("Partial/_CreateHRPost");
+                return PartialView("Partial/_CreateHRPost", model);
             }
             catch (Exception ex)
             {
                 InsuranceBusiness.BusinessLayer.LogException(Request.UserHostAddress, string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
                 return PartialView("Error");
             }
+        }
+
+        [HttpPost]
+        //[FunctionalityAutorizeAttribute("NEW_CURRENT_DISCUSSION_FUNCTIONALITY")]
+        public ActionResult CreateNewHRPost(NewPostViewModel model, string postContentTextarea, HttpPostedFileBase imgUpload)
+        {
+            try
+            {
+                PostDTO newPost = new PostDTO()
+                {
+                    Active = true,
+                    CreateDate = DateTime.Now,
+                    LastChangeDate = DateTime.Now,
+                    ID_User = CurrentUser.ID_User,
+                    ID_District = model.ID_District,
+                    ID_County = model.ID_County,
+                    Text = model.Post.Text,
+                    Type = null == imgUpload ? InsuranceSocialNetworkCore.Enums.PostTypeEnum.TEXT_POST : InsuranceSocialNetworkCore.Enums.PostTypeEnum.IMAGE_POST,
+                    Subject = model.Post.Subject
+                };
+
+                if (null != imgUpload)
+                {
+                    newPost.Type = InsuranceSocialNetworkCore.Enums.PostTypeEnum.IMAGE_POST;
+                    newPost.Image = InsuranceSocialNetworkCore.Utils.ConvertionUtils.ScaleImage(InsuranceSocialNetworkCore.Utils.ConvertionUtils.ReadFully(imgUpload.InputStream), 1024, 1024);
+                    newPost.FileName = Path.GetFileNameWithoutExtension(imgUpload.FileName);
+                    newPost.FileExtension = Path.GetExtension(imgUpload.FileName);
+                }
+
+                long postId = InsuranceBusiness.BusinessLayer.CreatePost(newPost);
+            }
+            catch (Exception ex)
+            {
+                InsuranceBusiness.BusinessLayer.LogException(string.Format("{0} [{1}]", Request.UserHostAddress, model.Post.ID_User), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+                return View("Error");
+            }
+
+            return RedirectToAction("HRInsurances", new { id = model.Post.Subject });
         }
 
         [HttpPost]
@@ -2759,7 +2795,7 @@ namespace InsuranceWebsite.Controllers
         }
 
         [Authorize]
-        public async Task<ActionResult> HRInsurances()
+        public async Task<ActionResult> HRInsurances(PostSubjectEnum? id)
         {
             var model = new HomeViewModel();
             if (null != this.User && this.User.Identity.IsAuthenticated)
@@ -2780,7 +2816,7 @@ namespace InsuranceWebsite.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
-            model.Posts = InsuranceBusiness.BusinessLayer.GetHumanResourcesPosts(CurrentUser.ID_User);
+            model.Posts = InsuranceBusiness.BusinessLayer.GetHumanResourcesPosts(CurrentUser.ID_User, id);
 
             return View(model);
         }

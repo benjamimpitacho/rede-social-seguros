@@ -87,7 +87,8 @@
     $(document).ready(function () {
 
         $("#postContentTextarea").keyup(function () {
-            var urls = $("#postContentTextarea").val().match(/\b(http|https)?(:\/\/)?(\S*)\.(\w{2,4})\b/ig);
+            //var urls = $("#postContentTextarea").val().match(/\b(http|https)?(:\/\/)?(\S*)\.(\w{2,4})\b/ig);
+            var urls = $("#postContentTextarea").val().match(/^(http(s)?:\/\/)?(www\.)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/);
             //alert(urls);
             if (urls == null || urls.length == 0)
             {

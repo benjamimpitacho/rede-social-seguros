@@ -29,6 +29,7 @@ namespace InsuranceSocialNetworkDAL
             this.MedicalClinic1 = new HashSet<MedicalClinic>();
             this.Profile = new HashSet<Profile>();
             this.Profile1 = new HashSet<Profile>();
+            this.Post = new HashSet<Post>();
         }
     
         public long ID { get; set; }
@@ -59,5 +60,7 @@ namespace InsuranceSocialNetworkDAL
         public virtual ICollection<Profile> Profile { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Profile> Profile1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Post> Post { get; set; }
     }
 }

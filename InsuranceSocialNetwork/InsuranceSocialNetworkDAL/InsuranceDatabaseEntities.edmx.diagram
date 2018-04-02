@@ -73,15 +73,6 @@
         <AssociationConnector Association="InsurancePortal_dbModel.FK_Payment_PaymentType" />
         <EntityTypeShape EntityType="InsurancePortal_dbModel.SystemLog" Width="1.5" PointX="5.25" PointY="90.125" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_SystemLog_AspNetUsers" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.Post" Width="1.5" PointX="8.25" PointY="38.125" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_Post_AspNetUsers" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_Notification_Post" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_Post_PostSubject" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_Post_PostType" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_PostComment_Post" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_PostHidden_Post" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_PostImage_Post" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_PostLike_Post" />
         <EntityTypeShape EntityType="InsurancePortal_dbModel.ChatDelete" Width="1.5" PointX="7.5" PointY="67.5" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_ChatDelete_AspNetUsers" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_ChatDelete_Chat" />
@@ -154,6 +145,17 @@
         <EntityTypeShape EntityType="InsurancePortal_dbModel.CompanyWorkingWith" Width="1.5" PointX="8.25" PointY="34" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_CompanyWorkingWith_User" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_CompanyWorkingWith_CompanyType" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.Post" Width="1.5" PointX="8.25" PointY="25.125" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_Post_AspNetUsers" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_Post_County" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_Post_District" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_Notification_Post" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_Post_PostSubject" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_Post_PostType" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_PostComment_Post" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_PostHidden_Post" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_PostImage_Post" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_PostLike_Post" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

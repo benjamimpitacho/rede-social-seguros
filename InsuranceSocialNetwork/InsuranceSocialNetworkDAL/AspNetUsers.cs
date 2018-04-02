@@ -37,12 +37,12 @@ namespace InsuranceSocialNetworkDAL
             this.Notification1 = new HashSet<Notification>();
             this.PostHidden = new HashSet<PostHidden>();
             this.SystemLog = new HashSet<SystemLog>();
-            this.Post = new HashSet<Post>();
             this.ChatDelete = new HashSet<ChatDelete>();
             this.ChatNote = new HashSet<ChatNote>();
             this.ChatNotification = new HashSet<ChatNotification>();
             this.Profile = new HashSet<Profile>();
             this.CompanyWorkingWith = new HashSet<CompanyWorkingWith>();
+            this.Post = new HashSet<Post>();
         }
     
         public string Id { get; set; }
@@ -99,8 +99,6 @@ namespace InsuranceSocialNetworkDAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SystemLog> SystemLog { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Post> Post { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChatDelete> ChatDelete { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChatNote> ChatNote { get; set; }
@@ -110,5 +108,7 @@ namespace InsuranceSocialNetworkDAL
         public virtual ICollection<Profile> Profile { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CompanyWorkingWith> CompanyWorkingWith { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Post> Post { get; set; }
     }
 }

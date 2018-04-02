@@ -63,7 +63,6 @@ namespace InsuranceSocialNetworkDAL
         public virtual DbSet<PaymentNotification> PaymentNotification { get; set; }
         public virtual DbSet<Payment> Payment { get; set; }
         public virtual DbSet<SystemLog> SystemLog { get; set; }
-        public virtual DbSet<Post> Post { get; set; }
         public virtual DbSet<ChatDelete> ChatDelete { get; set; }
         public virtual DbSet<ChatNote> ChatNote { get; set; }
         public virtual DbSet<ChatNotification> ChatNotification { get; set; }
@@ -74,5 +73,6 @@ namespace InsuranceSocialNetworkDAL
         public virtual DbSet<MedicalClinic> MedicalClinic { get; set; }
         public virtual DbSet<Profile> Profile { get; set; }
         public virtual DbSet<CompanyWorkingWith> CompanyWorkingWith { get; set; }
+        public virtual DbSet<Post> Post { get; set; }
     }
 }
