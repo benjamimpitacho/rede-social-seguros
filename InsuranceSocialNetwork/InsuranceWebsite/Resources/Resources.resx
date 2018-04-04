@@ -1059,4 +1059,58 @@
   <data name="InsertDescriptionText" xml:space="preserve">
     <value>Insira texto descritivo</value>
   </data>
+  <data name="InsuranceBusinesses" xml:space="preserve">
+    <value>Negócios Seguros</value>
+  </data>
+  <data name="BusinessType" xml:space="preserve">
+    <value>Tipo de negócio</value>
+  </data>
+  <data name="BuySellBusiness" xml:space="preserve">
+    <value>Compra e venda de carteira</value>
+  </data>
+  <data name="BuySellBusinessWallet" xml:space="preserve">
+    <value>Compra e venda de carteiras</value>
+  </data>
+  <data name="CreateNewBusiness" xml:space="preserve">
+    <value>Criar novo negócio</value>
+  </data>
+  <data name="GenerateConfirmationToken" xml:space="preserve">
+    <value>Re-enviar código de confirmação</value>
+  </data>
+  <data name="INSURANCE_BUSINESS_BUY_SELL_POST" xml:space="preserve">
+    <value>Compra e venda de carteira</value>
+  </data>
+  <data name="INSURANCE_BUSINESS_PARTNERSHIP_POST" xml:space="preserve">
+    <value>Parceria</value>
+  </data>
+  <data name="NoInsuranceBusinessesPosts" xml:space="preserve">
+    <value>Não existem publicações de negócios de seguros</value>
+  </data>
+  <data name="Partnership" xml:space="preserve">
+    <value>Parceria</value>
+  </data>
+  <data name="SearchInsuranceBusinessesPosts" xml:space="preserve">
+    <value>Pesquisar negócio seguro</value>
+  </data>
+  <data name="SelectBusinessType" xml:space="preserve">
+    <value>Seleccione o tipo de negócio</value>
+  </data>
+  <data name="EmailPasswordRecover" xml:space="preserve">
+    <value>Recuperação de palavra-chave</value>
+  </data>
+  <data name="CheckYourEmailToChangePassword" xml:space="preserve">
+    <value>Por favor verifique o seu email para redefinir a sua senha.</value>
+  </data>
+  <data name="EnterYourEmailAndNewPasswordToReset" xml:space="preserve">
+    <value>Insira e-mail e nova palavra-chave para redefinir a mesma</value>
+  </data>
+  <data name="PasswordResetWithSuccess" xml:space="preserve">
+    <value>A sua palavra-chave foi redefinida com sucesso. Poderá agora fazer login na plataforma com o seu e-mail e a nova palavra-chave.</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Redefinir</value>
+  </data>
+  <data name="ResetYourPassword" xml:space="preserve">
+    <value>Redefinição da palavra-chave</value>
+  </data>
 </root>

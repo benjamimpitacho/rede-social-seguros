@@ -201,7 +201,7 @@
                                 </div>
 
                                 <div class="post-description" style="padding-top:10px;padding-bottom:10px;">
-                                    @if (post.Subject == PostSubjectEnum.HUMAN_RESOURCES_TALENT_POST)
+                                    @if (post.PostSubject.Token == PostSubjectEnum.HUMAN_RESOURCES_TALENT_POST.ToString())
                                     {
                                         <span class="h5" style="font-weight:bold;">@Resources.Resources.Talent</span>
                                     }

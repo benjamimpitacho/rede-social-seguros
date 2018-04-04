@@ -123,7 +123,7 @@
     </div>
 </div>
 
-<div class="col-inside-lg decor-default" style="width:100%;max-height: calc(100vh - 270px);overflow:auto;">
+<div id="topDiscussion" class="col-inside-lg decor-default" style="width:100%;max-height: calc(100vh - 270px);overflow:auto;">
     @*<h6>Chat with @string.Join(",", Model.Chat.ChatMember.Where(i => i.ID_User != Model.Profile.ID_User).Select(i => i.AspNetUsers.Email).ToArray())</h6>*@
 
     @*<ul>*@
@@ -260,6 +260,11 @@
 
 <script type="text/javascript">
     $(function () {
+
+        $('#topDiscussion').animate({
+            scrollTop: $('#topDiscussion')[0].scrollHeight
+        }, 2000);
+
         // Reference the auto-generated proxy for the hub.
         var chat = $.connection.chatHub;
         // Create a function that the hub can call back to display messages.
@@ -285,10 +290,8 @@
                 //    + htmlEncode(message)
                 //    + '</div><div class="time">5 min ago</div></div>');
                 //alert($('#messageListPanel').height());
-                $('#discussion')[0].scrollTop = $('#discussion')[0].scrollHeight;
-                $('#messageListPanel')[0].scrollTop = $('#messageListPanel')[0].scrollHeight;
-                //$('#discussion').scrollTop($('#discussion').scrollHeight);
-                //$('#messageListPanel').scrollTop($('#messageListPanel').scrollHeight);
+
+                $('#topDiscussion').scrollTop($('#topDiscussion')[0].scrollHeight);
             }
         };
         // Get the user name and store it to prepend to messages.

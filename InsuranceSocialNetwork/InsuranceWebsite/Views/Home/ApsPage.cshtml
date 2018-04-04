@@ -111,6 +111,28 @@
                     </div>
                 }
 
+                @if (null != Model.QuickLinks && Model.QuickLinks.Count > 0)
+                {
+                    for (int i = 0; i < Model.QuickLinks.Count; i++)
+                    {
+                        if (i % 2 == 0)
+                        {
+                            <div class="panel panel-white post panel-shadow animated fadeInUp" style="margin-bottom:3px;height:80px;display:table;border:0px;width:100%;background-color:transparent;color:#4B5C66;font-weight:bold;font-size:16px;">
+                                <div class="post-heading" style="padding: 10px 15px;width:50%;text-align:center;display:table-cell; vertical-align:middle;background-color:#fff;">
+                                    <a href="@Model.QuickLinks[i].Value" target="_blank">@Model.QuickLinks[i].Key</a>
+                                </div>
+                                <div style="width:3px;background-color:transparent;"></div>
+                                <div class="post-heading" style="padding: 10px 15px;width:50%;text-align:center;display:table-cell; vertical-align:middle;background-color:#fff;">
+                                    @if (i < (Model.QuickLinks.Count - 1))
+                                    {
+                                        <a href="@Model.QuickLinks[i+1].Value" target="_blank">@Model.QuickLinks[i + 1].Key</a>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    }
+                }
+
                 @if (InsuranceBusiness.BusinessLayer.IsUserAuthorizedToFunctionality(this.User.Identity.Name, Functionality.NEW_CURRENT_DISCUSSION_FUNCTIONALITY.ToString()))
                 {
                     <div class="panel topPanel" style="margin-bottom:0px;">

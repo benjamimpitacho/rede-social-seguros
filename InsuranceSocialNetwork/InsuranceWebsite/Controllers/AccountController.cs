@@ -343,21 +343,48 @@ namespace InsuranceWebsite.Controllers
             return true;
         }
 
-        private async Task<bool> SendActivationEmail(ApplicationUser user, string name)
+        //private async Task<bool> SendActivationEmail(ApplicationUser user, string name)
+        //{
+        //    System.Net.Mail.MailMessage m = new System.Net.Mail.MailMessage(
+        //        new System.Net.Mail.MailAddress(ConfigurationSettings.AppEmailAddress, Resources.Resources.ApplicationNAme),
+        //        new System.Net.Mail.MailAddress(user.Email));
+        //    m.Subject = Resources.Resources.EmailRegisterConfirmation;
+        //    //m.Body = string.Format(Resources.Resources.RegisterConfirmationMessage, name, Url.Action("ConfirmEmail", "Account", new { token = code, code = user.Id }, Request.Url.Scheme));
+
+        //    using (StreamReader reader = new StreamReader(Server.MapPath("~/Views/Account/EmailTemplates/RegisterActivationTemplate.html")))
+        //    {
+        //        m.Body = reader.ReadToEnd();
+        //    }
+
+        //    m.Body = m.Body.Replace("{NAME}", name); //replacing the required things
+        //    m.Body = m.Body.Replace("{URL}", ConfigurationSettings.ApplicationSiteUrl);
+        //    m.IsBodyHtml = true;
+
+        //    SmtpClient smtp = new SmtpClient(ConfigurationSettings.SmtpHost, ConfigurationSettings.SmtpPort)
+        //    {
+        //        Credentials = new System.Net.NetworkCredential(ConfigurationSettings.SmtpUsername, ConfigurationSettings.SmtpPassword),
+        //        EnableSsl = false
+        //    };
+        //    smtp.Send(m);
+
+        //    return true;
+        //}
+
+        private async Task<bool> SendRecoverPasswordEmail(ApplicationUser user, string name, string callbackUrl)
         {
             System.Net.Mail.MailMessage m = new System.Net.Mail.MailMessage(
                 new System.Net.Mail.MailAddress(ConfigurationSettings.AppEmailAddress, Resources.Resources.ApplicationNAme),
                 new System.Net.Mail.MailAddress(user.Email));
-            m.Subject = Resources.Resources.EmailRegisterConfirmation;
+            m.Subject = Resources.Resources.EmailPasswordRecover;
             //m.Body = string.Format(Resources.Resources.RegisterConfirmationMessage, name, Url.Action("ConfirmEmail", "Account", new { token = code, code = user.Id }, Request.Url.Scheme));
 
-            using (StreamReader reader = new StreamReader(Server.MapPath("~/Views/Account/EmailTemplates/RegisterActivationTemplate.html")))
+            using (StreamReader reader = new StreamReader(Server.MapPath("~/Views/Account/EmailTemplates/RecoverPAsswordTemplate.html")))
             {
                 m.Body = reader.ReadToEnd();
             }
 
             m.Body = m.Body.Replace("{NAME}", name); //replacing the required things
-            m.Body = m.Body.Replace("{URL}", ConfigurationSettings.ApplicationSiteUrl);
+            m.Body = m.Body.Replace("{URL}", callbackUrl);
             m.IsBodyHtml = true;
 
             SmtpClient smtp = new SmtpClient(ConfigurationSettings.SmtpHost, ConfigurationSettings.SmtpPort)
@@ -404,7 +431,7 @@ namespace InsuranceWebsite.Controllers
                     }
                 }
 
-                InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.ERROR, string.Format("{0}", Request.UserHostAddress), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), string.Format("{0}, {1}, {2}", token, code));
+                InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.ERROR, string.Format("{0}", Request.UserHostAddress), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), string.Format("{0}, {1}, {2}", token, code, string.Concat(result.Errors)));
                 return View("Error");
             }
             catch(Exception ex)
@@ -438,11 +465,14 @@ namespace InsuranceWebsite.Controllers
                     return View("ForgotPasswordConfirmation");
                 }
 
+                var userProfile = InsuranceBusiness.BusinessLayer.GetUserProfile(user.Id);
+
                 // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                 // Send an email with this link
                 string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-                await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                //await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                await SendRecoverPasswordEmail(user, userProfile.FirstName, callbackUrl);
                 return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 

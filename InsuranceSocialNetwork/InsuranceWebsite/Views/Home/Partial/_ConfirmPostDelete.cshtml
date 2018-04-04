@@ -4,14 +4,6 @@
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-@Scripts.Render("~/bundles/jqueryval")
-
-<script>
-    $.validator.setDefaults({
-        ignore: ".ignore"
-    });
-</script>
-
 <style>
     .panel {
         margin-bottom: 4px !important;
@@ -107,7 +99,7 @@
 
 <script type="text/javascript">
 
-    $(function () {
+    $(document).ready(function () {
 
         $("#cancelButton").on("click", function (e) {
             $("#dialog-confirm-delete").dialog("close");

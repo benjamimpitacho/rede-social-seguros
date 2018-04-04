@@ -45,6 +45,18 @@ namespace InsuranceSocialNetworkCore.Enums
         ASF_QUICK_LINK_5_TITLE,
         ASF_QUICK_LINK_5_URL,
         ASF_QUICK_LINK_6_TITLE,
-        ASF_QUICK_LINK_6_URL
+        ASF_QUICK_LINK_6_URL,
+        APS_QUICK_LINK_1_TITLE,
+        APS_QUICK_LINK_1_URL,
+        APS_QUICK_LINK_2_TITLE,
+        APS_QUICK_LINK_2_URL,
+        APS_QUICK_LINK_3_TITLE,
+        APS_QUICK_LINK_3_URL,
+        APS_QUICK_LINK_4_TITLE,
+        APS_QUICK_LINK_4_URL,
+        APS_QUICK_LINK_5_TITLE,
+        APS_QUICK_LINK_5_URL,
+        APS_QUICK_LINK_6_TITLE,
+        APS_QUICK_LINK_6_URL
     }
 }

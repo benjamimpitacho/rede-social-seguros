@@ -795,6 +795,24 @@ namespace InsuranceSocialNetworkBusiness
             }
         }
 
+        public List<PostDTO> GetInsuranceBusinessesPosts(string Id, PostSubjectEnum? type)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                List<Post> posts;
+                if (!type.HasValue)
+                {
+                    posts = PostRepository.GetPosts(context, Id, PostSubjectEnum.INSURANCE_BUSINESS_BUY_SELL_POST);
+                }
+                else
+                {
+                    posts = PostRepository.GetPosts(context, Id, type.Value);
+                }
+
+                return AutoMapper.Mapper.Map<List<PostDTO>>(posts);
+            }
+        }
+
         public List<PostDTO> GetInsuranceBusinessePosts(string Id)
         {
             using (var context = new BackofficeUnitOfWork())
@@ -909,6 +927,11 @@ namespace InsuranceSocialNetworkBusiness
         public int GetTotalLikes(string userId)
         {
             return PostRepository.GetTotalLikes(userId);
+        }
+
+        public List<ListItem> GetSubjectTypes()
+        {
+            return PostRepository.GetSubjectTypeList();
         }
 
         #endregion Posts

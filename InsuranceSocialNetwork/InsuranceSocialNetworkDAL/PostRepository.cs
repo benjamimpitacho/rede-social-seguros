@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
 using InsuranceSocialNetworkCore.Enums;
+using InsuranceSocialNetworkCore.Types;
 
 namespace InsuranceSocialNetworkDAL
 {
@@ -320,6 +321,12 @@ namespace InsuranceSocialNetworkDAL
                 if (null == post)
                     return false;
 
+                context.PostComment.Delete(i => i.ID_Post == post.ID);
+                context.PostHidden.Delete(i => i.ID_Post == post.ID);
+                context.PostImage.Delete(i => i.ID_Post == post.ID);
+                context.PostLike.Delete(i => i.ID_Post == post.ID);
+                context.Notification.Delete(i => i.ID_Post == post.ID);
+
                 context.Post.Delete(post.ID);
                 context.Save();
 
@@ -440,6 +447,17 @@ namespace InsuranceSocialNetworkDAL
                     .Include(i => i.PostLike)
                     .Where(i => i.ID_User == userId)
                     .Sum(i => i.PostLike.Count);
+            }
+        }
+
+        public static List<ListItem> GetSubjectTypeList()
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                return context.PostSubject
+                    .Fetch()
+                    .Select(i => new ListItem() { Key = i.ID, Value = i.Token })
+                    .ToList();
             }
         }
     }

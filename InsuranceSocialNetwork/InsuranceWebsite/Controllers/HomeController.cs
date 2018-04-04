@@ -822,7 +822,7 @@ namespace InsuranceWebsite.Controllers
             catch (Exception ex)
             {
                 InsuranceBusiness.BusinessLayer.LogException(string.Format("{0} [{1}]", Request.UserHostAddress, id), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
-                return View("Error");
+                return RedirectToAction("Error");
             }
 
             return RedirectToAction("Index");
@@ -900,6 +900,78 @@ namespace InsuranceWebsite.Controllers
             }
 
             return RedirectToAction("HRInsurances", new { id = model.Post.Subject });
+        }
+
+        public ActionResult CreateNewInsuranceBusinessPost(PostSubjectEnum id)
+        {
+            try
+            {
+                NewPostViewModel model = new NewPostViewModel();
+
+                model.Post = new PostDTO();
+                model.Post.Subject = id;
+                model.Post.PostOwner = CurrentUser;
+
+                List<SelectListItem> initList = new List<SelectListItem>() { new SelectListItem() { Value = "", Text = Resources.Resources.SelectBusinessType } };
+                model.SubjectTypeList = initList.Concat(InsuranceBusiness.BusinessLayer.GetSubjectTypes().Where(i => i.Value.StartsWith("INSURANCE_BUSINESS_")).Select(i => new SelectListItem() { Value = i.Key.ToString(), Text = Resources.Resources.ResourceManager.GetString(i.Value) }).ToList()).ToList();                
+
+                return PartialView("Partial/_CreateInsuranceBusinessPost", model);
+            }
+            catch (Exception ex)
+            {
+                InsuranceBusiness.BusinessLayer.LogException(Request.UserHostAddress, string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+                return PartialView("Error");
+            }
+        }
+
+        [HttpPost]
+        //[FunctionalityAutorizeAttribute("NEW_CURRENT_DISCUSSION_FUNCTIONALITY")]
+        public ActionResult CreateNewInsuranceBusinessPost(NewPostViewModel model, string postContentTextarea, HttpPostedFileBase imgUpload)
+        {
+            try
+            {
+                PostDTO newPost = new PostDTO()
+                {
+                    Active = true,
+                    CreateDate = DateTime.Now,
+                    LastChangeDate = DateTime.Now,
+                    ID_User = CurrentUser.ID_User,
+                    ID_District = model.ID_District,
+                    ID_County = model.ID_County,
+                    Text = model.Post.Text,
+                    Type = null == imgUpload ? InsuranceSocialNetworkCore.Enums.PostTypeEnum.TEXT_POST : InsuranceSocialNetworkCore.Enums.PostTypeEnum.IMAGE_POST,
+                    ID_PostSubject = model.Post.ID_PostSubject,
+                    Subject = model.Post.Subject
+                };
+
+                string subjectTypeToken = InsuranceBusiness.BusinessLayer.GetSubjectTypes().FirstOrDefault(i => i.Key == model.Post.ID_PostSubject).Value;
+                switch(subjectTypeToken)
+                {
+                    case "INSURANCE_BUSINESS_BUY_SELL_POST":
+                        newPost.Subject = PostSubjectEnum.INSURANCE_BUSINESS_BUY_SELL_POST;
+                        break;
+                    case "INSURANCE_BUSINESS_PARTNERSHIP_POST":
+                        newPost.Subject = PostSubjectEnum.INSURANCE_BUSINESS_PARTNERSHIP_POST;
+                        break;
+                }
+
+                if (null != imgUpload)
+                {
+                    newPost.Type = InsuranceSocialNetworkCore.Enums.PostTypeEnum.IMAGE_POST;
+                    newPost.Image = InsuranceSocialNetworkCore.Utils.ConvertionUtils.ScaleImage(InsuranceSocialNetworkCore.Utils.ConvertionUtils.ReadFully(imgUpload.InputStream), 1024, 1024);
+                    newPost.FileName = Path.GetFileNameWithoutExtension(imgUpload.FileName);
+                    newPost.FileExtension = Path.GetExtension(imgUpload.FileName);
+                }
+
+                long postId = InsuranceBusiness.BusinessLayer.CreatePost(newPost);
+            }
+            catch (Exception ex)
+            {
+                InsuranceBusiness.BusinessLayer.LogException(string.Format("{0} [{1}]", Request.UserHostAddress, model.Post.ID_User), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+                return View("Error");
+            }
+
+            return RedirectToAction("InsuranceBusinesses", new { id = model.Post.Subject });
         }
 
         [HttpPost]
@@ -2373,6 +2445,24 @@ namespace InsuranceWebsite.Controllers
 
             model.Posts = InsuranceBusiness.BusinessLayer.GetAPSPosts();
 
+            model.QuickLinks = new List<InsuranceSocialNetworkCore.Types.ListItemString>();
+            for (int i = 1; i < 7; i++)
+            {
+                SystemSettingsDTO title_setting = InsuranceBusiness.BusinessLayer.GetSystemSetting(string.Format("APS_QUICK_LINK_{0}_TITLE", i));
+                if (!string.IsNullOrEmpty(title_setting.Value))
+                {
+                    SystemSettingsDTO url_setting = InsuranceBusiness.BusinessLayer.GetSystemSetting(string.Format("APS_QUICK_LINK_{0}_URL", i));
+                    if (!string.IsNullOrEmpty(url_setting.Value))
+                    {
+                        model.QuickLinks.Add(new InsuranceSocialNetworkCore.Types.ListItemString() { Key = title_setting.Value, Value = url_setting.Value });
+                    }
+                    else
+                    {
+                        model.QuickLinks.Add(new InsuranceSocialNetworkCore.Types.ListItemString() { Key = title_setting.Value });
+                    }
+                }
+            }
+
             return View(model);
         }
 
@@ -2822,7 +2912,7 @@ namespace InsuranceWebsite.Controllers
         }
 
         [Authorize]
-        public async Task<ActionResult> SafeBusinesses()
+        public async Task<ActionResult> InsuranceBusinesses(PostSubjectEnum? id)
         {
             var model = new HomeViewModel();
             if (null != this.User && this.User.Identity.IsAuthenticated)
@@ -2843,7 +2933,7 @@ namespace InsuranceWebsite.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
-            model.Posts = InsuranceBusiness.BusinessLayer.GetInsuranceBusinessePosts(CurrentUser.ID_User);
+            model.Posts = InsuranceBusiness.BusinessLayer.GetInsuranceBusinessesPosts(CurrentUser.ID_User, id);
 
             return View(model);
         }

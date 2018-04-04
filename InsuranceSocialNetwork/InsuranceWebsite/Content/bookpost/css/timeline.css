@@ -70,9 +70,8 @@ a {
 
 /* ====================== top navbar =============*/
 .navbar-principal {
-    background-color:#fff;
     background-color: #00C1DE;
-    border-color:#00C1DE;
+    border-color: #00C1DE;
     box-shadow: 0 2px 2px -2p xrgba(0, 0, 0, .52);
 }
 
@@ -2880,22 +2879,37 @@ a:hover, a:active, a:focus {
     .welcome-inner{
         margin-top:10px;
     }
-}
 
-.jsgrid
-{
-    overflow:inherit !important;
-}
+    .jsgrid {
+        overflow: inherit !important;
+    }
 
-.left {
-    display: inline-block;
-    min-height: 100vh !important;
+    .left {
+        display: inline-block;
+        min-height: 100vh !important;
+    }
+
+    .rightContentBar {
+        display: none;
+    }
+
+    .bannerPanel {
+        display: none;
+    }
 }
 
 @media (max-device-width: 480px)
 {
     .left{
         display:none;
+    }
+
+    .rightContentBar {
+        display: none;
+    }
+
+    .bannerPanel {
+        display: none;
     }
 
     element.style {

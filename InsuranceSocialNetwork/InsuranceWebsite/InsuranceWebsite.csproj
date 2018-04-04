@@ -638,6 +638,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Views\Account\EmailTemplates\RecoverPasswordTemplate.html" />
     <Content Include="Views\Account\EmailTemplates\RegisterActivationTemplate.html" />
     <Content Include="Views\Account\EmailTemplates\RegisterConfirmationWithPasswordTemplate.html" />
     <Content Include="Views\Account\EmailTemplates\RegisterConfirmationTemplate.html" />
@@ -727,7 +728,7 @@
     <Content Include="Views\Home\AsfPage.cshtml" />
     <Content Include="Views\Home\HRInsurances.cshtml" />
     <Content Include="Views\Home\CurrentDiscussions.cshtml" />
-    <Content Include="Views\Home\SafeBusinesses.cshtml" />
+    <Content Include="Views\Home\InsuranceBusinesses.cshtml" />
     <Content Include="Views\Home\Partial\ProfileTimeline.cshtml" />
     <Content Include="Views\Home\CurrentDiscussionDetails.cshtml" />
     <Content Include="Views\Home\AsfDetails.cshtml" />
@@ -748,6 +749,7 @@
     <Content Include="Views\Home\Partial\NewChatSectionView.cshtml" />
     <Content Include="Views\Home\Partial\_SharePost.cshtml" />
     <Content Include="Views\Home\Partial\_CreateHRPost.cshtml" />
+    <Content Include="Views\Home\Partial\_CreateInsuranceBusinessPost.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -466,6 +466,33 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tipo de negócio.
+        /// </summary>
+        public static string BusinessType {
+            get {
+                return ResourceManager.GetString("BusinessType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Compra e venda de carteira.
+        /// </summary>
+        public static string BuySellBusiness {
+            get {
+                return ResourceManager.GetString("BuySellBusiness", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Compra e venda de carteiras.
+        /// </summary>
+        public static string BuySellBusinessWallet {
+            get {
+                return ResourceManager.GetString("BuySellBusinessWallet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancelar.
         /// </summary>
         public static string Cancel {
@@ -507,6 +534,15 @@ namespace Resources {
         public static string ChatWith {
             get {
                 return ResourceManager.GetString("ChatWith", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Por favor verifique o seu email para redefinir a sua senha..
+        /// </summary>
+        public static string CheckYourEmailToChangePassword {
+            get {
+                return ResourceManager.GetString("CheckYourEmailToChangePassword", resourceCulture);
             }
         }
         
@@ -732,6 +768,15 @@ namespace Resources {
         public static string CreateNewBanner {
             get {
                 return ResourceManager.GetString("CreateNewBanner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Criar novo negócio.
+        /// </summary>
+        public static string CreateNewBusiness {
+            get {
+                return ResourceManager.GetString("CreateNewBusiness", resourceCulture);
             }
         }
         
@@ -997,6 +1042,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Recuperação de palavra-chave.
+        /// </summary>
+        public static string EmailPasswordRecover {
+            get {
+                return ResourceManager.GetString("EmailPasswordRecover", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pagamento confirmado.
         /// </summary>
         public static string EmailPaymentConfirmation {
@@ -1029,6 +1083,15 @@ namespace Resources {
         public static string EnterYourEmail {
             get {
                 return ResourceManager.GetString("EnterYourEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insira e-mail e nova palavra-chave para redefinir a mesma.
+        /// </summary>
+        public static string EnterYourEmailAndNewPasswordToReset {
+            get {
+                return ResourceManager.GetString("EnterYourEmailAndNewPasswordToReset", resourceCulture);
             }
         }
         
@@ -1204,6 +1267,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Re-enviar código de confirmação.
+        /// </summary>
+        public static string GenerateConfirmationToken {
+            get {
+                return ResourceManager.GetString("GenerateConfirmationToken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Google+.
         /// </summary>
         public static string GooglePlus {
@@ -1339,6 +1411,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Compra e venda de carteira.
+        /// </summary>
+        public static string INSURANCE_BUSINESS_BUY_SELL_POST {
+            get {
+                return ResourceManager.GetString("INSURANCE_BUSINESS_BUY_SELL_POST", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parceria.
+        /// </summary>
+        public static string INSURANCE_BUSINESS_PARTNERSHIP_POST {
+            get {
+                return ResourceManager.GetString("INSURANCE_BUSINESS_PARTNERSHIP_POST", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Seguradora.
         /// </summary>
         public static string INSURANCE_COMPANY {
@@ -1353,6 +1443,15 @@ namespace Resources {
         public static string INSURANCE_PROFESSIONAL {
             get {
                 return ResourceManager.GetString("INSURANCE_PROFESSIONAL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Negócios Seguros.
+        /// </summary>
+        public static string InsuranceBusinesses {
+            get {
+                return ResourceManager.GetString("InsuranceBusinesses", resourceCulture);
             }
         }
         
@@ -1825,6 +1924,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Não existem publicações de negócios de seguros.
+        /// </summary>
+        public static string NoInsuranceBusinessesPosts {
+            get {
+                return ResourceManager.GetString("NoInsuranceBusinessesPosts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De momento não possui notificações.
         /// </summary>
         public static string NoNotifications {
@@ -1933,6 +2041,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Parceria.
+        /// </summary>
+        public static string Partnership {
+            get {
+                return ResourceManager.GetString("Partnership", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Parcerias.
         /// </summary>
         public static string Partnerships {
@@ -1965,6 +2082,15 @@ namespace Resources {
         public static string PasswordRequired {
             get {
                 return ResourceManager.GetString("PasswordRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A sua palavra-chave foi redefinida com sucesso. Poderá agora fazer login na plataforma com o seu e-mail e a nova palavra-chave..
+        /// </summary>
+        public static string PasswordResetWithSuccess {
+            get {
+                return ResourceManager.GetString("PasswordResetWithSuccess", resourceCulture);
             }
         }
         
@@ -2212,6 +2338,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Redefinir.
+        /// </summary>
+        public static string Reset {
+            get {
+                return ResourceManager.GetString("Reset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Redefinição da palavra-chave.
+        /// </summary>
+        public static string ResetYourPassword {
+            get {
+                return ResourceManager.GetString("ResetYourPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Perfil é obrigatório.
         /// </summary>
         public static string RoleRequired {
@@ -2347,6 +2491,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pesquisar negócio seguro.
+        /// </summary>
+        public static string SearchInsuranceBusinessesPosts {
+            get {
+                return ResourceManager.GetString("SearchInsuranceBusinessesPosts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Seguradoras.
         /// </summary>
         public static string SearchInsuranceContacts {
@@ -2388,6 +2541,15 @@ namespace Resources {
         public static string SecondsAgo {
             get {
                 return ResourceManager.GetString("SecondsAgo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Seleccione o tipo de negócio.
+        /// </summary>
+        public static string SelectBusinessType {
+            get {
+                return ResourceManager.GetString("SelectBusinessType", resourceCulture);
             }
         }
         

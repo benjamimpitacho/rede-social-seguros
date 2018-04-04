@@ -1,0 +1,181 @@
+﻿@using InsuranceWebsite.Models
+@using MVCGrid.Web
+@model NewPostViewModel
+
+@{
+    ViewBag.Title = Resources.Resources.HomePageTitle;
+}
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+@Scripts.Render("~/bundles/jqueryval")
+
+<script>
+    $.validator.setDefaults({
+        ignore: ".ignore"
+    });
+</script>
+
+<style>
+    .panel {
+        margin-bottom: 4px !important;
+    }
+
+    .main-photo {
+        max-width: 120px;
+        max-height: 120px;
+        border-radius: 100px;
+        border: 3px solid #E3E6E8;
+    }
+
+    .profile-icon {
+        max-width: 65px;
+    }
+
+    .profile-info {
+        font-size: 12px;
+    }
+
+    .data-row {
+        display: flex;
+        margin: 0px 0px 2px;
+        height: 34px;
+    }
+
+    .label-control {
+        border: none;
+        box-shadow: none;
+        border-radius: 0px;
+    }
+
+    .profile-label {
+        font-size: 12px !important;
+        font-weight: bold !important;
+        padding: 10px !important;
+    }
+
+    .label-control {
+        background-color: #F6F8F7;
+    }
+
+    .form-control input {
+        width: 100% !important;
+        border: 0px !important;
+        background-color: transparent !important;
+    }
+
+    .profile-textarea {
+        background-color: #F6F8F7;
+        border-radius: 0px;
+    }
+
+    .btn-blue {
+        background-color: #00C1DE;
+        color: #fff;
+        font-weight: bold;
+        width: 100px;
+        padding: 10px;
+    }
+
+    .btn-darkblue {
+        background-color: #4B5C66;
+        color: #fff;
+        font-weight: bold;
+        width: 100px;
+        padding: 10px;
+    }
+
+    .ui-dialog .ui-dialog-content
+    {
+        padding: 0px;
+    }
+
+    .ui-widget.ui-widget-content
+    {
+        padding: 0px;
+    }
+</style>
+
+<div id="dialog-form" title="@Resources.Resources.CreateNewCompany">
+
+    @using (Html.BeginForm("CreateNewInsuranceBusinessPost", "Home", FormMethod.Post, new { id= "createPostForm", @class = "form-horizontal", enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken();
+        @Html.HiddenFor(i => i.Post.Subject, new { @class = "ignore" });
+
+        <div style="padding: 20px;font-size: 20px;font-weight: bold;color:#4B5C66;">
+            <span>@Resources.Resources.InsuranceBusinesses</span>
+        </div>
+
+        <div style="padding: 0px 20px;display: flex;">
+            <input type='file' id="imgUpload" style="visibility:hidden;position:absolute" name="imgUpload" />
+            <div style="width:80px;height:70px;background-color:#cfcfcf;text-align:center;" onclick="javascript:$('#imgUpload').click()"><img src="~/Content/icons/home_page_rede_social_falar_seguros_AF110.png" class="icon-normal" style="margin-top:20px;" /></div>
+            <div style="height:70px;width:100%;display:flex;">
+                @Html.TextAreaFor(m => m.Post.Text, new { @class = "form-control", id = "postContentTextarea", name = "postContentTextarea", @placeholder = Resources.Resources.InsertDescriptionText+"...", @style = "border-radius:0px;border:0px;box-shadow: none;font-weight:normal;background-color: #EDEFF0;margin-left:12px;height:100%;resize: none;" })
+            </div>
+        </div>
+
+        <div style="padding: 30px 20px 5px 20px;font-size: 16px;font-weight: bold;color: #4B5C66;">@Resources.Resources.BusinessType</div>
+
+        <div style="padding:0px 20px;">
+            <label class="form-control label-control profile-label" style="padding: 3px !important;">@Html.DropDownListFor(m => m.Post.ID_PostSubject, Model.SubjectTypeList, new { @class = "text ui-widget-content ui-corner-all", @style = "color:#777;min-height:28px;width:100%;background-color: #EDEFF0;border:0px;outline:0px;", @placeholder = @Resources.Resources.BusinessType, id = "subjectTypeList" })</label>
+            @Html.HiddenFor(i => i.Post.ID_PostSubject, new { id = "subjectTypeId" })
+        </div>
+
+        <div style="padding: 30px 20px 5px 20px;font-size: 16px;font-weight: bold;color: #4B5C66;">@Resources.Resources.Locality</div>
+
+        <div style="padding:0px 20px;">
+            <label class="form-control label-control profile-label" style="padding: 3px !important;">@Html.DropDownListFor(m => m.ID_District, Model.DistrictList, new { @class = "text ui-widget-content ui-corner-all", @style = "color:#777;min-height:28px;width:100%;background-color: #EDEFF0;border:0px;outline:0px;", @placeholder = @Resources.Resources.District, id = "districtList" })</label>
+            @Html.HiddenFor(i => i.ID_District, new { id = "districtId" })
+        </div>
+
+        <div style="padding:0px 20px;">
+            <label class="form-control label-control profile-label" style="padding: 3px !important;">@Html.DropDownListFor(m => m.ID_County, Model.CountyList, new { @class = "text ui-widget-content ui-corner-all", @style = "color:#777;min-height:28px;width:100%;background-color: #EDEFF0;border:0px;outline:0px;", @placeholder = Resources.Resources.Location, id = "countyList" })</label>
+            @Html.HiddenFor(i => i.ID_County, new { id = "countyId" })
+        </div>
+        
+        <div style="padding:10px 20px 10px 20px;width:100%;position:absolute;background-color:#EDEFF0;bottom:0px;">
+            <input class="btn btn-blue" id="submitButton" style="float:right;" type="submit" value="@Resources.Resources.Save" />
+            <div style="width:4px;height:10px;float:right;"></div>
+            <input class="btn btn-darkblue" type="button" id="cancelButton" style="float:right;" value="@Resources.Resources.Cancel" />
+        </div>
+    }
+</div>
+
+<script>
+
+    $(document).ready(function () {
+
+        $("#cancelButton").on("click", function (e) {
+            $("#dialog-create").dialog("close");
+        });
+
+        $('#countyList').prop('disabled', true);
+        var ddlCounties = $("#countyList"); //dropdownlist for counties
+
+        $("#districtList").change(function () {
+            var selectedItem = $("#districtList").val(); //dropdownlist for states
+
+            $('#countyList').prop('disabled', false);
+
+            $.ajax({
+                cache: false,
+                type: "GET",
+                url: '@Url.Action("GetCountiesByDistrict", "Home")',
+                data: { "districtId": selectedItem },
+                success: function (data) {
+                    ddlCounties.html('')
+                    $.each(data, function (id, option) {
+                        ddlCounties.append($('<option></option>').val(option.Value).html(option.Text));
+                    });
+                },
+
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert('Failed to retrieve counties.');
+                }
+            });
+
+        });
+    } );
+
+</script>

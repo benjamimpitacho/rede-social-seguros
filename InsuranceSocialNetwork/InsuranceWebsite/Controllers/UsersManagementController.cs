@@ -293,13 +293,7 @@ namespace InsuranceWebsite.Controllers
                 {
                     var user = new ApplicationUser { UserName = model.User.Email, Email = model.User.Email };
                     user.EmailConfirmed = false;
-                    string password = Membership.GeneratePassword(8, 2);
-                    while(!PasswordUtils.ValidatePassword(password))
-                    {
-                        password = Membership.GeneratePassword(8, 2);
-                    }
-                    Random rnd = new Random();
-                    password = password + rnd.Next(1, 99);
+                    string password = GeneratePassword();
                     var result = await this.UserManager.CreateAsync(user, password);
 
                     if (result.Succeeded)
@@ -337,9 +331,9 @@ namespace InsuranceWebsite.Controllers
                         {
                             InsuranceBusiness.BusinessLayer.CreateNotification(user.Id, null, NotificationTypeEnum.COMPLETE_PROFILE_INFO);
 
-                            string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                            code = System.Web.HttpUtility.UrlEncode(code);
-                            var callbackUrl = Url.Action("ConfirmEmail", "Account", new { code = user.Id, token = code }, protocol: Request.Url.Scheme);
+                            string token = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                            //token = System.Web.HttpUtility.UrlEncode(token);
+                            var callbackUrl = Url.Action("ConfirmEmail", "Account", new { code = user.Id, token = token }, protocol: Request.Url.Scheme);
                             await SendNewRegisterEmail(user, model.FirstName + " " + model.LastName, callbackUrl, password);
 
                         }
@@ -350,7 +344,7 @@ namespace InsuranceWebsite.Controllers
 
                             return View(model);
                         }
-                        
+
                         // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                         // Send an email with this link
                         //string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -369,6 +363,44 @@ namespace InsuranceWebsite.Controllers
 
             return RedirectToAction("Index");
         }
+
+        private static string GeneratePassword()
+        {
+            string password = Membership.GeneratePassword(8, 2);
+            while (!PasswordUtils.ValidatePassword(password))
+            {
+                password = Membership.GeneratePassword(8, 2);
+            }
+            Random rnd = new Random();
+            password = password + rnd.Next(1, 99);
+            return password;
+        }
+
+        //[FunctionalityAutorizeAttribute("USERS_MANAGEMENT")]
+        //public async Task<ActionResult> GenerateNewConfirmationToken(string id)
+        //{
+        //    try
+        //    {
+        //        string password = GeneratePassword();
+
+        //        var user = UserManager.FindById(id);
+        //        var userProfile = InsuranceBusiness.BusinessLayer.GetUserProfile(id);
+
+        //        var result = await this.UserManager.(user, password);
+
+        //        string token = await UserManager.GenerateEmailConfirmationTokenAsync(id);
+        //        //token = System.Web.HttpUtility.UrlEncode(token);
+        //        var callbackUrl = Url.Action("ConfirmEmail", "Account", new { code = id, token = token }, protocol: Request.Url.Scheme);
+        //        await SendNewRegisterEmail(user, userProfile.FirstName + " " + userProfile.LastName, callbackUrl, password);
+
+        //        return RedirectToAction("Index");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        InsuranceBusiness.BusinessLayer.LogException(string.Format("{0} [{1}]", Request.UserHostAddress, id), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+        //        return View("Error");
+        //    }
+        //}
 
         private async Task<bool> SendNewRegisterEmail(ApplicationUser user, string name, string callbackUrl, string password)
         {

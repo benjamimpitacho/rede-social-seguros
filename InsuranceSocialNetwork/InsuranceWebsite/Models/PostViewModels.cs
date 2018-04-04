@@ -37,6 +37,7 @@ namespace InsuranceWebsite.Models
         [Required]
         public long? ID_County { get; set; }
 
+        public List<SelectListItem> SubjectTypeList { get; set; }
         public List<SelectListItem> DistrictList { get; set; }
         public List<SelectListItem> CountyList { get; set; }
     }
