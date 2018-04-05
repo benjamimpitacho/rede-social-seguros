@@ -29,6 +29,12 @@ namespace InsuranceSocialNetworkDAL
         {
             using (var context = new BackofficeUnitOfWork())
             {
+                var ntf = context.Notification
+                    .Fetch()
+                    .FirstOrDefault(i => i.ToUserID == notification.ToUserID && i.FromUserID == notification.FromUserID && i.ID_NotificationType == notification.ID_NotificationType && i.ID_Post == notification.ID_Post && !i.Read);
+                if (ntf != null)
+                    return true;
+
                 notification.Read = false;
                 notification.Active = true;
                 notification.CreateDate = DateTime.Now;

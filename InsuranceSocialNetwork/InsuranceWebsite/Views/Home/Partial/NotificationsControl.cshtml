@@ -198,7 +198,7 @@
                 </a>
                 break;
             case "NEW_MESSAGE_RECEIVED":
-                <a href="#" onclick="location.href='@Url.Action("SendMessage", "Home", new { id = notification.FromUserProfileID, ntId = notification.ID })'">
+                <a href="#" onclick="location.href='@Url.Action("SendMessage", "Home", new { id = notification.FromUserID, ntId = notification.ID, userId=notification.FromUserID })'">
                     <div class="panel panel-white post panel-shadow animated fadeInUp" style="margin-bottom:2px;">
                         <div class="@("post-heading " + (notification.Read ? "read" : "unread"))">
                             <div class="pull-left image">

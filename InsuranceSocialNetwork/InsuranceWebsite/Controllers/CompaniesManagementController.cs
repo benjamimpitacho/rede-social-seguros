@@ -832,6 +832,26 @@ namespace InsuranceWebsite.Controllers
                         payment.ep_link_rp_cc = response.SelectSingleNode("getautoMB/ep_link_rp_cc").InnerText;
                         payment.ep_link_rp_dd = response.SelectSingleNode("getautoMB/ep_link_rp_dd").InnerText;
                         payment.ID_PaymentStatus = (int)PaymentStatusEnum.PENDING;
+
+                        if (string.IsNullOrEmpty(payment.t_key))
+                        {
+                            //http://test.easypay.pt/_s/c11_rp_dd.php?e=10611&r=698305563&v=44.28&c=PT&l=PT&p=1Y&ep_k1=FFAC0B533DB396E23F76AF083D6041DD698305563
+                            int startIndex = payment.ep_link_rp_dd.IndexOf("ep_k1=");
+                            if (startIndex > 0)
+                            {
+                                startIndex += 6;
+
+                                int nextField = payment.ep_link_rp_dd.Substring(startIndex).IndexOf("&");
+                                if (nextField > 0)
+                                {
+                                    payment.t_key = payment.ep_link_rp_dd.Substring(startIndex, nextField);
+                                }
+                                else
+                                {
+                                    payment.t_key = payment.ep_link_rp_dd.Substring(startIndex);
+                                }
+                            }
+                        }
                     }
                     else
                     {
@@ -872,6 +892,11 @@ namespace InsuranceWebsite.Controllers
                     {
                         company.Payment = new List<PaymentDTO>();
                     }
+                    else if (company.Payment.Exists(i => i.Active && i.ID_PaymentType == payment.ID_PaymentType && i.ID_PaymentStatus != (int)PaymentStatusEnum.CANCELED))
+                    {
+                        // disable existing direct debit payments
+                        company.Payment.Where(i => i.Active && i.ID_PaymentType == payment.ID_PaymentType && i.ID_PaymentStatus != (int)PaymentStatusEnum.CANCELED).ToList().ForEach(i => { i.Active = false; i.LastChangeDate = DateTime.Now; });
+                    }
                     company.Payment.Add(payment);
 
                     switch (idType)
@@ -896,7 +921,7 @@ namespace InsuranceWebsite.Controllers
                     }
 
                     //return Redirect(payment.ep_link);
-                    return PartialView("DirectDebitModal", new DirectDebitExternalViewModel() { ExternalURL = payment.ep_link });
+                    return PartialView("DirectDebitModal", new DirectDebitExternalViewModel() { ExternalURL = payment.ep_link_rp_dd });
                 }
             }
             catch(Exception ex)

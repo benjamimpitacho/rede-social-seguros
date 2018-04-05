@@ -223,7 +223,7 @@ namespace InsuranceWebsite.Controllers
         /// <param name="id">Profile ID</param>
         /// <returns>Messages view</returns>
         [FunctionalityAutorizeAttribute("MESSAGES_FUNCTIONALITY")]
-        public async Task<ActionResult> SendMessage(long id, long? ntId)
+        public async Task<ActionResult> SendMessage(long? id, long? ntId, string userId)
         {
             try
             {
@@ -251,8 +251,11 @@ namespace InsuranceWebsite.Controllers
                     return RedirectToAction("Login", "Account");
                 }
 
-                string secondUserId = InsuranceBusiness.BusinessLayer.GetUserIdFromProfileId(id);
-                model.ActiveChat = InsuranceBusiness.BusinessLayer.GetChat(model.Profile.User.Id, secondUserId);
+                if(string.IsNullOrEmpty(userId) && id.HasValue)
+                {
+                    userId = InsuranceBusiness.BusinessLayer.GetUserIdFromProfileId(id.Value);
+                }
+                model.ActiveChat = InsuranceBusiness.BusinessLayer.GetChat(model.Profile.User.Id, userId);
                 model.Chats = InsuranceBusiness.BusinessLayer.GetChats(CurrentUser.ID_User);
 
                 return View("Messages", model);
