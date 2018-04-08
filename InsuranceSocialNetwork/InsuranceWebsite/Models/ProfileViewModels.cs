@@ -28,6 +28,7 @@ namespace InsuranceWebsite.Models
         public bool IsProfileEditConfiguations { get; set; }
 
         public bool IsFriendRequest { get; set; }
+        public bool IsFriendRequested { get; set; }
 
         public bool IsFriend { get; set; }
 

@@ -288,7 +288,7 @@ namespace InsuranceWebsite.Controllers
                     // Send user notification
                     //InsuranceBusiness.BusinessLayer.CreateNotificationForPaymentDone(NotificationTypeEnum.PAYMENT_CONFIRMED, true, payment.ID_Garage.Value, payment.ID, CompanyTypeEnum.GARAGE);
                     // Get Invoice to send to Client
-                    LibaxUtils.LibaxUtils.CreateInvoice(company, payment);
+                    //LibaxUtils.LibaxUtils.CreateInvoice(company, payment);
                     // Send user email
                     SendPaymentConfirmationEmail(company.Name, company.ContactEmail);
 

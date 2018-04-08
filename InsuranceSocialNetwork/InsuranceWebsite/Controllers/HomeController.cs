@@ -1302,6 +1302,7 @@ namespace InsuranceWebsite.Controllers
                     model.ProfileInfo = InsuranceBusiness.BusinessLayer.GetUserProfile(id.Value);
                     model.IsFriend = InsuranceBusiness.BusinessLayer.AreFriends(CurrentUser.ID_User, model.ProfileInfo.ID_User);
                     model.IsFriendRequest = InsuranceBusiness.BusinessLayer.HasPendingFriendRequest(CurrentUser.ID_User, model.ProfileInfo.ID_User);
+                    model.IsFriendRequested = InsuranceBusiness.BusinessLayer.HasPendingFriendRequested(CurrentUser.ID_User, model.ProfileInfo.ID_User);
                 }
                 else
                 {
@@ -1392,6 +1393,7 @@ namespace InsuranceWebsite.Controllers
                     model.ProfileInfo = InsuranceBusiness.BusinessLayer.GetUserProfile(userId);
                     model.IsFriend = InsuranceBusiness.BusinessLayer.AreFriends(CurrentUser.ID_User, model.ProfileInfo.ID_User);
                     model.IsFriendRequest = InsuranceBusiness.BusinessLayer.HasPendingFriendRequest(CurrentUser.ID_User, model.ProfileInfo.ID_User);
+                    model.IsFriendRequested = InsuranceBusiness.BusinessLayer.HasPendingFriendRequested(CurrentUser.ID_User, model.ProfileInfo.ID_User);
                 }
                 else
                 {
@@ -1489,14 +1491,18 @@ namespace InsuranceWebsite.Controllers
             model.IsOwnProfile = false;
             model.IsProfileTimeline = true;
             model.IsFriendRequest = InsuranceBusiness.BusinessLayer.HasPendingFriendRequest(CurrentUser.ID_User, id);
+            model.IsFriendRequested = InsuranceBusiness.BusinessLayer.HasPendingFriendRequested(CurrentUser.ID_User, id);
             model.IsFriend = InsuranceBusiness.BusinessLayer.AreFriends(CurrentUser.ID_User, id);
             model.Profile = InsuranceBusiness.BusinessLayer.GetUserProfile(id);
+
+            model.CompaniesWorkingWith = InsuranceBusiness.BusinessLayer.GetInsuranceCompaniesWorkingWith(model.Profile.ID_User).Select(i => new SelectListItem() { Value = i.Key.ToString(), Text = i.Value }).ToList();
 
             if (!model.IsOwnProfile)
             {
                 model.ProfileInfo = InsuranceBusiness.BusinessLayer.GetUserProfile(id);
                 model.IsFriend = InsuranceBusiness.BusinessLayer.AreFriends(CurrentUser.ID_User, model.ProfileInfo.ID_User);
                 model.IsFriendRequest = InsuranceBusiness.BusinessLayer.HasPendingFriendRequest(CurrentUser.ID_User, model.ProfileInfo.ID_User);
+                model.IsFriendRequested = InsuranceBusiness.BusinessLayer.HasPendingFriendRequested(CurrentUser.ID_User, model.ProfileInfo.ID_User);
             }
             else
             {
@@ -1509,10 +1515,11 @@ namespace InsuranceWebsite.Controllers
             return View("Index", model);
         }
 
+        [HttpPost]
         [FunctionalityAutorizeAttribute("ADD_FRIEND_FUNCTIONALITY")]
         public async Task<ActionResult> AcceptFriendRequest(string id)
         {
-            var model = new ProfileViewModel();
+            var model = new HomeViewModel();
             if (null != this.User && this.User.Identity.IsAuthenticated)
             {
                 var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
@@ -1531,7 +1538,7 @@ namespace InsuranceWebsite.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
-            if(InsuranceBusiness.BusinessLayer.AcceptFriendRequest(CurrentUser.ID_User, id))
+            if (InsuranceBusiness.BusinessLayer.AcceptFriendRequest(CurrentUser.ID_User, id))
             {
                 model.IsFriendRequest = false;
             }
@@ -1543,13 +1550,37 @@ namespace InsuranceWebsite.Controllers
             model.IsFriend = true;
             model.Profile = InsuranceBusiness.BusinessLayer.GetUserProfile(id);
 
-            return View("ProfileInfo", model);
+            model.IsProfileTimeline = true;
+            model.IsFriendRequest = InsuranceBusiness.BusinessLayer.HasPendingFriendRequest(CurrentUser.ID_User, id);
+            model.IsFriendRequested = InsuranceBusiness.BusinessLayer.HasPendingFriendRequested(CurrentUser.ID_User, id);
+            model.IsFriend = InsuranceBusiness.BusinessLayer.AreFriends(CurrentUser.ID_User, id);
+            model.Profile = InsuranceBusiness.BusinessLayer.GetUserProfile(id);
+
+            model.CompaniesWorkingWith = InsuranceBusiness.BusinessLayer.GetInsuranceCompaniesWorkingWith(model.Profile.ID_User).Select(i => new SelectListItem() { Value = i.Key.ToString(), Text = i.Value }).ToList();
+
+            if (!model.IsOwnProfile)
+            {
+                model.ProfileInfo = InsuranceBusiness.BusinessLayer.GetUserProfile(id);
+                model.IsFriend = InsuranceBusiness.BusinessLayer.AreFriends(CurrentUser.ID_User, model.ProfileInfo.ID_User);
+                model.IsFriendRequest = InsuranceBusiness.BusinessLayer.HasPendingFriendRequest(CurrentUser.ID_User, model.ProfileInfo.ID_User);
+                model.IsFriendRequested = InsuranceBusiness.BusinessLayer.HasPendingFriendRequested(CurrentUser.ID_User, model.ProfileInfo.ID_User);
+            }
+            else
+            {
+                model.ProfileInfo = model.Profile;
+            }
+
+            model.ProfileInfo.TotalFriends = InsuranceBusiness.BusinessLayer.GetTotalFriends(model.ProfileInfo.ID_User);
+            model.ProfileInfo.TotalLikes = InsuranceBusiness.BusinessLayer.GetTotalLikes(model.ProfileInfo.ID_User);
+
+            return View("Index", model);
         }
 
+        [HttpPost]
         [FunctionalityAutorizeAttribute("ADD_FRIEND_FUNCTIONALITY")]
         public async Task<ActionResult> IgnoreFriendRequest(string id)
         {
-            var model = new ProfileViewModel();
+            var model = new HomeViewModel();
             if (null != this.User && this.User.Identity.IsAuthenticated)
             {
                 var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
@@ -1573,7 +1604,30 @@ namespace InsuranceWebsite.Controllers
             model.IsFriendRequest = false;
             model.Profile = InsuranceBusiness.BusinessLayer.GetUserProfile(id);
 
-            return View("ProfileInfo", model);
+            model.IsProfileTimeline = true;
+            model.IsFriendRequest = InsuranceBusiness.BusinessLayer.HasPendingFriendRequest(CurrentUser.ID_User, id);
+            model.IsFriendRequested = InsuranceBusiness.BusinessLayer.HasPendingFriendRequested(CurrentUser.ID_User, id);
+            model.IsFriend = InsuranceBusiness.BusinessLayer.AreFriends(CurrentUser.ID_User, id);
+            model.Profile = InsuranceBusiness.BusinessLayer.GetUserProfile(id);
+
+            model.CompaniesWorkingWith = InsuranceBusiness.BusinessLayer.GetInsuranceCompaniesWorkingWith(model.Profile.ID_User).Select(i => new SelectListItem() { Value = i.Key.ToString(), Text = i.Value }).ToList();
+
+            if (!model.IsOwnProfile)
+            {
+                model.ProfileInfo = InsuranceBusiness.BusinessLayer.GetUserProfile(id);
+                model.IsFriend = InsuranceBusiness.BusinessLayer.AreFriends(CurrentUser.ID_User, model.ProfileInfo.ID_User);
+                model.IsFriendRequest = InsuranceBusiness.BusinessLayer.HasPendingFriendRequest(CurrentUser.ID_User, model.ProfileInfo.ID_User);
+                model.IsFriendRequested = InsuranceBusiness.BusinessLayer.HasPendingFriendRequested(CurrentUser.ID_User, model.ProfileInfo.ID_User);
+            }
+            else
+            {
+                model.ProfileInfo = model.Profile;
+            }
+
+            model.ProfileInfo.TotalFriends = InsuranceBusiness.BusinessLayer.GetTotalFriends(model.ProfileInfo.ID_User);
+            model.ProfileInfo.TotalLikes = InsuranceBusiness.BusinessLayer.GetTotalLikes(model.ProfileInfo.ID_User);
+
+            return View("Index", model);
         }
 
         [FunctionalityAutorizeAttribute("PROFILE_INFO_FUNCTIONALITY")]
@@ -2939,6 +2993,12 @@ namespace InsuranceWebsite.Controllers
             model.Posts = InsuranceBusiness.BusinessLayer.GetInsuranceBusinessesPosts(CurrentUser.ID_User, id);
 
             return View(model);
+        }
+
+        public ActionResult ConfirmDirectDebitCancel(long id)
+        {
+            ViewBag.paymentId = id;
+            return PartialView("Partial/_ConfirmDirectDebitCancel");
         }
 
         public ActionResult ConfirmPostDelete(long id)

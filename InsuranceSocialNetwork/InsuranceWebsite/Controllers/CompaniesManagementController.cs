@@ -297,7 +297,7 @@ namespace InsuranceWebsite.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [FunctionalityAutorizeAttribute("COMPANIES_MANAGEMENT")]
-        public ActionResult Create(CompanyModelObject model, HttpPostedFileBase fileUploaderControl)
+        public ActionResult Create(CompanyModelObject model, HttpPostedFileBase imgUpload)
         {
             try
             {
@@ -325,12 +325,9 @@ namespace InsuranceWebsite.Controllers
                     IBAN = model.IBAN
                 };
 
-                if (null != fileUploaderControl)
+                if (null != imgUpload)
                 {
-                    MemoryStream target = new MemoryStream();
-                    fileUploaderControl.InputStream.CopyTo(target);
-                    byte[] data = target.ToArray();
-                    newCompany.LogoPhoto = data;
+                    newCompany.LogoPhoto = InsuranceSocialNetworkCore.Utils.ConvertionUtils.ScaleImage(InsuranceSocialNetworkCore.Utils.ConvertionUtils.ReadFully(imgUpload.InputStream), 400, 400);
                 }
 
                 if (model.CreatePayment && model.ID_PaymentType > 0)
@@ -523,7 +520,7 @@ namespace InsuranceWebsite.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [FunctionalityAutorizeAttribute("COMPANIES_MANAGEMENT")]
-        public ActionResult Edit(CompanyModelObject model, HttpPostedFileBase fileUploaderControl)
+        public ActionResult Edit(CompanyModelObject model, HttpPostedFileBase imgUpload)
         {
             try
             {
@@ -549,6 +546,7 @@ namespace InsuranceWebsite.Controllers
                         company = InsuranceBusiness.BusinessLayer.GetInsuranceCompanyContact(model.ID);
                         break;
                 }
+
                 InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, Request.UserHostAddress, "Ponto#0.1", "Ponto#0.1");
                 company.Active = model.Active;
                 company.Name = model.Name;
@@ -570,6 +568,11 @@ namespace InsuranceWebsite.Controllers
                 company.Website = model.Website;
                 company.BusinessName = model.BusinessName;
                 company.IBAN = model.IBAN;
+
+                if (null != imgUpload)
+                {
+                    company.LogoPhoto = InsuranceSocialNetworkCore.Utils.ConvertionUtils.ScaleImage(InsuranceSocialNetworkCore.Utils.ConvertionUtils.ReadFully(imgUpload.InputStream), 400, 400);
+                }
 
                 bool hasPendingPayment = (null == company.Payment || company.Payment.Count == 0) ? false : company.Payment.Exists(i => i.ID_PaymentStatus == (int)PaymentStatusEnum.PENDING);
                 InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, Request.UserHostAddress, "Ponto#0.2", "Ponto#0.2");
@@ -929,6 +932,23 @@ namespace InsuranceWebsite.Controllers
                 InsuranceBusiness.BusinessLayer.LogException(Request.UserHostAddress, string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
                 return PartialView("Error");
             }
+        }
+
+        //[HttpPost]
+        [FunctionalityAutorizeAttribute("COMPANIES_MANAGEMENT")]
+        public ActionResult CancelDirectDebit(long id)
+        {
+            try
+            {
+                //InsuranceBusiness.BusinessLayer.CancelPayment(id);
+            }
+            catch (Exception ex)
+            {
+                InsuranceBusiness.BusinessLayer.LogException(string.Format("{0} [{1}]", Request.UserHostAddress, id), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+                return RedirectToAction("Error");
+            }
+
+            return RedirectToAction("Index");
         }
 
         //[FunctionalityAutorizeAttribute("COMPANIES_MANAGEMENT")]

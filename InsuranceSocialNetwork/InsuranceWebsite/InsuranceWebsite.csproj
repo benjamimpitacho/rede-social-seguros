@@ -353,6 +353,11 @@
     <Content Include="Content\icons\icons_perfil_rede_social_falar_seguros_v217.png" />
     <Content Include="Content\icons\mais_icons_mensagens_rede_social_falar_seguros_AF.png" />
     <Content Include="Content\icons\mais_icons_mensagens_rede_social_falar_seguros_AF2.png" />
+    <Content Include="Content\icons\mais_icons_mensagens_rede_social_falar_seguros_AF3.png" />
+    <Content Include="Content\icons\mais_icons_mensagens_rede_social_falar_seguros_AF4.png" />
+    <Content Include="Content\icons\mais_icons_mensagens_rede_social_falar_seguros_AF5.png" />
+    <Content Include="Content\icons\mais_icons_mensagens_rede_social_falar_seguros_AF6.png" />
+    <Content Include="Content\icons\mais_icons_mensagens_rede_social_falar_seguros_AF7.png" />
     <Content Include="Content\logos\aps_logo" />
     <Content Include="Content\logos\asf_logo" />
     <Content Include="Content\icons\business_user.png" />
@@ -750,6 +755,7 @@
     <Content Include="Views\Home\Partial\_SharePost.cshtml" />
     <Content Include="Views\Home\Partial\_CreateHRPost.cshtml" />
     <Content Include="Views\Home\Partial\_CreateInsuranceBusinessPost.cshtml" />
+    <Content Include="Views\Home\Partial\_ConfirmDirectDebitCancel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

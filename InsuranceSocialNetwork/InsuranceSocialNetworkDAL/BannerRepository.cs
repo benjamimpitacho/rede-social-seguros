@@ -84,15 +84,9 @@ namespace InsuranceSocialNetworkDAL
         {
             using (var context = new BackofficeUnitOfWork())
             {
-                Banner item = context.Banner.Get(banner.ID);
-                item.LastChangeDate = DateTime.Now;
-                item.Description = banner.Description;
-                item.ID_Banner_Type = banner.ID_Banner_Type;
-                item.StartDate = banner.StartDate;
-                item.DueDate = banner.DueDate;
-                item.Image = null != banner.Image ? banner.Image : item.Image;
+                banner.LastChangeDate = DateTime.Now;
 
-                context.Banner.Update(item);
+                context.Banner.Update(banner);
                 context.Save();
 
                 return true;

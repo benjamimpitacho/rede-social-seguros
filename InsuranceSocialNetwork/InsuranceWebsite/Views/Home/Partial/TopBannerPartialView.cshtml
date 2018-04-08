@@ -7,16 +7,18 @@
     <div class="bannerPanel" id="rotator">
         @foreach (BannerDTO banner in Model.TopBanners)
         {
-            if (!string.IsNullOrEmpty(banner.Url))
-            {
+            <div>
+                @if (!string.IsNullOrEmpty(banner.Url))
+                {
                 <a href="@banner.Url" target="_blank">
                     <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(banner.Image))" class="bannerPanel" />
                 </a>
-            }
-            else
-            {
+                }
+                else
+                {
                 <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(banner.Image))" class="bannerPanel" />
-            }
+                }
+            </div>
         }
     </div>
 
@@ -29,17 +31,17 @@
             });
 
             function rotateBanners(elem) {
-                var active = $(elem + " img.active");
+                var active = $(elem + " div.active");
                 var next = active.next();
                 if (next.length == 0)
-                    next = $(elem + " img:first");
+                    next = $(elem + " div:first");
                 active.removeClass("active").fadeOut(400);
                 next.addClass("active").fadeIn(400);                
             }
 
             function prepareRotator(elem) {
-                $(elem + " img").fadeOut(0);
-                $(elem + " img:first").fadeIn(0).addClass("active");
+                $(elem + " div").fadeOut(0);
+                $(elem + " div:first").fadeIn(0).addClass("active");
             }
 
             function startRotator(elem) {

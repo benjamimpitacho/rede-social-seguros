@@ -123,7 +123,14 @@
         {
             <div class="search-result">
                 <div class="search-result-title">
-                    <img class="search-company-logo" src="~/Content/images/no_photo_img.jpg" />
+                    @if (null != item.LogoPhoto && item.LogoPhoto.Length > 0)
+                    {
+                        <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(item.LogoPhoto))" class="search-company-logo" alt="user profile image">
+                    }
+                    else
+                    {
+                        <img src="~/Content/images/no_photo_img.jpg" class="search-company-logo" alt="user profile image">
+                    }
                     <div style="display:block;padding: 5px 0px 0px 20px;width:100%;">
                         <div style="font-weight:bold;">@item.Name</div>
                         <div style="font-size:12px;">@item.Description</div>

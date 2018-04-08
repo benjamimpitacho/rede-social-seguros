@@ -85,7 +85,12 @@ namespace InsuranceWebsite.Models
 
         public bool HasPendingPayment
         {
-            get { return (null == Payments || Payments.Count == 0) ? false : Payments.Exists(i => i.ID_PaymentStatus == (int)PaymentStatusEnum.PENDING); }
+            get { return (null == Payments || Payments.Count == 0) ? false : Payments.Exists(i => i.Active && i.ID_PaymentType == (int)PaymentTypeEnum.ATM && i.ID_PaymentStatus == (int)PaymentStatusEnum.PENDING); }
+        }
+
+        public bool HasActiveDirectDebitPayment
+        {
+            get { return (null == Payments || Payments.Count == 0) ? false : Payments.Exists(i => i.Active && i.ID_PaymentType == (int)PaymentTypeEnum.DIRECT_DEBIT && (i.ID_PaymentStatus != (int)PaymentStatusEnum.CANCELED || i.ID_PaymentStatus != (int)PaymentStatusEnum.EXPIRED)); }
         }
     }
 }

@@ -156,8 +156,28 @@ namespace InsuranceSocialNetworkDAL
                 Friend friendItem = context.Friend
                     .Fetch()
                     .FirstOrDefault(i =>
-                        (i.AspNetUsers.Id == userId && i.AspNetUsers1.Id == otherUserId
-                        || i.AspNetUsers1.Id == userId && i.AspNetUsers.Id == otherUserId)
+                        (i.AspNetUsers1.Id == userId && i.AspNetUsers.Id == otherUserId)
+                        &&
+                        (i.ID_FriendStatus == requestSentStatusId)
+                        );
+
+                if (null == friendItem)
+                    return false;
+
+                return true;
+            }
+        }
+
+        public static bool HasPendingFriendRequested(string userId, string otherUserId)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                long requestSentStatusId = context.FriendStatus.Fetch().FirstOrDefault(j => j.Token == "REQUEST_SENT").ID;
+
+                Friend friendItem = context.Friend
+                    .Fetch()
+                    .FirstOrDefault(i =>
+                        (i.AspNetUsers.Id == userId && i.AspNetUsers1.Id == otherUserId)
                         &&
                         (i.ID_FriendStatus == requestSentStatusId)
                         );

@@ -78,6 +78,23 @@
         width: 100px;
         padding: 10px;
     }
+
+    .ui-dialog {
+        z-index: 1000 !important;
+    }
+
+    .ui-front {
+        z-index: 1000 !important;
+    }
+
+    .ui-widget-overlay {
+        z-index: 999 !important;
+        opacity: 0.3;
+    }
+
+    .ui-dialog-titlebar {
+        display: none;
+    }
 </style>
 
 <div id="dialog-form" title="@Resources.Resources.EditCompany">
@@ -87,6 +104,7 @@
         @Html.AntiForgeryToken();
         @Html.HiddenFor(i => i.ID);
         @Html.HiddenFor(i => i.CompanyType);
+        @Html.HiddenFor(i => i.LogoPhoto);
 
         <ul class="nav nav-tabs nav-tabs-custom-colored tabs-iconized">
             <li class="active">
@@ -108,6 +126,14 @@
 
         <div class="tab-content profile-page">
             <div class="tab-pane profile active" id="info-tab">
+                <div>
+                    <p class="data-row">
+                        <input type='file' id="imgUpload" style="visibility:hidden;position:absolute" name="imgUpload" />
+                        <a href="javascript:$('#imgUpload').click()" style="padding: 3px 5px">
+                            <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF110.png" class="icon-normal" />
+                        </a>
+                    </p>
+                </div>
                 <div>
                     <p class="data-row">
                         <span class="data-name profile-label">@Resources.Resources.Name</span>
@@ -273,8 +299,15 @@
                         }
                     </p>
                 </div>
+                @if (Model.HasActiveDirectDebitPayment)
+                {
                 <div>
-                    <a href="" class="btn btn-warning lnkDirectDebit">@Resources.Resources.SetupDirectDebit</a>
+                    @Resources.Resources.AlreadyHasDirectDebitConfigured
+                    @*<a href="" class="btn btn-warning lnkCancelDirectDebit" id="canceldd_@Model.Payments.FirstOrDefault(i => i.Active && i.ID_PaymentType == (int)PaymentTypeEnum.DIRECT_DEBIT && (i.ID_PaymentStatus != (int)PaymentStatusEnum.CANCELED || i.ID_PaymentStatus != (int)PaymentStatusEnum.EXPIRED)).ID">@Resources.Resources.CancelDirectDebit</a>*@
+                </div>
+                }
+                <div>
+                    <a href="" class="btn btn-warning lnkCreateDirectDebit">@Resources.Resources.SetupDirectDebit</a>
                 </div>
                 <div>
                     <p class="data-row">
@@ -320,6 +353,8 @@
 </div>
 
 <script>
+
+    var paymentId = 0;
 
     $(function () {
 
@@ -445,34 +480,40 @@
             }
         });
 
-        $(".lnkDirectDebit").click(function (e) {
+        $(".lnkCreateDirectDebit").click(function (e) {
             e.preventDefault(); //use this or return false
 
             $.ajax({
-            url: '@(Url.Action("SetupDirectDebit", "CompaniesManagement", new { id=Model.ID, idType=Model.CompanyType }))',
-            type: "GET",
-            dataType: "html",
-            cache: false,
-            success: function (data) {
-                $('#dialog-direct-debit').html(data); //write the dialog content into the diaog container
-                $("#dialog-direct-debit").dialog({ //dialogize it with JqueryUI
-                    autoOpen: false,
-                    height: 750,
-                    width: 1050,
-                    modal: true,
-                    buttons: {
-                        //"Chiudi": function () { $(this).dialog("close"); }
-                    },
-                    close: function () { }
-                });
-                $("#dialog-direct-debit").dialog("open"); //open it!
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-                alert('Error');
-            }
-        });
+                url: '@(Url.Action("SetupDirectDebit", "CompaniesManagement", new { id=Model.ID, idType=Model.CompanyType }))',
+                type: "GET",
+                dataType: "html",
+                cache: false,
+                success: function (data) {
+                    $('#dialog-direct-debit').html(data); //write the dialog content into the diaog container
+                    $("#dialog-direct-debit").dialog({ //dialogize it with JqueryUI
+                        autoOpen: false,
+                        height: 750,
+                        width: 1050,
+                        modal: true,
+                        buttons: {
+                            //"Chiudi": function () { $(this).dialog("close"); }
+                        },
+                        close: function () { }
+                    });
+                    $("#dialog-direct-debit").dialog("open"); //open it!
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert('Error');
+                }
+            });
 
             return false;
+        });
+
+        $(".lnkCancelDirectDebit").click(function (e) {
+            e.preventDefault(); //use this or return false
+            paymentId = $(this).attr("id").replace("canceldd_", "");
+            $("#dialog-cancel-directdebit").dialog('open');
         });
 
         $("#dialog-direct-debit").dialog({
@@ -494,6 +535,22 @@
             }
         });
 
+        $("#dialog-cancel-directdebit").dialog({
+            title: '@Resources.Resources.CancelDirectDebit',
+            autoOpen: false,
+            resizable: false,
+            width: 400,
+            height: 200,
+            show: { effect: 'drop', direction: "up" },
+            modal: true,
+            draggable: true,
+            position: { my: "center", at: "center", of: window },
+            open: function (e, ui) {
+                $(this).load("@Url.Action("ConfirmDirectDebitCancel", "Home")" + "/" + paymentId);
+            },
+            buttons: {}
+        });
+
     } );
 
 </script>
@@ -511,6 +568,8 @@
         @Resources.Resources.AreYouSureToDeactivateCompany
     </p>
 </div>
+
+<div id="dialog-cancel-directdebit" style="display: none"></div>
 
 <div id="dialog-direct-debit" style="display: none;">
 </div>

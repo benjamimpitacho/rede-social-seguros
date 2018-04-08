@@ -1113,4 +1113,13 @@
   <data name="ResetYourPassword" xml:space="preserve">
     <value>Redefinição da palavra-chave</value>
   </data>
+  <data name="CancelDirectDebit" xml:space="preserve">
+    <value>Anular Débito Directo</value>
+  </data>
+  <data name="AreYouSureToCancelDirectDebit" xml:space="preserve">
+    <value>Tem a certeza que pretende cancelar o débito directo</value>
+  </data>
+  <data name="AlreadyHasDirectDebitConfigured" xml:space="preserve">
+    <value>Esta empresa já possui um débito directo configurado</value>
+  </data>
 </root>

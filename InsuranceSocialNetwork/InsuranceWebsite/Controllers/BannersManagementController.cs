@@ -234,25 +234,24 @@ namespace InsuranceWebsite.Controllers
         {
             try
             {
-                BannerDTO newBanner = new BannerDTO()
-                {
-                    ID = model.ID,
-                    ID_Banner_Type = model.ID_Banner_Type,
-                    Description = model.Description,
-                    Url = model.Url,
-                    StartDate = model.StartDate,
-                    DueDate = model.DueDate
-                };
+                BannerDTO banner = InsuranceBusiness.BusinessLayer.GetBanner(model.ID);
+
+                banner.ID = model.ID;
+                banner.ID_Banner_Type = model.ID_Banner_Type;
+                banner.Description = model.Description;
+                banner.Url = model.Url;
+                banner.StartDate = model.StartDate;
+                banner.DueDate = model.DueDate;
 
                 if (null != fileUploaderControl)
                 {
                     MemoryStream target = new MemoryStream();
                     fileUploaderControl.InputStream.CopyTo(target);
                     byte[] data = target.ToArray();
-                    newBanner.Image = data;
+                    banner.Image = data;
                 }
 
-                InsuranceBusiness.BusinessLayer.EditBanner(newBanner);
+                InsuranceBusiness.BusinessLayer.EditBanner(banner);
             }
             catch (Exception ex)
             {

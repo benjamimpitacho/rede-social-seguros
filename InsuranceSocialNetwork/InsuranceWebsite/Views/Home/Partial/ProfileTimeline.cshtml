@@ -149,15 +149,23 @@
             <div style="display:table-cell;vertical-align:middle;"><span style="display:block;">@Html.ActionLink(Resources.Resources.SendMessage, "SendMessage", new { id = Model.ProfileInfo.ID }, new { style= "color:#4B5C66;" })</span></div>
             @if (Model.IsFriend)
             {
-            <div style="display:table-cell;vertical-align:middle;color:#00C1DE;"><span style="display:block;color:#00C1DE;">@Resources.Resources.Connected</span></div>
+                <div style="display:table-cell;vertical-align:middle;color:#00C1DE;"><span style="display:block;color:#00C1DE;">@Resources.Resources.Connected</span></div>
             }
-            else if (Model.IsFriendRequest)
+            else if (Model.IsFriendRequested)
             {
-            <div style="display:table-cell;vertical-align:middle;cursor:pointer;color:#00C1DE;">@Resources.Resources.FriendRequestPending</div>
+                <div style="display:table-cell;vertical-align:middle;cursor:pointer;color:#00C1DE;">@Resources.Resources.FriendRequestPending</div>
+            }
+            else if (Model.IsFriendRequest && !Model.IsOwnProfile)
+            {
+                <div id="requestControlButtons" style="display:inline-block;text-align:center;">
+                    <div style="display:inline-flex;vertical-align:middle;cursor:pointer;"><a class="" style="border-radius:3px;color:#00C1DE;" id="btnAcceptFriend" onclick="acceptFriendFunction(this, '@Model.ProfileInfo.ID_User')">@Resources.Resources.AcceptRequest</a></div>
+                    <div style="width:20px;height:20px;display:inline-flex;"></div>
+                    <div style="display:inline-flex;vertical-align:middle;cursor:pointer;"><a class="" style="border-radius:3px;color:#00C1DE;" id="btnIgnoreFriend" onclick="ignoreFriendFunction(this, '@Model.ProfileInfo.ID_User')">@Resources.Resources.IgnoreRequest</a></div>
+                </div>
             }
             else
             {
-            <div style="display:table-cell;vertical-align:middle;cursor:pointer;"><a class="" style="border-radius:3px;color:#00C1DE;" id="btnAddFriend" onclick="addFriendFunction(this, @Model.ProfileInfo.ID)">@Resources.Resources.Connect</a></div>
+                <div style="display:table-cell;vertical-align:middle;cursor:pointer;"><a class="" style="border-radius:3px;color:#00C1DE;" id="btnAddFriend" onclick="addFriendFunction(this, @Model.ProfileInfo.ID)">@Resources.Resources.Connect</a></div>
             }
         </div>
     </div>
@@ -282,6 +290,38 @@
             .done(function (data) {})
             .fail(function () {
                 object.style.display = "block";
+            });
+    }
+
+    function acceptFriendFunction(object, userId) {
+        $("#requestControlButtons").prop('display', 'none');
+        //object.style.display = "none";
+
+        jQuery.post('@Url.Action("AcceptFriendRequest", "Home")',
+                { id: userId }
+            )
+            .done(function (data) {
+                location.reload(true);
+            })
+            .fail(function () {
+                //object.style.display = "block";
+                $("#requestControlButtons").prop('display', 'inline-block');
+            });
+    }
+
+    function ignoreFriendFunction(object, userId) {
+        $("#requestControlButtons").prop('display', 'none');
+        //object.style.display = "none";
+
+        jQuery.post('@Url.Action("IgnoreFriendRequest", "Home")',
+                { id: userId }
+            )
+            .done(function (data) {
+                location.reload(true);
+            })
+            .fail(function () {
+                //object.style.display = "block";
+                $("#requestControlButtons").prop('display', 'inline-block');
             });
     }
 

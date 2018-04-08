@@ -1040,6 +1040,11 @@ namespace InsuranceSocialNetworkBusiness
             return FriendsRepository.HasPendingFriendRequest(currentUserId, otherUserId);
         }
 
+        public bool HasPendingFriendRequested(string currentUserId, string otherUserId)
+        {
+            return FriendsRepository.HasPendingFriendRequested(currentUserId, otherUserId);
+        }
+
         public int GetTotalFriends(string userId)
         {
             return FriendsRepository.GetTotalFriends(userId);

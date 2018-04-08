@@ -223,6 +223,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Esta empresa já possui um débito directo configurado.
+        /// </summary>
+        public static string AlreadyHasDirectDebitConfigured {
+            get {
+                return ResourceManager.GetString("AlreadyHasDirectDebitConfigured", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to FalarSeguros.pt.
         /// </summary>
         public static string ApplicationNAme {
@@ -291,6 +300,15 @@ namespace Resources {
         public static string AreYouSureToActivateUser {
             get {
                 return ResourceManager.GetString("AreYouSureToActivateUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tem a certeza que pretende cancelar o débito directo.
+        /// </summary>
+        public static string AreYouSureToCancelDirectDebit {
+            get {
+                return ResourceManager.GetString("AreYouSureToCancelDirectDebit", resourceCulture);
             }
         }
         
@@ -498,6 +516,15 @@ namespace Resources {
         public static string Cancel {
             get {
                 return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Anular Débito Directo.
+        /// </summary>
+        public static string CancelDirectDebit {
+            get {
+                return ResourceManager.GetString("CancelDirectDebit", resourceCulture);
             }
         }
         

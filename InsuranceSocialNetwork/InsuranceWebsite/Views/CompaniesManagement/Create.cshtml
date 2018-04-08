@@ -125,6 +125,14 @@
             <div class="tab-pane profile active" id="info-tab">
                 <div>
                     <p class="data-row">
+                        <input type='file' id="imgUpload" style="visibility:hidden;position:absolute" name="imgUpload" />
+                        <a href="javascript:$('#imgUpload').click()" style="padding: 3px 5px">
+                            <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF110.png" class="icon-normal" />
+                        </a>
+                    </p>
+                </div>
+                <div>
+                    <p class="data-row">
                         <span class="data-name profile-label">@Resources.Resources.Name</span>
                         <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.Name)</label>                        
                     </p>
