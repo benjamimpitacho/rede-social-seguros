@@ -184,6 +184,9 @@ namespace InsuranceWebsite.Controllers
         [AllowAnonymous]
         public void EasypayPaymentNotification(string ep_cin, string ep_user, string ep_doc, string ep_type)
         {
+            //LibaxUtils.LibaxUtils.CreateInvoice(InsuranceBusiness.BusinessLayer.GetGarage(7), InsuranceBusiness.BusinessLayer.GetPayment(43));
+            //return;
+
             try
             {
                 PaymentDTO payment = null;
@@ -196,6 +199,7 @@ namespace InsuranceWebsite.Controllers
                     InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.ERROR, string.Format("{0}", Request.UserHostAddress), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), string.Format("Cannot create notification. {0}, {1}, {2}, {3}", ep_cin, ep_user, ep_doc, ep_type));
                     return;
                 }
+
                 PaymentNotificationDTO paymentNotification = InsuranceBusiness.BusinessLayer.GetPaymentNotification(notificationId);
 
                 string baseUrl = string.Format("{0}?ep_cin={1}&ep_user={2}&ep_doc={3}"

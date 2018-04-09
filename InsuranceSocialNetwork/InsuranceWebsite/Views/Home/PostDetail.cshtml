@@ -8,6 +8,7 @@
 
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/jqueryval")
+<script src="~/Scripts/linkItUp.js"></script>
 
 @Html.Partial("~/Views/Home/Partial/NavBar.cshtml", Model)
 
@@ -208,7 +209,7 @@
 
                                             <div class="comment-body" style="font-size:12px">
 
-                                                <h6 class="comment-user-name"><a href="@Url.Action("ProfileInfo", "Home", new { id = comment.CommentOwner.ID })">@comment.CommentOwner.FirstName</a></h6> @comment.Text
+                                                <h6 class="comment-user-name"><a href="@Url.Action("ProfileInfo", "Home", new { id = comment.CommentOwner.ID })">@comment.CommentOwner.FirstName</a></h6> <span>@comment.Text</span>
 
                                                 <div class="comment-heading">
 
@@ -267,7 +268,10 @@
 </div><!-- end timeline content-->
 
 <script type="text/javascript">
-    $(function() {
+    $(function () {
+
+        $(".comment-body").linkify({ target: "_blank" });
+
         $(".commentForm").on("submit", function(e) {
             e.preventDefault();  //prevent form from submitting
 

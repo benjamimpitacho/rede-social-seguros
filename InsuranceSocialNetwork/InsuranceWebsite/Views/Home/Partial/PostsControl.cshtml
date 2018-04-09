@@ -7,6 +7,7 @@
 @*<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">*@
 @*<link href="~/Content/bookpost/css/jquery-ui.css" rel="stylesheet" />*@
 <script type="text/javascript" src="~/Scripts/jquery.expander.js"></script>
+<script src="~/Scripts/linkItUp.js"></script>
 
 <style>
     .ui-dialog {
@@ -389,7 +390,7 @@
 
                                 <div class="comment-body" style="font-size:12px">
 
-                                    <h6 class="comment-user-name"><a href="@Url.Action("ProfileInfo", "Home", new { id = comment.CommentOwner.ID })">@comment.CommentOwner.FirstName</a></h6> @comment.Text
+                                    <h6 class="comment-user-name"><a href="@Url.Action("ProfileInfo", "Home", new { id = comment.CommentOwner.ID })">@comment.CommentOwner.FirstName</a></h6> <span>@comment.Text</span>
 
                                     <div class="comment-heading">
 
@@ -455,6 +456,8 @@
     }
 
     $(function () {
+
+        $(".comment-body").linkify({ target: "_blank" });
 
         $('.post-description').expander({
             slicePoint: 500,

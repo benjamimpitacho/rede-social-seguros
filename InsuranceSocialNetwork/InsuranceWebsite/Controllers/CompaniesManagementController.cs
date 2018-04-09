@@ -898,7 +898,7 @@ namespace InsuranceWebsite.Controllers
                     else if (company.Payment.Exists(i => i.Active && i.ID_PaymentType == payment.ID_PaymentType && i.ID_PaymentStatus != (int)PaymentStatusEnum.CANCELED))
                     {
                         // disable existing direct debit payments
-                        company.Payment.Where(i => i.Active && i.ID_PaymentType == payment.ID_PaymentType && i.ID_PaymentStatus != (int)PaymentStatusEnum.CANCELED).ToList().ForEach(i => { i.Active = false; i.LastChangeDate = DateTime.Now; });
+                        //company.Payment.Where(i => i.Active && i.ID_PaymentType == payment.ID_PaymentType && i.ID_PaymentStatus != (int)PaymentStatusEnum.CANCELED).ToList().ForEach(i => { i.Active = false; i.LastChangeDate = DateTime.Now; });
                     }
                     company.Payment.Add(payment);
 
