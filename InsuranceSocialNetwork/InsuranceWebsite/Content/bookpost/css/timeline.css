@@ -2896,6 +2896,35 @@ a:hover, a:active, a:focus {
     .bannerPanel {
         display: none;
     }
+
+    .container {
+        padding: 0px !important;
+    }
+
+    .panel
+    {
+        margin-bottom: 0px;
+    }
+
+    .navbar 
+    {
+        min-height: 60px !important;
+    }
+
+    .container>.navbar-header
+    {
+        margin-left: 0px !important;
+        margin-right: 0px !important;
+    }
+
+    .navbar-principal {
+        background-color: #4B5C66;
+        border: 0px;
+    }
+
+    .navbar-toggle {
+        background-image: url("../../../Content/icons/icons_mensagens_rede_social_falar_seguros_AF12.png") !important;
+    }
 }
 
 @media (max-device-width: 480px)
@@ -2919,6 +2948,11 @@ a:hover, a:active, a:focus {
     .topPanel 
     {
         margin-top: 60px;
+    }
+
+    .container
+    {
+        padding: 0px !important;
     }
 }
 

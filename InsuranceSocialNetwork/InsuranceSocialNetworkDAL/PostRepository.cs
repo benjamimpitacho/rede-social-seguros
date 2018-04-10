@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using System.Transactions;
 using InsuranceSocialNetworkCore.Enums;
 using InsuranceSocialNetworkCore.Types;
+using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Core.Objects;
 
 namespace InsuranceSocialNetworkDAL
 {
@@ -73,16 +75,26 @@ namespace InsuranceSocialNetworkDAL
                 .Select(i => i.ID_Post)
                 .ToList();
 
+            //var validPostsIds = context.Post
+            //    .Fetch()
+            //    .Where(i => (
+            //        i.ID_User == Id
+            //        || friendsUserIds.Contains(i.ID_User)
+            //        )
+            //        && i.Active
+            //        && !hiddenPostIds.Contains(i.ID)
+            //        && (
+            //            i.PostSubject.Token.Equals("PERSONAL_POST")
+            //            || i.PostSubject.Token.Equals("BUSINESS_POST")
+            //            || i.PostSubject.Token.Equals("NEWS_POST")
+            //            || i.PostSubject.Token.Equals("PARTNERSHIP_POST")
+            //            || i.PostSubject.Token.Equals("WALLET_POST")
+            //            || i.PostSubject.Token.Equals("SPONSORED_POST")
+            //        ))
+            //    .Select(i => i.ID);
+
             List<Post> postList = context.Post
                 .Fetch()
-                .Include(i => i.AspNetUsers.Profile)
-                .Include(i => i.PostType)
-                .Include(i => i.PostSubject)
-                .Include(i => i.PostLike)
-                .Include(i => i.PostComment)
-                .Include(i => i.PostHidden)
-                //.Include(i => i.ChatMessage.OrderByDescending(j => j.CreateDate).Take(20))
-                .Include(i => i.PostImage)
                 .Where(i => (
                     i.ID_User == Id
                     || friendsUserIds.Contains(i.ID_User)
@@ -97,14 +109,55 @@ namespace InsuranceSocialNetworkDAL
                         || i.PostSubject.Token.Equals("WALLET_POST")
                         || i.PostSubject.Token.Equals("SPONSORED_POST")
                     ))
+                .Include(i => i.AspNetUsers.Profile)
+                .Include(i => i.PostType)
+                .Include(i => i.PostSubject)
+                .Include(i => i.PostLike)
+                .Include(i => i.PostComment)
+                .Include(i => i.PostHidden)
+                .Include(i => i.PostImage)
+                //.Include(i => i.ChatMessage.OrderByDescending(j => j.CreateDate).Take(20))
+                .Include(i => i.PostImage)
                 .OrderByDescending(i => i.Sticky)
                 .ThenByDescending(i => i.CreateDate)
-                .Skip(skipInterval)
-                .Take(itemsCount)
+                //.Skip(skipInterval)
+                //.Take(itemsCount)
                 .ToList();
 
-            postList.ForEach(p => p.PostComment = p.PostComment.Where(c => c.Active).Select(c => c).OrderBy(i => i.Date).ToList());
-            postList.ForEach(p => p.PostImage = p.PostImage.Where(c => c.Active).Select(c => c).ToList());
+            //foreach (Post post in postList)
+            //{
+            //    post.PostComment = post.PostComment.Where(c => c.Active).Select(c => c).OrderBy(i => i.Date).ToList();
+            //    post.PostImage = post.PostImage.Where(c => c.Active).Select(c => c).ToList();
+            //}
+
+            //var cmd = context.DataContext.Database.Connection.CreateCommand();
+            //cmd.CommandText = "[dbo].[GetAllPosts]";
+            
+
+            //try
+            //{
+
+            //    context.DataContext.Database.Connection.Open();
+            //    // Run the sproc 
+            //    var reader = cmd.ExecuteReader();
+
+            //    // Read Blogs from the first result set
+            //    var blogs = ((IObjectContextAdapter)context.DataContext)
+            //        .ObjectContext
+            //        .Translate<Post>(reader, "Posts", MergeOption.AppendOnly);
+
+
+            //    // Move to second result set and read Posts
+            //    //reader.NextResult();
+            //    //var posts = ((IObjectContextAdapter)db)
+            //    //    .ObjectContext
+            //    //    .Translate<Post>(reader, "Posts", MergeOption.AppendOnly);
+                
+            //}
+            //finally
+            //{
+            //    context.DataContext.Database.Connection.Close();
+            //}
 
             return postList;
         }

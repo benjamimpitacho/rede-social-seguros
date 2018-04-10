@@ -9,7 +9,7 @@ namespace InsuranceSocialNetworkDAL.DAL.Core
     public abstract class UnitOfWork<TContext> : IDisposable
         where TContext : DbContext, new()
     {        
-        protected TContext DataContext;
+        public TContext DataContext;
 
         public UnitOfWork()
         {

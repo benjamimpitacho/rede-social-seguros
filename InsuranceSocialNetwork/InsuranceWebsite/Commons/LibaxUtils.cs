@@ -194,6 +194,13 @@ namespace InsuranceWebsite.LibaxUtils
                     }
                 }
 
+                var seriesList = GetSeriesList();
+                var validSerie = seriesList.FirstOrDefault(i => i.IsActive && i.StartDate <= DateTime.Now && (!i.EndDate.HasValue || i.EndDate >= DateTime.Now));
+                if(null == validSerie)
+                {
+                    throw new NotImplementedException();
+                }
+
                 InvoiceVM invoiceToCreate = new InvoiceVM
                 {
                     CurrencyID = currencies.FirstOrDefault(i => i.ISOCode == "EUR").CurrencyID, //CurrencyID que pode ser vista em lista neste endpoint 
@@ -201,7 +208,7 @@ namespace InsuranceWebsite.LibaxUtils
                     IsDraft = false, //True se for um draft, permitindo assim que a fatura seja editada, uma vez que o valor seja false, a fatura torna-se definitiva
                     DueDays = 1, //Dias em que a fatura terá de ser paga
                     EntityID = entity.LibaxEntityID.Value, //Entidade a qual a fatura se destina
-                    SerieID = 1, //A Serie da fatura
+                    SerieID = validSerie.SerieID, //A Serie da fatura
                     SaleDate = DateTime.Now //Data da criação da fatura
                 };
 
@@ -215,7 +222,7 @@ namespace InsuranceWebsite.LibaxUtils
                         DiscountRate = productToInclude.DiscountRate,
                         Quantity = 1,
                         UnitID = productToInclude.UnitID,
-                        UnitPrice = decimal.Parse(payment.t_value),
+                        UnitPrice = 6.9M,//decimal.Parse(payment.t_value),
                         ApplyRetention = productToInclude.ApplyRetention,
                         Description = "Registo portal Falar Seguros",
                         Order = 1
@@ -493,6 +500,50 @@ namespace InsuranceWebsite.LibaxUtils
 
             return products;
         }
+
+        private static List<SeriesInfo> GetSeriesList()
+        {
+            string authorizationToken = GetAuthorizationToken();
+            List<SeriesInfo> series = new List<SeriesInfo>();
+
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.LIBAX_API_URL).Value);
+
+                bool hasMoreSeries = true;
+                int skipInterval = 0;
+                int numberOfElements = 50;
+                while (hasMoreSeries)
+                {
+                    var request = new HttpRequestMessage(HttpMethod.Get, string.Format("/api/v1/series?Skip={0}&Take={1}", skipInterval, numberOfElements));
+                    client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", authorizationToken);
+                    HttpResponseMessage response = client.SendAsync(request).Result;
+                    string resultJSON = response.Content.ReadAsStringAsync().Result;
+
+                    if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                    {
+                        List<SeriesInfo> list = JsonConvert.DeserializeObject<List<SeriesInfo>>(resultJSON);
+                        series = series.Concat(list).ToList();
+                        skipInterval += numberOfElements;
+                        if (list.Count < numberOfElements)
+                        {
+                            hasMoreSeries = false;
+                        }
+                    }
+                    else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                    {
+                        hasMoreSeries = false;
+                    }
+                    else
+                    {
+                        dynamic result = Newtonsoft.Json.JsonConvert.DeserializeObject(resultJSON);
+                        throw new Exception(result);
+                    }
+                }
+            }
+
+            return series;
+        }
     }
 
     public class EntityInfo
@@ -511,6 +562,15 @@ namespace InsuranceWebsite.LibaxUtils
         public DateTime? BirthDate { get; set; }
         public CivilState CivilState { get; set; }
         public EntityType Type { get; set; }
+    }
+
+    public class SeriesInfo
+    {
+        public int SerieID { get; set; }
+        public string Name { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
+        public bool IsActive { get; set; }
     }
 
     public class ProductInfo
