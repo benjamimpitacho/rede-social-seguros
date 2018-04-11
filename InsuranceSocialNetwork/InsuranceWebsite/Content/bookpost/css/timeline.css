@@ -2897,8 +2897,15 @@ a:hover, a:active, a:focus {
         display: none;
     }
 
+    .row
+    {
+        max-width: 100vw;
+        margin: 0px;
+    }
+
     .container {
         padding: 0px !important;
+        max-width: 100vw !important;
     }
 
     .panel
@@ -2917,6 +2924,10 @@ a:hover, a:active, a:focus {
         margin-right: 0px !important;
     }
 
+    .navbar-nav {
+        margin: 0px !important;
+    }
+
     .navbar-principal {
         background-color: #4B5C66;
         border: 0px;
@@ -2924,6 +2935,22 @@ a:hover, a:active, a:focus {
 
     .navbar-toggle {
         background-image: url("../../../Content/icons/icons_mensagens_rede_social_falar_seguros_AF12.png") !important;
+    }
+
+    .navbar-collapse {
+        max-height: 100vh !important;
+    }
+
+    .col-md-6
+    {
+        padding-left: 0px;
+        padding-right: 0px;
+        width: 100%;
+    }
+
+    .navbar-principal .navbar-brand, .navbar-principal .navbar-brand li a:visited, .navbar-principal .navbar-nav li a {
+        color: #4B5C66;
+        font-weight:bold;
     }
 }
 
@@ -2954,6 +2981,32 @@ a:hover, a:active, a:focus {
     {
         padding: 0px !important;
     }
+
+    .panel {
+        margin-bottom: 0px;
+    }
+
+    .navbar {
+        min-height: 60px !important;
+    }
+
+    .container > .navbar-header {
+        margin-left: 0px !important;
+        margin-right: 0px !important;
+    }
+
+    .navbar-principal {
+        background-color: #4B5C66;
+        border: 0px;
+    }
+
+    .navbar-toggle {
+        background-image: url("../../../Content/icons/icons_mensagens_rede_social_falar_seguros_AF12.png") !important;
+    }
+
+    .navbar-collapse {
+        max-height: 100vh !important;
+    }
 }
 
 @media (min-width:641px)  {
@@ -2965,6 +3018,7 @@ a:hover, a:active, a:focus {
 
     .navbar {
         visibility : hidden;
+        display: none;
     }
 }
 
@@ -2976,7 +3030,8 @@ a:hover, a:active, a:focus {
     }
 
     .navbar {
-        visibility : hidden;
+        visibility: hidden;
+        display: none;
     }
 }
 
@@ -2988,7 +3043,8 @@ a:hover, a:active, a:focus {
     }
 
     .navbar {
-        visibility : hidden;
+        visibility: hidden;
+        display: none;
     }
 }
 
@@ -3000,6 +3056,7 @@ a:hover, a:active, a:focus {
     }
 
     .navbar {
-        visibility : hidden;
+        visibility: hidden;
+        display: none;
     }
 }

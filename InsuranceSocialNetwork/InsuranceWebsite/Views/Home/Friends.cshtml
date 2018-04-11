@@ -28,7 +28,7 @@
 
                 @using (Html.BeginForm("SearchUsers", "Home", FormMethod.Post, new { id = "searchForm" }))
                 {
-                    <div class="panel panel-white post panel-shadow animated fadeInUp" style="margin-bottom:0px;height:80px;">
+                    <div class="panel topPanel panel-white post panel-shadow animated fadeInUp" style="margin-bottom:0px;height:80px;">
                         <div class="post-heading" style="padding: 10px 15px;">
                             <div class="title" style="border:0px;background-color:inherit; font-weight:bold; font-size: 17px; overflow: auto;">
                                 <div class="pull-left image" style="max-width:60px;">
@@ -103,7 +103,7 @@
                                 {
                                     <div style="color:#939DA3;font-size:11px;font-weight:bold;">@friend.CompanyName</div>
                                 }
-                                <div style="color:#939DA3;font-size:11px;font-weight:bold;">@friend.CompanyName</div>
+
                                 @if (!friend.ID_District.HasValue)
                                 {
                                     if (!friend.ID_County.HasValue)
