@@ -6,6 +6,8 @@
     ViewBag.Title = Resources.Resources.MessagesPageTitle;
 }
 
+@Scripts.Render("~/bundles/jquery")
+
 <link href="~/Content/bookpost/css/messages.css" rel="stylesheet">
 
 <style>
@@ -39,65 +41,72 @@
 
             @Html.Partial("~/Views/Home/Partial/SideNavBar.cshtml", Model)
 
-            <!-- left  content-->
-            <div class="profile-info col-md-6 animated fadeInUp" tabindex="5001" id="messageListPanel">
+            @if (!Request.Browser.IsMobileDevice 
+                || (Request.Browser.IsMobileDevice && Request.Browser.ScreenPixelsHeight > 480)
+                || (Request.Browser.IsMobileDevice && Request.Browser.ScreenPixelsHeight <= 480 && null != Model.ActiveChat))
+            {
+                <div class="profile-info topPanel col-md-6 animated fadeInUp" tabindex="5001" id="messageListPanel">
 
-                @if (null == Model.ActiveChat && !Model.IsNewMessage)
+                    @if (null == Model.ActiveChat && !Model.IsNewMessage)
                 {
-                    <div class="col-md-12 alert alert-info" style="text-align:center">
-                        @Resources.Resources.NoActiveChatSelected
-                    </div>
-                }
-                else if (Model.IsNewMessage)
-                {
-                    @Html.Partial("~/Views/Home/Partial/NewChatSectionView.cshtml", new ChatViewModel() { Chat = Model.ActiveChat, Profile = Model.Profile })
-                }
-                else
-                {
-                    @Html.Partial("~/Views/Home/Partial/ChatSectionView.cshtml", new ChatViewModel() { Chat = Model.ActiveChat, Profile = Model.Profile })
-                }
-
-            </div>
-            <!--end left  content-->
-
-            <div class="profile-info col-md-6 animated fadeInUp" style="overflow:auto;">
-
-                @using (Html.BeginForm("SearchConversations", "Home", FormMethod.Post, new { id = "searchForm" }))
-                {
-                    <div class="panel panel-white post panel-shadow animated fadeInUp" style="margin-bottom:0px;height:80px;">
-                        <div class="post-heading" style="padding: 15px 15px;">
-                            <div class="title" style="border:0px;background-color:inherit; font-weight:bold; font-size: 17px; overflow: auto;">
-                                <div class="pull-left image" style="max-width:60px;">
-                                    <a href="@Url.Action("NewMessage")">
-                                        <img src="~/Content/icons/mais_icons_mensagens_rede_social_falar_seguros_AF.png" class="avatar img-circle" style="border:none;height:50px; width:60px;border-radius:0px;">
-                                    </a>
-                                </div>
-
-                                <div style="float:left; padding-top:8px;width: calc(100% - 175px);">@Html.TextBoxFor(m => m.SearchModel.SearchTerm, new { @class = "form-control", @placeholder = Resources.Resources.SearchMessages, @style = "padding:18px;border-radius:0px;border:0px;box-shadow: none;font-weight:normal;" })</div>
-                                <div style="float:right; max-width: 105px;">
-                                    <a href="#" onclick="document.getElementById('searchForm').submit();">
-                                        <img src="~/Content/icons/icone_pesquisa_rede_social_falar_seguros_AF.png" style="max-width:50px;" />
-                                    </a>
-                                    @*<img src="~/Content/icons/icons_mensagens_rede_social_falar_seguros_AF16.png" style="max-width:50px;" />*@
-                                </div>
-                            </div>
-
+                        <div class="col-md-12 alert alert-info" style="text-align:center">
+                            @Resources.Resources.NoActiveChatSelected
                         </div>
-                    </div>
-                }
-
-                <div class="" style="background-color:transparent; box-shadow:none; margin-bottom: 10px; margin-top: 2px;">
-                    @if (null == Model.Chats || Model.Chats.Count == 0)
+                    }
+                    else if (Model.IsNewMessage)
                     {
-                        @Resources.Resources.NoChats
+                        @Html.Partial("~/Views/Home/Partial/NewChatSectionView.cshtml", new ChatViewModel() { Chat = Model.ActiveChat, Profile = Model.Profile })
                     }
                     else
                     {
-                        foreach (ChatDTO chat in Model.Chats)
+                        @Html.Partial("~/Views/Home/Partial/ChatSectionView.cshtml", new ChatViewModel() { Chat = Model.ActiveChat, Profile = Model.Profile })
+                    }
+
+                </div>
+            }
+            @if (!Request.Browser.IsMobileDevice
+                || (Request.Browser.IsMobileDevice && Request.Browser.ScreenPixelsHeight > 480)
+                || (Request.Browser.IsMobileDevice && Request.Browser.ScreenPixelsHeight <= 480 && null == Model.ActiveChat))
+            {
+                <div class="profile-info topPanel col-md-6 animated fadeInUp" style="overflow:auto;">
+
+                    @using (Html.BeginForm("SearchConversations", "Home", FormMethod.Post, new { id = "searchForm" }))
+                    {
+                        <div class="panel panel-white post panel-shadow animated fadeInUp" style="margin-bottom:0px;height:80px;">
+                            <div class="post-heading" style="padding: 15px 15px;">
+                                <div class="title" style="border:0px;background-color:inherit; font-weight:bold; font-size: 17px; overflow: auto;">
+                                    <div class="pull-left image" style="max-width:60px;">
+                                        <a href="@Url.Action("NewMessage")">
+                                            <img src="~/Content/icons/mais_icons_mensagens_rede_social_falar_seguros_AF.png" class="avatar img-circle" style="border:none;height:50px; width:60px;border-radius:0px;">
+                                        </a>
+                                    </div>
+
+                                    <div style="float:left; padding-top:8px;width: calc(100% - 175px);">@Html.TextBoxFor(m => m.SearchModel.SearchTerm, new { @class = "form-control", @placeholder = Resources.Resources.SearchMessages, @style = "padding:18px;border-radius:0px;border:0px;box-shadow: none;font-weight:normal;" })</div>
+                                    <div style="float:right; max-width: 105px;">
+                                        <a href="#" onclick="document.getElementById('searchForm').submit();">
+                                            <img src="~/Content/icons/icone_pesquisa_rede_social_falar_seguros_AF.png" style="max-width:50px;" />
+                                        </a>
+                                        @*<img src="~/Content/icons/icons_mensagens_rede_social_falar_seguros_AF16.png" style="max-width:50px;" />*@
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    }
+
+                    <div class="" style="background-color:transparent; box-shadow:none; margin-bottom: 10px; margin-top: 2px;">
+                        @if (null == Model.Chats || Model.Chats.Count == 0)
                         {
-                            <div id="chatEntry_@chat.ID" class="panel panel-body post panel-shadow animated fadeInUp @(chat.HasUnreadMessages ? "unread_chat" : "read_chat") @((null != Model.ActiveChat && Model.ActiveChat.ID == chat.ID) ? "active" : "")" style="margin-bottom:2px;max-height:80px;padding:10px 15px;cursor:pointer;">
-                                <div class="pull-left image" style="cursor:pointer;" onclick="$('.user').removeClass('active');$(this).addClass('active');$('#messageListPanel').load('@Url.Action("LoadChat", "Home", new { id = chat.ID })');">
-                                    @*<a href="@Url.Action("ProfileInfo", "Home", new { id = chat.ID })" style="padding: 0px; text-align: -webkit-center;">*@
+                            @Resources.Resources.NoChats
+                        }
+                        else
+                        {
+                            foreach (ChatDTO chat in Model.Chats)
+                            {
+                                <div id="chatEntry_@chat.ID" class="panel panel-body post panel-shadow animated fadeInUp @(chat.HasUnreadMessages ? "unread_chat" : "read_chat") @((null != Model.ActiveChat && Model.ActiveChat.ID == chat.ID) ? "active" : "")" style="margin-bottom:2px;max-height:80px;padding:10px 15px;cursor:pointer;">
+                                    @*<div class="pull-left image" style="cursor:pointer;" onclick="$('.user').removeClass('active');$(this).addClass('active');$('#messageListPanel').load('@Url.Action("LoadChat", "Home", new { id = chat.ID })');">*@
+                                    <a class="pull-left image" style="cursor:pointer;" href="@Url.Action("OpenChat", "Home", new { id = chat.ID })">
+                                        @*<a href="@Url.Action("ProfileInfo", "Home", new { id = chat.ID })" style="padding: 0px; text-align: -webkit-center;">*@
                                         @if (null == chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).ProfilePhoto || chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).ProfilePhoto.Length == 0)
                                         {
                                             <img class="thumb media-object" src="~/Content/images/no_photo_img.jpg" alt="" style="border-radius:100px;max-height:60px;border: 2px solid #EDEFF0;">
@@ -106,101 +115,102 @@
                                         {
                                             <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(chat.ChatMemberProfile.FirstOrDefault(i=>i.ID_User != Model.Profile.ID_User).ProfilePhoto))" class="thumb media-object" style="border-radius:100px;max-height:60px;border: 2px solid #EDEFF0;">
                                         }
-                                    @*</a>*@
-                                </div>
-                                <div style="float:left; padding:0px 15px; width: calc(100% - 170px);cursor:pointer;" onclick="$('.user').removeClass('active');$(this).addClass('active');$('#messageListPanel').load('@Url.Action("LoadChat", "Home", new { id = chat.ID })');">
-                                    <div style="color:#4B5C66;font-weight:bold;font-size:14px;">@chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).FirstName @chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).LastName</div>
-                                    @if (string.IsNullOrEmpty(chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).CompanyName))
-                                    {
-                                        <div style="color:#939DA3;font-size:11px;font-weight:bold;">-</div>
-                                    }
-                                    else
-                                    {
-                                        <div style="color:#939DA3;font-size:11px;font-weight:bold;">@chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).CompanyName</div>
-                                    }
-
-                                    @if (!chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).ID_District.HasValue)
-                                    {
-                                        if (!chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).ID_County.HasValue)
+                                        @*</a>*@
+                                    </a>
+                                    <a style="float:left; padding:0px 15px; width: calc(100% - 170px);cursor:pointer;" href="@Url.Action("OpenChat", "Home", new { id = chat.ID })">
+                                        <div style="color:#4B5C66;font-weight:bold;font-size:14px;">@chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).FirstName @chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).LastName</div>
+                                        @if (string.IsNullOrEmpty(chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).CompanyName))
                                         {
-                                            if (!chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).ID_Parish.HasValue)
+                                            <div style="color:#939DA3;font-size:11px;font-weight:bold;">-</div>
+                                        }
+                                        else
+                                        {
+                                            <div style="color:#939DA3;font-size:11px;font-weight:bold;">@chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).CompanyName</div>
+                                        }
+
+                                        @if (!chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).ID_District.HasValue)
+                                        {
+                                            if (!chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).ID_County.HasValue)
                                             {
-                                                <div style="color:#939DA3;font-size:11px;font-weight:bold;">-</div>
+                                                if (!chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).ID_Parish.HasValue)
+                                                {
+                                                    <div style="color:#939DA3;font-size:11px;font-weight:bold;">-</div>
+                                                }
+                                                else
+                                                {
+                                                    <div style="color:#939DA3;font-size:11px;font-weight:bold;">@chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).Parish.Name</div>
+
+                                                }
                                             }
                                             else
                                             {
-                                                <div style="color:#939DA3;font-size:11px;font-weight:bold;">@chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).Parish.Name</div>
+                                                if (!chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).ID_Parish.HasValue)
+                                                {
+                                                    <div style="color:#939DA3;font-size:11px;font-weight:bold;">@chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).County.Name</div>
+                                                }
+                                                else
+                                                {
+                                                    <div style="color:#939DA3;font-size:11px;font-weight:bold;">@chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).Parish.Name, @chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).County.Name</div>
 
+                                                }
                                             }
                                         }
                                         else
                                         {
-                                            if (!chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).ID_Parish.HasValue)
+                                            if (!chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).ID_County.HasValue)
                                             {
-                                                <div style="color:#939DA3;font-size:11px;font-weight:bold;">@chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).County.Name</div>
+                                                if (!chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).ID_Parish.HasValue)
+                                                {
+                                                    <div style="color:#939DA3;font-size:11px;font-weight:bold;">@chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).District.Name</div>
+                                                }
+                                                else
+                                                {
+                                                    <div style="color:#939DA3;font-size:11px;font-weight:bold;">@chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).Parish.Name, @chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).District.Name</div>
+
+                                                }
                                             }
                                             else
                                             {
-                                                <div style="color:#939DA3;font-size:11px;font-weight:bold;">@chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).Parish.Name, @chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).County.Name</div>
+                                                if (!chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).ID_Parish.HasValue)
+                                                {
+                                                    <div style="color:#939DA3;font-size:11px;font-weight:bold;">@chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).County.Name, @chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).District.Name</div>
 
+                                                }
+                                                else
+                                                {
+                                                    <div style="color:#939DA3;font-size:11px;font-weight:bold;">@chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).Parish.Name, @chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).County.Name, @chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).District.Name</div>
+
+                                                }
                                             }
                                         }
-                                    }
-                                    else
-                                    {
-                                        if (!chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).ID_County.HasValue)
-                                        {
-                                            if (!chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).ID_Parish.HasValue)
+                                    </a>
+                                    <div style="float:right; padding-top:13px; display:table; font-size:11px; font-weight:bold;">
+                                        <div style="display:table-cell;vertical-align:middle;cursor:pointer;">
+                                            <img src="~/Content/icons/icons_mensagens_rede_social_falar_seguros_AF10.png" style="max-width:30px;" />
+                                        </div>
+                                        <div style="display:table-cell;vertical-align:middle;padding:0px 10px;cursor:pointer;">
+                                            <img src="~/Content/icons/icons_mensagens_rede_social_falar_seguros_AF2.png" style="max-width:30px;" onclick="ConfirmDeleteChat(@chat.ID)" />
+                                        </div>
+                                        <div style="display:table-cell;vertical-align:middle;cursor:pointer;">
+                                            @if (chat.HasUnreadMessages)
                                             {
-                                                <div style="color:#939DA3;font-size:11px;font-weight:bold;">@chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).District.Name</div>
+                                                <span><img src="~/Content/icons/icons_mensagens_rede_social_falar_seguros_AF5.png" style="max-width:30px;" /></span>
                                             }
                                             else
                                             {
-                                                <div style="color:#939DA3;font-size:11px;font-weight:bold;">@chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).Parish.Name, @chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).District.Name</div>
-
+                                                <a href="@Url.Action("MarkChatAsUnread", new { id = chat.ID })">
+                                                    <span><img src="~/Content/icons/icons_mensagens_rede_social_falar_seguros_AF6.png" style="max-width:30px;" /></span>
+                                                </a>
                                             }
-                                        }
-                                        else
-                                        {
-                                            if (!chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).ID_Parish.HasValue)
-                                            {
-                                                <div style="color:#939DA3;font-size:11px;font-weight:bold;">@chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).County.Name, @chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).District.Name</div>
-
-                                            }
-                                            else
-                                            {
-                                                <div style="color:#939DA3;font-size:11px;font-weight:bold;">@chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).Parish.Name, @chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).County.Name, @chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User != Model.Profile.ID_User).District.Name</div>
-
-                                            }
-                                        }
-                                    }
-                                </div>
-                                <div style="float:right; padding-top:13px; display:table; font-size:11px; font-weight:bold;">
-                                    <div style="display:table-cell;vertical-align:middle;cursor:pointer;">
-                                        <img src="~/Content/icons/icons_mensagens_rede_social_falar_seguros_AF10.png" style="max-width:30px;" />
-                                    </div>
-                                    <div style="display:table-cell;vertical-align:middle;padding:0px 10px;cursor:pointer;">
-                                        <img src="~/Content/icons/icons_mensagens_rede_social_falar_seguros_AF2.png" style="max-width:30px;" onclick="ConfirmDeleteChat(@chat.ID)" />
-                                    </div>
-                                    <div style="display:table-cell;vertical-align:middle;cursor:pointer;">
-                                        @if (chat.HasUnreadMessages)
-                                        {
-                                            <span><img src="~/Content/icons/icons_mensagens_rede_social_falar_seguros_AF5.png" style="max-width:30px;" /></span>
-                                        }
-                                        else
-                                        {
-                                            <a href="@Url.Action("MarkChatAsUnread", new { id = chat.ID })">
-                                                <span><img src="~/Content/icons/icons_mensagens_rede_social_falar_seguros_AF6.png" style="max-width:30px;" /></span>
-                                            </a>
-                                        }
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            }
                         }
-                    }
+                    </div>
+                    @*</div>*@
                 </div>
-                @*</div>*@
-            </div>
+            }
 
         </div>
 
@@ -239,4 +249,10 @@
         chatId = id;
         $("#dialog-confirm-delete").dialog('open');
     }
+
+    function OpenChat()
+    {
+        alert('o');
+    }
+
 </script>

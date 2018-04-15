@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Web;
 
 namespace InsuranceWebsite.LibaxUtils
@@ -108,7 +109,7 @@ namespace InsuranceWebsite.LibaxUtils
             }
         }
 
-        public static void CreateInvoice(CompanyDTO entity, PaymentDTO payment)
+        public static byte[] CreateInvoice(CompanyDTO entity, PaymentDTO payment)
         {
             string authorizationToken = GetAuthorizationToken();
 
@@ -127,22 +128,23 @@ namespace InsuranceWebsite.LibaxUtils
 
             List<ProductInfo> productList = GetProductList();
 
+            List<TaxInfo> taxList = GetTaxList();
+
             using (WebClient client = new WebClient())
             {
-                //client.BaseAddress = new Uri(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.LIBAX_API_URL).Value);
-
                 int productId;
-                if(null==productList || productList.Count==0)
+                ProductInfo product = null;
+                if (null==productList || productList.Count==0)
                 {
                     // CREATE PRODUCT
                     InsertVM productToInsert = new InsertVM
                     {
-                        Name = "FALAR_SEGUROS_REGISTER_FEE",
+                        Name = payment.Title,
                         UnitID = 1,
-                        TaxID = 1,
+                        TaxID = taxList.FirstOrDefault(i => i.IsActive && i.Name == InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.LIBAX_DEFAULT_TAX_NAME).Value).TaxID,
                         ApplyRetention = false,
                         DiscountRate = 0, //isto vai traduzir em 2%
-                        ProductDetail = "Quota de registo no portal Falar Seguros",
+                        ProductDetail = payment.Description,
                         ProductType = ProductType.Service,
                         SellPrice = decimal.Parse(payment.t_value),
                         Reference = payment.ep_reference //null para que seja calculada automaticamente
@@ -158,21 +160,22 @@ namespace InsuranceWebsite.LibaxUtils
                     {
                         throw new NotImplementedException();
                     }
+                    product = GetProduct(productId);
                 }
                 else
                 {
-                    var product = productList.FirstOrDefault(i => i.Name == "FALAR_SEGUROS_REGISTER_FEE");
+                    product = productList.FirstOrDefault(i => i.Name == "FALAR_SEGUROS_REGISTER_FEE");
                     if(null == product)
                     {
                         // CREATE PRODUCT
                         InsertVM productToInsert = new InsertVM
                         {
-                            Name = "FALAR_SEGUROS_REGISTER_FEE",
+                            Name = payment.Title,
                             UnitID = 1,
-                            TaxID = 1,
+                            TaxID = taxList.FirstOrDefault(i => i.IsActive && i.Name == InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.LIBAX_DEFAULT_TAX_NAME).Value).TaxID,
                             ApplyRetention = false,
                             DiscountRate = 0, //isto vai traduzir em 2%
-                            ProductDetail = "Quota de registo no portal Falar Seguros",
+                            ProductDetail = payment.Description,
                             ProductType = ProductType.Service,
                             SellPrice = decimal.Parse(payment.t_value),
                             Reference = payment.ep_reference //null para que seja calculada automaticamente
@@ -187,6 +190,7 @@ namespace InsuranceWebsite.LibaxUtils
                         {
                             throw new NotImplementedException();
                         }
+                        product = GetProduct(productId);
                     }
                     else
                     {
@@ -218,11 +222,11 @@ namespace InsuranceWebsite.LibaxUtils
                     {
                         ProductID = productToInclude.ProductID,
                         TaxID = productToInclude.TaxID,
-                        ProductDetail = "Registo portal Falar Seguros",
+                        ProductDetail = product.Name,
                         DiscountRate = productToInclude.DiscountRate,
                         Quantity = 1,
                         UnitID = productToInclude.UnitID,
-                        UnitPrice = 6.9M,//decimal.Parse(payment.t_value),
+                        UnitPrice = 6.9M,//payment.LiquidValue,//decimal.Parse(payment.t_value),
                         ApplyRetention = productToInclude.ApplyRetention,
                         Description = "Registo portal Falar Seguros",
                         Order = 1
@@ -232,81 +236,40 @@ namespace InsuranceWebsite.LibaxUtils
                 var jsonDataString = JsonConvert.SerializeObject(invoiceToCreate);
                 client.Headers.Add(HttpRequestHeader.Authorization, "Bearer " + authorizationToken);
                 client.Headers.Add(HttpRequestHeader.ContentType, "application/json");
-                var x = InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.LIBAX_API_URL).Value;
                 var result = client.UploadString(new Uri(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.LIBAX_API_URL).Value + "/api/v1/invoices"), "POST", jsonDataString);
-                if (!int.TryParse(result, out productId))
+                int invoiceId;
+                if (!int.TryParse(result, out invoiceId))
                 {
                     throw new NotImplementedException();
                 }
 
+                payment.LibaxInvoiceID = invoiceId;
+                InsuranceBusiness.BusinessLayer.UpdatePayment(payment);
 
+                jsonDataString = JsonConvert.SerializeObject(new PrintSaleRequestVM() { SaleTypeCopy = SaleTypeCopy.Original, Culture = PrintCulture.Portuguese });
+                client.Headers.Clear();
+                client.Headers.Add(HttpRequestHeader.Authorization, "Bearer " + authorizationToken);
+                client.Headers.Add(HttpRequestHeader.ContentType, "application/json");
+                var requestID = client.UploadString(new Uri(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.LIBAX_API_URL).Value + "/api/v1/print-sales/" + invoiceId), "POST", jsonDataString);
 
-                //var product = "[{\"productID\": 1,\"description\": \"sample string 2\",\"productDetail\": \"sample string 3\",\"quantity\": 4.0,\"unitID\": 1,\"unitPrice\": 5.0,\"discountRate\": 6.0,\"taxID\": 1,\"order\": 7,\"isComment\": true,\"applyRetention\": true}]\"),";
+                if(string.IsNullOrEmpty(requestID))
+                {
+                    throw new NotImplementedException();
+                }
 
-                //var invoice = new InvoiceVM()
-                //{
-                //    EntityID = entity.LibaxEntityID.Value,
-                //    SerieID = 1,
-                //    Observation = "PAGAMENTO - FALAR SEGUROS",
-                //    Reason = "",
-                //    SaleDate = DateTime.Now.AddHours(1), // string.Format("{0}-{1}-{2}T{3}:{4}:{5}", DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour + 1, DateTime.Now.Minute, DateTime.Now.Second), //"2018-03-30T10:55:45.1554406+01:00",
-                //    DueDays = 0,
-                //    CurrencyID = countries.FirstOrDefault(i => i.ISOCode == "PT").CountryID.ToString(),
-                //    ExchangeRate = 0,
-                //    Products = new List<DetailsVM>() { new DetailsVM() {
-                //        //ProductID = product.ProductID,
-                //        ApplyRetention = false,
-                //        Description = "",
-                //        DiscountRate = 0,
-                //        IsComment = false,
-                //        Order = 1,
-                //        ProductDetail = "",
-                //        Quantity=1,
-                //        TaxID = 0,
-                //        UnitID=0,
-                //        UnitPrice=Decimal.Parse( payment.t_value)
-                //    } },
-                //    RelatedDocumentIDs = new List<int>(),
-                //    IsDraft = false,
-                //    Reference = payment.Payment_GUID.ToString(),
-                //    IsCustomDelivery = false,
-                //    LicensePlate = "",
-                //    RetentionIRC = false,
-                //    RetentionRate = 0,
-                //    RetentionAmount = 0,
-                //    SealAmount = 0,
-                //    ProviderID = 0
-                //};
+                client.Headers.Clear();
+                client.Headers.Add(HttpRequestHeader.Authorization, "Bearer " + authorizationToken);
+                client.Headers.Add(HttpRequestHeader.ContentType, "application/json");
+                var document = GetInvoiceDocument(invoiceId, requestID);
+                if (null == document)
+                {
+                    throw new NotImplementedException();
+                }
+                
+                payment.InvoiceDocument = document;
+                InsuranceBusiness.BusinessLayer.UpdatePayment(payment);
 
-                //var formData = new List<KeyValuePair<string, string>>()
-                //    {
-                //        new KeyValuePair<string, string>("entityID", entity.LibaxEntityID.Value.ToString()),
-                //        new KeyValuePair<string, string>("serieID", "1"),
-                //        new KeyValuePair<string, string>("observation", "PAGAMENTO - FALAR SEGUROS"),
-                //        new KeyValuePair<string, string>("reason", ""),
-                //        new KeyValuePair<string, string>("saleDate", string.Format("{0}-{1}-{2}T{3}:{4}:{5}", DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour+1, DateTime.Now.Minute, DateTime.Now.Second)), //"2018-03-30T10:55:45.1554406+01:00",
-                //        new KeyValuePair<string, string>("dueDays", "0"),
-                //        new KeyValuePair<string, string>("currencyID", countries.FirstOrDefault(i=>i.ISOCode=="PT").CountryID.ToString()),
-                //        new KeyValuePair<string, string>("exchangeRate", "0"),
-                //        new KeyValuePair<string, string>("products", "["+productJson+"]"),
-                //        new KeyValuePair<string, string>("relatedDocumentIDs", ""),
-                //        new KeyValuePair<string, string>("isDraft", "true"),
-                //        new KeyValuePair<string, string>("reference", payment.Payment_GUID.ToString()),
-                //        new KeyValuePair<string, string>("isCustomDelivery", "false"),
-                //        new KeyValuePair<string, string>("licensePlate", ""),
-                //        new KeyValuePair<string, string>("retentionIRC", "false"),
-                //        new KeyValuePair<string, string>("retentionRate", "0"),
-                //        new KeyValuePair<string, string>("retentionAmount", "0"),
-                //        new KeyValuePair<string, string>("sealAmount", "0"),
-                //        new KeyValuePair<string, string>("providerID", "")
-                //    };
-
-                //request.Content = new FormUrlEncodedContent(formData);
-                //request.Content = JsonConvert.SerializeObject(invoice, Formatting.Indented);
-                //client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", authorizationToken);
-                //HttpResponseMessage response = client.SendAsync(request).Result;
-                //string resultJSON = response.Content.ReadAsStringAsync().Result;
-                //dynamic result = Newtonsoft.Json.JsonConvert.DeserializeObject(resultJSON);
+                return document;
             }
         }
 
@@ -457,6 +420,61 @@ namespace InsuranceWebsite.LibaxUtils
             }
         }
 
+        public static byte[] GetInvoiceDocument(int invoiceID, string requestID)
+        {
+            requestID = requestID.Replace("\"", "");
+
+            string authorizationToken = GetAuthorizationToken();
+
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.LIBAX_API_URL).Value);
+
+                var request = new HttpRequestMessage(HttpMethod.Get, string.Format("/api/v1/print-sales/{0}?RequestID={1}&AsBytes=True", invoiceID, requestID));
+
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", authorizationToken);
+                HttpResponseMessage response = client.SendAsync(request).Result;
+                string result = response.Content.ReadAsStringAsync().Result;
+
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    return Encoding.ASCII.GetBytes(result.Replace("\"", ""));
+                }
+
+                return null;
+            }
+        }
+
+        //private static SaleDocumentInfo GetInvoice(int invoiceId)
+        //{
+        //    string authorizationToken = GetAuthorizationToken();
+        //    List<ProductInfo> products = new List<ProductInfo>();
+
+        //    using (HttpClient client = new HttpClient())
+        //    {
+        //        client.BaseAddress = new Uri(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.LIBAX_API_URL).Value);
+
+        //        var request = new HttpRequestMessage(HttpMethod.Get, string.Format("/api/v1/products/{0}", productId));
+        //        client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", authorizationToken);
+        //        HttpResponseMessage response = client.SendAsync(request).Result;
+        //        string resultJSON = response.Content.ReadAsStringAsync().Result;
+
+        //        if (response.StatusCode == System.Net.HttpStatusCode.OK)
+        //        {
+        //            return JsonConvert.DeserializeObject<ProductInfo>(resultJSON);
+        //        }
+        //        else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+        //        {
+        //            return null;
+        //        }
+        //        else
+        //        {
+        //            dynamic result = Newtonsoft.Json.JsonConvert.DeserializeObject(resultJSON);
+        //            throw new Exception(result);
+        //        }
+        //    }
+        //}
+
         private static List<ProductInfo> GetProductList()
         {
             string authorizationToken = GetAuthorizationToken();
@@ -544,6 +562,50 @@ namespace InsuranceWebsite.LibaxUtils
 
             return series;
         }
+
+        private static List<TaxInfo> GetTaxList()
+        {
+            string authorizationToken = GetAuthorizationToken();
+            List<TaxInfo> taxes = new List<TaxInfo>();
+
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.LIBAX_API_URL).Value);
+
+                bool hasMoreTaxes = true;
+                int skipInterval = 0;
+                int numberOfElements = 50;
+                while (hasMoreTaxes)
+                {
+                    var request = new HttpRequestMessage(HttpMethod.Get, string.Format("/api/v1/taxes?Skip={0}&Take={1}", skipInterval, numberOfElements));
+                    client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", authorizationToken);
+                    HttpResponseMessage response = client.SendAsync(request).Result;
+                    string resultJSON = response.Content.ReadAsStringAsync().Result;
+
+                    if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                    {
+                        List<TaxInfo> list = JsonConvert.DeserializeObject<List<TaxInfo>>(resultJSON);
+                        taxes = taxes.Concat(list).ToList();
+                        skipInterval += numberOfElements;
+                        if (list.Count < numberOfElements)
+                        {
+                            hasMoreTaxes = false;
+                        }
+                    }
+                    else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                    {
+                        hasMoreTaxes = false;
+                    }
+                    else
+                    {
+                        dynamic result = Newtonsoft.Json.JsonConvert.DeserializeObject(resultJSON);
+                        throw new Exception(result);
+                    }
+                }
+            }
+
+            return taxes;
+        }
     }
 
     public class EntityInfo
@@ -571,6 +633,18 @@ namespace InsuranceWebsite.LibaxUtils
         public DateTime StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public bool IsActive { get; set; }
+    }
+
+    public class TaxInfo
+    {
+        public int TaxID { get; set; }
+        public string Name { get; set; }
+        public bool UseLiquidAmount { get; set; }
+        public TaxCode Code { get; set; }
+        public TaxExemptionCode? TaxExemptionCode { get; set; }
+        public bool IsActive { get; set; }
+        public TaxType TaxType { get; set; }
+        public decimal TaxRate { get; set; }
     }
 
     public class ProductInfo
@@ -603,57 +677,9 @@ namespace InsuranceWebsite.LibaxUtils
         public decimal StandardCost { get; set; }
     }
 
-    public enum EntityStatus
-    {
-        Prospect = 0,
-        Effective = 1,
-        NotActive = 2
-    }
-
     public class AddressInfo { }
+
     public class ContactSimpleInfo { }
-
-    public enum CivilState
-    {
-        Undefined = 0,
-        Married = 1,
-        Single = 2,
-        Union = 3,
-        Divorced = 4,
-        Separated = 5,
-        Widower = 6,
-        NotApplicable = 7
-    }
-
-    public enum EntityType
-    {
-        Undefined = 0,
-        Male = 1,
-        Female = 2,
-        Company = 3,
-        Association = 4,
-        PublicOrganization = 5,
-        IndividualCompany = 6,
-        Condominium = 7,
-        Other = 8
-    }
-
-    public enum ProductType
-    {
-        Product = 0,
-        Service = 1,
-        Other = 2,
-        Tax = 3
-    }
-
-    public enum StockCategory
-    {
-        Goods = 0,
-        RawMaterial = 1,
-        FinishProduct = 2,
-        ByProduct = 3,
-        WorkProduct = 4
-    }
 
     public class CountryInfo
     {
@@ -715,8 +741,137 @@ namespace InsuranceWebsite.LibaxUtils
         public decimal RetentionRate { get; set; }
         public decimal RetentionAmount { get; set; }
         public decimal SealAmount { get; set; }
-        public int ProviderID { get; set; }
+        public int? ProviderID { get; set; }
         public CustomDeliveryVM SourceAddress { get; set; }
         public CustomDeliveryVM TargetAddress { get; set; }
+    }
+
+    public class PrintSaleRequestVM
+    {
+        public SaleTypeCopy SaleTypeCopy { get; set; }
+        public PrintCulture Culture { get; set; }
+    }
+
+    //public class SaleDocumentInfo
+    //{
+    //    public int SaleID { get; set; }
+    //    public int DocumentType { get; set; }
+    //    public string DisplayName { get; set; }
+    //    public string DisplayNumber { get; set; }
+    //    public DateTime Reference { get; set; }
+    //    public int CreationDate { get; set; }
+    //    public int DueDate { get; set; }
+    //    public decimal SaleDate { get; set; }
+    //    public List<DetailsVM> EntityID { get; set; }
+    //    public List<int> DiscountAmount { get; set; }
+    //    public bool GrossAmount { get; set; }
+    //    public string TaxAmount { get; set; }
+    //    public bool TotalDue { get; set; }
+    //    public string RetentionIRC { get; set; }
+    //    public bool RetentionRate { get; set; }
+    //    public decimal Taxes { get; set; }
+    //    public decimal Products { get; set; }
+    //}
+
+    public enum EntityStatus
+    {
+        Prospect = 0,
+        Effective = 1,
+        NotActive = 2
+    }
+
+    public enum CivilState
+    {
+        Undefined = 0,
+        Married = 1,
+        Single = 2,
+        Union = 3,
+        Divorced = 4,
+        Separated = 5,
+        Widower = 6,
+        NotApplicable = 7
+    }
+
+    public enum EntityType
+    {
+        Undefined = 0,
+        Male = 1,
+        Female = 2,
+        Company = 3,
+        Association = 4,
+        PublicOrganization = 5,
+        IndividualCompany = 6,
+        Condominium = 7,
+        Other = 8
+    }
+
+    public enum ProductType
+    {
+        Product = 0,
+        Service = 1,
+        Other = 2,
+        Tax = 3
+    }
+
+    public enum StockCategory
+    {
+        Goods = 0,
+        RawMaterial = 1,
+        FinishProduct = 2,
+        ByProduct = 3,
+        WorkProduct = 4
+    }
+
+    public enum TaxCode
+    {
+        Intermediate = 0,
+        Normal = 1,
+        Reduced = 2,
+        Exempts = 3,
+        Others = 4
+    }
+
+    public enum TaxExemptionCode
+    {
+        M01 = 0,
+        M02 = 1,
+        M03 = 2,
+        M04 = 3,
+        M05 = 4,
+        M06 = 0,
+        M07 = 1,
+        M08 = 2,
+        M09 = 3,
+        M10 = 4,
+        M11 = 0,
+        M12 = 1,
+        M13 = 2,
+        M14 = 3,
+        M15 = 4,
+        M16 = 0,
+        M20 = 1,
+        M99 = 2
+    }
+
+    public enum TaxType
+    {
+        Iva = 0,
+        Seal = 1
+    }
+
+    public enum SaleTypeCopy
+    {
+        Original = 0,
+        Duplicate = 1,
+        Triplicate = 2,
+        Quadruplicate = 3
+    }
+
+    public enum PrintCulture
+    {
+        Portuguese = 0,
+        English = 1,
+        French = 2,
+        Spanish = 3
     }
 }

@@ -4,6 +4,8 @@ INSERT INTO Insurance.SystemSettings ([Token],[Description],[Type],[Value],[Last
 INSERT INTO Insurance.SystemSettings ([Token],[Description],[Type],[Value],[LastChangeDate],[Active]) VALUES ('YEAR_SUBSCRIPTION_PRICE_WITHOUT_VAT', 'YEAR_SUBSCRIPTION_PRICE_WITHOUT_VAT_DESCRIPTION', 'DECIMAL', '36.00', GETDATE(), 1);
 INSERT INTO Insurance.SystemSettings ([Token],[Description],[Type],[Value],[LastChangeDate],[Active]) VALUES ('SUBSCRIPTION_DURATION_DAYS', 'SUBSCRIPTION_DURATION_DAYS_DESCRIPTION', 'INT', '365', GETDATE(), 1);
 INSERT INTO Insurance.SystemSettings ([Token],[Description],[Type],[Value],[LastChangeDate],[Active]) VALUES ('SUBSCRIPTION_PAYMENT_DEADLINE_DAYS', 'SUBSCRIPTION_PAYMENT_DEADLINE_DAYS_DESCRIPTION', 'INT', '15', GETDATE(), 1);
+INSERT INTO Insurance.SystemSettings ([Token],[Description],[Type],[Value],[LastChangeDate],[Active]) VALUES ('ANNUAL_SUBSCRIPTION_TITLE', 'ANNUAL_SUBSCRIPTION_TITLE_DESCRIPTION', 'STRING', 'Anuidade - Falar Seguros', GETDATE(), 1);
+INSERT INTO Insurance.SystemSettings ([Token],[Description],[Type],[Value],[LastChangeDate],[Active]) VALUES ('ANNUAL_SUBSCRIPTION_DESCRIPTION', 'ANNUAL_SUBSCRIPTION_DESCRIPTION_DESCRIPTION', 'STRING', 'Anuidade - Falar Seguros', GETDATE(), 1);
 
 INSERT INTO Insurance.SystemSettings ([Token],[Description],[Type],[Value],[LastChangeDate],[Active]) VALUES ('ADMIN_EMAIL', 'ADMIN_EMAIL_DESCRIPTION', 'STRING', 'geral@falarseguros.pt', GETDATE(), 1);
 INSERT INTO Insurance.SystemSettings ([Token],[Description],[Type],[Value],[LastChangeDate],[Active]) VALUES ('PLATFORM_EMAIL', 'PLATFORM_EMAIL_DESCRIPTION', 'STRING', 'geral@falarseguros.pt', GETDATE(), 1);
@@ -30,6 +32,7 @@ INSERT INTO Insurance.SystemSettings ([Token],[Description],[Type],[Value],[Last
 INSERT INTO Insurance.SystemSettings ([Token],[Description],[Type],[Value],[LastChangeDate],[Active]) VALUES ('LIBAX_API_USERNAME', 'LIBAX_API_USERNAME_DESCRIPTION', 'STRING', 'benjamim_pitacho@hotmail.com', GETDATE(), 1);
 INSERT INTO Insurance.SystemSettings ([Token],[Description],[Type],[Value],[LastChangeDate],[Active]) VALUES ('LIBAX_API_PASSWORD', 'LIBAX_API_PASSWORD_DESCRIPTION', 'STRING', 'bpfs2603', GETDATE(), 1);
 INSERT INTO Insurance.SystemSettings ([Token],[Description],[Type],[Value],[LastChangeDate],[Active]) VALUES ('LIBAX_API_CLIENT_ID', 'LIBAX_API_CLIENT_ID_DESCRIPTION', 'STRING', '102', GETDATE(), 1);
+INSERT INTO Insurance.SystemSettings ([Token],[Description],[Type],[Value],[LastChangeDate],[Active]) VALUES ('LIBAX_DEFAULT_TAX_NAME', 'LIBAX_DEFAULT_TAX_NAME_DESCRIPTION', 'STRING', 'Iva 23%', GETDATE(), 1);
 
 INSERT INTO Insurance.SystemSettings ([Token],[Description],[Type],[Value],[LastChangeDate],[Active]) VALUES ('ASF_QUICK_LINK_1_TITLE', 'ASF_QUICK_LINK_1_TITLE_DESCRIPTION', 'STRING', 'Seguros Obrigatórios Legislação', GETDATE(), 1);
 INSERT INTO Insurance.SystemSettings ([Token],[Description],[Type],[Value],[LastChangeDate],[Active]) VALUES ('ASF_QUICK_LINK_1_URL', 'ASF_QUICK_LINK_1_URL_DESCRIPTION', 'STRING', 'http://www.google.com', GETDATE(), 1);

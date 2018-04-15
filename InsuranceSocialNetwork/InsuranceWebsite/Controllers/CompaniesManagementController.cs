@@ -365,6 +365,8 @@ namespace InsuranceWebsite.Controllers
 
                         if (!skipProcessing)
                         {
+                            decimal vatValue = decimal.Parse(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.VAT_PERCENTAGE).Value, System.Globalization.CultureInfo.InvariantCulture);
+                            decimal liquidValue = decimal.Round(((model.Value / (1 + vatValue)) - model.Value) * -1, 2, MidpointRounding.AwayFromZero);
                             PaymentDTO payment = new PaymentDTO()
                             {
                                 CreateDate = DateTime.Now,
@@ -373,6 +375,11 @@ namespace InsuranceWebsite.Controllers
                                 Payment_GUID = paymentId,
                                 Active = true,
                                 t_value = model.Value.ToString().Replace(",", "."),
+                                LiquidValue = liquidValue,
+                                TotalValue = model.Value,
+                                Title = InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.ANNUAL_SUBSCRIPTION_TITLE).Value,
+                                Description = InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.ANNUAL_SUBSCRIPTION_DESCRIPTION).Value,
+                                TaxValue = vatValue,
                                 ExpiracyDate = DateTime.Now.AddDays(Int32.Parse(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.SUBSCRIPTION_PAYMENT_DEADLINE_DAYS).Value))
                             };
                             var node = response.SelectSingleNode("getautoMB/ep_status");
@@ -614,6 +621,8 @@ namespace InsuranceWebsite.Controllers
                         InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, Request.UserHostAddress, "Ponto#1", "Ponto#1");
                         if (!skipProcessing)
                         {
+                            decimal vatValue = decimal.Parse(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.VAT_PERCENTAGE).Value, System.Globalization.CultureInfo.InvariantCulture);
+                            decimal liquidValue = decimal.Round(((model.Value / (1 + vatValue)) - model.Value) * -1, 2, MidpointRounding.AwayFromZero);
                             PaymentDTO payment = new PaymentDTO()
                             {
                                 CreateDate = DateTime.Now,
@@ -622,6 +631,11 @@ namespace InsuranceWebsite.Controllers
                                 Payment_GUID = paymentId,
                                 Active = true,
                                 t_value = model.Value.ToString().Replace(",", "."),
+                                LiquidValue = liquidValue,
+                                TotalValue = model.Value,
+                                Title = InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.ANNUAL_SUBSCRIPTION_TITLE).Value,
+                                Description = InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.ANNUAL_SUBSCRIPTION_DESCRIPTION).Value,
+                                TaxValue = vatValue,
                                 ExpiracyDate = DateTime.Now.AddDays(Int32.Parse(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.SUBSCRIPTION_PAYMENT_DEADLINE_DAYS).Value))
                             };
                             InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, Request.UserHostAddress, "Ponto#2", "Ponto#2");
@@ -785,7 +799,7 @@ namespace InsuranceWebsite.Controllers
                 decimal vatValue = decimal.Parse(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.VAT_PERCENTAGE).Value);
 
                 Guid paymentId = Guid.NewGuid();
-                string baseUrl = string.Format("{0}?ep_cin={1}&ep_user={2}&ep_entity={3}&ep_ref_type={4}&ep_country={5}&ep_language={6}&t_value={7}&t_key={8}&ep_rec=yes&ep_rec_freq=1Y"
+                string baseUrl = string.Format("{0}?ep_cin={1}&ep_user={2}&ep_entity={3}&ep_ref_type={4}&ep_country={5}&ep_language={6}&t_value={7}&t_key={8}&ep_rec=yes&ep_rec_freq=1Y&ep_rec_url={9}"
                     , InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_URL).Value
                     , InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_CIN).Value
                     , InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_USER).Value
@@ -794,7 +808,8 @@ namespace InsuranceWebsite.Controllers
                     , InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_COUNTRY).Value
                     , InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_LANGUAGE).Value
                     , decimal.Round((vatValue * subscriptionValue) + subscriptionValue, 2, MidpointRounding.AwayFromZero)
-                    , paymentId.ToString());
+                    , paymentId.ToString()
+                    , string.Format("{0}/NotificationsManagement/DirectDebitSetupResult", InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_URL).Value));
 
                 using (var client = new WebClient())
                 {
@@ -813,6 +828,11 @@ namespace InsuranceWebsite.Controllers
                         ep_rec="yes",
                         ep_rec_freq="1Y",
                         t_value = decimal.Round((vatValue * subscriptionValue) + subscriptionValue, 2, MidpointRounding.AwayFromZero).ToString(),
+                        LiquidValue = subscriptionValue,
+                        TotalValue = decimal.Round((vatValue * subscriptionValue) + subscriptionValue, 2, MidpointRounding.AwayFromZero),
+                        Title = InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.ANNUAL_SUBSCRIPTION_TITLE).Value,
+                        Description = InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.ANNUAL_SUBSCRIPTION_DESCRIPTION).Value,
+                        TaxValue = vatValue,
                         ExpiracyDate = DateTime.Now.AddDays(Int32.Parse(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.SUBSCRIPTION_PAYMENT_DEADLINE_DAYS).Value))
                     };
 
@@ -859,15 +879,19 @@ namespace InsuranceWebsite.Controllers
                     else
                     {
                         // Erro
-                        payment.ep_status = response.SelectSingleNode("getautoMB/ep_status").InnerText;
-                        payment.ep_message = response.SelectSingleNode("getautoMB/ep_message").InnerText;
-                        payment.ep_cin = response.SelectSingleNode("getautoMB/ep_cin").InnerText;
-                        payment.ep_user = response.SelectSingleNode("getautoMB/ep_user").InnerText;
-                        payment.ep_entity = response.SelectSingleNode("getautoMB/ep_entity").InnerText;
-                        payment.ep_ref_type = InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_REF_TYPE).Value;
-                        payment.ep_country = InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_COUNTRY).Value;
-                        payment.ep_language = InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_LANGUAGE).Value;
-                        payment.ID_PaymentStatus = (int)PaymentStatusEnum.ERROR;
+
+                        InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.ERROR, Request.UserHostAddress, string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), response.InnerXml);
+                        return PartialView("Error");
+
+                        //payment.ep_status = response.SelectSingleNode("getautoMB/ep_status").InnerText;
+                        //payment.ep_message = response.SelectSingleNode("getautoMB/ep_message").InnerText;
+                        //payment.ep_cin = response.SelectSingleNode("getautoMB/ep_cin").InnerText;
+                        //payment.ep_user = response.SelectSingleNode("getautoMB/ep_user").InnerText;
+                        //payment.ep_entity = response.SelectSingleNode("getautoMB/ep_entity").InnerText;
+                        //payment.ep_ref_type = InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_REF_TYPE).Value;
+                        //payment.ep_country = InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_COUNTRY).Value;
+                        //payment.ep_language = InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_LANGUAGE).Value;
+                        //payment.ID_PaymentStatus = (int)PaymentStatusEnum.ERROR;
                     }
 
                     switch (idType)

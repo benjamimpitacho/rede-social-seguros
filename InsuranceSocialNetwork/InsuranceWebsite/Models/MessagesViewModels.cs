@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace InsuranceWebsite.Models
 {
-    public class MessagesViewModel : ProfileViewModel
+    public class MessagesViewModel : HomeViewModel
     {
         public MessagesViewModel()
         {

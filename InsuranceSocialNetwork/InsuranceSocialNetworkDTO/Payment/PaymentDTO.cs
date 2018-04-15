@@ -51,6 +51,15 @@ namespace InsuranceSocialNetworkDTO.Payment
         public string ep_boleto { get; set; }
         public string ep_key { get; set; }
         public string ep_doc { get; set; }
+
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public decimal LiquidValue { get; set; }
+        public decimal TaxValue { get; set; }
+        public decimal TotalValue { get; set; }
+        public Nullable<int> LibaxInvoiceID { get; set; }
+        public byte[] InvoiceDocument { get; set; }
+
         public DateTime CreateDate { get; set; }
         public DateTime? PaymentDate { get; set; }
         public DateTime LastChangeDate { get; set; }

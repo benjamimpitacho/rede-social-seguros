@@ -965,7 +965,8 @@ img {
 }
 
 .chat-body {
-  padding-bottom: 20px;
+    padding-bottom: 20px;
+    width: calc(100% - 20px);
 }
 
 .chat li.left .chat-body {
@@ -2952,6 +2953,21 @@ a:hover, a:active, a:focus {
         color: #4B5C66;
         font-weight:bold;
     }
+
+    .chat-body {
+        padding-bottom: 20px;
+        width: calc(100% - 10px);
+    }
+
+    .chat-body .answer.right {
+        padding: 0px !important;
+        max-width: calc(100% - 30px);
+    }
+
+    .chat-body .answer.left {
+        padding: 0px !important;
+        max-width: calc(100% - 30px);
+    }
 }
 
 @media (max-device-width: 480px)
@@ -3007,6 +3023,32 @@ a:hover, a:active, a:focus {
     .navbar-collapse {
         max-height: 100vh !important;
     }
+
+    .col-md-6 {
+        padding-left: 0px;
+        padding-right: 0px;
+        width: 100%;
+    }
+
+    .navbar-principal .navbar-brand, .navbar-principal .navbar-brand li a:visited, .navbar-principal .navbar-nav li a {
+        color: #4B5C66;
+        font-weight: bold;
+    }
+
+    .chat-body {
+        padding-bottom: 20px;
+        width: calc(100% - 10px);
+    }
+
+    .chat-body .answer.right {
+        padding: 0px !important;
+        max-width: calc(100% - 30px);
+    }
+
+    .chat-body .answer.left {
+        padding: 0px !important;
+        max-width: calc(100% - 30px);
+    }
 }
 
 @media (min-width:641px)  {
@@ -3019,6 +3061,16 @@ a:hover, a:active, a:focus {
     .navbar {
         visibility : hidden;
         display: none;
+    }
+
+    .chat-body .answer.right {
+        padding: 0px !important;
+        max-width: calc(100% - 20px);
+    }
+
+    .chat-body .answer.left {
+        padding: 0 0 0 10px !important;
+        max-width: calc(100% - 20px);
     }
 }
 
@@ -3033,6 +3085,16 @@ a:hover, a:active, a:focus {
         visibility: hidden;
         display: none;
     }
+
+    .chat-body .answer.right {
+        padding: 0px !important;
+        max-width: calc(100% - 20px);
+    }
+
+    .chat-body .answer.left {
+        padding: 0 0 0 10px !important;
+        max-width: calc(100% - 20px);
+    }
 }
 
 @media (min-width:1025px) { 
@@ -3046,6 +3108,16 @@ a:hover, a:active, a:focus {
         visibility: hidden;
         display: none;
     }
+
+    .chat-body .answer.right {
+        padding: 0px !important;
+        max-width: calc(100% - 20px);
+    }
+
+    .chat-body .answer.left {
+        padding: 0 0 0 10px !important;
+        max-width: calc(100% - 20px);
+    }
 }
 
 @media (min-width:1281px) { 
@@ -3058,5 +3130,15 @@ a:hover, a:active, a:focus {
     .navbar {
         visibility: hidden;
         display: none;
+    }
+
+    .chat-body .answer.right {
+        padding: 0px !important;
+        max-width: calc(100% - 20px);
+    }
+
+    .chat-body .answer.left {
+        padding: 0 0 0 10px !important;
+        max-width: calc(100% - 20px);
     }
 }

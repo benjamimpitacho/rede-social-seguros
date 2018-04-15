@@ -559,6 +559,13 @@
           <Property Name="ExpiracyDate" Type="datetime2" Precision="7" />
           <Property Name="Active" Type="bit" Nullable="false" />
           <Property Name="Message" Type="nvarchar(max)" />
+          <Property Name="Title" Type="nvarchar" MaxLength="128" />
+          <Property Name="Description" Type="nvarchar" MaxLength="128" />
+          <Property Name="LiquidValue" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="TaxValue" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="TotalValue" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="LibaxInvoiceID" Type="int" />
+          <Property Name="InvoiceDocument" Type="image" />
         </EntityType>
         <EntityType Name="PaymentNotification">
           <Key>
@@ -3862,6 +3869,13 @@
           <NavigationProperty Name="InsuranceCompanyContact" Relationship="InsurancePortal_dbModel.FK_Payment_InsuranceCompanyContact" FromRole="Payment" ToRole="InsuranceCompanyContact" />
           <NavigationProperty Name="MedicalClinic" Relationship="InsurancePortal_dbModel.FK_Payment_MedicalClinic" FromRole="Payment" ToRole="MedicalClinic" />
           <NavigationProperty Name="Profile" Relationship="InsurancePortal_dbModel.FK_Payment_Profile" FromRole="Payment" ToRole="Profile" />
+          <Property Name="Title" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="LiquidValue" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="TaxValue" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="TotalValue" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="LibaxInvoiceID" Type="Int32" />
+          <Property Name="InvoiceDocument" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <Association Name="FK_Payment_PaymentStatus">
           <End Type="InsurancePortal_dbModel.PaymentStatus" Role="PaymentStatus" Multiplicity="1" />
@@ -5618,6 +5632,13 @@
           <EntitySetMapping Name="Payment">
             <EntityTypeMapping TypeName="InsurancePortal_dbModel.Payment">
               <MappingFragment StoreEntitySet="Payment">
+                <ScalarProperty Name="InvoiceDocument" ColumnName="InvoiceDocument" />
+                <ScalarProperty Name="LibaxInvoiceID" ColumnName="LibaxInvoiceID" />
+                <ScalarProperty Name="TotalValue" ColumnName="TotalValue" />
+                <ScalarProperty Name="TaxValue" ColumnName="TaxValue" />
+                <ScalarProperty Name="LiquidValue" ColumnName="LiquidValue" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Message" ColumnName="Message" />
                 <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="ExpiracyDate" ColumnName="ExpiracyDate" />

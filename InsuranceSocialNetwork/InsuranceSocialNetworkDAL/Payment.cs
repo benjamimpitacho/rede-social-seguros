@@ -64,6 +64,13 @@ namespace InsuranceSocialNetworkDAL
         public Nullable<System.DateTime> ExpiracyDate { get; set; }
         public bool Active { get; set; }
         public string Message { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public decimal LiquidValue { get; set; }
+        public decimal TaxValue { get; set; }
+        public decimal TotalValue { get; set; }
+        public Nullable<int> LibaxInvoiceID { get; set; }
+        public byte[] InvoiceDocument { get; set; }
     
         public virtual PaymentStatus PaymentStatus { get; set; }
         public virtual PaymentType PaymentType { get; set; }

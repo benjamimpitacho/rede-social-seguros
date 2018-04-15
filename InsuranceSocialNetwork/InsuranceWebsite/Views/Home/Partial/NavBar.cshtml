@@ -3,7 +3,7 @@
 
 <!-- Fixed navbar -->
 
-@if (Request.Browser.IsMobileDevice)
+@if (Request.Browser.IsMobileDevice && Request.Browser.ScreenPixelsHeight <= 480)
 {
 
 <nav class="navbar navbar-default navbar-fixed-top navbar-principal">
@@ -20,7 +20,7 @@
                 </a>
             </div>
 
-            @*<div class="" style="display:inline;margin-right:-10px;">
+            <div class="" style="display:inline;margin-right:-10px;">
                 <a href="@Url.Action("Messages", "Home")" title="@Resources.Resources.Messages">
                     <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF16.png" class="mini-avatar item-photo" style="max-width:40px; max-height:40px;margin-top:9px;">
                 </a>
@@ -28,7 +28,7 @@
                 {
                     <span class="badge badge-notify" style="top:-10px;left:-20px;">@Model.TotalUnreadMessages</span>
                 }
-            </div>*@
+            </div>
 
             <div class="" style="display:inline;margin-right:12px;">
                 <a href="@Url.Action("Search", "Home")" title="@Resources.Resources.Search">
@@ -101,7 +101,7 @@
                                 @Html.TextBoxFor(m => m.SearchCompaniesModel.GaragePartnership, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.Partnerships })
                                 @Html.TextBoxFor(m => m.SearchCompaniesModel.GarageOfficialAgent, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.OfficialAgent })
 
-                                <div class="col-md-10" style="margin-left:10%;margin-right:10%;width:80%; margin-bottom: 30px; padding: 0px;">
+                                <div class="col-md-10" style="margin-left:10%;margin-right:10%;width:80%; margin-bottom: 30px; padding: 0px;display:block;">
                                     <a class="btn btn-info pull-right" href="#" onclick="document.getElementById('searchGaragesForm').submit();" style="width:100%">@Resources.Resources.Search</a>
                                 </div>
                             }
@@ -117,7 +117,7 @@
                                 @Html.TextBoxFor(m => m.SearchCompaniesModel.ClinicPartnership, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.Partnerships })
                                 @Html.TextBoxFor(m => m.SearchCompaniesModel.ClinicOfficialAgent, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.OfficialAgent })
 
-                                <div class="col-md-10" style="margin-left:10%;margin-right:10%;width:80%; margin-bottom: 30px; padding: 0px;">
+                                <div class="col-md-10" style="margin-left:10%;margin-right:10%;width:80%; margin-bottom: 30px; padding: 0px;display:block;">
                                     <a class="btn btn-info pull-right" href="#" onclick="document.getElementById('searchClinicsForm').submit();" style="width:100%">@Resources.Resources.Search</a>
                                 </div>
                             }
@@ -133,7 +133,7 @@
                                 @Html.TextBoxFor(m => m.SearchCompaniesModel.ConstructionCompanyPartnership, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.Partnerships })
                                 @Html.TextBoxFor(m => m.SearchCompaniesModel.ConstructionCompanyOfficialAgent, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.OfficialAgent })
 
-                                <div class="col-md-10" style="margin-left:10%;margin-right:10%;width:80%; margin-bottom: 30px; padding: 0px;">
+                                <div class="col-md-10" style="margin-left:10%;margin-right:10%;width:80%; margin-bottom: 30px; padding: 0px;display:block;">
                                     <a class="btn btn-info pull-right" href="#" onclick="document.getElementById('searchConstructionCompaniesForm').submit();" style="width:100%">@Resources.Resources.Search</a>
                                 </div>
                             }
@@ -149,7 +149,7 @@
                                 @Html.TextBoxFor(m => m.SearchCompaniesModel.HomeApplianceRepairPartnership, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.Partnerships })
                                 @Html.TextBoxFor(m => m.SearchCompaniesModel.HomeApplianceRepairOfficialAgent, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.OfficialAgent })
 
-                                <div class="col-md-10" style="margin-left:10%;margin-right:10%;width:80%; margin-bottom: 30px; padding: 0px;">
+                                <div class="col-md-10" style="margin-left:10%;margin-right:10%;width:80%; margin-bottom: 30px; padding: 0px;display:block;">
                                     <a class="btn btn-info pull-right" href="#" onclick="document.getElementById('searchHomeApplianceRepairForm').submit();" style="width:100%">@Resources.Resources.Search</a>
                                 </div>
                             }
@@ -165,7 +165,7 @@
                                 @Html.TextBoxFor(m => m.SearchCompaniesModel.InsuranceContactPartnership, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.Partnerships })
                                 @Html.TextBoxFor(m => m.SearchCompaniesModel.InsuranceContactOfficialAgent, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.OfficialAgent })
 
-                                <div class="col-md-10" style="margin-left:10%;margin-right:10%;width:80%; margin-bottom: 30px; padding: 0px;">
+                                <div class="col-md-10" style="margin-left:10%;margin-right:10%;width:80%; margin-bottom: 30px; padding: 0px;display:block;">
                                     <a class="btn btn-info pull-right" href="#" onclick="document.getElementById('searchInsuranceContactsForm').submit();" style="width:100%">@Resources.Resources.Search</a>
                                 </div>
                             }
@@ -198,6 +198,8 @@
                         <h5 class="btn-rightbar" style="margin-right: 0px;color:#4B5C66; margin-top:0px;"><a href="/Home/ApsPage"><img src="~/Content/images/logo_aps.png" style="margin: 0px; margin-right: 0px; max-width:155px;padding-top:5px;" /></a>@*<img src="~/Content/images/logo_aps.png" style="margin-left:10px; margin-right:10px;max-width:175px;" />@Html.ActionLink(Resources.Resources.APS, "ApsPage", "Home")*@</h5>
                     </div>
                 </li>
+
+                <li style="height:60px;width:100%;"></li>
 
                 @*<li><a href="@Url.Action("Index", "Home")"><i class="fa fa-bars"></i>&nbsp;@Resources.Resources.Home</a></li>
 
@@ -281,3 +283,30 @@
 </nav>
 
 }
+
+<script>
+
+    $(function () {
+
+        var icons = {
+            header: "ui-icon-circle-arrow-e",
+            activeHeader: "ui-icon-circle-arrow-s"
+        };
+
+        $("#accordion").accordion({
+            collapsible: true,
+            active: false,
+            icons: icons
+        });
+
+        $("#toggle").button().on("click", function () {
+            if ($("#accordion").accordion("option", "icons")) {
+                $("#accordion").accordion("option", "icons", null);
+            }
+            else {
+                $("#accordion").accordion("option", "icons", icons);
+            }
+        });
+    });
+
+</script>

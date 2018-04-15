@@ -95,6 +95,7 @@
     text-align: left;
     float: left;
     margin-top: 20px;
+    margin-left: 20px;
     min-height: unset !important;
 }
 .chat-body .answer {
@@ -135,18 +136,15 @@
     color: #4B5C66;
     border: 1px solid #4B5C66;
     border-radius: 8px 8px 8px 8px;
+    word-wrap: break-word;
 }
 .chat-body .answer .text {
     padding: 5px 12px;
     font-size: 16px;
     line-height: 26px;
     position: relative;
+    word-wrap: break-word;
 }
-/*.chat-body .answer.left .text:before {
-    left: -30px;
-    border-right-color: #ebebeb;
-    border-right-width: 12px;
-}*/
 .chat-body .answer .text:before {
     content: '';
     display: block;
@@ -154,6 +152,7 @@
     bottom: 0;
     border: 18px solid transparent;
     border-bottom-width: 0;
+    word-wrap: break-word;
 }
 .chat-body .answer.left .time {
     padding-left: 12px;
@@ -171,7 +170,7 @@
     padding: 0 20px 0 0;
     text-align: right;
     float: right;
-    margin-right: 10px;
+    /*margin-right: 10px;*/
     margin-top: 20px;
 }
 
@@ -187,6 +186,7 @@
     color: #4B5C66;
     border: 1px solid #00C1DE;
     border-radius: 8px 8px 8px 8px;
+    word-wrap: break-word;
 }
 /*.chat-body .answer.right .text:before {
     right: -30px;

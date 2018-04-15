@@ -18,6 +18,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Mail;
+using System.Net.Mime;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -184,9 +185,6 @@ namespace InsuranceWebsite.Controllers
         [AllowAnonymous]
         public void EasypayPaymentNotification(string ep_cin, string ep_user, string ep_doc, string ep_type)
         {
-            //LibaxUtils.LibaxUtils.CreateInvoice(InsuranceBusiness.BusinessLayer.GetGarage(7), InsuranceBusiness.BusinessLayer.GetPayment(43));
-            //return;
-
             try
             {
                 PaymentDTO payment = null;
@@ -282,7 +280,7 @@ namespace InsuranceWebsite.Controllers
                     // Get Invoice to send to Client
                     //LibaxUtils.LibaxUtils.CreateInvoice(profile, payment);
                     // Send user email
-                    SendPaymentConfirmationEmail(string.Format("{0} {1}", profile.FirstName, profile.LastName), profile.User.UserName);
+                    SendPaymentConfirmationEmail(string.Format("{0} {1}", profile.FirstName, profile.LastName), profile.User.UserName, null);
                 }
                 else if (payment.ID_Garage.HasValue)
                 {
@@ -292,9 +290,9 @@ namespace InsuranceWebsite.Controllers
                     // Send user notification
                     //InsuranceBusiness.BusinessLayer.CreateNotificationForPaymentDone(NotificationTypeEnum.PAYMENT_CONFIRMED, true, payment.ID_Garage.Value, payment.ID, CompanyTypeEnum.GARAGE);
                     // Get Invoice to send to Client
-                    //LibaxUtils.LibaxUtils.CreateInvoice(company, payment);
+                    byte[] invoiceDocument = LibaxUtils.LibaxUtils.CreateInvoice(company, payment);
                     // Send user email
-                    SendPaymentConfirmationEmail(company.Name, company.ContactEmail);
+                    SendPaymentConfirmationEmail(company.Name, company.ContactEmail, invoiceDocument, payment.ID);
 
                     // Request Direct Debit payment to be executed in one year
                     PaymentDTO directDebitPayment = InsuranceBusiness.BusinessLayer.GetPaymentByUserAndType(payment.ID_Garage.Value, PaymentTypeEnum.DIRECT_DEBIT, CompanyTypeEnum.GARAGE);
@@ -357,43 +355,51 @@ namespace InsuranceWebsite.Controllers
                 }
                 else if (payment.ID_ConstructionCompany.HasValue)
                 {
+                    CompanyDTO company = InsuranceBusiness.BusinessLayer.GetGarage(payment.ID_ConstructionCompany.Value);
                     // Activate user
                     InsuranceBusiness.BusinessLayer.ActivateConstructionCompany(payment.ID_ConstructionCompany.Value);
                     // Send user notification
                     //InsuranceBusiness.BusinessLayer.CreateNotificationForPaymentDone(NotificationTypeEnum.PAYMENT_CONFIRMED, true, payment.ID_ConstructionCompany.Value, payment.ID, CompanyTypeEnum.CONSTRUCTION_COMPANY);
+                    // Get Invoice to send to Client
+                    byte[] invoiceDocument = LibaxUtils.LibaxUtils.CreateInvoice(company, payment);
                     // Send user email
-                    CompanyDTO company = InsuranceBusiness.BusinessLayer.GetConstructionCompany(payment.ID_ConstructionCompany.Value);
-                    SendPaymentConfirmationEmail(company.Name, company.ContactEmail);
+                    SendPaymentConfirmationEmail(company.Name, company.ContactEmail, invoiceDocument, payment.ID);
                 }
                 else if (payment.ID_HomeApplianceRepair.HasValue)
                 {
+                    CompanyDTO company = InsuranceBusiness.BusinessLayer.GetGarage(payment.ID_HomeApplianceRepair.Value);
                     // Activate user
                     InsuranceBusiness.BusinessLayer.ActivateHomeApplianceRepair(payment.ID_HomeApplianceRepair.Value);
                     // Send user notification
                     //InsuranceBusiness.BusinessLayer.CreateNotificationForPaymentDone(NotificationTypeEnum.PAYMENT_CONFIRMED, true, payment.ID_HomeApplianceRepair.Value, payment.ID, CompanyTypeEnum.HOME_APPLIANCES_REPAIR);
+                    // Get Invoice to send to Client
+                    byte[] invoiceDocument = LibaxUtils.LibaxUtils.CreateInvoice(company, payment);
                     // Send user email
-                    CompanyDTO company = InsuranceBusiness.BusinessLayer.GetHomeApplianceRepair(payment.ID_HomeApplianceRepair.Value);
-                    SendPaymentConfirmationEmail(company.Name, company.ContactEmail);
+                    SendPaymentConfirmationEmail(company.Name, company.ContactEmail, invoiceDocument, payment.ID);
                 }
                 else if (payment.ID_InsuranceCompanyContact.HasValue)
                 {
+                    CompanyDTO company = InsuranceBusiness.BusinessLayer.GetGarage(payment.ID_InsuranceCompanyContact.Value);
                     // Activate user
                     InsuranceBusiness.BusinessLayer.ActivateInsuranceCompanyContact(payment.ID_InsuranceCompanyContact.Value);
                     // Send user notification
                     //InsuranceBusiness.BusinessLayer.CreateNotificationForPaymentDone(NotificationTypeEnum.PAYMENT_CONFIRMED, true, payment.ID_InsuranceCompanyContact.Value, payment.ID, CompanyTypeEnum.INSURANCE_COMPANY_CONTACT);
+                    // Get Invoice to send to Client
+                    byte[] invoiceDocument = LibaxUtils.LibaxUtils.CreateInvoice(company, payment);
                     // Send user email
-                    CompanyDTO company = InsuranceBusiness.BusinessLayer.GetInsuranceCompanyContact(payment.ID_InsuranceCompanyContact.Value);
-                    SendPaymentConfirmationEmail(company.Name, company.ContactEmail);
+                    SendPaymentConfirmationEmail(company.Name, company.ContactEmail, invoiceDocument, payment.ID);
                 }
                 else if (payment.ID_MedicalClinic.HasValue)
                 {
+                    CompanyDTO company = InsuranceBusiness.BusinessLayer.GetGarage(payment.ID_MedicalClinic.Value);
                     // Activate user
                     InsuranceBusiness.BusinessLayer.ActivateMedicalClinic(payment.ID_MedicalClinic.Value);
                     // Send user notification
                     //InsuranceBusiness.BusinessLayer.CreateNotificationForPaymentDone(NotificationTypeEnum.PAYMENT_CONFIRMED, true, payment.ID_MedicalClinic.Value, payment.ID, CompanyTypeEnum.MEDICAL_CLINIC);
+                    // Get Invoice to send to Client
+                    byte[] invoiceDocument = LibaxUtils.LibaxUtils.CreateInvoice(company, payment);
                     // Send user email
-                    CompanyDTO company = InsuranceBusiness.BusinessLayer.GetMedicalClinic(payment.ID_MedicalClinic.Value);
-                    SendPaymentConfirmationEmail(company.Name, company.ContactEmail);
+                    SendPaymentConfirmationEmail(company.Name, company.ContactEmail, invoiceDocument, payment.ID);
                 }
             }
             catch (Exception ex)
@@ -449,6 +455,47 @@ namespace InsuranceWebsite.Controllers
         }
 
         [AllowAnonymous]
+        public PartialViewResult DirectDebitSetupResult(string e, string v, string s, string ep_k1, string ep_max_debit, string ep_max_auth, string ep_expiry_date)
+        {
+            try
+            {
+                InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, Request.UserHostAddress, string.Format("NotificationsManagementController::DirectDebitSetupResult"), string.Format("e:{0},v:{1},s:{2},ep_k1:{3},ep_max_debit:{4},ep_max_auth:{5},ep_expiry_date:{6}", e, v, s, ep_k1, ep_max_debit, ep_max_auth, ep_expiry_date));
+
+                if(s.ToLower() == "ok")
+                {
+                    return PartialView("Partial/_DirectDebitSetupSuccess");
+                }
+                //DirectDebitConfirmViewModel model = new DirectDebitConfirmViewModel();
+                //PaymentDTO payment = InsuranceBusiness.BusinessLayer.GetPayment(t_key);
+                //if (s.ToLower().Equals("ok"))
+                //{
+                //    payment.ID_PaymentStatus = (int)PaymentStatusEnum.VALID;
+                //    payment.ep_k1 = k;
+                //    model.IsSuccess = true;
+                //    model.Title = Resources.Resources.DirectDebitConfirmationSuccessTitle;
+                //    model.Message = Resources.Resources.DirectDebitConfirmationSuccessMessage;
+                //}
+                //else
+                //{
+                //    payment.ID_PaymentStatus = (int)PaymentStatusEnum.ERROR;
+                //    payment.ep_k1 = k;
+                //    model.IsSuccess = false;
+                //    model.Title = Resources.Resources.DirectDebitConfirmationErrorTitle;
+                //    model.Message = Resources.Resources.DirectDebitConfirmationErrorMessage;
+                //}
+
+                //InsuranceBusiness.BusinessLayer.UpdatePayment(payment);
+
+                return PartialView("Partial/_DirectDebitSetupFail");
+            }
+            catch (Exception ex)
+            {
+                InsuranceBusiness.BusinessLayer.LogException(string.Format("{0} [{1}]", Request.UserHostAddress, string.Format("e:{0},v:{1},s:{2},ep_k1:{3},ep_max_debit:{4},ep_max_auth:{5},ep_expiry_date:{6}", e, v, s, ep_k1, ep_max_debit, ep_max_auth, ep_expiry_date)), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+                return PartialView("Error");
+            }
+        }
+
+        [AllowAnonymous]
         public ActionResult EasypayDirectDebitForward(string e, string r, string v, string k, string s, string t_key)
         {
             try
@@ -485,7 +532,7 @@ namespace InsuranceWebsite.Controllers
             }
         }
 
-        private bool SendPaymentConfirmationEmail(string name, string email)
+        private bool SendPaymentConfirmationEmail(string name, string email, byte[] invoiceDocument, long paymentId = -1)
         {
             System.Net.Mail.MailMessage m = new System.Net.Mail.MailMessage(
                 new System.Net.Mail.MailAddress(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.PLATFORM_EMAIL).Value, Resources.Resources.ApplicationNAme),
@@ -500,6 +547,11 @@ namespace InsuranceWebsite.Controllers
             m.Body = m.Body.Replace("{NAME}", name); //replacing the required things
             m.Body = m.Body.Replace("{URL}", InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.APPLICATION_SITE_URL).Value);
             m.IsBodyHtml = true;
+
+            if (null != invoiceDocument && paymentId != -1)
+            {
+                m.Attachments.Add(new Attachment(new MemoryStream(invoiceDocument), string.Format("FalarSeguros_invoice{0}.pdf", paymentId), MediaTypeNames.Application.Pdf));
+            }
 
             SmtpClient smtp = new SmtpClient(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.SMTP_HOST).Value, Int32.Parse(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.SMTP_PORT).Value))
             {

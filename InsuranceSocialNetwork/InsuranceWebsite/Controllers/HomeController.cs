@@ -280,6 +280,33 @@ namespace InsuranceWebsite.Controllers
             return PartialView("Partial/ChatSectionView", model);
         }
 
+        [FunctionalityAutorizeAttribute("MESSAGES_FUNCTIONALITY")]
+        public async Task<ActionResult> OpenChat(long id)
+        {
+            var model = new MessagesViewModel();
+            if (null != this.User && this.User.Identity.IsAuthenticated)
+            {
+                var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
+                if (null != user)
+                {
+                    FillModel(model, user.Id);
+                    //model.Profile = InsuranceBusiness.BusinessLayer.GetUserProfile(user.Id);
+                    //model.Notifications = InsuranceBusiness.BusinessLayer.GetUserNotifications(user.Id);
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            model.ActiveChat = InsuranceBusiness.BusinessLayer.GetChat(id, CurrentUser.ID_User);
+
+            InsuranceBusiness.BusinessLayer.MarkAllChatMessagesRead(id, CurrentUser.ID_User);
+
+            return View("Messages", model);
+        }
+
         //[HttpPost]
         [FunctionalityAutorizeAttribute("NEW_POST_FUNCTIONALITY")]
         public ActionResult DeleteChat(long id)
@@ -2129,7 +2156,11 @@ namespace InsuranceWebsite.Controllers
             CurrentUser = model.Profile;
             model.Notifications = InsuranceBusiness.BusinessLayer.GetUserNotifications(userId);
             model.TotalUnreadMessages = InsuranceBusiness.BusinessLayer.GetTotalUnreadMessages(userId);
-            if (model is HomeViewModel)
+            if (model is MessagesViewModel)
+            {
+                ((MessagesViewModel)model).Chats = InsuranceBusiness.BusinessLayer.GetChats(userId);
+            }
+            else if (model is HomeViewModel)
             {
                 if (((HomeViewModel)model).IsPostsView && getUserPosts)
                 {
@@ -2141,11 +2172,7 @@ namespace InsuranceWebsite.Controllers
             //else if (model is HomeViewModel)
             //{
             //    ((HomeViewModel)model).Friends = InsuranceBusiness.BusinessLayer.GetFriends(userId);
-            //}
-            else if (model is MessagesViewModel)
-            {
-                ((MessagesViewModel)model).Chats = InsuranceBusiness.BusinessLayer.GetChats(userId);
-            }
+            //} 
         }
 
         [FunctionalityAutorizeAttribute("USERS_MANAGEMENT")]

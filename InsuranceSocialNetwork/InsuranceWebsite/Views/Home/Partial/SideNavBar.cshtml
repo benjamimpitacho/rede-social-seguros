@@ -6,6 +6,8 @@
 <!-- Fixed navbar -->
 @*<nav class="navbar navbar-default navbar-fixed-top navbar-principal">*@
 
+@if (!Request.Browser.IsMobileDevice || Request.Browser.ScreenPixelsHeight > 480)
+{
 <div class="left" id="sideNavBar">
     <div class="item no-hover" style="padding-bottom:0px;background-color:#00C1DE">
         <a href="@Url.Action("Index", "Home")" title="@Resources.Resources.Home" style="margin-top:10px">
@@ -16,7 +18,7 @@
         <img src="~/Content/images/no_photo_img.jpg" class="item-photo">
     </div>*@
     <div class="item menu-item">
-        <a href="@Url.Action("ProfileInfo", "Home", new { id=new Nullable<long>() })" title="@Resources.Resources.UserProfile">
+        <a href="@Url.Action("ProfileInfo", "Home", new { id = new Nullable<long>() })" title="@Resources.Resources.UserProfile">
             @if (null == Model.Profile || null == Model.Profile.ProfilePhoto || Model.Profile.ProfilePhoto.Length == 0)
             {
                 <img src="~/Content/images/no_photo_img.jpg" class="mini-avatar item-photo">
@@ -63,7 +65,7 @@
         </a>
     </div>
     <div class="item menu-item">
-        <a href="@Url.Action("ProfileConfigurations", "Home", new { userId=Model.Profile.ID_User })" title="@Resources.Resources.Settings">
+        <a href="@Url.Action("ProfileConfigurations", "Home", new { userId = Model.Profile.ID_User })" title="@Resources.Resources.Settings">
             @*<span class="glyphicon glyphicon-option-horizontal"></span>*@
             <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF125.png" class="mini-avatar item-photo">
         </a>
@@ -109,6 +111,7 @@
 
     
 </div>
+}
 
 @*</nav>*@
 

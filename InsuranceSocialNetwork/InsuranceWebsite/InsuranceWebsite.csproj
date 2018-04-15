@@ -757,6 +757,8 @@
     <Content Include="Views\Home\Partial\_CreateHRPost.cshtml" />
     <Content Include="Views\Home\Partial\_CreateInsuranceBusinessPost.cshtml" />
     <Content Include="Views\Home\Partial\_ConfirmDirectDebitCancel.cshtml" />
+    <Content Include="Views\NotificationsManagement\Partial\_DirectDebitSetupSuccess.cshtml" />
+    <Content Include="Views\NotificationsManagement\Partial\_DirectDebitSetupFail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
