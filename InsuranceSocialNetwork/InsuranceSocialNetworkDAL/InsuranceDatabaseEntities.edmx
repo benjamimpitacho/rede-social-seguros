@@ -142,6 +142,9 @@
           <Property Name="LastChangeDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="DeleteDate" Type="datetime2" Precision="7" />
           <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="FileStream" Type="nvarchar(max)" />
+          <Property Name="IsImage" Type="bit" Nullable="false" />
+          <Property Name="IsFile" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="ChatNote">
           <Key>
@@ -3626,6 +3629,9 @@
           <Property Name="ReadDate" Type="DateTime" Precision="7" />
           <NavigationProperty Name="AspNetUsers" Relationship="InsurancePortal_dbModel.FK_ChatMessage_AspNetUsers" FromRole="ChatMessage" ToRole="AspNetUsers" />
           <NavigationProperty Name="Chat" Relationship="InsurancePortal_dbModel.FK_ChatMessage_Chat" FromRole="ChatMessage" ToRole="Chat" />
+          <Property Name="FileStream" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsImage" Type="Boolean" Nullable="false" />
+          <Property Name="IsFile" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="FK_ChatMessage_AspNetUsers">
           <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
@@ -5510,6 +5516,9 @@
           <EntitySetMapping Name="ChatMessage">
             <EntityTypeMapping TypeName="InsurancePortal_dbModel.ChatMessage">
               <MappingFragment StoreEntitySet="ChatMessage">
+                <ScalarProperty Name="IsFile" ColumnName="IsFile" />
+                <ScalarProperty Name="IsImage" ColumnName="IsImage" />
+                <ScalarProperty Name="FileStream" ColumnName="FileStream" />
                 <ScalarProperty Name="ReadDate" ColumnName="ReadDate" />
                 <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="DeleteDate" ColumnName="DeleteDate" />

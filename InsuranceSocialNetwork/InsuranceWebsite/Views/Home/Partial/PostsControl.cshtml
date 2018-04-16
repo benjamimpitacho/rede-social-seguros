@@ -95,7 +95,7 @@
                 </div>
 
                 <div class="pull-right">
-                    <i class="glyphicon glyphicon-option-vertical icon context-menu-one" id="menu_@post.ID" style="border:0px;font-size: 24px;margin-right: 10px;"></i>
+                    <i class="glyphicon glyphicon-option-vertical icon context-menu-one" id="menu_@post.ID" style="border:0px;font-size: 24px;margin-right: 10px;" title="@Resources.Resources.Settings"></i>
                 </div>
 
             </div>
@@ -328,24 +328,24 @@
 
                     @if (null != post.PostLike && post.PostLike.Count > 0 && post.PostLike.Exists(i => i.ID_User == Model.Profile.ID_User))
                     {
-                        <a onclick="UnlikePost(this, @post.ID, @post.PostLike.Count)" class="stat-item" id="unlikePost" style="color:#00C1DE;min-width: 50px;">
+                        <a onclick="UnlikePost(this, @post.ID, @post.PostLike.Count)" class="stat-item" id="unlikePost" style="color:#00C1DE;min-width: 50px;" title="@Resources.Resources.Unlike">
                             <img class="post-icon" src="~/Content/icons/icons_diretorios_rede_social_falar_seguros_AF3.png" /><span style="padding-left: 8px;color:#4B5C66;font-size: 10px;">@post.PostLike.Count</span>
                         </a>
                     }
                     else if (null != post.PostLike && post.PostLike.Count > 0)
                     {
-                        <a onclick="LikePost(this, @post.ID, @post.PostLike.Count)" class="stat-item" id="likePost" style="min-width: 50px;">
+                        <a onclick="LikePost(this, @post.ID, @post.PostLike.Count)" class="stat-item" id="likePost" style="min-width: 50px;" title="@Resources.Resources.Like">
                             <img class="post-icon" src="~/Content/icons/icons_diretorios_rede_social_falar_seguros_AF2.png" /><span style="padding-left: 8px;color:#4B5C66;font-size: 10px;">@post.PostLike.Count</span>
                         </a>
                     }
                     else
                     {
-                        <a onclick="LikePost(this, @post.ID, @post.PostLike.Count)" class="stat-item" style="min-width: 50px;">
+                        <a onclick="LikePost(this, @post.ID, @post.PostLike.Count)" class="stat-item" style="min-width: 50px;" title="@Resources.Resources.Like">
                             <img class="post-icon" src="~/Content/icons/icons_diretorios_rede_social_falar_seguros_AF2.png" />
                         </a>
                     }
 
-                    <a class="stat-item" style="min-width: 50px;">
+                    <a class="stat-item" style="min-width: 50px;" title="@Resources.Resources.Comments">
                         <img class="post-icon" src="~/Content/icons/home_page_rede_social_falar_seguros_AF14.png" />
                         @if (post.PostComment.Count > 0)
                         {
@@ -355,7 +355,7 @@
                         }
                     </a>
 
-                    <a id="sharePostButton" onclick="SharePost(@post.ID)" class="stat-item" style="min-width: 50px;">
+                    <a id="sharePostButton" onclick="SharePost(@post.ID)" class="stat-item" style="min-width: 50px;" title="@Resources.Resources.Share">
                         <img class="post-icon" src="~/Content/icons/icons_perfil_rede_social_falar_seguros_v27.png" />
                     </a>
 

@@ -144,6 +144,37 @@ namespace InsuranceSocialNetworkDAL
             //}
         }
 
+        public static List<Chat> SearchChats(BackofficeUnitOfWork context, string userId, string searchTerm)
+        {
+            //using (var context = new BackofficeUnitOfWork())
+            //{
+            List<Chat> chats = context.Chat
+                .Fetch()
+                .Include(i => i.AspNetUsers)
+                .Include(i => i.ChatMember)
+                .Include(i => i.ChatMember.Select(j => j.AspNetUsers))
+                .Include(i => i.ChatMember.Select(j => j.AspNetUsers.Profile))
+                .Include(i => i.ChatMessage)
+                .Include(i => i.ChatNotification)
+                .Include(i => i.ChatNote)
+                .Include(i => i.ChatDelete)
+                .Where(i => (
+                        (i.ID_ChatCreator_User == userId)
+                        || (i.ChatMember.Where(j => j.ID_User == userId).Count() > 0)
+                    )
+                    && i.Active
+                    && (
+                        i.ChatDelete.Count == 0
+                        || null == i.ChatDelete.FirstOrDefault(j => j.ID_User == userId)
+                        || i.ChatMessage.Max(j => j.CreateDate) > i.ChatDelete.Where(j => j.ID_User == userId).Max(j => j.LastChatDeleteDate))
+                    && i.ChatMessage.Any(j => j.Text.ToLower().Contains(searchTerm)))
+                .OrderByDescending(i => i.LastChangeDate)
+                .ToList();
+
+            return chats;
+            //}
+        }
+
         public static List<string> GetChatMembersUserIds(string chatId, string userId)
         {
             using (var context = new BackofficeUnitOfWork())

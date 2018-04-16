@@ -426,7 +426,22 @@ namespace InsuranceSocialNetworkBusiness
             }
         }
 
-        public void SaveMessage(string userId, string chatId, string message)
+        public List<ChatDTO> SearchChats(string userId, string searchTerm)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                List<Chat> chats = ChatRepository.SearchChats(context, userId, searchTerm);
+
+                List<ChatDTO> result = AutoMapper.Mapper.Map<List<ChatDTO>>(chats);
+
+                result.ForEach(i => i.ChatMemberProfile = AutoMapper.Mapper.Map<List<UserProfileDTO>>(chats.FirstOrDefault(c => c.ID == i.ID).ChatMember.Select(m => m.AspNetUsers.Profile.FirstOrDefault()).ToList()));
+                result.ForEach(i => i.HasUnreadMessages = i.ChatMessage.Exists(j => j.ID_User != userId && null == j.ReadDate));
+
+                return result;
+            }
+        }
+
+        public void SaveMessage(string userId, string chatId, string message, bool isImage, bool isFile)
         {
             using (var context = new BackofficeUnitOfWork())
             {
@@ -449,7 +464,10 @@ namespace InsuranceSocialNetworkBusiness
                     ID_User = user.Id,
                     CreateDate = currentTime,
                     LastChangeDate = currentTime,
-                    Text = message
+                    Text = message,
+                    IsImage = isImage,
+                    IsFile = isFile,
+                    FileStream = (isImage || isFile) ? message : string.Empty
                 };
 
                 context.ChatMessage.Create(chatMessage);

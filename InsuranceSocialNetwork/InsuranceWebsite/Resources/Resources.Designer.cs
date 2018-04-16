@@ -628,6 +628,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Comentários.
+        /// </summary>
+        public static string Comments {
+            get {
+                return ResourceManager.GetString("Comments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Comentários nas suas publicações.
         /// </summary>
         public static string CommentsOnYourPosts {
@@ -768,6 +777,15 @@ namespace Resources {
         public static string Contacts {
             get {
                 return ResourceManager.GetString("Contacts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Não foram encontrados resultados.
+        /// </summary>
+        public static string ContactsNotFound {
+            get {
+                return ResourceManager.GetString("ContactsNotFound", resourceCulture);
             }
         }
         
@@ -1186,6 +1204,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ficheiro.
+        /// </summary>
+        public static string File {
+            get {
+                return ResourceManager.GetString("File", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nome.
         /// </summary>
         public static string FirstName {
@@ -1402,6 +1429,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Imagem.
+        /// </summary>
+        public static string Image {
+            get {
+                return ResourceManager.GetString("Image", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Em discussão.
         /// </summary>
         public static string InDiscussion {
@@ -1425,6 +1461,15 @@ namespace Resources {
         public static string InsertEmail {
             get {
                 return ResourceManager.GetString("InsertEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insira um contacto.
+        /// </summary>
+        public static string InsertOneContact {
+            get {
+                return ResourceManager.GetString("InsertOneContact", resourceCulture);
             }
         }
         
@@ -1515,6 +1560,15 @@ namespace Resources {
         public static string LastName {
             get {
                 return ResourceManager.GetString("LastName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gostar.
+        /// </summary>
+        public static string Like {
+            get {
+                return ResourceManager.GetString("Like", resourceCulture);
             }
         }
         
@@ -1920,6 +1974,15 @@ namespace Resources {
         public static string NoChats {
             get {
                 return ResourceManager.GetString("NoChats", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Não foram encontrados contactos.
+        /// </summary>
+        public static string NoContactsFound {
+            get {
+                return ResourceManager.GetString("NoContactsFound", resourceCulture);
             }
         }
         
@@ -2689,6 +2752,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Partilhar.
+        /// </summary>
+        public static string Share {
+            get {
+                return ResourceManager.GetString("Share", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to partilhou a publicação de {0}.
         /// </summary>
         public static string SharedPostOf {
@@ -2919,6 +2991,15 @@ namespace Resources {
         public static string UnexpectedErrorOcurred {
             get {
                 return ResourceManager.GetString("UnexpectedErrorOcurred", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Não gostar.
+        /// </summary>
+        public static string Unlike {
+            get {
+                return ResourceManager.GetString("Unlike", resourceCulture);
             }
         }
         

@@ -24,6 +24,9 @@ namespace InsuranceSocialNetworkDAL
         public Nullable<System.DateTime> DeleteDate { get; set; }
         public bool Active { get; set; }
         public Nullable<System.DateTime> ReadDate { get; set; }
+        public string FileStream { get; set; }
+        public bool IsImage { get; set; }
+        public bool IsFile { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual Chat Chat { get; set; }

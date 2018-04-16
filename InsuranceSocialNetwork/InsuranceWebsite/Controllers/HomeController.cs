@@ -194,6 +194,29 @@ namespace InsuranceWebsite.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        public async Task<ActionResult> SearchConversations(MessagesViewModel model)
+        {
+            //var model = new MessagesViewModel();
+            if (null != this.User && this.User.Identity.IsAuthenticated)
+            {
+                var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
+                if (null != user)
+                {
+                    FillModel(model, user.Id, false);
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            model.Chats = InsuranceBusiness.BusinessLayer.SearchChats(model.Profile.ID_User, model.SearchModel.SearchTerm);
+
+            return View("Messages", model);
+        }
+
         [FunctionalityAutorizeAttribute("MESSAGES_FUNCTIONALITY")]
         public async Task<ActionResult> NewMessage()
         {
@@ -527,6 +550,48 @@ namespace InsuranceWebsite.Controllers
                 //return View("Search", model);
                 return View("Index", model);
                 //return PartialView("~/Views/Home/Partial/SearchResult.cshtml", model);
+            }
+            catch (Exception ex)
+            {
+                InsuranceBusiness.BusinessLayer.LogException(string.Format("{0} [{1}]", Request.UserHostAddress, model.Profile.ID_User), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+                return View("Error");
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> SearchUsersForConversation(MessagesViewModel model)
+        {
+            try
+            {
+                if (null == model)
+                {
+                    model = new MessagesViewModel();
+                }
+
+                if (null != this.User && this.User.Identity.IsAuthenticated)
+                {
+                    var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                    var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
+                    if (null != user)
+                    {
+                        FillModel(model, user.Id);
+                    }
+                    else
+                    {
+                        return RedirectToAction("LogOff", "Account");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+
+                model.SearchModel.Users = InsuranceBusiness.BusinessLayer.SearchUsers(model.SearchModel.SearchTerm, CurrentUser.ID);
+                model.SearchModel.AlreadyFriends = InsuranceBusiness.BusinessLayer.GetFriendsIDs(CurrentUser.ID);
+
+                model.IsNewMessage = true;
+
+                return View("Messages", model);
             }
             catch (Exception ex)
             {

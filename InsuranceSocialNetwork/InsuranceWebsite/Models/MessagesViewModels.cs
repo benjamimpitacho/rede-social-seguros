@@ -13,6 +13,7 @@ namespace InsuranceWebsite.Models
         public MessagesViewModel()
         {
             this.Chats = new List<ChatDTO>();
+            this.SearchModel = new SearchMessagesModel();
         }
 
         public bool IsNewMessage{ get; set; }
