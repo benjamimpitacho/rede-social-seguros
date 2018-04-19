@@ -268,6 +268,11 @@ namespace InsuranceSocialNetworkBusiness
             return AutoMapper.Mapper.Map<PaymentDTO>(PaymentRepository.GetPayment(paymentId));
         }
 
+        public PaymentDTO GetPayment(string entity, string reference)
+        {
+            return AutoMapper.Mapper.Map<PaymentDTO>(PaymentRepository.GetPayment(entity, reference));
+        }
+
         public PaymentDTO GetPayment(long id)
         {
             return AutoMapper.Mapper.Map<PaymentDTO>(PaymentRepository.GetPayment(id));

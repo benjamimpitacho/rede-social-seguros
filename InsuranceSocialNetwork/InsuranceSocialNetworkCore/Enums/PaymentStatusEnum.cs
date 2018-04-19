@@ -13,6 +13,7 @@ namespace InsuranceSocialNetworkCore.Enums
         CANCELED = 3,
         EXPIRED = 4,
         ERROR = 5,
-        VALID = 6
+        VALID = 6,
+        SCHEDULED = 7
     }
 }

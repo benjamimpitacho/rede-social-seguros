@@ -14,35 +14,49 @@
 
             <a href="@Url.Action("Index")"><img src="../../../Content/logos/cinza_simbolo_falar_seguros.png" style="height: 60px;width: 60px;float: left;background-color:#00C1DE;padding:12px;" /></a>
 
-            <div class="" style="display:inline;margin-right:12px;">
+            <div class="" style="display:inline;margin-right:10px;">
                 <a href="@Url.Action("Friends", "Home")" title="@Resources.Resources.Friends">
                     <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF122.png" class="mini-avatar item-photo" style="max-width:40px; max-height:40px;margin-top:9px;">
                 </a>
             </div>
 
-            <div class="" style="display:inline;margin-right:-10px;">
-                <a href="@Url.Action("Messages", "Home")" title="@Resources.Resources.Messages">
-                    <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF16.png" class="mini-avatar item-photo" style="max-width:40px; max-height:40px;margin-top:9px;">
-                </a>
+            <div class="" style="display:inline;margin-right:10px;">
+                
                 @if (Model.TotalUnreadMessages > 0)
                 {
-                    <span class="badge badge-notify" style="top:-10px;left:-20px;">@Model.TotalUnreadMessages</span>
+                    <a href="@Url.Action("Messages", "Home")" title="@Resources.Resources.Messages" style="margin-right:-20px;">
+                        <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF16.png" class="mini-avatar item-photo" style="max-width:40px; max-height:40px;margin-top:9px;">
+                    </a>
+                    <span class="badge badge-notify" style="top:-10px;left:0px;position:relative;">@Model.TotalUnreadMessages</span>
+                }
+                else
+                {
+                    <a href="@Url.Action("Messages", "Home")" title="@Resources.Resources.Messages">
+                        <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF16.png" class="mini-avatar item-photo" style="max-width:40px; max-height:40px;margin-top:9px;">
+                    </a>
                 }
             </div>
 
-            <div class="" style="display:inline;margin-right:12px;">
+            <div class="" style="display:inline;margin-right:10px;">
                 <a href="@Url.Action("Search", "Home")" title="@Resources.Resources.Search">
                     <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF116.png" class="mini-avatar item-photo" style="max-width:40px; max-height:40px;margin-top:9px;">
                 </a>
             </div>
 
-            <div class="" style="display:inline;margin-right:-10px;">
-                <a href="@Url.Action("Notifications", "Home")" title="@Resources.Resources.Notifications">
-                    <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF113.png" class="mini-avatar item-photo" style="max-width:40px; max-height:40px;margin-top:9px;">
-                </a>
+            <div class="" style="display:inline;margin-right:10px;">
+                
                 @if (Model.TotalUnreadNotifications > 0)
                 {
-                    <span class="badge badge-notify" style="top:-10px;left:-20px;">@Model.TotalUnreadNotifications</span>
+                    <a href="@Url.Action("Notifications", "Home")" title="@Resources.Resources.Notifications" style="margin-right:-20px;">
+                        <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF113.png" class="mini-avatar item-photo" style="max-width:40px; max-height:40px;margin-top:9px;">
+                    </a>
+                    <span class="badge badge-notify" style="top:-10px;left:0px;position:relative;">@Model.TotalUnreadNotifications</span>
+                }
+                else
+                {
+                    <a href="@Url.Action("Notifications", "Home")" title="@Resources.Resources.Notifications">
+                        <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF113.png" class="mini-avatar item-photo" style="max-width:40px; max-height:40px;margin-top:9px;">
+                    </a>
                 }
             </div>
             

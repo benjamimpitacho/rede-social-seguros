@@ -71,6 +71,9 @@ namespace InsuranceSocialNetworkDAL
         public decimal TotalValue { get; set; }
         public Nullable<int> LibaxInvoiceID { get; set; }
         public byte[] InvoiceDocument { get; set; }
+        public string ep_max_debit { get; set; }
+        public string ep_max_auth { get; set; }
+        public string ep_expiry_date { get; set; }
     
         public virtual PaymentStatus PaymentStatus { get; set; }
         public virtual PaymentType PaymentType { get; set; }

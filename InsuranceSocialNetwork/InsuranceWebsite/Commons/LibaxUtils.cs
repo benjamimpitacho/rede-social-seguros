@@ -6,6 +6,7 @@ using InsuranceWebsite.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -434,14 +435,23 @@ namespace InsuranceWebsite.LibaxUtils
 
                 client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", authorizationToken);
                 HttpResponseMessage response = client.SendAsync(request).Result;
-                string result = response.Content.ReadAsStringAsync().Result;
+                //string result = response.Content.ReadAsStringAsync().Result;
+                return response.Content.ReadAsAsync<byte[]>().Result;
+                //using (MemoryStream stream = new MemoryStream(bytes))
+                //using (var fileStream = File.Create("C:\\temp\\aa.pdf"))
+                //{
+                //    stream.Position = 0;
+                //    stream.CopyTo(fileStream);
+                //}
+                //return bytes;
 
-                if (response.StatusCode == System.Net.HttpStatusCode.OK)
-                {
-                    return Encoding.ASCII.GetBytes(result.Replace("\"", ""));
-                }
+                //if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                //{
+                //    //return Encoding.ASCII.GetBytes(result);
+                //    return Encoding.ASCII.GetBytes(result.Replace("\"", ""));
+                //}
 
-                return null;
+                //return null;
             }
         }
 

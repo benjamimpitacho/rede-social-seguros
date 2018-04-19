@@ -75,6 +75,19 @@ namespace InsuranceSocialNetworkDAL
             }
         }
 
+        public static Payment GetPayment(string entity, string reference)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                return context.Payment
+                    .Fetch()
+                    .Include(i => i.PaymentType)
+                    .Include(i => i.PaymentStatus)
+                    .Where(i => i.ep_entity == entity && i.ep_reference == reference)
+                    .FirstOrDefault();
+            }
+        }
+
         public static Payment GetPayment(long id, string paymentType, CompanyTypeEnum companyType)
         {
             using (var context = new BackofficeUnitOfWork())

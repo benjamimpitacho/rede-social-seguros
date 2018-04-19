@@ -51,6 +51,9 @@ namespace InsuranceSocialNetworkDTO.Payment
         public string ep_boleto { get; set; }
         public string ep_key { get; set; }
         public string ep_doc { get; set; }
+        public string ep_max_debit { get; set; }
+        public string ep_max_auth { get; set; }
+        public string ep_expiry_date { get; set; }
 
         public string Title { get; set; }
         public string Description { get; set; }

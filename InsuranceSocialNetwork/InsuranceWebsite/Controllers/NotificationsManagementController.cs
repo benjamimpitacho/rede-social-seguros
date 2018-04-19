@@ -168,14 +168,6 @@ namespace InsuranceWebsite.Controllers
             return View(model);
         }
 
-        //[FunctionalityAutorizeAttribute("ROLES_MANAGEMENT")]
-        //public ActionResult RolesManagement()
-        //{
-        //    RolesManagementViewModel model = new RolesManagementViewModel();
-
-        //    return View(model);
-        //}
-
         [FunctionalityAutorizeAttribute("ALERTS_MANAGEMENT")]
         public JsonResult Get()
         {
@@ -188,6 +180,14 @@ namespace InsuranceWebsite.Controllers
             try
             {
                 PaymentDTO payment = null;
+                //payment = InsuranceBusiness.BusinessLayer.GetPayment(54);
+                //CompanyDTO company2 = InsuranceBusiness.BusinessLayer.GetGarage(7);
+
+                //byte[] invoiceDocument2 = LibaxUtils.LibaxUtils.CreateInvoice(company2, payment);
+                //FileStream fs = new FileStream(@"c:\temp\fatura.pdf", FileMode.OpenOrCreate);
+                //fs.Write(invoiceDocument2, 0, invoiceDocument2.Length);
+                //fs.Close();
+                //return;
 
                 InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, "", string.Format("Easypay payment notification received"), string.Format("Easypay infromation received is ep_cin {0}, ep_user {1}, ep_doc {2}, ep_type {3}", ep_cin, ep_user, ep_doc, ep_type));
                 
@@ -262,10 +262,19 @@ namespace InsuranceWebsite.Controllers
                     {
                         // Erro
                         InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.ERROR, string.Format("{0}", Request.UserHostAddress), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), string.Format("Easypay returned error fetching payment details: {0} {1}, {2}, {3}, {4}", result, ep_cin, ep_user, ep_doc, ep_type));
+
+                        payment = InsuranceBusiness.BusinessLayer.GetPayment(paymentNotification.t_key);
+
+                        if (null == payment || payment.ep_cin != ep_cin || payment.ep_user != ep_user)
+                        {
+                            InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.ERROR, string.Format("{0}", Request.UserHostAddress), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), string.Format("Easypay payment information doesn't match Payment information. {0}, {1}, {2}, {3}", ep_cin, ep_user, ep_doc, ep_type));
+                            return;
+                        }
                         //payment = InsuranceBusiness.BusinessLayer.GetPayment(paymentNotification.t_key);
-                        //payment.LastChangeDate = DateTime.Now;
-                        //payment.Message = response.InnerXml;
-                        //InsuranceBusiness.BusinessLayer.UpdatePayment(payment);
+                        payment.LastChangeDate = DateTime.Now;
+                        payment.Message = response.InnerXml;
+                        payment.ID_PaymentStatus = (int)PaymentStatusEnum.ERROR;
+                        InsuranceBusiness.BusinessLayer.UpdatePayment(payment);
                         return;
                     }
                 }
@@ -319,36 +328,43 @@ namespace InsuranceWebsite.Controllers
                             var node = response.SelectSingleNode("request_recurring_payment/ep_status");
                             if (node.InnerText.Equals("ok"))
                             {
-                                PaymentDTO recurrentDebitDirectPayment = new PaymentDTO()
-                                {
-                                    ID_Garage = directDebitPayment.ID_Garage,
-                                    Active = true,
-                                    CreateDate = DateTime.Now,
-                                    ExpiracyDate = DateTime.Now.AddYears(1),
-                                    ID_PaymentStatus = (int)PaymentStatusEnum.PENDING,
-                                    ID_PaymentType = directDebitPayment.ID_PaymentType,
-                                    LastChangeDate = DateTime.Now,
-                                    Payment_GUID = Guid.NewGuid()
-                                };
+                                //PaymentDTO recurrentDebitDirectPayment = new PaymentDTO()
+                                //{
+                                //    ID_Garage = directDebitPayment.ID_Garage,
+                                //    Active = true,
+                                //    CreateDate = DateTime.Now,
+                                //    ExpiracyDate = DateTime.Now.AddYears(1),
+                                //    ID_PaymentStatus = (int)PaymentStatusEnum.PENDING,
+                                //    ID_PaymentType = directDebitPayment.ID_PaymentType,
+                                //    LastChangeDate = DateTime.Now,
+                                //    Payment_GUID = Guid.NewGuid()
+                                //};
+                                directDebitPayment.ID_PaymentStatus = (int)PaymentStatusEnum.SCHEDULED;
+                                directDebitPayment.LastChangeDate = DateTime.Now;
 
-                                InsuranceBusiness.BusinessLayer.CreatePayment(payment);
+                                InsuranceBusiness.BusinessLayer.UpdatePayment(directDebitPayment);
                             }
                             else
                             {
-                                PaymentDTO recurrentDebitDirectPayment = new PaymentDTO()
-                                {
-                                    ID_Garage = directDebitPayment.ID_Garage,
-                                    Active = true,
-                                    CreateDate = DateTime.Now,
-                                    ExpiracyDate = DateTime.Now.AddYears(1),
-                                    ID_PaymentStatus = (int)PaymentStatusEnum.ERROR,
-                                    ID_PaymentType = directDebitPayment.ID_PaymentType,
-                                    LastChangeDate = DateTime.Now,
-                                    Payment_GUID = Guid.NewGuid(),
-                                    Message = node.InnerXml
-                                };
+                                InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.ERROR, Request.UserHostAddress, "NotificationsManagementController::EasypayPaymentNotification", string.Format("Error requesting Direct Debit payment with GUID {0}", directDebitPayment.Payment_GUID));
 
-                                InsuranceBusiness.BusinessLayer.CreatePayment(payment);
+                                directDebitPayment.ID_PaymentStatus = (int)PaymentStatusEnum.ERROR;
+                                directDebitPayment.LastChangeDate = DateTime.Now;
+                                directDebitPayment.Message = node.InnerXml;
+                                //PaymentDTO recurrentDebitDirectPayment = new PaymentDTO()
+                                //{
+                                //    ID_Garage = directDebitPayment.ID_Garage,
+                                //    Active = true,
+                                //    CreateDate = DateTime.Now,
+                                //    ExpiracyDate = DateTime.Now.AddYears(1),
+                                //    ID_PaymentStatus = (int)PaymentStatusEnum.ERROR,
+                                //    ID_PaymentType = directDebitPayment.ID_PaymentType,
+                                //    LastChangeDate = DateTime.Now,
+                                //    Payment_GUID = Guid.NewGuid(),
+                                //    Message = node.InnerXml
+                                //};
+
+                                InsuranceBusiness.BusinessLayer.UpdatePayment(directDebitPayment);
                             }
                         }
                     }
@@ -455,36 +471,38 @@ namespace InsuranceWebsite.Controllers
         }
 
         [AllowAnonymous]
-        public PartialViewResult DirectDebitSetupResult(string e, string v, string s, string ep_k1, string ep_max_debit, string ep_max_auth, string ep_expiry_date)
+        public PartialViewResult DirectDebitSetupResult(string e, string v, string r, string s, string ep_k1, string ep_max_debit, string ep_max_auth, string ep_expiry_date)
         {
             try
             {
                 InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, Request.UserHostAddress, string.Format("NotificationsManagementController::DirectDebitSetupResult"), string.Format("e:{0},v:{1},s:{2},ep_k1:{3},ep_max_debit:{4},ep_max_auth:{5},ep_expiry_date:{6}", e, v, s, ep_k1, ep_max_debit, ep_max_auth, ep_expiry_date));
 
-                if(s.ToLower() == "ok")
+                PaymentDTO payment = InsuranceBusiness.BusinessLayer.GetPayment(e, r);
+
+                if(null == payment)
                 {
+                    InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.ERROR, Request.UserHostAddress, string.Format("NotificationsManagementController::DirectDebitSetupResult"), string.Format("Cannot find payment on FalarSeguros database - e:{0},v:{1},s:{2},ep_k1:{3},ep_max_debit:{4},ep_max_auth:{5},ep_expiry_date:{6}", e, v, s, ep_k1, ep_max_debit, ep_max_auth, ep_expiry_date));
+                    return PartialView("Partial/_DirectDebitSetupFail");
+                }
+
+                payment.ep_status = s;
+                payment.ep_k1 = ep_k1;
+                payment.ep_max_debit = ep_max_debit;
+                payment.ep_max_auth = ep_max_auth;
+                payment.ep_expiry_date = ep_expiry_date;
+                payment.LastChangeDate = DateTime.Now;
+
+                if (s.ToLower() == "ok")
+                {
+                    payment.ID_PaymentStatus = (int)PaymentStatusEnum.VALID;
+                    payment.Message = Resources.Resources.DirectDebitConfirmationSuccessMessage;
+                    InsuranceBusiness.BusinessLayer.UpdatePayment(payment);
                     return PartialView("Partial/_DirectDebitSetupSuccess");
                 }
-                //DirectDebitConfirmViewModel model = new DirectDebitConfirmViewModel();
-                //PaymentDTO payment = InsuranceBusiness.BusinessLayer.GetPayment(t_key);
-                //if (s.ToLower().Equals("ok"))
-                //{
-                //    payment.ID_PaymentStatus = (int)PaymentStatusEnum.VALID;
-                //    payment.ep_k1 = k;
-                //    model.IsSuccess = true;
-                //    model.Title = Resources.Resources.DirectDebitConfirmationSuccessTitle;
-                //    model.Message = Resources.Resources.DirectDebitConfirmationSuccessMessage;
-                //}
-                //else
-                //{
-                //    payment.ID_PaymentStatus = (int)PaymentStatusEnum.ERROR;
-                //    payment.ep_k1 = k;
-                //    model.IsSuccess = false;
-                //    model.Title = Resources.Resources.DirectDebitConfirmationErrorTitle;
-                //    model.Message = Resources.Resources.DirectDebitConfirmationErrorMessage;
-                //}
 
-                //InsuranceBusiness.BusinessLayer.UpdatePayment(payment);
+                payment.ID_PaymentStatus = (int)PaymentStatusEnum.ERROR;
+                payment.Message = Resources.Resources.DirectDebitConfirmationErrorMessage;
+                InsuranceBusiness.BusinessLayer.UpdatePayment(payment);
 
                 return PartialView("Partial/_DirectDebitSetupFail");
             }

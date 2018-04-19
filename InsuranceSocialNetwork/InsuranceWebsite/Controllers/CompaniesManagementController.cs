@@ -534,7 +534,6 @@ namespace InsuranceWebsite.Controllers
                 InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, "", string.Format("Company ID[{0}] will be edited", model.ID), string.Format("Company ID[{0}] will be edited.", model.ID));
 
                 CompanyDTO company = null;
-                InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, Request.UserHostAddress, "Ponto#0", "Ponto#0");
                 switch (model.CompanyType)
                 {
                     case CompanyTypeEnum.GARAGE:
@@ -554,7 +553,6 @@ namespace InsuranceWebsite.Controllers
                         break;
                 }
 
-                InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, Request.UserHostAddress, "Ponto#0.1", "Ponto#0.1");
                 company.Active = model.Active;
                 company.Name = model.Name;
                 company.Description = model.Description;
@@ -582,8 +580,7 @@ namespace InsuranceWebsite.Controllers
                 }
 
                 bool hasPendingPayment = (null == company.Payment || company.Payment.Count == 0) ? false : company.Payment.Exists(i => i.ID_PaymentStatus == (int)PaymentStatusEnum.PENDING);
-                InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, Request.UserHostAddress, "Ponto#0.2", "Ponto#0.2");
-
+                
                 if (model.CreatePayment && !hasPendingPayment && model.ID_PaymentType > 0)
                 {
                     InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, Request.UserHostAddress, string.Format("Adding payment to company ID[{0}] will be edited", model.ID), string.Format("Adding payment to company ID[{0}] will be edited", model.ID));
@@ -618,7 +615,6 @@ namespace InsuranceWebsite.Controllers
                                 skipProcessing = true;
                                 break;
                         }
-                        InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, Request.UserHostAddress, "Ponto#1", "Ponto#1");
                         if (!skipProcessing)
                         {
                             decimal vatValue = decimal.Parse(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.VAT_PERCENTAGE).Value, System.Globalization.CultureInfo.InvariantCulture);
@@ -638,7 +634,7 @@ namespace InsuranceWebsite.Controllers
                                 TaxValue = vatValue,
                                 ExpiracyDate = DateTime.Now.AddDays(Int32.Parse(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.SUBSCRIPTION_PAYMENT_DEADLINE_DAYS).Value))
                             };
-                            InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, Request.UserHostAddress, "Ponto#2", "Ponto#2");
+                            
                             var node = response.SelectSingleNode("getautoMB/ep_status");
                             if (node.InnerText.Equals("ok0"))
                             {
@@ -672,7 +668,7 @@ namespace InsuranceWebsite.Controllers
                                 payment.ep_rec_url = "";
                                 payment.ID_PaymentStatus = (int)PaymentStatusEnum.ERROR;
                             }
-                            InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, Request.UserHostAddress, "Ponto#3", "Ponto#3");
+                            
                             switch (model.CompanyType)
                             {
                                 case CompanyTypeEnum.GARAGE:
@@ -699,7 +695,6 @@ namespace InsuranceWebsite.Controllers
                                 company.Payment = new List<PaymentDTO>();
                             }
                             company.Payment.Add(payment);
-                            InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, Request.UserHostAddress, "Ponto#4", "Ponto#4");
                         }
                     }
                 }
@@ -809,7 +804,7 @@ namespace InsuranceWebsite.Controllers
                     , InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_LANGUAGE).Value
                     , decimal.Round((vatValue * subscriptionValue) + subscriptionValue, 2, MidpointRounding.AwayFromZero)
                     , paymentId.ToString()
-                    , string.Format("{0}/NotificationsManagement/DirectDebitSetupResult", InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_URL).Value));
+                    , string.Format("{0}/NotificationsManagement/DirectDebitSetupResult", InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.APPLICATION_SITE_URL).Value));
 
                 using (var client = new WebClient())
                 {
