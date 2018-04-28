@@ -718,7 +718,7 @@
     <value>FalarSeguros.pt</value>
   </data>
   <data name="EmailRegisterConfirmation" xml:space="preserve">
-    <value>Confirmação de registo</value>
+    <value>Portal Falar Seguros | Confirmação de registo</value>
   </data>
   <data name="RegisterConfirmationMessage" xml:space="preserve">
     <value>{0} o portal Falar Seguros dá-lhe as boas vindas!&lt;BR/&gt;Obrigado por se registar! Queira por favor clicar no seguinte link para concluir o seu processo de registo e usufruir da plataforma Falar Seguros: &lt;a href='{1}' title='Confirmação Registo'&gt;{1}&lt;/a&gt;</value>
@@ -961,7 +961,7 @@
     <value>Pagamento pendente</value>
   </data>
   <data name="EmailPaymentConfirmation" xml:space="preserve">
-    <value>Pagamento confirmado</value>
+    <value>Portal Falar Seguros | Pagamento confirmado</value>
   </data>
   <data name="CreateNewPayment" xml:space="preserve">
     <value>Criar novo pagamento</value>
@@ -1096,7 +1096,7 @@
     <value>Seleccione o tipo de negócio</value>
   </data>
   <data name="EmailPasswordRecover" xml:space="preserve">
-    <value>Recuperação de palavra-chave</value>
+    <value>Portal Falar Seguros | Recuperação de palavra-chave</value>
   </data>
   <data name="CheckYourEmailToChangePassword" xml:space="preserve">
     <value>Por favor verifique o seu email para redefinir a sua senha.</value>
@@ -1148,5 +1148,17 @@
   </data>
   <data name="Unlike" xml:space="preserve">
     <value>Não gostar</value>
+  </data>
+  <data name="EmailCompanyRegistWelcome" xml:space="preserve">
+    <value>Portal Falar Seguros | Benvindo ao directório de empresas</value>
+  </data>
+  <data name="EmailPaymentInformation" xml:space="preserve">
+    <value>Portal Falar Seguros | Informação para pagamento</value>
+  </data>
+  <data name="CreateNewNote" xml:space="preserve">
+    <value>Criar nota</value>
+  </data>
+  <data name="Note" xml:space="preserve">
+    <value>Nota</value>
   </data>
 </root>

@@ -17,6 +17,8 @@ using System.Text;
 using System.Threading.Tasks;
 using InsuranceSocialNetworkDTO.SystemSettings;
 using InsuranceSocialNetworkDTO.PostalCode;
+using System.Net;
+using System.Net.Sockets;
 
 namespace InsuranceSocialNetworkBusiness
 {
@@ -503,6 +505,21 @@ namespace InsuranceSocialNetworkBusiness
         public bool ChangeChatNotificationsState(long postId, string userId, bool state)
         {
             return ChatRepository.ChangeChatNotificationsState(postId, userId, state);
+        }
+
+        public bool CreateNote(long ID_Chat, string ID_User, string text)
+        {
+            ChatNote note = new ChatNote();
+            note.ID_Chat = ID_Chat;
+            note.ID_User = ID_User;
+            note.Note = text;
+
+            return ChatRepository.CreateNote(note).ID > 0;
+        }
+
+        public bool DeleteNote(long noteId)
+        {
+            return ChatRepository.DeleteNote(noteId);
         }
 
         #endregion Messages / Chats
@@ -1524,7 +1541,7 @@ namespace InsuranceSocialNetworkBusiness
         {
             try
             {
-                SystemLogRepository.Log(level.ToString(), idUser, title, message);
+                SystemLogRepository.Log(level.ToString(), string.Format("{0} [app ip:{1}]", idUser, GetLocalIPAddress()), title, message);
             }
             catch (Exception ex) { }
         }
@@ -1539,11 +1556,30 @@ namespace InsuranceSocialNetworkBusiness
                     ex = ex.InnerException;
                     entireMessageWithStack += string.Format("{0}\r\n{1}", ex.Message, ex.StackTrace);
                 }
-                SystemLogRepository.Log(SystemLogLevelEnum.ERROR.ToString(), idUser, title, entireMessageWithStack);
+                SystemLogRepository.Log(SystemLogLevelEnum.ERROR.ToString(), string.Format("{0} [app ip:{1}]", idUser, GetLocalIPAddress()), title, entireMessageWithStack);
             }
             catch (Exception) { }
         }
 
         #endregion System Logs
+
+        public static string GetLocalIPAddress()
+        {
+            try
+            {
+                var host = Dns.GetHostEntry(Dns.GetHostName());
+                foreach (var ip in host.AddressList)
+                {
+                    if (ip.AddressFamily == AddressFamily.InterNetwork)
+                    {
+                        return ip.ToString();
+                    }
+                }
+                return "no-ip";
+            }
+            catch (Exception ex) {
+                return "no-ip";
+            }
+        }
     }
 }

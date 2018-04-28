@@ -652,6 +652,8 @@
     <Content Include="Views\Account\EmailTemplates\RegisterConfirmationWithPasswordTemplate.html" />
     <Content Include="Views\Account\EmailTemplates\RegisterConfirmationTemplate.html" />
     <Content Include="Views\Account\EmailTemplates\ActivationApprovedTemplate.html" />
+    <Content Include="Views\CompaniesManagement\EmailTemplates\PaymentGeneratedTemplate.html" />
+    <Content Include="Views\CompaniesManagement\EmailTemplates\RegistWelcomeTemplate.html" />
     <Content Include="Views\NotificationsManagement\EmailTemplates\PaymentConfirmationTemplate.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -762,6 +764,7 @@
     <Content Include="Views\Home\Partial\_ConfirmDirectDebitCancel.cshtml" />
     <Content Include="Views\NotificationsManagement\Partial\_DirectDebitSetupSuccess.cshtml" />
     <Content Include="Views\NotificationsManagement\Partial\_DirectDebitSetupFail.cshtml" />
+    <Content Include="Views\Home\Partial\CreateNote.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -302,72 +302,8 @@ namespace InsuranceWebsite.Controllers
                     byte[] invoiceDocument = LibaxUtils.LibaxUtils.CreateInvoice(company, payment);
                     // Send user email
                     SendPaymentConfirmationEmail(company.Name, company.ContactEmail, invoiceDocument, payment.ID);
-
-                    // Request Direct Debit payment to be executed in one year
-                    PaymentDTO directDebitPayment = InsuranceBusiness.BusinessLayer.GetPaymentByUserAndType(payment.ID_Garage.Value, PaymentTypeEnum.DIRECT_DEBIT, CompanyTypeEnum.GARAGE);
-                    if (null != directDebitPayment)
-                    {
-                        baseUrl = string.Format("{0}?e={1}&r={2}&v={3}&ep_k1={4}&rec=yes&ep_key_rec={5}&request_date={6}-{7}-{8}&ep_test=ok"
-                            , InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_URL_REQUEST_PAYMENT_URL).Value
-                            , directDebitPayment.ep_entity
-                            , directDebitPayment.ep_reference
-                            , directDebitPayment.ep_value
-                            , directDebitPayment.ep_k1
-                            , directDebitPayment.Payment_GUID
-                            , DateTime.Now.AddYears(1).Year
-                            , DateTime.Now.AddYears(1).Month
-                            , DateTime.Now.AddYears(1).Day);
-
-                        using (var client = new WebClient())
-                        {
-                            XmlDocument response = new XmlDocument();
-                            InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, Request.UserHostAddress, "NotificationsManagementController::EasypayPaymentNotification", baseUrl);
-                            var result = client.DownloadString(baseUrl);
-                            response.LoadXml(result);
-
-                            var node = response.SelectSingleNode("request_recurring_payment/ep_status");
-                            if (node.InnerText.Equals("ok"))
-                            {
-                                //PaymentDTO recurrentDebitDirectPayment = new PaymentDTO()
-                                //{
-                                //    ID_Garage = directDebitPayment.ID_Garage,
-                                //    Active = true,
-                                //    CreateDate = DateTime.Now,
-                                //    ExpiracyDate = DateTime.Now.AddYears(1),
-                                //    ID_PaymentStatus = (int)PaymentStatusEnum.PENDING,
-                                //    ID_PaymentType = directDebitPayment.ID_PaymentType,
-                                //    LastChangeDate = DateTime.Now,
-                                //    Payment_GUID = Guid.NewGuid()
-                                //};
-                                directDebitPayment.ID_PaymentStatus = (int)PaymentStatusEnum.SCHEDULED;
-                                directDebitPayment.LastChangeDate = DateTime.Now;
-
-                                InsuranceBusiness.BusinessLayer.UpdatePayment(directDebitPayment);
-                            }
-                            else
-                            {
-                                InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.ERROR, Request.UserHostAddress, "NotificationsManagementController::EasypayPaymentNotification", string.Format("Error requesting Direct Debit payment with GUID {0}", directDebitPayment.Payment_GUID));
-
-                                directDebitPayment.ID_PaymentStatus = (int)PaymentStatusEnum.ERROR;
-                                directDebitPayment.LastChangeDate = DateTime.Now;
-                                directDebitPayment.Message = node.InnerXml;
-                                //PaymentDTO recurrentDebitDirectPayment = new PaymentDTO()
-                                //{
-                                //    ID_Garage = directDebitPayment.ID_Garage,
-                                //    Active = true,
-                                //    CreateDate = DateTime.Now,
-                                //    ExpiracyDate = DateTime.Now.AddYears(1),
-                                //    ID_PaymentStatus = (int)PaymentStatusEnum.ERROR,
-                                //    ID_PaymentType = directDebitPayment.ID_PaymentType,
-                                //    LastChangeDate = DateTime.Now,
-                                //    Payment_GUID = Guid.NewGuid(),
-                                //    Message = node.InnerXml
-                                //};
-
-                                InsuranceBusiness.BusinessLayer.UpdatePayment(directDebitPayment);
-                            }
-                        }
-                    }
+                    // Request Direct Debit payment - schedule for one year later since today
+                    RequestDirectDebitOrder(payment, baseUrl);
                 }
                 else if (payment.ID_ConstructionCompany.HasValue)
                 {
@@ -380,6 +316,8 @@ namespace InsuranceWebsite.Controllers
                     byte[] invoiceDocument = LibaxUtils.LibaxUtils.CreateInvoice(company, payment);
                     // Send user email
                     SendPaymentConfirmationEmail(company.Name, company.ContactEmail, invoiceDocument, payment.ID);
+                    // Request Direct Debit payment - schedule for one year later since today
+                    RequestDirectDebitOrder(payment, baseUrl);
                 }
                 else if (payment.ID_HomeApplianceRepair.HasValue)
                 {
@@ -392,6 +330,8 @@ namespace InsuranceWebsite.Controllers
                     byte[] invoiceDocument = LibaxUtils.LibaxUtils.CreateInvoice(company, payment);
                     // Send user email
                     SendPaymentConfirmationEmail(company.Name, company.ContactEmail, invoiceDocument, payment.ID);
+                    // Request Direct Debit payment - schedule for one year later since today
+                    RequestDirectDebitOrder(payment, baseUrl);
                 }
                 else if (payment.ID_InsuranceCompanyContact.HasValue)
                 {
@@ -404,6 +344,8 @@ namespace InsuranceWebsite.Controllers
                     byte[] invoiceDocument = LibaxUtils.LibaxUtils.CreateInvoice(company, payment);
                     // Send user email
                     SendPaymentConfirmationEmail(company.Name, company.ContactEmail, invoiceDocument, payment.ID);
+                    // Request Direct Debit payment - schedule for one year later since today
+                    RequestDirectDebitOrder(payment, baseUrl);
                 }
                 else if (payment.ID_MedicalClinic.HasValue)
                 {
@@ -416,12 +358,60 @@ namespace InsuranceWebsite.Controllers
                     byte[] invoiceDocument = LibaxUtils.LibaxUtils.CreateInvoice(company, payment);
                     // Send user email
                     SendPaymentConfirmationEmail(company.Name, company.ContactEmail, invoiceDocument, payment.ID);
+                    // Request Direct Debit payment - schedule for one year later since today
+                    RequestDirectDebitOrder(payment, baseUrl);
                 }
             }
             catch (Exception ex)
             {
                 InsuranceBusiness.BusinessLayer.LogException(string.Format("{0} [{1}]", Request.UserHostAddress, string.Format("ep_cin={0}&ep_user={1}&ep_doc={2}", ep_cin, ep_user, ep_doc)), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
                 return;
+            }
+        }
+
+        private void RequestDirectDebitOrder(PaymentDTO payment, string baseUrl)
+        {
+            // Request Direct Debit payment to be executed in one year
+            PaymentDTO directDebitPayment = InsuranceBusiness.BusinessLayer.GetPaymentByUserAndType(payment.ID_Garage.Value, PaymentTypeEnum.DIRECT_DEBIT, CompanyTypeEnum.GARAGE);
+            if (null != directDebitPayment)
+            {
+                baseUrl = string.Format("{0}?e={1}&r={2}&v={3}&ep_k1={4}&rec=yes&ep_key_rec={5}&request_date={6}-{7}-{8}&ep_test=ok"
+                    , InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_URL_REQUEST_PAYMENT_URL).Value
+                    , directDebitPayment.ep_entity
+                    , directDebitPayment.ep_reference
+                    , directDebitPayment.ep_value
+                    , directDebitPayment.ep_k1
+                    , directDebitPayment.Payment_GUID
+                    , DateTime.Now.AddYears(1).Year
+                    , DateTime.Now.AddYears(1).Month
+                    , DateTime.Now.AddYears(1).Day);
+
+                using (var client = new WebClient())
+                {
+                    XmlDocument response = new XmlDocument();
+                    InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, Request.UserHostAddress, "NotificationsManagementController::EasypayPaymentNotification", baseUrl);
+                    var result = client.DownloadString(baseUrl);
+                    response.LoadXml(result);
+
+                    var node = response.SelectSingleNode("request_recurring_payment/ep_status");
+                    if (node.InnerText.Equals("ok"))
+                    {
+                        directDebitPayment.ID_PaymentStatus = (int)PaymentStatusEnum.SCHEDULED;
+                        directDebitPayment.LastChangeDate = DateTime.Now;
+
+                        InsuranceBusiness.BusinessLayer.UpdatePayment(directDebitPayment);
+                    }
+                    else
+                    {
+                        InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.ERROR, Request.UserHostAddress, "NotificationsManagementController::EasypayPaymentNotification", string.Format("Error requesting Direct Debit payment with GUID {0}", directDebitPayment.Payment_GUID));
+
+                        directDebitPayment.ID_PaymentStatus = (int)PaymentStatusEnum.ERROR;
+                        directDebitPayment.LastChangeDate = DateTime.Now;
+                        directDebitPayment.Message = node.InnerXml;
+
+                        InsuranceBusiness.BusinessLayer.UpdatePayment(directDebitPayment);
+                    }
+                }
             }
         }
 

@@ -85,9 +85,9 @@ namespace InsuranceSocialNetworkDAL
                 item.SameInformationForInvoice = insuranceCompanyContact.SameInformationForInvoice;
                 item.Address = insuranceCompanyContact.Address;
                 item.PostalCode = insuranceCompanyContact.PostalCode;
-                item.ID_District = insuranceCompanyContact.Invoice_ID_District;
-                item.ID_County = insuranceCompanyContact.Invoice_ID_County;
-                item.ID_Parish = insuranceCompanyContact.Invoice_ID_Parish;
+                item.Invoice_ID_District = insuranceCompanyContact.Invoice_ID_District;
+                item.Invoice_ID_County = insuranceCompanyContact.Invoice_ID_County;
+                item.Invoice_ID_Parish = insuranceCompanyContact.Invoice_ID_Parish;
                 item.ID_Service = insuranceCompanyContact.ID_Service;
                 item.MobilePhone_1 = insuranceCompanyContact.MobilePhone_1;
                 item.MobilePhone_2 = insuranceCompanyContact.MobilePhone_2;

@@ -85,9 +85,9 @@ namespace InsuranceSocialNetworkDAL
                 item.SameInformationForInvoice = homeApplianceRepair.SameInformationForInvoice;
                 item.Address = homeApplianceRepair.Address;
                 item.PostalCode = homeApplianceRepair.PostalCode;
-                item.ID_District = homeApplianceRepair.Invoice_ID_District;
-                item.ID_County = homeApplianceRepair.Invoice_ID_County;
-                item.ID_Parish = homeApplianceRepair.Invoice_ID_Parish;
+                item.Invoice_ID_District = homeApplianceRepair.Invoice_ID_District;
+                item.Invoice_ID_County = homeApplianceRepair.Invoice_ID_County;
+                item.Invoice_ID_Parish = homeApplianceRepair.Invoice_ID_Parish;
                 item.ID_Service = homeApplianceRepair.ID_Service;
                 item.MobilePhone_1 = homeApplianceRepair.MobilePhone_1;
                 item.MobilePhone_2 = homeApplianceRepair.MobilePhone_2;

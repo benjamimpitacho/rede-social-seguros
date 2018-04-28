@@ -85,9 +85,9 @@ namespace InsuranceSocialNetworkDAL
                 item.SameInformationForInvoice = constructionCompany.SameInformationForInvoice;
                 item.Address = constructionCompany.Address;
                 item.PostalCode = constructionCompany.PostalCode;
-                item.ID_District = constructionCompany.Invoice_ID_District;
-                item.ID_County = constructionCompany.Invoice_ID_County;
-                item.ID_Parish = constructionCompany.Invoice_ID_Parish;
+                item.Invoice_ID_District = constructionCompany.Invoice_ID_District;
+                item.Invoice_ID_County = constructionCompany.Invoice_ID_County;
+                item.Invoice_ID_Parish = constructionCompany.Invoice_ID_Parish;
                 item.ID_Service = constructionCompany.ID_Service;
                 item.MobilePhone_1 = constructionCompany.MobilePhone_1;
                 item.MobilePhone_2 = constructionCompany.MobilePhone_2;

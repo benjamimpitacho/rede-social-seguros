@@ -252,8 +252,16 @@
                     <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF111.png" class="icon-normal" />
                 </a>
             </li>*@
+            <li>
+                <a id="newNoteButton" href="@Url.Action("CreateNote", "Home", new { idChat = Model.Chat.ID, idUser = Model.Profile.ID_User })" style="padding: 3px 5px">
+                    <img src="~/Content/icons/icons_mensagens_rede_social_falar_seguros_AF9.png" class="icon-normal" />
+                </a>
+            </li>
         </ul>
     </div>
+</div>
+
+<div id="dialog-note" style="display: none; top:10%;">
 </div>
 
 <!--Reference the SignalR library. -->
@@ -263,6 +271,33 @@
 
 <script type="text/javascript">
     $(function () {
+
+        $("#dialog-note").dialog({
+            title: '@Resources.Resources.CreateNewNote',
+            autoOpen: false,
+            resizable: false,
+            width: 450,
+            show: { effect: 'drop', direction: "up" },
+            modal: true,
+            draggable: true,
+            position: { my: "center top", at: "center top", of: window },
+            open: function (event, ui) {
+                $(this).load(url);
+            },
+            buttons: {
+            },
+            close: function () {
+            }
+        });
+
+        $("#newNoteButton").click(function (e) {
+            e.preventDefault(); //use this or return false
+            url = $(this).attr('href');
+            //$(".ui-dialog-title").html("@Resources.Resources.EditCompany");
+            $("#dialog-note").dialog('open');
+
+            return false;
+        });
 
         //$("#imgUpload").fileinput({
         //    allowedFileExtensions: ["jpg", "png", "gif", "jpeg"],

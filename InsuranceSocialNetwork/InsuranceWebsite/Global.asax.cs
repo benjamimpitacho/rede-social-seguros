@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Web;
@@ -30,6 +31,15 @@ namespace InsuranceWebsite
                 Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(culture);
                 Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
             }
+        }
+
+        protected void Application_AcquireRequestState(object sender, EventArgs e)
+        {
+            // For example a cookie, but better extract it from the url
+            //string culture = HttpContext.Current.Request.Cookies["culture"].Value;
+
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
         }
     }
 }

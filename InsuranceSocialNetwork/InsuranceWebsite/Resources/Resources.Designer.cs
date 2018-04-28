@@ -835,6 +835,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Criar nota.
+        /// </summary>
+        public static string CreateNewNote {
+            get {
+                return ResourceManager.GetString("CreateNewNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Criar nova oferta.
         /// </summary>
         public static string CreateNewOffer {
@@ -1087,7 +1096,16 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Recuperação de palavra-chave.
+        ///   Looks up a localized string similar to Portal Falar Seguros | Benvindo ao directório de empresas.
+        /// </summary>
+        public static string EmailCompanyRegistWelcome {
+            get {
+                return ResourceManager.GetString("EmailCompanyRegistWelcome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Portal Falar Seguros | Recuperação de palavra-chave.
         /// </summary>
         public static string EmailPasswordRecover {
             get {
@@ -1096,7 +1114,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pagamento confirmado.
+        ///   Looks up a localized string similar to Portal Falar Seguros | Pagamento confirmado.
         /// </summary>
         public static string EmailPaymentConfirmation {
             get {
@@ -1105,7 +1123,16 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Confirmação de registo.
+        ///   Looks up a localized string similar to Portal Falar Seguros | Informação para pagamento.
+        /// </summary>
+        public static string EmailPaymentInformation {
+            get {
+                return ResourceManager.GetString("EmailPaymentInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Portal Falar Seguros | Confirmação de registo.
         /// </summary>
         public static string EmailRegisterConfirmation {
             get {
@@ -2046,6 +2073,15 @@ namespace Resources {
         public static string NORMAL_USER {
             get {
                 return ResourceManager.GetString("NORMAL_USER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nota.
+        /// </summary>
+        public static string Note {
+            get {
+                return ResourceManager.GetString("Note", resourceCulture);
             }
         }
         

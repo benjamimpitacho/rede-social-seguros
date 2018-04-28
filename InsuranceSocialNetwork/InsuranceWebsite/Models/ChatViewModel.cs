@@ -20,4 +20,14 @@ namespace InsuranceWebsite.Models
             }
         }
     }
+
+    public class NoteModelObject
+    {
+        public NoteModelObject() { }
+
+        public long ID_Chat { get; set; }
+        public string ID_User { get; set; }
+        [Required]
+        public string Text { get; set; }
+    }
 }

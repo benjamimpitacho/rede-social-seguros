@@ -86,9 +86,9 @@ namespace InsuranceSocialNetworkDAL
                 item.SameInformationForInvoice = medicalClinic.SameInformationForInvoice;
                 item.Address = medicalClinic.Address;
                 item.PostalCode = medicalClinic.PostalCode;
-                item.ID_District = medicalClinic.Invoice_ID_District;
-                item.ID_County = medicalClinic.Invoice_ID_County;
-                item.ID_Parish = medicalClinic.Invoice_ID_Parish;
+                item.Invoice_ID_District = medicalClinic.Invoice_ID_District;
+                item.Invoice_ID_County = medicalClinic.Invoice_ID_County;
+                item.Invoice_ID_Parish = medicalClinic.Invoice_ID_Parish;
                 item.ID_Service = medicalClinic.ID_Service;
                 item.MobilePhone_1 = medicalClinic.MobilePhone_1;
                 item.MobilePhone_2 = medicalClinic.MobilePhone_2;

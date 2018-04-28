@@ -368,5 +368,30 @@ namespace InsuranceSocialNetworkDAL
                 return true;
             }
         }
+
+        public static ChatNote CreateNote(ChatNote note)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                note.CreateDate = note.LastUpdateDate = DateTime.Now;
+
+                context.ChatNote.Create(note);
+                context.Save();
+
+                return note;
+            }
+        }
+
+        public static bool DeleteNote(long noteId)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                context.ChatNote.Delete(noteId);
+
+                context.Save();
+
+                return true;
+            }
+        }
     }
 }

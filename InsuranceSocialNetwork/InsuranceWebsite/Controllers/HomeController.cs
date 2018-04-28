@@ -291,6 +291,33 @@ namespace InsuranceWebsite.Controllers
         }
 
         [FunctionalityAutorizeAttribute("MESSAGES_FUNCTIONALITY")]
+        public ActionResult CreateNote(long idChat, string idUser)
+        {
+            NoteModelObject model = new NoteModelObject();
+            model.ID_Chat = idChat;
+            model.ID_User = idUser;
+            return PartialView(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [FunctionalityAutorizeAttribute("MESSAGES_FUNCTIONALITY")]
+        public ActionResult CreateNote(NoteModelObject model)
+        {
+            try
+            {
+                InsuranceBusiness.BusinessLayer.CreateNote(model.ID_Chat, model.ID_User, model.Text);
+            }
+            catch (Exception ex)
+            {
+                InsuranceBusiness.BusinessLayer.LogException(Request.UserHostAddress, string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+                return View("Error");
+            }
+
+            return RedirectToAction("OpenChat", new { id = model.ID_Chat });
+        }
+
+        [FunctionalityAutorizeAttribute("MESSAGES_FUNCTIONALITY")]
         public ActionResult LoadChat(long id)
         {
             ChatViewModel model = new ChatViewModel();

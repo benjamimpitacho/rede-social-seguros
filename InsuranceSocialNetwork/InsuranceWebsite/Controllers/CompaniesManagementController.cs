@@ -13,9 +13,12 @@ using MVCGrid.Web;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -269,6 +272,9 @@ namespace InsuranceWebsite.Controllers
         [FunctionalityAutorizeAttribute("COMPANIES_MANAGEMENT")]
         public ActionResult Create(CompanyTypeEnum id)
         {
+            //Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
+
             try
             {
                 CompanyModelObject model = new CompanyModelObject();
@@ -299,8 +305,12 @@ namespace InsuranceWebsite.Controllers
         [FunctionalityAutorizeAttribute("COMPANIES_MANAGEMENT")]
         public ActionResult Create(CompanyModelObject model, HttpPostedFileBase imgUpload)
         {
+            //Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
+
             try
             {
+                PaymentDTO payment = null;
                 CompanyDTO newCompany = new CompanyDTO()
                 {
                     ID = model.ID,
@@ -351,7 +361,7 @@ namespace InsuranceWebsite.Controllers
                         switch (model.ID_PaymentType)
                         {
                             case (int)PaymentTypeEnum.ATM:
-                                InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, Request.UserHostAddress, "CompaniesManagementController::Create", baseUrl);
+                                InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, Request.UserHostAddress, "CompaniesManagementController::Create", string.Format("Base URL: {0}", baseUrl));
                                 var result = client.DownloadString(baseUrl);
                                 response.LoadXml(result);
                                 break;
@@ -366,8 +376,14 @@ namespace InsuranceWebsite.Controllers
                         if (!skipProcessing)
                         {
                             decimal vatValue = decimal.Parse(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.VAT_PERCENTAGE).Value, System.Globalization.CultureInfo.InvariantCulture);
+                            //decimal totalValue = 0;
+                            //if(!decimal.TryParse(model.Value.Replace(",", "."), out totalValue))
+                            //{
+                            //    InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.ERROR,);
+                            //}
+                            
                             decimal liquidValue = decimal.Round(((model.Value / (1 + vatValue)) - model.Value) * -1, 2, MidpointRounding.AwayFromZero);
-                            PaymentDTO payment = new PaymentDTO()
+                            payment = new PaymentDTO()
                             {
                                 CreateDate = DateTime.Now,
                                 LastChangeDate = DateTime.Now,
@@ -445,6 +461,8 @@ namespace InsuranceWebsite.Controllers
                     default:
                         break;
                 }
+
+                SendRegistWelcomeEmail(newCompany, payment);
             }
             catch (Exception ex)
             {
@@ -453,6 +471,44 @@ namespace InsuranceWebsite.Controllers
             }
 
             return RedirectToAction("Index", new { id = model.CompanyType });
+        }
+
+        private bool SendRegistWelcomeEmail(CompanyDTO company, PaymentDTO payment)
+        {
+            System.Net.Mail.MailMessage m = new System.Net.Mail.MailMessage(
+                new System.Net.Mail.MailAddress(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.PLATFORM_EMAIL).Value, Resources.Resources.ApplicationNAme),
+                new System.Net.Mail.MailAddress(company.ContactEmail));
+            m.Subject = Resources.Resources.EmailCompanyRegistWelcome;
+
+            using (StreamReader reader = new StreamReader(Server.MapPath("~/Views/CompaniesManagement/EmailTemplates/RegistWelcomeTemplate.html")))
+            {
+                m.Body = reader.ReadToEnd();
+            }
+
+            m.Body = m.Body.Replace("{NAME}", string.IsNullOrEmpty(company.BusinessName) ? company.Name : company.BusinessName); //replacing the required things
+            m.Body = m.Body.Replace("{URL}", InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.APPLICATION_SITE_URL).Value);
+            if (null != payment)
+            {
+                m.Body = m.Body.Replace("{ENTITY}", payment.ep_entity);
+                m.Body = m.Body.Replace("{REFERENCE}", payment.ep_reference);
+                m.Body = m.Body.Replace("{AMOUNT}", payment.ep_value);
+            }
+            else
+            {
+                m.Body = m.Body.Replace("{ENTITY}", string.Empty);
+                m.Body = m.Body.Replace("{REFERENCE}", string.Empty);
+                m.Body = m.Body.Replace("{AMOUNT}", string.Empty);
+            }
+            m.IsBodyHtml = true;
+
+            SmtpClient smtp = new SmtpClient(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.SMTP_HOST).Value, Int32.Parse(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.SMTP_PORT).Value))
+            {
+                Credentials = new System.Net.NetworkCredential(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.SMTP_USERNAME).Value, InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.SMTP_PASSWORD).Value),
+                EnableSsl = false
+            };
+            smtp.Send(m);
+
+            return true;
         }
 
         // GET: /User/Edit/5
@@ -523,6 +579,44 @@ namespace InsuranceWebsite.Controllers
             return PartialView(model);
         }
 
+        private bool SendPaymentGeneratedEmail(CompanyDTO company, PaymentDTO payment)
+        {
+            System.Net.Mail.MailMessage m = new System.Net.Mail.MailMessage(
+                new System.Net.Mail.MailAddress(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.PLATFORM_EMAIL).Value, Resources.Resources.ApplicationNAme),
+                new System.Net.Mail.MailAddress(company.ContactEmail));
+            m.Subject = Resources.Resources.EmailPaymentInformation;
+
+            using (StreamReader reader = new StreamReader(Server.MapPath("~/Views/CompaniesManagement/EmailTemplates/PaymentGeneratedTemplate.html")))
+            {
+                m.Body = reader.ReadToEnd();
+            }
+
+            m.Body = m.Body.Replace("{NAME}", string.IsNullOrEmpty(company.BusinessName) ? company.Name : company.BusinessName); //replacing the required things
+            m.Body = m.Body.Replace("{URL}", InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.APPLICATION_SITE_URL).Value);
+            if (null != payment)
+            {
+                m.Body = m.Body.Replace("{ENTITY}", payment.ep_entity);
+                m.Body = m.Body.Replace("{REFERENCE}", payment.ep_reference);
+                m.Body = m.Body.Replace("{AMOUNT}", payment.ep_value);
+            }
+            else
+            {
+                m.Body = m.Body.Replace("{ENTITY}", string.Empty);
+                m.Body = m.Body.Replace("{REFERENCE}", string.Empty);
+                m.Body = m.Body.Replace("{AMOUNT}", string.Empty);
+            }
+            m.IsBodyHtml = true;
+
+            SmtpClient smtp = new SmtpClient(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.SMTP_HOST).Value, Int32.Parse(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.SMTP_PORT).Value))
+            {
+                Credentials = new System.Net.NetworkCredential(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.SMTP_USERNAME).Value, InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.SMTP_PASSWORD).Value),
+                EnableSsl = false
+            };
+            smtp.Send(m);
+
+            return true;
+        }
+
         // POST: /User/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -531,6 +625,7 @@ namespace InsuranceWebsite.Controllers
         {
             try
             {
+                PaymentDTO payment = null;
                 InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, "", string.Format("Company ID[{0}] will be edited", model.ID), string.Format("Company ID[{0}] will be edited.", model.ID));
 
                 CompanyDTO company = null;
@@ -619,7 +714,7 @@ namespace InsuranceWebsite.Controllers
                         {
                             decimal vatValue = decimal.Parse(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.VAT_PERCENTAGE).Value, System.Globalization.CultureInfo.InvariantCulture);
                             decimal liquidValue = decimal.Round(((model.Value / (1 + vatValue)) - model.Value) * -1, 2, MidpointRounding.AwayFromZero);
-                            PaymentDTO payment = new PaymentDTO()
+                            payment = new PaymentDTO()
                             {
                                 CreateDate = DateTime.Now,
                                 LastChangeDate = DateTime.Now,
@@ -718,6 +813,11 @@ namespace InsuranceWebsite.Controllers
                         break;
                     default:
                         break;
+                }
+
+                if (null != payment && payment.ID_PaymentStatus == (int)PaymentStatusEnum.PENDING)
+                {
+                    SendPaymentGeneratedEmail(company, payment);
                 }
             }
             catch (Exception ex)

@@ -85,9 +85,9 @@ namespace InsuranceSocialNetworkDAL
                 item.SameInformationForInvoice = garage.SameInformationForInvoice;
                 item.Address = garage.Address;
                 item.PostalCode = garage.PostalCode;
-                item.ID_District = garage.Invoice_ID_District;
-                item.ID_County = garage.Invoice_ID_County;
-                item.ID_Parish = garage.Invoice_ID_Parish;
+                item.Invoice_ID_District = garage.Invoice_ID_District;
+                item.Invoice_ID_County = garage.Invoice_ID_County;
+                item.Invoice_ID_Parish = garage.Invoice_ID_Parish;
                 item.ID_Service = garage.ID_Service;
                 item.MobilePhone_1 = garage.MobilePhone_1;
                 item.MobilePhone_2 = garage.MobilePhone_2;
