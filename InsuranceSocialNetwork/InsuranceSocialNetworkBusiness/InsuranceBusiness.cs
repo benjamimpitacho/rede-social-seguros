@@ -19,6 +19,7 @@ using InsuranceSocialNetworkDTO.SystemSettings;
 using InsuranceSocialNetworkDTO.PostalCode;
 using System.Net;
 using System.Net.Sockets;
+using System.Xml;
 
 namespace InsuranceSocialNetworkBusiness
 {
@@ -82,6 +83,9 @@ namespace InsuranceSocialNetworkBusiness
 
                 cfg.CreateMap<ChatMessage, ChatMessageDTO>();
                 cfg.CreateMap<ChatMessageDTO, ChatMessage>();
+
+                cfg.CreateMap<ChatNote, ChatNoteDTO>();
+                cfg.CreateMap<ChatNoteDTO, ChatNote>();
 
                 cfg.CreateMap<Banner, BannerDTO>();
                 cfg.CreateMap<BannerDTO, Banner>();
@@ -517,9 +521,9 @@ namespace InsuranceSocialNetworkBusiness
             return ChatRepository.CreateNote(note).ID > 0;
         }
 
-        public bool DeleteNote(long noteId)
+        public bool DeleteNote(long noteId, string ID_User)
         {
-            return ChatRepository.DeleteNote(noteId);
+            return ChatRepository.DeleteNote(noteId, ID_User);
         }
 
         #endregion Messages / Chats
@@ -1562,6 +1566,12 @@ namespace InsuranceSocialNetworkBusiness
         }
 
         #endregion System Logs
+
+        #region Timer Job Worker Tasks
+
+        
+
+        #endregion Timer Job Worker Tasks
 
         public static string GetLocalIPAddress()
         {

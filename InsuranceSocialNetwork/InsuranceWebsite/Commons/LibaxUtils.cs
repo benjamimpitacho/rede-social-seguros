@@ -72,28 +72,28 @@ namespace InsuranceWebsite.LibaxUtils
 
                 var request = new HttpRequestMessage(HttpMethod.Post, "/api/v1/entities");
                 var formData = new List<KeyValuePair<string, string>>()
-                    {
-                        new KeyValuePair<string, string>("number", entity.ID.ToString()),
-                        new KeyValuePair<string, string>("civilState", "7"),
-                        new KeyValuePair<string, string>("observation", ""),
-                        new KeyValuePair<string, string>("name", string.IsNullOrEmpty(entity.BusinessName)?entity.Name:entity.BusinessName),
-                        new KeyValuePair<string, string>("childrenCount", "0"),
-                        new KeyValuePair<string, string>("birthDate", ""),
-                        new KeyValuePair<string, string>("vatNumber", entity.NIF),
-                        new KeyValuePair<string, string>("iban", entity.IBAN),
-                        new KeyValuePair<string, string>("status", "1"),
-                        new KeyValuePair<string, string>("email", entity.ContactEmail),
-                        new KeyValuePair<string, string>("phone", entity.Telephone_1),
-                        new KeyValuePair<string, string>("mobile", entity.MobilePhone_1),
-                        new KeyValuePair<string, string>("fax", entity.Fax),
-                        new KeyValuePair<string, string>("url", entity.Website),
-                        new KeyValuePair<string, string>("city", string.Format("{0}, {1}",parish, county)),
-                        new KeyValuePair<string, string>("countryID", countries.FirstOrDefault(i=>i.ISOCode=="PT").CountryID.ToString()),
-                        new KeyValuePair<string, string>("code", entity.ID.ToString()),
-                        new KeyValuePair<string, string>("street", entity.Address),
-                        new KeyValuePair<string, string>("region", district),
-                        new KeyValuePair<string, string>("ignoreAdvertising", "true")
-                    };
+                {
+                    new KeyValuePair<string, string>("number", entity.ID.ToString()),
+                    new KeyValuePair<string, string>("civilState", "7"),
+                    new KeyValuePair<string, string>("observation", ""),
+                    new KeyValuePair<string, string>("name", string.IsNullOrEmpty(entity.BusinessName)?entity.Name:entity.BusinessName),
+                    new KeyValuePair<string, string>("childrenCount", "0"),
+                    new KeyValuePair<string, string>("birthDate", ""),
+                    new KeyValuePair<string, string>("vatNumber", entity.NIF),
+                    new KeyValuePair<string, string>("iban", entity.IBAN),
+                    new KeyValuePair<string, string>("status", "1"),
+                    new KeyValuePair<string, string>("email", entity.ContactEmail),
+                    new KeyValuePair<string, string>("phone", entity.Telephone_1),
+                    new KeyValuePair<string, string>("mobile", entity.MobilePhone_1),
+                    new KeyValuePair<string, string>("fax", entity.Fax),
+                    new KeyValuePair<string, string>("url", entity.Website),
+                    new KeyValuePair<string, string>("city", string.Format("{0}, {1}",parish, county)),
+                    new KeyValuePair<string, string>("countryID", countries.FirstOrDefault(i=>i.ISOCode=="PT").CountryID.ToString()),
+                    new KeyValuePair<string, string>("code", entity.ID.ToString()),
+                    new KeyValuePair<string, string>("street", entity.Address),
+                    new KeyValuePair<string, string>("region", district),
+                    new KeyValuePair<string, string>("ignoreAdvertising", "true")
+                };
 
                 request.Content = new FormUrlEncodedContent(formData);
                 client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", authorizationToken);
@@ -171,7 +171,7 @@ namespace InsuranceWebsite.LibaxUtils
                         // CREATE PRODUCT
                         InsertVM productToInsert = new InsertVM
                         {
-                            Name = payment.Title,
+                            Name = "FALAR_SEGUROS_REGISTER_FEE",
                             UnitID = 1,
                             TaxID = taxList.FirstOrDefault(i => i.IsActive && i.Name == InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.LIBAX_DEFAULT_TAX_NAME).Value).TaxID,
                             ApplyRetention = false,
@@ -179,11 +179,12 @@ namespace InsuranceWebsite.LibaxUtils
                             ProductDetail = payment.Description,
                             ProductType = ProductType.Service,
                             SellPrice = decimal.Parse(payment.t_value),
-                            Reference = payment.ep_reference //null para que seja calculada automaticamente
+                            Reference = "FALAR_SEGUROS_REGISTER_FEE" //null para que seja calculada automaticamente
                                                              //StandardCost = 20, //preço sem impostos (IVA, etc)
                         };
 
                         var dataString = JsonConvert.SerializeObject(productToInsert);
+                        InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, string.Format("CompanyID:{0}", entity.ID), string.Format("{0}.{1}", "LibaxUtils", "CreateInvoice - Create Product"), dataString);
                         client.Headers.Add(HttpRequestHeader.Authorization, "Bearer " + authorizationToken);
                         client.Headers.Add(HttpRequestHeader.ContentType, "application/json");
                         var res = client.UploadString(new Uri(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.LIBAX_API_URL).Value + "/api/v1/products"), "POST", dataString);
@@ -235,6 +236,7 @@ namespace InsuranceWebsite.LibaxUtils
                 };
 
                 var jsonDataString = JsonConvert.SerializeObject(invoiceToCreate);
+                InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, string.Format("CompanyID:{0}", entity.ID), string.Format("{0}.{1}", "LibaxUtils", "CreateInvoice - Create Invoice"), jsonDataString);
                 client.Headers.Add(HttpRequestHeader.Authorization, "Bearer " + authorizationToken);
                 client.Headers.Add(HttpRequestHeader.ContentType, "application/json");
                 var result = client.UploadString(new Uri(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.LIBAX_API_URL).Value + "/api/v1/invoices"), "POST", jsonDataString);

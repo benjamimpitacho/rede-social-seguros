@@ -572,6 +572,7 @@
           <Property Name="ep_max_debit" Type="nvarchar" MaxLength="128" />
           <Property Name="ep_max_auth" Type="nvarchar" MaxLength="128" />
           <Property Name="ep_expiry_date" Type="nvarchar" MaxLength="128" />
+          <Property Name="NotificationSent" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="PaymentNotification">
           <Key>
@@ -3888,6 +3889,7 @@
           <Property Name="ep_max_debit" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="ep_max_auth" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="ep_expiry_date" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="NotificationSent" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="FK_Payment_PaymentStatus">
           <End Type="InsurancePortal_dbModel.PaymentStatus" Role="PaymentStatus" Multiplicity="1" />
@@ -5647,6 +5649,7 @@
           <EntitySetMapping Name="Payment">
             <EntityTypeMapping TypeName="InsurancePortal_dbModel.Payment">
               <MappingFragment StoreEntitySet="Payment">
+                <ScalarProperty Name="NotificationSent" ColumnName="NotificationSent" />
                 <ScalarProperty Name="ep_expiry_date" ColumnName="ep_expiry_date" />
                 <ScalarProperty Name="ep_max_auth" ColumnName="ep_max_auth" />
                 <ScalarProperty Name="ep_max_debit" ColumnName="ep_max_debit" />

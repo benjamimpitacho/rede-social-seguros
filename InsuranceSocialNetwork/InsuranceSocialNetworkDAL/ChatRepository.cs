@@ -382,12 +382,15 @@ namespace InsuranceSocialNetworkDAL
             }
         }
 
-        public static bool DeleteNote(long noteId)
+        public static bool DeleteNote(long noteId, string ID_User)
         {
             using (var context = new BackofficeUnitOfWork())
             {
-                context.ChatNote.Delete(noteId);
+                ChatNote note = context.ChatNote.Fetch().FirstOrDefault(i => i.ID == noteId && i.ID_User == ID_User);
+                if (null == note)
+                    return false;
 
+                context.ChatNote.Delete(note.ID);
                 context.Save();
 
                 return true;

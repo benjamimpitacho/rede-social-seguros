@@ -9,6 +9,30 @@
 @Html.HiddenFor(i => i.Profile.FirstName, new { id = "firstName" })
 @Html.HiddenFor(i => i.Profile.LastName, new { id = "lastName" })
 
+<style>
+
+    .notes-content {
+    }
+
+    .note {
+        background-color: #00C1DE;
+        padding: 10px 20px;
+        color: #fff;
+        margin-bottom:2px;
+        display:grid;
+        position: relative;
+        width:100%;
+    }
+
+    .note-icon
+    {
+        position:absolute;
+        right: 18px;
+        padding-top: 12px;
+    }
+
+</style>
+
 <div class="panel panel-body post panel-shadow animated fadeInUp" style="margin-bottom:2px;max-height:80px;padding:10px 15px;">
     <div class="pull-left image">
         @*<a href="@Url.Action("ProfileInfo", "Home", new { id = chat.ID })" style="padding: 0px; text-align: -webkit-center;">*@
@@ -123,7 +147,7 @@
     </div>
 </div>
 
-<div id="topDiscussion" class="col-inside-lg decor-default" style="width:100%;max-height: calc(100vh - 270px);overflow:auto;">
+<div id="topDiscussion" class="col-inside-lg decor-default" style="width:100%;max-height: calc(100vh - 265px - @(Model.Chat.ChatNote.Count * 57)px);overflow:auto;">
     
     <div class="chat-body" id="discussion" style="">
         @foreach (ChatMessageDTO message in Model.Chat.ChatMessage)
@@ -234,7 +258,24 @@
         </div>
     </div>
 </div>
-<div class="col-inside-lg decor-default" style="width:100%; margin-top:5px;">
+
+<div class="notes-content">
+    @foreach (var note in Model.Chat.ChatNote)
+    {
+        <div style="display:flex;">
+            <div class="note">
+                <span style="font-size:10px;">@Resources.Resources.Note</span>@note.Note
+            </div>
+            <div class="note-icon">
+                <a id="deleteNoteButton" href="@Url.Action("DeleteNote", "Home", new { id = note.ID, idC=Model.Chat.ID })" style="padding: 3px 5px">
+                    <img src="~/Content/icons/icons_mensagens_rede_social_falar_seguros_AF3.png" class="icon-normal" />
+                </a>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="col-inside-lg decor-default" style="width:100%; margin-top:0px;">
     <textarea placeholder="@Resources.Resources.WriteMessageOrAttachAnArchive" rows="1" class="form-control input-lg p-text-area" id="message" name="message" style="resize:none;"></textarea>
     <img id="imgPlaceholder" src="#" alt="" style="visibility:hidden;position:absolute" />
     <div class="panel-footer" style="border-top: 0px; padding: 10px 10px;">
@@ -277,10 +318,11 @@
             autoOpen: false,
             resizable: false,
             width: 450,
+            height: 150,
             show: { effect: 'drop', direction: "up" },
             modal: true,
             draggable: true,
-            position: { my: "center top", at: "center top", of: window },
+            position: { my: "center", at: "center", of: window },
             open: function (event, ui) {
                 $(this).load(url);
             },

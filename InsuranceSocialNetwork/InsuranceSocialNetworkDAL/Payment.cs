@@ -74,6 +74,7 @@ namespace InsuranceSocialNetworkDAL
         public string ep_max_debit { get; set; }
         public string ep_max_auth { get; set; }
         public string ep_expiry_date { get; set; }
+        public bool NotificationSent { get; set; }
     
         public virtual PaymentStatus PaymentStatus { get; set; }
         public virtual PaymentType PaymentType { get; set; }

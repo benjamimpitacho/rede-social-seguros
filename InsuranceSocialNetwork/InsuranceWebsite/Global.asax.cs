@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InsuranceWebsite.Commons;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -18,6 +19,29 @@ namespace InsuranceWebsite
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            var waitHandle = new AutoResetEvent(false);
+            ThreadPool.RegisterWaitForSingleObject(
+                waitHandle,
+                // Method to execute
+                (state, timeout) =>
+                {
+                    //InsuranceSocialNetworkBusiness.InsuranceBusiness.BusinessLayer.Log(InsuranceSocialNetworkCore.Enums.SystemLogLevelEnum.INFO, "WORKER", "TIMER JOB TASK", string.Format("Run at {0}", DateTime.Now.ToString()));
+
+                    WorkerUtils.CheckPendingPaymentsToConfirm();
+
+                    //InsuranceSocialNetworkBusiness.InsuranceBusiness.BusinessLayer.CheckUsersToDisableDueToPaymentFail();
+
+                    //InsuranceSocialNetworkBusiness.InsuranceBusiness.BusinessLayer.CheckUsersForRenewal();
+                },
+                // optional state object to pass to the method
+                null,
+                // Execute the method after 5 seconds
+                //TimeSpan.FromSeconds(5),
+                TimeSpan.FromMinutes(15),
+                // Set this to false to execute it repeatedly every 5 seconds
+                false
+            );
         }
         protected void Application_BeginRequest(Object source, EventArgs e)
         {

@@ -246,6 +246,12 @@ namespace InsuranceWebsite.Controllers
                             return;
                         }
 
+                        if(payment.ID_PaymentStatus == (int)PaymentStatusEnum.PAYED && payment.NotificationSent)
+                        {
+                            InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.WARNING, string.Format("{0}", Request.UserHostAddress), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), string.Format("Payment already payed and notification sent. {0}, {1}, {2}, {3}", ep_cin, ep_user, ep_doc, ep_type));
+                            return;
+                        }
+
                         payment.LastChangeDate = DateTime.Now;
                         payment.PaymentDate = DateTime.Now;
                         payment.o_obs = response.SelectSingleNode("getautoMB_detail/o_obs").InnerText;
@@ -290,6 +296,8 @@ namespace InsuranceWebsite.Controllers
                     //LibaxUtils.LibaxUtils.CreateInvoice(profile, payment);
                     // Send user email
                     SendPaymentConfirmationEmail(string.Format("{0} {1}", profile.FirstName, profile.LastName), profile.User.UserName, null);
+                    payment.NotificationSent = true;
+                    InsuranceBusiness.BusinessLayer.UpdatePayment(payment);
                 }
                 else if (payment.ID_Garage.HasValue)
                 {
@@ -302,6 +310,8 @@ namespace InsuranceWebsite.Controllers
                     byte[] invoiceDocument = LibaxUtils.LibaxUtils.CreateInvoice(company, payment);
                     // Send user email
                     SendPaymentConfirmationEmail(company.Name, company.ContactEmail, invoiceDocument, payment.ID);
+                    payment.NotificationSent = true;
+                    InsuranceBusiness.BusinessLayer.UpdatePayment(payment);
                     // Request Direct Debit payment - schedule for one year later since today
                     RequestDirectDebitOrder(payment, baseUrl);
                 }
@@ -316,6 +326,8 @@ namespace InsuranceWebsite.Controllers
                     byte[] invoiceDocument = LibaxUtils.LibaxUtils.CreateInvoice(company, payment);
                     // Send user email
                     SendPaymentConfirmationEmail(company.Name, company.ContactEmail, invoiceDocument, payment.ID);
+                    payment.NotificationSent = true;
+                    InsuranceBusiness.BusinessLayer.UpdatePayment(payment);
                     // Request Direct Debit payment - schedule for one year later since today
                     RequestDirectDebitOrder(payment, baseUrl);
                 }
@@ -330,6 +342,8 @@ namespace InsuranceWebsite.Controllers
                     byte[] invoiceDocument = LibaxUtils.LibaxUtils.CreateInvoice(company, payment);
                     // Send user email
                     SendPaymentConfirmationEmail(company.Name, company.ContactEmail, invoiceDocument, payment.ID);
+                    payment.NotificationSent = true;
+                    InsuranceBusiness.BusinessLayer.UpdatePayment(payment);
                     // Request Direct Debit payment - schedule for one year later since today
                     RequestDirectDebitOrder(payment, baseUrl);
                 }
@@ -344,6 +358,8 @@ namespace InsuranceWebsite.Controllers
                     byte[] invoiceDocument = LibaxUtils.LibaxUtils.CreateInvoice(company, payment);
                     // Send user email
                     SendPaymentConfirmationEmail(company.Name, company.ContactEmail, invoiceDocument, payment.ID);
+                    payment.NotificationSent = true;
+                    InsuranceBusiness.BusinessLayer.UpdatePayment(payment);
                     // Request Direct Debit payment - schedule for one year later since today
                     RequestDirectDebitOrder(payment, baseUrl);
                 }
@@ -358,6 +374,8 @@ namespace InsuranceWebsite.Controllers
                     byte[] invoiceDocument = LibaxUtils.LibaxUtils.CreateInvoice(company, payment);
                     // Send user email
                     SendPaymentConfirmationEmail(company.Name, company.ContactEmail, invoiceDocument, payment.ID);
+                    payment.NotificationSent = true;
+                    InsuranceBusiness.BusinessLayer.UpdatePayment(payment);
                     // Request Direct Debit payment - schedule for one year later since today
                     RequestDirectDebitOrder(payment, baseUrl);
                 }
@@ -369,13 +387,13 @@ namespace InsuranceWebsite.Controllers
             }
         }
 
-        private void RequestDirectDebitOrder(PaymentDTO payment, string baseUrl)
+        public void RequestDirectDebitOrder(PaymentDTO payment, string baseUrl)
         {
             // Request Direct Debit payment to be executed in one year
             PaymentDTO directDebitPayment = InsuranceBusiness.BusinessLayer.GetPaymentByUserAndType(payment.ID_Garage.Value, PaymentTypeEnum.DIRECT_DEBIT, CompanyTypeEnum.GARAGE);
             if (null != directDebitPayment)
             {
-                baseUrl = string.Format("{0}?e={1}&r={2}&v={3}&ep_k1={4}&rec=yes&ep_key_rec={5}&request_date={6}-{7}-{8}&ep_test=ok"
+                baseUrl = string.Format("{0}?e={1}&r={2}&v={3}&ep_k1={4}&rec=yes&ep_key_rec={5}&request_date={6}-{7}-{8}"
                     , InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_URL_REQUEST_PAYMENT_URL).Value
                     , directDebitPayment.ep_entity
                     , directDebitPayment.ep_reference
@@ -540,7 +558,7 @@ namespace InsuranceWebsite.Controllers
             }
         }
 
-        private bool SendPaymentConfirmationEmail(string name, string email, byte[] invoiceDocument, long paymentId = -1)
+        public bool SendPaymentConfirmationEmail(string name, string email, byte[] invoiceDocument, long paymentId = -1)
         {
             System.Net.Mail.MailMessage m = new System.Net.Mail.MailMessage(
                 new System.Net.Mail.MailAddress(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.PLATFORM_EMAIL).Value, Resources.Resources.ApplicationNAme),

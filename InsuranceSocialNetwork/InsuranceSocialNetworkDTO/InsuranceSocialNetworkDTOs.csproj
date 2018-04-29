@@ -43,6 +43,7 @@
     <Compile Include="Banner\BannerTypeDTO.cs" />
     <Compile Include="Banner\BannerDTO.cs" />
     <Compile Include="Chat\ChatMemberDTO.cs" />
+    <Compile Include="Chat\ChatNoteDTO.cs" />
     <Compile Include="Chat\ChatMessageDTO.cs" />
     <Compile Include="Chat\ChatDTO.cs" />
     <Compile Include="Company\CompanyDTO.cs" />

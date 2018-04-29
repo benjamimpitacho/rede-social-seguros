@@ -296,7 +296,7 @@ namespace InsuranceWebsite.Controllers
             NoteModelObject model = new NoteModelObject();
             model.ID_Chat = idChat;
             model.ID_User = idUser;
-            return PartialView(model);
+            return PartialView("Partial/CreateNote", model);
         }
 
         [HttpPost]
@@ -315,6 +315,13 @@ namespace InsuranceWebsite.Controllers
             }
 
             return RedirectToAction("OpenChat", new { id = model.ID_Chat });
+        }
+
+        [FunctionalityAutorizeAttribute("MESSAGES_FUNCTIONALITY")]
+        public ActionResult DeleteNote(long id, long idC)
+        {
+            InsuranceBusiness.BusinessLayer.DeleteNote(id, CurrentUser.ID_User);
+            return RedirectToAction("OpenChat", new { id = idC });
         }
 
         [FunctionalityAutorizeAttribute("MESSAGES_FUNCTIONALITY")]

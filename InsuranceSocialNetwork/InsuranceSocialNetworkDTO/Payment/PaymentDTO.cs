@@ -68,6 +68,7 @@ namespace InsuranceSocialNetworkDTO.Payment
         public DateTime LastChangeDate { get; set; }
         public DateTime? DeleteDate { get; set; }
         public DateTime? ExpiracyDate { get; set; }
+        public bool NotificationSent { get; set; }
         public bool Active { get; set; }
         public string Message { get; set; }
     }

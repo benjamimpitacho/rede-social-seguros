@@ -222,6 +222,7 @@
     <Compile Include="Commons\FunctionalityAutorizeAttribute.cs" />
     <Compile Include="Commons\CommonUtils.cs" />
     <Compile Include="Commons\ConfigurationSettings.cs" />
+    <Compile Include="Commons\WorkerUtils.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\NotificationsManagementController.cs" />
     <Compile Include="Controllers\BannersManagementController.cs" />

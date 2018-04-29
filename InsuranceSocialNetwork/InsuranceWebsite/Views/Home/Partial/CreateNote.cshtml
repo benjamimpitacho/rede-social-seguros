@@ -97,7 +97,7 @@
     }
 </style>
 
-<div id="dialog-form" title="@Resources.Resources.EditCompany">
+<div id="dialog-form" title="@Resources.Resources.EditCompany" style="padding-top:10px;">
 
     @using (Html.BeginForm("CreateNote", "Home", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
     {
@@ -106,15 +106,15 @@
         @Html.HiddenFor(i => i.ID_User);
 
         <div>
-            <p class="data-row">
-                <span class="data-name profile-label">@Resources.Resources.Note</span>
-                <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.Text)</label>
+            <p class="data-row" style="display:inline;">
+                <span class="data-name profile-label" style="width:100%;">@Resources.Resources.Note</span>
+                <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.Text, new { style= "", maxlength = "150" })</label>
                 @Html.ValidationMessageFor(i => i.Text)
             </p>
         </div>
 
         <div>
-            <input id="submitButton" type="submit" value="@Resources.Resources.Save" />
+            <input class="btn btn-blue" id="submitButton" type="submit" value="@Resources.Resources.Save" />
         </div>
     }
 </div>

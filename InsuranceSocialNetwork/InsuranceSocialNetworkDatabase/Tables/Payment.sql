@@ -60,6 +60,7 @@
     [Active] BIT NOT NULL DEFAULT 1,
 	[Message] NVARCHAR(MAX) NULL,
 	[InvoiceDocument] IMAGE NULL,
+	[NotificationSent] BIT NOT NULL DEFAULT 0,
     CONSTRAINT [PK_Payment] PRIMARY KEY CLUSTERED ([ID] ASC),
     CONSTRAINT [FK_Payment_Profile] FOREIGN KEY([ID_Profile]) REFERENCES [Insurance].[Profile] ([ID]),
     CONSTRAINT [FK_Payment_PaymentType] FOREIGN KEY([ID_PaymentType]) REFERENCES [Insurance].[PaymentType] ([ID]),
