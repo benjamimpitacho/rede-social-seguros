@@ -713,7 +713,7 @@ namespace InsuranceWebsite.Controllers
                         if (!skipProcessing)
                         {
                             decimal vatValue = decimal.Parse(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.VAT_PERCENTAGE).Value, System.Globalization.CultureInfo.InvariantCulture);
-                            decimal liquidValue = decimal.Round(((model.Value / (1 + vatValue)) - model.Value) * -1, 2, MidpointRounding.AwayFromZero);
+                            decimal liquidValue = model.Value - decimal.Round(((model.Value / (1 + vatValue)) - model.Value) * -1, 2, MidpointRounding.AwayFromZero);
                             payment = new PaymentDTO()
                             {
                                 CreateDate = DateTime.Now,

@@ -154,6 +154,7 @@ namespace InsuranceWebsite.LibaxUtils
 
                     //var webClient = new WebClient();
                     var dataString = JsonConvert.SerializeObject(productToInsert);
+                    InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, string.Format("CompanyID:{0}", entity.ID), string.Format("{0}.{1}", "LibaxUtils", "CreateInvoice - Create Product"), dataString);
                     client.Headers.Add(HttpRequestHeader.Authorization, "Bearer " + authorizationToken);
                     client.Headers.Add(HttpRequestHeader.ContentType, "application/json");
                     var res = client.UploadString(new Uri(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.LIBAX_API_URL).Value + "/api/v1/products"), "POST", dataString);
@@ -228,7 +229,7 @@ namespace InsuranceWebsite.LibaxUtils
                         DiscountRate = productToInclude.DiscountRate,
                         Quantity = 1,
                         UnitID = productToInclude.UnitID,
-                        UnitPrice = 6.9M,//payment.LiquidValue,//decimal.Parse(payment.t_value),
+                        UnitPrice = payment.LiquidValue,//decimal.Parse(payment.t_value),
                         ApplyRetention = productToInclude.ApplyRetention,
                         Description = "Registo portal Falar Seguros",
                         Order = 1
