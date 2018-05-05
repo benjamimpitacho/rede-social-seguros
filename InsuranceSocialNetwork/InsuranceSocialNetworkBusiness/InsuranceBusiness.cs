@@ -198,6 +198,11 @@ namespace InsuranceSocialNetworkBusiness
             return UserProfileRepository.IsUserAuthorizedToFunctionality(username, functionality);
         }
 
+        public bool IsUserInRole(string username, string role)
+        {
+            return UserProfileRepository.IsUserInRole(username, role);
+        }
+
         public List<UserProfileDTO> GetUsers()
         {
             List<Profile> users = UserProfileRepository.GetProfiles();

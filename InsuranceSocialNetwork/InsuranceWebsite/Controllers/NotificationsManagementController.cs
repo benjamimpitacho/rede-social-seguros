@@ -303,6 +303,7 @@ namespace InsuranceWebsite.Controllers
                 {
                     CompanyDTO company = InsuranceBusiness.BusinessLayer.GetGarage(payment.ID_Garage.Value);
                     // Activate user
+                    InsuranceBusiness.BusinessLayer.ActivateUser(company.ID_User);
                     InsuranceBusiness.BusinessLayer.ActivateGarage(payment.ID_Garage.Value);
                     // Send user notification
                     //InsuranceBusiness.BusinessLayer.CreateNotificationForPaymentDone(NotificationTypeEnum.PAYMENT_CONFIRMED, true, payment.ID_Garage.Value, payment.ID, CompanyTypeEnum.GARAGE);
@@ -319,6 +320,7 @@ namespace InsuranceWebsite.Controllers
                 {
                     CompanyDTO company = InsuranceBusiness.BusinessLayer.GetGarage(payment.ID_ConstructionCompany.Value);
                     // Activate user
+                    InsuranceBusiness.BusinessLayer.ActivateUser(company.ID_User);
                     InsuranceBusiness.BusinessLayer.ActivateConstructionCompany(payment.ID_ConstructionCompany.Value);
                     // Send user notification
                     //InsuranceBusiness.BusinessLayer.CreateNotificationForPaymentDone(NotificationTypeEnum.PAYMENT_CONFIRMED, true, payment.ID_ConstructionCompany.Value, payment.ID, CompanyTypeEnum.CONSTRUCTION_COMPANY);
@@ -335,6 +337,7 @@ namespace InsuranceWebsite.Controllers
                 {
                     CompanyDTO company = InsuranceBusiness.BusinessLayer.GetGarage(payment.ID_HomeApplianceRepair.Value);
                     // Activate user
+                    InsuranceBusiness.BusinessLayer.ActivateUser(company.ID_User);
                     InsuranceBusiness.BusinessLayer.ActivateHomeApplianceRepair(payment.ID_HomeApplianceRepair.Value);
                     // Send user notification
                     //InsuranceBusiness.BusinessLayer.CreateNotificationForPaymentDone(NotificationTypeEnum.PAYMENT_CONFIRMED, true, payment.ID_HomeApplianceRepair.Value, payment.ID, CompanyTypeEnum.HOME_APPLIANCES_REPAIR);
@@ -351,6 +354,7 @@ namespace InsuranceWebsite.Controllers
                 {
                     CompanyDTO company = InsuranceBusiness.BusinessLayer.GetGarage(payment.ID_InsuranceCompanyContact.Value);
                     // Activate user
+                    InsuranceBusiness.BusinessLayer.ActivateUser(company.ID_User);
                     InsuranceBusiness.BusinessLayer.ActivateInsuranceCompanyContact(payment.ID_InsuranceCompanyContact.Value);
                     // Send user notification
                     //InsuranceBusiness.BusinessLayer.CreateNotificationForPaymentDone(NotificationTypeEnum.PAYMENT_CONFIRMED, true, payment.ID_InsuranceCompanyContact.Value, payment.ID, CompanyTypeEnum.INSURANCE_COMPANY_CONTACT);
@@ -367,6 +371,7 @@ namespace InsuranceWebsite.Controllers
                 {
                     CompanyDTO company = InsuranceBusiness.BusinessLayer.GetGarage(payment.ID_MedicalClinic.Value);
                     // Activate user
+                    InsuranceBusiness.BusinessLayer.ActivateUser(company.ID_User);
                     InsuranceBusiness.BusinessLayer.ActivateMedicalClinic(payment.ID_MedicalClinic.Value);
                     // Send user notification
                     //InsuranceBusiness.BusinessLayer.CreateNotificationForPaymentDone(NotificationTypeEnum.PAYMENT_CONFIRMED, true, payment.ID_MedicalClinic.Value, payment.ID, CompanyTypeEnum.MEDICAL_CLINIC);
