@@ -1,4 +1,4 @@
-﻿@model System.Web.Mvc.HandleErrorInfo
+﻿@model InsuranceWebsite.Models.ErrorViewModel
 
 @{
     ViewBag.Title = "Error";
@@ -10,9 +10,17 @@
 <div style="width:100%;color:#fff;background-color:#4B5C66;padding:30px 0px;height:100px;">
     <span style="font-size:30px;font-weight:bold;margin-left:30%;margin-right:30%;">@Resources.Resources.Error</span>
 </div>
+
 <div style="width:100%;background-color:#00C1DE;position:absolute;height: calc( 100% - 390px );">
     <div style="display:grid;padding:40px 0px;">
         <span style="margin-left:30%;margin-right:30%;margin-bottom:20px;font-size:30px;font-weight:bold;color:#4B5C66;">@Resources.Resources.UnexpectedErrorOcurred</span>
-        <span style="margin-left:30%;margin-right:30%;font-size:16px;font-weight:bold;color:#fff;">@Resources.Resources.TechnicalTeamWillBeNotified</span>
+        @if (null == Model || string.IsNullOrEmpty(Model.ErrorMessage))
+        {
+            <span style="margin-left:30%;margin-right:30%;font-size:16px;font-weight:bold;color:#fff;">@Resources.Resources.TechnicalTeamWillBeNotified</span>
+        }
+        else
+        {
+            <span style="margin-left:30%;margin-right:30%;font-size:16px;font-weight:bold;color:#fff;">@Model.ErrorMessage</span>
+        }
     </div>
 </div>

@@ -1,6 +1,7 @@
 ﻿CREATE TABLE [Insurance].[HomeApplianceRepair]
 (
 	[ID] BIGINT IDENTITY NOT NULL, 
+	[ID_User] NVARCHAR(128) NULL,
     [Name] NVARCHAR(256) NOT NULL, 
     [Description] NVARCHAR(256) NULL,
 	[NIF] NVARCHAR(16) NOT NULL, 
@@ -35,6 +36,7 @@
     [DeleteDate] DATETIME2 NULL, 
     [Active] BIT NOT NULL DEFAULT 1,
     CONSTRAINT [PK_HomeApplianceRepair] PRIMARY KEY CLUSTERED ([ID] ASC),
+	CONSTRAINT [FK_HomeApplianceRepair_AspNetUsers] FOREIGN KEY([ID_User]) REFERENCES [dbo].[AspNetUsers] ([Id]),
 	CONSTRAINT [FK_HomeApplianceRepair_District] FOREIGN KEY([ID_District]) REFERENCES [Insurance].[District] ([ID]),
 	CONSTRAINT [FK_HomeApplianceRepair_County] FOREIGN KEY([ID_County]) REFERENCES [Insurance].[County] ([ID]),
 	CONSTRAINT [FK_HomeApplianceRepair_Parish] FOREIGN KEY([ID_Parish]) REFERENCES [Insurance].[Parish] ([ID]),

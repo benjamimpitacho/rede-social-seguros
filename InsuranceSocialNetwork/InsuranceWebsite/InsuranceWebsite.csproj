@@ -236,6 +236,7 @@
     </Compile>
     <Compile Include="Hubs\ChatHub.cs" />
     <Compile Include="Models\CompaniesManagementViewModels.cs" />
+    <Compile Include="Models\ErrorViewModel.cs" />
     <Compile Include="Models\PaymentViewModel.cs" />
     <Compile Include="Models\FriendsViewModels.cs" />
     <Compile Include="Models\ChatViewModel.cs" />

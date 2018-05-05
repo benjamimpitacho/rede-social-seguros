@@ -11,6 +11,7 @@ namespace InsuranceSocialNetworkDTO.Company
     public class CompanyDTO
     {
         public long ID { get; set; }
+        public string ID_User { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string NIF { get; set; }

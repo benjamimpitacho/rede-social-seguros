@@ -320,6 +320,21 @@ namespace InsuranceSocialNetworkDAL
             }
         }
 
+        public static bool ActivateUser(string userId)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                AspNetUsers user = context.AspNetUsers.Get(userId);
+                
+                user.LockoutEndDateUtc = null;
+                context.AspNetUsers.Update(user);
+
+                context.Save();
+
+                return true;
+            }
+        }
+
         public static bool DeactivateUser(long profileId)
         {
             using (var context = new BackofficeUnitOfWork())

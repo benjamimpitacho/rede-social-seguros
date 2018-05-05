@@ -6,10 +6,12 @@
     ViewBag.Title = Resources.Resources.HomePageTitle;
 }
 
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/Scripts/jsGrid")
+
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 @Styles.Render("~/Content/jsGrid")
-@Scripts.Render("~/Scripts/jsGrid")
 
 @Scripts.Render("~/bundles/jqueryval")
 
@@ -59,6 +61,7 @@
 </div><!-- end timeline content-->
 
 <script>
+
     $(document).ready(function () {
         var url = "";
 
@@ -100,6 +103,7 @@
             open: function (event, ui) {
                 //$(".ui-dialog-titlebar-close").hide();
                 //$(this).dialog.css({ 'top': '69px' });
+                alert(url);
                 $(this).load(url);
             },
             buttons: {

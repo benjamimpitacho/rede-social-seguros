@@ -54,6 +54,7 @@ namespace InsuranceSocialNetworkDAL
         public Nullable<long> Invoice_ID_County { get; set; }
         public Nullable<long> Invoice_ID_District { get; set; }
         public Nullable<int> LibaxEntityID { get; set; }
+        public string ID_User { get; set; }
     
         public virtual CompanyService CompanyService { get; set; }
         public virtual County County { get; set; }
@@ -66,5 +67,6 @@ namespace InsuranceSocialNetworkDAL
         public virtual ICollection<HomeApplianceRepairFavorite> HomeApplianceRepairFavorite { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Payment> Payment { get; set; }
+        public virtual AspNetUsers AspNetUsers { get; set; }
     }
 }

@@ -156,6 +156,11 @@
         <AssociationConnector Association="InsurancePortal_dbModel.FK_PostHidden_Post" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_PostImage_Post" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_PostLike_Post" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_ConstructionCompany_AspNetUsers" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_Garage_AspNetUsers" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_HomeApplianceRepair_AspNetUsers" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_InsuranceCompanyContact_AspNetUsers" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_MedicalClinic_AspNetUsers" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

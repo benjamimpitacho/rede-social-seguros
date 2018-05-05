@@ -234,6 +234,11 @@ namespace InsuranceSocialNetworkBusiness
             return UserProfileRepository.ActivateUser(profileId);
         }
 
+        public bool ActivateUser(string userId)
+        {
+            return UserProfileRepository.ActivateUser(userId);
+        }
+
         public bool DeactivateUser(long profileId)
         {
             return UserProfileRepository.DeactivateUser(profileId);
