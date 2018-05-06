@@ -136,25 +136,41 @@
                         <div style="font-size:12px;">@item.Description</div>
                     </div>
                     
-                    @if (item.IsFavorite)
-                    {
-                        <a onclick="RemoveFavorite(this, @item.ID, @(Model.IsSearchGarages ? (int)CompanyTypeEnum.GARAGE : Model.IsSearchClinics ? (int)CompanyTypeEnum.MEDICAL_CLINIC : Model.IsSearchConstructionCompanies ? (int)CompanyTypeEnum.CONSTRUCTION_COMPANY : Model.IsSearchHomeApplianceRepair ? (int)CompanyTypeEnum.HOME_APPLIANCES_REPAIR : Model.IsSearchInsuranceContacts ? (int)CompanyTypeEnum.INSURANCE_COMPANY_CONTACT : -1))" id="removeFavorite">
-                            <img class="search-result-icon" src="~/Content/icons/139.png" />
-                        </a>
-                    }
-                    else
-                    {
-                        <a onclick="AddFavorite(this, @item.ID, @(Model.IsSearchGarages ? (int)CompanyTypeEnum.GARAGE : Model.IsSearchClinics ? (int)CompanyTypeEnum.MEDICAL_CLINIC : Model.IsSearchConstructionCompanies ? (int)CompanyTypeEnum.CONSTRUCTION_COMPANY : Model.IsSearchHomeApplianceRepair ? (int)CompanyTypeEnum.HOME_APPLIANCES_REPAIR : Model.IsSearchInsuranceContacts ? (int)CompanyTypeEnum.INSURANCE_COMPANY_CONTACT : -1))" id="addFavorite">
-                            <img class="search-result-icon" src="~/Content/icons/138.png" />
-                        </a>
-                    }
+                    <div style="display:grid;">
+                        @if (item.IsFavorite)
+                        {
+                            <a onclick="RemoveFavorite(this, @item.ID, @(Model.IsSearchGarages ? (int)CompanyTypeEnum.GARAGE : Model.IsSearchClinics ? (int)CompanyTypeEnum.MEDICAL_CLINIC : Model.IsSearchConstructionCompanies ? (int)CompanyTypeEnum.CONSTRUCTION_COMPANY : Model.IsSearchHomeApplianceRepair ? (int)CompanyTypeEnum.HOME_APPLIANCES_REPAIR : Model.IsSearchInsuranceContacts ? (int)CompanyTypeEnum.INSURANCE_COMPANY_CONTACT : -1))" id="removeFavorite">
+                                <img class="search-result-icon" src="~/Content/icons/139.png" />
+                            </a>
+                        }
+                        else
+                        {
+                            <a onclick="AddFavorite(this, @item.ID, @(Model.IsSearchGarages ? (int)CompanyTypeEnum.GARAGE : Model.IsSearchClinics ? (int)CompanyTypeEnum.MEDICAL_CLINIC : Model.IsSearchConstructionCompanies ? (int)CompanyTypeEnum.CONSTRUCTION_COMPANY : Model.IsSearchHomeApplianceRepair ? (int)CompanyTypeEnum.HOME_APPLIANCES_REPAIR : Model.IsSearchInsuranceContacts ? (int)CompanyTypeEnum.INSURANCE_COMPANY_CONTACT : -1))" id="addFavorite">
+                                <img class="search-result-icon" src="~/Content/icons/138.png" />
+                            </a>
+                        }
+
+                        @if (!string.IsNullOrEmpty(item.ContactEmail))
+                        {
+                            <a href="mailto:@item.ContactEmail" target="_top" style="margin-top:10px;">
+                                <img class="search-result-icon" src="~/Content/icons/icons_diretorios_rede_social_falar_seguros_AF4.png" />
+                            </a>
+                        }
+                        
+                        @if (!string.IsNullOrEmpty(item.Website))
+                        {
+                            <a href="@Url.Content(item.Website)" target="_blank" style="margin-top:10px;">
+                                <img class="search-result-icon" src="~/Content/icons/144.png" />
+                            </a>
+                        }
+                    </div>
                 </div>
                 <div class="search-result-contacts">
-                    <div style="width:33%;display:inline-flex;">
+                    <div style="width:50%;display:inline-flex;">
                         <img class="search-result-icon" src="~/Content/icons/141.png" />
                         <div style="padding-left: 5px;padding-top: 4px;">@item.Address</div>
                     </div>
-                    <div style="width:24%;display:inline-flex;">
+                    <div style="width:25%;display:inline-flex;">
                         <img class="search-result-icon" src="~/Content/icons/142.png" />
                         <div style="padding-left: 4px;padding-top: 4px;">
                             <div>@item.Telephone_1</div>
@@ -163,15 +179,15 @@
                             <div>@item.MobilePhone_2</div>
                         </div>
                     </div>
-                    <div style="width:23%;display:inline-flex;">
+                    <div style="width:25%;display:inline-flex;">
                         <img class="search-result-icon" src="~/Content/icons/143.png" />
                         <div style="padding-left: 4px;padding-top:4px;">@item.NIF</div>
                     </div>
-                    <div style="width:10%;">
+                    @*<div style="width:10%;">
                         @if (!string.IsNullOrEmpty(item.ContactEmail))
                         {
                             <a href="mailto:@item.ContactEmail" target="_top">
-                                <img class="search-result-icon" src="~/Content/icons/144.png" />
+                                <img class="search-result-icon" src="~/Content/icons/icons_diretorios_rede_social_falar_seguros_AF4.png" />
                             </a>
                         }
                     </div>
@@ -182,7 +198,7 @@
                                 <img class="search-result-icon" src="~/Content/icons/144.png" />
                             </a>
                         }
-                    </div>
+                    </div>*@
                 </div>
                 <div class="search-result-details">
                     <div style="padding: 10px 0px;">

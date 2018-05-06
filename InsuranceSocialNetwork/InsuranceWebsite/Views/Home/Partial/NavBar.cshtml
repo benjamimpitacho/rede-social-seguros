@@ -23,50 +23,47 @@
                         <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF122.png" class="mini-avatar item-photo" style="max-width:40px; max-height:40px;margin-top:9px;">
                     </a>
                 </div>
-            }
 
-            <div class="" style="display:inline;margin-right:10px;">
+                <div class="" style="display:inline;margin-right:10px;">
                 
-                @if (Model.TotalUnreadMessages > 0)
-                {
-                    <a href="@Url.Action("Messages", "Home")" title="@Resources.Resources.Messages" style="margin-right:-20px;">
-                        <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF16.png" class="mini-avatar item-photo" style="max-width:40px; max-height:40px;margin-top:9px;">
-                    </a>
-                    <span class="badge badge-notify" style="top:-10px;left:0px;position:relative;">@Model.TotalUnreadMessages</span>
-                }
-                else
-                {
-                    <a href="@Url.Action("Messages", "Home")" title="@Resources.Resources.Messages">
-                        <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF16.png" class="mini-avatar item-photo" style="max-width:40px; max-height:40px;margin-top:9px;">
-                    </a>
-                }
-            </div>
+                    @if (Model.TotalUnreadMessages > 0)
+                    {
+                        <a href="@Url.Action("Messages", "Home")" title="@Resources.Resources.Messages" style="margin-right:-20px;">
+                            <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF16.png" class="mini-avatar item-photo" style="max-width:40px; max-height:40px;margin-top:9px;">
+                        </a>
+                        <span class="badge badge-notify" style="top:-10px;left:0px;position:relative;">@Model.TotalUnreadMessages</span>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("Messages", "Home")" title="@Resources.Resources.Messages">
+                            <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF16.png" class="mini-avatar item-photo" style="max-width:40px; max-height:40px;margin-top:9px;">
+                        </a>
+                    }
+                </div>
 
-            @if (!InsuranceBusiness.BusinessLayer.IsUserInRole(this.User.Identity.Name, RoleEnum.DIRECTORY_COMPANY.ToString()))
-            {
                 <div class="" style="display:inline;margin-right:10px;">
                     <a href="@Url.Action("Search", "Home")" title="@Resources.Resources.Search">
                         <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF116.png" class="mini-avatar item-photo" style="max-width:40px; max-height:40px;margin-top:9px;">
                     </a>
                 </div>
-            }
 
-            <div class="" style="display:inline;margin-right:10px;">
+                <div class="" style="display:inline;margin-right:10px;">
                 
-                @if (Model.TotalUnreadNotifications > 0)
-                {
-                    <a href="@Url.Action("Notifications", "Home")" title="@Resources.Resources.Notifications" style="margin-right:-20px;">
-                        <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF113.png" class="mini-avatar item-photo" style="max-width:40px; max-height:40px;margin-top:9px;">
-                    </a>
-                    <span class="badge badge-notify" style="top:-10px;left:0px;position:relative;">@Model.TotalUnreadNotifications</span>
-                }
-                else
-                {
-                    <a href="@Url.Action("Notifications", "Home")" title="@Resources.Resources.Notifications">
-                        <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF113.png" class="mini-avatar item-photo" style="max-width:40px; max-height:40px;margin-top:9px;">
-                    </a>
-                }
-            </div>
+                    @if (Model.TotalUnreadNotifications > 0)
+                    {
+                        <a href="@Url.Action("Notifications", "Home")" title="@Resources.Resources.Notifications" style="margin-right:-20px;">
+                            <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF113.png" class="mini-avatar item-photo" style="max-width:40px; max-height:40px;margin-top:9px;">
+                        </a>
+                        <span class="badge badge-notify" style="top:-10px;left:0px;position:relative;">@Model.TotalUnreadNotifications</span>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("Notifications", "Home")" title="@Resources.Resources.Notifications">
+                            <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF113.png" class="mini-avatar item-photo" style="max-width:40px; max-height:40px;margin-top:9px;">
+                        </a>
+                    }
+                </div>
+            }
             
             <a class="collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                 <img src="../../../Content/icons/icons_mensagens_rede_social_falar_seguros_AF12.png" style="max-height: 40px;float: right;margin-right: 10px;margin-top: 10px;" />
@@ -77,7 +74,8 @@
         <div id="navbar" class="collapse navbar-collapse" style="max-height: 100vh;background-color:#BDC6C9;">
 
             <ul class="nav navbar-nav navbar-right">
-
+                @if (!InsuranceBusiness.BusinessLayer.IsUserInRole(this.User.Identity.Name, RoleEnum.DIRECTORY_COMPANY.ToString()))
+                {
                 <li>
                     <div class="panel" style="box-shadow:none; background-color:#4B5C66; display:flex; margin-top: 0px;margin-bottom:0px !important;min-height: 62px;">
                         <a href="@Url.Action("Index", "ProfileInfo")">
@@ -194,7 +192,7 @@
                         </div>
                     </div>
                 </li>
-
+                }
                 <li>
                     <div class="panel" style="box-shadow:none; background-color:transparent; display:flex; margin-top: 0px;margin-bottom:0px !important;">
                         <h5 class="btn-rightbar" style="margin: 0px; width:100%;color:#4B5C66;"><img src="~/Content/icons/home_page_rede_social_falar_seguros_AF149.png" style="margin-left:10px; margin-right:10px;max-width:50px;" />@Html.ActionLink(Resources.Resources.InsuranceBusinesses, "InsuranceBusinesses", "Home")</h5>

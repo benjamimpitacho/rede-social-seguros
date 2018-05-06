@@ -64,6 +64,8 @@ namespace InsuranceWebsite.Models
 
         public ProfileEditModel ProfileEditModel { get; set; }
 
+        public CompanyModelObject CompanyModel { get; set; }
+
         #region Banners Fields
 
         public List<BannerDTO> TopBanners { get; set; }

@@ -36,6 +36,7 @@ namespace InsuranceWebsite.Models
         public CompanyTypeEnum CompanyType { get; set; }
 
         public long ID { get; set; }
+        public string ID_User { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]

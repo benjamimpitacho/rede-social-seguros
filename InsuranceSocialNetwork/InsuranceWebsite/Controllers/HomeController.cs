@@ -1,4 +1,5 @@
-﻿using InsuranceSocialNetworkBusiness;
+﻿using AutoMapper;
+using InsuranceSocialNetworkBusiness;
 using InsuranceSocialNetworkCore.Enums;
 using InsuranceSocialNetworkCore.Utils;
 using InsuranceSocialNetworkDTO.Company;
@@ -83,6 +84,39 @@ namespace InsuranceWebsite.Controllers
             else
             {
                 return RedirectToAction("Login", "Account");
+            }
+
+            if (InsuranceBusiness.BusinessLayer.IsUserInRole(this.User.Identity.Name, RoleEnum.DIRECTORY_COMPANY.ToString()))
+            {
+                var company = InsuranceBusiness.BusinessLayer.GetCompany(CurrentUser.ID_User);
+                model.CompanyModel = new CompanyModelObject()
+                {
+                    ID = company.ID,
+                    ID_User = company.ID_User,
+                    Active = company.Active,
+                    Name = company.Name,
+                    Description = company.Description,
+                    Address = company.Address,
+                    ContactEmail = company.ContactEmail,
+                    ID_District = company.ID_District,
+                    ID_County = company.ID_County,
+                    ID_Parish = company.ID_Parish,
+                    ID_Service = company.ID_Service,
+                    LogoPhoto = company.LogoPhoto,
+                    MobilePhone_1 = company.MobilePhone_1,
+                    MobilePhone_2 = company.MobilePhone_2,
+                    NIF = company.NIF,
+                    OfficialAgent = company.OfficialAgent,
+                    OfficialPartner = company.OfficialPartner,
+                    Telephone_1 = company.Telephone_1,
+                    Telephone_2 = company.Telephone_2,
+                    Website = company.Website,
+                    Payments = company.Payment,
+                    CompanyType = company.CompanyType
+                };
+
+                model.CompanyModel.ServiceList = InsuranceBusiness.BusinessLayer.GetCompanyServices(model.CompanyModel.CompanyType).Select(i => new SelectListItem() { Value = i.Key.ToString(), Text = i.Value }).ToList();
+
             }
 
             return View(model);

@@ -767,6 +767,7 @@
     <Content Include="Views\NotificationsManagement\Partial\_DirectDebitSetupSuccess.cshtml" />
     <Content Include="Views\NotificationsManagement\Partial\_DirectDebitSetupFail.cshtml" />
     <Content Include="Views\Home\Partial\CreateNote.cshtml" />
+    <Content Include="Views\Home\Partial\CompanyProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

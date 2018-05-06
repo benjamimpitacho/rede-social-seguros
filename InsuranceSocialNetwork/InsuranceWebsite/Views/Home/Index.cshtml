@@ -1,4 +1,6 @@
 ﻿@using InsuranceWebsite.Models
+@using InsuranceSocialNetworkBusiness
+@using InsuranceSocialNetworkCore.Enums
 @model HomeViewModel
 
 @{
@@ -20,7 +22,11 @@
             @Html.Partial("~/Views/Home/Partial/SideNavBar.cshtml", Model)
 
             <!-- left  content-->
-            @if (Model.IsPostsView && !Model.IsProfileTimeline)
+            @if (InsuranceBusiness.BusinessLayer.IsUserInRole(this.User.Identity.Name, RoleEnum.DIRECTORY_COMPANY.ToString()))
+            {
+                @Html.Partial("~/Views/Home/Partial/CompanyProfile.cshtml", Model)
+            }
+            else if (Model.IsPostsView && !Model.IsProfileTimeline)
             {
                 @Html.Partial("~/Views/Home/Partial/Timeline.cshtml", Model)
             }

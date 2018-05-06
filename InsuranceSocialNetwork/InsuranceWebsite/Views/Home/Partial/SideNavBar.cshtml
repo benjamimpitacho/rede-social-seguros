@@ -29,6 +29,8 @@
             }
         </a>
     </div>
+    @if (!InsuranceBusiness.BusinessLayer.IsUserInRole(this.User.Identity.Name, RoleEnum.DIRECTORY_COMPANY.ToString()))
+    {
     <div class="item menu-item">
         <a href="@Url.Action("Notifications", "Home")" title="@Resources.Resources.Notifications">
             @*<span class="glyphicon glyphicon-bell"></span>*@
@@ -39,15 +41,12 @@
             <span class="badge badge-notify">@Model.TotalUnreadNotifications</span>
         }
     </div>
-    @if (!InsuranceBusiness.BusinessLayer.IsUserInRole(this.User.Identity.Name, RoleEnum.DIRECTORY_COMPANY.ToString()))
-    {
     <div class="item menu-item">
         <a href="@Url.Action("Search", "Home")" title="@Resources.Resources.Search">
             @*<span class="glyphicon glyphicon-search"></span>*@
             <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF116.png" class="mini-avatar item-photo">
         </a>
     </div>
-    }
     @*<div class="item">
         <a href="@Url.Action("Index", "Home")" title="@Resources.Resources.Home"><span class="glyphicon glyphicon-home"></span></a>
     </div>*@
@@ -61,21 +60,19 @@
             <span class="badge badge-notify">@Model.TotalUnreadMessages</span>
         }
     </div>
-    @if (!InsuranceBusiness.BusinessLayer.IsUserInRole(this.User.Identity.Name, RoleEnum.DIRECTORY_COMPANY.ToString()))
-    {
     <div class="item menu-item">
         <a href="@Url.Action("Friends", "Home")" title="@Resources.Resources.Friends">
             @*<span class="glyphicon glyphicon-user"></span>*@
             <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF122.png" class="mini-avatar item-photo">
         </a>
     </div>
-    }
     <div class="item menu-item">
         <a href="@Url.Action("ProfileConfigurations", "Home", new { userId = Model.Profile.ID_User })" title="@Resources.Resources.Settings">
             @*<span class="glyphicon glyphicon-option-horizontal"></span>*@
             <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF125.png" class="mini-avatar item-photo">
         </a>
     </div>
+    }
     <div class="item menu-item">
         <a href="@Url.Action("LogOff", "Account")" title="@Resources.Resources.Logout">
             <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF128.png" class="mini-avatar item-photo">

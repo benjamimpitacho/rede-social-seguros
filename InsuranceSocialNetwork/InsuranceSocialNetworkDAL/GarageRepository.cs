@@ -17,6 +17,25 @@ namespace InsuranceSocialNetworkDAL
             }
         }
 
+        public static Garage GetGarage(string userId)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                return context.Garage
+                    .Fetch()
+                    .Include(i => i.GarageFavorite)
+                    .Include(i => i.Payment)
+                    .Include(i => i.Parish)
+                    .Include(i => i.County)
+                    .Include(i => i.District)
+                    .Include(i => i.Parish1)
+                    .Include(i => i.County1)
+                    .Include(i => i.District1)
+                    .Where(i => i.Active)
+                    .FirstOrDefault(i => i.ID_User == userId);
+            }
+        }
+
         public static Garage GetGarage(BackofficeUnitOfWork context, long id)
         {
             return context.Garage

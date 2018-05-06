@@ -1126,9 +1126,24 @@ namespace InsuranceSocialNetworkBusiness
                     return false;
             }
         }
+
         public List<ListItem> GetInsuranceCompaniesWorkingWith(string userId)
         {
             return CompanyRepository.GetInsuranceCompaniesWorkingWith(userId).Select(i => new ListItem() { Key = i.ID, Value = i.BusinessName }).ToList();
+        }
+
+        public CompanyDTO GetCompany(string userId)
+        {
+            var company = GarageRepository.GetGarage(userId);
+
+            if(null != company)
+            {
+                CompanyDTO companyDTO = AutoMapper.Mapper.Map<CompanyDTO>(company);
+                companyDTO.CompanyType = CompanyTypeEnum.GARAGE;
+                return companyDTO;
+            }
+
+            return null;
         }
 
         #endregion Company
