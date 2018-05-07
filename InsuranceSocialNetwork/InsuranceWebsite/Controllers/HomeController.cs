@@ -145,7 +145,7 @@ namespace InsuranceWebsite.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
-            if(idNotification.HasValue)
+            if (idNotification.HasValue)
             {
                 InsuranceBusiness.BusinessLayer.MarkNotificationAsRead(idNotification.Value);
             }
@@ -308,7 +308,7 @@ namespace InsuranceWebsite.Controllers
                     return RedirectToAction("Login", "Account");
                 }
 
-                if(string.IsNullOrEmpty(userId) && id.HasValue)
+                if (string.IsNullOrEmpty(userId) && id.HasValue)
                 {
                     userId = InsuranceBusiness.BusinessLayer.GetUserIdFromProfileId(id.Value);
                 }
@@ -784,7 +784,7 @@ namespace InsuranceWebsite.Controllers
                     Subject = InsuranceSocialNetworkCore.Enums.PostSubjectEnum.PERSONAL_POST
                 };
 
-                if(!string.IsNullOrEmpty(livePreviewImgHidden))
+                if (!string.IsNullOrEmpty(livePreviewImgHidden))
                 {
                     newPost.Type = InsuranceSocialNetworkCore.Enums.PostTypeEnum.LINK_POST;
                     var webClient = new WebClient();
@@ -1076,7 +1076,7 @@ namespace InsuranceWebsite.Controllers
                 model.Post.PostOwner = CurrentUser;
 
                 List<SelectListItem> initList = new List<SelectListItem>() { new SelectListItem() { Value = "", Text = Resources.Resources.SelectBusinessType } };
-                model.SubjectTypeList = initList.Concat(InsuranceBusiness.BusinessLayer.GetSubjectTypes().Where(i => i.Value.StartsWith("INSURANCE_BUSINESS_")).Select(i => new SelectListItem() { Value = i.Key.ToString(), Text = Resources.Resources.ResourceManager.GetString(i.Value) }).ToList()).ToList();                
+                model.SubjectTypeList = initList.Concat(InsuranceBusiness.BusinessLayer.GetSubjectTypes().Where(i => i.Value.StartsWith("INSURANCE_BUSINESS_")).Select(i => new SelectListItem() { Value = i.Key.ToString(), Text = Resources.Resources.ResourceManager.GetString(i.Value) }).ToList()).ToList();
 
                 return PartialView("Partial/_CreateInsuranceBusinessPost", model);
             }
@@ -1108,7 +1108,7 @@ namespace InsuranceWebsite.Controllers
                 };
 
                 string subjectTypeToken = InsuranceBusiness.BusinessLayer.GetSubjectTypes().FirstOrDefault(i => i.Key == model.Post.ID_PostSubject).Value;
-                switch(subjectTypeToken)
+                switch (subjectTypeToken)
                 {
                     case "INSURANCE_BUSINESS_BUY_SELL_POST":
                         newPost.Subject = PostSubjectEnum.INSURANCE_BUSINESS_BUY_SELL_POST;
@@ -1366,7 +1366,7 @@ namespace InsuranceWebsite.Controllers
             model.Profile = CurrentUser;
 
             model.Items = InsuranceBusiness.BusinessLayer.GetUserRelatedPosts(CurrentUser.ID_User);
-            
+
             return PartialView("Partial/PostsControl", model);
         }
 
@@ -1452,25 +1452,59 @@ namespace InsuranceWebsite.Controllers
                     InsuranceBusiness.BusinessLayer.MarkNotificationAsRead(idNotification.Value);
                 }
 
-                model.IsProfileTimeline = true;
-                model.IsOwnProfile = (!id.HasValue || (id.HasValue && id.Value == model.Profile.ID));
-                model.CompaniesWorkingWith = InsuranceBusiness.BusinessLayer.GetInsuranceCompaniesWorkingWith(model.Profile.ID_User).Select(i => new SelectListItem() { Value = i.Key.ToString(), Text = i.Value }).ToList();
-                model.AllowedEmails = InsuranceBusiness.BusinessLayer.GetAuthorizedEmailsForAutomaticApproval(model.Profile.ID_User).Select(i => new SelectListItem() { Value = i, Text = i }).ToList();
-
-                if (!model.IsOwnProfile && id.HasValue)
+                if (InsuranceBusiness.BusinessLayer.IsUserInRole(this.User.Identity.Name, RoleEnum.DIRECTORY_COMPANY.ToString()))
                 {
-                    model.ProfileInfo = InsuranceBusiness.BusinessLayer.GetUserProfile(id.Value);
-                    model.IsFriend = InsuranceBusiness.BusinessLayer.AreFriends(CurrentUser.ID_User, model.ProfileInfo.ID_User);
-                    model.IsFriendRequest = InsuranceBusiness.BusinessLayer.HasPendingFriendRequest(CurrentUser.ID_User, model.ProfileInfo.ID_User);
-                    model.IsFriendRequested = InsuranceBusiness.BusinessLayer.HasPendingFriendRequested(CurrentUser.ID_User, model.ProfileInfo.ID_User);
+                    var company = InsuranceBusiness.BusinessLayer.GetCompany(CurrentUser.ID_User);
+                    model.CompanyModel = new CompanyModelObject()
+                    {
+                        ID = company.ID,
+                        ID_User = company.ID_User,
+                        Active = company.Active,
+                        Name = company.Name,
+                        Description = company.Description,
+                        Address = company.Address,
+                        ContactEmail = company.ContactEmail,
+                        ID_District = company.ID_District,
+                        ID_County = company.ID_County,
+                        ID_Parish = company.ID_Parish,
+                        ID_Service = company.ID_Service,
+                        LogoPhoto = company.LogoPhoto,
+                        MobilePhone_1 = company.MobilePhone_1,
+                        MobilePhone_2 = company.MobilePhone_2,
+                        NIF = company.NIF,
+                        OfficialAgent = company.OfficialAgent,
+                        OfficialPartner = company.OfficialPartner,
+                        Telephone_1 = company.Telephone_1,
+                        Telephone_2 = company.Telephone_2,
+                        Website = company.Website,
+                        Payments = company.Payment,
+                        CompanyType = company.CompanyType
+                    };
+
+                    model.CompanyModel.ServiceList = InsuranceBusiness.BusinessLayer.GetCompanyServices(model.CompanyModel.CompanyType).Select(i => new SelectListItem() { Value = i.Key.ToString(), Text = i.Value }).ToList();
                 }
                 else
                 {
-                    model.ProfileInfo = model.Profile;
-                }
+                    model.IsProfileTimeline = true;
+                    model.IsOwnProfile = (!id.HasValue || (id.HasValue && id.Value == model.Profile.ID));
+                    model.CompaniesWorkingWith = InsuranceBusiness.BusinessLayer.GetInsuranceCompaniesWorkingWith(model.Profile.ID_User).Select(i => new SelectListItem() { Value = i.Key.ToString(), Text = i.Value }).ToList();
+                    model.AllowedEmails = InsuranceBusiness.BusinessLayer.GetAuthorizedEmailsForAutomaticApproval(model.Profile.ID_User).Select(i => new SelectListItem() { Value = i, Text = i }).ToList();
 
-                model.ProfileInfo.TotalFriends = InsuranceBusiness.BusinessLayer.GetTotalFriends(model.ProfileInfo.ID_User);
-                model.ProfileInfo.TotalLikes = InsuranceBusiness.BusinessLayer.GetTotalLikes(model.ProfileInfo.ID_User);
+                    if (!model.IsOwnProfile && id.HasValue)
+                    {
+                        model.ProfileInfo = InsuranceBusiness.BusinessLayer.GetUserProfile(id.Value);
+                        model.IsFriend = InsuranceBusiness.BusinessLayer.AreFriends(CurrentUser.ID_User, model.ProfileInfo.ID_User);
+                        model.IsFriendRequest = InsuranceBusiness.BusinessLayer.HasPendingFriendRequest(CurrentUser.ID_User, model.ProfileInfo.ID_User);
+                        model.IsFriendRequested = InsuranceBusiness.BusinessLayer.HasPendingFriendRequested(CurrentUser.ID_User, model.ProfileInfo.ID_User);
+                    }
+                    else
+                    {
+                        model.ProfileInfo = model.Profile;
+                    }
+
+                    model.ProfileInfo.TotalFriends = InsuranceBusiness.BusinessLayer.GetTotalFriends(model.ProfileInfo.ID_User);
+                    model.ProfileInfo.TotalLikes = InsuranceBusiness.BusinessLayer.GetTotalLikes(model.ProfileInfo.ID_User);
+                }
 
                 return View("Index", model);
 
@@ -1830,15 +1864,15 @@ namespace InsuranceWebsite.Controllers
             model.ProfileEditModel = new ProfileEditModel();
             model.ProfileEditModel.ID = model.Profile.ID;
             model.ProfileEditModel.ID_User = model.Profile.ID_User;
-            model.ProfileEditModel.FirstName =  model.Profile.FirstName;
-            model.ProfileEditModel.LastName =  model.Profile.LastName;
+            model.ProfileEditModel.FirstName = model.Profile.FirstName;
+            model.ProfileEditModel.LastName = model.Profile.LastName;
             model.ProfileEditModel.CompanyName = model.Profile.CompanyName;
-            model.ProfileEditModel.MobilePhone_1 =  model.Profile.MobilePhone_1;
-            model.ProfileEditModel.MobilePhone_2 =  model.Profile.MobilePhone_2;
-            model.ProfileEditModel.Telephone_1 =  model.Profile.Telephone_1;
-            model.ProfileEditModel.Telephone_2 =  model.Profile.Telephone_2;
+            model.ProfileEditModel.MobilePhone_1 = model.Profile.MobilePhone_1;
+            model.ProfileEditModel.MobilePhone_2 = model.Profile.MobilePhone_2;
+            model.ProfileEditModel.Telephone_1 = model.Profile.Telephone_1;
+            model.ProfileEditModel.Telephone_2 = model.Profile.Telephone_2;
             model.ProfileEditModel.Fax = model.Profile.Fax;
-            model.ProfileEditModel.Address =  model.Profile.Address;
+            model.ProfileEditModel.Address = model.Profile.Address;
             model.ProfileEditModel.PostalCode = model.Profile.PostalCode;
             model.ProfileEditModel.ID_Parish = model.Profile.ID_Parish;
             model.ProfileEditModel.ID_County = model.Profile.ID_County;
@@ -1849,16 +1883,16 @@ namespace InsuranceWebsite.Controllers
             model.ProfileEditModel.Invoice_ID_Parish = model.ProfileEditModel.Invoice_ID_Parish;
             model.ProfileEditModel.Invoice_ID_County = model.ProfileEditModel.Invoice_ID_County;
             model.ProfileEditModel.Invoice_ID_District = model.ProfileEditModel.Invoice_ID_District;
-            model.ProfileEditModel.Birthdate =  model.Profile.Birthdate;
-            model.ProfileEditModel.ContactEmail =  model.Profile.ContactEmail;
-            model.ProfileEditModel.ProfilePhoto =  model.Profile.ProfilePhoto;
-            model.ProfileEditModel.Website = string.IsNullOrEmpty( model.Profile.Website) ?  model.Profile.Website :  model.Profile.Website.ToLower();
-            model.ProfileEditModel.AboutMe =  model.Profile.AboutMe;
+            model.ProfileEditModel.Birthdate = model.Profile.Birthdate;
+            model.ProfileEditModel.ContactEmail = model.Profile.ContactEmail;
+            model.ProfileEditModel.ProfilePhoto = model.Profile.ProfilePhoto;
+            model.ProfileEditModel.Website = string.IsNullOrEmpty(model.Profile.Website) ? model.Profile.Website : model.Profile.Website.ToLower();
+            model.ProfileEditModel.AboutMe = model.Profile.AboutMe;
             model.ProfileEditModel.Facebook = model.Profile.Facebook;
             model.ProfileEditModel.Twitter = model.Profile.Twitter;
             model.ProfileEditModel.GooglePlus = model.Profile.GooglePlus;
-            model.ProfileEditModel.Skype =  model.Profile.Skype;
-            model.ProfileEditModel.Whatsapp =  model.Profile.Whatsapp;
+            model.ProfileEditModel.Skype = model.Profile.Skype;
+            model.ProfileEditModel.Whatsapp = model.Profile.Whatsapp;
             model.ProfileEditModel.CreateDate = model.Profile.CreateDate;
 
             var companiesWorkingWith = InsuranceBusiness.BusinessLayer.GetInsuranceCompaniesWorkingWith(model.Profile.ID_User);
@@ -1867,7 +1901,7 @@ namespace InsuranceWebsite.Controllers
 
             model.ProfileEditModel.AllowedEmails = InsuranceBusiness.BusinessLayer.GetAuthorizedEmailsForAutomaticApproval(model.Profile.ID_User).Select(i => new SelectListItem() { Value = i, Text = i }).ToList();
 
-            if(model.ProfileEditModel.ID_County.HasValue)
+            if (model.ProfileEditModel.ID_County.HasValue)
             {
                 List<SelectListItem> initList = new List<SelectListItem>() { new SelectListItem() { Value = "", Text = Resources.Resources.SelectCounty } };
                 model.ProfileEditModel.CountyList = initList.Concat(InsuranceBusiness.BusinessLayer.GetCountiesByDistrict(model.ProfileEditModel.ID_District.Value).Select(i => new SelectListItem() { Value = i.Key.ToString(), Text = i.Value }).ToList()).ToList();
@@ -1884,6 +1918,155 @@ namespace InsuranceWebsite.Controllers
 
             return View("Index", model);
             //return View(model);
+        }
+
+
+        [FunctionalityAutorizeAttribute("PROFILE_INFO_FUNCTIONALITY")]
+        public async Task<ActionResult> CompanyProfileEdit(string userId, long? ntId)
+        {
+            if (ntId.HasValue)
+            {
+                InsuranceBusiness.BusinessLayer.MarkNotificationAsRead(ntId.Value);
+            }
+
+            //ProfileEditModel model = new ProfileEditModel();
+            HomeViewModel model = new HomeViewModel();
+
+            if (null != this.User && this.User.Identity.IsAuthenticated)
+            {
+                var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
+                if (null != user)
+                {
+                    FillModel(model, user.Id, false);
+                }
+                else
+                {
+                    return RedirectToAction("LogOff", "Account");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var company = InsuranceBusiness.BusinessLayer.GetCompany(CurrentUser.ID_User);
+            model.CompanyModel = new CompanyModelObject()
+            {
+                ID = company.ID,
+                ID_User = company.ID_User,
+                Active = company.Active,
+                Name = company.Name,
+                Description = company.Description,
+                Address = company.Address,
+                ContactEmail = company.ContactEmail,
+                ID_District = company.ID_District,
+                ID_County = company.ID_County,
+                ID_Parish = company.ID_Parish,
+                ID_Service = company.ID_Service,
+                LogoPhoto = company.LogoPhoto,
+                MobilePhone_1 = company.MobilePhone_1,
+                MobilePhone_2 = company.MobilePhone_2,
+                NIF = company.NIF,
+                OfficialAgent = company.OfficialAgent,
+                OfficialPartner = company.OfficialPartner,
+                Telephone_1 = company.Telephone_1,
+                Telephone_2 = company.Telephone_2,
+                Website = company.Website,
+                Payments = company.Payment,
+                CompanyType = company.CompanyType
+            };
+
+            model.IsCompanyProfileEdit = true;
+            List<SelectListItem> initList = new List<SelectListItem>() { new SelectListItem() { Value = "", Text = Resources.Resources.SelectService } };
+            model.CompanyModel.ServiceList = initList.Concat(InsuranceBusiness.BusinessLayer.GetCompanyServices(model.CompanyModel.CompanyType).Select(i => new SelectListItem() { Value = i.Key.ToString(), Text = i.Value }).ToList()).ToList();
+            model.CompanyModel.PaymentTypeList = initList.Concat(InsuranceBusiness.BusinessLayer.GetPaymentTypes().Select(i => new SelectListItem() { Value = i.Key.ToString(), Text = Resources.Resources.ResourceManager.GetString(i.Value) }).ToList()).ToList();
+
+            if (model.CompanyModel.ID_District.HasValue)
+            {
+                model.CompanyModel.CountyList = model.CompanyModel.CountyList.Concat(InsuranceBusiness.BusinessLayer.GetCountiesByDistrict(model.CompanyModel.ID_District.Value).Select(i => new SelectListItem() { Value = i.Key.ToString(), Text = i.Value }).ToList()).ToList();
+            }
+
+            return View("Index", model);
+        }
+
+        [FunctionalityAutorizeAttribute("PROFILE_INFO_FUNCTIONALITY")]
+        public async Task<ActionResult> CompanyProfileSave(HomeViewModel model, HttpPostedFileBase fileUploaderControl)
+        {
+            if (null != this.User && this.User.Identity.IsAuthenticated)
+            {
+                var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
+                if (null != user)
+                {
+                    FillModel(model, user.Id);
+                }
+                else
+                {
+                    return RedirectToAction("LogOff", "Account");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            if (CurrentUser.ID_User != model.CompanyModel.ID_User)
+            {
+                return RedirectToAction("LogOff", "Account");
+            }
+
+            CompanyDTO company = InsuranceBusiness.BusinessLayer.GetCompany(model.CompanyModel.ID_User);
+
+            //company.Active = model.CompanyModel.Active;
+            company.Name = model.CompanyModel.Name;
+            company.Description = model.CompanyModel.Description;
+            company.Address = model.CompanyModel.Address;
+            company.ContactEmail = model.CompanyModel.ContactEmail;
+            company.ID_District = model.CompanyModel.ID_District;
+            company.ID_County = model.CompanyModel.ID_County;
+            company.ID_Parish = model.CompanyModel.ID_Parish;
+            company.ID_Service = model.CompanyModel.ID_Service;
+            //company.LogoPhoto = model.CompanyModel.LogoPhoto;
+            company.MobilePhone_1 = model.CompanyModel.MobilePhone_1;
+            company.MobilePhone_2 = model.CompanyModel.MobilePhone_2;
+            company.NIF = model.CompanyModel.NIF;
+            company.OfficialAgent = model.CompanyModel.OfficialAgent;
+            company.OfficialPartner = model.CompanyModel.OfficialPartner;
+            company.Telephone_1 = model.CompanyModel.Telephone_1;
+            company.Telephone_2 = model.CompanyModel.Telephone_2;
+            company.Website = model.CompanyModel.Website;
+            company.BusinessName = model.CompanyModel.BusinessName;
+            //company.IBAN = model.CompanyModel.IBAN;
+
+            if (null != fileUploaderControl)
+            {
+                company.LogoPhoto = InsuranceSocialNetworkCore.Utils.ConvertionUtils.ScaleImage(InsuranceSocialNetworkCore.Utils.ConvertionUtils.ReadFully(fileUploaderControl.InputStream), 400, 400);
+            }
+
+            switch (model.CompanyModel.CompanyType)
+            {
+                case CompanyTypeEnum.GARAGE:
+                    InsuranceBusiness.BusinessLayer.EditGarage(company);
+                    break;
+                case CompanyTypeEnum.MEDICAL_CLINIC:
+                    InsuranceBusiness.BusinessLayer.EditMedicalClinic(company);
+                    break;
+                case CompanyTypeEnum.CONSTRUCTION_COMPANY:
+                    InsuranceBusiness.BusinessLayer.EditConstructionCompany(company);
+                    break;
+                case CompanyTypeEnum.HOME_APPLIANCES_REPAIR:
+                    InsuranceBusiness.BusinessLayer.EditHomeApplianceRepair(company);
+                    break;
+                case CompanyTypeEnum.INSURANCE_COMPANY_CONTACT:
+                    InsuranceBusiness.BusinessLayer.EditInsuranceCompanyContact(company);
+                    break;
+                default:
+                    break;
+            }
+
+            //return View("ProfileInfo", model);
+            return RedirectToAction("ProfileInfo", new { id = model.Profile.ID });
         }
 
         [FunctionalityAutorizeAttribute("PROFILE_INFO_FUNCTIONALITY")]

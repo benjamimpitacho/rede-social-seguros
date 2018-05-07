@@ -93,6 +93,7 @@ namespace InsuranceSocialNetworkDAL
                 item.MobilePhone_2 = homeApplianceRepair.MobilePhone_2;
                 item.Fax = homeApplianceRepair.Fax;
                 item.Name = homeApplianceRepair.Name;
+                item.BusinessName = homeApplianceRepair.BusinessName;
                 item.NIF = homeApplianceRepair.NIF;
                 item.OfficialAgent = homeApplianceRepair.OfficialAgent;
                 item.OfficialPartner = homeApplianceRepair.OfficialPartner;

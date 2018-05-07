@@ -1,0 +1,402 @@
+﻿@using InsuranceWebsite.Models
+@model HomeViewModel
+
+<style>
+    .panel{
+        margin-bottom: 4px !important;
+    }
+
+    .main-photo {
+        max-width: 120px;
+        max-height: 120px;
+        border-radius: 100px;
+        border: 3px solid #E3E6E8;
+    }
+
+    .profile-icon{
+        max-width: 65px;
+    }
+
+    .profile-info{
+        font-size: 12px;
+    }
+
+    .data-row{
+        display:flex;
+        margin:0px 0px 2px;
+        height:34px;
+    }
+
+    .label-control {
+        border: none;
+        box-shadow: none;
+        border-radius: 0px;
+        background-color: #F6F8F7;
+    }
+
+    .profile-label {
+        font-size: 12px !important;
+        font-weight: bold !important;
+        padding: 10px !important;
+    }
+
+    .form-control input {
+        width: 100% !important;
+        border: 0px !important;
+        background-color: transparent !important;
+    }
+
+    .profile-textarea {
+        background-color: #F6F8F7;
+        border-radius: 0px;
+    }
+
+    .btn-blue {
+        background-color: #00C1DE;
+        color: #fff;
+        font-weight: bold;
+        width: 100px;
+        padding: 10px;
+    }
+
+    .btn-darkblue {
+        background-color: #4B5C66;
+        color: #fff;
+        font-weight: bold;
+        width: 100px;
+        padding: 10px;
+    }
+</style>
+
+<div class="profile-info col-md-6 animated fadeInUp" style="overflow:auto;">
+
+    @Html.Partial("./Partial/TopBannerPartialView", Model)
+
+    <div class="panel topPanel" style="display:flex;padding:10px 0px;font-weight:bold;color:#4B5C66">
+        <div style="width:calc( 50% - 60px );height:120px; display:table;justify-content: space-evenly;">
+            <div style="display:table-cell;vertical-align:middle;">
+                <img src="~/Content/icons/icons_perfil_rede_social_falar_seguros_v22.png" class="profile-icon" />
+            </div>
+            <div style="display:table-cell;vertical-align:middle;"><span style="display:block;color:#00C1DE;">@Resources.Resources.UserProfile</span>@Html.ActionLink(Resources.Resources.Cancel, "ProfileInfo", new { id = Model.Profile.ID }, null)</div>
+        </div>
+        <div style="width:120px;text-align:center;">
+            @if (null == Model.Profile || null == Model.Profile.ProfilePhoto || Model.Profile.ProfilePhoto.Length == 0)
+            {
+                <img src="~/Content/images/no_photo_img.jpg" class="mini-avatar item-photo main-photo">
+            }
+            else
+            {
+                <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.Profile.ProfilePhoto))" class="mini-avatar item-photo main-photo">
+            }
+        </div>
+        <div style="width:calc( 50% - 60px );height:120px; text-align:right;display:table;justify-content: space-evenly;font-weight:bold;">
+            @*<div style="display:table-cell;vertical-align:middle;">@Resources.Resources.Configurations</div>
+            <div style="display:table-cell;vertical-align:middle;">
+                <img src="~/Content/icons/icons_perfil_rede_social_falar_seguros_v25.png" class="profile-icon" />
+            </div>*@
+        </div>
+    </div>
+
+    <div class="panel panel-white" style="display:block;padding:10px 20px;font-weight:bold;color:#4B5C66;font-size:12px;">
+    @using (Html.BeginForm("CompanyProfileSave", "Home", FormMethod.Post, new { @class = "", enctype = "multipart/form-data", id = "profileInformationForm" }))
+    {
+        @Html.HiddenFor(i => i.CompanyModel.ID_User)
+        @Html.HiddenFor(i => i.CompanyModel.CompanyType)
+        <div style="padding:10px 0px;">
+            <span style="font-size:14px;">@Resources.Resources.BasicInformation</span>
+        </div>
+        <div>
+            <p class="data-row">
+                <span class="data-name profile-label">@Resources.Resources.Name</span>
+                <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.CompanyModel.Name)</label>
+            </p>
+        </div>
+        <div>
+            <p class="data-row">
+                <span class="data-name profile-label">@Resources.Resources.NIF</span>
+                <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.CompanyModel.NIF)</label>
+            </p>
+        </div>
+        <div>
+            <p class="data-row">
+                <span class="data-name profile-label">@Resources.Resources.BusinessName</span>
+                <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.CompanyModel.BusinessName)</label>
+            </p>
+        </div>
+        @*<div>
+            <p class="data-row">
+                <span class="data-name profile-label">@Resources.Resources.CompanyName</span>
+                <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.CompanyModel.CompanyName)</label>
+            </p>
+        </div>*@
+        <div>
+            <p class="data-row">
+                <span class="data-name profile-label">@Resources.Resources.Description</span>
+                <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.CompanyModel.Description)</label>
+            </p>
+        </div>
+        <div>
+            <p class="data-row">
+                <span class="data-name profile-label">@Resources.Resources.Address</span>
+                <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.CompanyModel.Address)</label>
+            </p>
+        </div>
+        <div>
+            <p class="data-row">
+                <span class="data-name profile-label">@Resources.Resources.District</span>
+                <label class="form-control label-control profile-label" style="padding: 3px !important;">@Html.DropDownListFor(i => i.CompanyModel.ID_District, Model.CompanyModel.DistrictList, new { @class = "text ui-widget-content ui-corner-all", @style = "color:#777;min-height:28px;width:100%;", @placeholder = Resources.Resources.Location, id = "districtList" })</label>
+                @Html.HiddenFor(i => i.ProfileEditModel.ID_District, new { id = "districtId" })
+            </p>
+        </div>
+        <div>
+            <p class="data-row">
+                <span class="data-name profile-label">@Resources.Resources.County</span>
+                <label class="form-control label-control profile-label" style="padding: 3px !important;">@Html.DropDownListFor(i => i.CompanyModel.ID_County, Model.CompanyModel.CountyList, new { @class = "text ui-widget-content ui-corner-all", @style = "color:#777;min-height:28px;width:100%;", @placeholder = Resources.Resources.Location, id = "countyList" })</label>
+                @Html.HiddenFor(i => i.ProfileEditModel.ID_County, new { id = "countyId" })
+            </p>
+        </div>
+        <div>
+            <p class="data-row">
+                <span class="data-name profile-label">@Resources.Resources.OfficialAgent</span>
+                <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.CompanyModel.OfficialAgent)</label>
+            </p>
+        </div>
+        <div>
+            <p class="data-row">
+                <span class="data-name profile-label">@Resources.Resources.OfficialPartner</span>
+                <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.CompanyModel.OfficialPartner)</label>
+            </p>
+        </div>
+        <div>
+            <p>
+                @Html.ValidationMessageFor(i => i.CompanyModel.Name)
+            </p><p>
+                @Html.ValidationMessageFor(i => i.CompanyModel.NIF)
+            </p><p>
+                @Html.ValidationMessageFor(i => i.CompanyModel.BusinessName)
+            </p><p>
+                @Html.ValidationMessageFor(i => i.CompanyModel.Address)
+            </p><p>
+                @Html.ValidationMessageFor(i => i.CompanyModel.OfficialAgent)
+            </p><p>
+                @Html.ValidationMessageFor(i => i.CompanyModel.OfficialPartner)
+            </p><p>
+                @Html.ValidationMessageFor(i => i.CompanyModel.Description)
+            </p>
+        </div>
+
+        <p></p>
+        <div style="padding:10px 0px;">
+            <span style="font-size:14px;">@Resources.Resources.ContactInformation</span>
+        </div>
+        <div>
+            <p class="data-row">
+                <span class="data-name profile-label">@Resources.Resources.ContactEmail</span>
+                <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.CompanyModel.ContactEmail)</label>
+            </p>
+        </div>
+        <div>
+            <p class="data-row">
+                <span class="data-name profile-label">@Resources.Resources.Telephone_1</span>
+                <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.CompanyModel.Telephone_1)</label>
+            </p>
+        </div>
+        <div>
+            <p class="data-row">
+                <span class="data-name profile-label">@Resources.Resources.Telephone_2</span>
+                <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.CompanyModel.Telephone_2)</label>
+            </p>
+        </div>
+        <div>
+            <p class="data-row">
+                <span class="data-name profile-label">@Resources.Resources.MobilePhone_1</span>
+                <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.CompanyModel.MobilePhone_1)</label>
+            </p>
+        </div>
+        <div>
+            <p class="data-row">
+                <span class="data-name profile-label">@Resources.Resources.MobilePhone_2</span>
+                <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.CompanyModel.MobilePhone_2)</label>
+            </p>
+        </div>
+        <div>
+            <p class="data-row">
+                <span class="data-name profile-label">@Resources.Resources.Website</span>
+                <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.CompanyModel.Website)</label>
+            </p>
+        </div>
+        <div>
+            <p>
+                @Html.ValidationMessageFor(i => i.CompanyModel.ContactEmail)
+            </p><p>
+                @Html.ValidationMessageFor(i => i.CompanyModel.Telephone_1)
+            </p><p>
+                @Html.ValidationMessageFor(i => i.CompanyModel.Telephone_2)
+            </p><p>
+                @Html.ValidationMessageFor(i => i.CompanyModel.MobilePhone_1)
+            </p><p>
+                @Html.ValidationMessageFor(i => i.CompanyModel.MobilePhone_2)
+            </p><p>
+                @Html.ValidationMessageFor(i => i.CompanyModel.Website)
+            </p>
+        </div>
+
+        <p></p>
+        <div class="action-buttons" style="display:block; text-align:center;">
+            @Html.ActionLink(Resources.Resources.Cancel, "ProfileInfo", new { id = Model.Profile.ID }, new { @class = "btn btn-darkblue" })
+            <input type="button" class="btn btn-blue" value="@Resources.Resources.Save" id="submitButton" />
+        </div>
+}
+    </div>
+
+</div>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        var ddlCounties = $("#countyList"); //dropdownlist for counties
+        var ddlParishes = $("#parishList"); //dropdownlist for parishes
+
+        if ($("#countyId").val() == null || $("#countyId").val() == '')
+        {
+            $('#countyList').prop('disabled', true);
+        }
+        
+        if ($("#parishId").val() == null || $("#parishId").val() == '') {
+            $('#parishList').prop('disabled', true);
+        }
+        
+        $("#districtList").change(function () {
+            var selectedItem = $("#districtList").val(); //dropdownlist for states
+
+            $('#countyList').prop('disabled', false);
+
+            $.ajax({
+                cache: false,
+                type: "GET",
+                url: '@Url.Action("GetCountiesByDistrict", "Home")',
+                data: { "districtId": selectedItem },
+                success: function (data) {
+                    ddlCounties.html('')
+                    $.each(data, function (id, option) {
+                        ddlCounties.append($('<option></option>').val(option.Value).html(option.Text));
+                    });
+                },
+
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert('Failed to retrieve counties.');
+                }
+            });
+
+        });
+
+        $("#countyList").change(function () {
+            var selectedItem = $("#countyList").val(); //dropdownlist for states
+
+            $('#parishList').prop('disabled', false);
+
+            $.ajax({
+                cache: false,
+                type: "GET",
+                url: '@Url.Action("GetParishesByCounty", "Home")',
+                data: { "countyId": selectedItem },
+                success: function (data) {
+                    ddlParishes.html('')
+                    $.each(data, function (id, option) {
+                        ddlParishes.append($('<option></option>').val(option.Value).html(option.Text));
+                    });
+                },
+
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert('Failed to retrieve parishes.');
+                }
+            });
+
+        });
+
+        $("#addEmailDomain").click(function () {
+            if ($('#emailDomainTextbox').val() == null || $('#emailDomainTextbox').val() == '')
+                return;
+
+            if (!$('#emailDomainTextbox').valid())
+                return;
+
+            $('#emailListbox').append('<option value="' + $('#emailDomainTextbox').val() + '">' + $('#emailDomainTextbox').val() + '</option>');
+            $('#emailDomainTextbox').val('');
+        });
+
+        $('#removeEmailDomain').click(function () {
+            $("#emailListbox option:selected").remove();
+        });
+
+        $("#submitButton").click(function () {
+            $('#emailListbox option').prop('selected', true);
+            $('#companiesListbox option').prop('selected', true);
+            $("#profileInformationForm").submit();
+        });
+
+        $('#addCompany').click(function (e) {
+            var selectedOpts = $('#availableCompaniesListbox option:selected');
+            if (selectedOpts.length == 0) {
+                //alert("Nothing to move.");
+                e.preventDefault();
+            }
+            $('#companiesListbox').append($(selectedOpts).clone());
+            $(selectedOpts).remove();
+            e.preventDefault();
+        });
+        //$('#btnAllRight').click(function (e) {
+        //    var selectedOpts = $('#lstBox1 option');
+        //    if (selectedOpts.length == 0) {
+        //        alert("Nothing to move.");
+        //        e.preventDefault();
+        //    }
+        //    $('#lstBox2').append($(selectedOpts).clone());
+        //    $(selectedOpts).remove();
+        //    e.preventDefault();
+        //});
+        $('#removeCompany').click(function (e) {
+            var selectedOpts = $('#companiesListbox option:selected');
+            if (selectedOpts.length == 0) {
+                //alert("Nothing to move.");
+                e.preventDefault();
+            }
+            $('#availableCompaniesListbox').append($(selectedOpts).clone());
+            $(selectedOpts).remove();
+            e.preventDefault();
+        });
+        //$('#btnAllLeft').click(function (e) {
+        //    var selectedOpts = $('#lstBox2 option');
+        //    if (selectedOpts.length == 0) {
+        //        alert("Nothing to move.");
+        //        e.preventDefault();
+        //    }
+        //    $('#lstBox1').append($(selectedOpts).clone());
+        //    $(selectedOpts).remove();
+        //    e.preventDefault();
+        //});
+        $('#moveCompanyUp').click(function (e) {
+
+            var selectedOption = $('#companiesListbox option:selected');
+            var nextOption = $('#companiesListbox option:selected').next("option");
+
+            if ($(nextOption).text() != "") {
+                $(selectedOption).remove();
+                $(nextOption).after($(selectedOption));
+            }
+        });
+
+        $('#moveCompanyDown').click(function (e) {
+
+            var selectedOption = $('#companiesListbox option:selected');
+            var prevOption = $('#companiesListbox option:selected').prev("option");
+
+            if ($(prevOption).text() != "") {
+                $(selectedOption).remove();
+                $(prevOption).before($(selectedOption));
+            }
+        });
+    });
+
+</script>

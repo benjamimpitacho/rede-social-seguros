@@ -93,6 +93,7 @@ namespace InsuranceSocialNetworkDAL
                 item.MobilePhone_2 = insuranceCompanyContact.MobilePhone_2;
                 item.Fax = insuranceCompanyContact.Fax;
                 item.Name = insuranceCompanyContact.Name;
+                item.BusinessName = insuranceCompanyContact.BusinessName;
                 item.NIF = insuranceCompanyContact.NIF;
                 item.OfficialAgent = insuranceCompanyContact.OfficialAgent;
                 item.OfficialPartner = insuranceCompanyContact.OfficialPartner;

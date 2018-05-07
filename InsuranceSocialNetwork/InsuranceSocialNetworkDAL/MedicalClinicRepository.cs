@@ -94,6 +94,7 @@ namespace InsuranceSocialNetworkDAL
                 item.MobilePhone_2 = medicalClinic.MobilePhone_2;
                 item.Fax = medicalClinic.Fax;
                 item.Name = medicalClinic.Name;
+                item.BusinessName = medicalClinic.BusinessName;
                 item.NIF = medicalClinic.NIF;
                 item.OfficialAgent = medicalClinic.OfficialAgent;
                 item.OfficialPartner = medicalClinic.OfficialPartner;

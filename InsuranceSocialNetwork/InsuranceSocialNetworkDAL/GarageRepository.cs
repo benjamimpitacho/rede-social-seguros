@@ -112,6 +112,7 @@ namespace InsuranceSocialNetworkDAL
                 item.MobilePhone_2 = garage.MobilePhone_2;
                 item.Fax = garage.Fax;
                 item.Name = garage.Name;
+                item.BusinessName = garage.BusinessName;
                 item.NIF = garage.NIF;
                 item.OfficialAgent = garage.OfficialAgent;
                 item.OfficialPartner = garage.OfficialPartner;

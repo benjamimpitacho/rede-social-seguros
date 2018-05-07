@@ -54,7 +54,7 @@
             <div style="display:table-cell;vertical-align:middle;">
                 <img src="~/Content/icons/icons_perfil_rede_social_falar_seguros_v22.png" class="profile-icon" />
             </div>
-            <div style="display:table-cell;vertical-align:middle;"><span style="display:block;color:#00C1DE;">@Resources.Resources.UserProfile</span>@*@Html.ActionLink(Resources.Resources.Edit, "ProfileEdit", new { userId = Model.CompanyModel.ID_User }, null)*@</div>
+            <div style="display:table-cell;vertical-align:middle;"><span style="display:block;color:#00C1DE;">@Resources.Resources.UserProfile</span>@Html.ActionLink(Resources.Resources.Edit, "CompanyProfileEdit", new { userId = Model.CompanyModel.ID_User }, null)</div>
         </div>
         <div style="width:120px;text-align:center;">
             @if (null == Model.CompanyModel || null == Model.CompanyModel.LogoPhoto || Model.CompanyModel.LogoPhoto.Length == 0)

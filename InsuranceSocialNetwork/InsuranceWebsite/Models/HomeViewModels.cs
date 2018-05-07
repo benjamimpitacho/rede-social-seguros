@@ -50,6 +50,8 @@ namespace InsuranceWebsite.Models
         public bool IsSearchHomeApplianceRepair { get; set; }
         public bool IsSearchInsuranceContacts { get; set; }
 
+        public bool IsCompanyProfileEdit { get; set; }
+
         public bool IsProfileTimeline { get; set; }
         public long? TimelineProfileId { get; set; }
 
