@@ -6,6 +6,7 @@ using InsuranceSocialNetworkDTO.UserProfile;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Web.Mvc;
 
 namespace InsuranceWebsite.Models
 {
@@ -16,6 +17,8 @@ namespace InsuranceWebsite.Models
             this.IsPostsView = true;
             this.SearchModel = new SearchViewModel();
             this.SearchCompaniesModel = new SearchCompaniesViewModel();
+
+            this.PostSubjects = InsuranceSocialNetworkBusiness.InsuranceBusiness.BusinessLayer.GetSubjectTypes().Select(i => new SelectListItem() { Value = i.Key.ToString(), Text = Resources.Resources.ResourceManager.GetString(i.Value) }).ToList();
         }
 
         public bool IsPostsView
@@ -54,6 +57,9 @@ namespace InsuranceWebsite.Models
 
         public bool IsProfileTimeline { get; set; }
         public long? TimelineProfileId { get; set; }
+
+        public long? NewPostSuject { get; set; }
+        public List<SelectListItem> PostSubjects { get; set; }
 
         public List<PostDTO> Posts { get; set; }
         public List<ListItemString> QuickLinks { get; set; }

@@ -784,6 +784,59 @@ namespace InsuranceWebsite.Controllers
                     Subject = InsuranceSocialNetworkCore.Enums.PostSubjectEnum.PERSONAL_POST
                 };
 
+                if(model.NewPostSuject.HasValue)
+                {
+                    switch(model.NewPostSuject.Value)
+                    {
+                        case 1:
+                            newPost.Subject = PostSubjectEnum.PERSONAL_POST;
+                            break;
+                        case 2:
+                            newPost.Subject = PostSubjectEnum.BUSINESS_POST;
+                            break;
+                        case 3:
+                            newPost.Subject = PostSubjectEnum.NEWS_POST;
+                            break;
+                        case 4:
+                            newPost.Subject = PostSubjectEnum.PARTNERSHIP_POST;
+                            break;
+                        case 5:
+                            newPost.Subject = PostSubjectEnum.WALLET_POST;
+                            break;
+                        case 6:
+                            newPost.Subject = PostSubjectEnum.SPONSORED_POST;
+                            break;
+                        case 7:
+                            newPost.Subject = PostSubjectEnum.CURRENT_DISCUSSION_POST;
+                            break;
+                        case 8:
+                            newPost.Subject = PostSubjectEnum.ASF_POST;
+                            break;
+                        case 9:
+                            newPost.Subject = PostSubjectEnum.APS_POST;
+                            break;
+                        case 10:
+                            newPost.Subject = PostSubjectEnum.APROSE_POST;
+                            break;
+                        case 11:
+                            newPost.Subject = PostSubjectEnum.HUMAN_RESOURCES_TALENT_POST;
+                            break;
+                        case 12:
+                            newPost.Subject = PostSubjectEnum.HUMAN_RESOURCES_APPLICATION_POST;
+                            break;
+                        case 13:
+                            newPost.Subject = PostSubjectEnum.INSURANCE_BUSINESS_BUY_SELL_POST;
+                            break;
+                        case 14:
+                            newPost.Subject = PostSubjectEnum.INSURANCE_BUSINESS_PARTNERSHIP_POST;
+                            break;
+                        default:
+                            newPost.Subject = PostSubjectEnum.PERSONAL_POST;
+                            break;
+                    }
+                    
+                }
+
                 if (!string.IsNullOrEmpty(livePreviewImgHidden))
                 {
                     newPost.Type = InsuranceSocialNetworkCore.Enums.PostTypeEnum.LINK_POST;

@@ -1,4 +1,6 @@
 ﻿@using InsuranceWebsite.Models
+@using InsuranceSocialNetworkBusiness
+@using InsuranceSocialNetworkCore.Enums
 @model HomeViewModel
 
 <link href="~/Content/contextMenu/jquery.contextMenu.css" rel="stylesheet" />
@@ -62,6 +64,12 @@
                         <a href="javascript:$('#fileUpload').click()" style="padding: 3px 5px" title="@Resources.Resources.File">
                             <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF111.png" class="icon-normal" />
                         </a>
+                    </li>
+                    <li>
+                    @if (InsuranceBusiness.BusinessLayer.IsUserInRole(this.User.Identity.Name, RoleEnum.ADMINISTRATOR.ToString()))
+                    {
+                        @Html.DropDownListFor(m => m.NewPostSuject, Model.PostSubjects, new { @class = "form-control login-select-input", id = "postSubjectDropdown" })
+                    }
                     </li>
                 </ul>
             </div>

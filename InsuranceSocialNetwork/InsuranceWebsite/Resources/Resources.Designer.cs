@@ -259,6 +259,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Post da APROSE.
+        /// </summary>
+        public static string APROSE_POST {
+            get {
+                return ResourceManager.GetString("APROSE_POST", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Página da APROSE.
         /// </summary>
         public static string AprosePage {
@@ -273,6 +282,15 @@ namespace Resources {
         public static string APS {
             get {
                 return ResourceManager.GetString("APS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Post da APS.
+        /// </summary>
+        public static string APS_POST {
+            get {
+                return ResourceManager.GetString("APS_POST", resourceCulture);
             }
         }
         
@@ -376,6 +394,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Post da ASF.
+        /// </summary>
+        public static string ASF_POST {
+            get {
+                return ResourceManager.GetString("ASF_POST", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Página da ASF.
         /// </summary>
         public static string AsfPage {
@@ -471,6 +498,15 @@ namespace Resources {
         public static string BOLETO {
             get {
                 return ResourceManager.GetString("BOLETO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Post de Negócios.
+        /// </summary>
+        public static string BUSINESS_POST {
+            get {
+                return ResourceManager.GetString("BUSINESS_POST", resourceCulture);
             }
         }
         
@@ -894,6 +930,15 @@ namespace Resources {
         public static string CREDIT_CARD_RECURRENT {
             get {
                 return ResourceManager.GetString("CREDIT_CARD_RECURRENT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Post de Tema de Discussão.
+        /// </summary>
+        public static string CURRENT_DISCUSSION_POST {
+            get {
+                return ResourceManager.GetString("CURRENT_DISCUSSION_POST", resourceCulture);
             }
         }
         
@@ -1438,6 +1483,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Post de Recursos Humanos - Aplicação.
+        /// </summary>
+        public static string HUMAN_RESOURCES_APPLICATION_POST {
+            get {
+                return ResourceManager.GetString("HUMAN_RESOURCES_APPLICATION_POST", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Post de Recursos Humanos - Talento.
+        /// </summary>
+        public static string HUMAN_RESOURCES_TALENT_POST {
+            get {
+                return ResourceManager.GetString("HUMAN_RESOURCES_TALENT_POST", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to IBAN.
         /// </summary>
         public static string IBAN {
@@ -1933,6 +1996,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Post de Noticías.
+        /// </summary>
+        public static string NEWS_POST {
+            get {
+                return ResourceManager.GetString("NEWS_POST", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Novo utilizador aguarda aprovação do registo.
         /// </summary>
         public static string NewUserPendingApproval {
@@ -2176,6 +2248,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Post de Parcerias.
+        /// </summary>
+        public static string PARTNERSHIP_POST {
+            get {
+                return ResourceManager.GetString("PARTNERSHIP_POST", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Parcerias.
         /// </summary>
         public static string Partnerships {
@@ -2244,6 +2325,15 @@ namespace Resources {
         public static string PendingPayment {
             get {
                 return ResourceManager.GetString("PendingPayment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Post Pessoal.
+        /// </summary>
+        public static string PERSONAL_POST {
+            get {
+                return ResourceManager.GetString("PERSONAL_POST", resourceCulture);
             }
         }
         
@@ -2905,6 +2995,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Post Patrocinado.
+        /// </summary>
+        public static string SPONSORED_POST {
+            get {
+                return ResourceManager.GetString("SPONSORED_POST", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Data inicio.
         /// </summary>
         public static string StartDate {
@@ -3099,6 +3198,15 @@ namespace Resources {
         public static string Value {
             get {
                 return ResourceManager.GetString("Value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Post de Carteira.
+        /// </summary>
+        public static string WALLET_POST {
+            get {
+                return ResourceManager.GetString("WALLET_POST", resourceCulture);
             }
         }
         

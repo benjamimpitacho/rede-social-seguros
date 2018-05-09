@@ -1161,4 +1161,40 @@
   <data name="Note" xml:space="preserve">
     <value>Nota</value>
   </data>
+  <data name="APROSE_POST" xml:space="preserve">
+    <value>Post da APROSE</value>
+  </data>
+  <data name="APS_POST" xml:space="preserve">
+    <value>Post da APS</value>
+  </data>
+  <data name="ASF_POST" xml:space="preserve">
+    <value>Post da ASF</value>
+  </data>
+  <data name="BUSINESS_POST" xml:space="preserve">
+    <value>Post de Negócios</value>
+  </data>
+  <data name="CURRENT_DISCUSSION_POST" xml:space="preserve">
+    <value>Post de Tema de Discussão</value>
+  </data>
+  <data name="HUMAN_RESOURCES_APPLICATION_POST" xml:space="preserve">
+    <value>Post de Recursos Humanos - Aplicação</value>
+  </data>
+  <data name="HUMAN_RESOURCES_TALENT_POST" xml:space="preserve">
+    <value>Post de Recursos Humanos - Talento</value>
+  </data>
+  <data name="NEWS_POST" xml:space="preserve">
+    <value>Post de Noticías</value>
+  </data>
+  <data name="PARTNERSHIP_POST" xml:space="preserve">
+    <value>Post de Parcerias</value>
+  </data>
+  <data name="PERSONAL_POST" xml:space="preserve">
+    <value>Post Pessoal</value>
+  </data>
+  <data name="SPONSORED_POST" xml:space="preserve">
+    <value>Post Patrocinado</value>
+  </data>
+  <data name="WALLET_POST" xml:space="preserve">
+    <value>Post de Carteira</value>
+  </data>
 </root>
