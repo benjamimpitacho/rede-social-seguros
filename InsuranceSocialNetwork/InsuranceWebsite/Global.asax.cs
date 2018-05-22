@@ -28,7 +28,7 @@ namespace InsuranceWebsite
                 {
                     //InsuranceSocialNetworkBusiness.InsuranceBusiness.BusinessLayer.Log(InsuranceSocialNetworkCore.Enums.SystemLogLevelEnum.INFO, "WORKER", "TIMER JOB TASK", string.Format("Run at {0}", DateTime.Now.ToString()));
 
-                    WorkerUtils.CheckPendingPaymentsToConfirm();
+                    //WorkerUtils.CheckPendingPaymentsToConfirm();
 
                     //InsuranceSocialNetworkBusiness.InsuranceBusiness.BusinessLayer.CheckUsersToDisableDueToPaymentFail();
 

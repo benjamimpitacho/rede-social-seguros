@@ -216,6 +216,7 @@ namespace InsuranceWebsite.Controllers
                     catch (Exception ex)
                     {
                         await UserManager.DeleteAsync(user);
+                        InsuranceBusiness.BusinessLayer.LogException(Request.UserHostAddress, string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
                         return View(model);
                     }
                 }
@@ -231,6 +232,7 @@ namespace InsuranceWebsite.Controllers
                     catch (Exception ex)
                     {
                         await UserManager.DeleteAsync(user);
+                        InsuranceBusiness.BusinessLayer.LogException(Request.UserHostAddress, string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
                         return View(model);
                     }
                 }
@@ -254,6 +256,7 @@ namespace InsuranceWebsite.Controllers
                         {
                             InsuranceBusiness.BusinessLayer.DeleteUserProfile(userId);
                             await UserManager.DeleteAsync(user);
+                            InsuranceBusiness.BusinessLayer.LogException(Request.UserHostAddress, string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
                             return View(model);
                         }
 
@@ -290,6 +293,7 @@ namespace InsuranceWebsite.Controllers
                         InsuranceBusiness.BusinessLayer.DeleteUserProfile(userId);
                         await UserManager.DeleteAsync(user);
 
+                        InsuranceBusiness.BusinessLayer.LogException(Request.UserHostAddress, string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
                         return View(model);
                     }
                     //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
@@ -304,6 +308,8 @@ namespace InsuranceWebsite.Controllers
                 }
 
                 AddErrors(result);
+
+                InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.ERROR, Request.UserHostAddress, string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), string.Join(",", result.Errors));
             }
 
             model.UserRoles = InsuranceBusiness.BusinessLayer.GetRegisterRoles().Select(i => new SelectListItem() { Value = i.Id, Text = i.Name }).ToList();
