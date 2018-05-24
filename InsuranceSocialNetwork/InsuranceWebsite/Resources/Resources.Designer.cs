@@ -385,6 +385,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tem a certeza que pretende denunciar a publicação?.
+        /// </summary>
+        public static string AreYouSureToReportPost {
+            get {
+                return ResourceManager.GetString("AreYouSureToReportPost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ASF.
         /// </summary>
         public static string ASF {
@@ -1258,6 +1267,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Falar Seguros.
+        /// </summary>
+        public static string FalarSeguros {
+            get {
+                return ResourceManager.GetString("FalarSeguros", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Feed.
         /// </summary>
         public static string Feed {
@@ -1398,6 +1416,15 @@ namespace Resources {
         public static string GenerateConfirmationToken {
             get {
                 return ResourceManager.GetString("GenerateConfirmationToken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Post Global Falar Seguros.
+        /// </summary>
+        public static string GLOBAL_POST {
+            get {
+                return ResourceManager.GetString("GLOBAL_POST", resourceCulture);
             }
         }
         
@@ -2140,7 +2167,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Utilizador Comum.
+        ///   Looks up a localized string similar to Outro Profissional de Seguros.
         /// </summary>
         public static string NORMAL_USER {
             get {
@@ -2550,6 +2577,15 @@ namespace Resources {
         public static string RepeatPassword {
             get {
                 return ResourceManager.GetString("RepeatPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Denunciar.
+        /// </summary>
+        public static string Report {
+            get {
+                return ResourceManager.GetString("Report", resourceCulture);
             }
         }
         

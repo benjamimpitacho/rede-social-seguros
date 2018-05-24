@@ -161,6 +161,9 @@
         <AssociationConnector Association="InsurancePortal_dbModel.FK_HomeApplianceRepair_AspNetUsers" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_InsuranceCompanyContact_AspNetUsers" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_MedicalClinic_AspNetUsers" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.PostReported" Width="1.5" PointX="13.5" PointY="35.125" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_PostReported_AspNetUsers" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_PostReported_Post" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

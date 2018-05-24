@@ -20,6 +20,7 @@ namespace InsuranceSocialNetworkDAL
         private IRepository<Post> postRepository;
         private IRepository<PostImage> postImageRepository;
         private IRepository<PostHidden> postHiddenRepository;
+        private IRepository<PostReported> postReportedRepository;
         private IRepository<PostType> postTypeRepository;
         private IRepository<PostSubject> postSubjectRepository;
         private IRepository<PostLike> postLikeRepository;
@@ -327,6 +328,19 @@ namespace InsuranceSocialNetworkDAL
                         new Repository<InsurancePortal_dbEntities, PostHidden>(DataContext, AutoDetectChangesEnabled);
                 }
                 return postHiddenRepository;
+            }
+        }
+
+        public IRepository<PostReported> PostReported
+        {
+            get
+            {
+                if (this.postReportedRepository == null)
+                {
+                    this.postReportedRepository =
+                        new Repository<InsurancePortal_dbEntities, PostReported>(DataContext, AutoDetectChangesEnabled);
+                }
+                return postReportedRepository;
             }
         }
 

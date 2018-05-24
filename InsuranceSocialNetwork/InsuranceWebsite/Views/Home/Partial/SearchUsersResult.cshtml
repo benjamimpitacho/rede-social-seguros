@@ -18,7 +18,7 @@
                     <div class="title" style="border:0px;background-color:inherit; font-weight:bold; font-size: 17px; overflow: auto;">
                         <div style="float:left; padding-top:8px;width: calc(100% - 50px);">@Html.TextBoxFor(m => m.SearchModel.SearchTerm, new { @class = "form-control", @placeholder = Resources.Resources.Search, @style = "padding:18px;border-radius:0px;border:0px;box-shadow: none;font-weight:normal;" })</div>
                         <div style="float:right; max-width: 50px;">
-                            <a href="#" onclick="document.getElementById('searchForm').submit();">
+                            <a  onclick="document.getElementById('searchForm').submit();">
                                 <img src="~/Content/icons/icone_pesquisa_rede_social_falar_seguros_AF.png" />
                             </a>
                         </div>
@@ -32,7 +32,7 @@
 
                     @Html.TextBoxFor(m => m.SearchModel.SearchTerm, new { @class = "form-control", @placeholder = Resources.Resources.Search + "...", @style="padding:18px;border-radius:0px;" })
 
-                    <a href="#" onclick="document.getElementById('searchForm').submit();" class="input-group-addon" style="width:1%;padding:3px 12px;border-radius:0px;">
+                    <a  onclick="document.getElementById('searchForm').submit();" class="input-group-addon" style="width:1%;padding:3px 12px;border-radius:0px;">
                         <span class="glyphicon glyphicon-search"></span>
                     </a>
                 </div>
@@ -141,7 +141,7 @@
                     <div class="panel">
                         <div class="panel-body">
                             <div class="media">
-                                <a class="pull-left" href="#">
+                                <a class="pull-left" >
                                     @if (null == profile.ProfilePhoto || profile.ProfilePhoto.Length == 0)
                                     {
                                         <img class="thumb media-object" src="~/Content/images/no_photo_img.jpg" alt="" style="border-radius:100px;">

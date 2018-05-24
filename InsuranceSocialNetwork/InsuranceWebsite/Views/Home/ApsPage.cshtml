@@ -102,7 +102,7 @@
 
                                 <div style="float:left; padding-top:8px;width: calc(100% - 110px);">@Html.TextBoxFor(m => m.SearchModel.SearchTerm, new { @class = "form-control", @placeholder = Resources.Resources.SearchApsPosts, @style = "padding:18px;border-radius:0px;border:0px;box-shadow: none;font-weight:normal;" })</div>
                                 <div style="float:right; max-width: 105px;">
-                                    <a href="#" onclick="document.getElementById('searchForm').submit();">
+                                    <a  onclick="document.getElementById('searchForm').submit();">
                                         <img src="~/Content/icons/icone_pesquisa_rede_social_falar_seguros_AF.png" style="max-width:50px;" />
                                     </a>
                                 </div>
@@ -145,7 +145,7 @@
                         <input type="text" placeholder="@Resources.Resources.Title" rows="2" class="form-control input-lg p-text-area" id="postTitleTextarea" name="postTitleTextarea" />
 
                         <textarea placeholder="@Resources.Resources.NewApsPost" rows="2" class="form-control input-lg p-text-area" id="postContentTextarea" name="postContentTextarea"></textarea>
-                        <img id="imgPlaceholder" src="#" alt="" style="visibility:hidden;position:absolute" />
+                        <img id="imgPlaceholder"  alt="" style="visibility:hidden;position:absolute" />
                         <div class="panel-footer" style="border-top: 0px; padding: 10px 10px">
                             <button class="btn btn-info pull-right">@Resources.Resources.Publish</button>
                             <ul class="nav nav-pills">
@@ -179,7 +179,7 @@
                     {
                         foreach (var post in Model.Posts)
                         {
-                            <div class="search-result post" href="#">
+                            <div class="search-result post" >
                                 <div class="search-result-title">
 
                                     @if (post.PostType.Token == PostTypeEnum.IMAGE_POST.ToString())

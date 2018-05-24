@@ -51,6 +51,9 @@ INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUE
 INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('2','SEARCH_INSURANCECONTACTS_FUNCTIONALITY',1);
 INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('2','SETTINGS_FUNCTIONALITY',1);
 INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('2','CURRENT_DISCUSSIONS_FUNCTIONALITY',1);
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('2','ASF_FUNCTIONALITY',1);
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('2','APS_FUNCTIONALITY',1);
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('2','APROSE_FUNCTIONALITY',1);
 
 /* INSURANCE_PROFESSIONAL */
 INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('3','USERS_MANAGEMENT',0);
@@ -73,6 +76,9 @@ INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUE
 INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('3','SEARCH_INSURANCECONTACTS_FUNCTIONALITY',1);
 INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('3','SETTINGS_FUNCTIONALITY',1);
 INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('3','CURRENT_DISCUSSIONS_FUNCTIONALITY',1);
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('3','ASF_FUNCTIONALITY',1);
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('3','APS_FUNCTIONALITY',1);
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('3','APROSE_FUNCTIONALITY',1);
 
 /* ASSOCIATED_PREMIUM */
 INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('4','USERS_MANAGEMENT',0);
@@ -95,6 +101,9 @@ INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUE
 INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('4','SEARCH_INSURANCECONTACTS_FUNCTIONALITY',1);
 INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('4','SETTINGS_FUNCTIONALITY',1);
 INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('4','CURRENT_DISCUSSIONS_FUNCTIONALITY',1);
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('4','ASF_FUNCTIONALITY',1);
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('4','APS_FUNCTIONALITY',1);
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('4','APROSE_FUNCTIONALITY',1);
 
 /* INSURANCE_COMPANY */
 INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('5','USERS_MANAGEMENT',0);
@@ -117,6 +126,9 @@ INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUE
 INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('5','SEARCH_INSURANCECONTACTS_FUNCTIONALITY',1);
 INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('5','SETTINGS_FUNCTIONALITY',1);
 INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('5','CURRENT_DISCUSSIONS_FUNCTIONALITY',1);
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('5','ASF_FUNCTIONALITY',1);
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('5','APS_FUNCTIONALITY',1);
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('5','APROSE_FUNCTIONALITY',1);
 
 /* DIRECTORY_COMPANY */
 INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('6','MESSAGES_FUNCTIONALITY',1);

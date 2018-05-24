@@ -22,6 +22,7 @@ namespace InsuranceSocialNetworkDAL
             this.PostHidden = new HashSet<PostHidden>();
             this.PostImage = new HashSet<PostImage>();
             this.PostLike = new HashSet<PostLike>();
+            this.PostReported = new HashSet<PostReported>();
         }
     
         public long ID { get; set; }
@@ -64,5 +65,7 @@ namespace InsuranceSocialNetworkDAL
         public virtual ICollection<PostImage> PostImage { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PostLike> PostLike { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PostReported> PostReported { get; set; }
     }
 }

@@ -708,16 +708,16 @@ namespace InsuranceSocialNetworkBusiness
 
         #region Posts
 
-        public List<PostDTO> GetUserPosts(string Id)
-        {
-            List<Post> list = PostRepository.GetUserPosts(Id);
+        //public List<PostDTO> GetUserPosts(string Id)
+        //{
+        //    List<Post> list = PostRepository.GetUserPosts(Id);
 
-            list.ForEach(p => p.PostComment = p.PostComment.Where(c => c.Active).Select(c => c).ToList());
-            list.ForEach(p => p.PostImage = p.PostImage.Where(c => c.Active).Select(c => c).ToList());
+        //    list.ForEach(p => p.PostComment = p.PostComment.Where(c => c.Active).Select(c => c).ToList());
+        //    list.ForEach(p => p.PostImage = p.PostImage.Where(c => c.Active).Select(c => c).ToList());
 
 
-            return AutoMapper.Mapper.Map<List<PostDTO>>(list);
-        }
+        //    return AutoMapper.Mapper.Map<List<PostDTO>>(list);
+        //}
 
         public List<PostDTO> GetUserRelatedPosts(string Id)
         {
@@ -733,19 +733,19 @@ namespace InsuranceSocialNetworkBusiness
             }
         }
 
-        public List<PostDTO> GetUserPostsOnly(string Id)
-        {
-            using (var context = new BackofficeUnitOfWork())
-            {
-                List<Post> list = PostRepository.GetUserPostsOnly(context, Id);
+        //public List<PostDTO> GetUserPostsOnly(string Id)
+        //{
+        //    using (var context = new BackofficeUnitOfWork())
+        //    {
+        //        List<Post> list = PostRepository.GetUserPostsOnly(context, Id);
 
-                //list.ForEach(p => p.PostComment = p.PostComment.Where(c => c.Active).Select(c => c).ToList());
-                //list.ForEach(p => p.PostImage = p.PostImage.Where(c => c.Active).Select(c => c).ToList());
+        //        //list.ForEach(p => p.PostComment = p.PostComment.Where(c => c.Active).Select(c => c).ToList());
+        //        //list.ForEach(p => p.PostImage = p.PostImage.Where(c => c.Active).Select(c => c).ToList());
 
 
-                return AutoMapper.Mapper.Map<List<PostDTO>>(list);
-            }
-        }
+        //        return AutoMapper.Mapper.Map<List<PostDTO>>(list);
+        //    }
+        //}
 
         public List<PostDTO> GetCurrentDiscussionPosts(string Id)
         {
@@ -976,6 +976,11 @@ namespace InsuranceSocialNetworkBusiness
         public bool HidePost(long postId, string userId)
         {
             return PostRepository.HidePost(postId, userId);
+        }
+
+        public bool ReportPost(long postId, string userId, string reason)
+        {
+            return PostRepository.ReportPost(postId, userId, reason);
         }
 
         public int GetTotalLikes(string userId)

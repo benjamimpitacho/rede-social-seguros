@@ -199,6 +199,9 @@
     </Compile>
     <Compile Include="ChatRepository.cs" />
     <Compile Include="PaymentRepository.cs" />
+    <Compile Include="PostReported.cs">
+      <DependentUpon>InsuranceDatabaseEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="PostRepository.cs" />
     <Compile Include="NotificationType.cs">
       <DependentUpon>InsuranceDatabaseEntities.tt</DependentUpon>

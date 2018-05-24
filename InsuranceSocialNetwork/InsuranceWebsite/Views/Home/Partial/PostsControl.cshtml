@@ -1,4 +1,5 @@
 ﻿@using InsuranceSocialNetworkDTO.Post;
+@using InsuranceSocialNetworkCore.Enums;
 @model InsuranceWebsite.Models.PostItemsViewModel
 
 @Html.HiddenFor(m => m.Items)
@@ -36,26 +37,55 @@
             <div class="post-heading post">
 
                 <div class="pull-left image" style="padding:5px">
-                    <a href="@Url.Action("ProfileInfo", "Home", new { id = post.PostOwner.ID })">
-                        @if (null != post.PostOwner.ProfilePhoto && post.PostOwner.ProfilePhoto.Length > 0)
-                        {
-                            <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(post.PostOwner.ProfilePhoto))" class="avatar" alt="user profile image">
-                        }
-                        else
-                        {
-                            <img src="~/Content/images/no_photo_img.jpg" class="avatar" alt="user profile image">
-                        }
-                    </a>
+                    @if (post.PostSubject.Token == InsuranceSocialNetworkCore.Enums.PostSubjectEnum.GLOBAL_POST.ToString()
+                        || post.PostSubject.Token == InsuranceSocialNetworkCore.Enums.PostSubjectEnum.NEWS_POST.ToString()
+                        || post.PostSubject.Token == InsuranceSocialNetworkCore.Enums.PostSubjectEnum.SPONSORED_POST.ToString())
+                    {
+                        <img src="~/Content/logos/cinza_simbolo_falar_seguros_2.png" class="avatar" alt="user profile image">
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("ProfileInfo", "Home", new { id = post.PostOwner.ID })">
+                        
+                            
+                            @if (null != post.PostOwner.ProfilePhoto && post.PostOwner.ProfilePhoto.Length > 0)
+                            {
+                                <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(post.PostOwner.ProfilePhoto))" class="avatar" alt="user profile image">
+                            }
+                            else
+                            {
+                                <img src="~/Content/images/no_photo_img.jpg" class="avatar" alt="user profile image">
+                            }
+                        </a>
+                    }
                 </div>
 
                 <div class="pull-left meta" style="margin-bottom: 0px;">
 
                     <div class="h5" style="font-weight: bold;">
-
-                        <a href="@Url.Action("ProfileInfo", "Home", new { id = post.PostOwner.ID })" class="post-user-name">@post.PostOwner.FirstName</a>
+                        @if (!post.IsRepost && (post.PostSubject.Token == InsuranceSocialNetworkCore.Enums.PostSubjectEnum.GLOBAL_POST.ToString()
+                            || post.PostSubject.Token == InsuranceSocialNetworkCore.Enums.PostSubjectEnum.NEWS_POST.ToString()
+                            || post.PostSubject.Token == InsuranceSocialNetworkCore.Enums.PostSubjectEnum.SPONSORED_POST.ToString()))
+                        {
+                            <span class="post-user-name" style="color:#00C1DE;">@Resources.Resources.FalarSeguros</span>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("ProfileInfo", "Home", new { id = post.PostOwner.ID })" class="post-user-name">@post.PostOwner.FirstName</a>
+                        }
+                        
                         @if (post.IsRepost)
                         {
-                            <span style="font-weight:normal;color:#939DA3;"> @string.Format(Resources.Resources.SharedPostOf, "") <span style="font-weight:bold;">@post.RepostPost.PostOwner.FirstName</span></span>
+                            if (post.PostSubject.Token == InsuranceSocialNetworkCore.Enums.PostSubjectEnum.GLOBAL_POST.ToString()
+                                || post.PostSubject.Token == InsuranceSocialNetworkCore.Enums.PostSubjectEnum.NEWS_POST.ToString()
+                                || post.PostSubject.Token == InsuranceSocialNetworkCore.Enums.PostSubjectEnum.SPONSORED_POST.ToString())
+                            {
+                                <span style="font-weight:normal;color:#939DA3;"> @string.Format(Resources.Resources.SharedPostOf, "") <span style="font-weight:bold;color:#00C1DE;">@Resources.Resources.FalarSeguros</span></span>
+                            }
+                            else
+                            {
+                                <span style="font-weight:normal;color:#939DA3;"> @string.Format(Resources.Resources.SharedPostOf, "") <span style="font-weight:bold;">@post.RepostPost.PostOwner.FirstName</span></span>
+                            }
                         }
 
                     </div>
@@ -95,7 +125,14 @@
                 </div>
 
                 <div class="pull-right">
-                    <i class="glyphicon glyphicon-option-vertical icon context-menu-one" id="menu_@post.ID" style="border:0px;font-size: 24px;margin-right: 10px;" title="@Resources.Resources.Settings"></i>
+                    @if (post.ID_User == Model.Profile.ID_User || InsuranceSocialNetworkBusiness.InsuranceBusiness.BusinessLayer.IsUserInRole(Model.Profile.User.UserName, RoleEnum.ADMINISTRATOR.ToString()))
+                    {
+                        <i class="glyphicon glyphicon-option-vertical icon context-menu-one" id="menu_@post.ID" style="border:0px;font-size: 24px;margin-right: 10px;" title="@Resources.Resources.Settings"></i>
+                    }
+                    else
+                    {
+                        <i class="glyphicon glyphicon-option-vertical icon context-menu-two" id="menu_@post.ID" style="border:0px;font-size: 24px;margin-right: 10px;" title="@Resources.Resources.Settings"></i>
+                    }
                 </div>
 
             </div>
@@ -442,6 +479,7 @@
 
 <div id="dialog-confirm-delete" style="display: none"></div>
 <div id="dialog-confirm-hide" style="display: none"></div>
+<div id="dialog-confirm-report" style="display: none"></div>
 <div id="dialog-confirm-edit" style="display:none;height:auto;"></div>
 <div id="dialog-confirm-repost" style="display:none;height:auto;"></div>
 
@@ -531,12 +569,17 @@
                         @*url = "@Url.Action("HidePost", "Home")" + "/" + postId;*@
                         $("#dialog-confirm-hide").dialog('open');
                         break;
+                    case "report":
+                        @*url = "@Url.Action("HidePost", "Home")" + "/" + postId;*@
+                        $("#dialog-confirm-report").dialog('open');
+                        break;
                     default: break;
                 }
             },
             items: {
                 @*"edit": { name: "@Resources.Resources.Edit", icon: "edit" },*@
-                "hide": { name: "@Resources.Resources.Hide", icon: "hide" }
+                "hide": { name: "@Resources.Resources.Hide", icon: "" },
+                "report": { name: "@Resources.Resources.Report", icon: "" }
                 //"sep1": "---------",
                 @*"delete": { name: "@Resources.Resources.Delete", icon: "delete" }*@
             }
@@ -578,6 +621,22 @@
             position: { my: "center", at: "center", of: window },
             open: function (event, ui) {
                 $(this).load("@Url.Action("ConfirmPostHide", "Home")" + "/" + postId);
+            },
+            buttons: {}
+        });
+
+        $("#dialog-confirm-report").dialog({
+            title: '@Resources.Resources.Report',
+            autoOpen: false,
+            resizable: false,
+            width: 400,
+            height: 200,
+            show: { effect: 'drop', direction: "up" },
+            modal: true,
+            draggable: true,
+            position: { my: "center", at: "center", of: window },
+            open: function (event, ui) {
+                $(this).load("@Url.Action("ConfirmPostReport", "Home")" + "/" + postId);
             },
             buttons: {}
         });

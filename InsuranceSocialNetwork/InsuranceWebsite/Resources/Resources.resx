@@ -193,7 +193,7 @@
     <value>Nome</value>
   </data>
   <data name="NORMAL_USER" xml:space="preserve">
-    <value>Utilizador Comum</value>
+    <value>Outro Profissional de Seguros</value>
   </data>
   <data name="Notifications" xml:space="preserve">
     <value>Notificações</value>
@@ -1196,5 +1196,17 @@
   </data>
   <data name="WALLET_POST" xml:space="preserve">
     <value>Post de Carteira</value>
+  </data>
+  <data name="Report" xml:space="preserve">
+    <value>Denunciar</value>
+  </data>
+  <data name="AreYouSureToReportPost" xml:space="preserve">
+    <value>Tem a certeza que pretende denunciar a publicação?</value>
+  </data>
+  <data name="FalarSeguros" xml:space="preserve">
+    <value>Falar Seguros</value>
+  </data>
+  <data name="GLOBAL_POST" xml:space="preserve">
+    <value>Post Global Falar Seguros</value>
   </data>
 </root>

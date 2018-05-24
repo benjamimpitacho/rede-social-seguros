@@ -63,7 +63,7 @@
         else if (Model.Post.PostType.Token == InsuranceSocialNetworkCore.Enums.PostTypeEnum.FILE_POST.ToString())
         {
             <textarea placeholder="@Resources.Resources.WhatsInYourMindToday" rows="1" class="form-control input-lg p-text-area" id="editPostContentTextarea" name="editPostContentTextarea" style="resize: vertical;word-break:normal;height:100px;max-height:500px; text-align:justify;">@Model.Post.Text</textarea>
-            <img id="editPostImgPlaceholderEdit" src="#" alt="" style="visibility:hidden;position:absolute" />
+            <img id="editPostImgPlaceholderEdit"  alt="" style="visibility:hidden;position:absolute" />
             <button id="removeFileButton" type="button" class="ui-button ui-corner-all ui-widget ui-button-icon-only" style="position: absolute;width: 20px;height: 20px;padding: 1px;margin-left: 50px;margin-top: 4px;" title="@Resources.Resources.Remove"><span class="ui-button-icon ui-icon ui-icon-closethick"></span><span class="ui-button-icon-space"> </span>@Resources.Resources.Remove</button>
             <a id="editPostFileLink" href="@Url.Action("Download", "Home", new { id = Model.Post.ID })"><i class="fa fa-file-text-o" aria-hidden="true" style="font-size:30px;padding-left: 15px;padding-right:10px;"></i></a>
             <div id="editPostLivePreviewBox" style="display:none;">
@@ -93,7 +93,7 @@
         else if (Model.Post.PostType.Token == InsuranceSocialNetworkCore.Enums.PostTypeEnum.LINK_POST.ToString())
         {
             <textarea placeholder="@Resources.Resources.WhatsInYourMindToday" rows="1" class="form-control input-lg p-text-area" id="editPostContentTextarea" name="editPostContentTextarea" style="resize: vertical;word-break:normal;height:100px;max-height:500px; text-align:justify;" onkeyup="checkForURL()">@Model.Post.Text</textarea>
-            <img id="editPostImgPlaceholderEdit" src="#" alt="" style="visibility:hidden;position:absolute" />
+            <img id="editPostImgPlaceholderEdit"  alt="" style="visibility:hidden;position:absolute" />
             <div id="editPostLivePreviewBox">
                 <div style="padding:10px;">
                     <div style="border: 1px #ccc solid;">
@@ -150,7 +150,7 @@
         else
         {
             <textarea placeholder="@Resources.Resources.WhatsInYourMindToday" rows="1" class="form-control input-lg p-text-area" id="editPostContentTextarea" name="editPostContentTextarea" style="resize: vertical;word-break:normal;height:300px;max-height:500px; text-align:justify;">@Model.Post.Text</textarea>
-            <img id="editPostImgPlaceholderEdit" src="#" alt="" style="visibility:hidden;position:absolute" />
+            <img id="editPostImgPlaceholderEdit"  alt="" style="visibility:hidden;position:absolute" />
             <div id="editPostLivePreviewBox" style="display:none;">
                 <div style="padding:10px;">
                     <div style="border: 1px #ccc solid;">

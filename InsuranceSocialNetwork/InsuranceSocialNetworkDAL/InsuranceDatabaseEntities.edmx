@@ -705,6 +705,17 @@
           <Property Name="Date" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="PostReported">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_User" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ID_Post" Type="bigint" Nullable="false" />
+          <Property Name="Reported" Type="bit" Nullable="false" />
+          <Property Name="Reason" Type="nvarchar" MaxLength="512" Nullable="false" />
+          <Property Name="Date" Type="datetime2" Precision="7" Nullable="false" />
+        </EntityType>
         <EntityType Name="PostSubject">
           <Key>
             <PropertyRef Name="ID" />
@@ -2014,6 +2025,34 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PostReported_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PostReported" Type="Self.PostReported" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PostReported">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PostReported_Post">
+          <End Role="Post" Type="Self.Post" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PostReported" Type="Self.PostReported" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PostReported">
+              <PropertyRef Name="ID_Post" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Profile_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="Profile" Type="Self.Profile" Multiplicity="*" />
@@ -2155,6 +2194,7 @@
           <EntitySet Name="PostHidden" EntityType="Self.PostHidden" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="PostImage" EntityType="Self.PostImage" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="PostLike" EntityType="Self.PostLike" Schema="Insurance" store:Type="Tables" />
+          <EntitySet Name="PostReported" EntityType="Self.PostReported" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="PostSubject" EntityType="Self.PostSubject" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="PostType" EntityType="Self.PostType" Schema="Insurance" store:Type="Tables" />
           <EntitySet Name="Profile" EntityType="Self.Profile" Schema="Insurance" store:Type="Tables" />
@@ -2556,6 +2596,14 @@
           <AssociationSet Name="FK_PostLike_Post" Association="Self.FK_PostLike_Post">
             <End Role="Post" EntitySet="Post" />
             <End Role="PostLike" EntitySet="PostLike" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PostReported_AspNetUsers" Association="Self.FK_PostReported_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="PostReported" EntitySet="PostReported" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PostReported_Post" Association="Self.FK_PostReported_Post">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="PostReported" EntitySet="PostReported" />
           </AssociationSet>
           <AssociationSet Name="FK_Profile_AspNetUsers" Association="Self.FK_Profile_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -3072,6 +3120,15 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="MedicalClinic" EntitySet="MedicalClinic" />
           </AssociationSet>
+          <EntitySet Name="PostReported" EntityType="InsurancePortal_dbModel.PostReported" />
+          <AssociationSet Name="FK_PostReported_AspNetUsers" Association="InsurancePortal_dbModel.FK_PostReported_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="PostReported" EntitySet="PostReported" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PostReported_Post" Association="InsurancePortal_dbModel.FK_PostReported_Post">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="PostReported" EntitySet="PostReported" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="AspNetRoles">
           <Key>
@@ -3196,6 +3253,7 @@
           <NavigationProperty Name="HomeApplianceRepair" Relationship="InsurancePortal_dbModel.FK_HomeApplianceRepair_AspNetUsers" FromRole="AspNetUsers" ToRole="HomeApplianceRepair" />
           <NavigationProperty Name="InsuranceCompanyContact" Relationship="InsurancePortal_dbModel.FK_InsuranceCompanyContact_AspNetUsers" FromRole="AspNetUsers" ToRole="InsuranceCompanyContact" />
           <NavigationProperty Name="MedicalClinic" Relationship="InsurancePortal_dbModel.FK_MedicalClinic_AspNetUsers" FromRole="AspNetUsers" ToRole="MedicalClinic" />
+          <NavigationProperty Name="PostReported" Relationship="InsurancePortal_dbModel.FK_PostReported_AspNetUsers" FromRole="AspNetUsers" ToRole="PostReported" />
           </EntityType>
         <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
           <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
@@ -5191,6 +5249,7 @@
           <NavigationProperty Name="PostHidden" Relationship="InsurancePortal_dbModel.FK_PostHidden_Post" FromRole="Post" ToRole="PostHidden" />
           <NavigationProperty Name="PostImage" Relationship="InsurancePortal_dbModel.FK_PostImage_Post" FromRole="Post" ToRole="PostImage" />
           <NavigationProperty Name="PostLike" Relationship="InsurancePortal_dbModel.FK_PostLike_Post" FromRole="Post" ToRole="PostLike" />
+          <NavigationProperty Name="PostReported" Relationship="InsurancePortal_dbModel.FK_PostReported_Post" FromRole="Post" ToRole="PostReported" />
         </EntityType>
         <Association Name="FK_Post_AspNetUsers">
           <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
@@ -5369,6 +5428,47 @@
             </Principal>
             <Dependent Role="MedicalClinic">
               <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="PostReported">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_User" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ID_Post" Type="Int64" Nullable="false" />
+          <Property Name="Reported" Type="Boolean" Nullable="false" />
+          <Property Name="Reason" Type="String" Nullable="false" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="7" />
+          <NavigationProperty Name="AspNetUsers" Relationship="InsurancePortal_dbModel.FK_PostReported_AspNetUsers" FromRole="PostReported" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Post" Relationship="InsurancePortal_dbModel.FK_PostReported_Post" FromRole="PostReported" ToRole="Post" />
+        </EntityType>
+        <Association Name="FK_PostReported_AspNetUsers">
+          <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="InsurancePortal_dbModel.PostReported" Role="PostReported" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PostReported">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PostReported_Post">
+          <End Type="InsurancePortal_dbModel.Post" Role="Post" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="InsurancePortal_dbModel.PostReported" Role="PostReported" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PostReported">
+              <PropertyRef Name="ID_Post" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -6223,6 +6323,18 @@
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="ID_PostSubject" ColumnName="ID_PostSubject" />
                 <ScalarProperty Name="ID_PostType" ColumnName="ID_PostType" />
+                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PostReported">
+            <EntityTypeMapping TypeName="InsurancePortal_dbModel.PostReported">
+              <MappingFragment StoreEntitySet="PostReported">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Reason" ColumnName="Reason" />
+                <ScalarProperty Name="Reported" ColumnName="Reported" />
+                <ScalarProperty Name="ID_Post" ColumnName="ID_Post" />
                 <ScalarProperty Name="ID_User" ColumnName="ID_User" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>

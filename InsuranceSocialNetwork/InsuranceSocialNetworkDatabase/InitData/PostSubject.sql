@@ -14,3 +14,4 @@ INSERT INTO Insurance.PostSubject ([Token],[Description],[Active]) VALUES ('HUMA
 INSERT INTO Insurance.PostSubject ([Token],[Description],[Active]) VALUES ('HUMAN_RESOURCES_APPLICATION_POST', 'HUMAN_RESOURCES_APPLICATION_POST', 1);
 INSERT INTO Insurance.PostSubject ([Token],[Description],[Active]) VALUES ('INSURANCE_BUSINESS_BUY_SELL_POST', 'INSURANCE_BUSINESS_BUY_SELL_POST', 1);
 INSERT INTO Insurance.PostSubject ([Token],[Description],[Active]) VALUES ('INSURANCE_BUSINESS_PARTNERSHIP_POST', 'INSURANCE_BUSINESS_PARTNERSHIP_POST', 1);
+INSERT INTO Insurance.PostSubject ([Token],[Description],[Active]) VALUES ('GLOBAL_POST', 'GLOBAL_POST', 1);

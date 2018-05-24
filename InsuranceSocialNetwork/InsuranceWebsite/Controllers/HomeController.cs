@@ -830,6 +830,9 @@ namespace InsuranceWebsite.Controllers
                         case 14:
                             newPost.Subject = PostSubjectEnum.INSURANCE_BUSINESS_PARTNERSHIP_POST;
                             break;
+                        case 15:
+                            newPost.Subject = PostSubjectEnum.GLOBAL_POST;
+                            break;
                         default:
                             newPost.Subject = PostSubjectEnum.PERSONAL_POST;
                             break;
@@ -1050,6 +1053,24 @@ namespace InsuranceWebsite.Controllers
         {
             try
             {
+                InsuranceBusiness.BusinessLayer.HidePost(id, CurrentUser.ID_User);
+            }
+            catch (Exception ex)
+            {
+                InsuranceBusiness.BusinessLayer.LogException(string.Format("{0} [{1}]", Request.UserHostAddress, id), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+                return View("Error");
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        //[HttpPost]
+        [FunctionalityAutorizeAttribute("NEW_POST_FUNCTIONALITY")]
+        public ActionResult ReportPost(long id)
+        {
+            try
+            {
+                InsuranceBusiness.BusinessLayer.ReportPost(id, CurrentUser.ID_User, "[Mensagem de Sistema] Motivo não especificado.");
                 InsuranceBusiness.BusinessLayer.HidePost(id, CurrentUser.ID_User);
             }
             catch (Exception ex)
@@ -3407,6 +3428,12 @@ namespace InsuranceWebsite.Controllers
         {
             ViewBag.postId = id;
             return PartialView("Partial/_ConfirmPostHide");
+        }
+
+        public ActionResult ConfirmPostReport(long id)
+        {
+            ViewBag.postId = id;
+            return PartialView("Partial/_ConfirmPostReport");
         }
 
         public ActionResult ConfirmChatDelete(long id)

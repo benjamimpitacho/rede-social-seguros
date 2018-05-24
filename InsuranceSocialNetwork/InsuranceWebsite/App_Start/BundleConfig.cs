@@ -37,7 +37,7 @@ namespace InsuranceWebsite
 
             bundles.Add(new ScriptBundle("~/Scripts/jsGrid").Include(
                       /*"~/Content/bookpost/jquery.1.11.1.min.js",*/
-                      "~/Content/jsGrid/jsgrid.min.js"));
+                      "~/Scripts/jsGrid/jsgrid.min.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bookpost/css/bootstrap.min.css",

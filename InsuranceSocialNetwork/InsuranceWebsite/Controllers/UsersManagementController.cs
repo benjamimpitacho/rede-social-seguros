@@ -2,7 +2,6 @@
 using InsuranceSocialNetworkBusiness;
 using InsuranceSocialNetworkCore.Enums;
 using InsuranceSocialNetworkCore.Utils;
-using InsuranceSocialNetworkDTO.Post;
 using InsuranceSocialNetworkDTO.Role;
 using InsuranceSocialNetworkDTO.UserProfile;
 using InsuranceWebsite.Commons;
@@ -251,10 +250,19 @@ namespace InsuranceWebsite.Controllers
             return View(model);
         }
 
-        [FunctionalityAutorizeAttribute("USERS_MANAGEMENT")]
-        public JsonResult Get()
+        //[FunctionalityAutorizeAttribute("USERS_MANAGEMENT")]
+        //public JsonResult Get()
+        //{
+        //    return Json(BusinessItemsLists.GetUsers().ToArray(), JsonRequestBehavior.AllowGet);
+        //}
+
+        public IEnumerable<object> Get()
         {
-            return Json(BusinessItemsLists.GetUsers().ToArray(), JsonRequestBehavior.AllowGet);
+            var result = BusinessItemsLists.GetUsers();
+
+            var x = result.ToArray();
+
+            return x;
         }
 
         [FunctionalityAutorizeAttribute("USERS_MANAGEMENT")]

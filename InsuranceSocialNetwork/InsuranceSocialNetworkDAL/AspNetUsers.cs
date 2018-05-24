@@ -48,6 +48,7 @@ namespace InsuranceSocialNetworkDAL
             this.HomeApplianceRepair = new HashSet<HomeApplianceRepair>();
             this.InsuranceCompanyContact = new HashSet<InsuranceCompanyContact>();
             this.MedicalClinic = new HashSet<MedicalClinic>();
+            this.PostReported = new HashSet<PostReported>();
         }
     
         public string Id { get; set; }
@@ -125,5 +126,7 @@ namespace InsuranceSocialNetworkDAL
         public virtual ICollection<InsuranceCompanyContact> InsuranceCompanyContact { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MedicalClinic> MedicalClinic { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PostReported> PostReported { get; set; }
     }
 }

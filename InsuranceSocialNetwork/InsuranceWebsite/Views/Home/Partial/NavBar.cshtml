@@ -122,7 +122,7 @@
                                 @Html.TextBoxFor(m => m.SearchCompaniesModel.GarageOfficialAgent, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.OfficialAgent })
 
                                 <div class="col-md-10" style="margin-left:10%;margin-right:10%;width:80%; margin-bottom: 30px; padding: 0px;display:block;">
-                                    <a class="btn btn-info pull-right" href="#" onclick="document.getElementById('searchGaragesForm').submit();" style="width:100%">@Resources.Resources.Search</a>
+                                    <a class="btn btn-info pull-right"  onclick="document.getElementById('searchGaragesForm').submit();" style="width:100%">@Resources.Resources.Search</a>
                                 </div>
                             }
                         </div>
@@ -138,7 +138,7 @@
                                 @Html.TextBoxFor(m => m.SearchCompaniesModel.ClinicOfficialAgent, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.OfficialAgent })
 
                                 <div class="col-md-10" style="margin-left:10%;margin-right:10%;width:80%; margin-bottom: 30px; padding: 0px;display:block;">
-                                    <a class="btn btn-info pull-right" href="#" onclick="document.getElementById('searchClinicsForm').submit();" style="width:100%">@Resources.Resources.Search</a>
+                                    <a class="btn btn-info pull-right"  onclick="document.getElementById('searchClinicsForm').submit();" style="width:100%">@Resources.Resources.Search</a>
                                 </div>
                             }
                         </div>
@@ -154,7 +154,7 @@
                                 @Html.TextBoxFor(m => m.SearchCompaniesModel.ConstructionCompanyOfficialAgent, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.OfficialAgent })
 
                                 <div class="col-md-10" style="margin-left:10%;margin-right:10%;width:80%; margin-bottom: 30px; padding: 0px;display:block;">
-                                    <a class="btn btn-info pull-right" href="#" onclick="document.getElementById('searchConstructionCompaniesForm').submit();" style="width:100%">@Resources.Resources.Search</a>
+                                    <a class="btn btn-info pull-right"  onclick="document.getElementById('searchConstructionCompaniesForm').submit();" style="width:100%">@Resources.Resources.Search</a>
                                 </div>
                             }
                         </div>
@@ -170,7 +170,7 @@
                                 @Html.TextBoxFor(m => m.SearchCompaniesModel.HomeApplianceRepairOfficialAgent, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.OfficialAgent })
 
                                 <div class="col-md-10" style="margin-left:10%;margin-right:10%;width:80%; margin-bottom: 30px; padding: 0px;display:block;">
-                                    <a class="btn btn-info pull-right" href="#" onclick="document.getElementById('searchHomeApplianceRepairForm').submit();" style="width:100%">@Resources.Resources.Search</a>
+                                    <a class="btn btn-info pull-right"  onclick="document.getElementById('searchHomeApplianceRepairForm').submit();" style="width:100%">@Resources.Resources.Search</a>
                                 </div>
                             }
                         </div>
@@ -186,7 +186,7 @@
                                 @Html.TextBoxFor(m => m.SearchCompaniesModel.InsuranceContactOfficialAgent, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.OfficialAgent })
 
                                 <div class="col-md-10" style="margin-left:10%;margin-right:10%;width:80%; margin-bottom: 30px; padding: 0px;display:block;">
-                                    <a class="btn btn-info pull-right" href="#" onclick="document.getElementById('searchInsuranceContactsForm').submit();" style="width:100%">@Resources.Resources.Search</a>
+                                    <a class="btn btn-info pull-right"  onclick="document.getElementById('searchInsuranceContactsForm').submit();" style="width:100%">@Resources.Resources.Search</a>
                                 </div>
                             }
                         </div>
@@ -220,79 +220,6 @@
                 </li>
 
                 <li style="height:60px;width:100%;"></li>
-
-                @*<li><a href="@Url.Action("Index", "Home")"><i class="fa fa-bars"></i>&nbsp;@Resources.Resources.Home</a></li>
-
-                <li><a href="@Url.Action("Messages", "Home")"><i class="fa fa-comments"></i></a></li>
-
-                <li class="dropdown">
-
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        Pages
-
-                        <span class="caret"></span>
-
-                    </a>
-
-                    <ul class="dropdown-menu">
-
-                        <li><a href="cover_profile.html">Cover profile</a></li>
-
-                        <li><a href="profile_wall.html">Profile wall</a></li>
-
-                        <li><a href="user_detail.html">User detail</a></li>
-
-                        <li><a href="list_users.html">List users</a></li>
-
-                        <li><a href="file_manager.html">File manager</a></li>
-
-                        <li><a href="profile_settings.html">Profile settings</a></li>
-
-                        <li><a href="photos.html">Photos</a></li>
-
-                        <li><a href="friends.html">Friends</a></li>
-
-                        <li><a href="About.html">About</a></li>
-
-                        <li><a href="edit_profile.html">Edit profile</a></li>
-
-                        <li><a href="notifications.html">Notifications</a></li>
-
-                        <li><a href="blank-cover.html">Blank cover</a></li>
-
-                        <li><a href="registration_email.html">Registration email</a></li>
-
-                        <li><a href="error404.html">Error 404</a></li>
-
-                        <li><a href="error500.html">Error 500</a></li>
-
-                        <li><a href="recover_password.html">Recover password</a></li>
-
-                    </ul>
-
-                </li>
-
-                <li><a href="#" class="nav-controller"><i class="fa fa-user"></i></a></li>
-
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell-o"></i>@if( Model.TotalUnreadNotifications > 0 ) { <span id="spanCountAlerts">@Model.TotalUnreadNotifications</span> } </a>
-                    
-                    <ul class="dropdown-menu">
-                        @foreach (InsuranceSocialNetworkDTO.Notification.NotificationDTO notification in Model.Notifications)
-                        {
-                            <li><a href="">@notification.TextToNotificationList</a></li>
-                        }
-
-                    </ul>
-                </li>
-
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gears"></i></a>
-                    
-                    <ul class="dropdown-menu">
-                        <li>@Html.ActionLink("Logout", "LogOff", "Account")</li>
-                    </ul>
-                </li>*@
 
             </ul>
 

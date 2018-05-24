@@ -15,41 +15,42 @@ namespace InsuranceSocialNetworkDAL
 {
     public class PostRepository
     {
-        public static List<Post> GetUserPosts(string Id)
-        {
-            using (var context = new BackofficeUnitOfWork())
-            {
-                List<long> hiddenPostIds = context.PostHidden
-                .Fetch()
-                .Where(i => i.ID_User == Id && i.Hidden)
-                .Select(i => i.ID_Post)
-                .ToList();
+        //public static List<Post> GetUserPosts(string Id)
+        //{
+        //    using (var context = new BackofficeUnitOfWork())
+        //    {
+        //        List<long> hiddenPostIds = context.PostHidden
+        //        .Fetch()
+        //        .Where(i => i.ID_User == Id && i.Hidden)
+        //        .Select(i => i.ID_Post)
+        //        .ToList();
 
-                return context.Post
-                    .Fetch()
-                    .Include(i => i.AspNetUsers.Profile)
-                    .Include(i => i.PostType)
-                    .Include(i => i.PostSubject)
-                    .Include(i => i.PostLike)
-                    .Include(i => i.PostComment)
-                    .Include(i => i.PostImage)
-                    .Include(i => i.PostHidden)
-                    .Where(i => i.ID_User == Id
-                        && i.Active
-                        && !hiddenPostIds.Contains(i.ID)
-                        && (
-                            i.PostSubject.Token.Equals("PERSONAL_POST")
-                            || i.PostSubject.Token.Equals("BUSINESS_POST")
-                            || i.PostSubject.Token.Equals("NEWS_POST")
-                            || i.PostSubject.Token.Equals("PARTNERSHIP_POST")
-                            || i.PostSubject.Token.Equals("WALLET_POST")
-                            || i.PostSubject.Token.Equals("SPONSORED_POST")
-                        ))
-                    .OrderByDescending(i => i.Sticky)
-                    .ThenByDescending(i => i.CreateDate)
-                    .ToList();
-            }
-        }
+        //        return context.Post
+        //            .Fetch()
+        //            .Include(i => i.AspNetUsers.Profile)
+        //            .Include(i => i.PostType)
+        //            .Include(i => i.PostSubject)
+        //            .Include(i => i.PostLike)
+        //            .Include(i => i.PostComment)
+        //            .Include(i => i.PostImage)
+        //            .Include(i => i.PostHidden)
+        //            .Where(i => i.ID_User == Id
+        //                && i.Active
+        //                && !hiddenPostIds.Contains(i.ID)
+        //                && (
+        //                    i.PostSubject.Token.Equals("PERSONAL_POST")
+        //                    || i.PostSubject.Token.Equals("BUSINESS_POST")
+        //                    || i.PostSubject.Token.Equals("NEWS_POST")
+        //                    || i.PostSubject.Token.Equals("PARTNERSHIP_POST")
+        //                    || i.PostSubject.Token.Equals("WALLET_POST")
+        //                    || i.PostSubject.Token.Equals("SPONSORED_POST")
+        //                    || i.PostSubject.Token.Equals("GLOBAL_POST")
+        //                ))
+        //            .OrderByDescending(i => i.Sticky)
+        //            .ThenByDescending(i => i.CreateDate)
+        //            .ToList();
+        //    }
+        //}
 
         public static List<Post> GetUserRelatedPosts(BackofficeUnitOfWork context, string Id, int skipInterval = 0, int itemsCount = 20)
         {
@@ -75,40 +76,21 @@ namespace InsuranceSocialNetworkDAL
                 .Select(i => i.ID_Post)
                 .ToList();
 
-            //var validPostsIds = context.Post
-            //    .Fetch()
-            //    .Where(i => (
-            //        i.ID_User == Id
-            //        || friendsUserIds.Contains(i.ID_User)
-            //        )
-            //        && i.Active
-            //        && !hiddenPostIds.Contains(i.ID)
-            //        && (
-            //            i.PostSubject.Token.Equals("PERSONAL_POST")
-            //            || i.PostSubject.Token.Equals("BUSINESS_POST")
-            //            || i.PostSubject.Token.Equals("NEWS_POST")
-            //            || i.PostSubject.Token.Equals("PARTNERSHIP_POST")
-            //            || i.PostSubject.Token.Equals("WALLET_POST")
-            //            || i.PostSubject.Token.Equals("SPONSORED_POST")
-            //        ))
-            //    .Select(i => i.ID);
-
             List<Post> postList = context.Post
                 .Fetch()
                 .Where(i => (
-                    i.ID_User == Id
-                    || friendsUserIds.Contains(i.ID_User)
-                    )
-                    && i.Active
-                    && !hiddenPostIds.Contains(i.ID)
-                    && (
-                        i.PostSubject.Token.Equals("PERSONAL_POST")
+                        i.ID_User == Id
+                        || (friendsUserIds.Contains(i.ID_User) && i.PostSubject.Token.Equals("PERSONAL_POST"))
                         || i.PostSubject.Token.Equals("BUSINESS_POST")
                         || i.PostSubject.Token.Equals("NEWS_POST")
                         || i.PostSubject.Token.Equals("PARTNERSHIP_POST")
                         || i.PostSubject.Token.Equals("WALLET_POST")
                         || i.PostSubject.Token.Equals("SPONSORED_POST")
-                    ))
+                        || i.PostSubject.Token.Equals("GLOBAL_POST")
+                    )
+                    && i.Active
+                    && !hiddenPostIds.Contains(i.ID)
+                )
                 .Include(i => i.AspNetUsers.Profile)
                 .Include(i => i.PostType)
                 .Include(i => i.PostSubject)
@@ -184,45 +166,46 @@ namespace InsuranceSocialNetworkDAL
             return postList;
         }
 
-        public static List<Post> GetUserPostsOnly(BackofficeUnitOfWork context, string Id)
-        {
-            List<long> hiddenPostIds = context.PostHidden
-                .Fetch()
-                .Where(i => i.ID_User == Id && i.Hidden)
-                .Select(i => i.ID_Post)
-                .ToList();
+        //public static List<Post> GetUserPostsOnly(BackofficeUnitOfWork context, string Id)
+        //{
+        //    List<long> hiddenPostIds = context.PostHidden
+        //        .Fetch()
+        //        .Where(i => i.ID_User == Id && i.Hidden)
+        //        .Select(i => i.ID_Post)
+        //        .ToList();
 
-            List<Post> postList = context.Post
-                .Fetch()
-                .Include(i => i.AspNetUsers.Profile)
-                .Include(i => i.PostType)
-                .Include(i => i.PostSubject)
-                .Include(i => i.PostLike)
-                .Include(i => i.PostComment)
-                .Include(i => i.PostHidden)
-                //.Include(i => i.ChatMessage.OrderByDescending(j => j.CreateDate).Take(20))
-                .Include(i => i.PostImage)
-                .Where(i => i.ID_User == Id
-                    && i.Active
-                    && !hiddenPostIds.Contains(i.ID)
-                    && (
-                        i.PostSubject.Token.Equals("PERSONAL_POST")
-                        || i.PostSubject.Token.Equals("BUSINESS_POST")
-                        || i.PostSubject.Token.Equals("NEWS_POST")
-                        || i.PostSubject.Token.Equals("PARTNERSHIP_POST")
-                        || i.PostSubject.Token.Equals("WALLET_POST")
-                        || i.PostSubject.Token.Equals("SPONSORED_POST")
-                    ))
-                .OrderByDescending(i => i.Sticky)
-                .ThenByDescending(i => i.CreateDate)
-                .ToList();
+        //    List<Post> postList = context.Post
+        //        .Fetch()
+        //        .Include(i => i.AspNetUsers.Profile)
+        //        .Include(i => i.PostType)
+        //        .Include(i => i.PostSubject)
+        //        .Include(i => i.PostLike)
+        //        .Include(i => i.PostComment)
+        //        .Include(i => i.PostHidden)
+        //        //.Include(i => i.ChatMessage.OrderByDescending(j => j.CreateDate).Take(20))
+        //        .Include(i => i.PostImage)
+        //        .Where(i => i.ID_User == Id
+        //            && i.Active
+        //            && !hiddenPostIds.Contains(i.ID)
+        //            && (
+        //                i.PostSubject.Token.Equals("PERSONAL_POST")
+        //                || i.PostSubject.Token.Equals("BUSINESS_POST")
+        //                || i.PostSubject.Token.Equals("NEWS_POST")
+        //                || i.PostSubject.Token.Equals("PARTNERSHIP_POST")
+        //                || i.PostSubject.Token.Equals("WALLET_POST")
+        //                || i.PostSubject.Token.Equals("SPONSORED_POST")
+        //                || i.PostSubject.Token.Equals("GLOBAL_POST")
+        //            ))
+        //        .OrderByDescending(i => i.Sticky)
+        //        .ThenByDescending(i => i.CreateDate)
+        //        .ToList();
 
-            postList.ForEach(p => p.PostComment = p.PostComment.Where(c => c.Active).Select(c => c).OrderBy(i => i.Date).ToList());
-            postList.ForEach(p => p.PostLike = p.PostLike.Where(c => c.Active).Select(c => c).ToList());
-            postList.ForEach(p => p.PostImage = p.PostImage.Where(c => c.Active).Select(c => c).ToList());
+        //    postList.ForEach(p => p.PostComment = p.PostComment.Where(c => c.Active).Select(c => c).OrderBy(i => i.Date).ToList());
+        //    postList.ForEach(p => p.PostLike = p.PostLike.Where(c => c.Active).Select(c => c).ToList());
+        //    postList.ForEach(p => p.PostImage = p.PostImage.Where(c => c.Active).Select(c => c).ToList());
 
-            return postList;
-        }
+        //    return postList;
+        //}
 
         public static List<Post> GetPosts(BackofficeUnitOfWork context, string Id, PostSubjectEnum postSubject)
         {
@@ -400,6 +383,26 @@ namespace InsuranceSocialNetworkDAL
                 };
                 
                 context.PostHidden.Create(hidePost);
+                context.Save();
+
+                return true;
+            }
+        }
+
+        public static bool ReportPost(long postId, string userId, string reason)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                PostReported reportPost = new PostReported()
+                {
+                    Date = DateTime.Now,
+                    Reported = true,
+                    Reason = reason,
+                    ID_Post = postId,
+                    ID_User = userId
+                };
+
+                context.PostReported.Create(reportPost);
                 context.Save();
 
                 return true;
