@@ -82,7 +82,9 @@ namespace InsuranceSocialNetworkDAL
                     .Include(i => i.Parish)
                     .Include(i => i.County)
                     .Include(i => i.District)
-                    .Select(i => i).OrderBy(i => i.AspNetUsers.UserName).ToList();
+                    .Select(i => i)
+                    .OrderBy(i => i.AspNetUsers.UserName)
+                    .ToList();
             }
         }
 

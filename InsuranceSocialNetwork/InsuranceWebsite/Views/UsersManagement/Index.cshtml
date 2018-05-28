@@ -64,7 +64,7 @@
                                 }
                             </div>
 
-                            <div id="jsGrid" class="col-md-11 no-paddin-xs" style="background-color:white; padding:20px;"></div>
+                            @*<div id="jsGrid" class="col-md-11 no-paddin-xs" style="background-color:white; padding:20px;"></div>*@
                         </div>
                     </div>
                 </div>
@@ -77,6 +77,8 @@
     </div>
 
 </div><!-- end timeline content-->
+
+<div id="urlField" style="visibility:hidden"></div>
 
 <style>
     .listbox {
@@ -145,8 +147,7 @@
             modal: true,
             draggable: true,
             open: function (event, ui) {
-                //$(".ui-dialog-titlebar-close").hide();
-                $(this).load(url);
+                $(this).load($('#urlField').val());
             },
             buttons: {
                 "@Resources.Resources.Save": function () { $("#dialog-edit").find("form").submit(); }/*,
@@ -246,21 +247,6 @@
         $('.date-picker').datepicker();
     });
 
-    var clients = [
-        { "Name": "Otto Clay", "Age": 25, "Country": 1, "Address": "Ap #897-1459 Quam Avenue", "Married": false },
-        { "Name": "Connor Johnston", "Age": 45, "Country": 2, "Address": "Ap #370-4647 Dis Av.", "Married": true },
-        { "Name": "Lacey Hess", "Age": 29, "Country": 3, "Address": "Ap #365-8835 Integer St.", "Married": false },
-        { "Name": "Timothy Henson", "Age": 56, "Country": 1, "Address": "911-5143 Luctus Ave", "Married": true },
-        { "Name": "Ramona Benton", "Age": 32, "Country": 3, "Address": "Ap #614-689 Vehicula Street", "Married": false }
-    ];
-
-    var countries = [
-        { Name: "", Id: 0 },
-        { Name: "United States", Id: 1 },
-        { Name: "Canada", Id: 2 },
-        { Name: "United Kingdom", Id: 3 }
-    ];
-
     $("#jsGrid").jsGrid({
         width: "90%",
         height: "400px",
@@ -277,46 +263,48 @@
 
         controller: {
             loadData: function (filter) {
+                var d = $.Deferred();
                 return $.ajax({
                         type: "GET",
                         url: '@Url.Action("Get", "UsersManagement")',
-                        data: filter
-                    });
-            },
-
-            insertItem: function (item) {
-                return $.ajax({
-                    type: "POST",
-                    url: "/api/data",
-                    data: item,
-                    dataType: "json"
+                        data: filter,
+                        dataType: "JSON"
                 });
             },
 
-            updateItem: function (item) {
-                return $.ajax({
-                    type: "PUT",
-                    url: "/api/data/" + item.ID,
-                    data: item,
-                    dataType: "json"
-                });
-            },
-
-            deleteItem: function (item) {
-                return $.ajax({
-                    type: "DELETE",
-                    url: "/api/data/" + item.ID,
-                    dataType: "json"
-                });
+            onItemEditing: function (args) {
+                // cancel editing of the row of item with field 'ID' = 0
+                alert('edit');
             }
+
+            //updateItem: function (item) {
+            //    return $.ajax({
+            //        type: "PUT",
+            //        url: "/api/data/" + item.ID,
+            //        data: item,
+            //        dataType: "json"
+            //    });
+            //},
+
+            //deleteItem: function (item) {
+            //    return $.ajax({
+            //        type: "DELETE",
+            //        url: "/api/data/" + item.ID,
+            //        dataType: "json"
+            //    });
+            //}
         },
 
         fields: [
-            { name: "FirstName", type: "text", width: 150, validate: "required" },
-            { name: "LastName", type: "number", width: 50 },
+            { name: "FirstName", type: "text", width: 100 },
+            { name: "LastName", type: "number", width: 100 },
             { name: "User.UserName", type: "text", width: 200 },
-            { name: "CreateDate", type: "datetime", width: 200 },
-            { type: "control" }
+            //{ name: "ContactEmail", type: "text", width: 200 },
+            { name: "ProfessionalNumber", type: "text", width: 100 },
+            //{ name: "CompanyName", type: "text", width: 100 },
+            //{ name: "CreateDate", type: "datetime", width: 100 },
+            { name: "Controlo", index: 'Controlo'}
+            //{ type: "control" }
         ]
     });
 </script>

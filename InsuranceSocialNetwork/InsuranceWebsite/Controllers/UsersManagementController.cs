@@ -251,19 +251,37 @@ namespace InsuranceWebsite.Controllers
         }
 
         //[FunctionalityAutorizeAttribute("USERS_MANAGEMENT")]
-        //public JsonResult Get()
-        //{
-        //    return Json(BusinessItemsLists.GetUsers().ToArray(), JsonRequestBehavior.AllowGet);
-        //}
-
-        public IEnumerable<object> Get()
+        public JsonResult Get()
         {
-            var result = BusinessItemsLists.GetUsers();
+            var data = BusinessItemsLists.GetUsers();
+            data.ForEach(i => i.ProfilePhoto = null);
+            string editUrl = this.HttpContext.Request.Path.Replace("Get", "Edit") + "/";
+            string deleteUrl = this.HttpContext.Request.Path.Replace("Get", "Delete") + "/";
+            
+            data.ForEach(i => i.Controlo = "<button  onclick=\"$('#urlField').val('" + editUrl + i.ID.ToString() + "');$('.ui-dialog-title').html('Edit');$('#dialog-edit').dialog('open');return false;\" >" + Resources.Resources.Edit + "</button><button  onclick=\"$('#urlField').val('" + deleteUrl + i.ID.ToString() + "');$('#dialog-confirm').dialog('open');$('.date-picker').datepicker();return false;\" >" + Resources.Resources.Delete + "</button>");
+            
+            return Json(data.ToArray(), JsonRequestBehavior.AllowGet);
 
-            var x = result.ToArray();
+            //return new JsonResult()
+            //{
+            //    Data = BusinessItemsLists.GetUsers().ToArray(),
+            //    ContentType = "application/json",
+            //    //ContentEncoding = contentEncoding,
+            //    JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+            //    MaxJsonLength = Int32.MaxValue
+            //};
 
-            return x;
+            //return Json(BusinessItemsLists.GetUsers().ToArray(), JsonRequestBehavior.AllowGet);
         }
+
+        //public IEnumerable<object> Get()
+        //{
+        //    var result = BusinessItemsLists.GetUsers();
+
+        //    var x = result.ToArray();
+
+        //    return x;
+        //}
 
         [FunctionalityAutorizeAttribute("USERS_MANAGEMENT")]
         public ActionResult Create()

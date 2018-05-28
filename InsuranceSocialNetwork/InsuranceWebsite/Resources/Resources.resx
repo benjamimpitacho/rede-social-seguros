@@ -1209,4 +1209,7 @@
   <data name="GLOBAL_POST" xml:space="preserve">
     <value>Post Global Falar Seguros</value>
   </data>
+  <data name="ProfessionalNumberRequired" xml:space="preserve">
+    <value>Número de mediador é obrigatório</value>
+  </data>
 </root>

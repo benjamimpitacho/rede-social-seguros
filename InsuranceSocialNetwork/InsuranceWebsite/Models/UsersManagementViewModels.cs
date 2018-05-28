@@ -58,6 +58,8 @@ namespace InsuranceWebsite.Models
         public UserModelObject User { get; set; }
         public RoleModelObject Role { get; set; }
 
+        public string Controlo { get; set; }
+
         private List<ListItemString> _userRolesList;
         public IEnumerable<SelectListItem> UserRolesList
         {

@@ -2410,6 +2410,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Número de mediador é obrigatório.
+        /// </summary>
+        public static string ProfessionalNumberRequired {
+            get {
+                return ResourceManager.GetString("ProfessionalNumberRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Falar Seguros - Perfil.
         /// </summary>
         public static string ProfilePageTitle {

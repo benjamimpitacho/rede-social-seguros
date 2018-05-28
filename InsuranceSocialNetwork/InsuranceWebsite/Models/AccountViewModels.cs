@@ -89,7 +89,7 @@ namespace InsuranceWebsite.Models
         [Display(Name = "UserRole", ResourceType = typeof(Resources.Resources))]
         public string UserRole { get; set; }
 
-        //[Required(ErrorMessageResourceType = typeof(Resources.Resources), ErrorMessageResourceName = "ProfessionalNumberRequired")]
+        [Required(ErrorMessageResourceType = typeof(Resources.Resources), ErrorMessageResourceName = "ProfessionalNumberRequired")]
         [Display(Name = "ProfessionalNumber", ResourceType = typeof(Resources.Resources))]
         public string ProfessionalNumber { get; set; }
 
