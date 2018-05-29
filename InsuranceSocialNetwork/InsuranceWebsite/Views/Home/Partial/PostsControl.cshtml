@@ -150,7 +150,7 @@
             </div>
 
             @*Reported Post Details*@
-            @if (post.IsRepost && post.PostType.Token == InsuranceSocialNetworkCore.Enums.PostTypeEnum.TEXT_POST.ToString())
+            @if (post.IsRepost && post.PostType.Token == InsuranceSocialNetworkCore.Enums.PostTypeEnum.TEXT_POST.ToString() && null != post.RepostPost)
             {
                 <a href="@Url.Action("PostDetail", "Home", new { idPost = post.RepostPost.ID})">
                     <div class="panel panel-white post panel-shadow" style="border: 1px #ccc solid;">
@@ -653,8 +653,7 @@
             position: { my: "center", at: "center", of: window },
             open: function (event, ui) {
                 $(this).load("@Url.Action("EditPostDialog", "Home")" + "/" + postId);
-            },
-            buttons: {}
+            }
         });
 
         $("#dialog-confirm-repost").dialog({

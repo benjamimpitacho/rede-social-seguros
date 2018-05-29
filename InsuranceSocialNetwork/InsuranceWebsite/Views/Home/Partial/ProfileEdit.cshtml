@@ -72,6 +72,10 @@
 
     @Html.Partial("./Partial/TopBannerPartialView", Model)
 
+
+@using (Html.BeginForm("ProfileSave", "Home", FormMethod.Post, new { @class = "", enctype = "multipart/form-data", id = "profileInformationForm" }))
+{
+
     <div class="panel topPanel" style="display:flex;padding:10px 0px;font-weight:bold;color:#4B5C66">
         <div style="width:calc( 50% - 60px );height:120px; display:table;justify-content: space-evenly;">
             <div style="display:table-cell;vertical-align:middle;">
@@ -80,13 +84,14 @@
             <div style="display:table-cell;vertical-align:middle;"><span style="display:block;color:#00C1DE;">@Resources.Resources.UserProfile</span>@Html.ActionLink(Resources.Resources.Cancel, "ProfileInfo", new { id = Model.Profile.ID }, null)</div>
         </div>
         <div style="width:120px;text-align:center;">
+            <input type="file" name="fileUploaderControl" id="fileUploaderControl" style="display:none;">
             @if (null == Model.Profile || null == Model.Profile.ProfilePhoto || Model.Profile.ProfilePhoto.Length == 0)
             {
-                <img src="~/Content/images/no_photo_img.jpg" class="mini-avatar item-photo main-photo">
+                <img src="~/Content/images/no_photo_img.jpg" class="mini-avatar item-photo main-photo" id="profileImage" style="cursor:pointer;">
             }
             else
             {
-                <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.Profile.ProfilePhoto))" class="mini-avatar item-photo main-photo">
+                <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.Profile.ProfilePhoto))" class="mini-avatar item-photo main-photo" id="profileImage" style="cursor:pointer;">
             }
         </div>
         <div style="width:calc( 50% - 60px );height:120px; text-align:right;display:table;justify-content: space-evenly;font-weight:bold;">
@@ -216,44 +221,7 @@
         </div>
     </div>
 
-    @*<div class="panel panel-white" style="display:block;padding:10px 0px;font-weight:bold;color:#4B5C66">
-        <div style="width:100%;text-align:center;display:table;">
-            <div style="display:table-cell;vertical-align:middle;"><span style="display:block;font-size:20px;">@Model.Profile.FirstName @Model.Profile.LastName</span>@Model.Profile.Address</div>
-        </div>
-        <div style="width:100%;display:flex;">
-            <div style="width:33%;display:block;justify-content: space-evenly;text-align:center;">
-                <div>
-                    <img src="~/Content/icons/icons_perfil_rede_social_falar_seguros_v24.png" class="profile-icon" />
-                    <span style="font-size:18px;">000</span>
-                </div>
-                <div style="">@Resources.Resources.Contacts</div>
-            </div>
-            <div style="width:34%;display:block;justify-content: space-evenly;text-align:center;">
-                <div>
-                    <img src="~/Content/icons/icons_perfil_rede_social_falar_seguros_v24.png" class="profile-icon" />
-                    <span style="font-size:18px;">000</span>
-                </div>
-                <div style="">@Resources.Resources.Likes</div>
-            </div>
-            <div style="width:33%;text-align:center;display:block;justify-content: space-evenly;">
-                <div>
-                    <img src="~/Content/icons/icons_perfil_rede_social_falar_seguros_v24.png" class="profile-icon" />
-                    <span style="font-size:18px;">000</span>
-                </div>
-                <div style="">@Resources.Resources.Followers</div>
-            </div>
-        </div>
-    </div>
-
-    <div class="panel panel-white">
-        <div style="width:100%;display:flex;text-align:center;">
-
-        </div>
-    </div>*@
-
     <div class="panel panel-white" style="display:block;padding:10px 20px;font-weight:bold;color:#4B5C66;font-size:12px;">
-@using (Html.BeginForm("ProfileSave", "Home", FormMethod.Post, new { @class = "", enctype = "multipart/form-data", id = "profileInformationForm" }))
-{
     @Html.HiddenFor(i => i.ProfileEditModel.ID)
         <div style="padding:10px 0px;">
             <span style="font-size:14px;">@Resources.Resources.BasicInformation</span>
@@ -454,17 +422,38 @@
             @Html.ActionLink(Resources.Resources.Cancel, "ProfileInfo", new { id = Model.Profile.ID }, new { @class = "btn btn-darkblue" })
             <input type="button" class="btn btn-blue" value="@Resources.Resources.Save" id="submitButton" />
         </div>
-}
     </div>
+}
 
 </div>
 
 
 <script type="text/javascript">
 
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                //$('#profileImage').attr('style', '');
+                $('#profileImage').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
     $(document).ready(function () {
         var ddlCounties = $("#countyList"); //dropdownlist for counties
         var ddlParishes = $("#parishList"); //dropdownlist for parishes
+
+        $('#profileImage').click(function () {
+            $('#fileUploaderControl').click();
+        });
+
+        $("#fileUploaderControl").change(function () {
+            readURL(this);
+        });
 
         if ($("#countyId").val() == null || $("#countyId").val() == '')
         {

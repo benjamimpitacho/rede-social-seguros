@@ -2296,7 +2296,7 @@ namespace InsuranceWebsite.Controllers
                 Bitmap resizedImage = ImageUtils.ResizeImage(Bitmap.FromStream(fileUploaderControl.InputStream), 250, 250);
                 profile.ProfilePhoto = ImageUtils.ImageToByte(resizedImage);
                 model.ProfileEditModel.ProfilePhoto = profile.ProfilePhoto;
-                model.ProfileEditModel.Profile.ProfilePhoto = profile.ProfilePhoto;
+                //model.ProfileEditModel.Profile.ProfilePhoto = profile.ProfilePhoto;
                 //using (var binaryReader = new BinaryReader(fileUploaderControl.InputStream))
                 //{
                 //    profile.ProfilePhoto = binaryReader.ReadBytes(fileUploaderControl.ContentLength);

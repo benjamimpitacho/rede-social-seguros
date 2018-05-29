@@ -57,6 +57,10 @@
                                                     {
                                                         <img src="@imgSrc" class="avatar img-circle" id="profileImage">
                                                     }
+                                                    <input type='file' id="imgUpload" style="visibility:hidden;position:absolute" name="imgUpload" />
+                                                    <a href="javascript:$('#imgUpload').click()" style="padding: 3px 5px" title="@Resources.Resources.Image">
+                                                        <img src="~/Content/icons/mais_icons_mensagens_rede_social_falar_seguros_AF7.png" class="icon-normal" />
+                                                    </a>
 
                                                     <h2>@Model.Profile.FirstName @Model.Profile.LastName <i class="fa fa-circle green-font online-icon"></i><sup class="sr-only">online</sup></h2>
                                                     <div class="contact">

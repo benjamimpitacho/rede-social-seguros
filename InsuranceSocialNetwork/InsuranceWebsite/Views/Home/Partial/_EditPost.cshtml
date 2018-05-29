@@ -196,9 +196,10 @@
 </div>
 
 <div class="" style="text-align:center;">
-    <div class="ui-dialog-buttonset">
-        <button type="button" class="ui-button ui-corner-all ui-widget" id="okButton">@Resources.Resources.Save</button>
-        <button type="button" class="ui-button ui-corner-all ui-widget" id="cancelButton">@Resources.Resources.Cancel</button>
+    <div style="padding:10px 20px 10px 20px;width:100%;position:absolute;background-color:#EDEFF0;bottom:0px;">
+        <input type="button" class="btn btn-blue" id="okButton" value="@Resources.Resources.Save" />
+        <div style="width:4px;height:10px;float:right;"></div>
+        <input type="button" class="btn btn-darkblue" id="cancelButton" value="@Resources.Resources.Cancel" />
     </div>
 </div>
 
@@ -248,52 +249,10 @@
 
     $(document).ready(function () {
 
-        @*$("#editPostContentTextarea").keyup(function () {
-            alert('p');
-            var urls = $("#editPostContentTextarea").val().match(/\b(http|https)?(:\/\/)?(\S*)\.(\w{2,4})\b/ig);
-            //alert(urls);
-            if (urls == null || urls.length == 0)
-            {
-                alert("no urls");
-                return;
-            }
-            if (urls[0] == $("#livePreviewUrlHidden").text())
-            {
-                alert($("#livePreviewUrlHidden").text());
-                //alert(urls[0])
-                return;
-            }
-            alert(urls[0]);
-            $.ajax({
-                type: 'POST',
-                url: '@Url.Action("Preview", "Home")',
-                data: { url: urls[0] },
-                success: function (data) {
-                    $("#editPostLivePreviewTitle").text(data.title);
-                    $("#editPostLivePreviewTitleHidden").text(data.title);
-                    $("#editPostLivePreviewDescription").text(data.description);
-                    $("#editPostLivePreviewDescriptionHidden").text(data.description);
-                    $("#editPostLivePreviewDomain").text(data.url);
-                    $("#editPostLivePreviewDomainHidden").text(data.url);
-                    $("#livePreviewUrlHidden").text(data.url);
-                    $("#editPostLivePreviewImg").html('');
-                    $.each(data.lstImages, function (e, element) {
-                        $("#editPostLivePreviewImg").append("<img src='" + element + "' style='max-height:400px;max-width:460px'/>");
-                        $("#editPostLivePreviewImgHidden").text(element);
-                    });
-
-                    $('#editPostLivePreviewBox').attr('style', '');
-                    $('#imgPlaceholder').attr('src', '');
-                    $("#imgUpload").files = null;
-                    $("#fileUpload").files = null;
-                    $("#RemoveFile").val("True");
-                    $("#RemoveImage").val("True");
-                }
-            });
-        });*@
-
         $("#cancelButton").on("click", function (e) {
-            $("#dialog-confirm-edit").dialog("close");
+            //$("#dialog-confirm-edit").dialog("close");
+            //$(".ui-dialog-content").dialog().dialog("close");
+            $(".ui-dialog-titlebar-close").trigger('click');
         });
 
         $("#okButton").on("click", function (e) {

@@ -291,7 +291,9 @@ namespace InsuranceWebsite.Controllers
                 //StartDate = DateTime.Now
             };
 
-            return PartialView(model);
+            return PartialView("Create", model);
+
+            //return PartialView(model);
         }
 
         // POST: /User/Edit/5

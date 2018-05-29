@@ -34,17 +34,19 @@
                                 <a href="@Url.Action("Create", "UsersManagement")" class='btn btn-success lnkCreate'>@Resources.Resources.CreateNewUser</a>
                                 <p></p>
 
-                                @Html.Partial("_MVCGridToolbar", new MVCGridToolbarModel()
+                                @*@Html.Partial("_MVCGridToolbar", new MVCGridToolbarModel()
                                 {
                                     MVCGridName = "UsersManagementGrid",
                                     PageSize = true,
                                     ColumnVisibility = true,
                                     Export = true,
                                     GlobalSearch = true
-                                })
+                                })*@
                                 @*@Html.MVCGrid("UsersManagementGrid")*@
 
                             </div>
+
+                            <div id="jsGrid" class="col-md-11 no-paddin-xs" style="background-color:white; padding:20px;"></div>
 
                             <div class="col-md-11 no-paddin-xs" style="background-color:white; padding:20px;width:90%">
                                 <div>@Html.Label(Resources.Resources.AllowedEmailDomains)</div>
@@ -63,8 +65,6 @@
                                     </div>
                                 }
                             </div>
-
-                            @*<div id="jsGrid" class="col-md-11 no-paddin-xs" style="background-color:white; padding:20px;"></div>*@
                         </div>
                     </div>
                 </div>
@@ -146,6 +146,7 @@
             show: { effect: 'drop', direction: "up" },
             modal: true,
             draggable: true,
+            position: { my: "center", at: "center", of: window },
             open: function (event, ui) {
                 $(this).load($('#urlField').val());
             },
@@ -206,6 +207,7 @@
         $(".lnkCreate").click(function (e) {
             e.preventDefault(); //use this or return false
             url = $(this).attr('href');
+            $('#urlField').val($(this).attr('href'));
             $(".ui-dialog-title").html("@Resources.Resources.CreateNewUser");
             $("#dialog-edit").dialog('open');
 
@@ -276,23 +278,6 @@
                 // cancel editing of the row of item with field 'ID' = 0
                 alert('edit');
             }
-
-            //updateItem: function (item) {
-            //    return $.ajax({
-            //        type: "PUT",
-            //        url: "/api/data/" + item.ID,
-            //        data: item,
-            //        dataType: "json"
-            //    });
-            //},
-
-            //deleteItem: function (item) {
-            //    return $.ajax({
-            //        type: "DELETE",
-            //        url: "/api/data/" + item.ID,
-            //        dataType: "json"
-            //    });
-            //}
         },
 
         fields: [
