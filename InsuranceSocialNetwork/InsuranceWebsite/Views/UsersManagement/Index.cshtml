@@ -8,8 +8,8 @@
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-@Styles.Render("~/Content/jsGrid")
-@Scripts.Render("~/Scripts/jsGrid")
+@*@Styles.Render("~/Content/jsGrid")
+@Scripts.Render("~/Scripts/jsGrid")*@
 
 @Scripts.Render("~/bundles/jqueryval")
 
@@ -34,19 +34,19 @@
                                 <a href="@Url.Action("Create", "UsersManagement")" class='btn btn-success lnkCreate'>@Resources.Resources.CreateNewUser</a>
                                 <p></p>
 
-                                @*@Html.Partial("_MVCGridToolbar", new MVCGridToolbarModel()
+                                @Html.Partial("_MVCGridToolbar", new MVCGridToolbarModel()
                                 {
                                     MVCGridName = "UsersManagementGrid",
                                     PageSize = true,
                                     ColumnVisibility = true,
                                     Export = true,
                                     GlobalSearch = true
-                                })*@
+                                })
                                 @*@Html.MVCGrid("UsersManagementGrid")*@
 
                             </div>
 
-                            <div id="jsGrid" class="col-md-11 no-paddin-xs" style="background-color:white; padding:20px;"></div>
+                            @*<div id="jsGrid" class="col-md-11 no-paddin-xs" style="background-color:white; padding:20px;"></div>*@
 
                             <div class="col-md-11 no-paddin-xs" style="background-color:white; padding:20px;width:90%">
                                 <div>@Html.Label(Resources.Resources.AllowedEmailDomains)</div>
@@ -216,7 +216,8 @@
 
         $(".lnkEdit").click(function (e) {
             e.preventDefault(); //use this or return false
-            url = $(this).attr('href');
+            //url = $(this).attr('href');
+            $('#urlField').val($(this).attr('href'));
             $(".ui-dialog-title").html("@Resources.Resources.EditUser");
             $("#dialog-edit").dialog('open');
 
@@ -249,7 +250,7 @@
         $('.date-picker').datepicker();
     });
 
-    $("#jsGrid").jsGrid({
+    @*$("#jsGrid").jsGrid({
         width: "90%",
         height: "400px",
 
@@ -291,7 +292,7 @@
             { name: "Controlo", index: 'Controlo'}
             //{ type: "control" }
         ]
-    });
+    });*@
 </script>
 
 <div id="dialog-alert" style="display: none">

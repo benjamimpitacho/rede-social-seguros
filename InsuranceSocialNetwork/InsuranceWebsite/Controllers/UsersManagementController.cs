@@ -132,7 +132,7 @@ namespace InsuranceWebsite.Controllers
                 })
                 .WithAdditionalQueryOptionNames("Search")
                 .WithSorting(true, "FirstName")
-                .WithPaging(paging: true, itemsPerPage: 10, allowChangePageSize: true, maxItemsPerPage: 100)
+                .WithPaging(paging: true, itemsPerPage: 100, allowChangePageSize: true, maxItemsPerPage: 100)
                 .WithProcessingMessage(Resources.Resources.Loading)
                 .WithNextButtonCaption(Resources.Resources.Next)
                 .WithPreviousButtonCaption(Resources.Resources.Previous)
@@ -525,7 +525,7 @@ namespace InsuranceWebsite.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [FunctionalityAutorizeAttribute("USERS_MANAGEMENT")]
-        public ActionResult Edit(UserProfileModelObject model, HttpPostedFileBase fileUploaderControl)
+        public async Task<ActionResult> Edit(UserProfileModelObject model, HttpPostedFileBase fileUploaderControl)
         {
             try
             {
@@ -536,6 +536,16 @@ namespace InsuranceWebsite.Controllers
                 //profile.User.EmailConfirmed = model.User.EmailConfirmed;
 
                 InsuranceBusiness.BusinessLayer.UpdateProfile(profile);
+
+                UserProfileDTO user = InsuranceBusiness.BusinessLayer.GetUserProfile(model.ID_User);
+
+                if(user.Role.Id != model.Role.Id)
+                {
+                    RoleDTO roleToRemove = InsuranceBusiness.BusinessLayer.GetRoles().FirstOrDefault(i => i.Id == user.Role.Id);
+                    var result = await this.UserManager.RemoveFromRoleAsync(model.ID_User, roleToRemove.Name);
+                    RoleDTO roleToAssign = InsuranceBusiness.BusinessLayer.GetRoles().FirstOrDefault(i => i.Id == model.Role.Id);
+                    result = await this.UserManager.AddToRoleAsync(model.ID_User, roleToAssign.Name);
+                }
             }
             catch (Exception ex)
             {

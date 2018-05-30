@@ -67,7 +67,7 @@
                         @*@Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })*@
                         <div class="col-md-12 login-box-elements dark">
                             <img src="~/Content/icons/target.png" style="width:40px; height:40px;" />
-                            @Html.TextBoxFor(m => m.ProfessionalNumber, new { @class = "form-control login-box-input", @placeholder = Resources.Resources.ProfessionalNumber, @id = "short" })
+                            @Html.TextBoxFor(m => m.ProfessionalNumber, new { @class = "form-control login-box-input professionalNumberClass", @placeholder = Resources.Resources.ProfessionalNumber, @id = "short" })
                         </div>
                     </div>
 
@@ -137,10 +137,12 @@
         if($("#userRoleDropdown").val() == 3)
         {
             $("#professionalNumberSection").show();
+            $(".professionalNumberClass").val("");
         }
         else
         {
             $("#professionalNumberSection").hide();
+            $(".professionalNumberClass").val("-");
         }
     });
 

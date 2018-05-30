@@ -16,6 +16,7 @@
     {
         @Html.AntiForgeryToken();
         @Html.HiddenFor(i => i.ID);
+        @Html.HiddenFor(i => i.ID_User);
         <p>
             @Html.Label(Resources.Resources.FirstName)
             @Html.TextBoxFor(i => i.FirstName, new { @class = "text ui-widget-content ui-corner-all", id = "firstname" })

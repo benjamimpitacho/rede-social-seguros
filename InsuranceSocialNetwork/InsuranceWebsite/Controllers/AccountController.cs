@@ -199,13 +199,12 @@ namespace InsuranceWebsite.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 user.EmailConfirmed = false;
-
-                List<SelectListItem> initList = new List<SelectListItem>() { new SelectListItem() { Value = "", Text = Resources.Resources.SelectRole } };
-                model.UserRoles = initList.Concat(InsuranceBusiness.BusinessLayer.GetRegisterRoles().Select(i => new SelectListItem() { Value = i.Id, Text = Resources.Resources.ResourceManager.GetString(i.Name) })).ToList();
+                
                 //user.LockoutEnabled = true;
                 //await SendActivationEmail(user, model.Name);
                 var result = await UserManager.CreateAsync(user, model.Password);
@@ -316,7 +315,8 @@ namespace InsuranceWebsite.Controllers
                 InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.ERROR, Request.UserHostAddress, string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), string.Join(",", result.Errors));
             }
 
-            model.UserRoles = InsuranceBusiness.BusinessLayer.GetRegisterRoles().Select(i => new SelectListItem() { Value = i.Id, Text = i.Name }).ToList();
+            List<SelectListItem> initList = new List<SelectListItem>() { new SelectListItem() { Value = "", Text = Resources.Resources.SelectRole } };
+            model.UserRoles = initList.Concat(InsuranceBusiness.BusinessLayer.GetRegisterRoles().Select(i => new SelectListItem() { Value = i.Id, Text = Resources.Resources.ResourceManager.GetString(i.Name) })).ToList();
 
             // If we got this far, something failed, redisplay form
             return View(model);

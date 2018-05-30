@@ -48,7 +48,7 @@
         switch (notification.NotificationType.Token)
         {
             case "COMPLETE_PROFILE_INFO":
-                <a  onclick="location.href='@Url.Action("ProfileEdit", "Home", new { id = notification.ToUserID, ntId = notification.ID })'">
+                <a  onclick="location.href='@Url.Action("ProfileEdit", "Home", new { userId = notification.ToUserID, ntId = notification.ID })'">
                     <div class="panel panel-white post panel-shadow animated fadeInUp" style="margin-bottom:2px;">
                         <div class="@("post-heading " + (notification.Read ? "read" : "unread"))">
                             <div class="pull-left image">
