@@ -723,11 +723,15 @@ namespace InsuranceSocialNetworkBusiness
         {
             using (var context = new BackofficeUnitOfWork())
             {
+                //InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, Id, "InsuranceBusiness::GetUserRelatedPosts::GetUserRelatedPosts", string.Format("Get posts - start: {0}", DateTime.Now.ToString()));
                 List<Post> list = PostRepository.GetUserRelatedPosts(context, Id);
+                //InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, Id, "InsuranceBusiness::GetUserRelatedPosts::GetUserRelatedPosts", string.Format("Get posts - start: {0}", DateTime.Now.ToString()));
 
+                //InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, Id, "InsuranceBusiness::GetUserRelatedPosts::Map", string.Format("Get posts - start: {0}", DateTime.Now.ToString()));
                 List<PostDTO> result = AutoMapper.Mapper.Map<List<PostDTO>>(list);
+                //InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, Id, "InsuranceBusiness::GetUserRelatedPosts::Map", string.Format("Get posts - start: {0}", DateTime.Now.ToString()));
 
-                result.Where(i => i.IsRepost && i.Repost_PostID.HasValue).ToList().ForEach(i => i.RepostPost = GetPost(i.Repost_PostID.Value));
+                //result.Where(i => i.IsRepost && i.Repost_PostID.HasValue).ToList().ForEach(i => i.ImageSource = null);
 
                 return result;
             }

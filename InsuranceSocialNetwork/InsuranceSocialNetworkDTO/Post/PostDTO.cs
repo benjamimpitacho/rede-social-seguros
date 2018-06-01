@@ -57,6 +57,9 @@ namespace InsuranceSocialNetworkDTO.Post
 
         public List<PostImageDTO> PostImage { get; set; }
 
+        //public List<PostDTO> Post1 { get; set; }
+        public PostDTO Post2 { get; set; }
+
         public CountyDTO County { get; set; }
         public DistrictDTO District { get; set; }
 

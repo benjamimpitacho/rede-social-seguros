@@ -324,8 +324,8 @@ namespace InsuranceWebsite.Controllers
 
         private async Task<bool> SendConfirmationEmail(ApplicationUser user, string name)
         {
-            var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-            code = System.Web.HttpUtility.UrlEncode(code);
+            var newToken = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+            newToken = System.Web.HttpUtility.UrlEncode(newToken);
 
             System.Net.Mail.MailMessage m = new System.Net.Mail.MailMessage(
                 new System.Net.Mail.MailAddress(ConfigurationSettings.AppEmailAddress, Resources.Resources.ApplicationNAme),
@@ -340,7 +340,7 @@ namespace InsuranceWebsite.Controllers
 
             m.Body = m.Body.Replace("{NAME}", name); //replacing the required things  
 
-            m.Body = m.Body.Replace("{URL}", Url.Action("ConfirmEmail", "Account", new { token = code, code = user.Id }, Request.Url.Scheme));
+            m.Body = m.Body.Replace("{URL}", Url.Action("ConfirmEmail", "Account", new { token = newToken, code = user.Id }, Request.Url.Scheme));
 
             m.IsBodyHtml = true;
             System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient(ConfigurationSettings.SmtpHost, ConfigurationSettings.SmtpPort)
@@ -414,6 +414,8 @@ namespace InsuranceWebsite.Controllers
         {
             try
             {
+                token = HttpUtility.UrlDecode(token);
+
                 InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, code, "AccountController::ConfirmEmail", string.Format("Received token={0} | code={1}", token, code));
 
                 if (code == null || token == null)

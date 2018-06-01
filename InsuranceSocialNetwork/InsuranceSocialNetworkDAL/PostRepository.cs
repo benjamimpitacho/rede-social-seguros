@@ -91,6 +91,7 @@ namespace InsuranceSocialNetworkDAL
                     && i.Active
                     && !hiddenPostIds.Contains(i.ID)
                 )
+                .Include(i => i.Post1)
                 .Include(i => i.AspNetUsers.Profile)
                 .Include(i => i.PostType)
                 .Include(i => i.PostSubject)
@@ -99,7 +100,7 @@ namespace InsuranceSocialNetworkDAL
                 .Include(i => i.PostHidden)
                 .Include(i => i.PostImage)
                 //.Include(i => i.ChatMessage.OrderByDescending(j => j.CreateDate).Take(20))
-                .Include(i => i.PostImage)
+                //.Include(i => i.PostImage)
                 .OrderByDescending(i => i.Sticky)
                 .ThenByDescending(i => i.CreateDate)
                 //.Skip(skipInterval)

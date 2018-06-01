@@ -42,13 +42,13 @@ namespace InsuranceSocialNetworkDAL
             this.ChatNotification = new HashSet<ChatNotification>();
             this.Profile = new HashSet<Profile>();
             this.CompanyWorkingWith = new HashSet<CompanyWorkingWith>();
-            this.Post = new HashSet<Post>();
             this.ConstructionCompany = new HashSet<ConstructionCompany>();
             this.Garage = new HashSet<Garage>();
             this.HomeApplianceRepair = new HashSet<HomeApplianceRepair>();
             this.InsuranceCompanyContact = new HashSet<InsuranceCompanyContact>();
             this.MedicalClinic = new HashSet<MedicalClinic>();
             this.PostReported = new HashSet<PostReported>();
+            this.Post = new HashSet<Post>();
         }
     
         public string Id { get; set; }
@@ -115,8 +115,6 @@ namespace InsuranceSocialNetworkDAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CompanyWorkingWith> CompanyWorkingWith { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Post> Post { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ConstructionCompany> ConstructionCompany { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Garage> Garage { get; set; }
@@ -128,5 +126,7 @@ namespace InsuranceSocialNetworkDAL
         public virtual ICollection<MedicalClinic> MedicalClinic { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PostReported> PostReported { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Post> Post { get; set; }
     }
 }

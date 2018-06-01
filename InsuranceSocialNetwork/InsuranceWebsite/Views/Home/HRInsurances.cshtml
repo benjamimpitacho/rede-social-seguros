@@ -183,7 +183,7 @@
                                             <a href="@Url.Action("ProfileInfo", "Home", new { id = post.PostOwner.ID })" class="post-user-name">@post.PostOwner.FirstName</a>
                                             @if (post.IsRepost)
                                             {
-                                                <span style="font-weight:normal;color:#939DA3;"> @string.Format(Resources.Resources.SharedPostOf, "") <span style="font-weight:bold;">@post.RepostPost.PostOwner.FirstName</span></span>
+                                                <span style="font-weight:normal;color:#939DA3;"> @string.Format(Resources.Resources.SharedPostOf, "") <span style="font-weight:bold;">@post.Post2.PostOwner.FirstName</span></span>
                                             }
 
                                         </div>
@@ -248,16 +248,16 @@
                                 @*Reported Post Details*@
                                 @if (post.IsRepost && post.PostType.Token == InsuranceSocialNetworkCore.Enums.PostTypeEnum.TEXT_POST.ToString())
                                 {
-                                    <a href="@Url.Action("PostDetail", "Home", new { idPost = post.RepostPost.ID})">
+                                    <a href="@Url.Action("PostDetail", "Home", new { idPost = post.Post2.ID})">
                                         <div class="panel panel-white post panel-shadow" style="border: 1px #ccc solid;">
 
                                             <div class="post-heading">
 
                                                 <div class="pull-left image" style="padding:5px">
                                                     @*<a href="@Url.Action("ProfileInfo", "Home", new { id = post.PostOwner.ID })">*@
-                                                    @if (null != post.RepostPost.PostOwner.ProfilePhoto && post.RepostPost.PostOwner.ProfilePhoto.Length > 0)
+                                                    @if (null != post.Post2.PostOwner.ProfilePhoto && post.Post2.PostOwner.ProfilePhoto.Length > 0)
                                                     {
-                                                        <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(post.RepostPost.PostOwner.ProfilePhoto))" class="avatar" alt="user profile image">
+                                                        <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(post.Post2.PostOwner.ProfilePhoto))" class="avatar" alt="user profile image">
                                                     }
                                                     else
                                                     {
@@ -270,77 +270,77 @@
 
                                                     <div class="h5" style="font-weight: bold;">
 
-                                                        @*<a href="@Url.Action("ProfileInfo", "Home", new { id = post.RepostPost.PostOwner.ID })" class="post-user-name">*@@post.RepostPost.PostOwner.FirstName@*</a>*@
+                                                        @*<a href="@Url.Action("ProfileInfo", "Home", new { id = post.Post2.PostOwner.ID })" class="post-user-name">*@@post.Post2.PostOwner.FirstName@*</a>*@
 
                                                     </div>
 
-                                                    @if (post.RepostPost.PostSubject.Token == InsuranceSocialNetworkCore.Enums.PostSubjectEnum.SPONSORED_POST.ToString())
+                                                    @if (post.Post2.PostSubject.Token == InsuranceSocialNetworkCore.Enums.PostSubjectEnum.SPONSORED_POST.ToString())
                                                     {
                                                         <h6 class="text-muted time">@Resources.Resources.Sponsored.ToUpper()</h6>
                                                     }
                                                     else
                                                     {
-                                                        if (DateTime.Now.Subtract(post.RepostPost.CreateDate).TotalMinutes < 1)
+                                                        if (DateTime.Now.Subtract(post.Post2.CreateDate).TotalMinutes < 1)
                                                         {
-                                                            <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(post.RepostPost.CreateDate).TotalSeconds, 0) @Resources.Resources.SecondsAgo</h6>
+                                                            <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(post.Post2.CreateDate).TotalSeconds, 0) @Resources.Resources.SecondsAgo</h6>
                                                         }
-                                                        else if (DateTime.Now.Subtract(post.RepostPost.CreateDate).TotalHours < 2)
+                                                        else if (DateTime.Now.Subtract(post.Post2.CreateDate).TotalHours < 2)
                                                         {
-                                                            <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(post.RepostPost.CreateDate).TotalMinutes, 0) @Resources.Resources.MinutesAgo</h6>
+                                                            <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(post.Post2.CreateDate).TotalMinutes, 0) @Resources.Resources.MinutesAgo</h6>
                                                         }
-                                                        else if (DateTime.Now.Subtract(post.RepostPost.CreateDate).TotalDays < 1)
+                                                        else if (DateTime.Now.Subtract(post.Post2.CreateDate).TotalDays < 1)
                                                         {
-                                                            <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(post.RepostPost.CreateDate).TotalHours, 0) @Resources.Resources.HoursAgo</h6>
+                                                            <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(post.Post2.CreateDate).TotalHours, 0) @Resources.Resources.HoursAgo</h6>
                                                         }
-                                                        else if (DateTime.Now.Subtract(post.RepostPost.CreateDate).TotalDays == 1)
+                                                        else if (DateTime.Now.Subtract(post.Post2.CreateDate).TotalDays == 1)
                                                         {
-                                                            <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(post.RepostPost.CreateDate).TotalDays, 0) @Resources.Resources.DayAgo</h6>
+                                                            <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(post.Post2.CreateDate).TotalDays, 0) @Resources.Resources.DayAgo</h6>
                                                         }
-                                                        else if (DateTime.Now.Subtract(post.RepostPost.CreateDate).TotalDays < 3)
+                                                        else if (DateTime.Now.Subtract(post.Post2.CreateDate).TotalDays < 3)
                                                         {
-                                                            <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(post.RepostPost.CreateDate).TotalDays, 0) @Resources.Resources.DaysAgo</h6>
+                                                            <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(post.Post2.CreateDate).TotalDays, 0) @Resources.Resources.DaysAgo</h6>
                                                         }
                                                         else
                                                         {
-                                                            <h6 class="text-muted time">@post.RepostPost.CreateDate.ToShortDateString()</h6>
+                                                            <h6 class="text-muted time">@post.Post2.CreateDate.ToShortDateString()</h6>
                                                         }
                                                     }
 
                                                 </div>
 
                                                 @*<div class="pull-right">
-                                                        <i class="glyphicon glyphicon-option-vertical icon context-menu-one" id="menu_@post.RepostPost.ID" style="border:0px;font-size: 24px;margin-right: 10px;"></i>
+                                                        <i class="glyphicon glyphicon-option-vertical icon context-menu-one" id="menu_@post.Post2.ID" style="border:0px;font-size: 24px;margin-right: 10px;"></i>
                                                     </div>*@
 
                                             </div>
 
                                             <div class="post-description" style="word-break:normal; text-align:justify;">
 
-                                                @if (post.RepostPost.PostType.Token == InsuranceSocialNetworkCore.Enums.PostTypeEnum.FILE_POST.ToString())
+                                                @if (post.Post2.PostType.Token == InsuranceSocialNetworkCore.Enums.PostTypeEnum.FILE_POST.ToString())
                                                 {
-                                                    @*<a id="file_@post.RepostPost.ID" href="@Url.Action("Download", "Home", new { id = post.RepostPost.ID })">*@<i class="fa fa-file-text-o" aria-hidden="true" style="font-size:30px;padding-left: 15px;padding-right:10px;"></i>@*</a>*@
+                                                    @*<a id="file_@post.Post2.ID" href="@Url.Action("Download", "Home", new { id = post.Post2.ID })">*@<i class="fa fa-file-text-o" aria-hidden="true" style="font-size:30px;padding-left: 15px;padding-right:10px;"></i>@*</a>*@
                                                 }
-                                                <span id="text_@post.RepostPost.ID">@post.RepostPost.Text</span>
+                                                <span id="text_@post.Post2.ID">@post.Post2.Text</span>
 
                                             </div>
 
-                                            @if (post.RepostPost.PostType.Token == InsuranceSocialNetworkCore.Enums.PostTypeEnum.IMAGE_POST.ToString())
+                                            @if (post.Post2.PostType.Token == InsuranceSocialNetworkCore.Enums.PostTypeEnum.IMAGE_POST.ToString())
                                             {
 
                                                 <div class="post-image">
 
-                                                    @*<img src="@post.RepostPost.ImageSource" class="image show-in-modal" alt="image post">*@
+                                                    @*<img src="@post.Post2.ImageSource" class="image show-in-modal" alt="image post">*@
 
-                                                    <div id="gallery_@post.RepostPost.ID" class="image show-in-modal"></div>
+                                                    <div id="gallery_@post.Post2.ID" class="image show-in-modal"></div>
 
                                                     <script>
 
                         $(function () {
 
-                            $('#gallery_'+@post.RepostPost.ID).imagesGrid({
+                            $('#gallery_'+@post.Post2.ID).imagesGrid({
                                 images: [
                                     {
-                                        src: '@post.RepostPost.ImageSource'
+                                        src: '@post.Post2.ImageSource'
                                     }
                                 ],
                                 align: true,
@@ -354,29 +354,29 @@
                                                 </div>
                                             }
 
-                                            @if (post.RepostPost.PostType.Token == InsuranceSocialNetworkCore.Enums.PostTypeEnum.LINK_POST.ToString())
+                                            @if (post.Post2.PostType.Token == InsuranceSocialNetworkCore.Enums.PostTypeEnum.LINK_POST.ToString())
                                             {
 
                                                 <div id="livePreviewBox">
                                                     <div style="padding:10px;">
-                                                        @*<a href="@post.RepostPost.URL" target="_blank">*@
+                                                        @*<a href="@post.Post2.URL" target="_blank">*@
                                                         <div style="border: 1px #ccc solid;">
-                                                            @if (!string.IsNullOrEmpty(post.RepostPost.ImageSource))
+                                                            @if (!string.IsNullOrEmpty(post.Post2.ImageSource))
                                                             {
                                                                 <div>
                                                                     <div>
-                                                                        <div style="text-align:center;"><img src="@post.RepostPost.ImageSource" class="image" alt="image post"></div>
+                                                                        <div style="text-align:center;"><img src="@post.Post2.ImageSource" class="image" alt="image post"></div>
                                                                     </div>
                                                                 </div>
                                                             }
-                                                            @if (!string.IsNullOrEmpty(post.RepostPost.URL_Title) || !string.IsNullOrEmpty(post.RepostPost.URL_Description) || !string.IsNullOrEmpty(post.RepostPost.URL_Domain))
+                                                            @if (!string.IsNullOrEmpty(post.Post2.URL_Title) || !string.IsNullOrEmpty(post.Post2.URL_Description) || !string.IsNullOrEmpty(post.Post2.URL_Domain))
                                                             {
                                                                 <div style="border-top: 1px #ccc solid;padding: 10px;">
-                                                                    <div style="font-weight: bold;font-size: 16px;color:#333;">@post.RepostPost.URL_Title</div>
-                                                                    <div style="font-size: 12px;">@post.RepostPost.URL_Description</div>
+                                                                    <div style="font-weight: bold;font-size: 16px;color:#333;">@post.Post2.URL_Title</div>
+                                                                    <div style="font-size: 12px;">@post.Post2.URL_Description</div>
                                                                     <div>
                                                                         <div>
-                                                                            <div style="color: #6F7D85;">@post.RepostPost.URL_Domain</div>
+                                                                            <div style="color: #6F7D85;">@post.Post2.URL_Domain</div>
                                                                             <div class=""></div>
                                                                         </div>
                                                                     </div>

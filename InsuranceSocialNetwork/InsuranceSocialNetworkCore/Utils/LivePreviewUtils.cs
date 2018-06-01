@@ -19,59 +19,66 @@ namespace InsuranceSocialNetworkCore.Utils
             List<string> lstUrl = new List<string>();
             List<string> TempImages = new List<string>();
 
-            lstUrl = GetUrlList(url);
-
-            string validUrl = GetValidUrl(lstUrl);
-
-            if (!string.IsNullOrWhiteSpace(validUrl))
+            try
             {
 
-                string s2 = GetHtmlPage(validUrl);
+                lstUrl = GetUrlList(url);
 
-                scrap.url = validUrl;
-                var metadata = MetaDescription(s2);
-                scrap.description = (string.IsNullOrEmpty(metadata.desc) ? "" : metadata.desc);
+                string validUrl = GetValidUrl(lstUrl);
 
-                if (!string.IsNullOrEmpty(metadata.image))
+                if (!string.IsNullOrWhiteSpace(validUrl))
                 {
-                    TempImages.Add(metadata.image);
-                }
-                else
-                {
-                    var images = GetRegImages(s2);
-                    foreach (var item in images)
+
+                    string s2 = GetHtmlPage(validUrl);
+
+                    scrap.url = validUrl;
+                    var metadata = MetaDescription(s2);
+                    scrap.description = (string.IsNullOrEmpty(metadata.desc) ? "" : metadata.desc);
+
+                    if (!string.IsNullOrEmpty(metadata.image))
                     {
-                        if (item.ToLower().Contains("logo"))
-                        {
-                            TempImages.Insert(0, item);
-
-                            break;
-                        }
-                        else
-                        {
-                            TempImages.Add(item);
-                        }
-                        //TempImages.Add(item);
+                        TempImages.Add(metadata.image);
                     }
+                    else
+                    {
+                        var images = GetRegImages(s2);
+                        foreach (var item in images)
+                        {
+                            if (item.ToLower().Contains("logo"))
+                            {
+                                TempImages.Insert(0, item);
+
+                                break;
+                            }
+                            else
+                            {
+                                TempImages.Add(item);
+                            }
+                            //TempImages.Add(item);
+                        }
+                    }
+
+                    List<string> PerfactImageUrls;
+
+                    var task = Task.Run(() => formatImageUrl(TempImages, url));
+
+                    if (task.Wait(TimeSpan.FromSeconds(2)))
+                    {
+                        PerfactImageUrls = task.Result.ToList<string>();
+                        scrap.lstImages = PerfactImageUrls.Take(4).ToArray();
+                    }
+                    scrap.title = GetTitle(s2);
                 }
 
-                List<string> PerfactImageUrls;
-
-                var task = Task.Run(() => formatImageUrl(TempImages, url));
-
-                if (task.Wait(TimeSpan.FromSeconds(2)))
-                {
-                    PerfactImageUrls = task.Result.ToList<string>();
-                    scrap.lstImages = PerfactImageUrls.Take(4).ToArray();
-                }
-                scrap.title = GetTitle(s2);
+                return scrap;
             }
-            else
+            catch(Exception ex)
             {
+                scrap.title = "Preview not available";
+                scrap.description = "Preview not available";
 
+                return scrap;
             }
-
-            return scrap;
         }
 
         public static List<string> CheckImage(List<string> images)
@@ -172,6 +179,9 @@ namespace InsuranceSocialNetworkCore.Utils
                 if (!String.IsNullOrEmpty(item))
                 {
                     HttpWebRequest request = HttpWebRequest.Create(item) as HttpWebRequest;
+                    request.UseDefaultCredentials = true;
+                    request.Proxy.Credentials = System.Net.CredentialCache.DefaultCredentials;
+                    request.ContentType = "application/json";
                     try
                     {
                         response = request.GetResponse() as HttpWebResponse;

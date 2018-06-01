@@ -1,0 +1,5 @@
+﻿@using InsuranceSocialNetworkDTO.Post;
+@using InsuranceSocialNetworkCore.Enums;
+@model InsuranceWebsite.Models.PostViewModel
+
+<div style="text-align:center;"><img src="@String.Format("data:{0};base64,{1}", Model.Post.PostImage[0].Type, Convert.ToBase64String(Model.Post.PostImage[0].Image))" class="image" alt="image post"></div>

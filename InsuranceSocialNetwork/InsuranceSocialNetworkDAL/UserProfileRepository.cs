@@ -74,6 +74,14 @@ namespace InsuranceSocialNetworkDAL
         {
             using (var context = new BackofficeUnitOfWork())
             {
+                var rolesIds = context.AspNetRoles
+                    .Fetch()
+                    .Where(i => i.Name == "ADMINISTRATOR"
+                    || i.Name == "ASSOCIATED_PREMIUM"
+                    || i.Name == "INSURANCE_PROFESSIONAL"
+                    || i.Name == "NORMAL_USER")
+                    .Select(i => i.Id);
+
                 return context
                     .Profile
                     .Fetch()
@@ -82,6 +90,7 @@ namespace InsuranceSocialNetworkDAL
                     .Include(i => i.Parish)
                     .Include(i => i.County)
                     .Include(i => i.District)
+                    .Where(i => rolesIds.Contains(i.AspNetUsers.AspNetRoles.FirstOrDefault().Id))
                     .Select(i => i)
                     .OrderBy(i => i.AspNetUsers.UserName)
                     .ToList();

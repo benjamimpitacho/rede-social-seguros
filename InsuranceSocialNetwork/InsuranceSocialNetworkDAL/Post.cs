@@ -18,6 +18,7 @@ namespace InsuranceSocialNetworkDAL
         public Post()
         {
             this.Notification = new HashSet<Notification>();
+            this.Post1 = new HashSet<Post>();
             this.PostComment = new HashSet<PostComment>();
             this.PostHidden = new HashSet<PostHidden>();
             this.PostImage = new HashSet<PostImage>();
@@ -55,6 +56,9 @@ namespace InsuranceSocialNetworkDAL
         public virtual District District { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Notification> Notification { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Post> Post1 { get; set; }
+        public virtual Post Post2 { get; set; }
         public virtual PostSubject PostSubject { get; set; }
         public virtual PostType PostType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

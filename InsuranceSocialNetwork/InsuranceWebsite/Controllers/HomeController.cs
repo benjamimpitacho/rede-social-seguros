@@ -119,6 +119,12 @@ namespace InsuranceWebsite.Controllers
 
             }
 
+            PostItemsViewModel postsModel = new PostItemsViewModel();
+            postsModel.Profile = CurrentUser;
+            postsModel.Items = InsuranceBusiness.BusinessLayer.GetUserRelatedPosts(CurrentUser.ID_User);
+
+            model.PostsModel = postsModel;
+
             return View(model);
         }
 
@@ -1030,6 +1036,18 @@ namespace InsuranceWebsite.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult GetPostImage(long id)
+        {
+            var result = InsuranceBusiness.BusinessLayer.GetPost(id);
+
+            PostViewModel model = new PostViewModel()
+            {
+                Post = result
+            };
+
+            return PartialView("Partial/LinkPostImage", model);
+        }
+
         //[HttpPost]
         [FunctionalityAutorizeAttribute("NEW_POST_FUNCTIONALITY")]
         public ActionResult DeletePost(long id)
@@ -1439,7 +1457,9 @@ namespace InsuranceWebsite.Controllers
             PostItemsViewModel model = new PostItemsViewModel();
             model.Profile = CurrentUser;
 
+            //InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, id.HasValue ? id.Value.ToString() : "-", "Index::Posts", string.Format("Get posts - start: {0}", DateTime.Now.ToString()));
             model.Items = InsuranceBusiness.BusinessLayer.GetUserRelatedPosts(CurrentUser.ID_User);
+            //InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, id.HasValue ? id.Value.ToString() : "-", "Index::Posts", string.Format("Get posts - end: {0}", DateTime.Now.ToString()));
 
             return PartialView("Partial/PostsControl", model);
         }
@@ -3477,7 +3497,8 @@ namespace InsuranceWebsite.Controllers
             catch(Exception ex)
             {
                 //InsuranceBusiness.BusinessLayer.LogException("", "HomeController::Preview", ex);
-                throw ex;
+                //throw ex;
+                return Json(new Scrap(), JsonRequestBehavior.AllowGet);
             }
         }
 

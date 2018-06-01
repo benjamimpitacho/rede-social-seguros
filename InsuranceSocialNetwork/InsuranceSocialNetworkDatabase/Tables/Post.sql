@@ -30,4 +30,5 @@
 	CONSTRAINT [FK_Post_PostSubject] FOREIGN KEY([ID_PostSubject]) REFERENCES [Insurance].[PostSubject] ([ID]),
 	CONSTRAINT [FK_Post_District] FOREIGN KEY([ID_District]) REFERENCES [Insurance].[District] ([ID]),
 	CONSTRAINT [FK_Post_County] FOREIGN KEY([ID_County]) REFERENCES [Insurance].[County] ([ID]),
+	CONSTRAINT [FK_Post_Post] FOREIGN KEY([Repost_PostID]) REFERENCES [Insurance].[Post] ([ID])
 )

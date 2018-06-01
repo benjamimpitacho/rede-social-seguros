@@ -74,6 +74,8 @@ namespace InsuranceWebsite.Models
 
         public CompanyModelObject CompanyModel { get; set; }
 
+        public PostItemsViewModel PostsModel { get; set; }
+
         #region Banners Fields
 
         public List<BannerDTO> TopBanners { get; set; }

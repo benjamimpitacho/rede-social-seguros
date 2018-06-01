@@ -783,6 +783,7 @@
     <Content Include="Views\Home\Partial\CompanyProfile.cshtml" />
     <Content Include="Views\Home\Partial\CompanyProfileEdit.cshtml" />
     <Content Include="Views\Home\Partial\_ConfirmPostReport.cshtml" />
+    <Content Include="Views\Home\Partial\LinkPostImage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

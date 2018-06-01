@@ -145,17 +145,6 @@
         <EntityTypeShape EntityType="InsurancePortal_dbModel.CompanyWorkingWith" Width="1.5" PointX="8.25" PointY="34" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_CompanyWorkingWith_User" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_CompanyWorkingWith_CompanyType" />
-        <EntityTypeShape EntityType="InsurancePortal_dbModel.Post" Width="1.5" PointX="8.25" PointY="25.125" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_Post_AspNetUsers" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_Post_County" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_Post_District" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_Notification_Post" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_Post_PostSubject" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_Post_PostType" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_PostComment_Post" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_PostHidden_Post" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_PostImage_Post" />
-        <AssociationConnector Association="InsurancePortal_dbModel.FK_PostLike_Post" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_ConstructionCompany_AspNetUsers" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_Garage_AspNetUsers" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_HomeApplianceRepair_AspNetUsers" />
@@ -163,6 +152,18 @@
         <AssociationConnector Association="InsurancePortal_dbModel.FK_MedicalClinic_AspNetUsers" />
         <EntityTypeShape EntityType="InsurancePortal_dbModel.PostReported" Width="1.5" PointX="13.5" PointY="35.125" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_PostReported_AspNetUsers" />
+        <EntityTypeShape EntityType="InsurancePortal_dbModel.Post" Width="1.5" PointX="8.25" PointY="24.375" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_Post_AspNetUsers" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_Post_County" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_Post_District" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_Notification_Post" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_Post_Post" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_Post_PostSubject" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_Post_PostType" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_PostComment_Post" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_PostHidden_Post" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_PostImage_Post" />
+        <AssociationConnector Association="InsurancePortal_dbModel.FK_PostLike_Post" />
         <AssociationConnector Association="InsurancePortal_dbModel.FK_PostReported_Post" />
         </Diagram>
     </edmx:Diagrams>
