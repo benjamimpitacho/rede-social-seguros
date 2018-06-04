@@ -5,7 +5,7 @@
     [ID_User] NVARCHAR(128) NOT NULL,
     [CreateDate] DATETIME2 NOT NULL DEFAULT GETDATE(),
     CONSTRAINT [PK_ConstructionCompanyFavorite] PRIMARY KEY CLUSTERED ([ID] ASC),
-	CONSTRAINT [FK_ConstructionCompanyFavorite_ConstructionCompany] FOREIGN KEY([ID_ConstructionCompany]) REFERENCES [Insurance].[ConstructionCompany] ([ID]),
-	CONSTRAINT [FK_ConstructionCompanyFavorite_User] FOREIGN KEY([ID_User]) REFERENCES [dbo].[AspNetUsers] ([Id])
+	CONSTRAINT [FK_ConstructionCompanyFavorite_ConstructionCompany] FOREIGN KEY([ID_ConstructionCompany]) REFERENCES [Insurance].[ConstructionCompany] ([ID]) ON DELETE CASCADE,
+	CONSTRAINT [FK_ConstructionCompanyFavorite_User] FOREIGN KEY([ID_User]) REFERENCES [dbo].[AspNetUsers] ([Id]) ON DELETE CASCADE
 )
 

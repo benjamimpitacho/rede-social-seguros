@@ -144,12 +144,12 @@ namespace InsuranceSocialNetworkDAL
         {
             using (var context = new BackofficeUnitOfWork())
             {
-                Garage item = context.Garage.Get(id);
-                item.DeleteDate = DateTime.Now;
-                item.Active = false;
-                item.LastChangeDate = DateTime.Now;
+                //Garage item = context.Garage.Get(id);
+                //item.DeleteDate = DateTime.Now;
+                //item.Active = false;
+                //item.LastChangeDate = DateTime.Now;
 
-                context.Garage.Update(item);
+                context.Garage.Delete(id);
                 context.Save();
 
                 return true;

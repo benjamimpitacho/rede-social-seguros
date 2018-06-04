@@ -30,6 +30,10 @@
             {
                 @Html.Partial("~/Views/Home/Partial/CompanyProfileEdit.cshtml", Model)
             }
+            else if (InsuranceBusiness.BusinessLayer.IsUserInRole(this.User.Identity.Name, RoleEnum.PORTAL_COMMERCIAL.ToString()))
+            {
+                
+            }
             else if (Model.IsPostsView && !Model.IsProfileTimeline)
             {
                 @Html.Partial("~/Views/Home/Partial/Timeline.cshtml", Model)
@@ -72,7 +76,10 @@
             }
             <!--end left  content-->
 
-            @Html.Partial("~/Views/Home/Partial/RightBar.cshtml", Model)
+            @if (!InsuranceBusiness.BusinessLayer.IsUserInRole(this.User.Identity.Name, RoleEnum.PORTAL_COMMERCIAL.ToString()))
+            {
+                @Html.Partial("~/Views/Home/Partial/RightBar.cshtml", Model)
+            }
 
         </div>
 

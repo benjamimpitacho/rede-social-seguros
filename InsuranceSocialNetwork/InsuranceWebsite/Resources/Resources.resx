@@ -130,13 +130,13 @@
     <value>Grupos de Conversa</value>
   </data>
   <data name="CheckYourEmailToGetAccess" xml:space="preserve">
-    <value>Verifique o seu e-mail para confirmar o registo e ativar o acesso ao portal.</value>
+    <value>Verifica o teu e-mail para confirmar o registo e ativar o acesso ao portal.</value>
   </data>
   <data name="Code" xml:space="preserve">
     <value>Código</value>
   </data>
   <data name="ConfirmPassword" xml:space="preserve">
-    <value>Confirme password</value>
+    <value>Confirma a password</value>
   </data>
   <data name="Contact" xml:space="preserve">
     <value>Contacto</value>
@@ -154,7 +154,7 @@
     <value>Feed</value>
   </data>
   <data name="ForgotYourPassword" xml:space="preserve">
-    <value>Esqueceu-se da sua palavra-passe</value>
+    <value>Esqueceste-te da tua palavra-passe</value>
   </data>
   <data name="Home" xml:space="preserve">
     <value>Home</value>
@@ -256,19 +256,19 @@
     <value>Benvindo</value>
   </data>
   <data name="WelcomeAbout" xml:space="preserve">
-    <value>Partilhe e conheça as oportunidades na mediação de seguros!</value>
+    <value>Partilha e conhece as oportunidades na mediação de seguros!</value>
   </data>
   <data name="WelcomeDescription" xml:space="preserve">
     <value>ao portal Falar Seguros</value>
   </data>
   <data name="WhatsInYourMindToday" xml:space="preserve">
-    <value>Partilhe um artigo, foto, link ou ideia...</value>
+    <value>Partilha um artigo, foto, link ou ideia...</value>
   </data>
   <data name="SelectRole" xml:space="preserve">
-    <value>&lt;Seleccione o perfil&gt;</value>
+    <value>&lt;Selecciona o perfil&gt;</value>
   </data>
   <data name="EnterYourEmail" xml:space="preserve">
-    <value>Insira o seu e-mail</value>
+    <value>Insire o teu e-mail</value>
   </data>
   <data name="CodeRequired" xml:space="preserve">
     <value>Código é obrigatório</value>
@@ -307,7 +307,7 @@
     <value>Pesquisa</value>
   </data>
   <data name="Friends" xml:space="preserve">
-    <value>Amigos</value>
+    <value>Conexões</value>
   </data>
   <data name="SearchPageTitle" xml:space="preserve">
     <value>Pesquisa</value>
@@ -316,7 +316,7 @@
     <value>Adicionar</value>
   </data>
   <data name="AddFriend" xml:space="preserve">
-    <value>Adicionar Amigo</value>
+    <value>Adicionar Conexão</value>
   </data>
   <data name="SearchClinics" xml:space="preserve">
     <value>Directório Saúde</value>
@@ -358,7 +358,7 @@
     <value>Terminar sessão</value>
   </data>
   <data name="NoNotifications" xml:space="preserve">
-    <value>De momento não possui notificações</value>
+    <value>De momento não possuis notificações</value>
   </data>
   <data name="OfficialAgent" xml:space="preserve">
     <value>Agente oficial</value>
@@ -430,10 +430,10 @@
     <value>Alterar password</value>
   </data>
   <data name="CommentsOnYourPosts" xml:space="preserve">
-    <value>Comentários nas suas publicações</value>
+    <value>Comentários nas tuas publicações</value>
   </data>
   <data name="LikesOnYourPosts" xml:space="preserve">
-    <value>Gostos nas suas publicações</value>
+    <value>Gostos nas tuas publicações</value>
   </data>
   <data name="NewPassword" xml:space="preserve">
     <value>Nova palavra-passe</value>
@@ -460,7 +460,7 @@
     <value>Mostrar estado online</value>
   </data>
   <data name="RemoveFriend" xml:space="preserve">
-    <value>Remover Amigo</value>
+    <value>Remover Conexão</value>
   </data>
   <data name="Description" xml:space="preserve">
     <value>Descrição</value>
@@ -619,10 +619,10 @@
     <value>Tem a certeza que pretende desactivar a empresa?</value>
   </data>
   <data name="SelectCounty" xml:space="preserve">
-    <value>Seleccione o concelho</value>
+    <value>Selecciona o concelho</value>
   </data>
   <data name="SelectDistrict" xml:space="preserve">
-    <value>Seleccione o distrito</value>
+    <value>Selecciona o distrito</value>
   </data>
   <data name="County" xml:space="preserve">
     <value>Concelho</value>
@@ -649,7 +649,7 @@
     <value>Não existem conversações</value>
   </data>
   <data name="NoFriends" xml:space="preserve">
-    <value>De momento não possui amigos</value>
+    <value>De momento não possuis conexões</value>
   </data>
   <data name="AprosePage" xml:space="preserve">
     <value>Página da APROSE</value>
@@ -676,31 +676,31 @@
     <value>Whatsapp</value>
   </data>
   <data name="AcceptedYourFriendRequest" xml:space="preserve">
-    <value>aceitou o seu pedido de amizade</value>
+    <value>aceitou o teu pedido de amizade</value>
   </data>
   <data name="AcceptRequest" xml:space="preserve">
     <value>Aceitar pedido</value>
   </data>
   <data name="CommentedOnYourPost" xml:space="preserve">
-    <value>comentou a sua publicação</value>
+    <value>comentou a tua publicação</value>
   </data>
   <data name="IgnoreRequest" xml:space="preserve">
     <value>Ignorar pedido</value>
   </data>
   <data name="LikedYourPost" xml:space="preserve">
-    <value>gostou da sua publicação</value>
+    <value>gostou da tua publicação</value>
   </data>
   <data name="SentYouFriendRequest" xml:space="preserve">
-    <value>enviou-lhe um pedido de amizade</value>
+    <value>enviou-te um pedido de conexão</value>
   </data>
   <data name="YouNeedCompleteYourProfile" xml:space="preserve">
-    <value>Complete a informação do seu perfil</value>
+    <value>Completa a informação do teu perfil</value>
   </data>
   <data name="DayAgo" xml:space="preserve">
     <value>dia atrás</value>
   </data>
   <data name="SelectService" xml:space="preserve">
-    <value>Seleccione serviço</value>
+    <value>Selecciona o serviço</value>
   </data>
   <data name="AddEmailOrDomain" xml:space="preserve">
     <value>Adicionar email/dominio</value>
@@ -721,7 +721,7 @@
     <value>Portal Falar Seguros | Confirmação de registo</value>
   </data>
   <data name="RegisterConfirmationMessage" xml:space="preserve">
-    <value>{0} o portal Falar Seguros dá-lhe as boas vindas!&lt;BR/&gt;Obrigado por se registar! Queira por favor clicar no seguinte link para concluir o seu processo de registo e usufruir da plataforma Falar Seguros: &lt;a href='{1}' title='Confirmação Registo'&gt;{1}&lt;/a&gt;</value>
+    <value>{0} o portal Falar Seguros dá-te as boas vindas!&lt;BR/&gt;Obrigado por te registares! Por favor, clica no seguinte link para concluir o teu processo de registo e usufruir da plataforma Falar Seguros: &lt;a href='{1}' title='Confirmação Registo'&gt;{1}&lt;/a&gt;</value>
   </data>
   <data name="Hello" xml:space="preserve">
     <value>Olá</value>
@@ -802,7 +802,7 @@
     <value>IBAN</value>
   </data>
   <data name="EnterYourEmailToRecoverAccount" xml:space="preserve">
-    <value>Insira e-mail para recuperar a sua conta</value>
+    <value>Insire o e-mail para recuperar a sua conta</value>
   </data>
   <data name="Send" xml:space="preserve">
     <value>Enviar</value>
@@ -811,7 +811,7 @@
     <value>Termos &amp; Condições</value>
   </data>
   <data name="CheckYourEmailToResetPassword" xml:space="preserve">
-    <value>Por favor verifique o seu email para redefinir a sua senha.</value>
+    <value>Por favor verifica o teu email para redefinir a tua senha.</value>
   </data>
   <data name="NewPublishedContentOnCurrentDiscussions" xml:space="preserve">
     <value>Foi publicado um novo conteúdo nos temas </value>
@@ -895,10 +895,10 @@
     <value>Twitter</value>
   </data>
   <data name="RegisterPendingApproval" xml:space="preserve">
-    <value>O seu registo aguarda aprovação da equipa do portal Falar Seguros. Aguarde a recepção do e-mail a confirmar a activação do seu registo para poder aceder à plataforma. Obrigado.</value>
+    <value>O teu registo aguarda aprovação da equipa do portal Falar Seguros. Aguarda a recepção do e-mail a confirmar a activação do teu registo para poderes aceder à plataforma. Obrigado.</value>
   </data>
   <data name="AccountLocked" xml:space="preserve">
-    <value>A sua conta aguarda aprovação da equipa do portal Falar Seguros. Aguarde a recepção do e-mail a indicar a activação da sua conta. Obrigado.</value>
+    <value>A tua conta aguarda aprovação da equipa do portal Falar Seguros. Aguarda pela recepção do e-mail a indicar a activação da tua conta. Obrigado.</value>
   </data>
   <data name="DoNotReceiveNotifications" xml:space="preserve">
     <value>Não receber notificações</value>
@@ -910,7 +910,7 @@
     <value>Pesquisar mensagens</value>
   </data>
   <data name="WriteMessageOrAttachAnArchive" xml:space="preserve">
-    <value>Escreva a mensagem ou anexe um arquivo</value>
+    <value>Escreve a mensagem ou anexa um arquivo</value>
   </data>
   <data name="ReceiveNotificationsByEmail" xml:space="preserve">
     <value>Receber notificações por email</value>
@@ -925,7 +925,7 @@
     <value>Novo utilizador aguarda aprovação do registo</value>
   </data>
   <data name="SentYouMessage" xml:space="preserve">
-    <value>enviou-lhe uma nova mensagem</value>
+    <value>enviou-te uma nova mensagem</value>
   </data>
   <data name="PaymentType" xml:space="preserve">
     <value>Tipo de pagamento</value>
@@ -970,13 +970,13 @@
     <value>Configurar Débito Directo</value>
   </data>
   <data name="DirectDebitConfirmationErrorMessage" xml:space="preserve">
-    <value>Ocorreu um erro ao configurar o seu débito directo. Por favor, tente novamente.</value>
+    <value>Ocorreu um erro ao configurar o teu débito directo. Por favor, tenta novamente.</value>
   </data>
   <data name="DirectDebitConfirmationErrorTitle" xml:space="preserve">
     <value>Falha na configuração do Débito Directo</value>
   </data>
   <data name="DirectDebitConfirmationSuccessMessage" xml:space="preserve">
-    <value>O seu débito directo foi configurado com sucesso. Obrigado.</value>
+    <value>O teu débito directo foi configurado com sucesso. Obrigado.</value>
   </data>
   <data name="DirectDebitConfirmationSuccessTitle" xml:space="preserve">
     <value>Débito Directo configurado com sucesso</value>
@@ -1000,10 +1000,10 @@
     <value>Mensagem nova</value>
   </data>
   <data name="InsertOneOrMoreContacts" xml:space="preserve">
-    <value>Insira um ou mais contactos</value>
+    <value>Insire um ou mais contactos</value>
   </data>
   <data name="SelectParish" xml:space="preserve">
-    <value>Seleccione a freguesia</value>
+    <value>Selecciona a freguesia</value>
   </data>
   <data name="AddEmail" xml:space="preserve">
     <value>Adicionar email</value>
@@ -1021,7 +1021,7 @@
     <value>A equipa técnica do portal Falar Seguros será notificada sobre esta situação e resolveremos a situação o mais breve possivel. Obrigado pela compreensão.</value>
   </data>
   <data name="UnexpectedErrorOcurred" xml:space="preserve">
-    <value>Ocorreu um erro inesperado e não foi possível completar a sua operação.</value>
+    <value>Ocorreu um erro inesperado e não foi possível completar a tua operação.</value>
   </data>
   <data name="SharedPostOf" xml:space="preserve">
     <value>partilhou a publicação de {0}</value>
@@ -1057,7 +1057,7 @@
     <value>Talento</value>
   </data>
   <data name="InsertDescriptionText" xml:space="preserve">
-    <value>Insira texto descritivo</value>
+    <value>Insire texto descritivo</value>
   </data>
   <data name="InsuranceBusinesses" xml:space="preserve">
     <value>Negócios Seguros</value>
@@ -1093,19 +1093,19 @@
     <value>Pesquisar negócio seguro</value>
   </data>
   <data name="SelectBusinessType" xml:space="preserve">
-    <value>Seleccione o tipo de negócio</value>
+    <value>Selecciona o tipo de negócio</value>
   </data>
   <data name="EmailPasswordRecover" xml:space="preserve">
     <value>Portal Falar Seguros | Recuperação de palavra-chave</value>
   </data>
   <data name="CheckYourEmailToChangePassword" xml:space="preserve">
-    <value>Por favor verifique o seu email para redefinir a sua senha.</value>
+    <value>Por favor verifica o teu email para redefinir a tua senha.</value>
   </data>
   <data name="EnterYourEmailAndNewPasswordToReset" xml:space="preserve">
-    <value>Insira e-mail e nova palavra-chave para redefinir a mesma</value>
+    <value>Insire o e-mail e nova palavra-chave para redefinir a mesma</value>
   </data>
   <data name="PasswordResetWithSuccess" xml:space="preserve">
-    <value>A sua palavra-chave foi redefinida com sucesso. Poderá agora fazer login na plataforma com o seu e-mail e a nova palavra-chave.</value>
+    <value>A tua palavra-chave foi redefinida com sucesso. Poderás agora fazer login na plataforma com o teu e-mail e a nova palavra-chave.</value>
   </data>
   <data name="Reset" xml:space="preserve">
     <value>Redefinir</value>
@@ -1123,7 +1123,7 @@
     <value>Esta empresa já possui um débito directo configurado</value>
   </data>
   <data name="InsertOneContact" xml:space="preserve">
-    <value>Insira um contacto</value>
+    <value>Insire um contacto</value>
   </data>
   <data name="NoContactsFound" xml:space="preserve">
     <value>Não foram encontrados contactos</value>
@@ -1183,7 +1183,7 @@
     <value>Post de Recursos Humanos - Talento</value>
   </data>
   <data name="NEWS_POST" xml:space="preserve">
-    <value>Post de Noticías</value>
+    <value>Post de Notícias</value>
   </data>
   <data name="PARTNERSHIP_POST" xml:space="preserve">
     <value>Post de Parcerias</value>
@@ -1211,5 +1211,11 @@
   </data>
   <data name="ProfessionalNumberRequired" xml:space="preserve">
     <value>Número de mediador é obrigatório</value>
+  </data>
+  <data name="DIRECTORY_COMPANY" xml:space="preserve">
+    <value>Empresa do Directório</value>
+  </data>
+  <data name="PORTAL_COMMERCIAL" xml:space="preserve">
+    <value>Consultor do Portal</value>
   </data>
 </root>

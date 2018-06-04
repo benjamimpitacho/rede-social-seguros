@@ -125,6 +125,11 @@ namespace InsuranceWebsite.Controllers
 
             model.PostsModel = postsModel;
 
+            if(InsuranceBusiness.BusinessLayer.IsUserInRole(this.User.Identity.Name, RoleEnum.ADMINISTRATOR.ToString()))
+            {
+                model.NewPostSuject = (long)PostSubjectEnum.GLOBAL_POST;
+            }
+
             return View(model);
         }
 
@@ -2835,7 +2840,6 @@ namespace InsuranceWebsite.Controllers
             return View(model);
         }
 
-        [FunctionalityAutorizeAttribute("USERS_MANAGEMENT")]
         public async Task<ActionResult> SystemManagement()
         {
             var model = new ProfileViewModel();

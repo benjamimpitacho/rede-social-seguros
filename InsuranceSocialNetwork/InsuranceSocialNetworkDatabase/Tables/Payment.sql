@@ -62,13 +62,13 @@
 	[InvoiceDocument] IMAGE NULL,
 	[NotificationSent] BIT NOT NULL DEFAULT 0,
     CONSTRAINT [PK_Payment] PRIMARY KEY CLUSTERED ([ID] ASC),
-    CONSTRAINT [FK_Payment_Profile] FOREIGN KEY([ID_Profile]) REFERENCES [Insurance].[Profile] ([ID]),
-    CONSTRAINT [FK_Payment_PaymentType] FOREIGN KEY([ID_PaymentType]) REFERENCES [Insurance].[PaymentType] ([ID]),
-    CONSTRAINT [FK_Payment_PaymentStatus] FOREIGN KEY([ID_PaymentStatus]) REFERENCES [Insurance].[PaymentStatus] ([ID]),
-    CONSTRAINT [FK_Payment_Garage] FOREIGN KEY([ID_Garage]) REFERENCES [Insurance].[Garage] ([ID]),
-    CONSTRAINT [FK_Payment_HomeApplianceRepair] FOREIGN KEY([ID_HomeApplianceRepair]) REFERENCES [Insurance].[HomeApplianceRepair] ([ID]),
-    CONSTRAINT [FK_Payment_MedicalClinic] FOREIGN KEY([ID_MedicalClinic]) REFERENCES [Insurance].[MedicalClinic] ([ID]),
-    CONSTRAINT [FK_Payment_ConstructionCompany] FOREIGN KEY([ID_ConstructionCompany]) REFERENCES [Insurance].[ConstructionCompany] ([ID]),
-    CONSTRAINT [FK_Payment_InsuranceCompanyContact] FOREIGN KEY([ID_InsuranceCompanyContact]) REFERENCES [Insurance].[InsuranceCompanyContact] ([ID])
+    CONSTRAINT [FK_Payment_Profile] FOREIGN KEY([ID_Profile]) REFERENCES [Insurance].[Profile] ([ID]) ON DELETE CASCADE,
+    CONSTRAINT [FK_Payment_PaymentType] FOREIGN KEY([ID_PaymentType]) REFERENCES [Insurance].[PaymentType] ([ID]) ON DELETE CASCADE,
+    CONSTRAINT [FK_Payment_PaymentStatus] FOREIGN KEY([ID_PaymentStatus]) REFERENCES [Insurance].[PaymentStatus] ([ID]) ON DELETE CASCADE,
+    CONSTRAINT [FK_Payment_Garage] FOREIGN KEY([ID_Garage]) REFERENCES [Insurance].[Garage] ([ID]) ON DELETE CASCADE,
+    CONSTRAINT [FK_Payment_HomeApplianceRepair] FOREIGN KEY([ID_HomeApplianceRepair]) REFERENCES [Insurance].[HomeApplianceRepair] ([ID]) ON DELETE CASCADE,
+    CONSTRAINT [FK_Payment_MedicalClinic] FOREIGN KEY([ID_MedicalClinic]) REFERENCES [Insurance].[MedicalClinic] ([ID]) ON DELETE CASCADE,
+    CONSTRAINT [FK_Payment_ConstructionCompany] FOREIGN KEY([ID_ConstructionCompany]) REFERENCES [Insurance].[ConstructionCompany] ([ID]) ON DELETE CASCADE,
+    CONSTRAINT [FK_Payment_InsuranceCompanyContact] FOREIGN KEY([ID_InsuranceCompanyContact]) REFERENCES [Insurance].[InsuranceCompanyContact] ([ID]) ON DELETE CASCADE
 )
 

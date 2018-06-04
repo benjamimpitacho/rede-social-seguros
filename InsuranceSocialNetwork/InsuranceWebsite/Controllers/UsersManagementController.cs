@@ -104,6 +104,13 @@ namespace InsuranceWebsite.Controllers
                         .WithFiltering(true)
                         .WithSorting(true)
                         .WithVisibility(true, true); // use the Value Expression to return the cell text for this column
+                    cols.Add().WithColumnName("ProfessionalNumber")
+                        .WithHeaderText(Resources.Resources.ProfessionalNumber)
+                        .WithValueExpression(i => i.ProfessionalNumber)
+                        .WithAllowChangeVisibility(true)
+                        .WithFiltering(true)
+                        .WithSorting(true)
+                        .WithVisibility(true, true); // use the Value Expression to return the cell text for this column
                     cols.Add("CreateDate")
                         .WithSorting(true)
                         .WithHeaderText(Resources.Resources.RegisterDate)
@@ -344,7 +351,7 @@ namespace InsuranceWebsite.Controllers
                         try
                         {
                             // Register default profile information!
-                            userId = InsuranceBusiness.BusinessLayer.CreateDefaultUserProfile(user.Id, user.UserName, user.Email, model.FirstName, model.LastName);
+                            userId = InsuranceBusiness.BusinessLayer.CreateDefaultUserProfile(user.Id, user.UserName, user.Email, model.FirstName, model.LastName, model.ProfessionalNumber);
                         }
                         catch (Exception ex)
                         {

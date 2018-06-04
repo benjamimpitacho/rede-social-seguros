@@ -135,3 +135,6 @@ INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUE
 INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('6','NOTIFICATIONS_FUNCTIONALITY',1);
 INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('6','SETTINGS_FUNCTIONALITY',1);
 INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('6','PROFILE_INFO_FUNCTIONALITY',1);
+
+/* PORTAL_COMMERCIAL */
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('7','COMPANIES_MANAGEMENT',1);

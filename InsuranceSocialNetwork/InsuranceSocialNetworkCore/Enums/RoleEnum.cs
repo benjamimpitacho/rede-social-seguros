@@ -12,7 +12,8 @@ namespace InsuranceSocialNetworkCore.Enums
         NORMAL_USER,
         INSURANCE_PROFESSIONAL,
         ASSOCIATED_PREMIUM,
-        DIRECTORY_COMPANY
+        DIRECTORY_COMPANY,
+        PORTAL_COMMERCIAL
     }
 
     public enum Functionality

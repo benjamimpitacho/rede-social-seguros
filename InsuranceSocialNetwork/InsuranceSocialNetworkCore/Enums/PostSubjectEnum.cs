@@ -8,20 +8,20 @@ namespace InsuranceSocialNetworkCore.Enums
 {
     public enum PostSubjectEnum
     {
-        PERSONAL_POST,
-        BUSINESS_POST,
-        NEWS_POST,
-        PARTNERSHIP_POST,
-        WALLET_POST,
-        SPONSORED_POST,
-        CURRENT_DISCUSSION_POST,
-        ASF_POST,
-        APS_POST,
-        APROSE_POST,
-        HUMAN_RESOURCES_TALENT_POST,
-        HUMAN_RESOURCES_APPLICATION_POST,
-        INSURANCE_BUSINESS_BUY_SELL_POST,
-        INSURANCE_BUSINESS_PARTNERSHIP_POST,
-        GLOBAL_POST
+        PERSONAL_POST = 1,
+        BUSINESS_POST = 2,
+        NEWS_POST = 3,
+        PARTNERSHIP_POST = 4,
+        WALLET_POST = 5,
+        SPONSORED_POST = 6,
+        CURRENT_DISCUSSION_POST = 7,
+        ASF_POST = 8,
+        APS_POST = 9,
+        APROSE_POST = 10,
+        HUMAN_RESOURCES_TALENT_POST = 11,
+        HUMAN_RESOURCES_APPLICATION_POST = 12,
+        INSURANCE_BUSINESS_BUY_SELL_POST = 13,
+        INSURANCE_BUSINESS_PARTNERSHIP_POST = 14,
+        GLOBAL_POST = 15
     }
 }

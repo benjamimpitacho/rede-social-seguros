@@ -79,7 +79,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to aceitou o seu pedido de amizade.
+        ///   Looks up a localized string similar to aceitou o teu pedido de amizade.
         /// </summary>
         public static string AcceptedYourFriendRequest {
             get {
@@ -97,7 +97,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A sua conta aguarda aprovação da equipa do portal Falar Seguros. Aguarde a recepção do e-mail a indicar a activação da sua conta. Obrigado..
+        ///   Looks up a localized string similar to A tua conta aguarda aprovação da equipa do portal Falar Seguros. Aguarda pela recepção do e-mail a indicar a activação da tua conta. Obrigado..
         /// </summary>
         public static string AccountLocked {
             get {
@@ -160,7 +160,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adicionar Amigo.
+        ///   Looks up a localized string similar to Adicionar Conexão.
         /// </summary>
         public static string AddFriend {
             get {
@@ -610,7 +610,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Por favor verifique o seu email para redefinir a sua senha..
+        ///   Looks up a localized string similar to Por favor verifica o teu email para redefinir a tua senha..
         /// </summary>
         public static string CheckYourEmailToChangePassword {
             get {
@@ -619,7 +619,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Verifique o seu e-mail para confirmar o registo e ativar o acesso ao portal..
+        ///   Looks up a localized string similar to Verifica o teu e-mail para confirmar o registo e ativar o acesso ao portal..
         /// </summary>
         public static string CheckYourEmailToGetAccess {
             get {
@@ -628,7 +628,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Por favor verifique o seu email para redefinir a sua senha..
+        ///   Looks up a localized string similar to Por favor verifica o teu email para redefinir a tua senha..
         /// </summary>
         public static string CheckYourEmailToResetPassword {
             get {
@@ -664,7 +664,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to comentou a sua publicação.
+        ///   Looks up a localized string similar to comentou a tua publicação.
         /// </summary>
         public static string CommentedOnYourPost {
             get {
@@ -682,7 +682,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Comentários nas suas publicações.
+        ///   Looks up a localized string similar to Comentários nas tuas publicações.
         /// </summary>
         public static string CommentsOnYourPosts {
             get {
@@ -727,7 +727,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Confirme password.
+        ///   Looks up a localized string similar to Confirma a password.
         /// </summary>
         public static string ConfirmPassword {
             get {
@@ -1042,7 +1042,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ocorreu um erro ao configurar o seu débito directo. Por favor, tente novamente..
+        ///   Looks up a localized string similar to Ocorreu um erro ao configurar o teu débito directo. Por favor, tenta novamente..
         /// </summary>
         public static string DirectDebitConfirmationErrorMessage {
             get {
@@ -1060,7 +1060,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to O seu débito directo foi configurado com sucesso. Obrigado..
+        ///   Looks up a localized string similar to O teu débito directo foi configurado com sucesso. Obrigado..
         /// </summary>
         public static string DirectDebitConfirmationSuccessMessage {
             get {
@@ -1074,6 +1074,15 @@ namespace Resources {
         public static string DirectDebitConfirmationSuccessTitle {
             get {
                 return ResourceManager.GetString("DirectDebitConfirmationSuccessTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Empresa do Directório.
+        /// </summary>
+        public static string DIRECTORY_COMPANY {
+            get {
+                return ResourceManager.GetString("DIRECTORY_COMPANY", resourceCulture);
             }
         }
         
@@ -1204,7 +1213,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Insira o seu e-mail.
+        ///   Looks up a localized string similar to Insire o teu e-mail.
         /// </summary>
         public static string EnterYourEmail {
             get {
@@ -1213,7 +1222,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Insira e-mail e nova palavra-chave para redefinir a mesma.
+        ///   Looks up a localized string similar to Insire o e-mail e nova palavra-chave para redefinir a mesma.
         /// </summary>
         public static string EnterYourEmailAndNewPasswordToReset {
             get {
@@ -1222,7 +1231,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Insira e-mail para recuperar a sua conta.
+        ///   Looks up a localized string similar to Insire o e-mail para recuperar a sua conta.
         /// </summary>
         public static string EnterYourEmailToRecoverAccount {
             get {
@@ -1321,7 +1330,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Esqueceu-se da sua palavra-passe.
+        ///   Looks up a localized string similar to Esqueceste-te da tua palavra-passe.
         /// </summary>
         public static string ForgotYourPassword {
             get {
@@ -1384,7 +1393,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Amigos.
+        ///   Looks up a localized string similar to Conexões.
         /// </summary>
         public static string Friends {
             get {
@@ -1564,7 +1573,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Insira texto descritivo.
+        ///   Looks up a localized string similar to Insire texto descritivo.
         /// </summary>
         public static string InsertDescriptionText {
             get {
@@ -1582,7 +1591,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Insira um contacto.
+        ///   Looks up a localized string similar to Insire um contacto.
         /// </summary>
         public static string InsertOneContact {
             get {
@@ -1591,7 +1600,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Insira um ou mais contactos.
+        ///   Looks up a localized string similar to Insire um ou mais contactos.
         /// </summary>
         public static string InsertOneOrMoreContacts {
             get {
@@ -1690,7 +1699,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to gostou da sua publicação.
+        ///   Looks up a localized string similar to gostou da tua publicação.
         /// </summary>
         public static string LikedYourPost {
             get {
@@ -1708,7 +1717,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gostos nas suas publicações.
+        ///   Looks up a localized string similar to Gostos nas tuas publicações.
         /// </summary>
         public static string LikesOnYourPosts {
             get {
@@ -2023,7 +2032,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Post de Noticías.
+        ///   Looks up a localized string similar to Post de Notícias.
         /// </summary>
         public static string NEWS_POST {
             get {
@@ -2122,7 +2131,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De momento não possui amigos.
+        ///   Looks up a localized string similar to De momento não possuis conexões.
         /// </summary>
         public static string NoFriends {
             get {
@@ -2149,7 +2158,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De momento não possui notificações.
+        ///   Looks up a localized string similar to De momento não possuis notificações.
         /// </summary>
         public static string NoNotifications {
             get {
@@ -2320,7 +2329,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A sua palavra-chave foi redefinida com sucesso. Poderá agora fazer login na plataforma com o seu e-mail e a nova palavra-chave..
+        ///   Looks up a localized string similar to A tua palavra-chave foi redefinida com sucesso. Poderás agora fazer login na plataforma com o teu e-mail e a nova palavra-chave..
         /// </summary>
         public static string PasswordResetWithSuccess {
             get {
@@ -2361,6 +2370,15 @@ namespace Resources {
         public static string PERSONAL_POST {
             get {
                 return ResourceManager.GetString("PERSONAL_POST", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Consultor do Portal.
+        /// </summary>
+        public static string PORTAL_COMMERCIAL {
+            get {
+                return ResourceManager.GetString("PORTAL_COMMERCIAL", resourceCulture);
             }
         }
         
@@ -2500,7 +2518,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} o portal Falar Seguros dá-lhe as boas vindas!&lt;BR/&gt;Obrigado por se registar! Queira por favor clicar no seguinte link para concluir o seu processo de registo e usufruir da plataforma Falar Seguros: &lt;a href=&apos;{1}&apos; title=&apos;Confirmação Registo&apos;&gt;{1}&lt;/a&gt;.
+        ///   Looks up a localized string similar to {0} o portal Falar Seguros dá-te as boas vindas!&lt;BR/&gt;Obrigado por te registares! Por favor, clica no seguinte link para concluir o teu processo de registo e usufruir da plataforma Falar Seguros: &lt;a href=&apos;{1}&apos; title=&apos;Confirmação Registo&apos;&gt;{1}&lt;/a&gt;.
         /// </summary>
         public static string RegisterConfirmationMessage {
             get {
@@ -2518,7 +2536,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to O seu registo aguarda aprovação da equipa do portal Falar Seguros. Aguarde a recepção do e-mail a confirmar a activação do seu registo para poder aceder à plataforma. Obrigado..
+        ///   Looks up a localized string similar to O teu registo aguarda aprovação da equipa do portal Falar Seguros. Aguarda a recepção do e-mail a confirmar a activação do teu registo para poderes aceder à plataforma. Obrigado..
         /// </summary>
         public static string RegisterPendingApproval {
             get {
@@ -2572,7 +2590,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remover Amigo.
+        ///   Looks up a localized string similar to Remover Conexão.
         /// </summary>
         public static string RemoveFriend {
             get {
@@ -2806,7 +2824,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Seleccione o tipo de negócio.
+        ///   Looks up a localized string similar to Selecciona o tipo de negócio.
         /// </summary>
         public static string SelectBusinessType {
             get {
@@ -2815,7 +2833,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Seleccione o concelho.
+        ///   Looks up a localized string similar to Selecciona o concelho.
         /// </summary>
         public static string SelectCounty {
             get {
@@ -2824,7 +2842,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Seleccione o distrito.
+        ///   Looks up a localized string similar to Selecciona o distrito.
         /// </summary>
         public static string SelectDistrict {
             get {
@@ -2833,7 +2851,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Seleccione a freguesia.
+        ///   Looks up a localized string similar to Selecciona a freguesia.
         /// </summary>
         public static string SelectParish {
             get {
@@ -2842,7 +2860,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;Seleccione o perfil&gt;.
+        ///   Looks up a localized string similar to &lt;Selecciona o perfil&gt;.
         /// </summary>
         public static string SelectRole {
             get {
@@ -2851,7 +2869,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Seleccione serviço.
+        ///   Looks up a localized string similar to Selecciona o serviço.
         /// </summary>
         public static string SelectService {
             get {
@@ -2878,7 +2896,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to enviou-lhe um pedido de amizade.
+        ///   Looks up a localized string similar to enviou-te um pedido de conexão.
         /// </summary>
         public static string SentYouFriendRequest {
             get {
@@ -2887,7 +2905,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to enviou-lhe uma nova mensagem.
+        ///   Looks up a localized string similar to enviou-te uma nova mensagem.
         /// </summary>
         public static string SentYouMessage {
             get {
@@ -3166,7 +3184,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ocorreu um erro inesperado e não foi possível completar a sua operação..
+        ///   Looks up a localized string similar to Ocorreu um erro inesperado e não foi possível completar a tua operação..
         /// </summary>
         public static string UnexpectedErrorOcurred {
             get {
@@ -3292,7 +3310,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Partilhe e conheça as oportunidades na mediação de seguros!.
+        ///   Looks up a localized string similar to Partilha e conhece as oportunidades na mediação de seguros!.
         /// </summary>
         public static string WelcomeAbout {
             get {
@@ -3319,7 +3337,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Partilhe um artigo, foto, link ou ideia....
+        ///   Looks up a localized string similar to Partilha um artigo, foto, link ou ideia....
         /// </summary>
         public static string WhatsInYourMindToday {
             get {
@@ -3328,7 +3346,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Escreva a mensagem ou anexe um arquivo.
+        ///   Looks up a localized string similar to Escreve a mensagem ou anexa um arquivo.
         /// </summary>
         public static string WriteMessageOrAttachAnArchive {
             get {
@@ -3337,7 +3355,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Complete a informação do seu perfil.
+        ///   Looks up a localized string similar to Completa a informação do teu perfil.
         /// </summary>
         public static string YouNeedCompleteYourProfile {
             get {

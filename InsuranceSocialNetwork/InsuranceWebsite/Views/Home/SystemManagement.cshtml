@@ -1,6 +1,6 @@
-﻿@using InsuranceWebsite.Models
+﻿@using InsuranceWebsite.Models;
+@using InsuranceSocialNetworkBusiness;
 @using InsuranceSocialNetworkCore.Enums;
-@using MVCGrid.Web
 @model ProfileViewModel
 
 @{
@@ -32,23 +32,29 @@
                         <div class="container container-timeline" style="margin:15px;">
                             <div class="col-md-11 no-paddin-xs" style="background-color:white; padding:20px;width:90%">
 
-                                @Html.ActionLink(Resources.Resources.UsersManagement, "Index", "UsersManagement", null, new { @class = "btn btn-primary system-btn" })
+                                @if (InsuranceBusiness.BusinessLayer.IsUserAuthorizedToFunctionality(this.User.Identity.Name, Functionality.USERS_MANAGEMENT.ToString()))
+                                {
+                                    @Html.ActionLink(Resources.Resources.UsersManagement, "Index", "UsersManagement", null, new { @class = "btn btn-primary system-btn" })
 
-                                @Html.ActionLink(Resources.Resources.RolesManagement, "Index", "RolesManagement", null, new { @class = "btn btn-primary system-btn" })
+                                    @Html.ActionLink(Resources.Resources.RolesManagement, "Index", "RolesManagement", null, new { @class = "btn btn-primary system-btn" })
 
-                                @Html.ActionLink(Resources.Resources.AlertsManagement, "Index", "NotificationsManagement", null, new { @class = "btn btn-primary system-btn" })
+                                    @Html.ActionLink(Resources.Resources.AlertsManagement, "Index", "NotificationsManagement", null, new { @class = "btn btn-primary system-btn" })
 
-                                @Html.ActionLink(Resources.Resources.BannersManagement, "Index", "BannersManagement", null, new { @class = "btn btn-primary system-btn" })
+                                    @Html.ActionLink(Resources.Resources.BannersManagement, "Index", "BannersManagement", null, new { @class = "btn btn-primary system-btn" })
+                                }
 
-                                @Html.ActionLink(Resources.Resources.GarageCompaniesManagement, "Index", "CompaniesManagement", new { id = CompanyTypeEnum.GARAGE }, new { @class = "btn btn-primary system-btn" })
+                                @if (InsuranceBusiness.BusinessLayer.IsUserAuthorizedToFunctionality(this.User.Identity.Name, Functionality.COMPANIES_MANAGEMENT.ToString()))
+                                {
+                                    @Html.ActionLink(Resources.Resources.GarageCompaniesManagement, "Index", "CompaniesManagement", new { id = CompanyTypeEnum.GARAGE }, new { @class = "btn btn-primary system-btn" })
 
-                                @Html.ActionLink(Resources.Resources.MedicalClinicCompaniesManagement, "Index", "CompaniesManagement", new { id = CompanyTypeEnum.MEDICAL_CLINIC }, new { @class = "btn btn-primary system-btn" })
+                                    @Html.ActionLink(Resources.Resources.MedicalClinicCompaniesManagement, "Index", "CompaniesManagement", new { id = CompanyTypeEnum.MEDICAL_CLINIC }, new { @class = "btn btn-primary system-btn" })
 
-                                @Html.ActionLink(Resources.Resources.ConstructionCompaniesManagement, "Index", "CompaniesManagement", new { id = CompanyTypeEnum.CONSTRUCTION_COMPANY }, new { @class = "btn btn-primary system-btn" })
+                                    @Html.ActionLink(Resources.Resources.ConstructionCompaniesManagement, "Index", "CompaniesManagement", new { id = CompanyTypeEnum.CONSTRUCTION_COMPANY }, new { @class = "btn btn-primary system-btn" })
 
-                                @Html.ActionLink(Resources.Resources.HomeApplianceRepairCompaniesManagement, "Index", "CompaniesManagement", new { id = CompanyTypeEnum.HOME_APPLIANCES_REPAIR }, new { @class = "btn btn-primary system-btn" })
+                                    @Html.ActionLink(Resources.Resources.HomeApplianceRepairCompaniesManagement, "Index", "CompaniesManagement", new { id = CompanyTypeEnum.HOME_APPLIANCES_REPAIR }, new { @class = "btn btn-primary system-btn" })
 
-                                @Html.ActionLink(Resources.Resources.InsuranceContactCompaniesManagement, "Index", "CompaniesManagement", new { id = CompanyTypeEnum.INSURANCE_COMPANY_CONTACT }, new { @class = "btn btn-primary system-btn" })
+                                    @Html.ActionLink(Resources.Resources.InsuranceContactCompaniesManagement, "Index", "CompaniesManagement", new { id = CompanyTypeEnum.INSURANCE_COMPANY_CONTACT }, new { @class = "btn btn-primary system-btn" })
+                                }
 
                             </div>
                         </div>

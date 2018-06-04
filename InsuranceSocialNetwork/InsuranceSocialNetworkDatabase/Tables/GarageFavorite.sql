@@ -5,7 +5,7 @@
     [ID_User] NVARCHAR(128) NOT NULL,
     [CreateDate] DATETIME2 NOT NULL DEFAULT GETDATE(),
     CONSTRAINT [PK_GarageFavorite] PRIMARY KEY CLUSTERED ([ID] ASC),
-	CONSTRAINT [FK_GarageFavorite_Garage] FOREIGN KEY([ID_Garage]) REFERENCES [Insurance].[Garage] ([ID]),
-	CONSTRAINT [FK_GarageFavorite_User] FOREIGN KEY([ID_User]) REFERENCES [dbo].[AspNetUsers] ([Id])
+	CONSTRAINT [FK_GarageFavorite_Garage] FOREIGN KEY([ID_Garage]) REFERENCES [Insurance].[Garage] ([ID]) ON DELETE CASCADE,
+	CONSTRAINT [FK_GarageFavorite_User] FOREIGN KEY([ID_User]) REFERENCES [dbo].[AspNetUsers] ([Id]) ON DELETE CASCADE
 )
 

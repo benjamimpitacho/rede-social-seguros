@@ -388,7 +388,7 @@ namespace InsuranceWebsite.Controllers
                     try
                     {
                         // Register default profile information!
-                        userId = InsuranceBusiness.BusinessLayer.CreateDefaultUserProfile(user.Id, user.UserName, user.Email, newUser.FirstName, newUser.LastName);
+                        userId = InsuranceBusiness.BusinessLayer.CreateDefaultUserProfile(user.Id, user.UserName, user.Email, newUser.FirstName, newUser.LastName, null);
                         await LockUserAccount(user.Id, 5000);
                     }
                     catch (Exception ex)
@@ -1001,7 +1001,7 @@ namespace InsuranceWebsite.Controllers
                 return View("Error");
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { id = idType });
         }
 
         [FunctionalityAutorizeAttribute("COMPANIES_MANAGEMENT")]

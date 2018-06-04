@@ -211,7 +211,7 @@ namespace InsuranceSocialNetworkBusiness
             return AutoMapper.Mapper.Map<List<UserProfileDTO>>(users);
         }
 
-        public long CreateDefaultUserProfile(string Id, string UserName, string Email, string fName, string lName)
+        public long CreateDefaultUserProfile(string Id, string UserName, string Email, string fName, string lName, string professionalNumber)
         {
             string trimmedName = fName.Trim();
             string firstName = !string.IsNullOrEmpty(fName) ? trimmedName : string.Empty;
@@ -221,7 +221,7 @@ namespace InsuranceSocialNetworkBusiness
                 firstName = trimmedName.Substring(0, trimmedName.IndexOf(" "));
                 lastName = trimmedName.Substring(trimmedName.IndexOf(" ") + 1);
             }
-            return UserProfileRepository.CreateDefaultProfile(AutoMapper.Mapper.Map<Profile>(new UserProfileDTO() { ID_User = Id, ContactEmail = Email, FirstName = firstName, LastName = lastName }));
+            return UserProfileRepository.CreateDefaultProfile(AutoMapper.Mapper.Map<Profile>(new UserProfileDTO() { ID_User = Id, ContactEmail = Email, FirstName = firstName, LastName = lastName, ProfessionalNumber = professionalNumber }));
         }
 
         public bool UpdateProfile(UserProfileDTO profile)
