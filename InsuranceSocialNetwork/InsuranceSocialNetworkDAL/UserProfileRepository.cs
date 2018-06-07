@@ -79,7 +79,8 @@ namespace InsuranceSocialNetworkDAL
                     .Where(i => i.Name == "ADMINISTRATOR"
                     || i.Name == "ASSOCIATED_PREMIUM"
                     || i.Name == "INSURANCE_PROFESSIONAL"
-                    || i.Name == "NORMAL_USER")
+                    || i.Name == "NORMAL_USER"
+                    || i.Name == "PORTAL_COMMERCIAL")
                     .Select(i => i.Id);
 
                 return context

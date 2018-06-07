@@ -13,69 +13,72 @@
 
     @Html.Partial("./Partial/TopBannerPartialView", Model)
 
-    <div class="panel topPanel">
-        @using (Html.BeginForm("NewPost", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
-        {
-            @Html.HiddenFor(m => m.Profile.ID_User)
-            @Html.HiddenFor(m => m.Profile.ID)
+    @if (!InsuranceBusiness.BusinessLayer.IsUserInRole(this.User.Identity.Name, RoleEnum.PORTAL_COMMERCIAL.ToString()))
+    {
+        <div class="panel topPanel">
+            @using (Html.BeginForm("NewPost", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.HiddenFor(m => m.Profile.ID_User)
+                @Html.HiddenFor(m => m.Profile.ID)
 
-            <textarea id="livePreviewImgHidden" name="livePreviewImgHidden" style="visibility:hidden;display:none;"></textarea>
-            <textarea id="livePreviewTitleHidden" name="livePreviewTitleHidden" style="visibility:hidden;display:none;"></textarea>
-            <textarea id="livePreviewDescriptionHidden" name="livePreviewDescriptionHidden" style="visibility:hidden;display:none;"></textarea>
-            <textarea id="livePreviewDomainHidden" name="livePreviewDomainHidden" style="visibility:hidden;display:none;"></textarea>
-            <textarea id="livePreviewUrlHidden" name="livePreviewUrlHidden" style="visibility:hidden;display:none;"></textarea>
+                <textarea id="livePreviewImgHidden" name="livePreviewImgHidden" style="visibility:hidden;display:none;"></textarea>
+                <textarea id="livePreviewTitleHidden" name="livePreviewTitleHidden" style="visibility:hidden;display:none;"></textarea>
+                <textarea id="livePreviewDescriptionHidden" name="livePreviewDescriptionHidden" style="visibility:hidden;display:none;"></textarea>
+                <textarea id="livePreviewDomainHidden" name="livePreviewDomainHidden" style="visibility:hidden;display:none;"></textarea>
+                <textarea id="livePreviewUrlHidden" name="livePreviewUrlHidden" style="visibility:hidden;display:none;"></textarea>
 
-            <textarea placeholder="@Resources.Resources.WhatsInYourMindToday" rows="1" class="form-control input-lg p-text-area" id="postContentTextarea" name="postContentTextarea"></textarea>
-            <img id="imgPlaceholder"  alt="" style="visibility:hidden;position:absolute" />
-            <div id="livePreviewBox" style="display:none;">
-                <div style="padding:10px;">
-                    <div style="border: 1px #ccc solid;">
-                        <div id="livePreviewImageBlock">
-                            <div>
-                                <button type="button" id="removeImgButton" style="float:right;margin-top:10px;margin-right:10px;width:20px;height:20px;background-color:transparent;border:none;background-image:url(../../../Content/icons/136_20x20.png)"></button>
-                                <div style="text-align: center;" id="livePreviewImg"></div>
-                            </div>
-                        </div>
-                        <div id="livePreviewTextBlock" style="border-top: 1px #ccc solid;padding: 10px;min-height:40px;">
-                            <button type="button" id="removeTextButton" style="float:right;margin-top:0px;margin-right:0px;width:20px;height:20px;background-color:transparent;border:none;background-image:url(../../../Content/icons/136_20x20.png)"></button>
-                            <div id="livePreviewTitle" name="livePreviewTitle" style="font-weight: bold;font-size: 16px;color:#333;"></div>
-                            <div id="livePreviewDescription" style="font-size: 12px;"></div>
-                            <div>
+                <textarea placeholder="@Resources.Resources.WhatsInYourMindToday" rows="1" class="form-control input-lg p-text-area" id="postContentTextarea" name="postContentTextarea"></textarea>
+                <img id="imgPlaceholder"  alt="" style="visibility:hidden;position:absolute" />
+                <div id="livePreviewBox" style="display:none;">
+                    <div style="padding:10px;">
+                        <div style="border: 1px #ccc solid;">
+                            <div id="livePreviewImageBlock">
                                 <div>
-                                    <div class="" id="livePreviewDomain" style="color: #6F7D85;"></div>
-                                    <div class=""></div>
+                                    <button type="button" id="removeImgButton" style="float:right;margin-top:10px;margin-right:10px;width:20px;height:20px;background-color:transparent;border:none;background-image:url(../../../Content/icons/136_20x20.png)"></button>
+                                    <div style="text-align: center;" id="livePreviewImg"></div>
+                                </div>
+                            </div>
+                            <div id="livePreviewTextBlock" style="border-top: 1px #ccc solid;padding: 10px;min-height:40px;">
+                                <button type="button" id="removeTextButton" style="float:right;margin-top:0px;margin-right:0px;width:20px;height:20px;background-color:transparent;border:none;background-image:url(../../../Content/icons/136_20x20.png)"></button>
+                                <div id="livePreviewTitle" name="livePreviewTitle" style="font-weight: bold;font-size: 16px;color:#333;"></div>
+                                <div id="livePreviewDescription" style="font-size: 12px;"></div>
+                                <div>
+                                    <div>
+                                        <div class="" id="livePreviewDomain" style="color: #6F7D85;"></div>
+                                        <div class=""></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="panel-footer" style="border-top: 0px; padding: 10px 10px">
-                <button class="btn btn-info pull-right" id="publishButton">@Resources.Resources.Publish</button>
-                <ul class="nav nav-pills">
-                    <li>
-                        <input type='file' id="imgUpload" style="visibility:hidden;position:absolute" name="imgUpload" />
-                        <a href="javascript:$('#imgUpload').click()" style="padding: 3px 5px" title="@Resources.Resources.Image">
-                            <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF110.png" class="icon-normal" />
-                        </a>
-                    </li>
-                    <li>
-                        <input type='file' id="fileUpload" style="visibility:hidden;position:absolute" name="fileUpload" />
-                        <a href="javascript:$('#fileUpload').click()" style="padding: 3px 5px" title="@Resources.Resources.File">
-                            <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF111.png" class="icon-normal" />
-                        </a>
-                    </li>
-                    <li>
-                    @if (InsuranceBusiness.BusinessLayer.IsUserInRole(this.User.Identity.Name, RoleEnum.ADMINISTRATOR.ToString()))
-                    {
-                        @Html.DropDownListFor(m => m.NewPostSuject, Model.PostSubjects, new { @class = "form-control login-select-input", id = "postSubjectDropdown" })
-                    }
-                    </li>
-                </ul>
-            </div>
-        }
-    </div>
-    
+                <div class="panel-footer" style="border-top: 0px; padding: 10px 10px">
+                    <button class="btn btn-info pull-right" id="publishButton">@Resources.Resources.Publish</button>
+                    <ul class="nav nav-pills">
+                        <li>
+                            <input type='file' id="imgUpload" style="visibility:hidden;position:absolute" name="imgUpload" />
+                            <a href="javascript:$('#imgUpload').click()" style="padding: 3px 5px" title="@Resources.Resources.Image">
+                                <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF110.png" class="icon-normal" />
+                            </a>
+                        </li>
+                        <li>
+                            <input type='file' id="fileUpload" style="visibility:hidden;position:absolute" name="fileUpload" />
+                            <a href="javascript:$('#fileUpload').click()" style="padding: 3px 5px" title="@Resources.Resources.File">
+                                <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF111.png" class="icon-normal" />
+                            </a>
+                        </li>
+                        <li>
+                        @if (InsuranceBusiness.BusinessLayer.IsUserInRole(this.User.Identity.Name, RoleEnum.ADMINISTRATOR.ToString()))
+                        {
+                            @Html.DropDownListFor(m => m.NewPostSuject, Model.PostSubjects, new { @class = "form-control login-select-input", id = "postSubjectDropdown" })
+                        }
+                        </li>
+                    </ul>
+                </div>
+            }
+        </div>
+    }
+
     <div class="news">
         <div class="partialContents" data-url="/home/posts">
             <div style="text-align:center">
