@@ -6,15 +6,15 @@
 <!-- left content-->
 <div class="col-md-6 rightContentBar" style="padding-left:10px; padding-right:10px;overflow:auto;">
 
-    @if (!InsuranceBusiness.BusinessLayer.IsUserInRole(this.User.Identity.Name, RoleEnum.DIRECTORY_COMPANY.ToString()))
+    @if (!InsuranceBusiness.BusinessLayer.IsUserInRoleByUsername(this.User.Identity.Name, RoleEnum.DIRECTORY_COMPANY.ToString()))
     {
         <div class="profile-nav">
 
             <div class="panel" style="background-color:transparent; box-shadow:none; margin-bottom: 10px;">
 
                 <div id="accordion" class="">
-                    <h5>
-                        <div class="img-garages" style="margin-left:10px; margin-right:10px;max-width:50px;width:50px;height:40px;display:inline-flex"></div>@Resources.Resources.SearchGarages <span style="display: block;font-size: 12px;margin-left: 70px;">(em construção)</span>
+                    <h5 style="display:flex; min-height:65px;">
+                        <div class="img-garages" style="margin-left:10px; margin-right:10px;max-width:50px;width:50px;height:40px;display:inline-flex"></div><div style="padding:10px 0px;">@Resources.Resources.SearchGarages <span style="display:block; font-size: 10px;">(EM CONSTRUÇÃO)</span></div>
                     </h5>
                     <div>
                         @using (Html.BeginForm("SearchGarages", "Home", FormMethod.Post, new { id = "searchGaragesForm" }))
@@ -31,7 +31,9 @@
                             </div>
                         }
                     </div>
-                    <h5><div class="img-clinics" style="margin-left:10px; margin-right:10px;max-width:50px;width:50px;height:40px;display:inline-flex"></div>@Resources.Resources.SearchClinics <span style="display: block;font-size: 12px;margin-left: 70px;">(em construção)</span></h5>
+                    <h5 style="display:flex; min-height:65px;">
+                        <div class="img-clinics" style="margin-left:10px; margin-right:10px;max-width:50px;width:50px;height:40px;display:inline-flex"></div><div style="padding:10px 0px;">@Resources.Resources.SearchClinics <span style="display:block; font-size: 10px;">(EM CONSTRUÇÃO)</span></div>
+                    </h5>
                     <div>
                         @using (Html.BeginForm("SearchClinics", "Home", FormMethod.Post, new { id = "searchClinicsForm" }))
                         {
@@ -47,7 +49,9 @@
                             </div>
                         }
                     </div>
-                    <h5><div class="img-constructioncompanies" style="margin-left:10px; margin-right:10px;max-width:50px;width:50px;height:40px;display:inline-flex"></div>@Resources.Resources.SearchConstructionCompanies <span style="display: block;font-size: 12px;margin-left: 70px;">(em construção)</span></h5>
+                    <h5 style="display:flex; min-height:65px;">
+                        <div class="img-constructioncompanies" style="margin-left:10px; margin-right:10px;max-width:50px;width:50px;height:40px;display:inline-flex"></div><div style="padding:10px 0px;">@Resources.Resources.SearchConstructionCompanies <span style="display:block; font-size: 10px;">(EM CONSTRUÇÃO)</span></div>
+                    </h5>
                     <div>
                         @using (Html.BeginForm("SearchConstructionCompanies", "Home", FormMethod.Post, new { id = "searchConstructionCompaniesForm" }))
                         {
@@ -63,7 +67,9 @@
                             </div>
                         }
                     </div>
-                    <h5><div class="img-homeappliances" style="margin-left:10px; margin-right:10px;max-width:50px;width:50px;height:40px;display:inline-flex"></div>@Resources.Resources.SearchHomeApplianceRepair <span style="display: block;font-size: 12px;margin-left: 70px;">(em construção)</span></h5>
+                    <h5 style="display:flex; min-height:65px;">
+                        <div class="img-homeappliances" style="margin-left:10px; margin-right:10px;max-width:50px;width:50px;height:40px;display:inline-flex"></div><div style="padding:10px 0px;">@Resources.Resources.SearchHomeApplianceRepair <span style="display:block; font-size: 10px;">(EM CONSTRUÇÃO)</span></div>
+                    </h5>
                     <div>
                         @using (Html.BeginForm("SearchHomeApplianceRepair", "Home", FormMethod.Post, new { id = "searchHomeApplianceRepairForm" }))
                         {
@@ -79,7 +85,9 @@
                             </div>
                         }
                     </div>
-                    <h5><div class="img-insurancecontacts" style="margin-left:10px; margin-right:10px;max-width:50px;width:50px;height:40px;display:inline-flex"></div>@Resources.Resources.SearchInsuranceContacts <span style="display: block;font-size: 12px;margin-left: 70px;">(em construção)</span></h5>
+                    <h5 style="display:flex; min-height:65px;">
+                        <div class="img-insurancecontacts" style="margin-left:10px; margin-right:10px;max-width:50px;width:50px;height:40px;display:inline-flex"></div><div style="padding:10px 0px;">@Resources.Resources.SearchInsuranceContacts <span style="display:block; font-size: 10px;">(EM CONSTRUÇÃO)</span></div>
+                    </h5>
                     <div>
                         @using (Html.BeginForm("SearchInsuranceContacts", "Home", FormMethod.Post, new { id = "searchInsuranceContactsForm" }))
                         {

@@ -52,7 +52,7 @@ namespace InsuranceSocialNetworkDAL
         //    }
         //}
 
-        public static List<Post> GetUserRelatedPosts(BackofficeUnitOfWork context, string Id, int skipInterval = 0, int itemsCount = 20)
+        public static List<Post> GetUserRelatedPosts(BackofficeUnitOfWork context, string Id, int skipInterval = 0, int itemsCount = 10)
         {
             List<string> friendsUserIds = context
                 .Friend
@@ -353,6 +353,31 @@ namespace InsuranceSocialNetworkDAL
                 Post post = context.Post
                     .Fetch()
                     .Where(i => i.ID == postId && i.ID_User == userId)
+                    .FirstOrDefault();
+
+                if (null == post)
+                    return false;
+
+                context.PostComment.Delete(i => i.ID_Post == post.ID);
+                context.PostHidden.Delete(i => i.ID_Post == post.ID);
+                context.PostImage.Delete(i => i.ID_Post == post.ID);
+                context.PostLike.Delete(i => i.ID_Post == post.ID);
+                context.Notification.Delete(i => i.ID_Post == post.ID);
+
+                context.Post.Delete(post.ID);
+                context.Save();
+
+                return true;
+            }
+        }
+
+        public static bool DeletePostAsAdmin(long postId)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                Post post = context.Post
+                    .Fetch()
+                    .Where(i => i.ID == postId)
                     .FirstOrDefault();
 
                 if (null == post)

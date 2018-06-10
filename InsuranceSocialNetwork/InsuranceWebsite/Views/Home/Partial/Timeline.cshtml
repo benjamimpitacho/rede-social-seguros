@@ -9,11 +9,11 @@
 <script src="~/Scripts/contextMenu/jquery.ui.position.min.js"></script>
 <script src="~/Scripts/contextMenu/contextMenu.main.js"></script>
 
-<div class="profile-info col-md-6 animated fadeInUp" style="overflow:auto;">
+<div class="profile-info col-md-6 animated fadeInUp" style="overflow:auto;" id="feedSection">
 
     @Html.Partial("./Partial/TopBannerPartialView", Model)
 
-    @if (!InsuranceBusiness.BusinessLayer.IsUserInRole(this.User.Identity.Name, RoleEnum.PORTAL_COMMERCIAL.ToString()))
+    @if (!InsuranceBusiness.BusinessLayer.IsUserInRoleByUsername(this.User.Identity.Name, RoleEnum.PORTAL_COMMERCIAL.ToString()))
     {
         <div class="panel topPanel">
             @using (Html.BeginForm("NewPost", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -68,7 +68,7 @@
                             </a>
                         </li>
                         <li>
-                        @if (InsuranceBusiness.BusinessLayer.IsUserInRole(this.User.Identity.Name, RoleEnum.ADMINISTRATOR.ToString()))
+                        @if (InsuranceBusiness.BusinessLayer.IsUserInRoleByUsername(this.User.Identity.Name, RoleEnum.ADMINISTRATOR.ToString()))
                         {
                             @Html.DropDownListFor(m => m.NewPostSuject, Model.PostSubjects, new { @class = "form-control login-select-input", id = "postSubjectDropdown" })
                         }
@@ -79,19 +79,13 @@
         </div>
     }
 
-    <div class="news">
+    <div class="news" id="postsContent">
         <div class="partialContents" data-url="/home/posts">
             <div style="text-align:center">
                 <img src="~/Content/images/waiting.gif" /> @Resources.Resources.Loading...
             </div>
         </div>
     </div>
-
-    @*<div class="news">
-        <div>
-            @Html.Partial("~/Views/Home/Partial/PostsControl.cshtml", Model.PostsModel)
-        </div>
-    </div>*@
     
 </div><!--end right  content-->
 
@@ -100,6 +94,29 @@
 
     var site = site || {};
     site.baseUrl = site.baseUrl || "";
+
+    var lastSkipIndex = 0;
+    var skipIndex = 1;
+    var itemsCounte = 10;
+
+    $("#feedSection").scroll(function () {
+        //alert($("#feedSection").height());
+        //alert($("#postsContent").height());
+        //alert($("#feedSection").scrollTop())
+        if ($("#postsContent").height() <= $("#feedSection").scrollTop() + $("#feedSection").height()) {
+            // ajax call get data from server and append to the div
+            alert('fim da pagina!');
+            if (lastSkipIndex != skipIndex) {
+                $("#postsContent").append("<h1>" + skipIndex + "</h1>");
+                skipIndex = skipIndex + 1;
+            }
+
+            //var url = site.baseUrl + "/home/posts";
+            //if (url && url.length > 0) {
+            //    $(item).load(url);
+            //}
+        }
+    });
     
     $(document).ready(function () {
 

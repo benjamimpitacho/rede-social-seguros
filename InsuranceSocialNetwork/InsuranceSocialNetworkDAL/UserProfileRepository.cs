@@ -401,7 +401,7 @@ namespace InsuranceSocialNetworkDAL
             return false;
         }
 
-        public static bool IsUserInRole(string username, string role)
+        public static bool IsUserInRoleByUsername(string username, string role)
         {
             using (var context = new BackofficeUnitOfWork())
             {
@@ -410,6 +410,28 @@ namespace InsuranceSocialNetworkDAL
                     .Fetch()
                     .Include(i => i.AspNetRoles)
                     .FirstOrDefault(i => i.UserName == username);
+
+                if (null == user)
+                    return false;
+
+                var myRole = user.AspNetRoles.FirstOrDefault(i => i.Name == role);
+
+                if (null == myRole)
+                    return false;
+
+                return true;
+            }
+        }
+
+        public static bool IsUserInRoleByUserID(string userID, string role)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                var user = context
+                    .AspNetUsers
+                    .Fetch()
+                    .Include(i => i.AspNetRoles)
+                    .FirstOrDefault(i => i.Id == userID);
 
                 if (null == user)
                     return false;

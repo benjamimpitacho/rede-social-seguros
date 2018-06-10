@@ -214,6 +214,8 @@
                                     </div>
                                 </div>
 
+                                @if (!InsuranceBusiness.BusinessLayer.IsUserInRoleByUsername(this.User.Identity.Name, RoleEnum.PORTAL_COMMERCIAL.ToString()))
+                                {
                                 <div class="post-description" style="padding: 0px 20px 0px 20px;">
 
                                     <div class="stats" style="display:flex;">
@@ -325,6 +327,7 @@
                                         <input id="postNewComment" name="postNewComment" class="form-control add-comment-input" placeholder="@Resources.Resources.AddComment" type="text" style="border:none;padding-left:0px;" />
                                     }
                                 </div>
+                                }
                             </div>
                         }
                     }

@@ -455,6 +455,8 @@
                                     </div>
                                 }
 
+                                @if (!InsuranceBusiness.BusinessLayer.IsUserInRoleByUsername(this.User.Identity.Name, RoleEnum.PORTAL_COMMERCIAL.ToString()))
+                                {
                                 <div class="post-description" style="border-top: 1px solid #eee;">
 
                                     <div class="stats">
@@ -489,6 +491,7 @@
                                     </div>
 
                                 </div>
+                                }
                             </div>
                         }
                     }

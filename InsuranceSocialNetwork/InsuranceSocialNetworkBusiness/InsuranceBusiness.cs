@@ -198,9 +198,14 @@ namespace InsuranceSocialNetworkBusiness
             return UserProfileRepository.IsUserAuthorizedToFunctionality(username, functionality);
         }
 
-        public bool IsUserInRole(string username, string role)
+        public bool IsUserInRoleByUsername(string username, string role)
         {
-            return UserProfileRepository.IsUserInRole(username, role);
+            return UserProfileRepository.IsUserInRoleByUsername(username, role);
+        }
+
+        public bool IsUserInRoleByUserID(string userId, string role)
+        {
+            return UserProfileRepository.IsUserInRoleByUserID(userId, role);
         }
 
         public List<UserProfileDTO> GetUsers()
@@ -719,12 +724,12 @@ namespace InsuranceSocialNetworkBusiness
         //    return AutoMapper.Mapper.Map<List<PostDTO>>(list);
         //}
 
-        public List<PostDTO> GetUserRelatedPosts(string Id)
+        public List<PostDTO> GetUserRelatedPosts(string Id, int skipInverval = 0, int itemsCount = 10)
         {
             using (var context = new BackofficeUnitOfWork())
             {
                 //InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, Id, "InsuranceBusiness::GetUserRelatedPosts::GetUserRelatedPosts", string.Format("Get posts - start: {0}", DateTime.Now.ToString()));
-                List<Post> list = PostRepository.GetUserRelatedPosts(context, Id);
+                List<Post> list = PostRepository.GetUserRelatedPosts(context, Id, skipInverval, itemsCount);
                 //InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, Id, "InsuranceBusiness::GetUserRelatedPosts::GetUserRelatedPosts", string.Format("Get posts - start: {0}", DateTime.Now.ToString()));
 
                 //InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, Id, "InsuranceBusiness::GetUserRelatedPosts::Map", string.Format("Get posts - start: {0}", DateTime.Now.ToString()));
@@ -974,6 +979,10 @@ namespace InsuranceSocialNetworkBusiness
 
         public bool DeletePost(long postId, string userId)
         {
+            if(IsUserInRoleByUserID(userId, RoleEnum.ADMINISTRATOR.ToString()))
+            {
+                return PostRepository.DeletePostAsAdmin(postId);
+            }
             return PostRepository.DeletePost(postId, userId);
         }
 

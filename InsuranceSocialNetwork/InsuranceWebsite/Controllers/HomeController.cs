@@ -86,7 +86,7 @@ namespace InsuranceWebsite.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
-            if (InsuranceBusiness.BusinessLayer.IsUserInRole(this.User.Identity.Name, RoleEnum.DIRECTORY_COMPANY.ToString()))
+            if (InsuranceBusiness.BusinessLayer.IsUserInRoleByUsername(this.User.Identity.Name, RoleEnum.DIRECTORY_COMPANY.ToString()))
             {
                 var company = InsuranceBusiness.BusinessLayer.GetCompany(CurrentUser.ID_User);
                 model.CompanyModel = new CompanyModelObject()
@@ -125,7 +125,7 @@ namespace InsuranceWebsite.Controllers
 
             model.PostsModel = postsModel;
 
-            if(InsuranceBusiness.BusinessLayer.IsUserInRole(this.User.Identity.Name, RoleEnum.ADMINISTRATOR.ToString()))
+            if(InsuranceBusiness.BusinessLayer.IsUserInRoleByUsername(this.User.Identity.Name, RoleEnum.ADMINISTRATOR.ToString()))
             {
                 model.NewPostSuject = (long)PostSubjectEnum.GLOBAL_POST;
             }
@@ -929,11 +929,11 @@ namespace InsuranceWebsite.Controllers
                 editedPost.LastChangeDate = DateTime.Now;
                 editedPost.Text = editPostContentTextarea;
                 editedPost.Type = InsuranceSocialNetworkCore.Enums.PostTypeEnum.TEXT_POST;
-                editedPost.Subject = InsuranceSocialNetworkCore.Enums.PostSubjectEnum.PERSONAL_POST;
+                //editedPost.Subject = InsuranceSocialNetworkCore.Enums.PostSubjectEnum.PERSONAL_POST;
 
-                editedPost.Image = null;
-                editedPost.FileName = null;
-                editedPost.FileExtension = null;
+                //editedPost.Image = null;
+                //editedPost.FileName = null;
+                //editedPost.FileExtension = null;
 
                 if (model.RemoveImage && null != imgEditUpload)
                 {
@@ -1551,7 +1551,7 @@ namespace InsuranceWebsite.Controllers
                     InsuranceBusiness.BusinessLayer.MarkNotificationAsRead(idNotification.Value);
                 }
 
-                if (InsuranceBusiness.BusinessLayer.IsUserInRole(this.User.Identity.Name, RoleEnum.DIRECTORY_COMPANY.ToString()))
+                if (InsuranceBusiness.BusinessLayer.IsUserInRoleByUsername(this.User.Identity.Name, RoleEnum.DIRECTORY_COMPANY.ToString()))
                 {
                     var company = InsuranceBusiness.BusinessLayer.GetCompany(CurrentUser.ID_User);
                     model.CompanyModel = new CompanyModelObject()

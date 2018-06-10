@@ -236,117 +236,120 @@
                                     </div>
                                 </div>
 
-                                <div class="post-description" style="padding: 0px 20px 0px 20px;">
+                                @if (!InsuranceBusiness.BusinessLayer.IsUserInRoleByUsername(this.User.Identity.Name, RoleEnum.PORTAL_COMMERCIAL.ToString()))
+                                {
+                                    <div class="post-description" style="padding: 0px 20px 0px 20px;">
 
-                                    <div class="stats" style="display:flex;">
+                                        <div class="stats" style="display:flex;">
 
-                                        @if (null != post.PostLike && post.PostLike.Count > 0 && post.PostLike.Exists(i => i.ID_User == Model.Profile.ID_User))
-                                        {
-                                            <a onclick="UnlikePost(this, @post.ID, @post.PostLike.Count)" class="stat-item" id="unlikePost" style="color:#00C1DE;min-width: 50px;">
-                                                <img class="post-icon" src="~/Content/icons/icons_diretorios_rede_social_falar_seguros_AF3.png" /><span style="padding-left: 8px;color:#4B5C66;font-size: 10px;">@post.PostLike.Count</span>
-                                            </a>
-                                        }
-                                        else if (null != post.PostLike && post.PostLike.Count > 0)
-                                        {
-                                            <a onclick="LikePost(this, @post.ID, @post.PostLike.Count)" class="stat-item" id="likePost" style="min-width: 50px;">
-                                                <img class="post-icon" src="~/Content/icons/icons_diretorios_rede_social_falar_seguros_AF2.png" /><span style="padding-left: 8px;color:#4B5C66;font-size: 10px;">@post.PostLike.Count</span>
-                                            </a>
-                                        }
-                                        else
-                                        {
-                                            <a onclick="LikePost(this, @post.ID, @post.PostLike.Count)" class="stat-item" style="min-width: 50px;">
-                                                <img class="post-icon" src="~/Content/icons/icons_diretorios_rede_social_falar_seguros_AF2.png" />
-                                            </a>
-                                        }
+                                            @if (null != post.PostLike && post.PostLike.Count > 0 && post.PostLike.Exists(i => i.ID_User == Model.Profile.ID_User))
+                                            {
+                                                <a onclick="UnlikePost(this, @post.ID, @post.PostLike.Count)" class="stat-item" id="unlikePost" style="color:#00C1DE;min-width: 50px;">
+                                                    <img class="post-icon" src="~/Content/icons/icons_diretorios_rede_social_falar_seguros_AF3.png" /><span style="padding-left: 8px;color:#4B5C66;font-size: 10px;">@post.PostLike.Count</span>
+                                                </a>
+                                            }
+                                            else if (null != post.PostLike && post.PostLike.Count > 0)
+                                            {
+                                                <a onclick="LikePost(this, @post.ID, @post.PostLike.Count)" class="stat-item" id="likePost" style="min-width: 50px;">
+                                                    <img class="post-icon" src="~/Content/icons/icons_diretorios_rede_social_falar_seguros_AF2.png" /><span style="padding-left: 8px;color:#4B5C66;font-size: 10px;">@post.PostLike.Count</span>
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <a onclick="LikePost(this, @post.ID, @post.PostLike.Count)" class="stat-item" style="min-width: 50px;">
+                                                    <img class="post-icon" src="~/Content/icons/icons_diretorios_rede_social_falar_seguros_AF2.png" />
+                                                </a>
+                                            }
+
+                                            @if (null != post.PostComment && post.PostComment.Count > 0)
+                                            {
+                                                <a class="stat-item" style="cursor:default;min-width: 50px;">
+                                                    <img class="post-icon" src="~/Content/icons/home_page_rede_social_falar_seguros_AF121.png" /><span style="padding-left: 8px;color:#4B5C66;font-size: 10px;">@post.PostComment.Count</span>
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <a class="stat-item" style="cursor:default;min-width: 50px;">
+                                                    <img class="post-icon" src="~/Content/icons/home_page_rede_social_falar_seguros_AF121.png" />
+                                                </a>
+                                            }
+
+                                            @*<a class="stat-item" href="@Url.Action("ApsDetails", "Home", new { id=post.ID })">
+                                                    <img class="post-icon" src="~/Content/icons/icons_perfil_rede_social_falar_seguros_v27.png" />
+                                                </a>*@
+                                        </div>
+                                    </div>
+
+                                    <div class="post-footer" style="padding: 0px 20px 0px 20px;">
 
                                         @if (null != post.PostComment && post.PostComment.Count > 0)
                                         {
-                                            <a class="stat-item" style="cursor:default;min-width: 50px;">
-                                                <img class="post-icon" src="~/Content/icons/home_page_rede_social_falar_seguros_AF121.png" /><span style="padding-left: 8px;color:#4B5C66;font-size: 10px;">@post.PostComment.Count</span>
-                                            </a>
-                                        }
-                                        else
-                                        {
-                                            <a class="stat-item" style="cursor:default;min-width: 50px;">
-                                                <img class="post-icon" src="~/Content/icons/home_page_rede_social_falar_seguros_AF121.png" />
-                                            </a>
-                                        }
+                                            <ul class="comments-list" style="padding-left:0px;">
 
-                                        @*<a class="stat-item" href="@Url.Action("ApsDetails", "Home", new { id=post.ID })">
-                                                <img class="post-icon" src="~/Content/icons/icons_perfil_rede_social_falar_seguros_v27.png" />
-                                            </a>*@
-                                    </div>
-                                </div>
+                                                @foreach (PostCommentDTO comment in post.PostComment)
+                                                {
+                                                    <li class="comment">
 
-                                <div class="post-footer" style="padding: 0px 20px 0px 20px;">
+                                                        <a class="pull-left" href="@Url.Action("ProfileInfo", "Home", new { id = comment.CommentOwner.ID })">
 
-                                    @if (null != post.PostComment && post.PostComment.Count > 0)
-                                    {
-                                        <ul class="comments-list" style="padding-left:0px;">
-
-                                            @foreach (PostCommentDTO comment in post.PostComment)
-                                            {
-                                                <li class="comment">
-
-                                                    <a class="pull-left" href="@Url.Action("ProfileInfo", "Home", new { id = comment.CommentOwner.ID })">
-
-                                                        @if (null != comment.CommentOwner.ProfilePhoto && comment.CommentOwner.ProfilePhoto.Length > 0)
-                                                        {
-                                                            <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(comment.CommentOwner.ProfilePhoto))" class="avatar" alt="user profile image">
-                                                        }
-                                                        else
-                                                        {
-                                                            <img src="~/Content/images/no_photo_img.jpg" class="avatar" alt="user profile image">
-                                                        }
-
-                                                    </a>
-
-                                                    <div class="comment-body" style="font-size:12px">
-
-                                                        <h6 class="comment-user-name"><a href="@Url.Action("ProfileInfo", "Home", new { id = comment.CommentOwner.ID })">@comment.CommentOwner.FirstName</a></h6> <span>@comment.Text</span>
-
-                                                        <div class="comment-heading">
-
-                                                            @if (DateTime.Now.Subtract(comment.Date).TotalMinutes < 1)
+                                                            @if (null != comment.CommentOwner.ProfilePhoto && comment.CommentOwner.ProfilePhoto.Length > 0)
                                                             {
-                                                                <h6 class="time">@Math.Round(DateTime.Now.Subtract(comment.Date).TotalSeconds, 0) @Resources.Resources.SecondsAgo</h6>
-                                                            }
-                                                            else if (DateTime.Now.Subtract(comment.Date).TotalHours < 1)
-                                                            {
-                                                                <h6 class="time">@Math.Round(DateTime.Now.Subtract(comment.Date).TotalMinutes, 0) @Resources.Resources.MinutesAgo</h6>
-                                                            }
-                                                            else if (DateTime.Now.Subtract(comment.Date).TotalDays < 1)
-                                                            {
-                                                                <h6 class="time">@Math.Round(DateTime.Now.Subtract(comment.Date).TotalHours, 0) @Resources.Resources.HoursAgo</h6>
-                                                            }
-                                                            else if (DateTime.Now.Subtract(comment.Date).TotalDays == 1)
-                                                            {
-                                                                <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(comment.Date).TotalDays, 0) @Resources.Resources.DayAgo</h6>
-                                                            }
-                                                            else if (DateTime.Now.Subtract(comment.Date).TotalDays < 3)
-                                                            {
-                                                                <h6 class="time">@Math.Round(DateTime.Now.Subtract(comment.Date).TotalDays, 0) @Resources.Resources.DaysAgo</h6>
+                                                                <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(comment.CommentOwner.ProfilePhoto))" class="avatar" alt="user profile image">
                                                             }
                                                             else
                                                             {
-                                                                <h6 class="time">@comment.Date.ToShortDateString()</h6>
+                                                                <img src="~/Content/images/no_photo_img.jpg" class="avatar" alt="user profile image">
                                                             }
 
+                                                        </a>
+
+                                                        <div class="comment-body" style="font-size:12px">
+
+                                                            <h6 class="comment-user-name"><a href="@Url.Action("ProfileInfo", "Home", new { id = comment.CommentOwner.ID })">@comment.CommentOwner.FirstName</a></h6> <span>@comment.Text</span>
+
+                                                            <div class="comment-heading">
+
+                                                                @if (DateTime.Now.Subtract(comment.Date).TotalMinutes < 1)
+                                                                {
+                                                                    <h6 class="time">@Math.Round(DateTime.Now.Subtract(comment.Date).TotalSeconds, 0) @Resources.Resources.SecondsAgo</h6>
+                                                                }
+                                                                else if (DateTime.Now.Subtract(comment.Date).TotalHours < 1)
+                                                                {
+                                                                    <h6 class="time">@Math.Round(DateTime.Now.Subtract(comment.Date).TotalMinutes, 0) @Resources.Resources.MinutesAgo</h6>
+                                                                }
+                                                                else if (DateTime.Now.Subtract(comment.Date).TotalDays < 1)
+                                                                {
+                                                                    <h6 class="time">@Math.Round(DateTime.Now.Subtract(comment.Date).TotalHours, 0) @Resources.Resources.HoursAgo</h6>
+                                                                }
+                                                                else if (DateTime.Now.Subtract(comment.Date).TotalDays == 1)
+                                                                {
+                                                                    <h6 class="text-muted time">@Math.Round(DateTime.Now.Subtract(comment.Date).TotalDays, 0) @Resources.Resources.DayAgo</h6>
+                                                                }
+                                                                else if (DateTime.Now.Subtract(comment.Date).TotalDays < 3)
+                                                                {
+                                                                    <h6 class="time">@Math.Round(DateTime.Now.Subtract(comment.Date).TotalDays, 0) @Resources.Resources.DaysAgo</h6>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <h6 class="time">@comment.Date.ToShortDateString()</h6>
+                                                                }
+
+                                                            </div>
                                                         </div>
-                                                    </div>
 
-                                                </li>
-                                            }
+                                                    </li>
+                                                }
 
-                                        </ul>
-                                    }
+                                            </ul>
+                                        }
 
-                                    @using (Html.BeginForm("NewComment", "Home", FormMethod.Post, new { @class = "commentForm" }))
-                                    {
-                                        <input type="hidden" id="postId" name="postId" value="@post.ID" />
-                                        <input id="postNewComment" name="postNewComment" class="form-control add-comment-input" placeholder="@Resources.Resources.AddComment" type="text" style="border:none;padding-left:0px;" />
-                                    }
-                                </div>
+                                        @using (Html.BeginForm("NewComment", "Home", FormMethod.Post, new { @class = "commentForm" }))
+                                        {
+                                            <input type="hidden" id="postId" name="postId" value="@post.ID" />
+                                            <input id="postNewComment" name="postNewComment" class="form-control add-comment-input" placeholder="@Resources.Resources.AddComment" type="text" style="border:none;padding-left:0px;" />
+                                        }
+                                    </div>
+                                }
                             </div>
                         }
                     }

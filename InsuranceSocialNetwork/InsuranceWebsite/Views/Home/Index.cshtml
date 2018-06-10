@@ -22,15 +22,15 @@
             @Html.Partial("~/Views/Home/Partial/SideNavBar.cshtml", Model)
 
             <!-- left  content-->
-            @if (InsuranceBusiness.BusinessLayer.IsUserInRole(this.User.Identity.Name, RoleEnum.DIRECTORY_COMPANY.ToString()) && !Model.IsCompanyProfileEdit)
+            @if (InsuranceBusiness.BusinessLayer.IsUserInRoleByUsername(this.User.Identity.Name, RoleEnum.DIRECTORY_COMPANY.ToString()) && !Model.IsCompanyProfileEdit)
             {
                 @Html.Partial("~/Views/Home/Partial/CompanyProfile.cshtml", Model)
             }
-            else if (InsuranceBusiness.BusinessLayer.IsUserInRole(this.User.Identity.Name, RoleEnum.DIRECTORY_COMPANY.ToString()) && Model.IsCompanyProfileEdit)
+            else if (InsuranceBusiness.BusinessLayer.IsUserInRoleByUsername(this.User.Identity.Name, RoleEnum.DIRECTORY_COMPANY.ToString()) && Model.IsCompanyProfileEdit)
             {
                 @Html.Partial("~/Views/Home/Partial/CompanyProfileEdit.cshtml", Model)
             }
-            else if (InsuranceBusiness.BusinessLayer.IsUserInRole(this.User.Identity.Name, RoleEnum.PORTAL_COMMERCIAL.ToString()))
+            else if (InsuranceBusiness.BusinessLayer.IsUserInRoleByUsername(this.User.Identity.Name, RoleEnum.PORTAL_COMMERCIAL.ToString()))
             {
                 @Html.Partial("~/Views/Home/Partial/Timeline.cshtml", Model)
             }

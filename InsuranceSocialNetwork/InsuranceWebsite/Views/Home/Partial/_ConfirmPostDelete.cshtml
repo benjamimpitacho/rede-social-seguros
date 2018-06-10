@@ -106,7 +106,9 @@
         });
 
         $("#okButton").on("click", function (e) {
-            $(this).load("@Url.Action("DeletePost", "Home")" + "/" + @ViewBag.postId);
+            $(this).load("@Url.Action("DeletePost", "Home")" + "/" + @ViewBag.postId, function () {
+                location.reload();
+            });
             $("#dialog-confirm-delete").dialog("close");
         });
 

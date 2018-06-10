@@ -138,3 +138,17 @@ INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUE
 
 /* PORTAL_COMMERCIAL */
 INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('7','COMPANIES_MANAGEMENT',1);
+
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('7','COMPANY_FAVORITE_FUNCTIONALITY',1);
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('7','TIMELINE_FUNCTIONALITY',1);
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('7','PROFILE_INFO_FUNCTIONALITY',1);
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('7','SEARCH_GARAGES_FUNCTIONALITY',1);
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('7','SEARCH_CLINICS_FUNCTIONALITY',1);
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('7','SEARCH_CONSTRUCTIONCOMPANIES_FUNCTIONALITY',1);
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('7','SEARCH_APPLIANCEREPAIR_FUNCTIONALITY',1);
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('7','SEARCH_INSURANCECONTACTS_FUNCTIONALITY',1);
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('7','SETTINGS_FUNCTIONALITY',1);
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('7','CURRENT_DISCUSSIONS_FUNCTIONALITY',1);
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('7','ASF_FUNCTIONALITY',1);
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('7','APS_FUNCTIONALITY',1);
+INSERT INTO [dbo].[AspNetRolesFunctionalities] ([RoleId],[Token],[Active]) VALUES ('7','APROSE_FUNCTIONALITY',1);

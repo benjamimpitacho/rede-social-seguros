@@ -46,10 +46,24 @@
                     }
                     else
                     {
-                        <a href="@Url.Action("ProfileInfo", "Home", new { id = post.PostOwner.ID })">
+                        if (!InsuranceBusiness.BusinessLayer.IsUserInRoleByUsername(this.User.Identity.Name, RoleEnum.PORTAL_COMMERCIAL.ToString()))
+                        {
+                            <a href="@Url.Action("ProfileInfo", "Home", new { id = post.PostOwner.ID })">
                         
                             
-                            @if (null != post.PostOwner.ProfilePhoto && post.PostOwner.ProfilePhoto.Length > 0)
+                                @if (null != post.PostOwner.ProfilePhoto && post.PostOwner.ProfilePhoto.Length > 0)
+                                {
+                                    <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(post.PostOwner.ProfilePhoto))" class="avatar" alt="user profile image">
+                                }
+                                else
+                                {
+                                    <img src="~/Content/images/no_photo_img.jpg" class="avatar" alt="user profile image">
+                                }
+                            </a>
+                        }
+                        else
+                        {
+                            if (null != post.PostOwner.ProfilePhoto && post.PostOwner.ProfilePhoto.Length > 0)
                             {
                                 <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(post.PostOwner.ProfilePhoto))" class="avatar" alt="user profile image">
                             }
@@ -57,7 +71,7 @@
                             {
                                 <img src="~/Content/images/no_photo_img.jpg" class="avatar" alt="user profile image">
                             }
-                        </a>
+                        }
                     }
                 </div>
 
@@ -129,7 +143,7 @@
                 </div>
 
                 <div class="pull-right">
-                    @if (post.ID_User == Model.Profile.ID_User || InsuranceSocialNetworkBusiness.InsuranceBusiness.BusinessLayer.IsUserInRole(Model.Profile.User.UserName, RoleEnum.ADMINISTRATOR.ToString()))
+                    @if (post.ID_User == Model.Profile.ID_User || InsuranceSocialNetworkBusiness.InsuranceBusiness.BusinessLayer.IsUserInRoleByUsername(Model.Profile.User.UserName, RoleEnum.ADMINISTRATOR.ToString()))
                     {
                         <i class="glyphicon glyphicon-option-vertical icon context-menu-one" id="menu_@post.ID" style="border:0px;font-size: 24px;margin-right: 10px;" title="@Resources.Resources.Settings"></i>
                     }
@@ -368,7 +382,7 @@
                 </div>
             }
 
-            @if (!InsuranceBusiness.BusinessLayer.IsUserInRole(this.User.Identity.Name, RoleEnum.PORTAL_COMMERCIAL.ToString()))
+            @if (!InsuranceBusiness.BusinessLayer.IsUserInRoleByUsername(this.User.Identity.Name, RoleEnum.PORTAL_COMMERCIAL.ToString()))
             {
                 <div class="post-description" style="border-top: 1px solid #eee;">
 
