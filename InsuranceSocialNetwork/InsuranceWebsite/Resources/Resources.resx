@@ -1218,4 +1218,13 @@
   <data name="PORTAL_COMMERCIAL" xml:space="preserve">
     <value>Consultor do Portal</value>
   </data>
+  <data name="FieldLength" xml:space="preserve">
+    <value>O campo {0} deve ter pelo menos {2} caracteres.</value>
+  </data>
+  <data name="InvalidEmail" xml:space="preserve">
+    <value>O e-mail inserido não é válido</value>
+  </data>
+  <data name="PasswordNotMatch" xml:space="preserve">
+    <value>A palavra-passe e a confirmação de palavra-passe não coincidem.</value>
+  </data>
 </root>

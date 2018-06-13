@@ -367,7 +367,7 @@ namespace InsuranceWebsite.Controllers
                             InsuranceBusiness.BusinessLayer.CreateNotification(user.Id, null, NotificationTypeEnum.COMPLETE_PROFILE_INFO);
 
                             string token = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                            //token = System.Web.HttpUtility.UrlEncode(token);
+                            token = System.Web.HttpUtility.UrlEncode(token);
                             var callbackUrl = Url.Action("ConfirmEmail", "Account", new { code = user.Id, token = token }, protocol: Request.Url.Scheme);
                             await SendNewRegisterEmail(user, model.FirstName + " " + model.LastName, callbackUrl, password);
 

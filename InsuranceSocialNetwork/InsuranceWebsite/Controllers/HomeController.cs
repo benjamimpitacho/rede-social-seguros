@@ -1457,13 +1457,20 @@ namespace InsuranceWebsite.Controllers
         }
 
         [FunctionalityAutorizeAttribute("TIMELINE_FUNCTIONALITY")]
-        public ActionResult Posts(long? id)
+        public ActionResult Posts(long? id, int? s, int? p)
         {
             PostItemsViewModel model = new PostItemsViewModel();
             model.Profile = CurrentUser;
 
             //InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, id.HasValue ? id.Value.ToString() : "-", "Index::Posts", string.Format("Get posts - start: {0}", DateTime.Now.ToString()));
-            model.Items = InsuranceBusiness.BusinessLayer.GetUserRelatedPosts(CurrentUser.ID_User);
+            if (s.HasValue && p.HasValue)
+            {
+                model.Items = InsuranceBusiness.BusinessLayer.GetUserRelatedPosts(CurrentUser.ID_User, s.Value, p.Value);
+            }
+            else
+            {
+                model.Items = InsuranceBusiness.BusinessLayer.GetUserRelatedPosts(CurrentUser.ID_User);
+            }
             //InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, id.HasValue ? id.Value.ToString() : "-", "Index::Posts", string.Format("Get posts - end: {0}", DateTime.Now.ToString()));
 
             return PartialView("Partial/PostsControl", model);

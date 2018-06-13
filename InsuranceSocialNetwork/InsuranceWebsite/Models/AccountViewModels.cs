@@ -70,19 +70,19 @@ namespace InsuranceWebsite.Models
         public string Name { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Resources.Resources), ErrorMessageResourceName = "EmailRequired")]
-        [EmailAddress]
+        [EmailAddress(ErrorMessageResourceType = typeof(Resources.Resources), ErrorMessageResourceName = "InvalidEmail")]
         [Display(Name = "Email", ResourceType = typeof(Resources.Resources))]
         public string Email { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Resources.Resources), ErrorMessageResourceName = "PasswordRequired")]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessageResourceType = typeof(Resources.Resources), ErrorMessageResourceName = "FieldLength", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password", ResourceType = typeof(Resources.Resources))]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
         [Display(Name = "ConfirmPassword", ResourceType = typeof(Resources.Resources))]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Compare("Password", ErrorMessageResourceType = typeof(Resources.Resources), ErrorMessageResourceName = "PasswordNotMatch")]
         public string ConfirmPassword { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Resources.Resources), ErrorMessageResourceName = "RoleRequired")]
@@ -104,14 +104,14 @@ namespace InsuranceWebsite.Models
         public string Email { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Resources.Resources), ErrorMessageResourceName = "PasswordRequired")]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessageResourceType = typeof(Resources.Resources), ErrorMessageResourceName = "FieldLength", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password", ResourceType = typeof(Resources.Resources))]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
         [Display(Name = "ConfirmPassword", ResourceType = typeof(Resources.Resources))]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Compare("Password", ErrorMessageResourceType = typeof(Resources.Resources), ErrorMessageResourceName = "PasswordNotMatch")]
         public string ConfirmPassword { get; set; }
 
         public string Code { get; set; }

@@ -80,7 +80,7 @@
     }
 
     <div class="news" id="postsContent">
-        <div class="partialContents" data-url="/home/posts">
+        <div class="partialContents" data-url="/home/posts?s=0&p=10">
             <div style="text-align:center">
                 <img src="~/Content/images/waiting.gif" /> @Resources.Resources.Loading...
             </div>
@@ -97,7 +97,8 @@
 
     var lastSkipIndex = 0;
     var skipIndex = 1;
-    var itemsCounte = 10;
+    var itemsCount = 10;
+    var postContentSize = $("#postsContent").height() + 100;
 
     $("#feedSection").scroll(function () {
         //alert($("#feedSection").height());
@@ -105,10 +106,16 @@
         //alert($("#feedSection").scrollTop())
         if ($("#postsContent").height() <= $("#feedSection").scrollTop() + $("#feedSection").height()) {
             // ajax call get data from server and append to the div
-            alert('fim da pagina!');
-            if (lastSkipIndex != skipIndex) {
-                $("#postsContent").append("<h1>" + skipIndex + "</h1>");
+            console.log("postsContent.height:" + $("#postsContent").height() + "; feedSection.scrollTop:" + $("#feedSection").scrollTop() + "; feedSection.height:" + $("#feedSection").height())
+            //alert('fim da pagina!');
+            if (lastSkipIndex != skipIndex && $("#postsContent").height() > postContentSize) {
+                //$("#postsContent").append("<h1>" + skipIndex + "</h1>");
+                $("#postsContent").append('<div class="" id="partialContents_' + skipIndex + '" data-url="/home/posts?s=' + skipIndex * itemsCount + '&p=' + itemsCount + '"><div style="text-align:center"><img src="/Content/images/waiting.gif" /> @Resources.Resources.Loading...</div></div>');
+                var url = site.baseUrl + $("#partialContents_" + skipIndex).data("url");
+                //alert(url);
+                $("#partialContents_" + skipIndex).load(url);
                 skipIndex = skipIndex + 1;
+                postContentSize = $("#postsContent").height() + 100;
             }
 
             //var url = site.baseUrl + "/home/posts";
@@ -117,7 +124,7 @@
             //}
         }
     });
-    
+
     $(document).ready(function () {
 
         $("#postContentTextarea").keyup(function () {
@@ -160,7 +167,7 @@
                         $("#imgUpload").files = null;
                         $("#fileUpload").files = null;
                     }
-                });
+            });
         });
 
         // locate each partial section.
@@ -190,8 +197,7 @@
         $("#publishButton").click(function (event) {
             if ($("#imgUpload").files == null
                 && $("#fileUpload").files == null
-                && !$.trim($("#postContentTextarea").val()))
-            {
+                && !$.trim($("#postContentTextarea").val())) {
                 event.preventDefault();
                 return false;
             }
@@ -211,16 +217,14 @@
             $("#livePreviewDescriptionHidden").text("");
             $("#livePreviewDomainHidden").text("");
             $("#livePreviewTextBlock").attr('style', 'display:none;');
-            
-            if ($("#livePreviewImgHidden").text() == "")
-            {
+
+            if ($("#livePreviewImgHidden").text() == "") {
                 $("#livePreviewUrlHidden").text("");
             }
         });
     });
 
-    function clearLivePreviewFields()
-    {
+    function clearLivePreviewFields() {
         $("#livePreviewTitleHidden").text("");
         $("#livePreviewDescriptionHidden").text("");
         $("#livePreviewDomainHidden").text("");

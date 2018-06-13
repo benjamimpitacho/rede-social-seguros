@@ -425,12 +425,17 @@ namespace InsuranceWebsite.Controllers
                 }
 
                 var result = await UserManager.ConfirmEmailAsync(code, token);
-
-                var user = UserManager.FindById(code);
-                var userProfile = InsuranceBusiness.BusinessLayer.GetUserProfile(code);
+                if(!result.Succeeded && result.Errors.Count() > 0 && result.Errors.First().ToLower().StartsWith("invalid token"))
+                {
+                    token = HttpUtility.UrlDecode(token);
+                    result = await UserManager.ConfirmEmailAsync(code, token);
+                }
 
                 if (result.Succeeded)
                 {
+                    var user = UserManager.FindById(code);
+                    var userProfile = InsuranceBusiness.BusinessLayer.GetUserProfile(code);
+
                     if (UserManager.IsLockedOut(user.Id))
                     {
                         RegisterViewModel model = new RegisterViewModel() { Name = userProfile.FirstName };

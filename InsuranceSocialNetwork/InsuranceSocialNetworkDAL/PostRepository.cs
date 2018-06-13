@@ -103,8 +103,8 @@ namespace InsuranceSocialNetworkDAL
                 //.Include(i => i.PostImage)
                 .OrderByDescending(i => i.Sticky)
                 .ThenByDescending(i => i.CreateDate)
-                //.Skip(skipInterval)
-                //.Take(itemsCount)
+                .Skip(skipInterval)
+                .Take(itemsCount)
                 .ToList();
 
             //foreach (Post post in postList)

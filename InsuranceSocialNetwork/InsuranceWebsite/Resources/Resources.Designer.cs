@@ -1294,6 +1294,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to O campo {0} deve ter pelo menos {2} caracteres..
+        /// </summary>
+        public static string FieldLength {
+            get {
+                return ResourceManager.GetString("FieldLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Campos.
         /// </summary>
         public static string Fields {
@@ -1668,6 +1677,15 @@ namespace Resources {
         public static string InsuranceContactName {
             get {
                 return ResourceManager.GetString("InsuranceContactName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O e-mail inserido não é válido.
+        /// </summary>
+        public static string InvalidEmail {
+            get {
+                return ResourceManager.GetString("InvalidEmail", resourceCulture);
             }
         }
         
@@ -2316,6 +2334,15 @@ namespace Resources {
         public static string PasswordMustMatch {
             get {
                 return ResourceManager.GetString("PasswordMustMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A palavra-passe e a confirmação de palavra-passe não coincidem..
+        /// </summary>
+        public static string PasswordNotMatch {
+            get {
+                return ResourceManager.GetString("PasswordNotMatch", resourceCulture);
             }
         }
         
