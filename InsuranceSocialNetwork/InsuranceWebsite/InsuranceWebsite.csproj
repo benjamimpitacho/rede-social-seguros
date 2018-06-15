@@ -784,6 +784,7 @@
     <Content Include="Views\Home\Partial\CompanyProfileEdit.cshtml" />
     <Content Include="Views\Home\Partial\_ConfirmPostReport.cshtml" />
     <Content Include="Views\Home\Partial\LinkPostImage.cshtml" />
+    <Content Include="Views\Home\Partial\_ConfirmCommentDelete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -986,6 +986,15 @@ namespace InsuranceSocialNetworkBusiness
             return PostRepository.DeletePost(postId, userId);
         }
 
+        public bool DeleteComment(long commentId, string userId)
+        {
+            if (IsUserInRoleByUserID(userId, RoleEnum.ADMINISTRATOR.ToString()))
+            {
+                return PostRepository.DeleteCommentAsAdmin(commentId);
+            }
+            return PostRepository.DeleteComment(commentId, userId);
+        }
+
         public bool HidePost(long postId, string userId)
         {
             return PostRepository.HidePost(postId, userId);

@@ -1227,4 +1227,7 @@
   <data name="PasswordNotMatch" xml:space="preserve">
     <value>A palavra-passe e a confirmação de palavra-passe não coincidem.</value>
   </data>
+  <data name="AreYouSureToDeleteComment" xml:space="preserve">
+    <value>Tem a certeza que pretende apagar o comentário?</value>
+  </data>
 </root>

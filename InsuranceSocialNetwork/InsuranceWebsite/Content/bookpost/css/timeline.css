@@ -2979,6 +2979,11 @@ a:hover, a:active, a:focus {
         padding: 0px !important;
         max-width: calc(100% - 30px);
     }
+
+    .notif-text-area {
+        max-width: 266px;
+        margin-top: -10px;
+    }
 }
 
 @media (max-device-width: 480px)
@@ -3113,6 +3118,11 @@ a:hover, a:active, a:focus {
     .chat-body .answer.left {
         padding: 0px !important;
         max-width: calc(100% - 30px);
+    }
+
+    .notif-text-area {
+        max-width: 266px;
+        margin-top: -10px;
     }
 }
 

@@ -367,6 +367,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tem a certeza que pretende apagar o comentário?.
+        /// </summary>
+        public static string AreYouSureToDeleteComment {
+            get {
+                return ResourceManager.GetString("AreYouSureToDeleteComment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tem a certeza que pretende apagar a publicação?.
         /// </summary>
         public static string AreYouSureToDeletePost {

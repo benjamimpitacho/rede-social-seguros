@@ -8,8 +8,13 @@
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-@*@Styles.Render("~/Content/jsGrid")
-@Scripts.Render("~/Scripts/jsGrid")*@
+@*@Styles.Render("~/Content/jsGrid")*@
+@*@Scripts.Render("~/Scripts/jsGrid")*@
+
+<link rel="stylesheet" href="/Content/jsGrid/jsgrid.min.css">
+<link rel="stylesheet" href="/Content/jsGrid/jsgrid-theme.min.css">
+
+<script src="~/Scripts/jsGrid/jsgrid.min.js"></script>
 
 @Scripts.Render("~/bundles/jqueryval")
 
@@ -34,19 +39,19 @@
                                 <a href="@Url.Action("Create", "UsersManagement")" class='btn btn-success lnkCreate'>@Resources.Resources.CreateNewUser</a>
                                 <p></p>
 
-                                @Html.Partial("_MVCGridToolbar", new MVCGridToolbarModel()
+                                @*@Html.Partial("_MVCGridToolbar", new MVCGridToolbarModel()
                                 {
                                     MVCGridName = "UsersManagementGrid",
                                     PageSize = true,
                                     ColumnVisibility = true,
                                     Export = true,
                                     GlobalSearch = true
-                                })
+                                })*@
                                 @*@Html.MVCGrid("UsersManagementGrid")*@
 
                             </div>
 
-                            @*<div id="jsGrid" class="col-md-11 no-paddin-xs" style="background-color:white; padding:20px;"></div>*@
+                            <div id="jsGrid" class="col-md-11 no-paddin-xs" style="background-color:white; padding:20px;"></div>
 
                             <div class="col-md-11 no-paddin-xs" style="background-color:white; padding:20px;width:90%">
                                 <div>@Html.Label(Resources.Resources.AllowedEmailDomains)</div>
@@ -250,7 +255,39 @@
         $('.date-picker').datepicker();
     });
 
-    @*$("#jsGrid").jsGrid({
+    var MyDateField = function (config) {
+        jsGrid.Field.call(this, config);
+    };
+
+    MyDateField.prototype = new jsGrid.Field({
+        sorter: function (date1, date2) {
+            return new Date(date1) - new Date(date2);
+        },
+
+        itemTemplate: function (value) {
+            return new Date(value).toDateString();
+        },
+
+        insertTemplate: function (value) {
+            return this._insertPicker = $("<input>").datepicker({ defaultDate: new Date() });
+        },
+
+        editTemplate: function (value) {
+            return this._editPicker = $("<input>").datepicker().datepicker("setDate", new Date(value));
+        },
+
+        insertValue: function () {
+            return this._insertPicker.datepicker("getDate").toISOString();
+        },
+
+        editValue: function () {
+            return this._editPicker.datepicker("getDate").toISOString();
+        }
+    });
+
+    jsGrid.fields.myDateField = MyDateField;
+
+    $("#jsGrid").jsGrid({
         width: "90%",
         height: "400px",
 
@@ -282,17 +319,18 @@
         },
 
         fields: [
-            { name: "FirstName", type: "text", width: 100 },
-            { name: "LastName", type: "number", width: 100 },
-            { name: "User.UserName", type: "text", width: 200 },
+            { name: "FirstName", type: "text", width: 100, title: "Nome" },
+            { name: "LastName", type: "number", width: 100, title: "Apelido" },
+            { name: "User.UserName", type: "text", width: 200, title: "Email" },
             //{ name: "ContactEmail", type: "text", width: 200 },
-            { name: "ProfessionalNumber", type: "text", width: 100 },
+            { name: "ProfessionalNumber", type: "text", width: 100, title: "Numero Mediador (ASF)" },
             //{ name: "CompanyName", type: "text", width: 100 },
-            //{ name: "CreateDate", type: "datetime", width: 100 },
+            { name: "CreateDate", type: "myDateField", width: 100 },
+            { name: "Active", type: "checkbox", title: "Activo" },
             { name: "Controlo", index: 'Controlo'}
             //{ type: "control" }
         ]
-    });*@
+    });
 </script>
 
 <div id="dialog-alert" style="display: none">

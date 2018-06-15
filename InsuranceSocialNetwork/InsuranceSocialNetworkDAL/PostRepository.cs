@@ -79,7 +79,7 @@ namespace InsuranceSocialNetworkDAL
             List<Post> postList = context.Post
                 .Fetch()
                 .Where(i => (
-                        i.ID_User == Id
+                        (i.ID_User == Id && i.PostSubject.Token.Equals("PERSONAL_POST"))
                         || (friendsUserIds.Contains(i.ID_User) && i.PostSubject.Token.Equals("PERSONAL_POST"))
                         || i.PostSubject.Token.Equals("BUSINESS_POST")
                         || i.PostSubject.Token.Equals("NEWS_POST")
@@ -390,6 +390,44 @@ namespace InsuranceSocialNetworkDAL
                 context.Notification.Delete(i => i.ID_Post == post.ID);
 
                 context.Post.Delete(post.ID);
+                context.Save();
+
+                return true;
+            }
+        }
+
+        public static bool DeleteComment(long commentId, string userId)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                PostComment comment = context.PostComment
+                    .Fetch()
+                    .Where(i => i.ID == commentId && i.ID_User == userId)
+                    .FirstOrDefault();
+
+                if (null == comment)
+                    return false;
+                
+                context.PostComment.Delete(comment.ID);
+                context.Save();
+
+                return true;
+            }
+        }
+
+        public static bool DeleteCommentAsAdmin(long commentId)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                PostComment comment = context.PostComment
+                    .Fetch()
+                    .Where(i => i.ID == commentId)
+                    .FirstOrDefault();
+
+                if (null == comment)
+                    return false;
+
+                context.PostComment.Delete(comment.ID);
                 context.Save();
 
                 return true;

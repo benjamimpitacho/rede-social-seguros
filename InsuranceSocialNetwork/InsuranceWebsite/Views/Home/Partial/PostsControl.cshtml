@@ -450,9 +450,19 @@
 
                                     <div class="comment-body" style="font-size:12px">
 
-                                        <h6 class="comment-user-name"><a href="@Url.Action("ProfileInfo", "Home", new { id = comment.CommentOwner.ID })">@comment.CommentOwner.FirstName</a></h6> <span>@comment.Text</span>
+                                        <div style="width:calc(100% - 30px); float: left;">
+                                            <h6 class="comment-user-name"><a href="@Url.Action("ProfileInfo", "Home", new { id = comment.CommentOwner.ID })">@comment.CommentOwner.FirstName</a></h6>
+                                            <span>@comment.Text</span>
+                                        </div>
 
-                                        <div class="comment-heading">
+                                        @if (comment.ID == post.PostComment.Last().ID && comment.ID_User == Model.Profile.ID_User)
+                                        {
+                                            <div style="margin-right:10px;">
+                                                <img src="~/Content/icons/136_20x20.png" class="deleteCommentBtn" alt="user profile image" style="width:16px; height: 16px; cursor:pointer;" id="deleteComment_@comment.ID">
+                                            </div>
+                                        }
+
+                                        <div class="comment-heading" style="clear:both;">
 
                                             @if (DateTime.Now.Subtract(comment.Date).TotalMinutes < 1)
                                             {
@@ -480,6 +490,8 @@
                                             }
 
                                         </div>
+
+                                        
                                     </div>
 
                                 </li>
@@ -501,6 +513,7 @@
 </div>
 
 <div id="dialog-confirm-delete" style="display: none"></div>
+<div id="dialog-confirm-delete-comment" style="display: none"></div>
 <div id="dialog-confirm-hide" style="display: none"></div>
 <div id="dialog-confirm-report" style="display: none"></div>
 <div id="dialog-confirm-edit" style="display:none;height:auto;"></div>
@@ -509,6 +522,7 @@
 <script type="text/javascript">
     var url = "";
     var postId = 0;
+    var commentId = 0;
 
     function SharePost(id)
     {
@@ -517,6 +531,11 @@
     }
 
     $(function () {
+
+        $(".deleteCommentBtn").on('click', function (e) {
+            commentId = e.target.id.replace('deleteComment_', '');
+            $("#dialog-confirm-delete-comment").dialog('open');
+        });
 
         $(".comment-body").linkify({ target: "_blank" });
 
@@ -635,6 +654,22 @@
             position: { my: "center", at: "center", of: window },
             open: function (e, ui) {
                 $(this).load("@Url.Action("ConfirmPostDelete", "Home")" + "/" + postId);
+            },
+            buttons: {}
+        });
+
+        $("#dialog-confirm-delete-comment").dialog({
+            title: '@Resources.Resources.Delete',
+            autoOpen: false,
+            resizable: false,
+            width: 400,
+            height: 200,
+            show: { effect: 'drop', direction: "up" },
+            modal: true,
+            draggable: true,
+            position: { my: "center", at: "center", of: window },
+            open: function (e, ui) {
+                $(this).load("@Url.Action("ConfirmCommentDelete", "Home")" + "/" + commentId);
             },
             buttons: {}
         });

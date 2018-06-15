@@ -1072,6 +1072,23 @@ namespace InsuranceWebsite.Controllers
 
         //[HttpPost]
         [FunctionalityAutorizeAttribute("NEW_POST_FUNCTIONALITY")]
+        public ActionResult DeleteComment(long id)
+        {
+            try
+            {
+                InsuranceBusiness.BusinessLayer.DeleteComment(id, CurrentUser.ID_User);
+            }
+            catch (Exception ex)
+            {
+                InsuranceBusiness.BusinessLayer.LogException(string.Format("{0} [{1}]", Request.UserHostAddress, id), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+                return RedirectToAction("Error");
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        //[HttpPost]
+        [FunctionalityAutorizeAttribute("NEW_POST_FUNCTIONALITY")]
         public ActionResult HidePost(long id)
         {
             try
@@ -3453,6 +3470,12 @@ namespace InsuranceWebsite.Controllers
         {
             ViewBag.postId = id;
             return PartialView("Partial/_ConfirmPostDelete");
+        }
+
+        public ActionResult ConfirmCommentDelete(long id)
+        {
+            ViewBag.commentId = id;
+            return PartialView("Partial/_ConfirmCommentDelete");
         }
 
         public ActionResult ConfirmPostHide(long id)

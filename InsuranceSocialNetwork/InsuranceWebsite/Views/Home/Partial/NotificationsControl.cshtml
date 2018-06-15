@@ -61,7 +61,7 @@
                                     <img src="@imgSrc" class="avatar img-circle">
                                 }
                             </div>
-                            <div class="pull-left meta">
+                            <div class="pull-left meta notif-text-area">
                                 <div class="title h5" style="border:0px;background-color:inherit">
                                     @*You need to complete your <a >Profile</a>*@
                                     @Resources.Resources.YouNeedCompleteYourProfile
@@ -112,7 +112,7 @@
                                     <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String((byte[])Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value))" class="avatar img-circle">
                                 }
                             </div>
-                            <div class="pull-left meta">
+                            <div class="pull-left meta notif-text-area">
                                 <div class="title h5" style="border:0px;background-color:inherit">
                                     <span style="font-weight:bold;">@Model.UsersNames.FirstOrDefault(i => i.Key == notification.FromUserID).Value</span>
                                     @Resources.Resources.LikedYourPost
@@ -163,7 +163,7 @@
                                     <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String((byte[])Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value))" class="avatar img-circle">
                                 }
                             </div>
-                            <div class="pull-left meta">
+                            <div class="pull-left meta notif-text-area">
                                 <div class="title h5" style="border:0px;background-color:inherit">
                                     <span style="font-weight:bold;">@Model.UsersNames.FirstOrDefault(i => i.Key == notification.FromUserID).Value</span>
                                     @Resources.Resources.CommentedOnYourPost
@@ -214,7 +214,7 @@
                                     <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String((byte[])Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value))" class="avatar img-circle">
                                 }
                             </div>
-                            <div class="pull-left meta">
+                            <div class="pull-left meta notif-text-area">
                                 <div class="title h5" style="border:0px;background-color:inherit">
                                     <span style="font-weight:bold;">@Model.UsersNames.FirstOrDefault(i => i.Key == notification.FromUserID).Value</span>
                                     @Resources.Resources.SentYouMessage
@@ -265,7 +265,7 @@
                                     <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String((byte[])Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value))" class="avatar img-circle">
                                 }
                             </div>
-                            <div class="pull-left meta">
+                            <div class="pull-left meta notif-text-area">
                                 <div class="title h5" style="border:0px;background-color:inherit">
                                     <span style="font-weight:bold;">@Model.UsersNames.FirstOrDefault(i => i.Key == notification.FromUserID).Value</span>
                                     @Resources.Resources.SentYouFriendRequest
@@ -316,7 +316,7 @@
                                     <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String((byte[])Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value))" class="avatar img-circle">
                                 }
                             </div>
-                            <div class="pull-left meta">
+                            <div class="pull-left meta notif-text-area">
                                 <div class="title h5" style="border:0px;background-color:inherit">
                                     <span style="font-weight:bold;">@Model.UsersNames.FirstOrDefault(i => i.Key == notification.FromUserID).Value</span>
                                     @Resources.Resources.AcceptedYourFriendRequest
@@ -367,7 +367,7 @@
                                     <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String((byte[])Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value))" class="avatar img-circle">
                                 }
                             </div>
-                            <div class="pull-left meta">
+                            <div class="pull-left meta notif-text-area">
                                 <div class="title h5" style="border:0px;background-color:inherit">
                                     @Resources.Resources.NewPublishedContentOnCurrentDiscussions<span style="font-weight:bold">@Resources.Resources.CurrentDiscussions</span>
                                 </div>
@@ -417,7 +417,7 @@
                             <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String((byte[])Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value))" class="avatar img-circle">
                             }
                             </div>
-                            <div class="pull-left meta">
+                            <div class="pull-left meta notif-text-area">
                                 <div class="title h5" style="border:0px;background-color:inherit">
                                     @Resources.Resources.NewPublishedContentOnAPS<span style="font-weight:bold">@Resources.Resources.APS</span>
                                 </div>
@@ -467,7 +467,7 @@
                             <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String((byte[])Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value))" class="avatar img-circle">
                             }
                             </div>
-                            <div class="pull-left meta">
+                            <div class="pull-left meta notif-text-area">
                                 <div class="title h5" style="border:0px;background-color:inherit">
                                     @Resources.Resources.NewPublishedContentOnASF<span style="font-weight:bold">@Resources.Resources.ASF</span>
                                 </div>
@@ -517,7 +517,7 @@
                             <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String((byte[])Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value))" class="avatar img-circle">
                             }
                             </div>
-                            <div class="pull-left meta">
+                            <div class="pull-left meta notif-text-area">
                                 <div class="title h5" style="border:0px;background-color:inherit">
                                     @Resources.Resources.NewPublishedContentOnAPROSE<span style="font-weight:bold">@Resources.Resources.APROSE</span>
                                 </div>
@@ -567,7 +567,7 @@
                                     <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String((byte[])Model.UsersPhotos.FirstOrDefault(i => i.Key == notification.FromUserID).Value))" class="avatar img-circle">
                                 }
                             </div>
-                            <div class="pull-left meta">
+                            <div class="pull-left meta notif-text-area">
                                 <div class="title h5" style="border:0px;background-color:inherit">
                                     @Resources.Resources.NewUserPendingApproval
                                 </div>
