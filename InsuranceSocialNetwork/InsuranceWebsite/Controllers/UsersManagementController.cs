@@ -264,9 +264,12 @@ namespace InsuranceWebsite.Controllers
             data.ForEach(i => i.ProfilePhoto = null);
             string editUrl = this.HttpContext.Request.Path.Replace("Get", "Edit") + "/";
             string deleteUrl = this.HttpContext.Request.Path.Replace("Get", "Delete") + "/";
-            
-            data.ForEach(i => i.Controlo = "<button  onclick=\"$('#urlField').val('" + editUrl + i.ID.ToString() + "');$('.ui-dialog-title').html('Edit');$('#dialog-edit').dialog('open');return false;\" >" + Resources.Resources.Edit + "</button><button  onclick=\"$('#urlField').val('" + deleteUrl + i.ID.ToString() + "');$('#dialog-confirm').dialog('open');$('.date-picker').datepicker();return false;\" >" + Resources.Resources.Delete + "</button>");
-            
+
+            //data.ForEach(i => i.Controlo = "<button  onclick=\"$('#urlField').val('" + editUrl + i.ID.ToString() + "');$('.ui-dialog-title').html('Edit');$('#dialog-edit').dialog('open');return false;\" >" + Resources.Resources.Edit + "</button><button  onclick=\"$('#urlField').val('" + deleteUrl + i.ID.ToString() + "');$('#dialog-confirm').dialog('open');$('.date-picker').datepicker();return false;\" >" + Resources.Resources.Delete + "</button>");
+            data.ForEach(i => i.Controlo = "<input class=\"jsgrid-button jsgrid-edit-button\" type=\"button\" title=\"Edit\" onclick=\"$('#urlField').val('" + editUrl + i.ID.ToString() + "');$('.ui-dialog-title').html('Edit');$('#dialog-edit').dialog('open');return false;\"><input class=\"jsgrid-button jsgrid-delete-button\" type=\"button\" title=\"Delete\" onclick=\"$('#urlField').val('" + deleteUrl + i.ID.ToString() + "');$('#dialog-confirm').dialog('open');$('.date-picker').datepicker();return false;\">");
+            data.ForEach(i => i.Active = !i.User.LockoutEndDateUtc.HasValue);
+            data.ForEach(i => i.CreateDateString = string.Format("{0}-{1}-{2}", i.CreateDate.Day.ToString("00"), i.CreateDate.Month.ToString("00"), i.CreateDate.Year));
+
             return Json(data.ToArray(), JsonRequestBehavior.AllowGet);
 
             //return new JsonResult()

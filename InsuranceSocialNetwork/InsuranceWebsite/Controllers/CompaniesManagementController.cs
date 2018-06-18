@@ -388,7 +388,20 @@ namespace InsuranceWebsite.Controllers
                     try
                     {
                         // Register default profile information!
-                        userId = InsuranceBusiness.BusinessLayer.CreateDefaultUserProfile(user.Id, user.UserName, user.Email, newUser.FirstName, newUser.LastName, null);
+                        if (newUser.FirstName.Length < 32)
+                        {
+                            userId = InsuranceBusiness.BusinessLayer.CreateDefaultUserProfile(user.Id, user.UserName, user.Email, newUser.FirstName, newUser.LastName, null);
+                        }
+                        else
+                        {
+                            string firstName = newUser.FirstName.Substring(0, 32);
+                            string lastName = newUser.FirstName.Substring(32);
+                            if(lastName.Length > 31)
+                            {
+                                lastName = lastName.Substring(0, 32);
+                            }
+                            userId = InsuranceBusiness.BusinessLayer.CreateDefaultUserProfile(user.Id, user.UserName, user.Email, firstName, lastName, null);
+                        }
                         await LockUserAccount(user.Id, 5000);
                     }
                     catch (Exception ex)

@@ -52,6 +52,9 @@ namespace InsuranceWebsite.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public System.DateTime CreateDate { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        public string CreateDateString { get; set; }
         public System.DateTime LastChangeDate { get; set; }
         public System.DateTime? DeleteDate { get; set; }
         public bool Active { get; set; }

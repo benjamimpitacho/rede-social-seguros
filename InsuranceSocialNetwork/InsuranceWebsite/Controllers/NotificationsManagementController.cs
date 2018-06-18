@@ -64,15 +64,12 @@ namespace InsuranceWebsite.Controllers
 
             try
             {
-                var grid = MVCGridDefinitionTable.GetDefinition<UserProfileModelObject>("RolesManagementGrid");
+                //var grid = MVCGridDefinitionTable.GetDefinition<UserProfileModelObject>("RolesManagementGrid");
             }
             catch (Exception)
             {
-                //InsuranceBusiness.BusinessLayer.GetRoles
-
                 MVCGridDefinitionTable.Add("RolesManagementGrid", new MVCGridBuilder<UserProfileModelObject>()
                     .WithAuthorizationType(AuthorizationType.AllowAnonymous)
-                    //.WithSorting(sorting: true, defaultSortColumn: "Id", defaultSortDirection: SortDirection.Dsc)
                     .AddColumns(cols =>
                     {
                         // Add your columns here

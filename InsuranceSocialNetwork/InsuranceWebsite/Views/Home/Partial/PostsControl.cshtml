@@ -554,7 +554,7 @@
                 $(e.target).parent().prepend("<ul class=\"comments-list\"></ul>");
             }
 
-            $(e.target).parent().children(".comments-list").append("<li class=\"comment\"><a class=\"pull-left\" href=\"/Home/ProfileInfo/@Model.Profile.ID\"><img src=\"@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.Profile.ProfilePhoto))\" class=\"avatar\" ></a><div class=\"comment-body\" style=\"font-size:12px\"><h6 class=\"comment-user-name\"><a href=\"/Home/ProfileInfo/1\">Administrator</a></h6> " + $(e.target).children("#postNewComment").val() + "<div class=\"comment-heading\"><h6 class=\"time\">@Resources.Resources.Now</h6></div></div></li>");
+            $(e.target).parent().children(".comments-list").append("<li class=\"comment\"><a class=\"pull-left\" href=\"/Home/ProfileInfo/@Model.Profile.ID\"><img src=\"@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.Profile.ProfilePhoto))\" class=\"avatar\" ></a><div class=\"comment-body\" style=\"font-size:12px\"><h6 class=\"comment-user-name\"><a href=\"/Home/ProfileInfo/1\">@Model.Profile.FirstName</a></h6> " + $(e.target).children("#postNewComment").val() + "<div class=\"comment-heading\"><h6 class=\"time\">@Resources.Resources.Now</h6></div></div></li>");
             jQuery.post('@Url.Action("NewComment", "Home")',
                 { postId: $(e.target).children("#postId").val(), postNewComment: $(e.target).children("#postNewComment").val(), hasNotification: true }
             )
