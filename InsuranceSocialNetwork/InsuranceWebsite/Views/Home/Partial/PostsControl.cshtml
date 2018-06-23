@@ -548,6 +548,10 @@
         $(".commentForm").on("submit", function(e) {
             e.preventDefault();  //prevent form from submitting
 
+            if ($.trim($(e.target).children("#postNewComment").val()) == "") {
+                return;
+            }
+
             if($(e.target).parent().children(".comments-list").length == 0)
             {
                 //alert("nao ha comments list");

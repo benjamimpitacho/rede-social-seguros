@@ -357,6 +357,67 @@ namespace InsuranceWebsite.Controllers
                     }
                 };
 
+                if (newUser.FirstName.Length > 32)
+                {
+                    string[] names = newUser.FirstName.Split(new char[] { ' ' });
+                    string tempName = newUser.FirstName;
+                    string newFirstName = "";
+                    string newLastName = "";
+
+                    int index = 0;
+                    foreach(string name in names)
+                    {
+                        if((newFirstName.Length + name.Length) < 32)
+                        {
+                            if (index == 0)
+                            {
+                                newFirstName = name;
+                            }
+                            else
+                            {
+                                newFirstName += " " + name;
+                            }
+                        }
+                        else
+                        {
+                            if(index==0)
+                            {
+                                newFirstName = name.Substring(0, 32);
+                                if(name.Length > 64)
+                                {
+                                    newLastName = name.Substring(32, 64);
+                                }
+                                else
+                                {
+                                    newLastName = name.Substring(32);
+                                }
+                                break;
+                            }
+                            else
+                            {
+                                if ((newLastName.Length + name.Length) < 32)
+                                {
+                                    if (newLastName.Length == 0)
+                                    {
+                                        newLastName = name;
+                                    }
+                                    else
+                                    {
+                                        newLastName += " " + name;
+                                    }
+                                }
+                                else
+                                {
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                    newUser.FirstName = newFirstName;
+                    newUser.LastName = newLastName;
+                }
+
                 
                 var user = new ApplicationUser { UserName = model.ContactEmail, Email = model.ContactEmail };
                 user.EmailConfirmed = true;
