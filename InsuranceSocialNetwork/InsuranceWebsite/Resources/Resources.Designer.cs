@@ -19,7 +19,7 @@ namespace Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -381,6 +381,15 @@ namespace Resources {
         public static string AreYouSureToDeletePost {
             get {
                 return ResourceManager.GetString("AreYouSureToDeletePost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tem a certeza de que pretende apagar o utilizador?.
+        /// </summary>
+        public static string AreYouSureToDeleteUser {
+            get {
+                return ResourceManager.GetString("AreYouSureToDeleteUser", resourceCulture);
             }
         }
         
@@ -3252,6 +3261,15 @@ namespace Resources {
         public static string UploadedVideo {
             get {
                 return ResourceManager.GetString("UploadedVideo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Carregando ficheiro....
+        /// </summary>
+        public static string UploadingFile {
+            get {
+                return ResourceManager.GetString("UploadingFile", resourceCulture);
             }
         }
         

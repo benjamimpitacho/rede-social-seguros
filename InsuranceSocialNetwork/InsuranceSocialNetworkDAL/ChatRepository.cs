@@ -144,6 +144,14 @@ namespace InsuranceSocialNetworkDAL
             //}
         }
 
+        public static ChatMessage GetChatMessage(BackofficeUnitOfWork context, long id)
+        {
+            return context.ChatMessage
+                .Fetch()
+                .Where(i => i.ID == id)
+                .FirstOrDefault();
+        }
+
         public static List<Chat> SearchChats(BackofficeUnitOfWork context, string userId, string searchTerm)
         {
             //using (var context = new BackofficeUnitOfWork())

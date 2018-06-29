@@ -98,8 +98,10 @@
 </style>
 
 <script>
+    var url = "";
+    var userId = -1;
+
     $(document).ready(function () {
-        var url = "";
 
         $("#addEmailDomain").click(function () {
             if ($('#emailDomainTextbox').val() == null || $('#emailDomainTextbox').val() == '')
@@ -167,28 +169,28 @@
             }
         });
 
-        $("#dialog-confirm").dialog({
-            autoOpen: false,
-            resizable: false,
-            height: 170,
-            width: 350,
-            show: { effect: 'drop', direction: "up" },
-            modal: true,
-            draggable: true,
-            open: function (event, ui) {
-                $(".ui-dialog-titlebar-close").hide();
+        //$("#dialog-confirm").dialog({
+        //    autoOpen: false,
+        //    resizable: false,
+        //    height: 170,
+        //    width: 350,
+        //    show: { effect: 'drop', direction: "up" },
+        //    modal: true,
+        //    draggable: true,
+        //    open: function (event, ui) {
+        //        $(".ui-dialog-titlebar-close").hide();
 
-            },
-            buttons: {
-                "OK": function () {
-                    $(this).dialog("close");
-                    window.location.href = url;
-                },
-                "Cancel": function () {
-                    $(this).dialog("close");
-                }
-            }
-        });
+        //    },
+        //    buttons: {
+        //        "OK": function () {
+        //            $(this).dialog("close");
+        //            window.location.href = url;
+        //        },
+        //        "Cancel": function () {
+        //            $(this).dialog("close");
+        //        }
+        //    }
+        //});
 
         $("#dialog-detail").dialog({
             title: 'View User',
@@ -229,10 +231,26 @@
             return false;
         });
 
+        $("#dialog-confirm-delete").dialog({
+            title: '@Resources.Resources.Delete',
+            autoOpen: false,
+            resizable: false,
+            width: 450,
+            height: 200,
+            show: { effect: 'drop', direction: "up" },
+            modal: true,
+            draggable: true,
+            open: function (e, ui) {
+                //$('.ui-widget-overlay').addClass('custom-overlay');
+                $(this).load("@Url.Action("ConfirmUserDelete", "UsersManagement")" + "/" + userId);
+            },
+            buttons: {}
+        });
+
         $(".lnkDelete").click(function (e) {
             // e.preventDefault(); use this or return false
             url = $(this).attr('href');
-            $("#dialog-confirm").dialog('open');
+            $("#dialog-confirm-delete").dialog('open');
 
             $('.date-picker').datepicker();
 
@@ -320,18 +338,28 @@
 
         fields: [
             { name: "FirstName", type: "text", width: 100, title: "Nome" },
-            { name: "LastName", type: "number", width: 100, title: "Apelido" },
+            { name: "LastName", type: "text", width: 100, title: "Apelido" },
             { name: "User.UserName", type: "text", width: 200, title: "Email" },
             //{ name: "ContactEmail", type: "text", width: 200 },
             { name: "ProfessionalNumber", type: "text", width: 100, title: "Numero Mediador (ASF)" },
             //{ name: "CompanyName", type: "text", width: 100 },
-            //{ name: "CreateDate", type: "myDateField", width: 100 },
+            //{ name: "CreateDateString", type: "myDateField", width: 100, title: "Data Registo" },
             { name: "CreateDateString", type: "text", width: 100, title: "Data Registo" },
             { name: "Active", type: "checkbox", title: "Activo" },
             { name: "Controlo", index: 'Controlo'}
             //{ type: "control" }
         ]
     });
+
+    function openConfirmUserDelete(id) {
+        //alert(id);
+        userId = id;
+        $("#dialog-confirm-delete").dialog('open');
+
+        $('.date-picker').datepicker();
+
+        return false;
+    }
 </script>
 
 <div id="dialog-alert" style="display: none">
@@ -340,11 +368,7 @@
     </p>
 </div>
 
-<div id="dialog-confirm" style="display: none">
-    <p>
-        <span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>
-        @Resources.Resources.AreYouSureToDelete
-    </p>
+<div id="dialog-confirm-delete" style="display: none">
 </div>
 
 <div id="dialog-edit" style="display: none">

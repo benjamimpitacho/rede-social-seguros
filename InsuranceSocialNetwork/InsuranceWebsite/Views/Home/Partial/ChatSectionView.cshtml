@@ -4,7 +4,7 @@
 
 <link href="~/Content/bookpost/css/messages.css" rel="stylesheet">
 
-@Html.HiddenFor(i=>i.Chat.ID_Chat, new { id="chatId" })
+@Html.HiddenFor(i => i.Chat.ID_Chat, new { id = "chatId" })
 @Html.HiddenFor(i => i.Profile.ID_User, new { id = "userId" })
 @Html.HiddenFor(i => i.Profile.FirstName, new { id = "firstName" })
 @Html.HiddenFor(i => i.Profile.LastName, new { id = "lastName" })
@@ -18,19 +18,17 @@
         background-color: #00C1DE;
         padding: 10px 20px;
         color: #fff;
-        margin-bottom:2px;
-        display:grid;
+        margin-bottom: 2px;
+        display: grid;
         position: relative;
-        width:100%;
+        width: 100%;
     }
 
-    .note-icon
-    {
-        position:absolute;
+    .note-icon {
+        position: absolute;
         right: 18px;
         padding-top: 12px;
     }
-
 </style>
 
 <div class="panel panel-body post panel-shadow animated fadeInUp" style="margin-bottom:2px;max-height:80px;padding:10px 15px;">
@@ -148,7 +146,7 @@
 </div>
 
 <div id="topDiscussion" class="col-inside-lg decor-default" style="width:100%;max-height: calc(100vh - 265px - @(Model.Chat.ChatNote.Count * 57)px);overflow:auto;">
-    
+
     <div class="chat-body" id="discussion" style="">
         @foreach (ChatMessageDTO message in Model.Chat.ChatMessage)
         {
@@ -156,15 +154,15 @@
             {
                 <div class="answer right">
                     @*<div class="avatar">
-                        @if (null == Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User == Model.Profile.ID_User).ProfilePhoto || Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User == Model.Profile.ID_User).ProfilePhoto.Length == 0)
-                        {
-                            <img class="" src="~/Content/images/no_photo_img.jpg" alt="" style="max-width: 25px;border-radius: 50px;border: 1px solid #939DA3;margin-bottom: 5px;">
-                        }
-                        else
-                        {
-                            <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.Chat.ChatMemberProfile.FirstOrDefault(i=>i.ID_User == Model.Profile.ID_User).ProfilePhoto))" class="" style="max-width: 40px;border-radius: 50px;border: 1px solid #939DA3;margin-bottom: 10px;">
-                        }
-                    </div>*@
+                            @if (null == Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User == Model.Profile.ID_User).ProfilePhoto || Model.Chat.ChatMemberProfile.FirstOrDefault(i => i.ID_User == Model.Profile.ID_User).ProfilePhoto.Length == 0)
+                            {
+                                <img class="" src="~/Content/images/no_photo_img.jpg" alt="" style="max-width: 25px;border-radius: 50px;border: 1px solid #939DA3;margin-bottom: 5px;">
+                            }
+                            else
+                            {
+                                <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.Chat.ChatMemberProfile.FirstOrDefault(i=>i.ID_User == Model.Profile.ID_User).ProfilePhoto))" class="" style="max-width: 40px;border-radius: 50px;border: 1px solid #939DA3;margin-bottom: 10px;">
+                            }
+                        </div>*@
                     <div class="text">
                         @if (message.IsImage)
                         {
@@ -172,7 +170,10 @@
                         }
                         else if (message.IsFile)
                         {
-                            <a href="@message.FileStream" download="file"></a>
+                            <a href="@Url.Action("DownloadFile", "Home", new { id = message.ID })">
+                                <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF155.png" />
+                            </a>
+                            <div style="text-align:center;">@message.Text</div>
                         }
                         else
                         {
@@ -223,7 +224,10 @@
                         }
                         else if (message.IsFile)
                         {
-
+                            <a href="@Url.Action("DownloadFile", "Home", new { id = message.ID })">
+                                <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF155.png" />
+                            </a>
+                            <div style="text-align:center;">@message.Text</div>
                         }
                         else
                         {
@@ -275,24 +279,31 @@
     }
 </div>
 
+@*<div id="progress" class="progress">
+    <div class="progress-bar progress-bar-success"></div>
+</div>*@
+
 <div class="col-inside-lg decor-default" style="width:100%; margin-top:0px;">
     <textarea placeholder="@Resources.Resources.WriteMessageOrAttachAnArchive" rows="1" class="form-control input-lg p-text-area" id="message" name="message" style="resize:none;"></textarea>
-    <img id="imgPlaceholder"  alt="" style="visibility:hidden;position:absolute" />
+    <img id="imgPlaceholder" alt="" style="visibility:hidden;position:absolute" />
     <div class="panel-footer" style="border-top: 0px; padding: 10px 10px;">
         <button class="btn btn-info pull-right" id="sendmessage" style="font-weight:bold;">@Resources.Resources.Send</button>
         <ul class="nav nav-pills">
             @*<li>
-                <input type='file' id="imgUpload" style="visibility:hidden;position:absolute" name="imgUpload" />
-                <a href="javascript:$('#imgUpload').click()" style="padding: 3px 5px">
-                    <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF110.png" class="icon-normal" />
-                </a>
-            </li>
+                    <input type='file' id="imgUpload" style="visibility:hidden;position:absolute" name="imgUpload" />
+                    <a href="javascript:$('#imgUpload').click()" style="padding: 3px 5px">
+                        <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF110.png" class="icon-normal" />
+                    </a>
+                </li>*@
             <li>
-                <input type='file' id="fileUpload" style="visibility:hidden;position:absolute" name="fileUpload" />
-                <a href="javascript:$('#fileUpload').click()" style="padding: 3px 5px">
-                    <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF111.png" class="icon-normal" />
-                </a>
-            </li>*@
+                @using (Html.BeginForm("Upload", "Home", FormMethod.Post, new { id= "FormUpload", enctype = "multipart /form-data" }))
+                {
+                    <input type='file' id="fileUpload" style="visibility:hidden;position:absolute" name="fileUpload" />
+                    <a href="javascript:$('#fileUpload').click()" style="padding: 3px 5px">
+                        <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF111.png" class="icon-normal" />
+                    </a>
+                }
+            </li>
             <li>
                 <a id="newNoteButton" href="@Url.Action("CreateNote", "Home", new { idChat = Model.Chat.ID, idUser = Model.Profile.ID_User })" style="padding: 3px 5px">
                     <img src="~/Content/icons/icons_mensagens_rede_social_falar_seguros_AF9.png" class="icon-normal" />
@@ -309,6 +320,11 @@
 <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
 <!--Reference the autogenerated SignalR hub script. -->
 <script src="~/signalr/hubs"></script>
+
+<!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
+<script src="~/Scripts/jquery.iframe-transport.js"></script>
+<!-- The basic File Upload plugin -->
+<script src="~/Scripts/jquery.fileupload.js"></script>
 
 <script type="text/javascript">
     $(function () {
@@ -341,15 +357,6 @@
             return false;
         });
 
-        //$("#imgUpload").fileinput({
-        //    allowedFileExtensions: ["jpg", "png", "gif", "jpeg"],
-        //    maxImageWidth: 700,
-        //    maxImageHeight: 700,
-        //    resizePreference: 'height',
-        //    maxFileCount: 1,
-        //    resizeImage: true
-        //});
-
         $('#topDiscussion').animate({
             scrollTop: $('#topDiscussion')[0].scrollHeight
         }, 2000);
@@ -359,26 +366,11 @@
         // Create a function that the hub can call back to display messages.
         chat.client.addNewMessageToPage = function (name, message, connectionid) {
             // Add the message to the page.
-            //$('#discussion').append('<li class="right clearfix"><span class="chat-img pull-right"><img src="img/Friends/guy-3.jpg" alt="User Avatar"></span>'
-            //    + '<div class="chat-body clearfix"><div class="header"><strong class="primary-font">'
-            //    + htmlEncode(name)
-            //    + '</strong><small class="pull-right text-muted"><i class="fa fa-clock-o"></i> 13 mins ago</small></div><p>'
-            //    + htmlEncode(message)
-            //    + '</p></div></li>');
-            //alert($('#messageListPanel').height());
             if (connectionid == $('#chatId').val()) {
                 $('#sendMessageDiv').before('<div class="answer right">'
                     + '<div class="text">'
                     + htmlEncode(message)
                     + '</div><div class="time">now</div></div>');
-                //$('#discussion').append('<div class="answer right"><div class="avatar">'
-                //    + '<img src="~/Content/images/no_photo_img.jpg" alt="User name"><div class="status offline"></div></div>'
-                //    + '<div class="name">'
-                //    + htmlEncode(name)
-                //    + '</div><div class="text">'
-                //    + htmlEncode(message)
-                //    + '</div><div class="time">5 min ago</div></div>');
-                //alert($('#messageListPanel').height());
 
                 $('#topDiscussion').scrollTop($('#topDiscussion')[0].scrollHeight);
             }
@@ -386,26 +378,11 @@
 
         chat.client.addNewImageToPage = function (name, image, connectionid) {
             // Add the message to the page.
-            //$('#discussion').append('<li class="right clearfix"><span class="chat-img pull-right"><img src="img/Friends/guy-3.jpg" alt="User Avatar"></span>'
-            //    + '<div class="chat-body clearfix"><div class="header"><strong class="primary-font">'
-            //    + htmlEncode(name)
-            //    + '</strong><small class="pull-right text-muted"><i class="fa fa-clock-o"></i> 13 mins ago</small></div><p>'
-            //    + htmlEncode(message)
-            //    + '</p></div></li>');
-            //alert($('#messageListPanel').height());
             if (connectionid == $('#chatId').val()) {
                 $('#sendMessageDiv').before('<div class="answer right">'
                     + '<div class="text">'
                     + '<img src="' + image + '"/>'
                     + '</div><div class="time">now</div></div>');
-                //$('#discussion').append('<div class="answer right"><div class="avatar">'
-                //    + '<img src="~/Content/images/no_photo_img.jpg" alt="User name"><div class="status offline"></div></div>'
-                //    + '<div class="name">'
-                //    + htmlEncode(name)
-                //    + '</div><div class="text">'
-                //    + htmlEncode(message)
-                //    + '</div><div class="time">5 min ago</div></div>');
-                //alert($('#messageListPanel').height());
 
                 $('#topDiscussion').scrollTop($('#topDiscussion')[0].scrollHeight);
             }
@@ -413,26 +390,11 @@
 
         chat.client.addNewFileToPage = function (name, image, connectionid) {
             // Add the message to the page.
-            //$('#discussion').append('<li class="right clearfix"><span class="chat-img pull-right"><img src="img/Friends/guy-3.jpg" alt="User Avatar"></span>'
-            //    + '<div class="chat-body clearfix"><div class="header"><strong class="primary-font">'
-            //    + htmlEncode(name)
-            //    + '</strong><small class="pull-right text-muted"><i class="fa fa-clock-o"></i> 13 mins ago</small></div><p>'
-            //    + htmlEncode(message)
-            //    + '</p></div></li>');
-            //alert($('#messageListPanel').height());
             if (connectionid == $('#chatId').val()) {
                 $('#sendMessageDiv').before('<div class="answer right">'
                     + '<div class="text">'
                     + '<a href="' + image + '" download="file" ></a>'
                     + '</div><div class="time">now</div></div>');
-                //$('#discussion').append('<div class="answer right"><div class="avatar">'
-                //    + '<img src="~/Content/images/no_photo_img.jpg" alt="User name"><div class="status offline"></div></div>'
-                //    + '<div class="name">'
-                //    + htmlEncode(name)
-                //    + '</div><div class="text">'
-                //    + htmlEncode(message)
-                //    + '</div><div class="time">5 min ago</div></div>');
-                //alert($('#messageListPanel').height());
 
                 $('#topDiscussion').scrollTop($('#topDiscussion')[0].scrollHeight);
             }
@@ -455,8 +417,7 @@
                 var key = e.which;
                 if (key == 13)  // the enter key code
                 {
-                    if ($.trim($('#message').val()) == '')
-                    {
+                    if ($.trim($('#message').val()) == '') {
                         return false;
                     }
                     $('#sendmessage').click();
@@ -479,39 +440,87 @@
         });
 
         $('#fileUpload').change(function () {
-            var file = document.querySelector('#fileUpload').files[0];
-            var reader = new FileReader();
+            var form = $('#FormUpload')[0];
+            var dataString = new FormData(form);
 
-            reader.addEventListener("load", function () {
-                chat.server.send($('#userId').val(), reader.result, $('#chatId').val(), $('#firstName').val(), $('#lastName').val(), false, true);
-            }, false);
+            var uniqueId = CreateGuid();
 
-            if (file) {
-                reader.readAsDataURL(file);
-            }
+            $('#sendMessageDiv').before('<div class="answer right" id="' + uniqueId + '">'
+                + '<div class="text">'
+                + '<img src="/../../../Content/images/waiting.gif" />'
+                + htmlEncode('@Resources.Resources.UploadingFile')
+                + '</div><div class="time">now</div></div>');
+
+            $('#topDiscussion').scrollTop($('#topDiscussion')[0].scrollHeight);
+
+            $.ajax({
+                @*url: '@Url.Action("Upload", "Home", new { chatId = Model.Chat.ID_Chat, elementId = ' + + ' })',  //Server script to process data*@
+                url: '/Home/Upload?chatId=@Model.Chat.ID_Chat&elementId=' + uniqueId,
+                type: 'POST',
+                xhr: function () {  // Custom XMLHttpRequest
+                    var myXhr = $.ajaxSettings.xhr();
+                    if (myXhr.upload) { // Check if upload property exists
+                        //myXhr.upload.onprogress = progressHandlingFunction
+                        myXhr.upload.addEventListener('progress', progressHandlingFunction,
+                            false); // For handling the progress of the upload
+                    }
+                    return myXhr;
+                },
+                //Ajax events
+                success: successHandler,
+                error: errorHandler,
+                complete: completeHandler,
+                // Form data
+                data: dataString,
+                //Options to tell jQuery not to process data or worry about content-type.
+                cache: false,
+                contentType: false,
+                processData: false
+            });
         });
+
+        function successHandler(e) {
+
+            $('#' + e.elementid).html('<div class="answer right" id="123">'
+                + '<div class="text"><a href="/Home/DownloadFile?id=' + e.messageid +'">'
+                + '<img src="/../../../Content/icons/home_page_rede_social_falar_seguros_AF155.png" />'
+                + '</a>'
+                + '<div style="text-align:center;">' + htmlEncode(e.message) + '</div>'
+                + '</div><div class="time">now</div></div>');
+        }
+
+        function errorHandler(e) {
+            alert("Ocorreu um erro a fazer o upload do ficheiro.");
+        }
+
+        function completeHandler(e) {
+            //alert("completeHandler");
+        }
+
+        function CreateGuid() {
+            function _p8(s) {
+                var p = (Math.random().toString(16) + "000000000").substr(2, 8);
+                return s ? "-" + p.substr(0, 4) + "-" + p.substr(4, 4) : p;
+            }
+            return _p8() + _p8(true) + _p8(true) + _p8();
+        }
+
+        function progressHandlingFunction(e) {
+            if (e.lengthComputable) {
+                var percentComplete = Math.round(e.loaded * 100 / e.total);
+                $("#FileProgress").css("width",
+                    percentComplete + '%').attr('aria-valuenow', percentComplete);
+                $('#FileProgress span').text(percentComplete + "%");
+            }
+            else {
+                $('#FileProgress span').text('unable to compute');
+            }
+        }
     });
     // This optional function html-encodes messages for display in the page.
     function htmlEncode(value) {
         var encodedValue = $('<div />').text(value).html();
         return encodedValue;
     }
-
-    //function previewFile() {
-    //    var preview = document.querySelector('img[id=preview]');
-    //    var file = document.querySelector('input[type=file]').files[0];
-    //    var reader = new FileReader();
-
-    //    reader.addEventListener("load", function () {
-    //        preview.src = reader.result;
-    //        //alert(reader.result);
-    //    }, false);
-
-    //    if (file) {
-    //        reader.readAsDataURL(file);
-    //    }
-
-    //    chat.server.send($('#userId').val(), reader.result, $('#chatId').val(), $('#firstName').val(), $('#lastName').val(), true);
-    //}
 
 </script>

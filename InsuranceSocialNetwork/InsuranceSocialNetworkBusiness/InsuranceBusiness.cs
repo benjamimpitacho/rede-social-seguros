@@ -437,6 +437,18 @@ namespace InsuranceSocialNetworkBusiness
             }
         }
 
+        public ChatMessageDTO GetChatMessage(long id)
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                ChatMessage message = ChatRepository.GetChatMessage(context, id);
+
+                ChatMessageDTO messageDTO = AutoMapper.Mapper.Map<ChatMessageDTO>(message);
+
+                return messageDTO;
+            }
+        }
+
         public List<ChatDTO> GetChats(string userId)
         {
             using (var context = new BackofficeUnitOfWork())
@@ -467,7 +479,7 @@ namespace InsuranceSocialNetworkBusiness
             }
         }
 
-        public void SaveMessage(string userId, string chatId, string message, bool isImage, bool isFile)
+        public long SaveMessage(string userId, string chatId, string message, bool isImage, bool isFile, byte[] fileStream = null)
         {
             using (var context = new BackofficeUnitOfWork())
             {
@@ -476,12 +488,12 @@ namespace InsuranceSocialNetworkBusiness
                 Chat chat = context.Chat.Fetch().FirstOrDefault(i => i.ID_Chat == chatId);
 
                 if (null == chat)
-                    return;
+                    return -1;
 
                 AspNetUsers user = context.AspNetUsers.Fetch().FirstOrDefault(i => i.Id == userId);
 
                 if (null == user)
-                    return;
+                    return -1;
 
                 ChatMessage chatMessage = new ChatMessage()
                 {
@@ -493,11 +505,14 @@ namespace InsuranceSocialNetworkBusiness
                     Text = message,
                     IsImage = isImage,
                     IsFile = isFile,
+                    Image = ((isImage || isFile) && (null != fileStream && fileStream.Length > 0)) ? fileStream : null,
                     FileStream = (isImage || isFile) ? message : string.Empty
                 };
 
                 context.ChatMessage.Create(chatMessage);
                 context.Save();
+
+                return chatMessage.ID;
             }
         }
 

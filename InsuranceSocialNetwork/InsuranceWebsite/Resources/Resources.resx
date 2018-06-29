@@ -1230,4 +1230,10 @@
   <data name="AreYouSureToDeleteComment" xml:space="preserve">
     <value>Tem a certeza que pretende apagar o comentário?</value>
   </data>
+  <data name="AreYouSureToDeleteUser" xml:space="preserve">
+    <value>Tem a certeza de que pretende apagar o utilizador?</value>
+  </data>
+  <data name="UploadingFile" xml:space="preserve">
+    <value>Carregando ficheiro...</value>
+  </data>
 </root>

@@ -2,6 +2,7 @@
 using InsuranceSocialNetworkBusiness;
 using InsuranceSocialNetworkCore.Enums;
 using InsuranceSocialNetworkCore.Utils;
+using InsuranceSocialNetworkDTO.Chat;
 using InsuranceSocialNetworkDTO.Company;
 using InsuranceSocialNetworkDTO.Post;
 using InsuranceSocialNetworkDTO.SystemSettings;
@@ -283,6 +284,57 @@ namespace InsuranceWebsite.Controllers
             model.IsNewMessage = true;
 
             return View("Messages", model);
+        }
+
+        [HttpPost]
+        public ActionResult Upload(string chatId, string elementId, HttpPostedFileBase fileUpload)
+        {
+            //if (fileUpload != null && fileUpload.ContentLength > 0)
+            //{
+            //    var fileName = Path.GetFileName(fileUpload.FileName);
+            //    var path = Path.Combine(Server.MapPath("~/Images/"), fileName);
+            //    fileUpload.SaveAs(path);
+            //}
+
+            //return RedirectToAction("UploadDocument");
+
+            if (fileUpload != null && fileUpload.ContentLength > 0)
+            {
+                var fileName = Path.GetFileName(fileUpload.FileName);
+
+                byte[] fileByteArray = new byte[fileUpload.ContentLength];
+                fileUpload.InputStream.Read(fileByteArray, 0, fileUpload.ContentLength);
+
+                long messageId = InsuranceBusiness.BusinessLayer.SaveMessage(CurrentUser.ID_User, chatId, fileName, false, true, fileByteArray);
+
+                if (messageId > 0)
+                {
+                    return Json(new
+                    {
+                        statusCode = 200,
+                        status = "Success!",
+                        message = fileName,
+                        messageid = messageId,
+                        elementid = elementId
+                    }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            return Json(new
+            {
+                statusCode = 400,
+                status = "Bad Request! Upload Failed",
+                file = string.Empty
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public FileResult DownloadFile(long id)
+        {
+            ChatMessageDTO message = InsuranceBusiness.BusinessLayer.GetChatMessage(id);
+            if (null != message.Image && message.Image.Length > 0)
+            {
+                return File(message.Image, System.Net.Mime.MediaTypeNames.Application.Octet, message.Text);
+            }
+            return null;
         }
 
         /// <summary>
