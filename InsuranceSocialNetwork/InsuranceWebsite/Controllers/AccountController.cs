@@ -218,9 +218,11 @@ namespace InsuranceWebsite.Controllers
                     }
                     catch (Exception ex)
                     {
-                        await UserManager.DeleteAsync(user);
                         InsuranceBusiness.BusinessLayer.LogException(Request.UserHostAddress, string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
-                        return View(model);
+
+                        await UserManager.DeleteAsync(user);
+
+                        return View("Error");
                     }
                 }
                 
@@ -234,9 +236,11 @@ namespace InsuranceWebsite.Controllers
                     }
                     catch (Exception ex)
                     {
-                        await UserManager.DeleteAsync(user);
                         InsuranceBusiness.BusinessLayer.LogException(Request.UserHostAddress, string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
-                        return View(model);
+
+                        await UserManager.DeleteAsync(user);
+
+                        return View("Error");
                     }
                 }
 
@@ -257,10 +261,12 @@ namespace InsuranceWebsite.Controllers
                         }
                         catch (Exception ex)
                         {
+                            InsuranceBusiness.BusinessLayer.LogException(Request.UserHostAddress, string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+
                             InsuranceBusiness.BusinessLayer.DeleteUserProfile(userId);
                             await UserManager.DeleteAsync(user);
-                            InsuranceBusiness.BusinessLayer.LogException(Request.UserHostAddress, string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
-                            return View(model);
+
+                            return View("Error");
                         }
 
                         //if(InsuranceBusiness.BusinessLayer.IsEmailAuthorizedForAutomaticApproval(user.UserName))
@@ -293,11 +299,12 @@ namespace InsuranceWebsite.Controllers
                     }
                     catch (Exception ex)
                     {
+                        InsuranceBusiness.BusinessLayer.LogException(Request.UserHostAddress, string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+
                         InsuranceBusiness.BusinessLayer.DeleteUserProfile(userId);
                         await UserManager.DeleteAsync(user);
 
-                        InsuranceBusiness.BusinessLayer.LogException(Request.UserHostAddress, string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
-                        return View(model);
+                        return View("Error");
                     }
                     //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
@@ -328,7 +335,7 @@ namespace InsuranceWebsite.Controllers
             newToken = System.Web.HttpUtility.UrlEncode(newToken);
 
             System.Net.Mail.MailMessage m = new System.Net.Mail.MailMessage(
-                new System.Net.Mail.MailAddress(ConfigurationSettings.AppEmailAddress, Resources.Resources.ApplicationNAme),
+                new System.Net.Mail.MailAddress(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.SMTP_USERNAME).Value, Resources.Resources.ApplicationNAme),
                 new System.Net.Mail.MailAddress(user.Email));
             m.Subject = Resources.Resources.EmailRegisterConfirmation;
             //m.Body = string.Format(Resources.Resources.RegisterConfirmationMessage, name, Url.Action("ConfirmEmail", "Account", new { token = code, code = user.Id }, Request.Url.Scheme));
@@ -343,9 +350,9 @@ namespace InsuranceWebsite.Controllers
             m.Body = m.Body.Replace("{URL}", Url.Action("ConfirmEmail", "Account", new { token = newToken, code = user.Id }, Request.Url.Scheme));
 
             m.IsBodyHtml = true;
-            System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient(ConfigurationSettings.SmtpHost, ConfigurationSettings.SmtpPort)
+            System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.SMTP_HOST).Value, Int32.Parse(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.SMTP_PORT).Value))
             {
-                Credentials = new System.Net.NetworkCredential(ConfigurationSettings.SmtpUsername, ConfigurationSettings.SmtpPassword),
+                Credentials = new System.Net.NetworkCredential(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.SMTP_USERNAME).Value, InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.SMTP_PASSWORD).Value),
                 EnableSsl = false
             };
             smtp.Send(m);
@@ -383,8 +390,9 @@ namespace InsuranceWebsite.Controllers
         private async Task<bool> SendRecoverPasswordEmail(ApplicationUser user, string name, string callbackUrl)
         {
             System.Net.Mail.MailMessage m = new System.Net.Mail.MailMessage(
-                new System.Net.Mail.MailAddress(ConfigurationSettings.AppEmailAddress, Resources.Resources.ApplicationNAme),
+                new System.Net.Mail.MailAddress(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.SMTP_USERNAME).Value, Resources.Resources.ApplicationNAme),
                 new System.Net.Mail.MailAddress(user.Email));
+
             m.Subject = Resources.Resources.EmailPasswordRecover;
             //m.Body = string.Format(Resources.Resources.RegisterConfirmationMessage, name, Url.Action("ConfirmEmail", "Account", new { token = code, code = user.Id }, Request.Url.Scheme));
 
@@ -397,11 +405,12 @@ namespace InsuranceWebsite.Controllers
             m.Body = m.Body.Replace("{URL}", callbackUrl);
             m.IsBodyHtml = true;
 
-            SmtpClient smtp = new SmtpClient(ConfigurationSettings.SmtpHost, ConfigurationSettings.SmtpPort)
+            System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.SMTP_HOST).Value, Int32.Parse(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.SMTP_PORT).Value))
             {
-                Credentials = new System.Net.NetworkCredential(ConfigurationSettings.SmtpUsername, ConfigurationSettings.SmtpPassword),
+                Credentials = new System.Net.NetworkCredential(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.SMTP_USERNAME).Value, InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.SMTP_PASSWORD).Value),
                 EnableSsl = false
             };
+
             smtp.Send(m);
 
             return true;
