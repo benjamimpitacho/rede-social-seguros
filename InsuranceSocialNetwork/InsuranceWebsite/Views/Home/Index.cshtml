@@ -30,10 +30,10 @@
             {
                 @Html.Partial("~/Views/Home/Partial/CompanyProfileEdit.cshtml", Model)
             }
-            else if (InsuranceBusiness.BusinessLayer.IsUserInRoleByUsername(this.User.Identity.Name, RoleEnum.PORTAL_COMMERCIAL.ToString()))
+            @*else if (InsuranceBusiness.BusinessLayer.IsUserInRoleByUsername(this.User.Identity.Name, RoleEnum.PORTAL_COMMERCIAL.ToString()))
             {
                 @Html.Partial("~/Views/Home/Partial/Timeline.cshtml", Model)
-            }
+            }*@
             else if (Model.IsPostsView && !Model.IsProfileTimeline)
             {
                 @Html.Partial("~/Views/Home/Partial/Timeline.cshtml", Model)

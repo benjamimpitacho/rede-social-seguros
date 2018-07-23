@@ -64,6 +64,7 @@
     <Compile Include="Post\PostDTO.cs" />
     <Compile Include="Role\RoleDTO.cs" />
     <Compile Include="SystemSettings\SystemSettingsDTO.cs" />
+    <Compile Include="UserProfile\ConsultantStatisticsDTO.cs" />
     <Compile Include="UserProfile\UserProfileDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

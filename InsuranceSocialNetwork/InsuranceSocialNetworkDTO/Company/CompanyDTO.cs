@@ -44,6 +44,7 @@ namespace InsuranceSocialNetworkDTO.Company
         public long? Invoice_ID_County { get; set; }
         public long? Invoice_ID_District { get; set; }
         public int? LibaxEntityID { get; set; }
+        public string ID_User_CreatedBy { get; set; }        
 
         public List<PaymentDTO> Payment { get; set; }
 

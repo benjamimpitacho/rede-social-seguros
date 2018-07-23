@@ -37,6 +37,7 @@ namespace InsuranceWebsite.Models
 
         public long ID { get; set; }
         public string ID_User { get; set; }
+        public string ID_User_CreatedBy { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]
@@ -67,6 +68,7 @@ namespace InsuranceWebsite.Models
 
         public bool CreatePayment { get; set; }
         public long ID_PaymentType { get; set; }
+        public int PaymentPeriod { get; set; }
         public string IBAN { get; set; }
         public decimal Value { get; set; }
 
@@ -81,6 +83,8 @@ namespace InsuranceWebsite.Models
         public List<SelectListItem> ServiceList { get; set; }
 
         public List<SelectListItem> PaymentTypeList { get; set; }
+
+        public List<SelectListItem> PaymentPeriodList { get; set; }
 
         public List<PaymentDTO> Payments { get; set; }
 

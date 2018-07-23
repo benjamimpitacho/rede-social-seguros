@@ -178,10 +178,11 @@
                                                 </div>
                                                 <div class="about">
                                                     <h3><i class="fa fa-square"></i> @Resources.Resources.AboutMe</h3>
-                                                    @Html.TextAreaFor(i => i.Profile.AboutMe, new { @class = "form-control aboutme", @disabled="disabled" })
+                                                    @Html.TextAreaFor(i => i.Profile.AboutMe, new { @class = "form-control aboutme", @disabled = "disabled" })
                                                     <p></p>
                                                     <h3><i class="fa fa-square"></i> @Resources.Resources.CompaniesWorkingWith</h3>
-                                                    @Html.TextAreaFor(i => i.Profile.CompaniesWorkingWith, new { @class = "form-control aboutme", @disabled = "disabled" })
+                                                    @*@Html.TextAreaFor(i => i.Profile.CompaniesWorkingWith, new { @class = "form-control aboutme", @disabled = "disabled" })*@
+                                                    @Html.TextAreaFor(i => Model.CompaniesWorkingWith, new { @class = "form-control aboutme", @disabled = "disabled" })
                                                     <p></p>
                                                 </div>
                                                 <div class="basic-info">

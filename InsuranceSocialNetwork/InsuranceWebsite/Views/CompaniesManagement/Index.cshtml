@@ -1,5 +1,6 @@
 ﻿@using InsuranceWebsite.Models
 @using MVCGrid.Web
+@using InsuranceSocialNetworkCore.Enums;
 @model CompaniesManagementViewModel
 
 @{
@@ -33,17 +34,64 @@
                         <div class="container container-timeline" style="margin:15px;">
                             <div class="col-md-11 no-paddin-xs" style="background-color:white; padding:20px;width:90%">
 
-                                <a href="@Url.Action("Create", "CompaniesManagement", new { id=Model.CompanyType })" class='btn btn-success lnkCreate'>@Resources.Resources.CreateNewCompany</a>
+                                <a href="@Url.Action("Create", "CompaniesManagement", new { id = Model.CompanyType })" class='btn btn-success lnkCreate'>@Resources.Resources.CreateNewCompany</a>
                                 <p></p>
+                                @{ 
 
-                                @Html.Partial("_MVCGridToolbar", new MVCGridToolbarModel()
-                                {
-                                    MVCGridName = "CompaniesManagementGrid",
-                                    PageSize = true,
-                                    ColumnVisibility = true,
-                                    Export = true,
-                                    GlobalSearch = true
-                                })
+                                    switch (Model.CompanyType)
+                                    {
+                                        case CompanyTypeEnum.GARAGE:
+                                            @Html.Partial("_MVCGridToolbar", new MVCGridToolbarModel()
+                                            {
+                                                MVCGridName = "GarageManagementGrid",
+                                                PageSize = true,
+                                                ColumnVisibility = true,
+                                                Export = true,
+                                                GlobalSearch = true
+                                            })
+                                            break;
+                                        case CompanyTypeEnum.MEDICAL_CLINIC:
+                                            @Html.Partial("_MVCGridToolbar", new MVCGridToolbarModel()
+                                            {
+                                                MVCGridName = "MedicalClinicManagementGrid",
+                                                PageSize = true,
+                                                ColumnVisibility = true,
+                                                Export = true,
+                                                GlobalSearch = true
+                                            })
+                                            break;
+                                        case CompanyTypeEnum.CONSTRUCTION_COMPANY:
+                                            @Html.Partial("_MVCGridToolbar", new MVCGridToolbarModel()
+                                            {
+                                                MVCGridName = "ConstructionCompanyManagementGrid",
+                                                PageSize = true,
+                                                ColumnVisibility = true,
+                                                Export = true,
+                                                GlobalSearch = true
+                                            })
+                                            break;
+                                        case CompanyTypeEnum.HOME_APPLIANCES_REPAIR:
+                                            @Html.Partial("_MVCGridToolbar", new MVCGridToolbarModel()
+                                            {
+                                                MVCGridName = "HomeAppliancesManagementGrid",
+                                                PageSize = true,
+                                                ColumnVisibility = true,
+                                                Export = true,
+                                                GlobalSearch = true
+                                            })
+                                            break;
+                                        case CompanyTypeEnum.INSURANCE_COMPANY_CONTACT:
+                                            @Html.Partial("_MVCGridToolbar", new MVCGridToolbarModel()
+                                            {
+                                                MVCGridName = "InsuranceManagementGrid",
+                                                PageSize = true,
+                                                ColumnVisibility = true,
+                                                Export = true,
+                                                GlobalSearch = true
+                                            })
+                                            break;
+                                    }
+                                }
                                 @*@Html.MVCGrid("CompaniesManagementGrid")*@
 
                             </div>

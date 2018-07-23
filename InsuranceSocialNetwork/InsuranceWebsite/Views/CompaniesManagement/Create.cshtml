@@ -283,8 +283,15 @@
                 </div>
                 <div>
                     <p class="data-row">
-                        <span class="data-name profile-label">@Resources.Resources.Value</span>
+                        <span class="data-name profile-label">@Resources.Resources.TotalValue</span>
                         <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.Value)</label>
+                    </p>
+                </div>
+                <div>
+                    <p class="data-row">
+                        <span class="data-name profile-label">@Resources.Resources.PaymentPeriod</span>
+                        <label class="form-control label-control profile-label" style="padding: 3px !important;">@Html.DropDownListFor(m => m.PaymentPeriod, Model.PaymentPeriodList, new { @class = "text ui-widget-content ui-corner-all", @style = "color:#777;min-height:28px;width:100%;", @placeholder = Resources.Resources.PaymentPeriod, id = "paymentPeriodList" })</label>
+                        @Html.HiddenFor(i => i.PaymentPeriod, new { id = "paymentPeriod" })
                     </p>
                 </div>
                 <div>
@@ -312,35 +319,6 @@
 <script>
 
     $(document).ready(function () {
-
-        
-
-        //$("#submitButton").click(function () {
-            //$("#createCompanyForm").validate({
-            //    ignore: ""
-            //});
-            //if ($("#createCompanyForm").valid()) {
-            //    alert('valid')
-            //    $("#createCompanyForm").submit();
-            //}
-            //else
-            //{ alert('invalid');}
-            //$("#createCompanyForm").submit();
-        //});
-
-        //$.validator.setDefaults({
-        //    ignore: ""
-        //});
-
-        //$("#createCompanyForm").submit(function () {
-        //    //alert($("#createCompanyForm .input-validation-error").closest(".tab-pane").get(0).id);
-        //    //$('#tabs').tabs('select', $('#tabs div[class="tab-pane"]').parent().index());
-        //    //$("#tabsHeader").tabs({ active: 2 });/*"active", $("#createCompanyForm .input-validation-error").closest(".tab-pane").get(0).id);*/
-        //});
-
-        //$("#createCompanyForm").submit(function (e) {
-        //    //alert("submit 2");
-        //});
 
         $.validator.addMethod('date', function (value, element) {
             if (this.optional(element)) {

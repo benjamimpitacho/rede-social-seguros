@@ -2,6 +2,7 @@
 (
 	[ID] BIGINT IDENTITY NOT NULL, 
 	[ID_User] NVARCHAR(128) NULL,
+	[ID_User_CreatedBy] NVARCHAR(128) NULL,
     [Name] NVARCHAR(256) NOT NULL, 
     [Description] NVARCHAR(256) NULL,
 	[NIF] NVARCHAR(16) NOT NULL, 
@@ -38,6 +39,7 @@
     [Active] BIT NOT NULL DEFAULT 1,
     CONSTRAINT [PK_Garage] PRIMARY KEY CLUSTERED ([ID] ASC),
 	CONSTRAINT [FK_Garage_AspNetUsers] FOREIGN KEY([ID_User]) REFERENCES [dbo].[AspNetUsers] ([Id]),
+	CONSTRAINT [FK_Garage_AspNetUsersCreatedBy] FOREIGN KEY([ID_User_CreatedBy]) REFERENCES [dbo].[AspNetUsers] ([Id]),
 	CONSTRAINT [FK_Garage_District] FOREIGN KEY([ID_District]) REFERENCES [Insurance].[District] ([ID]),
 	CONSTRAINT [FK_Garage_County] FOREIGN KEY([ID_County]) REFERENCES [Insurance].[County] ([ID]),
 	CONSTRAINT [FK_Garage_Parish] FOREIGN KEY([ID_Parish]) REFERENCES [Insurance].[Parish] ([ID]),

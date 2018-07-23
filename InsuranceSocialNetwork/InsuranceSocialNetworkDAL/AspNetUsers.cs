@@ -49,6 +49,11 @@ namespace InsuranceSocialNetworkDAL
             this.MedicalClinic = new HashSet<MedicalClinic>();
             this.PostReported = new HashSet<PostReported>();
             this.Post = new HashSet<Post>();
+            this.ConstructionCompany1 = new HashSet<ConstructionCompany>();
+            this.Garage1 = new HashSet<Garage>();
+            this.HomeApplianceRepair1 = new HashSet<HomeApplianceRepair>();
+            this.InsuranceCompanyContact1 = new HashSet<InsuranceCompanyContact>();
+            this.MedicalClinic1 = new HashSet<MedicalClinic>();
         }
     
         public string Id { get; set; }
@@ -128,5 +133,15 @@ namespace InsuranceSocialNetworkDAL
         public virtual ICollection<PostReported> PostReported { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Post> Post { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ConstructionCompany> ConstructionCompany1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Garage> Garage1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HomeApplianceRepair> HomeApplianceRepair1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<InsuranceCompanyContact> InsuranceCompanyContact1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MedicalClinic> MedicalClinic1 { get; set; }
     }
 }

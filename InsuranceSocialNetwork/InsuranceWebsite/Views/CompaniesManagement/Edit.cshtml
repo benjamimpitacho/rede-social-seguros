@@ -281,7 +281,7 @@
                 </div>
                 <div>
                     <p class="data-row">
-                        <span class="data-name profile-label">@Resources.Resources.Value</span>
+                        <span class="data-name profile-label">@Resources.Resources.TotalValue</span>
                         @if (Model.HasPendingPayment)
                         {
                             <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.Value, new { disabled = "true" })</label>
@@ -290,6 +290,20 @@
                         {
                             <label class="form-control label-control profile-label">@Html.TextBoxFor(i => i.Value)</label>
                         }                        
+                    </p>
+                </div>
+                <div>
+                    <p class="data-row">
+                        <span class="data-name profile-label">@Resources.Resources.PaymentPeriod</span>
+                        @if (Model.HasPendingPayment)
+                        {
+                            <label class="form-control label-control profile-label" style="padding: 3px !important;">@Html.DropDownListFor(m => m.PaymentPeriod, Model.PaymentPeriodList, new { @class = "text ui-widget-content ui-corner-all", @style = "color:#777;min-height:28px;width:100%;", @placeholder = Resources.Resources.PaymentPeriod, id = "paymentPeriodList", disabled = "true" })</label>
+                        }
+                        else
+                        {
+                            <label class="form-control label-control profile-label" style="padding: 3px !important;">@Html.DropDownListFor(m => m.PaymentPeriod, Model.PaymentPeriodList, new { @class = "text ui-widget-content ui-corner-all", @style = "color:#777;min-height:28px;width:100%;", @placeholder = Resources.Resources.PaymentPeriod, id = "paymentPeriodList" })</label>
+                        }
+                        @Html.HiddenFor(i => i.PaymentPeriod, new { id = "paymentPeriod" })
                     </p>
                 </div>
                 <div>

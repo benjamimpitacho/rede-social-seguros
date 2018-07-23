@@ -237,6 +237,7 @@
           <Property Name="Invoice_ID_District" Type="bigint" />
           <Property Name="LibaxEntityID" Type="int" />
           <Property Name="ID_User" Type="nvarchar" MaxLength="128" />
+          <Property Name="ID_User_CreatedBy" Type="nvarchar" MaxLength="128" />
         </EntityType>
         <EntityType Name="ConstructionCompanyFavorite">
           <Key>
@@ -324,6 +325,7 @@
           <Property Name="Invoice_ID_District" Type="bigint" />
           <Property Name="LibaxEntityID" Type="int" />
           <Property Name="ID_User" Type="nvarchar" MaxLength="128" />
+          <Property Name="ID_User_CreatedBy" Type="nvarchar" MaxLength="128" />
         </EntityType>
         <EntityType Name="GarageFavorite">
           <Key>
@@ -372,6 +374,7 @@
           <Property Name="Invoice_ID_District" Type="bigint" />
           <Property Name="LibaxEntityID" Type="int" />
           <Property Name="ID_User" Type="nvarchar" MaxLength="128" />
+          <Property Name="ID_User_CreatedBy" Type="nvarchar" MaxLength="128" />
         </EntityType>
         <EntityType Name="HomeApplianceRepairFavorite">
           <Key>
@@ -420,6 +423,7 @@
           <Property Name="Invoice_ID_District" Type="bigint" />
           <Property Name="LibaxEntityID" Type="int" />
           <Property Name="ID_User" Type="nvarchar" MaxLength="128" />
+          <Property Name="ID_User_CreatedBy" Type="nvarchar" MaxLength="128" />
         </EntityType>
         <EntityType Name="InsuranceCompanyContactFavorite">
           <Key>
@@ -468,6 +472,7 @@
           <Property Name="Invoice_ID_District" Type="bigint" />
           <Property Name="LibaxEntityID" Type="int" />
           <Property Name="ID_User" Type="nvarchar" MaxLength="128" />
+          <Property Name="ID_User_CreatedBy" Type="nvarchar" MaxLength="128" />
         </EntityType>
         <EntityType Name="MedicalClinicFavorite">
           <Key>
@@ -1033,6 +1038,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ConstructionCompany_AspNetUsersCreatedBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="ConstructionCompany" Type="Self.ConstructionCompany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ConstructionCompany">
+              <PropertyRef Name="ID_User_CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ConstructionCompany_County">
           <End Role="County" Type="Self.County" Multiplicity="0..1" />
           <End Role="ConstructionCompany" Type="Self.ConstructionCompany" Multiplicity="*" />
@@ -1118,7 +1135,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ConstructionCompanyFavorite_ConstructionCompany">
-          <End Role="ConstructionCompany" Type="Self.ConstructionCompany" Multiplicity="1" />
+          <End Role="ConstructionCompany" Type="Self.ConstructionCompany" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="ConstructionCompanyFavorite" Type="Self.ConstructionCompanyFavorite" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ConstructionCompany">
@@ -1130,7 +1149,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ConstructionCompanyFavorite_User">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="ConstructionCompanyFavorite" Type="Self.ConstructionCompanyFavorite" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AspNetUsers">
@@ -1245,6 +1266,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Garage_AspNetUsersCreatedBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="Garage" Type="Self.Garage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Garage">
+              <PropertyRef Name="ID_User_CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Garage_County">
           <End Role="County" Type="Self.County" Multiplicity="0..1" />
           <End Role="Garage" Type="Self.Garage" Multiplicity="*" />
@@ -1330,7 +1363,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_GarageFavorite_Garage">
-          <End Role="Garage" Type="Self.Garage" Multiplicity="1" />
+          <End Role="Garage" Type="Self.Garage" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="GarageFavorite" Type="Self.GarageFavorite" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Garage">
@@ -1342,7 +1377,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_GarageFavorite_User">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="GarageFavorite" Type="Self.GarageFavorite" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AspNetUsers">
@@ -1362,6 +1399,18 @@
             </Principal>
             <Dependent Role="HomeApplianceRepair">
               <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HomeApplianceRepair_AspNetUsersCreatedBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="HomeApplianceRepair" Type="Self.HomeApplianceRepair" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HomeApplianceRepair">
+              <PropertyRef Name="ID_User_CreatedBy" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1450,7 +1499,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_HomeApplianceRepairFavorite_HomeApplianceRepair">
-          <End Role="HomeApplianceRepair" Type="Self.HomeApplianceRepair" Multiplicity="1" />
+          <End Role="HomeApplianceRepair" Type="Self.HomeApplianceRepair" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="HomeApplianceRepairFavorite" Type="Self.HomeApplianceRepairFavorite" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="HomeApplianceRepair">
@@ -1462,7 +1513,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_HomeApplianceRepairFavorite_User">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="HomeApplianceRepairFavorite" Type="Self.HomeApplianceRepairFavorite" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AspNetUsers">
@@ -1482,6 +1535,18 @@
             </Principal>
             <Dependent Role="InsuranceCompanyContact">
               <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InsuranceCompanyContact_AspNetUsersCreatedBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="InsuranceCompanyContact" Type="Self.InsuranceCompanyContact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InsuranceCompanyContact">
+              <PropertyRef Name="ID_User_CreatedBy" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1570,7 +1635,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_InsuranceCompanyContactFavorite_InsuranceCompanyContact">
-          <End Role="InsuranceCompanyContact" Type="Self.InsuranceCompanyContact" Multiplicity="1" />
+          <End Role="InsuranceCompanyContact" Type="Self.InsuranceCompanyContact" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="InsuranceCompanyContactFavorite" Type="Self.InsuranceCompanyContactFavorite" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="InsuranceCompanyContact">
@@ -1582,7 +1649,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_InsuranceCompanyContactFavorite_User">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="InsuranceCompanyContactFavorite" Type="Self.InsuranceCompanyContactFavorite" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AspNetUsers">
@@ -1602,6 +1671,18 @@
             </Principal>
             <Dependent Role="MedicalClinic">
               <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedicalClinic_AspNetUsersCreatedBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="MedicalClinic" Type="Self.MedicalClinic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MedicalClinic">
+              <PropertyRef Name="ID_User_CreatedBy" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1690,7 +1771,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_MedicalClinicFavorite_MedicalClinic">
-          <End Role="MedicalClinic" Type="Self.MedicalClinic" Multiplicity="1" />
+          <End Role="MedicalClinic" Type="Self.MedicalClinic" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="MedicalClinicFavorite" Type="Self.MedicalClinicFavorite" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="MedicalClinic">
@@ -1702,7 +1785,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_MedicalClinicFavorite_User">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="MedicalClinicFavorite" Type="Self.MedicalClinicFavorite" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AspNetUsers">
@@ -1762,7 +1847,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Payment_ConstructionCompany">
-          <End Role="ConstructionCompany" Type="Self.ConstructionCompany" Multiplicity="0..1" />
+          <End Role="ConstructionCompany" Type="Self.ConstructionCompany" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ConstructionCompany">
@@ -1774,7 +1861,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Payment_Garage">
-          <End Role="Garage" Type="Self.Garage" Multiplicity="0..1" />
+          <End Role="Garage" Type="Self.Garage" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Garage">
@@ -1786,7 +1875,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Payment_HomeApplianceRepair">
-          <End Role="HomeApplianceRepair" Type="Self.HomeApplianceRepair" Multiplicity="0..1" />
+          <End Role="HomeApplianceRepair" Type="Self.HomeApplianceRepair" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="HomeApplianceRepair">
@@ -1798,7 +1889,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Payment_InsuranceCompanyContact">
-          <End Role="InsuranceCompanyContact" Type="Self.InsuranceCompanyContact" Multiplicity="0..1" />
+          <End Role="InsuranceCompanyContact" Type="Self.InsuranceCompanyContact" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="InsuranceCompanyContact">
@@ -1810,7 +1903,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Payment_MedicalClinic">
-          <End Role="MedicalClinic" Type="Self.MedicalClinic" Multiplicity="0..1" />
+          <End Role="MedicalClinic" Type="Self.MedicalClinic" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="MedicalClinic">
@@ -1822,7 +1917,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Payment_PaymentStatus">
-          <End Role="PaymentStatus" Type="Self.PaymentStatus" Multiplicity="1" />
+          <End Role="PaymentStatus" Type="Self.PaymentStatus" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PaymentStatus">
@@ -1834,7 +1931,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Payment_PaymentType">
-          <End Role="PaymentType" Type="Self.PaymentType" Multiplicity="1" />
+          <End Role="PaymentType" Type="Self.PaymentType" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PaymentType">
@@ -1846,7 +1945,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Payment_Profile">
-          <End Role="Profile" Type="Self.Profile" Multiplicity="0..1" />
+          <End Role="Profile" Type="Self.Profile" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Profile">
@@ -2281,6 +2382,10 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="ConstructionCompany" EntitySet="ConstructionCompany" />
           </AssociationSet>
+          <AssociationSet Name="FK_ConstructionCompany_AspNetUsersCreatedBy" Association="Self.FK_ConstructionCompany_AspNetUsersCreatedBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="ConstructionCompany" EntitySet="ConstructionCompany" />
+          </AssociationSet>
           <AssociationSet Name="FK_ConstructionCompany_County" Association="Self.FK_ConstructionCompany_County">
             <End Role="County" EntitySet="County" />
             <End Role="ConstructionCompany" EntitySet="ConstructionCompany" />
@@ -2349,6 +2454,10 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Garage" EntitySet="Garage" />
           </AssociationSet>
+          <AssociationSet Name="FK_Garage_AspNetUsersCreatedBy" Association="Self.FK_Garage_AspNetUsersCreatedBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Garage" EntitySet="Garage" />
+          </AssociationSet>
           <AssociationSet Name="FK_Garage_County" Association="Self.FK_Garage_County">
             <End Role="County" EntitySet="County" />
             <End Role="Garage" EntitySet="Garage" />
@@ -2386,6 +2495,10 @@
             <End Role="GarageFavorite" EntitySet="GarageFavorite" />
           </AssociationSet>
           <AssociationSet Name="FK_HomeApplianceRepair_AspNetUsers" Association="Self.FK_HomeApplianceRepair_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="HomeApplianceRepair" EntitySet="HomeApplianceRepair" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HomeApplianceRepair_AspNetUsersCreatedBy" Association="Self.FK_HomeApplianceRepair_AspNetUsersCreatedBy">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="HomeApplianceRepair" EntitySet="HomeApplianceRepair" />
           </AssociationSet>
@@ -2429,6 +2542,10 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="InsuranceCompanyContact" EntitySet="InsuranceCompanyContact" />
           </AssociationSet>
+          <AssociationSet Name="FK_InsuranceCompanyContact_AspNetUsersCreatedBy" Association="Self.FK_InsuranceCompanyContact_AspNetUsersCreatedBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="InsuranceCompanyContact" EntitySet="InsuranceCompanyContact" />
+          </AssociationSet>
           <AssociationSet Name="FK_InsuranceCompanyContact_County" Association="Self.FK_InsuranceCompanyContact_County">
             <End Role="County" EntitySet="County" />
             <End Role="InsuranceCompanyContact" EntitySet="InsuranceCompanyContact" />
@@ -2466,6 +2583,10 @@
             <End Role="InsuranceCompanyContactFavorite" EntitySet="InsuranceCompanyContactFavorite" />
           </AssociationSet>
           <AssociationSet Name="FK_MedicalClinic_AspNetUsers" Association="Self.FK_MedicalClinic_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="MedicalClinic" EntitySet="MedicalClinic" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedicalClinic_AspNetUsersCreatedBy" Association="Self.FK_MedicalClinic_AspNetUsersCreatedBy">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="MedicalClinic" EntitySet="MedicalClinic" />
           </AssociationSet>
@@ -3149,6 +3270,26 @@
             <End Role="Post" EntitySet="Post" />
             <End Role="PostReported" EntitySet="PostReported" />
           </AssociationSet>
+          <AssociationSet Name="FK_ConstructionCompany_AspNetUsersCreatedBy" Association="InsurancePortal_dbModel.FK_ConstructionCompany_AspNetUsersCreatedBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="ConstructionCompany" EntitySet="ConstructionCompany" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Garage_AspNetUsersCreatedBy" Association="InsurancePortal_dbModel.FK_Garage_AspNetUsersCreatedBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Garage" EntitySet="Garage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HomeApplianceRepair_AspNetUsersCreatedBy" Association="InsurancePortal_dbModel.FK_HomeApplianceRepair_AspNetUsersCreatedBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="HomeApplianceRepair" EntitySet="HomeApplianceRepair" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InsuranceCompanyContact_AspNetUsersCreatedBy" Association="InsurancePortal_dbModel.FK_InsuranceCompanyContact_AspNetUsersCreatedBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="InsuranceCompanyContact" EntitySet="InsuranceCompanyContact" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedicalClinic_AspNetUsersCreatedBy" Association="InsurancePortal_dbModel.FK_MedicalClinic_AspNetUsersCreatedBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="MedicalClinic" EntitySet="MedicalClinic" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="AspNetRoles">
           <Key>
@@ -3274,6 +3415,11 @@
           <NavigationProperty Name="MedicalClinic" Relationship="InsurancePortal_dbModel.FK_MedicalClinic_AspNetUsers" FromRole="AspNetUsers" ToRole="MedicalClinic" />
           <NavigationProperty Name="PostReported" Relationship="InsurancePortal_dbModel.FK_PostReported_AspNetUsers" FromRole="AspNetUsers" ToRole="PostReported" />
           <NavigationProperty Name="Post" Relationship="InsurancePortal_dbModel.FK_Post_AspNetUsers" FromRole="AspNetUsers" ToRole="Post" />
+          <NavigationProperty Name="ConstructionCompany1" Relationship="InsurancePortal_dbModel.FK_ConstructionCompany_AspNetUsersCreatedBy" FromRole="AspNetUsers" ToRole="ConstructionCompany" />
+          <NavigationProperty Name="Garage1" Relationship="InsurancePortal_dbModel.FK_Garage_AspNetUsersCreatedBy" FromRole="AspNetUsers" ToRole="Garage" />
+          <NavigationProperty Name="HomeApplianceRepair1" Relationship="InsurancePortal_dbModel.FK_HomeApplianceRepair_AspNetUsersCreatedBy" FromRole="AspNetUsers" ToRole="HomeApplianceRepair" />
+          <NavigationProperty Name="InsuranceCompanyContact1" Relationship="InsurancePortal_dbModel.FK_InsuranceCompanyContact_AspNetUsersCreatedBy" FromRole="AspNetUsers" ToRole="InsuranceCompanyContact" />
+          <NavigationProperty Name="MedicalClinic1" Relationship="InsurancePortal_dbModel.FK_MedicalClinic_AspNetUsersCreatedBy" FromRole="AspNetUsers" ToRole="MedicalClinic" />
           </EntityType>
         <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
           <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
@@ -4291,6 +4437,8 @@
           <Property Name="LibaxEntityID" Type="Int32" />
           <Property Name="ID_User" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetUsers" Relationship="InsurancePortal_dbModel.FK_ConstructionCompany_AspNetUsers" FromRole="ConstructionCompany" ToRole="AspNetUsers" />
+          <Property Name="ID_User_CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers1" Relationship="InsurancePortal_dbModel.FK_ConstructionCompany_AspNetUsersCreatedBy" FromRole="ConstructionCompany" ToRole="AspNetUsers" />
         </EntityType>
         <EntityType Name="Garage">
           <Key>
@@ -4340,6 +4488,8 @@
           <Property Name="LibaxEntityID" Type="Int32" />
           <Property Name="ID_User" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetUsers" Relationship="InsurancePortal_dbModel.FK_Garage_AspNetUsers" FromRole="Garage" ToRole="AspNetUsers" />
+          <Property Name="ID_User_CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers1" Relationship="InsurancePortal_dbModel.FK_Garage_AspNetUsersCreatedBy" FromRole="Garage" ToRole="AspNetUsers" />
         </EntityType>
         <EntityType Name="HomeApplianceRepair">
           <Key>
@@ -4389,6 +4539,8 @@
           <Property Name="LibaxEntityID" Type="Int32" />
           <Property Name="ID_User" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetUsers" Relationship="InsurancePortal_dbModel.FK_HomeApplianceRepair_AspNetUsers" FromRole="HomeApplianceRepair" ToRole="AspNetUsers" />
+          <Property Name="ID_User_CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers1" Relationship="InsurancePortal_dbModel.FK_HomeApplianceRepair_AspNetUsersCreatedBy" FromRole="HomeApplianceRepair" ToRole="AspNetUsers" />
         </EntityType>
         <EntityType Name="InsuranceCompanyContact">
           <Key>
@@ -4438,6 +4590,8 @@
           <Property Name="LibaxEntityID" Type="Int32" />
           <Property Name="ID_User" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetUsers" Relationship="InsurancePortal_dbModel.FK_InsuranceCompanyContact_AspNetUsers" FromRole="InsuranceCompanyContact" ToRole="AspNetUsers" />
+          <Property Name="ID_User_CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers1" Relationship="InsurancePortal_dbModel.FK_InsuranceCompanyContact_AspNetUsersCreatedBy" FromRole="InsuranceCompanyContact" ToRole="AspNetUsers" />
         </EntityType>
         <EntityType Name="MedicalClinic">
           <Key>
@@ -4487,6 +4641,8 @@
           <Property Name="LibaxEntityID" Type="Int32" />
           <Property Name="ID_User" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetUsers" Relationship="InsurancePortal_dbModel.FK_MedicalClinic_AspNetUsers" FromRole="MedicalClinic" ToRole="AspNetUsers" />
+          <Property Name="ID_User_CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers1" Relationship="InsurancePortal_dbModel.FK_MedicalClinic_AspNetUsersCreatedBy" FromRole="MedicalClinic" ToRole="AspNetUsers" />
         </EntityType>
         <EntityType Name="Profile">
           <Key>
@@ -5506,6 +5662,66 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ConstructionCompany_AspNetUsersCreatedBy">
+          <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+          <End Type="InsurancePortal_dbModel.ConstructionCompany" Role="ConstructionCompany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ConstructionCompany">
+              <PropertyRef Name="ID_User_CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Garage_AspNetUsersCreatedBy">
+          <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+          <End Type="InsurancePortal_dbModel.Garage" Role="Garage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Garage">
+              <PropertyRef Name="ID_User_CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HomeApplianceRepair_AspNetUsersCreatedBy">
+          <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+          <End Type="InsurancePortal_dbModel.HomeApplianceRepair" Role="HomeApplianceRepair" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HomeApplianceRepair">
+              <PropertyRef Name="ID_User_CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InsuranceCompanyContact_AspNetUsersCreatedBy">
+          <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+          <End Type="InsurancePortal_dbModel.InsuranceCompanyContact" Role="InsuranceCompanyContact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InsuranceCompanyContact">
+              <PropertyRef Name="ID_User_CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedicalClinic_AspNetUsersCreatedBy">
+          <End Type="InsurancePortal_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+          <End Type="InsurancePortal_dbModel.MedicalClinic" Role="MedicalClinic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MedicalClinic">
+              <PropertyRef Name="ID_User_CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -6075,6 +6291,7 @@
           <EntitySetMapping Name="ConstructionCompany">
             <EntityTypeMapping TypeName="InsurancePortal_dbModel.ConstructionCompany">
               <MappingFragment StoreEntitySet="ConstructionCompany">
+                <ScalarProperty Name="ID_User_CreatedBy" ColumnName="ID_User_CreatedBy" />
                 <ScalarProperty Name="ID_User" ColumnName="ID_User" />
                 <ScalarProperty Name="LibaxEntityID" ColumnName="LibaxEntityID" />
                 <ScalarProperty Name="Invoice_ID_District" ColumnName="Invoice_ID_District" />
@@ -6115,6 +6332,7 @@
           <EntitySetMapping Name="Garage">
             <EntityTypeMapping TypeName="InsurancePortal_dbModel.Garage">
               <MappingFragment StoreEntitySet="Garage">
+                <ScalarProperty Name="ID_User_CreatedBy" ColumnName="ID_User_CreatedBy" />
                 <ScalarProperty Name="ID_User" ColumnName="ID_User" />
                 <ScalarProperty Name="LibaxEntityID" ColumnName="LibaxEntityID" />
                 <ScalarProperty Name="Invoice_ID_District" ColumnName="Invoice_ID_District" />
@@ -6155,6 +6373,7 @@
           <EntitySetMapping Name="HomeApplianceRepair">
             <EntityTypeMapping TypeName="InsurancePortal_dbModel.HomeApplianceRepair">
               <MappingFragment StoreEntitySet="HomeApplianceRepair">
+                <ScalarProperty Name="ID_User_CreatedBy" ColumnName="ID_User_CreatedBy" />
                 <ScalarProperty Name="ID_User" ColumnName="ID_User" />
                 <ScalarProperty Name="LibaxEntityID" ColumnName="LibaxEntityID" />
                 <ScalarProperty Name="Invoice_ID_District" ColumnName="Invoice_ID_District" />
@@ -6195,6 +6414,7 @@
           <EntitySetMapping Name="InsuranceCompanyContact">
             <EntityTypeMapping TypeName="InsurancePortal_dbModel.InsuranceCompanyContact">
               <MappingFragment StoreEntitySet="InsuranceCompanyContact">
+                <ScalarProperty Name="ID_User_CreatedBy" ColumnName="ID_User_CreatedBy" />
                 <ScalarProperty Name="ID_User" ColumnName="ID_User" />
                 <ScalarProperty Name="LibaxEntityID" ColumnName="LibaxEntityID" />
                 <ScalarProperty Name="Invoice_ID_District" ColumnName="Invoice_ID_District" />
@@ -6235,6 +6455,7 @@
           <EntitySetMapping Name="MedicalClinic">
             <EntityTypeMapping TypeName="InsurancePortal_dbModel.MedicalClinic">
               <MappingFragment StoreEntitySet="MedicalClinic">
+                <ScalarProperty Name="ID_User_CreatedBy" ColumnName="ID_User_CreatedBy" />
                 <ScalarProperty Name="ID_User" ColumnName="ID_User" />
                 <ScalarProperty Name="LibaxEntityID" ColumnName="LibaxEntityID" />
                 <ScalarProperty Name="Invoice_ID_District" ColumnName="Invoice_ID_District" />

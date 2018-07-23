@@ -274,6 +274,18 @@ namespace InsuranceSocialNetworkBusiness
             return PaymentRepository.GetPaymentTypes();
         }
 
+        public List<ListItem> GetPaymentPeriods()
+        {
+            return new List<ListItem>()
+            {
+                new ListItem() { Key = 1, Value = "ONE_YEAR" },
+                new ListItem() { Key = 2, Value = "TWO_YEAR" },
+                new ListItem() { Key = 3, Value = "THREE_YEAR" },
+                new ListItem() { Key = 4, Value = "FOUR_YEAR" },
+                new ListItem() { Key = 5, Value = "FIVE_YEAR" }
+            };
+        }
+
         public long GetPaymentTypeID(PaymentTypeEnum type)
         {
             return PaymentRepository.GetPaymentType(type.ToString()).ID;
@@ -1634,9 +1646,18 @@ namespace InsuranceSocialNetworkBusiness
 
         #endregion System Logs
 
+        #region Statistics
+
+        public List<ConsultantStatisticsDTO> GetConsultantsStatistics()
+        {
+            return UserProfileRepository.GetConsultantsStatistics();
+        }
+
+        #endregion Statistics
+
         #region Timer Job Worker Tasks
 
-        
+
 
         #endregion Timer Job Worker Tasks
 

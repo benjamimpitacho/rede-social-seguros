@@ -483,5 +483,49 @@ namespace InsuranceSocialNetworkDAL
                 return true;
             }
         }
+
+        public static List<ConsultantStatisticsDTO> GetConsultantsStatistics()
+        {
+            using (var context = new BackofficeUnitOfWork())
+            {
+                return context
+                    .Payment
+                    .Fetch()
+                    .Include(i => i.Garage)
+                    .Include(i => i.Garage.AspNetUsers)
+                    .Include(i => i.Garage.AspNetUsers1)
+                    .Include(i => i.Garage.AspNetUsers1.Profile)
+                    .Include(i => i.PaymentType)
+                    .Include(i => i.PaymentStatus)
+                    .Select(i => new ConsultantStatisticsDTO()
+                    {
+                        Consultant_ID_User = i.Garage.AspNetUsers1.Id,
+                        Consultant_Username = i.Garage.AspNetUsers1.UserName,
+                        Consultant_FirstName = i.Garage.AspNetUsers1.Profile.FirstOrDefault().FirstName,
+                        Consultant_LastName = i.Garage.AspNetUsers1.Profile.FirstOrDefault().LastName,
+
+                        Company_ID = i.Garage.ID,
+                        Company_ID_User = i.Garage.ID_User,
+                        Company_Name = i.Garage.Name,
+                        Company_BusinessName = i.Garage.BusinessName,
+                        Company_Description = i.Garage.Description,
+                        Company_NIF = i.Garage.NIF,
+                        Company_ContactEmail = i.Garage.ContactEmail,
+                        Company_CompanyType = CompanyTypeEnum.GARAGE.ToString(),
+                        Company_CreationDate = i.Garage.CreateDate,
+
+                        Payment_ID = i.ID,
+                        Payment_LiquidValue = i.LiquidValue,
+                        Payment_TaxValue = i.TaxValue,
+                        Payment_TotalValue = i.TotalValue,
+                        Payment_Type = i.PaymentType.Token.ToString(),
+                        Payment_Status = i.PaymentStatus.Token.ToString(),
+                        Payment_CreationDate = i.CreateDate,
+                        Payment_LastUpdateDate = i.LastChangeDate,
+                        Payment_PaymentDate = i.PaymentDate
+                    })
+                    .ToList();
+            }
+        }
     }
 }

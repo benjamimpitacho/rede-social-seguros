@@ -92,176 +92,763 @@ namespace InsuranceWebsite.Controllers
 
             try
             {
-                var grid = MVCGridDefinitionTable.GetDefinition<CompanyModelObject>("CompaniesManagementGrid");
+                var grid = MVCGridDefinitionTable.GetDefinition<CompanyModelObject>("GarageManagementGrid");
+                grid = MVCGridDefinitionTable.GetDefinition<CompanyModelObject>("MedicalClinicManagementGrid");
+                grid = MVCGridDefinitionTable.GetDefinition<CompanyModelObject>("ConstructionCompanyManagementGrid");
+                grid = MVCGridDefinitionTable.GetDefinition<CompanyModelObject>("HomeAppliancesManagementGrid");
+                grid = MVCGridDefinitionTable.GetDefinition<CompanyModelObject>("InsuranceManagementGrid");
             }
             catch (Exception)
             {
-                MVCGridDefinitionTable.Add("CompaniesManagementGrid", new MVCGridBuilder<CompanyModelObject>()
-                .WithAuthorizationType(AuthorizationType.AllowAnonymous)
-                //.WithSorting(sorting: true, defaultSortColumn: "Id", defaultSortDirection: SortDirection.Dsc)
-                .AddColumns(cols =>
-                {
-                    // Add your columns here
-                    cols.Add().WithColumnName("Name")
-                        .WithHeaderText(Resources.Resources.Name)
-                        .WithValueExpression(i => i.Name)
-                        .WithAllowChangeVisibility(true)
-                        .WithFiltering(true)
-                        .WithSorting(true)
-                        .WithVisibility(true, true); // use the Value Expression to return the cell text for this column
-                    cols.Add().WithColumnName("NIF")
-                        .WithHeaderText(Resources.Resources.NIF)
-                        .WithValueExpression(i => i.NIF)
-                        .WithAllowChangeVisibility(true)
-                        .WithFiltering(true)
-                        .WithSorting(true)
-                        .WithVisibility(true, true); // use the Value Expression to return the cell text for this column
-                    cols.Add().WithColumnName("Description")
-                        .WithHeaderText(Resources.Resources.Description)
-                        .WithValueExpression(i => i.Description)
-                        .WithAllowChangeVisibility(true)
-                        .WithFiltering(true)
-                        .WithSorting(true)
-                        .WithVisibility(true, true); // use the Value Expression to return the cell text for this column
-                    cols.Add().WithColumnName("ContactEmail")
-                        .WithHeaderText(Resources.Resources.ContactEmail)
-                        .WithValueExpression(i => i.ContactEmail)
-                        .WithAllowChangeVisibility(true)
-                        .WithFiltering(true)
-                        .WithSorting(true)
-                        .WithVisibility(true, true); // use the Value Expression to return the cell text for this column
-                    cols.Add().WithColumnName("Website")
-                        .WithHeaderText(Resources.Resources.Website)
-                        .WithValueExpression(i => i.Website)
-                        .WithAllowChangeVisibility(true)
-                        .WithFiltering(true)
-                        .WithSorting(true)
-                        .WithVisibility(true, true); // use the Value Expression to return the cell text for this column
-                    cols.Add("Active").WithHtmlEncoding(false)
-                        .WithSorting(false)
-                        .WithHeaderText(Resources.Resources.Active)
-                        .WithValueExpression((p, c) => p.Active ? "checked" : "")
-                        .WithValueTemplate("<input type=\"checkbox\" disabled=\"disabled\" {Value}>")
-                        .WithCellCssClassExpression(p => "mvcgrid-cell")
-                        .WithVisibility(true, true);
-                    cols.Add("Edit").WithHtmlEncoding(false)
-                        .WithSorting(false)
-                        .WithHeaderText(" ")
-                        .WithValueExpression((p, c) => c.UrlHelper.Action("Edit", "CompaniesManagement", new { id = p.ID, idType = id }))
-                        .WithValueTemplate("<a href='{Value}' class='btn btn-warning lnkEdit' onclick='hello()'>" + Resources.Resources.Edit + "</a>")
-                        .WithVisibility(true, false);
-                    cols.Add("Delete").WithHtmlEncoding(false)
-                        .WithSorting(false)
-                        .WithHeaderText(" ")
-                        .WithValueExpression((p, c) => c.UrlHelper.Action("Delete", "CompaniesManagement", new { id = p.ID, idType = id }))
-                        .WithValueTemplate("<a href='{Value}' class='btn btn-danger lnkDelete' role='button'>" + Resources.Resources.Delete + "</a>")
-                        .WithVisibility(true, false);
-                })
-                .WithAdditionalQueryOptionNames("Search")
-                .WithSorting(true, "Name")
-                .WithPaging(paging: true, itemsPerPage: 10, allowChangePageSize: true, maxItemsPerPage: 100)
-                .WithProcessingMessage(Resources.Resources.Loading)
-                .WithNextButtonCaption(Resources.Resources.Next)
-                .WithPreviousButtonCaption(Resources.Resources.Previous)
-                .WithSummaryMessage(Resources.Resources.ShowingGridEntries)
-                .WithRetrieveDataMethod((context) =>
-                {
-                    // Query your data here. Obey Ordering, paging and filtering parameters given in the context.QueryOptions.
-                    // Use Entity Framework, a module from your IoC Container, or any other method.
-                    // Return QueryResult object containing IEnumerable<YouModelItem>
+                MVCGridDefinitionTable.Add("GarageManagementGrid", new MVCGridBuilder<CompanyModelObject>()
+                    .WithAuthorizationType(AuthorizationType.AllowAnonymous)
+                    //.WithSorting(sorting: true, defaultSortColumn: "Id", defaultSortDirection: SortDirection.Dsc)
+                    .AddColumns(cols =>
+                    {
+                        // Add your columns here
+                        cols.Add().WithColumnName("Name")
+                            .WithHeaderText(Resources.Resources.Name)
+                            .WithValueExpression(i => i.Name)
+                            .WithAllowChangeVisibility(true)
+                            .WithFiltering(true)
+                            .WithSorting(true)
+                            .WithVisibility(true, true); // use the Value Expression to return the cell text for this column
+                        cols.Add().WithColumnName("NIF")
+                            .WithHeaderText(Resources.Resources.NIF)
+                            .WithValueExpression(i => i.NIF)
+                            .WithAllowChangeVisibility(true)
+                            .WithFiltering(true)
+                            .WithSorting(true)
+                            .WithVisibility(true, true); // use the Value Expression to return the cell text for this column
+                        cols.Add().WithColumnName("Description")
+                            .WithHeaderText(Resources.Resources.Description)
+                            .WithValueExpression(i => i.Description)
+                            .WithAllowChangeVisibility(true)
+                            .WithFiltering(true)
+                            .WithSorting(true)
+                            .WithVisibility(true, true); // use the Value Expression to return the cell text for this column
+                        cols.Add().WithColumnName("ContactEmail")
+                            .WithHeaderText(Resources.Resources.ContactEmail)
+                            .WithValueExpression(i => i.ContactEmail)
+                            .WithAllowChangeVisibility(true)
+                            .WithFiltering(true)
+                            .WithSorting(true)
+                            .WithVisibility(true, true); // use the Value Expression to return the cell text for this column
+                        cols.Add().WithColumnName("Website")
+                            .WithHeaderText(Resources.Resources.Website)
+                            .WithValueExpression(i => i.Website)
+                            .WithAllowChangeVisibility(true)
+                            .WithFiltering(true)
+                            .WithSorting(true)
+                            .WithVisibility(true, true); // use the Value Expression to return the cell text for this column
+                        cols.Add("Active").WithHtmlEncoding(false)
+                            .WithSorting(false)
+                            .WithHeaderText(Resources.Resources.Active)
+                            .WithValueExpression((p, c) => p.Active ? "checked" : "")
+                            .WithValueTemplate("<input type=\"checkbox\" disabled=\"disabled\" {Value}>")
+                            .WithCellCssClassExpression(p => "mvcgrid-cell")
+                            .WithVisibility(true, true);
+                        cols.Add("Edit").WithHtmlEncoding(false)
+                            .WithSorting(false)
+                            .WithHeaderText(" ")
+                            .WithValueExpression((p, c) => c.UrlHelper.Action("Edit", "CompaniesManagement", new { id = p.ID, idType = id }))
+                            .WithValueTemplate("<a href='{Value}' class='btn btn-warning lnkEdit' onclick='hello()'>" + Resources.Resources.Edit + "</a>")
+                            .WithVisibility(true, false);
+                        cols.Add("Delete").WithHtmlEncoding(false)
+                            .WithSorting(false)
+                            .WithHeaderText(" ")
+                            .WithValueExpression((p, c) => c.UrlHelper.Action("Delete", "CompaniesManagement", new { id = p.ID, idType = id }))
+                            .WithValueTemplate("<a href='{Value}' class='btn btn-danger lnkDelete' role='button'>" + Resources.Resources.Delete + "</a>")
+                            .WithVisibility(true, false);
+                    })
+                    .WithAdditionalQueryOptionNames("Search")
+                    .WithSorting(true, "Name")
+                    .WithPaging(paging: true, itemsPerPage: 10, allowChangePageSize: true, maxItemsPerPage: 100)
+                    .WithProcessingMessage(Resources.Resources.Loading)
+                    .WithNextButtonCaption(Resources.Resources.Next)
+                    .WithPreviousButtonCaption(Resources.Resources.Previous)
+                    .WithSummaryMessage(Resources.Resources.ShowingGridEntries)
+                    .WithRetrieveDataMethod((context) =>
+                    {
+                        // Query your data here. Obey Ordering, paging and filtering parameters given in the context.QueryOptions.
+                        // Use Entity Framework, a module from your IoC Container, or any other method.
+                        // Return QueryResult object containing IEnumerable<YouModelItem>
 
-                    var options = context.QueryOptions;
-                    var result = new QueryResult<CompanyModelObject>();
-                    List<CompanyModelObject> query = new List<CompanyModelObject>();
-                    
-                    switch(model.CompanyType)
-                    {
-                        case CompanyTypeEnum.GARAGE:
-                            query = BusinessItemsLists.GetGarages();
-                            break;
-                        case CompanyTypeEnum.MEDICAL_CLINIC:
-                            query = BusinessItemsLists.GetMedicalClinis();
-                            break;
-                        case CompanyTypeEnum.CONSTRUCTION_COMPANY:
-                            query = BusinessItemsLists.GetConstructionCompanies();
-                            break;
-                        case CompanyTypeEnum.HOME_APPLIANCES_REPAIR:
-                            query = BusinessItemsLists.GetHomeApplianceRepairs();
-                            break;
-                        case CompanyTypeEnum.INSURANCE_COMPANY_CONTACT:
-                            query = BusinessItemsLists.GetInsuranceCompanyContacts();
-                            break;
-                    }
-                    
-                    if (!String.IsNullOrWhiteSpace(options.SortColumnName))
-                    {
-                        switch (options.SortColumnName.ToLower())
+                        var options = context.QueryOptions;
+                        var result = new QueryResult<CompanyModelObject>();
+                        List<CompanyModelObject> query = new List<CompanyModelObject>();
+
+                        query = BusinessItemsLists.GetGarages();
+
+                        if (!String.IsNullOrWhiteSpace(options.SortColumnName))
                         {
-                            case "name":
-                                if (options.SortDirection == SortDirection.Asc
-                                    || options.SortDirection == SortDirection.Unspecified)
-                                {
-                                    query = query.OrderBy(p => p.Name).ToList();
-                                }
-                                else
-                                {
-                                    query = query.OrderByDescending(p => p.Name).ToList();
-                                }
+                            switch (options.SortColumnName.ToLower())
+                            {
+                                case "name":
+                                    if (options.SortDirection == SortDirection.Asc
+                                        || options.SortDirection == SortDirection.Unspecified)
+                                    {
+                                        query = query.OrderBy(p => p.Name).ToList();
+                                    }
+                                    else
+                                    {
+                                        query = query.OrderByDescending(p => p.Name).ToList();
+                                    }
 
-                                break;
-                            case "nif":
-                                if (options.SortDirection == SortDirection.Asc
-                                    || options.SortDirection == SortDirection.Unspecified)
-                                {
-                                    query = query.OrderBy(p => p.NIF).ToList();
-                                }
-                                else
-                                {
-                                    query = query.OrderByDescending(p => p.NIF).ToList();
-                                }
+                                    break;
+                                case "nif":
+                                    if (options.SortDirection == SortDirection.Asc
+                                        || options.SortDirection == SortDirection.Unspecified)
+                                    {
+                                        query = query.OrderBy(p => p.NIF).ToList();
+                                    }
+                                    else
+                                    {
+                                        query = query.OrderByDescending(p => p.NIF).ToList();
+                                    }
 
-                                break;
-                            case "contactemail":
-                                if (options.SortDirection == SortDirection.Asc
-                                    || options.SortDirection == SortDirection.Unspecified)
-                                {
-                                    query = query.OrderBy(p => p.ContactEmail).ToList();
-                                }
-                                else
-                                {
-                                    query = query.OrderByDescending(p => p.ContactEmail).ToList();
-                                }
+                                    break;
+                                case "contactemail":
+                                    if (options.SortDirection == SortDirection.Asc
+                                        || options.SortDirection == SortDirection.Unspecified)
+                                    {
+                                        query = query.OrderBy(p => p.ContactEmail).ToList();
+                                    }
+                                    else
+                                    {
+                                        query = query.OrderByDescending(p => p.ContactEmail).ToList();
+                                    }
 
-                                break;
+                                    break;
+                            }
                         }
-                    }
 
-                    string globalSearch = options.GetAdditionalQueryOptionString("Search");
-                    if (null != globalSearch)
+                        string globalSearch = options.GetAdditionalQueryOptionString("Search");
+                        if (null != globalSearch)
+                        {
+                            query = query.Where(i =>
+                                (null != i.Name && i.Name.ToLower().Contains(globalSearch.ToLower()))
+                                || (null != i.NIF && i.NIF.ToLower().Contains(globalSearch.ToLower()))
+                                || (null != i.ContactEmail && i.ContactEmail.ToLower().Contains(globalSearch.ToLower()))
+                                //|| (null != i.ContactEmail && i.ContactEmail.Contains(globalSearch))
+                            ).ToList();
+                        }
+
+                        result.TotalRecords = query.Count();
+
+                        if (options.GetLimitOffset().HasValue)
+                        {
+                            query = query
+                                .Skip(options.GetLimitOffset().Value)
+                                .Take(options.GetLimitRowcount().Value)
+                                .ToList();
+                        }
+
+                        result.Items = query;
+
+                        return result;
+                    })
+                );
+
+                MVCGridDefinitionTable.Add("MedicalClinicManagementGrid", new MVCGridBuilder<CompanyModelObject>()
+                    .WithAuthorizationType(AuthorizationType.AllowAnonymous)
+                    //.WithSorting(sorting: true, defaultSortColumn: "Id", defaultSortDirection: SortDirection.Dsc)
+                    .AddColumns(cols =>
                     {
-                        query = query.Where(i =>
-                            (null != i.Name && i.Name.ToLower().Contains(globalSearch.ToLower()))
-                            || (null != i.NIF && i.NIF.ToLower().Contains(globalSearch.ToLower()))
-                            || (null != i.ContactEmail && i.ContactEmail.ToLower().Contains(globalSearch.ToLower()))
+                        // Add your columns here
+                        cols.Add().WithColumnName("Name")
+                            .WithHeaderText(Resources.Resources.Name)
+                            .WithValueExpression(i => i.Name)
+                            .WithAllowChangeVisibility(true)
+                            .WithFiltering(true)
+                            .WithSorting(true)
+                            .WithVisibility(true, true); // use the Value Expression to return the cell text for this column
+                        cols.Add().WithColumnName("NIF")
+                            .WithHeaderText(Resources.Resources.NIF)
+                            .WithValueExpression(i => i.NIF)
+                            .WithAllowChangeVisibility(true)
+                            .WithFiltering(true)
+                            .WithSorting(true)
+                            .WithVisibility(true, true); // use the Value Expression to return the cell text for this column
+                        cols.Add().WithColumnName("Description")
+                            .WithHeaderText(Resources.Resources.Description)
+                            .WithValueExpression(i => i.Description)
+                            .WithAllowChangeVisibility(true)
+                            .WithFiltering(true)
+                            .WithSorting(true)
+                            .WithVisibility(true, true); // use the Value Expression to return the cell text for this column
+                        cols.Add().WithColumnName("ContactEmail")
+                            .WithHeaderText(Resources.Resources.ContactEmail)
+                            .WithValueExpression(i => i.ContactEmail)
+                            .WithAllowChangeVisibility(true)
+                            .WithFiltering(true)
+                            .WithSorting(true)
+                            .WithVisibility(true, true); // use the Value Expression to return the cell text for this column
+                        cols.Add().WithColumnName("Website")
+                            .WithHeaderText(Resources.Resources.Website)
+                            .WithValueExpression(i => i.Website)
+                            .WithAllowChangeVisibility(true)
+                            .WithFiltering(true)
+                            .WithSorting(true)
+                            .WithVisibility(true, true); // use the Value Expression to return the cell text for this column
+                        cols.Add("Active").WithHtmlEncoding(false)
+                            .WithSorting(false)
+                            .WithHeaderText(Resources.Resources.Active)
+                            .WithValueExpression((p, c) => p.Active ? "checked" : "")
+                            .WithValueTemplate("<input type=\"checkbox\" disabled=\"disabled\" {Value}>")
+                            .WithCellCssClassExpression(p => "mvcgrid-cell")
+                            .WithVisibility(true, true);
+                        cols.Add("Edit").WithHtmlEncoding(false)
+                            .WithSorting(false)
+                            .WithHeaderText(" ")
+                            .WithValueExpression((p, c) => c.UrlHelper.Action("Edit", "CompaniesManagement", new { id = p.ID, idType = id }))
+                            .WithValueTemplate("<a href='{Value}' class='btn btn-warning lnkEdit' onclick='hello()'>" + Resources.Resources.Edit + "</a>")
+                            .WithVisibility(true, false);
+                        cols.Add("Delete").WithHtmlEncoding(false)
+                            .WithSorting(false)
+                            .WithHeaderText(" ")
+                            .WithValueExpression((p, c) => c.UrlHelper.Action("Delete", "CompaniesManagement", new { id = p.ID, idType = id }))
+                            .WithValueTemplate("<a href='{Value}' class='btn btn-danger lnkDelete' role='button'>" + Resources.Resources.Delete + "</a>")
+                            .WithVisibility(true, false);
+                    })
+                    .WithAdditionalQueryOptionNames("Search")
+                    .WithSorting(true, "Name")
+                    .WithPaging(paging: true, itemsPerPage: 10, allowChangePageSize: true, maxItemsPerPage: 100)
+                    .WithProcessingMessage(Resources.Resources.Loading)
+                    .WithNextButtonCaption(Resources.Resources.Next)
+                    .WithPreviousButtonCaption(Resources.Resources.Previous)
+                    .WithSummaryMessage(Resources.Resources.ShowingGridEntries)
+                    .WithRetrieveDataMethod((context) =>
+                    {
+                        // Query your data here. Obey Ordering, paging and filtering parameters given in the context.QueryOptions.
+                        // Use Entity Framework, a module from your IoC Container, or any other method.
+                        // Return QueryResult object containing IEnumerable<YouModelItem>
+
+                        var options = context.QueryOptions;
+                        var result = new QueryResult<CompanyModelObject>();
+                        List<CompanyModelObject> query = new List<CompanyModelObject>();
+
+                        query = BusinessItemsLists.GetMedicalClinis();
+
+                        if (!String.IsNullOrWhiteSpace(options.SortColumnName))
+                        {
+                            switch (options.SortColumnName.ToLower())
+                            {
+                                case "name":
+                                    if (options.SortDirection == SortDirection.Asc
+                                        || options.SortDirection == SortDirection.Unspecified)
+                                    {
+                                        query = query.OrderBy(p => p.Name).ToList();
+                                    }
+                                    else
+                                    {
+                                        query = query.OrderByDescending(p => p.Name).ToList();
+                                    }
+
+                                    break;
+                                case "nif":
+                                    if (options.SortDirection == SortDirection.Asc
+                                        || options.SortDirection == SortDirection.Unspecified)
+                                    {
+                                        query = query.OrderBy(p => p.NIF).ToList();
+                                    }
+                                    else
+                                    {
+                                        query = query.OrderByDescending(p => p.NIF).ToList();
+                                    }
+
+                                    break;
+                                case "contactemail":
+                                    if (options.SortDirection == SortDirection.Asc
+                                        || options.SortDirection == SortDirection.Unspecified)
+                                    {
+                                        query = query.OrderBy(p => p.ContactEmail).ToList();
+                                    }
+                                    else
+                                    {
+                                        query = query.OrderByDescending(p => p.ContactEmail).ToList();
+                                    }
+
+                                    break;
+                            }
+                        }
+
+                        string globalSearch = options.GetAdditionalQueryOptionString("Search");
+                        if (null != globalSearch)
+                        {
+                            query = query.Where(i =>
+                                (null != i.Name && i.Name.ToLower().Contains(globalSearch.ToLower()))
+                                || (null != i.NIF && i.NIF.ToLower().Contains(globalSearch.ToLower()))
+                                || (null != i.ContactEmail && i.ContactEmail.ToLower().Contains(globalSearch.ToLower()))
                             //|| (null != i.ContactEmail && i.ContactEmail.Contains(globalSearch))
-                        ).ToList();
-                    }
+                            ).ToList();
+                        }
 
-                    result.TotalRecords = query.Count();
+                        result.TotalRecords = query.Count();
 
-                    if (options.GetLimitOffset().HasValue)
+                        if (options.GetLimitOffset().HasValue)
+                        {
+                            query = query
+                                .Skip(options.GetLimitOffset().Value)
+                                .Take(options.GetLimitRowcount().Value)
+                                .ToList();
+                        }
+
+                        result.Items = query;
+
+                        return result;
+                    })
+                );
+
+                MVCGridDefinitionTable.Add("ConstructionCompanyManagementGrid", new MVCGridBuilder<CompanyModelObject>()
+                    .WithAuthorizationType(AuthorizationType.AllowAnonymous)
+                    //.WithSorting(sorting: true, defaultSortColumn: "Id", defaultSortDirection: SortDirection.Dsc)
+                    .AddColumns(cols =>
                     {
-                        query = query
-                            .Skip(options.GetLimitOffset().Value)
-                            .Take(options.GetLimitRowcount().Value)
-                            .ToList();
-                    }
+                        // Add your columns here
+                        cols.Add().WithColumnName("Name")
+                            .WithHeaderText(Resources.Resources.Name)
+                            .WithValueExpression(i => i.Name)
+                            .WithAllowChangeVisibility(true)
+                            .WithFiltering(true)
+                            .WithSorting(true)
+                            .WithVisibility(true, true); // use the Value Expression to return the cell text for this column
+                        cols.Add().WithColumnName("NIF")
+                            .WithHeaderText(Resources.Resources.NIF)
+                            .WithValueExpression(i => i.NIF)
+                            .WithAllowChangeVisibility(true)
+                            .WithFiltering(true)
+                            .WithSorting(true)
+                            .WithVisibility(true, true); // use the Value Expression to return the cell text for this column
+                        cols.Add().WithColumnName("Description")
+                            .WithHeaderText(Resources.Resources.Description)
+                            .WithValueExpression(i => i.Description)
+                            .WithAllowChangeVisibility(true)
+                            .WithFiltering(true)
+                            .WithSorting(true)
+                            .WithVisibility(true, true); // use the Value Expression to return the cell text for this column
+                        cols.Add().WithColumnName("ContactEmail")
+                            .WithHeaderText(Resources.Resources.ContactEmail)
+                            .WithValueExpression(i => i.ContactEmail)
+                            .WithAllowChangeVisibility(true)
+                            .WithFiltering(true)
+                            .WithSorting(true)
+                            .WithVisibility(true, true); // use the Value Expression to return the cell text for this column
+                        cols.Add().WithColumnName("Website")
+                            .WithHeaderText(Resources.Resources.Website)
+                            .WithValueExpression(i => i.Website)
+                            .WithAllowChangeVisibility(true)
+                            .WithFiltering(true)
+                            .WithSorting(true)
+                            .WithVisibility(true, true); // use the Value Expression to return the cell text for this column
+                        cols.Add("Active").WithHtmlEncoding(false)
+                            .WithSorting(false)
+                            .WithHeaderText(Resources.Resources.Active)
+                            .WithValueExpression((p, c) => p.Active ? "checked" : "")
+                            .WithValueTemplate("<input type=\"checkbox\" disabled=\"disabled\" {Value}>")
+                            .WithCellCssClassExpression(p => "mvcgrid-cell")
+                            .WithVisibility(true, true);
+                        cols.Add("Edit").WithHtmlEncoding(false)
+                            .WithSorting(false)
+                            .WithHeaderText(" ")
+                            .WithValueExpression((p, c) => c.UrlHelper.Action("Edit", "CompaniesManagement", new { id = p.ID, idType = id }))
+                            .WithValueTemplate("<a href='{Value}' class='btn btn-warning lnkEdit' onclick='hello()'>" + Resources.Resources.Edit + "</a>")
+                            .WithVisibility(true, false);
+                        cols.Add("Delete").WithHtmlEncoding(false)
+                            .WithSorting(false)
+                            .WithHeaderText(" ")
+                            .WithValueExpression((p, c) => c.UrlHelper.Action("Delete", "CompaniesManagement", new { id = p.ID, idType = id }))
+                            .WithValueTemplate("<a href='{Value}' class='btn btn-danger lnkDelete' role='button'>" + Resources.Resources.Delete + "</a>")
+                            .WithVisibility(true, false);
+                    })
+                    .WithAdditionalQueryOptionNames("Search")
+                    .WithSorting(true, "Name")
+                    .WithPaging(paging: true, itemsPerPage: 10, allowChangePageSize: true, maxItemsPerPage: 100)
+                    .WithProcessingMessage(Resources.Resources.Loading)
+                    .WithNextButtonCaption(Resources.Resources.Next)
+                    .WithPreviousButtonCaption(Resources.Resources.Previous)
+                    .WithSummaryMessage(Resources.Resources.ShowingGridEntries)
+                    .WithRetrieveDataMethod((context) =>
+                    {
+                        // Query your data here. Obey Ordering, paging and filtering parameters given in the context.QueryOptions.
+                        // Use Entity Framework, a module from your IoC Container, or any other method.
+                        // Return QueryResult object containing IEnumerable<YouModelItem>
 
-                    result.Items = query;
+                        var options = context.QueryOptions;
+                        var result = new QueryResult<CompanyModelObject>();
+                        List<CompanyModelObject> query = new List<CompanyModelObject>();
 
-                    return result;
-                })
-            );
+                        query = BusinessItemsLists.GetConstructionCompanies();
+
+                        if (!String.IsNullOrWhiteSpace(options.SortColumnName))
+                        {
+                            switch (options.SortColumnName.ToLower())
+                            {
+                                case "name":
+                                    if (options.SortDirection == SortDirection.Asc
+                                        || options.SortDirection == SortDirection.Unspecified)
+                                    {
+                                        query = query.OrderBy(p => p.Name).ToList();
+                                    }
+                                    else
+                                    {
+                                        query = query.OrderByDescending(p => p.Name).ToList();
+                                    }
+
+                                    break;
+                                case "nif":
+                                    if (options.SortDirection == SortDirection.Asc
+                                        || options.SortDirection == SortDirection.Unspecified)
+                                    {
+                                        query = query.OrderBy(p => p.NIF).ToList();
+                                    }
+                                    else
+                                    {
+                                        query = query.OrderByDescending(p => p.NIF).ToList();
+                                    }
+
+                                    break;
+                                case "contactemail":
+                                    if (options.SortDirection == SortDirection.Asc
+                                        || options.SortDirection == SortDirection.Unspecified)
+                                    {
+                                        query = query.OrderBy(p => p.ContactEmail).ToList();
+                                    }
+                                    else
+                                    {
+                                        query = query.OrderByDescending(p => p.ContactEmail).ToList();
+                                    }
+
+                                    break;
+                            }
+                        }
+
+                        string globalSearch = options.GetAdditionalQueryOptionString("Search");
+                        if (null != globalSearch)
+                        {
+                            query = query.Where(i =>
+                                (null != i.Name && i.Name.ToLower().Contains(globalSearch.ToLower()))
+                                || (null != i.NIF && i.NIF.ToLower().Contains(globalSearch.ToLower()))
+                                || (null != i.ContactEmail && i.ContactEmail.ToLower().Contains(globalSearch.ToLower()))
+                            //|| (null != i.ContactEmail && i.ContactEmail.Contains(globalSearch))
+                            ).ToList();
+                        }
+
+                        result.TotalRecords = query.Count();
+
+                        if (options.GetLimitOffset().HasValue)
+                        {
+                            query = query
+                                .Skip(options.GetLimitOffset().Value)
+                                .Take(options.GetLimitRowcount().Value)
+                                .ToList();
+                        }
+
+                        result.Items = query;
+
+                        return result;
+                    })
+                );
+
+                MVCGridDefinitionTable.Add("HomeAppliancesManagementGrid", new MVCGridBuilder<CompanyModelObject>()
+                    .WithAuthorizationType(AuthorizationType.AllowAnonymous)
+                    //.WithSorting(sorting: true, defaultSortColumn: "Id", defaultSortDirection: SortDirection.Dsc)
+                    .AddColumns(cols =>
+                    {
+                        // Add your columns here
+                        cols.Add().WithColumnName("Name")
+                            .WithHeaderText(Resources.Resources.Name)
+                            .WithValueExpression(i => i.Name)
+                            .WithAllowChangeVisibility(true)
+                            .WithFiltering(true)
+                            .WithSorting(true)
+                            .WithVisibility(true, true); // use the Value Expression to return the cell text for this column
+                        cols.Add().WithColumnName("NIF")
+                            .WithHeaderText(Resources.Resources.NIF)
+                            .WithValueExpression(i => i.NIF)
+                            .WithAllowChangeVisibility(true)
+                            .WithFiltering(true)
+                            .WithSorting(true)
+                            .WithVisibility(true, true); // use the Value Expression to return the cell text for this column
+                        cols.Add().WithColumnName("Description")
+                            .WithHeaderText(Resources.Resources.Description)
+                            .WithValueExpression(i => i.Description)
+                            .WithAllowChangeVisibility(true)
+                            .WithFiltering(true)
+                            .WithSorting(true)
+                            .WithVisibility(true, true); // use the Value Expression to return the cell text for this column
+                        cols.Add().WithColumnName("ContactEmail")
+                            .WithHeaderText(Resources.Resources.ContactEmail)
+                            .WithValueExpression(i => i.ContactEmail)
+                            .WithAllowChangeVisibility(true)
+                            .WithFiltering(true)
+                            .WithSorting(true)
+                            .WithVisibility(true, true); // use the Value Expression to return the cell text for this column
+                        cols.Add().WithColumnName("Website")
+                            .WithHeaderText(Resources.Resources.Website)
+                            .WithValueExpression(i => i.Website)
+                            .WithAllowChangeVisibility(true)
+                            .WithFiltering(true)
+                            .WithSorting(true)
+                            .WithVisibility(true, true); // use the Value Expression to return the cell text for this column
+                        cols.Add("Active").WithHtmlEncoding(false)
+                            .WithSorting(false)
+                            .WithHeaderText(Resources.Resources.Active)
+                            .WithValueExpression((p, c) => p.Active ? "checked" : "")
+                            .WithValueTemplate("<input type=\"checkbox\" disabled=\"disabled\" {Value}>")
+                            .WithCellCssClassExpression(p => "mvcgrid-cell")
+                            .WithVisibility(true, true);
+                        cols.Add("Edit").WithHtmlEncoding(false)
+                            .WithSorting(false)
+                            .WithHeaderText(" ")
+                            .WithValueExpression((p, c) => c.UrlHelper.Action("Edit", "CompaniesManagement", new { id = p.ID, idType = id }))
+                            .WithValueTemplate("<a href='{Value}' class='btn btn-warning lnkEdit' onclick='hello()'>" + Resources.Resources.Edit + "</a>")
+                            .WithVisibility(true, false);
+                        cols.Add("Delete").WithHtmlEncoding(false)
+                            .WithSorting(false)
+                            .WithHeaderText(" ")
+                            .WithValueExpression((p, c) => c.UrlHelper.Action("Delete", "CompaniesManagement", new { id = p.ID, idType = id }))
+                            .WithValueTemplate("<a href='{Value}' class='btn btn-danger lnkDelete' role='button'>" + Resources.Resources.Delete + "</a>")
+                            .WithVisibility(true, false);
+                    })
+                    .WithAdditionalQueryOptionNames("Search")
+                    .WithSorting(true, "Name")
+                    .WithPaging(paging: true, itemsPerPage: 10, allowChangePageSize: true, maxItemsPerPage: 100)
+                    .WithProcessingMessage(Resources.Resources.Loading)
+                    .WithNextButtonCaption(Resources.Resources.Next)
+                    .WithPreviousButtonCaption(Resources.Resources.Previous)
+                    .WithSummaryMessage(Resources.Resources.ShowingGridEntries)
+                    .WithRetrieveDataMethod((context) =>
+                    {
+                        // Query your data here. Obey Ordering, paging and filtering parameters given in the context.QueryOptions.
+                        // Use Entity Framework, a module from your IoC Container, or any other method.
+                        // Return QueryResult object containing IEnumerable<YouModelItem>
+
+                        var options = context.QueryOptions;
+                        var result = new QueryResult<CompanyModelObject>();
+                        List<CompanyModelObject> query = new List<CompanyModelObject>();
+
+                        query = BusinessItemsLists.GetHomeApplianceRepairs();
+
+                        if (!String.IsNullOrWhiteSpace(options.SortColumnName))
+                        {
+                            switch (options.SortColumnName.ToLower())
+                            {
+                                case "name":
+                                    if (options.SortDirection == SortDirection.Asc
+                                        || options.SortDirection == SortDirection.Unspecified)
+                                    {
+                                        query = query.OrderBy(p => p.Name).ToList();
+                                    }
+                                    else
+                                    {
+                                        query = query.OrderByDescending(p => p.Name).ToList();
+                                    }
+
+                                    break;
+                                case "nif":
+                                    if (options.SortDirection == SortDirection.Asc
+                                        || options.SortDirection == SortDirection.Unspecified)
+                                    {
+                                        query = query.OrderBy(p => p.NIF).ToList();
+                                    }
+                                    else
+                                    {
+                                        query = query.OrderByDescending(p => p.NIF).ToList();
+                                    }
+
+                                    break;
+                                case "contactemail":
+                                    if (options.SortDirection == SortDirection.Asc
+                                        || options.SortDirection == SortDirection.Unspecified)
+                                    {
+                                        query = query.OrderBy(p => p.ContactEmail).ToList();
+                                    }
+                                    else
+                                    {
+                                        query = query.OrderByDescending(p => p.ContactEmail).ToList();
+                                    }
+
+                                    break;
+                            }
+                        }
+
+                        string globalSearch = options.GetAdditionalQueryOptionString("Search");
+                        if (null != globalSearch)
+                        {
+                            query = query.Where(i =>
+                                (null != i.Name && i.Name.ToLower().Contains(globalSearch.ToLower()))
+                                || (null != i.NIF && i.NIF.ToLower().Contains(globalSearch.ToLower()))
+                                || (null != i.ContactEmail && i.ContactEmail.ToLower().Contains(globalSearch.ToLower()))
+                            //|| (null != i.ContactEmail && i.ContactEmail.Contains(globalSearch))
+                            ).ToList();
+                        }
+
+                        result.TotalRecords = query.Count();
+
+                        if (options.GetLimitOffset().HasValue)
+                        {
+                            query = query
+                                .Skip(options.GetLimitOffset().Value)
+                                .Take(options.GetLimitRowcount().Value)
+                                .ToList();
+                        }
+
+                        result.Items = query;
+
+                        return result;
+                    })
+                );
+
+                MVCGridDefinitionTable.Add("InsuranceManagementGrid", new MVCGridBuilder<CompanyModelObject>()
+                    .WithAuthorizationType(AuthorizationType.AllowAnonymous)
+                    //.WithSorting(sorting: true, defaultSortColumn: "Id", defaultSortDirection: SortDirection.Dsc)
+                    .AddColumns(cols =>
+                    {
+                        // Add your columns here
+                        cols.Add().WithColumnName("Name")
+                            .WithHeaderText(Resources.Resources.Name)
+                            .WithValueExpression(i => i.Name)
+                            .WithAllowChangeVisibility(true)
+                            .WithFiltering(true)
+                            .WithSorting(true)
+                            .WithVisibility(true, true); // use the Value Expression to return the cell text for this column
+                        cols.Add().WithColumnName("NIF")
+                            .WithHeaderText(Resources.Resources.NIF)
+                            .WithValueExpression(i => i.NIF)
+                            .WithAllowChangeVisibility(true)
+                            .WithFiltering(true)
+                            .WithSorting(true)
+                            .WithVisibility(true, true); // use the Value Expression to return the cell text for this column
+                        cols.Add().WithColumnName("Description")
+                            .WithHeaderText(Resources.Resources.Description)
+                            .WithValueExpression(i => i.Description)
+                            .WithAllowChangeVisibility(true)
+                            .WithFiltering(true)
+                            .WithSorting(true)
+                            .WithVisibility(true, true); // use the Value Expression to return the cell text for this column
+                        cols.Add().WithColumnName("ContactEmail")
+                            .WithHeaderText(Resources.Resources.ContactEmail)
+                            .WithValueExpression(i => i.ContactEmail)
+                            .WithAllowChangeVisibility(true)
+                            .WithFiltering(true)
+                            .WithSorting(true)
+                            .WithVisibility(true, true); // use the Value Expression to return the cell text for this column
+                        cols.Add().WithColumnName("Website")
+                            .WithHeaderText(Resources.Resources.Website)
+                            .WithValueExpression(i => i.Website)
+                            .WithAllowChangeVisibility(true)
+                            .WithFiltering(true)
+                            .WithSorting(true)
+                            .WithVisibility(true, true); // use the Value Expression to return the cell text for this column
+                        cols.Add("Active").WithHtmlEncoding(false)
+                            .WithSorting(false)
+                            .WithHeaderText(Resources.Resources.Active)
+                            .WithValueExpression((p, c) => p.Active ? "checked" : "")
+                            .WithValueTemplate("<input type=\"checkbox\" disabled=\"disabled\" {Value}>")
+                            .WithCellCssClassExpression(p => "mvcgrid-cell")
+                            .WithVisibility(true, true);
+                        cols.Add("Edit").WithHtmlEncoding(false)
+                            .WithSorting(false)
+                            .WithHeaderText(" ")
+                            .WithValueExpression((p, c) => c.UrlHelper.Action("Edit", "CompaniesManagement", new { id = p.ID, idType = id }))
+                            .WithValueTemplate("<a href='{Value}' class='btn btn-warning lnkEdit' onclick='hello()'>" + Resources.Resources.Edit + "</a>")
+                            .WithVisibility(true, false);
+                        cols.Add("Delete").WithHtmlEncoding(false)
+                            .WithSorting(false)
+                            .WithHeaderText(" ")
+                            .WithValueExpression((p, c) => c.UrlHelper.Action("Delete", "CompaniesManagement", new { id = p.ID, idType = id }))
+                            .WithValueTemplate("<a href='{Value}' class='btn btn-danger lnkDelete' role='button'>" + Resources.Resources.Delete + "</a>")
+                            .WithVisibility(true, false);
+                    })
+                    .WithAdditionalQueryOptionNames("Search")
+                    .WithSorting(true, "Name")
+                    .WithPaging(paging: true, itemsPerPage: 10, allowChangePageSize: true, maxItemsPerPage: 100)
+                    .WithProcessingMessage(Resources.Resources.Loading)
+                    .WithNextButtonCaption(Resources.Resources.Next)
+                    .WithPreviousButtonCaption(Resources.Resources.Previous)
+                    .WithSummaryMessage(Resources.Resources.ShowingGridEntries)
+                    .WithRetrieveDataMethod((context) =>
+                    {
+                        // Query your data here. Obey Ordering, paging and filtering parameters given in the context.QueryOptions.
+                        // Use Entity Framework, a module from your IoC Container, or any other method.
+                        // Return QueryResult object containing IEnumerable<YouModelItem>
+
+                        var options = context.QueryOptions;
+                        var result = new QueryResult<CompanyModelObject>();
+                        List<CompanyModelObject> query = new List<CompanyModelObject>();
+
+                        query = BusinessItemsLists.GetInsuranceCompanyContacts();
+
+                        if (!String.IsNullOrWhiteSpace(options.SortColumnName))
+                        {
+                            switch (options.SortColumnName.ToLower())
+                            {
+                                case "name":
+                                    if (options.SortDirection == SortDirection.Asc
+                                        || options.SortDirection == SortDirection.Unspecified)
+                                    {
+                                        query = query.OrderBy(p => p.Name).ToList();
+                                    }
+                                    else
+                                    {
+                                        query = query.OrderByDescending(p => p.Name).ToList();
+                                    }
+
+                                    break;
+                                case "nif":
+                                    if (options.SortDirection == SortDirection.Asc
+                                        || options.SortDirection == SortDirection.Unspecified)
+                                    {
+                                        query = query.OrderBy(p => p.NIF).ToList();
+                                    }
+                                    else
+                                    {
+                                        query = query.OrderByDescending(p => p.NIF).ToList();
+                                    }
+
+                                    break;
+                                case "contactemail":
+                                    if (options.SortDirection == SortDirection.Asc
+                                        || options.SortDirection == SortDirection.Unspecified)
+                                    {
+                                        query = query.OrderBy(p => p.ContactEmail).ToList();
+                                    }
+                                    else
+                                    {
+                                        query = query.OrderByDescending(p => p.ContactEmail).ToList();
+                                    }
+
+                                    break;
+                            }
+                        }
+
+                        string globalSearch = options.GetAdditionalQueryOptionString("Search");
+                        if (null != globalSearch)
+                        {
+                            query = query.Where(i =>
+                                (null != i.Name && i.Name.ToLower().Contains(globalSearch.ToLower()))
+                                || (null != i.NIF && i.NIF.ToLower().Contains(globalSearch.ToLower()))
+                                || (null != i.ContactEmail && i.ContactEmail.ToLower().Contains(globalSearch.ToLower()))
+                            //|| (null != i.ContactEmail && i.ContactEmail.Contains(globalSearch))
+                            ).ToList();
+                        }
+
+                        result.TotalRecords = query.Count();
+
+                        if (options.GetLimitOffset().HasValue)
+                        {
+                            query = query
+                                .Skip(options.GetLimitOffset().Value)
+                                .Take(options.GetLimitRowcount().Value)
+                                .ToList();
+                        }
+
+                        result.Items = query;
+
+                        return result;
+                    })
+                );
             }
 
             return View(model);
@@ -291,6 +878,7 @@ namespace InsuranceWebsite.Controllers
                 List<SelectListItem> initList = new List<SelectListItem>() { new SelectListItem() { Value = "", Text = Resources.Resources.SelectService } };
                 model.ServiceList = initList.Concat(InsuranceBusiness.BusinessLayer.GetCompanyServices(id).Select(i => new SelectListItem() { Value = i.Key.ToString(), Text = i.Value }).ToList()).ToList();
                 model.PaymentTypeList = initList.Concat(InsuranceBusiness.BusinessLayer.GetPaymentTypes().Select(i => new SelectListItem() { Value = i.Key.ToString(), Text = Resources.Resources.ResourceManager.GetString(i.Value) }).ToList()).ToList();
+                model.PaymentPeriodList = InsuranceBusiness.BusinessLayer.GetPaymentPeriods().Select(i => new SelectListItem() { Value = i.Key.ToString(), Text = Resources.Resources.ResourceManager.GetString(i.Value) }).ToList();
                 model.CompanyType = id;
                 model.CreatePayment = true;
 
@@ -314,6 +902,25 @@ namespace InsuranceWebsite.Controllers
 
             try
             {
+                UserProfileDTO profile = null;
+                if (null != this.User && this.User.Identity.IsAuthenticated)
+                {
+                    var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                    var admin_user = await UserManager.FindByNameAsync(this.User.Identity.Name);
+                    if (null != admin_user)
+                    {
+                        profile = InsuranceBusiness.BusinessLayer.GetUserProfile(admin_user.Id);
+                    }
+                    else
+                    {
+                        return RedirectToAction("LogOff", "Account");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+
                 PaymentDTO payment = null;
                 CompanyDTO newCompany = new CompanyDTO()
                 {
@@ -336,7 +943,8 @@ namespace InsuranceWebsite.Controllers
                     Telephone_2 = model.Telephone_2,
                     Website = model.Website,
                     BusinessName = model.BusinessName,
-                    IBAN = model.IBAN
+                    IBAN = model.IBAN,
+                    ID_User_CreatedBy = profile.ID_User
                 };
 
                 if (null != imgUpload)
@@ -581,7 +1189,8 @@ namespace InsuranceWebsite.Controllers
                                 Title = InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.ANNUAL_SUBSCRIPTION_TITLE).Value,
                                 Description = InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.ANNUAL_SUBSCRIPTION_DESCRIPTION).Value,
                                 TaxValue = vatValue,
-                                ExpiracyDate = DateTime.Now.AddDays(Int32.Parse(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.SUBSCRIPTION_PAYMENT_DEADLINE_DAYS).Value))
+                                //ExpiracyDate = DateTime.Now.AddDays(Int32.Parse(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.SUBSCRIPTION_PAYMENT_DEADLINE_DAYS).Value))
+                                ExpiracyDate = DateTime.Now.AddYears(model.PaymentPeriod)
                             };
                             var node = response.SelectSingleNode("getautoMB/ep_status");
                             if (node.InnerText.Equals("ok0"))
@@ -615,6 +1224,8 @@ namespace InsuranceWebsite.Controllers
                                 payment.ep_language = InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.EP_LANGUAGE).Value;
                                 payment.ep_rec_url = "";
                                 payment.ID_PaymentStatus = (int)PaymentStatusEnum.ERROR;
+
+                                InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.ERROR, Request.UserHostAddress, string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), string.Format("Cannot create easypay reference. Errors: {0} ", payment.ep_message));
                             }
 
                             if (null == newCompany.Payment)
@@ -685,9 +1296,24 @@ namespace InsuranceWebsite.Controllers
 
         private bool SendRegistWelcomeEmail(CompanyDTO company, PaymentDTO payment, string password)
         {
+            UserProfileDTO profile = null;
+            string cc_mail = InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.PLATFORM_EMAIL).Value;
+            if (null != this.User && this.User.Identity.IsAuthenticated)
+            {
+                var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                var admin_user = UserManager.FindByName(this.User.Identity.Name);
+                if (null != admin_user)
+                {
+                    profile = InsuranceBusiness.BusinessLayer.GetUserProfile(admin_user.Id);
+                    cc_mail = profile.User.UserName;
+                }
+            }
+
             System.Net.Mail.MailMessage m = new System.Net.Mail.MailMessage(
                 new System.Net.Mail.MailAddress(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.PLATFORM_EMAIL).Value, Resources.Resources.ApplicationNAme),
                 new System.Net.Mail.MailAddress(company.ContactEmail));
+
+            m.CC.Add(new MailAddress(cc_mail));
             m.Subject = Resources.Resources.EmailCompanyRegistWelcome;
 
             using (StreamReader reader = new StreamReader(Server.MapPath("~/Views/CompaniesManagement/EmailTemplates/RegistWelcomeTemplate.html")))
@@ -784,7 +1410,8 @@ namespace InsuranceWebsite.Controllers
             List<SelectListItem> initList = new List<SelectListItem>() { new SelectListItem() { Value = "", Text = Resources.Resources.SelectService } };
             model.ServiceList = initList.Concat(InsuranceBusiness.BusinessLayer.GetCompanyServices(idType).Select(i => new SelectListItem() { Value = i.Key.ToString(), Text = i.Value }).ToList()).ToList();
             model.PaymentTypeList = initList.Concat(InsuranceBusiness.BusinessLayer.GetPaymentTypes().Select(i => new SelectListItem() { Value = i.Key.ToString(), Text = Resources.Resources.ResourceManager.GetString(i.Value) }).ToList()).ToList();
-            
+            model.PaymentPeriodList = InsuranceBusiness.BusinessLayer.GetPaymentPeriods().Select(i => new SelectListItem() { Value = i.Key.ToString(), Text = Resources.Resources.ResourceManager.GetString(i.Value) }).ToList();
+
             if (model.ID_District.HasValue)
             {
                 model.CountyList = model.CountyList.Concat(InsuranceBusiness.BusinessLayer.GetCountiesByDistrict(model.ID_District.Value).Select(i => new SelectListItem() { Value = i.Key.ToString(), Text = i.Value }).ToList()).ToList();
@@ -795,9 +1422,24 @@ namespace InsuranceWebsite.Controllers
 
         private bool SendPaymentGeneratedEmail(CompanyDTO company, PaymentDTO payment)
         {
+            UserProfileDTO profile = null;
+            string cc_mail = InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.PLATFORM_EMAIL).Value;
+            if (null != this.User && this.User.Identity.IsAuthenticated)
+            {
+                var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                var admin_user = UserManager.FindByName(this.User.Identity.Name);
+                if (null != admin_user)
+                {
+                    profile = InsuranceBusiness.BusinessLayer.GetUserProfile(admin_user.Id);
+                    cc_mail = profile.User.UserName;
+                }
+            }
+
             System.Net.Mail.MailMessage m = new System.Net.Mail.MailMessage(
                 new System.Net.Mail.MailAddress(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.PLATFORM_EMAIL).Value, Resources.Resources.ApplicationNAme),
                 new System.Net.Mail.MailAddress(company.ContactEmail));
+
+            m.CC.Add(new MailAddress(cc_mail));
             m.Subject = Resources.Resources.EmailPaymentInformation;
 
             using (StreamReader reader = new StreamReader(Server.MapPath("~/Views/CompaniesManagement/EmailTemplates/PaymentGeneratedTemplate.html")))
@@ -941,7 +1583,8 @@ namespace InsuranceWebsite.Controllers
                                 Title = InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.ANNUAL_SUBSCRIPTION_TITLE).Value,
                                 Description = InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.ANNUAL_SUBSCRIPTION_DESCRIPTION).Value,
                                 TaxValue = vatValue,
-                                ExpiracyDate = DateTime.Now.AddDays(Int32.Parse(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.SUBSCRIPTION_PAYMENT_DEADLINE_DAYS).Value))
+                                //ExpiracyDate = DateTime.Now.AddDays(Int32.Parse(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.SUBSCRIPTION_PAYMENT_DEADLINE_DAYS).Value))
+                                ExpiracyDate = DateTime.Now.AddYears(model.PaymentPeriod)
                             };
                             
                             var node = response.SelectSingleNode("getautoMB/ep_status");

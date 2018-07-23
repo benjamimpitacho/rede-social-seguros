@@ -21,6 +21,8 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Web.UI;
+//using System.Web.UI.WebControls;
 
 namespace InsuranceWebsite.Controllers
 {
@@ -652,6 +654,55 @@ namespace InsuranceWebsite.Controllers
             }
 
             return RedirectToAction("Index");
+        }
+
+        [FunctionalityAutorizeAttribute("USERS_MANAGEMENT")]
+        public ActionResult DownloadConsultantStatistics()
+        {
+            try
+            {
+                UsersManagementViewModel model = new UsersManagementViewModel();
+
+                if (null != this.User && this.User.Identity.IsAuthenticated)
+                {
+                    var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                    var user = UserManager.FindByName(this.User.Identity.Name);
+                    if (null != user)
+                    {
+                        FillModel(model, user.Id, false);
+                    }
+                    else
+                    {
+                        return RedirectToAction("LogOff", "Account");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+
+                var gv = new System.Web.UI.WebControls.GridView();
+                gv.DataSource = InsuranceBusiness.BusinessLayer.GetConsultantsStatistics();
+                gv.DataBind();
+                Response.ClearContent();
+                Response.Buffer = true;
+                Response.AddHeader("content-disposition", "attachment; filename=Estatisticas_Colaboradores.xlsx");
+                Response.ContentType = "application/ms-excel";
+                Response.Charset = "";
+                StringWriter objStringWriter = new StringWriter();
+                HtmlTextWriter objHtmlTextWriter = new HtmlTextWriter(objStringWriter);
+                gv.RenderControl(objHtmlTextWriter);
+                Response.Output.Write(objStringWriter.ToString());
+                Response.Flush();
+                Response.End();
+
+                return View("Index", model);
+            }
+            catch (Exception ex)
+            {
+                InsuranceBusiness.BusinessLayer.LogException(string.Format("{0}", Request.UserHostAddress), string.Format("{0}.{1}", this.ControllerContext.RouteData.Values["controller"].ToString(), this.ControllerContext.RouteData.Values["action"].ToString()), ex);
+                return View("Error");
+            }
         }
 
         private ApplicationUserManager _userManager;

@@ -1123,6 +1123,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Estatisticas de Colaboradores.
+        /// </summary>
+        public static string DownloadConsultantStatistics {
+            get {
+                return ResourceManager.GetString("DownloadConsultantStatistics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Data limite.
         /// </summary>
         public static string DueDate {
@@ -1348,6 +1357,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cinco anos.
+        /// </summary>
+        public static string FIVE_YEAR {
+            get {
+                return ResourceManager.GetString("FIVE_YEAR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Seguidores.
         /// </summary>
         public static string Followers {
@@ -1407,6 +1425,15 @@ namespace Resources {
         public static string FoundMedicalClinics {
             get {
                 return ResourceManager.GetString("FoundMedicalClinics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quatro anos.
+        /// </summary>
+        public static string FOUR_YEAR {
+            get {
+                return ResourceManager.GetString("FOUR_YEAR", resourceCulture);
             }
         }
         
@@ -2293,6 +2320,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Um ano.
+        /// </summary>
+        public static string ONE_YEAR {
+            get {
+                return ResourceManager.GetString("ONE_YEAR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tamanho da página.
         /// </summary>
         public static string PageSize {
@@ -2383,6 +2419,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Periodo do Pagamento.
+        /// </summary>
+        public static string PaymentPeriod {
+            get {
+                return ResourceManager.GetString("PaymentPeriod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pagamentos.
         /// </summary>
         public static string Payments {
@@ -2406,6 +2451,15 @@ namespace Resources {
         public static string PendingPayment {
             get {
                 return ResourceManager.GetString("PendingPayment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Periodo.
+        /// </summary>
+        public static string Period {
+            get {
+                return ResourceManager.GetString("Period", resourceCulture);
             }
         }
         
@@ -3202,6 +3256,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Três anos.
+        /// </summary>
+        public static string THREE_YEAR {
+            get {
+                return ResourceManager.GetString("THREE_YEAR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Titulo.
         /// </summary>
         public static string Title {
@@ -3211,11 +3274,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Valor Total.
+        /// </summary>
+        public static string TotalValue {
+            get {
+                return ResourceManager.GetString("TotalValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Twitter.
         /// </summary>
         public static string Twitter {
             get {
                 return ResourceManager.GetString("Twitter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dois anos.
+        /// </summary>
+        public static string TWO_YEAR {
+            get {
+                return ResourceManager.GetString("TWO_YEAR", resourceCulture);
             }
         }
         

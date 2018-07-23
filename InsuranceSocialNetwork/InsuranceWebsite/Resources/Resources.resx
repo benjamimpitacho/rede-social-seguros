@@ -1236,4 +1236,31 @@
   <data name="UploadingFile" xml:space="preserve">
     <value>Carregando ficheiro...</value>
   </data>
+  <data name="Period" xml:space="preserve">
+    <value>Periodo</value>
+  </data>
+  <data name="PaymentPeriod" xml:space="preserve">
+    <value>Periodo do Pagamento</value>
+  </data>
+  <data name="FIVE_YEAR" xml:space="preserve">
+    <value>Cinco anos</value>
+  </data>
+  <data name="FOUR_YEAR" xml:space="preserve">
+    <value>Quatro anos</value>
+  </data>
+  <data name="ONE_YEAR" xml:space="preserve">
+    <value>Um ano</value>
+  </data>
+  <data name="THREE_YEAR" xml:space="preserve">
+    <value>Três anos</value>
+  </data>
+  <data name="TWO_YEAR" xml:space="preserve">
+    <value>Dois anos</value>
+  </data>
+  <data name="TotalValue" xml:space="preserve">
+    <value>Valor Total</value>
+  </data>
+  <data name="DownloadConsultantStatistics" xml:space="preserve">
+    <value>Estatisticas de Colaboradores</value>
+  </data>
 </root>
