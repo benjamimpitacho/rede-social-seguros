@@ -24,7 +24,7 @@ using System.Web.Mvc;
 
 namespace InsuranceWebsite.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class HomeController : Controller
     {
         public static UserProfileDTO CurrentUser;
@@ -79,12 +79,26 @@ namespace InsuranceWebsite.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("LogOff", "Account");
+                    PostItemsViewModel anonymousPostsModel = new PostItemsViewModel();
+                    anonymousPostsModel.Items = InsuranceBusiness.BusinessLayer.GetUserRelatedPosts(null);
+
+                    model.PostsModel = anonymousPostsModel;
+
+                    return View(model);
+
+                    //return RedirectToAction("LogOff", "Account");
                 }
             }
             else
             {
-                return RedirectToAction("Login", "Account");
+                PostItemsViewModel anonymousPostsModel = new PostItemsViewModel();
+                anonymousPostsModel.Items = InsuranceBusiness.BusinessLayer.GetUserRelatedPosts(null);
+
+                model.PostsModel = anonymousPostsModel;
+
+                return View(model);
+
+                //return RedirectToAction("Login", "Account");
             }
 
             if (InsuranceBusiness.BusinessLayer.IsUserInRoleByUsername(this.User.Identity.Name, RoleEnum.DIRECTORY_COMPANY.ToString()))
@@ -1525,14 +1539,18 @@ namespace InsuranceWebsite.Controllers
             return Json(new { ok = true, message = "" });
         }
 
-        [FunctionalityAutorizeAttribute("TIMELINE_FUNCTIONALITY")]
+        //[FunctionalityAutorizeAttribute("TIMELINE_FUNCTIONALITY")]
         public ActionResult Posts(long? id, int? s, int? p)
         {
             PostItemsViewModel model = new PostItemsViewModel();
             model.Profile = CurrentUser;
 
+            if(null == CurrentUser)
+            {
+                model.Items = InsuranceBusiness.BusinessLayer.GetUserRelatedPosts(null);
+            }
             //InsuranceBusiness.BusinessLayer.Log(SystemLogLevelEnum.INFO, id.HasValue ? id.Value.ToString() : "-", "Index::Posts", string.Format("Get posts - start: {0}", DateTime.Now.ToString()));
-            if (s.HasValue && p.HasValue)
+            else if (s.HasValue && p.HasValue)
             {
                 model.Items = InsuranceBusiness.BusinessLayer.GetUserRelatedPosts(CurrentUser.ID_User, s.Value, p.Value);
             }
@@ -2722,7 +2740,7 @@ namespace InsuranceWebsite.Controllers
 
         #region Search Operations
 
-        [FunctionalityAutorizeAttribute("SEARCH_GARAGES_FUNCTIONALITY")]
+        //[FunctionalityAutorizeAttribute("SEARCH_GARAGES_FUNCTIONALITY")]
         public ActionResult SearchGarages(HomeViewModel model)
         {
             try
@@ -2734,7 +2752,7 @@ namespace InsuranceWebsite.Controllers
                 // Perform Search
                 CompanySearchFilterDTO companySearchFilter = new CompanySearchFilterDTO()
                 {
-                    UserId = CurrentUser.ID_User,
+                    UserId = (null == CurrentUser ? null : CurrentUser.ID_User),
                     GarageName = model.SearchCompaniesModel.GarageName,
                     GarageDistrictID = model.SearchCompaniesModel.GarageDistrict,
                     GarageCountyID = model.SearchCompaniesModel.GarageCounty,
@@ -2744,8 +2762,11 @@ namespace InsuranceWebsite.Controllers
                 };
 
                 model.SearchCompaniesModel.ResultCompanyItems = InsuranceBusiness.BusinessLayer.SearchGarages(companySearchFilter);
-                
-                FillModel(model, CurrentUser.ID_User);
+
+                if (null != CurrentUser)
+                {
+                    FillModel(model, CurrentUser.ID_User);
+                }
             }
             catch (Exception ex)
             {
@@ -2755,7 +2776,7 @@ namespace InsuranceWebsite.Controllers
             return View("Index", model);
         }
 
-        [FunctionalityAutorizeAttribute("SEARCH_CLINICS_FUNCTIONALITY")]
+        //[FunctionalityAutorizeAttribute("SEARCH_CLINICS_FUNCTIONALITY")]
         public ActionResult SearchClinics(HomeViewModel model)
         {
             try
@@ -2767,7 +2788,7 @@ namespace InsuranceWebsite.Controllers
                 // Perform Search
                 CompanySearchFilterDTO companySearchFilter = new CompanySearchFilterDTO()
                 {
-                    UserId = CurrentUser.ID_User,
+                    UserId = (null == CurrentUser ? null : CurrentUser.ID_User),
                     ClinicName = model.SearchCompaniesModel.ClinicName,
                     ClinicDistrictID = model.SearchCompaniesModel.ClinicDistrict,
                     ClinicCountyID = model.SearchCompaniesModel.ClinicCounty,
@@ -2778,7 +2799,10 @@ namespace InsuranceWebsite.Controllers
 
                 model.SearchCompaniesModel.ResultCompanyItems = InsuranceBusiness.BusinessLayer.SearchMedicalClinis(companySearchFilter);
 
-                FillModel(model, CurrentUser.ID_User);
+                if (null != CurrentUser)
+                {
+                    FillModel(model, CurrentUser.ID_User);
+                }
             }
             catch (Exception ex)
             {
@@ -2788,7 +2812,7 @@ namespace InsuranceWebsite.Controllers
             return View("Index", model);
         }
 
-        [FunctionalityAutorizeAttribute("SEARCH_CONSTRUCTIONCOMPANIES_FUNCTIONALITY")]
+        //[FunctionalityAutorizeAttribute("SEARCH_CONSTRUCTIONCOMPANIES_FUNCTIONALITY")]
         public ActionResult SearchConstructionCompanies(HomeViewModel model)
         {
             try
@@ -2800,7 +2824,7 @@ namespace InsuranceWebsite.Controllers
                 // Perform Search
                 CompanySearchFilterDTO companySearchFilter = new CompanySearchFilterDTO()
                 {
-                    UserId = CurrentUser.ID_User,
+                    UserId = (null == CurrentUser ? null : CurrentUser.ID_User),
                     ConstructionCompanyName = model.SearchCompaniesModel.ConstructionCompanyName,
                     ConstructionCompanyDistrictID = model.SearchCompaniesModel.ConstructionCompanyDistrict,
                     ConstructionCompanyCountyID = model.SearchCompaniesModel.ConstructionCompanyCounty,
@@ -2811,7 +2835,10 @@ namespace InsuranceWebsite.Controllers
 
                 model.SearchCompaniesModel.ResultCompanyItems = InsuranceBusiness.BusinessLayer.SearchConstructionCompanies(companySearchFilter);
 
-                FillModel(model, CurrentUser.ID_User);
+                if (null != CurrentUser)
+                {
+                    FillModel(model, CurrentUser.ID_User);
+                }
             }
             catch (Exception ex)
             {
@@ -2821,7 +2848,7 @@ namespace InsuranceWebsite.Controllers
             return View("Index", model);
         }
 
-        [FunctionalityAutorizeAttribute("SEARCH_APPLIANCEREPAIR_FUNCTIONALITY")]
+        //[FunctionalityAutorizeAttribute("SEARCH_APPLIANCEREPAIR_FUNCTIONALITY")]
         public ActionResult SearchHomeApplianceRepair(HomeViewModel model)
         {
             try
@@ -2833,7 +2860,7 @@ namespace InsuranceWebsite.Controllers
                 // Perform Search
                 CompanySearchFilterDTO companySearchFilter = new CompanySearchFilterDTO()
                 {
-                    UserId = CurrentUser.ID_User,
+                    UserId = (null == CurrentUser ? null : CurrentUser.ID_User),
                     HomeApplianceRepairName = model.SearchCompaniesModel.HomeApplianceRepairName,
                     HomeApplianceRepairDistrictID = model.SearchCompaniesModel.HomeApplianceRepairDistrict,
                     HomeApplianceRepairCountyID = model.SearchCompaniesModel.HomeApplianceRepairCounty,
@@ -2844,7 +2871,10 @@ namespace InsuranceWebsite.Controllers
 
                 model.SearchCompaniesModel.ResultCompanyItems = InsuranceBusiness.BusinessLayer.SearchHomeApplianceRepairs(companySearchFilter);
 
-                FillModel(model, CurrentUser.ID_User);
+                if (null != CurrentUser)
+                {
+                    FillModel(model, CurrentUser.ID_User);
+                }
             }
             catch (Exception ex)
             {
@@ -2854,7 +2884,7 @@ namespace InsuranceWebsite.Controllers
             return View("Index", model);
         }
 
-        [FunctionalityAutorizeAttribute("SEARCH_INSURANCECONTACTS_FUNCTIONALITY")]
+        //[FunctionalityAutorizeAttribute("SEARCH_INSURANCECONTACTS_FUNCTIONALITY")]
         public ActionResult SearchInsuranceContacts(HomeViewModel model)
         {
             try
@@ -2866,7 +2896,7 @@ namespace InsuranceWebsite.Controllers
                 // Perform Search
                 CompanySearchFilterDTO companySearchFilter = new CompanySearchFilterDTO()
                 {
-                    UserId = CurrentUser.ID_User,
+                    UserId = (null == CurrentUser ? null : CurrentUser.ID_User),
                     InsuranceContactName = model.SearchCompaniesModel.InsuranceContactName,
                     InsuranceContactDistrictID = model.SearchCompaniesModel.InsuranceContactDistrict,
                     InsuranceContactCountyID = model.SearchCompaniesModel.InsuranceContactCounty,
@@ -2877,7 +2907,10 @@ namespace InsuranceWebsite.Controllers
 
                 model.SearchCompaniesModel.ResultCompanyItems = InsuranceBusiness.BusinessLayer.SearchInsuranceCompanyContacts(companySearchFilter);
 
-                FillModel(model, CurrentUser.ID_User);
+                if (null != CurrentUser)
+                {
+                    FillModel(model, CurrentUser.ID_User);
+                }
             }
             catch (Exception ex)
             {

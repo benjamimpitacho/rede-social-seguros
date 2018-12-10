@@ -25,9 +25,11 @@ namespace InsuranceSocialNetworkDAL
                     .Include(i => i.County1)
                     .Include(i => i.Parish1)
                     .Include(i => i.Payment)
-                    .Include(i => i.GarageFavorite);
+                    .Include(i => i.GarageFavorite)
+                    .Where(i => i.Payment.Count == 0
+                        || (i.Payment.Count > 0 && i.Payment.Count(p => p.ID_PaymentStatus == (long)PaymentStatusEnum.PAYED && p.ExpiracyDate > DateTime.Now) > 0));
 
-                if(!string.IsNullOrEmpty(searchFilter.GarageName))
+                if (!string.IsNullOrEmpty(searchFilter.GarageName))
                 {
                     query = query.Where(i => i.Name.ToLower().Contains(searchFilter.GarageName.ToLower()));
                 }
@@ -74,7 +76,9 @@ namespace InsuranceSocialNetworkDAL
                     .Include(i => i.County1)
                     .Include(i => i.Parish1)
                     .Include(i => i.Payment)
-                    .Include(i => i.MedicalClinicFavorite);
+                    .Include(i => i.MedicalClinicFavorite)
+                    .Where(i => i.Payment.Count == 0
+                        || (i.Payment.Count > 0 && i.Payment.Count(p => p.ID_PaymentStatus == (long)PaymentStatusEnum.PAYED && p.ExpiracyDate > DateTime.Now) > 0));
 
                 if (!string.IsNullOrEmpty(searchFilter.ClinicName))
                 {
@@ -123,7 +127,9 @@ namespace InsuranceSocialNetworkDAL
                     .Include(i => i.County1)
                     .Include(i => i.Parish1)
                     .Include(i => i.Payment)
-                    .Include(i => i.ConstructionCompanyFavorite);
+                    .Include(i => i.ConstructionCompanyFavorite)
+                    .Where(i => i.Payment.Count == 0
+                        || (i.Payment.Count > 0 && i.Payment.Count(p => p.ID_PaymentStatus == (long)PaymentStatusEnum.PAYED && p.ExpiracyDate > DateTime.Now) > 0));
 
                 if (!string.IsNullOrEmpty(searchFilter.ConstructionCompanyName))
                 {
@@ -172,7 +178,9 @@ namespace InsuranceSocialNetworkDAL
                     .Include(i => i.County1)
                     .Include(i => i.Parish1)
                     .Include(i => i.Payment)
-                    .Include(i => i.HomeApplianceRepairFavorite);
+                    .Include(i => i.HomeApplianceRepairFavorite)
+                    .Where(i => i.Payment.Count == 0
+                        || (i.Payment.Count > 0 && i.Payment.Count(p => p.ID_PaymentStatus == (long)PaymentStatusEnum.PAYED && p.ExpiracyDate > DateTime.Now) > 0));
 
                 if (!string.IsNullOrEmpty(searchFilter.HomeApplianceRepairName))
                 {
@@ -221,7 +229,9 @@ namespace InsuranceSocialNetworkDAL
                     .Include(i => i.County1)
                     .Include(i => i.Parish1)
                     .Include(i => i.Payment)
-                    .Include(i => i.InsuranceCompanyContactFavorite);
+                    .Include(i => i.InsuranceCompanyContactFavorite)
+                    .Where(i => i.Payment.Count == 0
+                        || (i.Payment.Count > 0 && i.Payment.Count(p => p.ID_PaymentStatus == (long)PaymentStatusEnum.PAYED && p.ExpiracyDate > DateTime.Now) > 0));
 
                 if (!string.IsNullOrEmpty(searchFilter.InsuranceContactName))
                 {

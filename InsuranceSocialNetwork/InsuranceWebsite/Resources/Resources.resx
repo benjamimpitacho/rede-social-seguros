@@ -124,7 +124,7 @@
     <value>Adicione um comentário...</value>
   </data>
   <data name="ASSOCIATED_PREMIUM" xml:space="preserve">
-    <value>Utilizador Premium</value>
+    <value>Utilizador Comum</value>
   </data>
   <data name="ChatGroups" xml:space="preserve">
     <value>Grupos de Conversa</value>
@@ -331,7 +331,7 @@
     <value>Directório Electrodomésticos e Electrónica</value>
   </data>
   <data name="SearchInsuranceContacts" xml:space="preserve">
-    <value>Seguradoras</value>
+    <value>Directório Mediadores</value>
   </data>
   <data name="ClinicName" xml:space="preserve">
     <value>Nome da clínica</value>
@@ -1262,5 +1262,14 @@
   </data>
   <data name="DownloadConsultantStatistics" xml:space="preserve">
     <value>Estatisticas de Colaboradores</value>
+  </data>
+  <data name="MustAcceptTermsAndConditions" xml:space="preserve">
+    <value>Deves autorizar o tratamento de dados e tomar conhecimento dos termos e condições do portal Falar Seguros</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TermsAndConditionsLabel" xml:space="preserve">
+    <value>Autorizo o tratamento dos meus dados pessoais e declaro que tenho conhecimento dos Termos de Utilização, Política de Dados e Utilização de Cookies</value>
   </data>
 </root>

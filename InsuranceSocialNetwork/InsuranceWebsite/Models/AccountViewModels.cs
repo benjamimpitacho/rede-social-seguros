@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using InsuranceWebsite.Validators;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace InsuranceWebsite.Models
@@ -92,6 +93,11 @@ namespace InsuranceWebsite.Models
         [Required(ErrorMessageResourceType = typeof(Resources.Resources), ErrorMessageResourceName = "ProfessionalNumberRequired")]
         [Display(Name = "ProfessionalNumber", ResourceType = typeof(Resources.Resources))]
         public string ProfessionalNumber { get; set; }
+
+        //[Range(typeof(bool), "true", "true", ErrorMessageResourceType = typeof(Resources.Resources), ErrorMessageResourceName = "MustAcceptTermsAndConditions")]
+        [MustBeTrueAttribute(ErrorMessageResourceType = typeof(Resources.Resources), ErrorMessageResourceName = "MustAcceptTermsAndConditions")]
+        [Display(Name = "TermsAndConditionsLabel", ResourceType = typeof(Resources.Resources))]
+        public bool TermsAndConditions { get; set; }
 
         public List<System.Web.Mvc.SelectListItem> UserRoles { get; set; }
     }

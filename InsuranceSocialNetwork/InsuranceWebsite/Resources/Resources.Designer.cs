@@ -439,7 +439,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Utilizador Premium.
+        ///   Looks up a localized string similar to Utilizador Comum.
         /// </summary>
         public static string ASSOCIATED_PREMIUM {
             get {
@@ -1942,6 +1942,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Deves autorizar o tratamento de dados e tomar conhecimento dos termos e condições do portal Falar Seguros.
+        /// </summary>
+        public static string MustAcceptTermsAndConditions {
+            get {
+                return ResourceManager.GetString("MustAcceptTermsAndConditions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Meus Negócios.
         /// </summary>
         public static string MyBusinesses {
@@ -2878,7 +2887,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Seguradoras.
+        ///   Looks up a localized string similar to Directório Mediadores.
         /// </summary>
         public static string SearchInsuranceContacts {
             get {
@@ -3184,6 +3193,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string String1 {
+            get {
+                return ResourceManager.GetString("String1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Talento.
         /// </summary>
         public static string Talent {
@@ -3234,6 +3252,15 @@ namespace Resources {
         public static string TermsAndConditions {
             get {
                 return ResourceManager.GetString("TermsAndConditions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Autorizo o tratamento dos meus dados pessoais e declaro que tenho conhecimento dos Termos de Utilização, Política de Dados e Utilização de Cookies.
+        /// </summary>
+        public static string TermsAndConditionsLabel {
+            get {
+                return ResourceManager.GetString("TermsAndConditionsLabel", resourceCulture);
             }
         }
         

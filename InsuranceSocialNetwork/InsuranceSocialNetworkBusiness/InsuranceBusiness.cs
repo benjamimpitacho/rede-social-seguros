@@ -155,7 +155,7 @@ namespace InsuranceSocialNetworkBusiness
             {
                 "NORMAL_USER"
                 ,"INSURANCE_PROFESSIONAL"
-                //,"ASSOCIATED_PREMIUM"
+                ,"ASSOCIATED_PREMIUM"
             };
             List<AspNetRoles> roles = RoleRepository.GetRoles().Where(i => registerRoles.Contains(i.Name)).OrderBy(i => i.Id).ToList();
             return AutoMapper.Mapper.Map<List<RoleDTO>>(roles);
@@ -1507,8 +1507,11 @@ namespace InsuranceSocialNetworkBusiness
         public List<CompanyDTO> SearchGarages(CompanySearchFilterDTO searchFilter)
         {
             List<Garage> itemsList = CompanyRepository.SearchGarages(searchFilter);
-            itemsList.ForEach(i => i.GarageFavorite = i.GarageFavorite.Where(j => j.ID_User == searchFilter.UserId).ToList());
-            itemsList = itemsList.OrderBy(i => (null != i.GarageFavorite && i.GarageFavorite.Count > 0) ? 0 : 1).ToList();
+            if (!string.IsNullOrEmpty(searchFilter.UserId))
+            {
+                itemsList.ForEach(i => i.GarageFavorite = i.GarageFavorite.Where(j => j.ID_User == searchFilter.UserId).ToList());
+                itemsList = itemsList.OrderBy(i => (null != i.GarageFavorite && i.GarageFavorite.Count > 0) ? 0 : 1).ToList();
+            }
             return AutoMapper.Mapper.Map<List<CompanyDTO>>(itemsList);
         }
 

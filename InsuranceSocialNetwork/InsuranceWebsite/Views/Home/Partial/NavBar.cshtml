@@ -16,7 +16,7 @@
 
             <a href="@Url.Action("Index")"><img src="../../../Content/logos/cinza_simbolo_falar_seguros.png" style="height: 60px;width: 60px;float: left;background-color:#00C1DE;padding:12px;" /></a>
 
-            @if (!InsuranceBusiness.BusinessLayer.IsUserInRoleByUsername(this.User.Identity.Name, RoleEnum.DIRECTORY_COMPANY.ToString()))
+            @if (this.User.Identity.IsAuthenticated && !InsuranceBusiness.BusinessLayer.IsUserInRoleByUsername(this.User.Identity.Name, RoleEnum.DIRECTORY_COMPANY.ToString()))
             {
                 <div class="" style="display:inline;margin-right:10px;">
                     <a href="@Url.Action("Friends", "Home")" title="@Resources.Resources.Friends">
@@ -74,164 +74,179 @@
         <div id="navbar" class="collapse navbar-collapse" style="max-height: 100vh;background-color:#BDC6C9;">
 
             <ul class="nav navbar-nav navbar-right">
-                @if (!InsuranceBusiness.BusinessLayer.IsUserInRoleByUsername(this.User.Identity.Name, RoleEnum.DIRECTORY_COMPANY.ToString()))
-                {
-                <li>
-                    <div class="panel" style="box-shadow:none; background-color:#4B5C66; display:flex; margin-top: 0px;margin-bottom:0px !important;min-height: 62px;">
-                        <a href="@Url.Action("Index", "ProfileInfo")">
-                            <div class="pull-left image" style="padding:8px;margin-left:16px;">
-                                <a href="@Url.Action("ProfileInfo", "Home", new { id = Model.Profile.ID })" style="padding: 0px; text-align: -webkit-center;">
-                                    @if (null == Model.Profile.ProfilePhoto || Model.Profile.ProfilePhoto.Length == 0)
+                
+                    @if (!InsuranceBusiness.BusinessLayer.IsUserInRoleByUsername(this.User.Identity.Name, RoleEnum.DIRECTORY_COMPANY.ToString()))
+                    {
+                        if (this.User.Identity.IsAuthenticated)
+                        {
+                            <li>
+                                <div class="panel" style="box-shadow:none; background-color:#4B5C66; display:flex; margin-top: 0px;margin-bottom:0px !important;min-height: 62px;">
+                                    <a href="@Url.Action("Index", "ProfileInfo")">
+                                        <div class="pull-left image" style="padding:8px;margin-left:16px;">
+                                            <a href="@Url.Action("ProfileInfo", "Home", new { id = Model.Profile.ID })" style="padding: 0px; text-align: -webkit-center;">
+                                                @if (null == Model.Profile.ProfilePhoto || Model.Profile.ProfilePhoto.Length == 0)
+                                                {
+                                                    <img class="thumb media-object" src="~/Content/images/no_photo_img.jpg" alt="" style="border-radius:100px;max-height:50px;border: 2px solid #EDEFF0;">
+                                                }
+                                                else
+                                                {
+                                                    <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.Profile.ProfilePhoto))" class="thumb media-object" style="border-radius:100px;max-height:50px;border: 2px solid #EDEFF0;">
+                                                }
+                                            </a>
+                                        </div>
+                                        <div style="float:left; padding:10px 15px; width: 100%;">
+                                            <div style="color:#fff;font-weight:bold;font-size:14px;">@Model.Profile.FirstName @Model.Profile.LastName</div>
+                                            @if (string.IsNullOrEmpty(Model.Profile.CompanyName))
+                                            {
+                                                <div style="color:#fff;font-size:11px;font-weight:bold;">-</div>
+                                            }
+                                            else
+                                            {
+                                                <div style="color:#fff;font-size:11px;font-weight:bold;">@Model.Profile.CompanyName</div>
+                                            }                            
+                                        </div>
+                                    </a>
+                                </div>
+                            </li>
+                        }
+
+                        <li>
+                            <div id="accordion" style="color:#4B5C66;">
+                                <h5 style="display:flex; min-height:65px;">
+                                    <div class="img-garages" style="margin-left:10px; margin-right:10px;max-width:50px;width:50px;height:40px;display:inline-flex"></div><div style="padding:10px 0px;">@Resources.Resources.SearchGarages <span style="display:block; font-size: 10px;">(EM CONSTRUÇÃO)</span></div>
+                                </h5>
+                                <div>
+                                    @using (Html.BeginForm("SearchGarages", "Home", FormMethod.Post, new { id = "searchGaragesForm" }))
                                     {
-                                        <img class="thumb media-object" src="~/Content/images/no_photo_img.jpg" alt="" style="border-radius:100px;max-height:50px;border: 2px solid #EDEFF0;">
+                                        @Html.TextBoxFor(m => m.SearchCompaniesModel.GarageName, new { @class = "col-md-10", @style = "margin-top: 6px;margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.GarageName })
+                                        @Html.DropDownListFor(m => m.SearchCompaniesModel.GarageServiceID, Model.SearchCompaniesModel.GarageServiceList, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;color:#777;min-height:28px;", @placeholder = Resources.Resources.Services })
+                                        @Html.DropDownListFor(m => m.SearchCompaniesModel.GarageDistrict, Model.SearchCompaniesModel.DistrictList, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;color:#777;min-height:28px;", @placeholder = Resources.Resources.District, id = "garageDistrictList" })
+                                        @Html.DropDownListFor(m => m.SearchCompaniesModel.GarageCounty, Model.SearchCompaniesModel.CountyList, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;color:#777;min-height:28px;", @placeholder = Resources.Resources.Location, id = "garageCountyList" })
+                                        @Html.TextBoxFor(m => m.SearchCompaniesModel.GaragePartnership, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.Partnerships })
+                                        @Html.TextBoxFor(m => m.SearchCompaniesModel.GarageOfficialAgent, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.OfficialAgent })
+
+                                        <div class="col-md-10" style="margin-left:10%;margin-right:10%;width:80%; margin-bottom: 30px; padding: 0px;display:block;">
+                                            <a class="btn btn-info pull-right"  onclick="document.getElementById('searchGaragesForm').submit();" style="width:100%">@Resources.Resources.Search</a>
+                                        </div>
                                     }
-                                    else
+                                </div>
+                                <h5 style="display:flex; min-height:65px;">
+                                    <div class="img-clinics" style="margin-left:10px; margin-right:10px;max-width:50px;width:50px;height:40px;display:inline-flex"></div><div style="padding:10px 0px;">@Resources.Resources.SearchClinics <span style="display:block; font-size: 10px;">(EM CONSTRUÇÃO)</span></div>
+                                </h5>
+                                <div>
+                                    @using (Html.BeginForm("SearchClinics", "Home", FormMethod.Post, new { id = "searchClinicsForm" }))
                                     {
-                                        <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.Profile.ProfilePhoto))" class="thumb media-object" style="border-radius:100px;max-height:50px;border: 2px solid #EDEFF0;">
+                                        @Html.TextBoxFor(m => m.SearchCompaniesModel.ClinicName, new { @class = "col-md-10", @style = "margin-top: 6px;margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.ClinicName })
+                                        @Html.DropDownListFor(m => m.SearchCompaniesModel.ClinicServiceID, Model.SearchCompaniesModel.ClinicServiceList, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;color:#777;min-height:28px;", @placeholder = Resources.Resources.Services })
+                                        @Html.DropDownListFor(m => m.SearchCompaniesModel.ClinicDistrict, Model.SearchCompaniesModel.DistrictList, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;color:#777;min-height:28px;", @placeholder = Resources.Resources.District, id = "clinicDistrictList" })
+                                        @Html.DropDownListFor(m => m.SearchCompaniesModel.ClinicCounty, Model.SearchCompaniesModel.CountyList, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;color:#777;min-height:28px;", @placeholder = Resources.Resources.Location, id = "clinicCountyList" })
+                                        @Html.TextBoxFor(m => m.SearchCompaniesModel.ClinicPartnership, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.Partnerships })
+                                        @Html.TextBoxFor(m => m.SearchCompaniesModel.ClinicOfficialAgent, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.OfficialAgent })
+
+                                        <div class="col-md-10" style="margin-left:10%;margin-right:10%;width:80%; margin-bottom: 30px; padding: 0px;display:block;">
+                                            <a class="btn btn-info pull-right"  onclick="document.getElementById('searchClinicsForm').submit();" style="width:100%">@Resources.Resources.Search</a>
+                                        </div>
                                     }
-                                </a>
+                                </div>
+                                <h5 style="display:flex; min-height:65px;">
+                                    <div class="img-constructioncompanies" style="margin-left:10px; margin-right:10px;max-width:50px;width:50px;height:40px;display:inline-flex"></div><div style="padding:10px 0px;">@Resources.Resources.SearchConstructionCompanies <span style="display:block; font-size: 10px;">(EM CONSTRUÇÃO)</span></div>
+                                </h5>
+                                <div>
+                                    @using (Html.BeginForm("SearchConstructionCompanies", "Home", FormMethod.Post, new { id = "searchConstructionCompaniesForm" }))
+                                    {
+                                        @Html.TextBoxFor(m => m.SearchCompaniesModel.ConstructionCompanyName, new { @class = "col-md-10", @style = "margin-top: 6px;margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.ConstructionCompanyName })
+                                        @Html.DropDownListFor(m => m.SearchCompaniesModel.ConstructionCompanyServiceID, Model.SearchCompaniesModel.ConstructionCompanyServiceList, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;color:#777;min-height:28px;", @placeholder = Resources.Resources.Services })
+                                        @Html.DropDownListFor(m => m.SearchCompaniesModel.ConstructionCompanyDistrict, Model.SearchCompaniesModel.DistrictList, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;color:#777;min-height:28px;", @placeholder = Resources.Resources.District, id = "constructionCompanyDistrictList" })
+                                        @Html.DropDownListFor(m => m.SearchCompaniesModel.ConstructionCompanyCounty, Model.SearchCompaniesModel.CountyList, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;color:#777;min-height:28px;", @placeholder = Resources.Resources.Location, id = "constructionCompanyCountyList" })
+                                        @Html.TextBoxFor(m => m.SearchCompaniesModel.ConstructionCompanyPartnership, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.Partnerships })
+                                        @Html.TextBoxFor(m => m.SearchCompaniesModel.ConstructionCompanyOfficialAgent, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.OfficialAgent })
+
+                                        <div class="col-md-10" style="margin-left:10%;margin-right:10%;width:80%; margin-bottom: 30px; padding: 0px;display:block;">
+                                            <a class="btn btn-info pull-right"  onclick="document.getElementById('searchConstructionCompaniesForm').submit();" style="width:100%">@Resources.Resources.Search</a>
+                                        </div>
+                                    }
+                                </div>
+                                <h5 style="display:flex; min-height:65px;">
+                                    <div class="img-homeappliances" style="margin-left:10px; margin-right:10px;max-width:50px;width:50px;height:40px;display:inline-flex"></div><div style="padding:10px 0px;">@Resources.Resources.SearchHomeApplianceRepair <span style="display:block; font-size: 10px;">(EM CONSTRUÇÃO)</span></div>
+                                </h5>
+                                <div>
+                                    @using (Html.BeginForm("SearchHomeApplianceRepair", "Home", FormMethod.Post, new { id = "searchHomeApplianceRepairForm" }))
+                                    {
+                                        @Html.TextBoxFor(m => m.SearchCompaniesModel.HomeApplianceRepairName, new { @class = "col-md-10", @style = "margin-top: 6px;margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.HomeApplianceRepairName })
+                                        @Html.DropDownListFor(m => m.SearchCompaniesModel.HomeApplianceRepairServiceID, Model.SearchCompaniesModel.HomeApplianceRepairServiceList, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;color:#777;min-height:28px;", @placeholder = Resources.Resources.Services })
+                                        @Html.DropDownListFor(m => m.SearchCompaniesModel.HomeApplianceRepairDistrict, Model.SearchCompaniesModel.DistrictList, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;color:#777;min-height:28px;", @placeholder = Resources.Resources.District, id = "homeApplianceRepairDistrictList" })
+                                        @Html.DropDownListFor(m => m.SearchCompaniesModel.HomeApplianceRepairCounty, Model.SearchCompaniesModel.CountyList, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;color:#777;min-height:28px;", @placeholder = Resources.Resources.Location, id = "homeApplianceRepairCountyList" })
+                                        @Html.TextBoxFor(m => m.SearchCompaniesModel.HomeApplianceRepairPartnership, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.Partnerships })
+                                        @Html.TextBoxFor(m => m.SearchCompaniesModel.HomeApplianceRepairOfficialAgent, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.OfficialAgent })
+
+                                        <div class="col-md-10" style="margin-left:10%;margin-right:10%;width:80%; margin-bottom: 30px; padding: 0px;display:block;">
+                                            <a class="btn btn-info pull-right"  onclick="document.getElementById('searchHomeApplianceRepairForm').submit();" style="width:100%">@Resources.Resources.Search</a>
+                                        </div>
+                                    }
+                                </div>
+                                <h5 style="display:flex; min-height:65px;">
+                                    <div class="img-insurancecontacts" style="margin-left:10px; margin-right:10px;max-width:50px;width:50px;height:40px;display:inline-flex"></div><div style="padding:10px 0px;">@Resources.Resources.SearchInsuranceContacts <span style="display:block; font-size: 10px;">(EM CONSTRUÇÃO)</span></div>
+                                </h5>
+                                <div>
+                                    @using (Html.BeginForm("SearchInsuranceContacts", "Home", FormMethod.Post, new { id = "searchInsuranceContactsForm" }))
+                                    {
+                                        @Html.TextBoxFor(m => m.SearchCompaniesModel.InsuranceContactName, new { @class = "col-md-10", @style = "margin-top: 6px;margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.InsuranceContactName })
+                                        @Html.DropDownListFor(m => m.SearchCompaniesModel.InsuranceContactServiceID, Model.SearchCompaniesModel.InsuranceContactServiceList, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;color:#777;min-height:28px;", @placeholder = Resources.Resources.Services })
+                                        @Html.DropDownListFor(m => m.SearchCompaniesModel.InsuranceContactDistrict, Model.SearchCompaniesModel.DistrictList, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;color:#777;min-height:28px;", @placeholder = Resources.Resources.District, id = "insuranceContactDistrictList" })
+                                        @Html.DropDownListFor(m => m.SearchCompaniesModel.InsuranceContactCounty, Model.SearchCompaniesModel.CountyList, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;color:#777;min-height:28px;", @placeholder = Resources.Resources.Location, id = "insuranceContactCountyList" })
+                                        @Html.TextBoxFor(m => m.SearchCompaniesModel.InsuranceContactPartnership, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.Partnerships })
+                                        @Html.TextBoxFor(m => m.SearchCompaniesModel.InsuranceContactOfficialAgent, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.OfficialAgent })
+
+                                        <div class="col-md-10" style="margin-left:10%;margin-right:10%;width:80%; margin-bottom: 30px; padding: 0px;display:block;">
+                                            <a class="btn btn-info pull-right"  onclick="document.getElementById('searchInsuranceContactsForm').submit();" style="width:100%">@Resources.Resources.Search</a>
+                                        </div>
+                                    }
+                                </div>
                             </div>
-                            <div style="float:left; padding:10px 15px; width: 100%;">
-                                <div style="color:#fff;font-weight:bold;font-size:14px;">@Model.Profile.FirstName @Model.Profile.LastName</div>
-                                @if (string.IsNullOrEmpty(Model.Profile.CompanyName))
-                                {
-                                    <div style="color:#fff;font-size:11px;font-weight:bold;">-</div>
-                                }
-                                else
-                                {
-                                    <div style="color:#fff;font-size:11px;font-weight:bold;">@Model.Profile.CompanyName</div>
-                                }                            
+                        </li>
+                    }
+                    @if (this.User.Identity.IsAuthenticated)
+                    {
+                        <li>
+                            <div class="panel" style="box-shadow:none; background-color:transparent; display:flex; margin-top: 0px;margin-bottom:0px !important;">
+                                <h5 class="btn-rightbar" style="margin: 0px; width:100%;color:#4B5C66;"><img src="~/Content/icons/home_page_rede_social_falar_seguros_AF149.png" style="margin-left:10px; margin-right:10px;max-width:50px;" />@Html.ActionLink(Resources.Resources.InsuranceBusinesses, "InsuranceBusinesses", "Home")</h5>
                             </div>
-                        </a>
-                    </div>
-                </li>
+                        </li>
 
-                <li>
-                    <div id="accordion" style="color:#4B5C66;">
-                        <h5 style="display:flex; min-height:65px;">
-                            <div class="img-garages" style="margin-left:10px; margin-right:10px;max-width:50px;width:50px;height:40px;display:inline-flex"></div><div style="padding:10px 0px;">@Resources.Resources.SearchGarages <span style="display:block; font-size: 10px;">(EM CONSTRUÇÃO)</span></div>
-                        </h5>
-                        <div>
-                            @using (Html.BeginForm("SearchGarages", "Home", FormMethod.Post, new { id = "searchGaragesForm" }))
-                            {
-                                @Html.TextBoxFor(m => m.SearchCompaniesModel.GarageName, new { @class = "col-md-10", @style = "margin-top: 6px;margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.GarageName })
-                                @Html.DropDownListFor(m => m.SearchCompaniesModel.GarageServiceID, Model.SearchCompaniesModel.GarageServiceList, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;color:#777;min-height:28px;", @placeholder = Resources.Resources.Services })
-                                @Html.DropDownListFor(m => m.SearchCompaniesModel.GarageDistrict, Model.SearchCompaniesModel.DistrictList, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;color:#777;min-height:28px;", @placeholder = Resources.Resources.District, id = "garageDistrictList" })
-                                @Html.DropDownListFor(m => m.SearchCompaniesModel.GarageCounty, Model.SearchCompaniesModel.CountyList, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;color:#777;min-height:28px;", @placeholder = Resources.Resources.Location, id = "garageCountyList" })
-                                @Html.TextBoxFor(m => m.SearchCompaniesModel.GaragePartnership, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.Partnerships })
-                                @Html.TextBoxFor(m => m.SearchCompaniesModel.GarageOfficialAgent, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.OfficialAgent })
+                        <li>
+                            <div class="panel" style="box-shadow:none; background-color:transparent; display:flex; margin-top: 0px;margin-bottom:0px !important;">
+                                <h5 class="btn-rightbar" style="margin: 0px; width:100%;color:#4B5C66;"><img src="~/Content/icons/home_page_rede_social_falar_seguros_AF152.png" style="margin-left:10px; margin-right:10px;max-width:50px;" />@Html.ActionLink(Resources.Resources.HRInsurances, "HRInsurances", "Home")</h5>
+                            </div>
+                        </li>
 
-                                <div class="col-md-10" style="margin-left:10%;margin-right:10%;width:80%; margin-bottom: 30px; padding: 0px;display:block;">
-                                    <a class="btn btn-info pull-right"  onclick="document.getElementById('searchGaragesForm').submit();" style="width:100%">@Resources.Resources.Search</a>
-                                </div>
-                            }
-                        </div>
-                        <h5 style="display:flex; min-height:65px;">
-                            <div class="img-clinics" style="margin-left:10px; margin-right:10px;max-width:50px;width:50px;height:40px;display:inline-flex"></div><div style="padding:10px 0px;">@Resources.Resources.SearchClinics <span style="display:block; font-size: 10px;">(EM CONSTRUÇÃO)</span></div>
-                        </h5>
-                        <div>
-                            @using (Html.BeginForm("SearchClinics", "Home", FormMethod.Post, new { id = "searchClinicsForm" }))
-                            {
-                                @Html.TextBoxFor(m => m.SearchCompaniesModel.ClinicName, new { @class = "col-md-10", @style = "margin-top: 6px;margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.ClinicName })
-                                @Html.DropDownListFor(m => m.SearchCompaniesModel.ClinicServiceID, Model.SearchCompaniesModel.ClinicServiceList, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;color:#777;min-height:28px;", @placeholder = Resources.Resources.Services })
-                                @Html.DropDownListFor(m => m.SearchCompaniesModel.ClinicDistrict, Model.SearchCompaniesModel.DistrictList, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;color:#777;min-height:28px;", @placeholder = Resources.Resources.District, id = "clinicDistrictList" })
-                                @Html.DropDownListFor(m => m.SearchCompaniesModel.ClinicCounty, Model.SearchCompaniesModel.CountyList, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;color:#777;min-height:28px;", @placeholder = Resources.Resources.Location, id = "clinicCountyList" })
-                                @Html.TextBoxFor(m => m.SearchCompaniesModel.ClinicPartnership, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.Partnerships })
-                                @Html.TextBoxFor(m => m.SearchCompaniesModel.ClinicOfficialAgent, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.OfficialAgent })
+                        <li>
+                            <div class="panel" style="box-shadow:none; background-color:transparent; display:flex; margin-top: 0px;margin-bottom:0px !important;">
+                                <h5 class="btn-rightbar" style="margin-left: 0px;color:#4B5C66; margin-top:0px;"><img src="~/Content/icons/home_page_rede_social_falar_seguros_AF155.png" style="margin: 0px; max-width:50px;" />@Html.ActionLink(Resources.Resources.InDiscussion, "CurrentDiscussions", "Home")</h5>
+                                <h5 class="btn-rightbar" style="margin-right: 0px;color:#4B5C66; margin-top:0px;"><a href="/Home/AsfPage"><img src="~/Content/images/ASF_Logotipo.jpg" style="margin: 0px; margin-right: 0px; max-width:175px;" /></a></h5>
+                            </div>
+                        </li>
 
-                                <div class="col-md-10" style="margin-left:10%;margin-right:10%;width:80%; margin-bottom: 30px; padding: 0px;display:block;">
-                                    <a class="btn btn-info pull-right"  onclick="document.getElementById('searchClinicsForm').submit();" style="width:100%">@Resources.Resources.Search</a>
-                                </div>
-                            }
-                        </div>
-                        <h5 style="display:flex; min-height:65px;">
-                            <div class="img-constructioncompanies" style="margin-left:10px; margin-right:10px;max-width:50px;width:50px;height:40px;display:inline-flex"></div><div style="padding:10px 0px;">@Resources.Resources.SearchConstructionCompanies <span style="display:block; font-size: 10px;">(EM CONSTRUÇÃO)</span></div>
-                        </h5>
-                        <div>
-                            @using (Html.BeginForm("SearchConstructionCompanies", "Home", FormMethod.Post, new { id = "searchConstructionCompaniesForm" }))
-                            {
-                                @Html.TextBoxFor(m => m.SearchCompaniesModel.ConstructionCompanyName, new { @class = "col-md-10", @style = "margin-top: 6px;margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.ConstructionCompanyName })
-                                @Html.DropDownListFor(m => m.SearchCompaniesModel.ConstructionCompanyServiceID, Model.SearchCompaniesModel.ConstructionCompanyServiceList, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;color:#777;min-height:28px;", @placeholder = Resources.Resources.Services })
-                                @Html.DropDownListFor(m => m.SearchCompaniesModel.ConstructionCompanyDistrict, Model.SearchCompaniesModel.DistrictList, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;color:#777;min-height:28px;", @placeholder = Resources.Resources.District, id = "constructionCompanyDistrictList" })
-                                @Html.DropDownListFor(m => m.SearchCompaniesModel.ConstructionCompanyCounty, Model.SearchCompaniesModel.CountyList, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;color:#777;min-height:28px;", @placeholder = Resources.Resources.Location, id = "constructionCompanyCountyList" })
-                                @Html.TextBoxFor(m => m.SearchCompaniesModel.ConstructionCompanyPartnership, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.Partnerships })
-                                @Html.TextBoxFor(m => m.SearchCompaniesModel.ConstructionCompanyOfficialAgent, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.OfficialAgent })
+                        <li>
+                            <div class="panel" style="box-shadow:none; background-color:transparent; display:flex; margin-top: 0px;margin-bottom:0px !important; min-height:62px">
+                                <h5 class="btn-rightbar" style="margin-left: 0px;color:#4B5C66; margin-top:0px;"><img src="~/Content/icons/home_page_rede_social_falar_seguros_AF155.png" style="margin: 0px; margin-left: 0px; max-width:50px;" />@Html.ActionLink(Resources.Resources.APROSE, "AprosePage", "Home")</h5>
+                                <h5 class="btn-rightbar" style="margin-right: 0px;color:#4B5C66; margin-top:0px;"><a href="/Home/ApsPage"><img src="~/Content/images/logo_aps.png" style="margin: 0px; margin-right: 0px; max-width:155px;padding-top:5px;" /></a>@*<img src="~/Content/images/logo_aps.png" style="margin-left:10px; margin-right:10px;max-width:175px;" />@Html.ActionLink(Resources.Resources.APS, "ApsPage", "Home")*@</h5>
+                            </div>
+                        </li>
 
-                                <div class="col-md-10" style="margin-left:10%;margin-right:10%;width:80%; margin-bottom: 30px; padding: 0px;display:block;">
-                                    <a class="btn btn-info pull-right"  onclick="document.getElementById('searchConstructionCompaniesForm').submit();" style="width:100%">@Resources.Resources.Search</a>
-                                </div>
-                            }
-                        </div>
-                        <h5 style="display:flex; min-height:65px;">
-                            <div class="img-homeappliances" style="margin-left:10px; margin-right:10px;max-width:50px;width:50px;height:40px;display:inline-flex"></div><div style="padding:10px 0px;">@Resources.Resources.SearchHomeApplianceRepair <span style="display:block; font-size: 10px;">(EM CONSTRUÇÃO)</span></div>
-                        </h5>
-                        <div>
-                            @using (Html.BeginForm("SearchHomeApplianceRepair", "Home", FormMethod.Post, new { id = "searchHomeApplianceRepairForm" }))
-                            {
-                                @Html.TextBoxFor(m => m.SearchCompaniesModel.HomeApplianceRepairName, new { @class = "col-md-10", @style = "margin-top: 6px;margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.HomeApplianceRepairName })
-                                @Html.DropDownListFor(m => m.SearchCompaniesModel.HomeApplianceRepairServiceID, Model.SearchCompaniesModel.HomeApplianceRepairServiceList, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;color:#777;min-height:28px;", @placeholder = Resources.Resources.Services })
-                                @Html.DropDownListFor(m => m.SearchCompaniesModel.HomeApplianceRepairDistrict, Model.SearchCompaniesModel.DistrictList, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;color:#777;min-height:28px;", @placeholder = Resources.Resources.District, id = "homeApplianceRepairDistrictList" })
-                                @Html.DropDownListFor(m => m.SearchCompaniesModel.HomeApplianceRepairCounty, Model.SearchCompaniesModel.CountyList, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;color:#777;min-height:28px;", @placeholder = Resources.Resources.Location, id = "homeApplianceRepairCountyList" })
-                                @Html.TextBoxFor(m => m.SearchCompaniesModel.HomeApplianceRepairPartnership, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.Partnerships })
-                                @Html.TextBoxFor(m => m.SearchCompaniesModel.HomeApplianceRepairOfficialAgent, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.OfficialAgent })
-
-                                <div class="col-md-10" style="margin-left:10%;margin-right:10%;width:80%; margin-bottom: 30px; padding: 0px;display:block;">
-                                    <a class="btn btn-info pull-right"  onclick="document.getElementById('searchHomeApplianceRepairForm').submit();" style="width:100%">@Resources.Resources.Search</a>
-                                </div>
-                            }
-                        </div>
-                        <h5 style="display:flex; min-height:65px;">
-                            <div class="img-insurancecontacts" style="margin-left:10px; margin-right:10px;max-width:50px;width:50px;height:40px;display:inline-flex"></div><div style="padding:10px 0px;">@Resources.Resources.SearchInsuranceContacts <span style="display:block; font-size: 10px;">(EM CONSTRUÇÃO)</span></div>
-                        </h5>
-                        <div>
-                            @using (Html.BeginForm("SearchInsuranceContacts", "Home", FormMethod.Post, new { id = "searchInsuranceContactsForm" }))
-                            {
-                                @Html.TextBoxFor(m => m.SearchCompaniesModel.InsuranceContactName, new { @class = "col-md-10", @style = "margin-top: 6px;margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.InsuranceContactName })
-                                @Html.DropDownListFor(m => m.SearchCompaniesModel.InsuranceContactServiceID, Model.SearchCompaniesModel.InsuranceContactServiceList, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;color:#777;min-height:28px;", @placeholder = Resources.Resources.Services })
-                                @Html.DropDownListFor(m => m.SearchCompaniesModel.InsuranceContactDistrict, Model.SearchCompaniesModel.DistrictList, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;color:#777;min-height:28px;", @placeholder = Resources.Resources.District, id = "insuranceContactDistrictList" })
-                                @Html.DropDownListFor(m => m.SearchCompaniesModel.InsuranceContactCounty, Model.SearchCompaniesModel.CountyList, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;color:#777;min-height:28px;", @placeholder = Resources.Resources.Location, id = "insuranceContactCountyList" })
-                                @Html.TextBoxFor(m => m.SearchCompaniesModel.InsuranceContactPartnership, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.Partnerships })
-                                @Html.TextBoxFor(m => m.SearchCompaniesModel.InsuranceContactOfficialAgent, new { @class = "col-md-10", @style = "margin-left:10%;margin-right:10%;width:80%;", @placeholder = Resources.Resources.OfficialAgent })
-
-                                <div class="col-md-10" style="margin-left:10%;margin-right:10%;width:80%; margin-bottom: 30px; padding: 0px;display:block;">
-                                    <a class="btn btn-info pull-right"  onclick="document.getElementById('searchInsuranceContactsForm').submit();" style="width:100%">@Resources.Resources.Search</a>
-                                </div>
-                            }
-                        </div>
-                    </div>
-                </li>
-                }
-                <li>
-                    <div class="panel" style="box-shadow:none; background-color:transparent; display:flex; margin-top: 0px;margin-bottom:0px !important;">
-                        <h5 class="btn-rightbar" style="margin: 0px; width:100%;color:#4B5C66;"><img src="~/Content/icons/home_page_rede_social_falar_seguros_AF149.png" style="margin-left:10px; margin-right:10px;max-width:50px;" />@Html.ActionLink(Resources.Resources.InsuranceBusinesses, "InsuranceBusinesses", "Home")</h5>
-                    </div>
-                </li>
-
-                <li>
-                    <div class="panel" style="box-shadow:none; background-color:transparent; display:flex; margin-top: 0px;margin-bottom:0px !important;">
-                        <h5 class="btn-rightbar" style="margin: 0px; width:100%;color:#4B5C66;"><img src="~/Content/icons/home_page_rede_social_falar_seguros_AF152.png" style="margin-left:10px; margin-right:10px;max-width:50px;" />@Html.ActionLink(Resources.Resources.HRInsurances, "HRInsurances", "Home")</h5>
-                    </div>
-                </li>
-
-                <li>
-                    <div class="panel" style="box-shadow:none; background-color:transparent; display:flex; margin-top: 0px;margin-bottom:0px !important;">
-                        <h5 class="btn-rightbar" style="margin-left: 0px;color:#4B5C66; margin-top:0px;"><img src="~/Content/icons/home_page_rede_social_falar_seguros_AF155.png" style="margin: 0px; max-width:50px;" />@Html.ActionLink(Resources.Resources.InDiscussion, "CurrentDiscussions", "Home")</h5>
-                        <h5 class="btn-rightbar" style="margin-right: 0px;color:#4B5C66; margin-top:0px;"><a href="/Home/AsfPage"><img src="~/Content/images/ASF_Logotipo.jpg" style="margin: 0px; margin-right: 0px; max-width:175px;" /></a></h5>
-                    </div>
-                </li>
-                    
-                <li>
-                    <div class="panel" style="box-shadow:none; background-color:transparent; display:flex; margin-top: 0px;margin-bottom:0px !important; min-height:62px">
-                        <h5 class="btn-rightbar" style="margin-left: 0px;color:#4B5C66; margin-top:0px;"><img src="~/Content/icons/home_page_rede_social_falar_seguros_AF155.png" style="margin: 0px; margin-left: 0px; max-width:50px;" />@Html.ActionLink(Resources.Resources.APROSE, "AprosePage", "Home")</h5>
-                        <h5 class="btn-rightbar" style="margin-right: 0px;color:#4B5C66; margin-top:0px;"><a href="/Home/ApsPage"><img src="~/Content/images/logo_aps.png" style="margin: 0px; margin-right: 0px; max-width:155px;padding-top:5px;" /></a>@*<img src="~/Content/images/logo_aps.png" style="margin-left:10px; margin-right:10px;max-width:175px;" />@Html.ActionLink(Resources.Resources.APS, "ApsPage", "Home")*@</h5>
-                    </div>
-                </li>
-
-                <li>
-                    <div class="panel" style="box-shadow:none; background-color:transparent; display:flex; margin-top: 0px;margin-bottom:0px !important;">
-                        <h5 class="btn-rightbar" style="margin: 0px; width:100%;color:#4B5C66;"><img src="~/Content/icons/home_page_rede_social_falar_seguros_AF128.png" style="margin-left:10px; margin-right:10px;max-width:50px;" />@Html.ActionLink(Resources.Resources.Logout, "LogOff", "Account")</h5>
-                    </div>
-                </li>
+                        <li>
+                            <div class="panel" style="box-shadow:none; background-color:transparent; display:flex; margin-top: 0px;margin-bottom:0px !important;">
+                                <h5 class="btn-rightbar" style="margin: 0px; width:100%;color:#4B5C66;"><img src="~/Content/icons/home_page_rede_social_falar_seguros_AF128.png" style="margin-left:10px; margin-right:10px;max-width:50px;" />@Html.ActionLink(Resources.Resources.Logout, "LogOff", "Account")</h5>
+                            </div>
+                        </li>
+                    }
+                    else
+                    {
+                        <li style="height: 60px;">
+                            <div class="panel" style="box-shadow:none; background-color:transparent; display:flex; margin-top: 0px;margin-bottom:0px !important; padding: 12px; background-color: #00C1DE;">
+                                <a href="@Url.Action("Login", "Account", new { id = new Nullable<long>() })" title="@Resources.Resources.Login.ToUpper()" class="btn btn-info pull-center" style="font-weight: bold; width: 100%;">@Resources.Resources.Login.ToUpper()</a>
+                            </div>
+                        </li>
+                    }
 
                 <li style="height:60px;width:100%;"></li>
 

@@ -2834,9 +2834,14 @@ a:hover, a:active, a:focus {
     background-size: 50px;
 }
 
-@media (max-width:481px)  { 
+@media (max-width:481px)  {
+    .topMarginForContent
+    {
+        height: 60px;
+    }
+
     .welcome-title {
-        font-size: 40px; 
+        font-size: 40px;
     }
 
     .welcome-desc {
@@ -2861,7 +2866,7 @@ a:hover, a:active, a:focus {
     .welcome-inputs form {
         padding: 10px 0px 0px 10px;
         width: 100%;
-        max-width: 300px;
+        max-width: 100%;
         /*overflow: auto;*/
         margin-right: 20px;
         float: right;
@@ -2988,6 +2993,9 @@ a:hover, a:active, a:focus {
 
 @media (max-device-width: 480px)
 {
+    .topMarginForContent {
+        height: 60px;
+    }
     .welcome-title {
         font-size: 40px;
     }
@@ -3014,7 +3022,7 @@ a:hover, a:active, a:focus {
         .welcome-inputs form {
             padding: 10px 0px 0px 10px;
             width: 100%;
-            max-width: 300px;
+            max-width: 300%;
             /*overflow: auto;*/
             margin-right: 20px;
             float: right;

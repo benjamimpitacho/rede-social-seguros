@@ -270,6 +270,7 @@
     </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="Utils\BusinessItemsLists.cs" />
+    <Compile Include="Validators\MustBeTrueAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ChatScripts\angular.min.js" />
@@ -670,6 +671,7 @@
     <Content Include="Views\Account\EmailTemplates\RegisterConfirmationTemplate.html" />
     <Content Include="Views\Account\EmailTemplates\ActivationApprovedTemplate.html" />
     <Content Include="Views\CompaniesManagement\EmailTemplates\PaymentGeneratedTemplate.html" />
+    <Content Include="Views\CompaniesManagement\EmailTemplates\RegistWelcomeTemplateWithPayment.html" />
     <Content Include="Views\CompaniesManagement\EmailTemplates\RegistWelcomeTemplate.html" />
     <Content Include="Views\NotificationsManagement\EmailTemplates\PaymentConfirmationTemplate.html" />
     <Content Include="Web.config">

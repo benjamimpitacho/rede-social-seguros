@@ -14,7 +14,7 @@
 
                 <div id="accordion" class="">
                     <h5 style="display:flex; min-height:65px;">
-                        <div class="img-garages" style="margin-left:10px; margin-right:10px;max-width:50px;width:50px;height:40px;display:inline-flex"></div><div style="padding:10px 0px;">@Resources.Resources.SearchGarages <span style="display:block; font-size: 10px;">(EM CONSTRUÇÃO)</span></div>
+                        <div class="img-garages" style="margin-left:10px; margin-right:10px;max-width:50px;width:50px;height:40px;display:inline-flex"></div><div style="padding:10px 0px;">@Resources.Resources.SearchGarages @*<span style="display:block; font-size: 10px;">(EM CONSTRUÇÃO)</span>*@</div>
                     </h5>
                     <div>
                         @using (Html.BeginForm("SearchGarages", "Home", FormMethod.Post, new { id = "searchGaragesForm" }))
@@ -32,7 +32,7 @@
                         }
                     </div>
                     <h5 style="display:flex; min-height:65px;">
-                        <div class="img-clinics" style="margin-left:10px; margin-right:10px;max-width:50px;width:50px;height:40px;display:inline-flex"></div><div style="padding:10px 0px;">@Resources.Resources.SearchClinics <span style="display:block; font-size: 10px;">(EM CONSTRUÇÃO)</span></div>
+                        <div class="img-clinics" style="margin-left:10px; margin-right:10px;max-width:50px;width:50px;height:40px;display:inline-flex"></div><div style="padding:10px 0px;">@Resources.Resources.SearchClinics @*<span style="display:block; font-size: 10px;">(EM CONSTRUÇÃO)</span>*@</div>
                     </h5>
                     <div>
                         @using (Html.BeginForm("SearchClinics", "Home", FormMethod.Post, new { id = "searchClinicsForm" }))
@@ -50,7 +50,7 @@
                         }
                     </div>
                     <h5 style="display:flex; min-height:65px;">
-                        <div class="img-constructioncompanies" style="margin-left:10px; margin-right:10px;max-width:50px;width:50px;height:40px;display:inline-flex"></div><div style="padding:10px 0px;">@Resources.Resources.SearchConstructionCompanies <span style="display:block; font-size: 10px;">(EM CONSTRUÇÃO)</span></div>
+                        <div class="img-constructioncompanies" style="margin-left:10px; margin-right:10px;max-width:50px;width:50px;height:40px;display:inline-flex"></div><div style="padding:10px 0px;">@Resources.Resources.SearchConstructionCompanies @*<span style="display:block; font-size: 10px;">(EM CONSTRUÇÃO)</span>*@</div>
                     </h5>
                     <div>
                         @using (Html.BeginForm("SearchConstructionCompanies", "Home", FormMethod.Post, new { id = "searchConstructionCompaniesForm" }))
@@ -68,7 +68,7 @@
                         }
                     </div>
                     <h5 style="display:flex; min-height:65px;">
-                        <div class="img-homeappliances" style="margin-left:10px; margin-right:10px;max-width:50px;width:50px;height:40px;display:inline-flex"></div><div style="padding:10px 0px;">@Resources.Resources.SearchHomeApplianceRepair <span style="display:block; font-size: 10px;">(EM CONSTRUÇÃO)</span></div>
+                        <div class="img-homeappliances" style="margin-left:10px; margin-right:10px;max-width:50px;width:50px;height:40px;display:inline-flex"></div><div style="padding:10px 0px;">@Resources.Resources.SearchHomeApplianceRepair @*<span style="display:block; font-size: 10px;">(EM CONSTRUÇÃO)</span>*@</div>
                     </h5>
                     <div>
                         @using (Html.BeginForm("SearchHomeApplianceRepair", "Home", FormMethod.Post, new { id = "searchHomeApplianceRepairForm" }))
@@ -86,7 +86,7 @@
                         }
                     </div>
                     <h5 style="display:flex; min-height:65px;">
-                        <div class="img-insurancecontacts" style="margin-left:10px; margin-right:10px;max-width:50px;width:50px;height:40px;display:inline-flex"></div><div style="padding:10px 0px;">@Resources.Resources.SearchInsuranceContacts <span style="display:block; font-size: 10px;">(EM CONSTRUÇÃO)</span></div>
+                        <div class="img-insurancecontacts" style="margin-left:10px; margin-right:10px;max-width:50px;width:50px;height:40px;display:inline-flex"></div><div style="padding:10px 0px;">@Resources.Resources.SearchInsuranceContacts @*<span style="display:block; font-size: 10px;">(EM CONSTRUÇÃO)</span>*@</div>
                     </h5>
                     <div>
                         @using (Html.BeginForm("SearchInsuranceContacts", "Home", FormMethod.Post, new { id = "searchInsuranceContactsForm" }))
@@ -110,31 +110,61 @@
         </div>
     }
 
-    <div class="profile-nav">
-
-            <div class="panel" style="box-shadow:none; background-color:transparent; display:flex; margin-bottom: 4px; margin-top: 0px;">
-                <h5 class="btn-rightbar" style="margin: 0px; width:100%;"><img src="~/Content/icons/home_page_rede_social_falar_seguros_AF149.png" style="margin-left:10px; margin-right:10px;max-width:50px;"/>@Html.ActionLink(Resources.Resources.InsuranceBusinesses, "InsuranceBusinesses", "Home")</h5>
-                @*<h5 class="btn-rightbar" style="margin: 0px; width:100%;"><img src="~/Content/icons/home_page_rede_social_falar_seguros_AF149.png" style="margin-left:10px; margin-right:10px;max-width:50px;" />@Resources.Resources.SafeBusinesses</h5>*@
-            </div>
-
-            <div class="panel" style="box-shadow:none; background-color:transparent; display:flex; margin-bottom: 4px; margin-top: 0px;">
-                <h5 class="btn-rightbar" style="margin: 0px; width:100%;"><img src="~/Content/icons/home_page_rede_social_falar_seguros_AF152.png" style="margin-left:10px; margin-right:10px;max-width:50px;" />@Html.ActionLink(Resources.Resources.HRInsurances, "HRInsurances", "Home")</h5>
-                @*<h5 class="btn-rightbar" style="margin: 0px; width:100%;"><img src="~/Content/icons/home_page_rede_social_falar_seguros_AF152.png" style="margin-left:10px; margin-right:10px;max-width:50px;" />@Resources.Resources.HRInsurances</h5>*@
-            </div>
-
-            <div class="panel" style="box-shadow:none; background-color:transparent; display:flex; margin-bottom: 4px; margin-top: 0px;">
-                <h5 class="btn-rightbar" style="margin-left: 0px;"><img src="~/Content/icons/home_page_rede_social_falar_seguros_AF155.png" style="margin: 0px; max-width:50px;" />@Html.ActionLink(Resources.Resources.InDiscussion, "CurrentDiscussions", "Home")</h5>
-                <h5 class="btn-rightbar" style="margin-right: 0px;"><a href="/Home/AsfPage"><img src="~/Content/images/ASF_Logotipo.jpg" style="margin: 0px; margin-right: 0px; max-width:175px;" /></a></h5>
-            </div>
-
-            <div class="panel" style="box-shadow:none; background-color:transparent; display:flex; margin-bottom: 4px; margin-top: 0px; min-height:62px">
-                <h5 class="btn-rightbar" style="margin-left: 0px;"><img src="~/Content/icons/home_page_rede_social_falar_seguros_AF155.png" style="margin: 0px; margin-left: 0px; max-width:50px;" />@Html.ActionLink(Resources.Resources.APROSE, "AprosePage", "Home")</h5>
-                <h5 class="btn-rightbar" style="margin-right: 0px;"><a href="/Home/ApsPage"><img src="~/Content/images/logo_aps.png" style="margin: 0px; margin-right: 0px; max-width:155px;padding-top:5px;" /></a>@*<img src="~/Content/images/logo_aps.png" style="margin-left:10px; margin-right:10px;max-width:175px;" />@Html.ActionLink(Resources.Resources.APS, "ApsPage", "Home")*@</h5>
-            </div>
-
+    @if (this.User.Identity.IsAuthenticated)
+    {
+        <div class="profile-nav">
+            @if (!InsuranceBusiness.BusinessLayer.IsUserInRoleByUsername(this.User.Identity.Name, RoleEnum.ASSOCIATED_PREMIUM.ToString()))
+    {
+        <div class="panel" style="box-shadow:none; background-color:transparent; display:flex; margin-bottom: 4px; margin-top: 0px;">
+            <h5 class="btn-rightbar" style="margin: 0px; width:100%;"><img src="~/Content/icons/home_page_rede_social_falar_seguros_AF149.png" style="margin-left:10px; margin-right:10px;max-width:50px;" />@Html.ActionLink(Resources.Resources.InsuranceBusinesses, "InsuranceBusinesses", "Home")</h5>
+            @*<h5 class="btn-rightbar" style="margin: 0px; width:100%;"><img src="~/Content/icons/home_page_rede_social_falar_seguros_AF149.png" style="margin-left:10px; margin-right:10px;max-width:50px;" />@Resources.Resources.SafeBusinesses</h5>*@
         </div>
 
+        <div class="panel" style="box-shadow:none; background-color:transparent; display:flex; margin-bottom: 4px; margin-top: 0px;">
+            <h5 class="btn-rightbar" style="margin: 0px; width:100%;"><img src="~/Content/icons/home_page_rede_social_falar_seguros_AF152.png" style="margin-left:10px; margin-right:10px;max-width:50px;" />@Html.ActionLink(Resources.Resources.HRInsurances, "HRInsurances", "Home")</h5>
+            @*<h5 class="btn-rightbar" style="margin: 0px; width:100%;"><img src="~/Content/icons/home_page_rede_social_falar_seguros_AF152.png" style="margin-left:10px; margin-right:10px;max-width:50px;" />@Resources.Resources.HRInsurances</h5>*@
+        </div>
+
+        <div class="panel" style="box-shadow:none; background-color:transparent; display:flex; margin-bottom: 4px; margin-top: 0px;">
+            <h5 class="btn-rightbar" style="margin-left: 0px;"><img src="~/Content/icons/home_page_rede_social_falar_seguros_AF155.png" style="margin: 0px; max-width:50px;" />@Html.ActionLink(Resources.Resources.InDiscussion, "CurrentDiscussions", "Home")</h5>
+            <h5 class="btn-rightbar" style="margin-right: 0px;"><a href="/Home/AsfPage"><img src="~/Content/images/ASF_Logotipo.jpg" style="margin: 0px; margin-right: 0px; max-width:175px;" /></a></h5>
+        </div>
+
+        <div class="panel" style="box-shadow:none; background-color:transparent; display:flex; margin-bottom: 4px; margin-top: 0px; min-height:62px">
+            <h5 class="btn-rightbar" style="margin-left: 0px;"><img src="~/Content/icons/home_page_rede_social_falar_seguros_AF155.png" style="margin: 0px; margin-left: 0px; max-width:50px;" />@Html.ActionLink(Resources.Resources.APROSE, "AprosePage", "Home")</h5>
+            <h5 class="btn-rightbar" style="margin-right: 0px;"><a href="/Home/ApsPage"><img src="~/Content/images/logo_aps.png" style="margin: 0px; margin-right: 0px; max-width:155px;padding-top:5px;" /></a>@*<img src="~/Content/images/logo_aps.png" style="margin-left:10px; margin-right:10px;max-width:175px;" />@Html.ActionLink(Resources.Resources.APS, "ApsPage", "Home")*@</h5>
+        </div>
+}
+else
+{
+        <div class="panel" style="box-shadow:none; background-color:transparent; display:flex; margin-bottom: 4px; margin-top: 0px;">
+            <h5 class="btn-rightbar" style="margin-left: 0px;"><img src="~/Content/icons/home_page_rede_social_falar_seguros_AF155.png" style="margin: 0px; max-width:50px;" />@Html.ActionLink(Resources.Resources.InDiscussion, "CurrentDiscussions", "Home")</h5>
+            <h5 class="btn-rightbar" style="margin-right: 0px;"><a href="/Home/AsfPage"><img src="~/Content/images/ASF_Logotipo.jpg" style="margin: 0px; margin-right: 0px; max-width:175px;" /></a></h5>
+        </div>
+
+        <div class="panel" style="box-shadow:none; background-color:transparent; display:flex; margin-bottom: 4px; margin-top: 0px; min-height:62px">
+            @*<h5 class="btn-rightbar" style="margin-left: 0px;"><img src="~/Content/icons/home_page_rede_social_falar_seguros_AF155.png" style="margin: 0px; margin-left: 0px; max-width:50px;" />@Html.ActionLink(Resources.Resources.APROSE, "AprosePage", "Home")</h5>*@
+            <h5 class="btn-rightbar" style="margin-left: 0px;"><a href="/Home/ApsPage"><img src="~/Content/images/logo_aps.png" style="margin: 0px; margin-left: 0px; max-width:155px;padding-top:5px;" /></a>@*<img src="~/Content/images/logo_aps.png" style="margin-left:10px; margin-right:10px;max-width:175px;" />@Html.ActionLink(Resources.Resources.APS, "ApsPage", "Home")*@</h5>
+        </div>
+}
+
+
+        </div>
+    }
+    else
+    {
+        <div class="profile-nav" style="height:60px; background-color:#00C1DE; margin-top:-6px;">
+            <div class="col-md-12 login-link-control" style="text-align:center;">
+                <a href="@Url.Action("Login", "Account", new { id = new Nullable<long>() })" title="@Resources.Resources.Login.ToUpper()" class="btn btn-info pull-center" style="font-weight: bold; width: 100%;">@Resources.Resources.Login.ToUpper()</a>
+            </div>
+        </div>
+    }
+
     @Html.Partial("./Partial/RightBannerPartialView", Model)
+
+    <div class="profile-nav" style="padding:20px; display:flex;">
+        <span style="text-align:center; width: 100%;">2018 © 33Solutions, Lda. Todos os direitos reservados.</span>
+    </div>
 
 </div><!-- end left content-->
 

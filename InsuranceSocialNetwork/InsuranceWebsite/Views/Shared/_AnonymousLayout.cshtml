@@ -31,6 +31,17 @@
         window.appInsights = appInsights;
         appInsights.trackPageView();
     </script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-121169676-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-121169676-1');
+    </script>
+
 </head>
 
 <body class="welcome-page animated fadeIn">

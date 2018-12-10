@@ -13,7 +13,7 @@
 
     @Html.Partial("./Partial/TopBannerPartialView", Model)
 
-    @if (!InsuranceBusiness.BusinessLayer.IsUserInRoleByUsername(this.User.Identity.Name, RoleEnum.PORTAL_COMMERCIAL.ToString()))
+    @if (this.User.Identity.IsAuthenticated && !InsuranceBusiness.BusinessLayer.IsUserInRoleByUsername(this.User.Identity.Name, RoleEnum.PORTAL_COMMERCIAL.ToString()))
     {
         <div class="panel topPanel">
             @using (Html.BeginForm("NewPost", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -77,6 +77,10 @@
                 </div>
             }
         </div>
+    }
+    else if(!this.User.Identity.IsAuthenticated)
+    {
+        <div class="topMarginForContent"></div>
     }
 
     <div class="news" id="postsContent">

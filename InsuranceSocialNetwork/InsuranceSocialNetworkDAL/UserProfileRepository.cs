@@ -488,7 +488,7 @@ namespace InsuranceSocialNetworkDAL
         {
             using (var context = new BackofficeUnitOfWork())
             {
-                return context
+                var garagesStatistics = context
                     .Payment
                     .Fetch()
                     .Include(i => i.Garage)
@@ -497,6 +497,7 @@ namespace InsuranceSocialNetworkDAL
                     .Include(i => i.Garage.AspNetUsers1.Profile)
                     .Include(i => i.PaymentType)
                     .Include(i => i.PaymentStatus)
+                    .Where(i => i.ID_Garage.HasValue)
                     .Select(i => new ConsultantStatisticsDTO()
                     {
                         Consultant_ID_User = i.Garage.AspNetUsers1.Id,
@@ -525,6 +526,164 @@ namespace InsuranceSocialNetworkDAL
                         Payment_PaymentDate = i.PaymentDate
                     })
                     .ToList();
+
+                var medicalClinicStatistics = context
+                    .Payment
+                    .Fetch()
+                    .Include(i => i.MedicalClinic)
+                    .Include(i => i.MedicalClinic.AspNetUsers)
+                    .Include(i => i.MedicalClinic.AspNetUsers1)
+                    .Include(i => i.MedicalClinic.AspNetUsers1.Profile)
+                    .Include(i => i.PaymentType)
+                    .Include(i => i.PaymentStatus)
+                    .Where(i => i.ID_MedicalClinic.HasValue)
+                    .Select(i => new ConsultantStatisticsDTO()
+                    {
+                        Consultant_ID_User = i.MedicalClinic.AspNetUsers1.Id,
+                        Consultant_Username = i.MedicalClinic.AspNetUsers1.UserName,
+                        Consultant_FirstName = i.MedicalClinic.AspNetUsers1.Profile.FirstOrDefault().FirstName,
+                        Consultant_LastName = i.MedicalClinic.AspNetUsers1.Profile.FirstOrDefault().LastName,
+
+                        Company_ID = i.MedicalClinic.ID,
+                        Company_ID_User = i.MedicalClinic.ID_User,
+                        Company_Name = i.MedicalClinic.Name,
+                        Company_BusinessName = i.MedicalClinic.BusinessName,
+                        Company_Description = i.MedicalClinic.Description,
+                        Company_NIF = i.MedicalClinic.NIF,
+                        Company_ContactEmail = i.MedicalClinic.ContactEmail,
+                        Company_CompanyType = CompanyTypeEnum.MEDICAL_CLINIC.ToString(),
+                        Company_CreationDate = i.MedicalClinic.CreateDate,
+
+                        Payment_ID = i.ID,
+                        Payment_LiquidValue = i.LiquidValue,
+                        Payment_TaxValue = i.TaxValue,
+                        Payment_TotalValue = i.TotalValue,
+                        Payment_Type = i.PaymentType.Token.ToString(),
+                        Payment_Status = i.PaymentStatus.Token.ToString(),
+                        Payment_CreationDate = i.CreateDate,
+                        Payment_LastUpdateDate = i.LastChangeDate,
+                        Payment_PaymentDate = i.PaymentDate
+                    })
+                    .ToList();
+
+                var constructionCompanyStatistics = context
+                    .Payment
+                    .Fetch()
+                    .Include(i => i.ConstructionCompany)
+                    .Include(i => i.ConstructionCompany.AspNetUsers)
+                    .Include(i => i.ConstructionCompany.AspNetUsers1)
+                    .Include(i => i.ConstructionCompany.AspNetUsers1.Profile)
+                    .Include(i => i.PaymentType)
+                    .Include(i => i.PaymentStatus)
+                    .Where(i => i.ID_ConstructionCompany.HasValue)
+                    .Select(i => new ConsultantStatisticsDTO()
+                    {
+                        Consultant_ID_User = i.ConstructionCompany.AspNetUsers1.Id,
+                        Consultant_Username = i.ConstructionCompany.AspNetUsers1.UserName,
+                        Consultant_FirstName = i.ConstructionCompany.AspNetUsers1.Profile.FirstOrDefault().FirstName,
+                        Consultant_LastName = i.ConstructionCompany.AspNetUsers1.Profile.FirstOrDefault().LastName,
+
+                        Company_ID = i.ConstructionCompany.ID,
+                        Company_ID_User = i.ConstructionCompany.ID_User,
+                        Company_Name = i.ConstructionCompany.Name,
+                        Company_BusinessName = i.ConstructionCompany.BusinessName,
+                        Company_Description = i.ConstructionCompany.Description,
+                        Company_NIF = i.ConstructionCompany.NIF,
+                        Company_ContactEmail = i.ConstructionCompany.ContactEmail,
+                        Company_CompanyType = CompanyTypeEnum.CONSTRUCTION_COMPANY.ToString(),
+                        Company_CreationDate = i.ConstructionCompany.CreateDate,
+
+                        Payment_ID = i.ID,
+                        Payment_LiquidValue = i.LiquidValue,
+                        Payment_TaxValue = i.TaxValue,
+                        Payment_TotalValue = i.TotalValue,
+                        Payment_Type = i.PaymentType.Token.ToString(),
+                        Payment_Status = i.PaymentStatus.Token.ToString(),
+                        Payment_CreationDate = i.CreateDate,
+                        Payment_LastUpdateDate = i.LastChangeDate,
+                        Payment_PaymentDate = i.PaymentDate
+                    })
+                    .ToList();
+
+                var homeApplianceRepairStatistics = context
+                    .Payment
+                    .Fetch()
+                    .Include(i => i.HomeApplianceRepair)
+                    .Include(i => i.HomeApplianceRepair.AspNetUsers)
+                    .Include(i => i.HomeApplianceRepair.AspNetUsers1)
+                    .Include(i => i.HomeApplianceRepair.AspNetUsers1.Profile)
+                    .Include(i => i.PaymentType)
+                    .Include(i => i.PaymentStatus)
+                    .Where(i => i.ID_HomeApplianceRepair.HasValue)
+                    .Select(i => new ConsultantStatisticsDTO()
+                    {
+                        Consultant_ID_User = i.HomeApplianceRepair.AspNetUsers1.Id,
+                        Consultant_Username = i.HomeApplianceRepair.AspNetUsers1.UserName,
+                        Consultant_FirstName = i.HomeApplianceRepair.AspNetUsers1.Profile.FirstOrDefault().FirstName,
+                        Consultant_LastName = i.HomeApplianceRepair.AspNetUsers1.Profile.FirstOrDefault().LastName,
+
+                        Company_ID = i.HomeApplianceRepair.ID,
+                        Company_ID_User = i.HomeApplianceRepair.ID_User,
+                        Company_Name = i.HomeApplianceRepair.Name,
+                        Company_BusinessName = i.HomeApplianceRepair.BusinessName,
+                        Company_Description = i.HomeApplianceRepair.Description,
+                        Company_NIF = i.HomeApplianceRepair.NIF,
+                        Company_ContactEmail = i.HomeApplianceRepair.ContactEmail,
+                        Company_CompanyType = CompanyTypeEnum.HOME_APPLIANCES_REPAIR.ToString(),
+                        Company_CreationDate = i.HomeApplianceRepair.CreateDate,
+
+                        Payment_ID = i.ID,
+                        Payment_LiquidValue = i.LiquidValue,
+                        Payment_TaxValue = i.TaxValue,
+                        Payment_TotalValue = i.TotalValue,
+                        Payment_Type = i.PaymentType.Token.ToString(),
+                        Payment_Status = i.PaymentStatus.Token.ToString(),
+                        Payment_CreationDate = i.CreateDate,
+                        Payment_LastUpdateDate = i.LastChangeDate,
+                        Payment_PaymentDate = i.PaymentDate
+                    })
+                    .ToList();
+
+                var insuranceCompanyContactStatistics = context
+                    .Payment
+                    .Fetch()
+                    .Include(i => i.InsuranceCompanyContact)
+                    .Include(i => i.InsuranceCompanyContact.AspNetUsers)
+                    .Include(i => i.InsuranceCompanyContact.AspNetUsers1)
+                    .Include(i => i.InsuranceCompanyContact.AspNetUsers1.Profile)
+                    .Include(i => i.PaymentType)
+                    .Include(i => i.PaymentStatus)
+                    .Where(i => i.ID_InsuranceCompanyContact.HasValue)
+                    .Select(i => new ConsultantStatisticsDTO()
+                    {
+                        Consultant_ID_User = i.InsuranceCompanyContact.AspNetUsers1.Id,
+                        Consultant_Username = i.InsuranceCompanyContact.AspNetUsers1.UserName,
+                        Consultant_FirstName = i.InsuranceCompanyContact.AspNetUsers1.Profile.FirstOrDefault().FirstName,
+                        Consultant_LastName = i.InsuranceCompanyContact.AspNetUsers1.Profile.FirstOrDefault().LastName,
+
+                        Company_ID = i.InsuranceCompanyContact.ID,
+                        Company_ID_User = i.InsuranceCompanyContact.ID_User,
+                        Company_Name = i.InsuranceCompanyContact.Name,
+                        Company_BusinessName = i.InsuranceCompanyContact.BusinessName,
+                        Company_Description = i.InsuranceCompanyContact.Description,
+                        Company_NIF = i.InsuranceCompanyContact.NIF,
+                        Company_ContactEmail = i.InsuranceCompanyContact.ContactEmail,
+                        Company_CompanyType = CompanyTypeEnum.INSURANCE_COMPANY_CONTACT.ToString(),
+                        Company_CreationDate = i.InsuranceCompanyContact.CreateDate,
+
+                        Payment_ID = i.ID,
+                        Payment_LiquidValue = i.LiquidValue,
+                        Payment_TaxValue = i.TaxValue,
+                        Payment_TotalValue = i.TotalValue,
+                        Payment_Type = i.PaymentType.Token.ToString(),
+                        Payment_Status = i.PaymentStatus.Token.ToString(),
+                        Payment_CreationDate = i.CreateDate,
+                        Payment_LastUpdateDate = i.LastChangeDate,
+                        Payment_PaymentDate = i.PaymentDate
+                    })
+                    .ToList();
+
+                return garagesStatistics.Concat(medicalClinicStatistics).Concat(constructionCompanyStatistics).Concat(homeApplianceRepairStatistics).Concat(insuranceCompanyContactStatistics).ToList();
             }
         }
     }

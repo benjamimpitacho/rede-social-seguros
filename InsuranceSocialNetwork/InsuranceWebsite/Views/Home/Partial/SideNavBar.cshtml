@@ -17,104 +17,106 @@
     @*<div class="item no-hover">
         <img src="~/Content/images/no_photo_img.jpg" class="item-photo">
     </div>*@
-    <div class="item menu-item">
-        <a href="@Url.Action("ProfileInfo", "Home", new { id = new Nullable<long>() })" title="@Resources.Resources.UserProfile">
-            @if (null == Model.Profile || null == Model.Profile.ProfilePhoto || Model.Profile.ProfilePhoto.Length == 0)
-            {
-                <img src="~/Content/images/no_photo_img.jpg" class="mini-avatar item-photo">
-            }
-            else
-            {
-                <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.Profile.ProfilePhoto))" class="mini-avatar item-photo">
-            }
-        </a>
-    </div>
-    @if (!InsuranceBusiness.BusinessLayer.IsUserInRoleByUsername(this.User.Identity.Name, RoleEnum.DIRECTORY_COMPANY.ToString())
-        && !InsuranceBusiness.BusinessLayer.IsUserInRoleByUsername(this.User.Identity.Name, RoleEnum.PORTAL_COMMERCIAL.ToString()))
+    @if (this.User.Identity.IsAuthenticated)
     {
         <div class="item menu-item">
-            <a href="@Url.Action("Notifications", "Home")" title="@Resources.Resources.Notifications">
-                @*<span class="glyphicon glyphicon-bell"></span>*@
-                <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF113.png" class="mini-avatar item-photo">
+            <a href="@Url.Action("ProfileInfo", "Home", new { id = new Nullable<long>() })" title="@Resources.Resources.UserProfile">
+                @if (null == Model.Profile || null == Model.Profile.ProfilePhoto || Model.Profile.ProfilePhoto.Length == 0)
+                {
+                    <img src="~/Content/images/no_photo_img.jpg" class="mini-avatar item-photo">
+                }
+                else
+                {
+                    <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.Profile.ProfilePhoto))" class="mini-avatar item-photo">
+                }
             </a>
-            @if (Model.TotalUnreadNotifications > 0)
-            {
-                <span class="badge badge-notify">@Model.TotalUnreadNotifications</span>
-            }
         </div>
+        if (!InsuranceBusiness.BusinessLayer.IsUserInRoleByUsername(this.User.Identity.Name, RoleEnum.DIRECTORY_COMPANY.ToString())
+                && !InsuranceBusiness.BusinessLayer.IsUserInRoleByUsername(this.User.Identity.Name, RoleEnum.PORTAL_COMMERCIAL.ToString()))
+        {
+            <div class="item menu-item">
+                <a href="@Url.Action("Notifications", "Home")" title="@Resources.Resources.Notifications">
+                    @*<span class="glyphicon glyphicon-bell"></span>*@
+                    <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF113.png" class="mini-avatar item-photo">
+                </a>
+                @if (Model.TotalUnreadNotifications > 0)
+                {
+                    <span class="badge badge-notify">@Model.TotalUnreadNotifications</span>
+                }
+            </div>
+            <div class="item menu-item">
+                <a href="@Url.Action("Search", "Home")" title="@Resources.Resources.Search">
+                    @*<span class="glyphicon glyphicon-search"></span>*@
+                    <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF116.png" class="mini-avatar item-photo">
+                </a>
+            </div>
+            @*<div class="item">
+                <a href="@Url.Action("Index", "Home")" title="@Resources.Resources.Home"><span class="glyphicon glyphicon-home"></span></a>
+            </div>*@
+            <div class="item menu-item">
+                <a href="@Url.Action("Messages", "Home")" title="@Resources.Resources.Messages">
+                    @*<span class="glyphicon glyphicon-comment"></span>*@
+                    <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF16.png" class="mini-avatar item-photo">
+                </a>
+                @if (Model.TotalUnreadMessages > 0)
+                {
+                    <span class="badge badge-notify">@Model.TotalUnreadMessages</span>
+                }
+            </div>
+            <div class="item menu-item">
+                <a href="@Url.Action("Friends", "Home")" title="@Resources.Resources.Friends">
+                    @*<span class="glyphicon glyphicon-user"></span>*@
+                    <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF122.png" class="mini-avatar item-photo">
+                </a>
+            </div>
+            <div class="item menu-item">
+                <a href="@Url.Action("ProfileConfigurations", "Home", new { userId = Model.Profile.ID_User })" title="@Resources.Resources.Settings">
+                    @*<span class="glyphicon glyphicon-option-horizontal"></span>*@
+                    <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF125.png" class="mini-avatar item-photo">
+                </a>
+            </div>
+        }
         <div class="item menu-item">
-            <a href="@Url.Action("Search", "Home")" title="@Resources.Resources.Search">
-                @*<span class="glyphicon glyphicon-search"></span>*@
-                <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF116.png" class="mini-avatar item-photo">
+            <a href="@Url.Action("LogOff", "Account")" title="@Resources.Resources.Logout">
+                <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF128.png" class="mini-avatar item-photo">
             </a>
         </div>
-        @*<div class="item">
-            <a href="@Url.Action("Index", "Home")" title="@Resources.Resources.Home"><span class="glyphicon glyphicon-home"></span></a>
-        </div>*@
-        <div class="item menu-item">
-            <a href="@Url.Action("Messages", "Home")" title="@Resources.Resources.Messages">
-                @*<span class="glyphicon glyphicon-comment"></span>*@
-                <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF16.png" class="mini-avatar item-photo">
-            </a>
-            @if (Model.TotalUnreadMessages > 0)
-            {
-                <span class="badge badge-notify">@Model.TotalUnreadMessages</span>
-            }
-        </div>
-        <div class="item menu-item">
-            <a href="@Url.Action("Friends", "Home")" title="@Resources.Resources.Friends">
-                @*<span class="glyphicon glyphicon-user"></span>*@
-                <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF122.png" class="mini-avatar item-photo">
-            </a>
-        </div>
-        <div class="item menu-item">
-            <a href="@Url.Action("ProfileConfigurations", "Home", new { userId = Model.Profile.ID_User })" title="@Resources.Resources.Settings">
-                @*<span class="glyphicon glyphicon-option-horizontal"></span>*@
-                <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF125.png" class="mini-avatar item-photo">
-            </a>
-        </div>
-    }
-    <div class="item menu-item">
-        <a href="@Url.Action("LogOff", "Account")" title="@Resources.Resources.Logout">
-            <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF128.png" class="mini-avatar item-photo">
-        </a>
-    </div>
 
-    @if (InsuranceBusiness.BusinessLayer.IsUserAuthorizedToFunctionality(this.User.Identity.Name, Functionality.USERS_MANAGEMENT.ToString())
-        || InsuranceBusiness.BusinessLayer.IsUserAuthorizedToFunctionality(this.User.Identity.Name, Functionality.COMPANIES_MANAGEMENT.ToString()))
-    {
-        <div class="item menu-item">
-            <a href = "@Url.Action("SystemManagement", "Home")" title="@Resources.Resources.Administration">
-                <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF131.png" class="mini-avatar item-photo">
-            </a>
-        </div>
-    }
-    @*@if (InsuranceBusiness.BusinessLayer.IsUserAuthorizedToFunctionality(this.User.Identity.Name, Functionality.USERS_MANAGEMENT.ToString()))
-    {
-        <div class="item">
-            <a href = "@Url.Action("Index", "UsersManagement")" title="@Resources.Resources.UsersManagement"><span class="glyphicon glyphicon-cog"></span></a>
-        </div>
-    }
-    @if (InsuranceBusiness.BusinessLayer.IsUserAuthorizedToFunctionality(this.User.Identity.Name, Functionality.ROLES_MANAGEMENT.ToString()))
-    {
-        <div class="item">
-            <a href="@Url.Action("Index", "RolesManagement")" title="@Resources.Resources.RolesManagement"><span class="glyphicon glyphicon-lock"></span></a>
-        </div>
-    }
-    @if (InsuranceBusiness.BusinessLayer.IsUserAuthorizedToFunctionality(this.User.Identity.Name, Functionality.ALERTS_MANAGEMENT.ToString()))
-    {
-        <div class="item">
-            <a href="@Url.Action("Index", "NotificationsManagement")" title="@Resources.Resources.AlertsManagement"><span class="glyphicon glyphicon-warning-sign"></span></a>
-        </div>
-    }
-    @if (InsuranceBusiness.BusinessLayer.IsUserAuthorizedToFunctionality(this.User.Identity.Name, Functionality.BANNERS_MANAGEMENT.ToString()))
-    {
-        <div class="item">
-            <a href="@Url.Action("Index", "BannersManagement")" title="@Resources.Resources.BannersManagement"><span class="glyphicon glyphicon-warning-sign"></span></a>
-        </div>
-    }*@
+        if (InsuranceBusiness.BusinessLayer.IsUserAuthorizedToFunctionality(this.User.Identity.Name, Functionality.USERS_MANAGEMENT.ToString())
+                || InsuranceBusiness.BusinessLayer.IsUserAuthorizedToFunctionality(this.User.Identity.Name, Functionality.COMPANIES_MANAGEMENT.ToString()))
+        {
+            <div class="item menu-item">
+                <a href = "@Url.Action("SystemManagement", "Home")" title="@Resources.Resources.Administration">
+                    <img src="~/Content/icons/home_page_rede_social_falar_seguros_AF131.png" class="mini-avatar item-photo">
+                </a>
+            </div>
+        }
+        @*@if (InsuranceBusiness.BusinessLayer.IsUserAuthorizedToFunctionality(this.User.Identity.Name, Functionality.USERS_MANAGEMENT.ToString()))
+        {
+            <div class="item">
+                <a href = "@Url.Action("Index", "UsersManagement")" title="@Resources.Resources.UsersManagement"><span class="glyphicon glyphicon-cog"></span></a>
+            </div>
+        }
+        @if (InsuranceBusiness.BusinessLayer.IsUserAuthorizedToFunctionality(this.User.Identity.Name, Functionality.ROLES_MANAGEMENT.ToString()))
+        {
+            <div class="item">
+                <a href="@Url.Action("Index", "RolesManagement")" title="@Resources.Resources.RolesManagement"><span class="glyphicon glyphicon-lock"></span></a>
+            </div>
+        }
+        @if (InsuranceBusiness.BusinessLayer.IsUserAuthorizedToFunctionality(this.User.Identity.Name, Functionality.ALERTS_MANAGEMENT.ToString()))
+        {
+            <div class="item">
+                <a href="@Url.Action("Index", "NotificationsManagement")" title="@Resources.Resources.AlertsManagement"><span class="glyphicon glyphicon-warning-sign"></span></a>
+            </div>
+        }
+        @if (InsuranceBusiness.BusinessLayer.IsUserAuthorizedToFunctionality(this.User.Identity.Name, Functionality.BANNERS_MANAGEMENT.ToString()))
+        {
+            <div class="item">
+                <a href="@Url.Action("Index", "BannersManagement")" title="@Resources.Resources.BannersManagement"><span class="glyphicon glyphicon-warning-sign"></span></a>
+            </div>
+        }*@
 
-    
+    }
 </div>
 }
 

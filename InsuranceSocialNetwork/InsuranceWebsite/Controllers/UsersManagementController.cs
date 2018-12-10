@@ -686,7 +686,7 @@ namespace InsuranceWebsite.Controllers
                 gv.DataBind();
                 Response.ClearContent();
                 Response.Buffer = true;
-                Response.AddHeader("content-disposition", "attachment; filename=Estatisticas_Colaboradores.xlsx");
+                Response.AddHeader("content-disposition", "attachment; filename=Estatisticas_Colaboradores.xls");
                 Response.ContentType = "application/ms-excel";
                 Response.Charset = "";
                 StringWriter objStringWriter = new StringWriter();

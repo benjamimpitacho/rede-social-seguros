@@ -20,92 +20,103 @@
             <div class="row" style="margin-left: 15px;padding-top:0px">
 
                 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                {
-                    @Html.AntiForgeryToken()
+            {
+                @Html.AntiForgeryToken()
 
-                    <div class="form-group" style="margin-bottom: 35px !important;">
-                        <img src="~/Content/logos/logotipo_falar_seguros.png" style="padding: 30px 50px;" />
-                    </div>
+                <div class="form-group" style="margin-bottom: 35px !important;">
+                    <img src="~/Content/logos/logotipo_falar_seguros.png" style="padding: 30px 50px;" />
+                </div>
 
-                    <div class="form-group login-box">
-                        @*@Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })*@
-                        <div class="col-md-12 login-box-elements light">
-                            <img src="~/Content/icons/user.png" style="width:40px; height:40px;" />
-                            @Html.TextBoxFor(m => m.Name, new { @class = "form-control login-box-input", @placeholder = Resources.Resources.Name, @id = "short" })
-                        </div>
+                <div class="form-group login-box">
+                    @*@Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })*@
+                    <div class="col-md-12 login-box-elements light">
+                        <img src="~/Content/icons/user.png" style="width:40px; height:40px;" />
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control login-box-input", @placeholder = Resources.Resources.Name, @id = "short1" })
                     </div>
-                    <div class="form-group login-box">
-                        @*@Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })*@
-                        <div class="col-md-12 login-box-elements dark">
-                            <img src="~/Content/icons/envelope.png" style="width:40px; height:40px;" />
-                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control login-box-input", @placeholder = Resources.Resources.Email, @id = "short" })
-                        </div>
+                </div>
+                <div class="form-group login-box">
+                    @*@Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })*@
+                    <div class="col-md-12 login-box-elements dark">
+                        <img src="~/Content/icons/envelope.png" style="width:40px; height:40px;" />
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control login-box-input", @placeholder = Resources.Resources.Email, @id = "short2" })
                     </div>
-                    <div class="form-group login-box">
-                        @*@Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })*@
-                        <div class="col-md-12 login-box-elements light">
-                            <img src="~/Content/icons/locker.png" style="width:40px; height:40px;" />
-                            @Html.PasswordFor(m => m.Password, new { @class = "form-control login-box-input", @placeholder = Resources.Resources.Password, @id = "short" })
-                        </div>
+                </div>
+                <div class="form-group login-box">
+                    @*@Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })*@
+                    <div class="col-md-12 login-box-elements light">
+                        <img src="~/Content/icons/locker.png" style="width:40px; height:40px;" />
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control login-box-input", @placeholder = Resources.Resources.Password, @id = "short" })
                     </div>
-                    <div class="form-group login-box">
-                        @*@Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })*@
-                        <div class="col-md-12 login-box-elements dark">
-                            <img src="~/Content/icons/locker.png" style="width:40px; height:40px;" />
-                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control login-box-input", @placeholder = Resources.Resources.ConfirmPassword, @id = "short" })
-                        </div>
+                </div>
+                <div class="form-group login-box">
+                    @*@Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })*@
+                    <div class="col-md-12 login-box-elements dark">
+                        <img src="~/Content/icons/locker.png" style="width:40px; height:40px;" />
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control login-box-input", @placeholder = Resources.Resources.ConfirmPassword, @id = "short4" })
                     </div>
-                    <div class="form-group login-box">
-                        @*@Html.LabelFor(m => m.UserRole, new { @class = "col-md-2 control-label" })*@
-                        <div class="col-md-12 login-box-elements light">
-                            <img src="~/Content/icons/business_user.png" style="width:40px; height:40px;" />
-                            @Html.DropDownListFor(m => m.UserRole, Model.UserRoles, new { @class = "form-control login-select-input", id = "userRoleDropdown" })
-                            @*@Html.DropDownList("UserRole", (SelectList)ViewBag.Name, null, new { @class = "form-control", id="userRoleDropdown" })*@
-                        </div>
+                </div>
+                <div class="form-group login-box">
+                    @*@Html.LabelFor(m => m.UserRole, new { @class = "col-md-2 control-label" })*@
+                    <div class="col-md-12 login-box-elements light">
+                        <img src="~/Content/icons/business_user.png" style="width:40px; height:40px;" />
+                        @Html.DropDownListFor(m => m.UserRole, Model.UserRoles, new { @class = "form-control login-select-input", id = "userRoleDropdown" })
+                        @*@Html.DropDownList("UserRole", (SelectList)ViewBag.Name, null, new { @class = "form-control", id="userRoleDropdown" })*@
                     </div>
-                    <div class="form-group login-box" id="professionalNumberSection">
-                        @*@Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })*@
-                        <div class="col-md-12 login-box-elements dark">
-                            <img src="~/Content/icons/target.png" style="width:40px; height:40px;" />
-                            @Html.TextBoxFor(m => m.ProfessionalNumber, new { @class = "form-control login-box-input professionalNumberClass", @placeholder = Resources.Resources.ProfessionalNumber, @id = "short" })
-                        </div>
+                </div>
+                <div class="form-group login-box" id="professionalNumberSection">
+                    @*@Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })*@
+                    <div class="col-md-12 login-box-elements dark">
+                        <img src="~/Content/icons/target.png" style="width:40px; height:40px;" />
+                        @Html.TextBoxFor(m => m.ProfessionalNumber, new { @class = "form-control login-box-input professionalNumberClass", @placeholder = Resources.Resources.ProfessionalNumber, @id = "short5" })
                     </div>
+                </div>
+                <div class="form-group login-box">
+                    @*@Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })*@
+                    <div class="col-md-12 login-box-elements light">
+                        <label style="display:flex;font-size:12px;font-weight:normal; text-align:justify;">@Html.EditorFor(m => m.TermsAndConditions)&nbsp;@Html.DisplayNameFor(m => m.TermsAndConditions)</label>
+                        @*@Html.CheckBoxFor(m => m.TermsAndConditions, new { @class = "", @placeholder = Resources.Resources.TermsAndConditionsLabel, @id = "short" })
+                        @Html.LabelFor(m => m.TermsAndConditions, new { @class = "col-md-2 control-label" })*@
+                    </div>
+                </div>
 
-                    <div class="form-group login-box">
-                        <div class="col-md-12 login-link-control" style="text-align:center;">
-                            @Html.ActionLink(Resources.Resources.Login.ToUpper(), "Login", "Account", new { @class = "", style = "font-weight: bold;color:#00C1DE;" })
-                        </div>
+                <div class="form-group login-box">
+                    <div class="col-md-12 login-link-control" style="text-align:center;">
+                        @Html.ActionLink(Resources.Resources.Login.ToUpper(), "Login", "Account", new { @class = "", style = "font-weight: bold;color:#00C1DE;" })
                     </div>
+                </div>
 
-                    <div class="form-group login-box" style="text-align: center;">
-                        <input type="submit" class="btn btn-info login-button" style="margin-top:0px" value="@Resources.Resources.Regist" />
-                    </div>
+                <div class="form-group login-box" style="text-align: center;">
+                    <input type="submit" class="btn btn-info login-button" style="margin-top:0px" value="@Resources.Resources.Regist" />
+                </div>
 
-                    <div class="form-group">
-                        <div class="col-md-12">
-                            @Html.ValidationSummary("", new { @class = "text-danger" })
-                        </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        @Html.ValidationSummary("", new { @class = "text-danger" })
                     </div>
-                }
+                </div>
+        }
 
             </div>
 
         </div>
 
-        <div class="widget-body" style="margin-left: 20px; height: 335px; margin-top: 240px;">
 
-            <div class="row" style="margin-left: 15px;padding-top:0px">
+        <div class="widget-body" style="margin-left: 20px; height: 590px; margin-top: 0px; width: 400px;">
+
+            <div class="row" style="margin-left: 30px;padding-top:0px; margin-right: 0px;">
                 <form class="form-horizontal" method="post" role="form" novalidate="novalidate">
-                    <div class="form-group" style="margin-bottom: 35px !important; font-size:10px; text-align: justify; text-justify: inter-word;">
-                        O portal Falar seguros destina-se exclusivamente a profissionais de seguros a operar em Portugal
+                    <div class="form-group" style="margin-bottom: 35px !important; font-size:12px; text-align: justify; text-justify: inter-word;">
+                        O Portal Falar Seguros tem como objetivo ser <strong>uma fonte de informação perante</strong> para todo o setor segurador, bem como para todas as pessoas que apesar de não trabalharem no setor gostam de estar informadas do que nele vai acontecendo.
                         <p></p>
-                        Se és mediador/corretor de seguros é necessário que seleciones a opção “Mediador de Seguros” e nos indiques o número da ASF correspondente
+                        O Portal Falar Seguros também <strong>permite que o consumidor tenha voz ativa</strong>, é para ele que todo o setor segurador trabalha e como tal qualquer pessoa pode registar-se como <strong>“Utilizador Comum”</strong> e assim recolher informação mais aprofundada sobre este tema, esclarecer dúvidas quanto à contratação de novas apólices ou seguros que já tenha contratado, questões relacionadas com sinistros em curso ou potenciais. Este Portal <strong>não comercializa seguros</strong>, mas assume-se com um <strong>ponto de encontro entre profissionais e consumidores</strong>, onde é possível <strong>comunicar por mensagem privada</strong> e <strong>adicionar notas</strong> à conversa por forma a que nada fique esquecido.
                         <p></p>
-                        Se fores funcionário de alguma seguradora basta escolheres “Outro Profissional de Seguros” e fazeres o registo com o teu e-mail institucional, pois os domínios foram previamente autorizados.
+                        Se és <strong>Mediador/Corretor</strong> de seguros ou trabalhas em sociedades de Mediação ou Corretagem é necessário que seleciones a opção <strong>“Mediador de Seguros”</strong> e nos indiques o <strong>número da ASF</strong> correspondente.
                         <p></p>
-                        Todos os casos que não se enquadram nos anteriormente referidos devem entrar em contacto connosco através do  e-mail geral@falarseguros.pt (Ex: Profissionais reformados, PEDEAMS)
+                        Se fores <strong>funcionário de alguma seguradora</strong> basta escolheres <strong>“Outro Profissional de Seguros”</strong> e fazeres o registo com o teu <strong>e-mail institucional</strong>, pois os domínios foram previamente autorizados.
                         <p></p>
-                        Estes procedimentos são essenciais para garantir que os utilizadores do portal Falar Seguros falam “Segurês”, pois caso isso não aconteça o portal perde a sua essência.
+                        Se não és profissional de seguros basta escolheres <strong>“Utilizador Comum”</strong> e fazer o registo.
+                        <p></p>
+                        Todos os casos que não se enquadram nos anteriormente referidos devem entrar em contacto connosco através do e-mail <a href="mailto:geral@falarseguros.pt" target="_top">geral@falarseguros.pt</a> (Ex: Profissionais reformados, PEDEAMS)
                         <p></p>
                         Gratos pela vossa compreensão.
                         <p></p>
@@ -134,13 +145,11 @@
     $("#professionalNumberSection").hide();
 
     $("#userRoleDropdown").change(function () {
-        if($("#userRoleDropdown").val() == 3)
-        {
+        if ($("#userRoleDropdown").val() == 3) {
             $("#professionalNumberSection").show();
             $(".professionalNumberClass").val("");
         }
-        else
-        {
+        else {
             $("#professionalNumberSection").hide();
             $(".professionalNumberClass").val("-");
         }
@@ -150,20 +159,20 @@
 
 <style type="text/css">
 
-.form-group {
-    margin-bottom: 10px;
-}
-    
-.glyphicon {
-    /*color: #00C1DE;
+    .form-group {
+        margin-bottom: 10px;
+    }
+
+    .glyphicon {
+        /*color: #00C1DE;
     border-color: #00C1DE;*/
-    border-style: solid;
-    border-width: medium;
-    width: 40px;
-    height: 40px;
-    padding: 8px;
-    border-radius: 32px;
-    font-size: 20px;
-    color: darkgrey;
-}
+        border-style: solid;
+        border-width: medium;
+        width: 40px;
+        height: 40px;
+        padding: 8px;
+        border-radius: 32px;
+        font-size: 20px;
+        color: darkgrey;
+    }
 </style>

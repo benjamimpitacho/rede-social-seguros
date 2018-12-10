@@ -203,6 +203,7 @@ namespace InsuranceWebsite.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+
                 user.EmailConfirmed = false;
                 
                 //user.LockoutEnabled = true;
@@ -250,7 +251,7 @@ namespace InsuranceWebsite.Controllers
                     {
                         InsuranceBusiness.BusinessLayer.CreateNotification(user.Id, null, NotificationTypeEnum.COMPLETE_PROFILE_INFO);
 
-                        if(!InsuranceBusiness.BusinessLayer.IsEmailAuthorizedForAutomaticApproval(user.UserName))
+                        if (!InsuranceBusiness.BusinessLayer.IsEmailAuthorizedForAutomaticApproval(user.UserName) && !InsuranceBusiness.BusinessLayer.IsUserInRoleByUserID(user.Id, RoleEnum.ASSOCIATED_PREMIUM.ToString()))
                         {
                             await LockUserAccount(user.Id, 5000);
                         }

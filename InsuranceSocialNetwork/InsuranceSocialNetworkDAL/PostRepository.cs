@@ -54,6 +54,47 @@ namespace InsuranceSocialNetworkDAL
 
         public static List<Post> GetUserRelatedPosts(BackofficeUnitOfWork context, string Id, int skipInterval = 0, int itemsCount = 10)
         {
+
+            List<long> hiddenPostIds = context.PostHidden
+                .Fetch()
+                .Where(i => i.ID_User == Id && i.Hidden)
+                .Select(i => i.ID_Post)
+                .ToList();
+
+            if (string.IsNullOrEmpty(Id))
+            {
+                List<Post> anonymousPostList = context.Post
+                .Fetch()
+                .Where(i => (
+                        i.PostSubject.Token.Equals("BUSINESS_POST")
+                        || i.PostSubject.Token.Equals("NEWS_POST")
+                        || i.PostSubject.Token.Equals("PARTNERSHIP_POST")
+                        || i.PostSubject.Token.Equals("WALLET_POST")
+                        || i.PostSubject.Token.Equals("SPONSORED_POST")
+                        || i.PostSubject.Token.Equals("GLOBAL_POST")
+                    )
+                    && i.Active
+                    && !hiddenPostIds.Contains(i.ID)
+                )
+                .Include(i => i.Post1)
+                .Include(i => i.AspNetUsers.Profile)
+                .Include(i => i.PostType)
+                .Include(i => i.PostSubject)
+                .Include(i => i.PostLike)
+                .Include(i => i.PostComment)
+                .Include(i => i.PostHidden)
+                .Include(i => i.PostImage)
+                //.Include(i => i.ChatMessage.OrderByDescending(j => j.CreateDate).Take(20))
+                //.Include(i => i.PostImage)
+                .OrderByDescending(i => i.Sticky)
+                .ThenByDescending(i => i.CreateDate)
+                .Skip(skipInterval)
+                .Take(itemsCount)
+                .ToList();
+
+                return anonymousPostList;
+            }
+
             List<string> friendsUserIds = context
                 .Friend
                 .Fetch()
@@ -69,12 +110,6 @@ namespace InsuranceSocialNetworkDAL
                 .Select(i => i.ID_User)
                 .ToList();
             friendsUserIds = friendsUserIds.Concat(auxFriendsUserIds).ToList();
-
-            List<long> hiddenPostIds = context.PostHidden
-                .Fetch()
-                .Where(i => i.ID_User == Id && i.Hidden)
-                .Select(i => i.ID_Post)
-                .ToList();
 
             List<Post> postList = context.Post
                 .Fetch()

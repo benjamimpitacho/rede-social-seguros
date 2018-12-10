@@ -137,7 +137,7 @@
                     </div>
                     
                     <div style="display:grid;">
-                        @if (item.IsFavorite)
+                        @if (this.User.Identity.IsAuthenticated && item.IsFavorite)
                         {
                             <a onclick="RemoveFavorite(this, @item.ID, @(Model.IsSearchGarages ? (int)CompanyTypeEnum.GARAGE : Model.IsSearchClinics ? (int)CompanyTypeEnum.MEDICAL_CLINIC : Model.IsSearchConstructionCompanies ? (int)CompanyTypeEnum.CONSTRUCTION_COMPANY : Model.IsSearchHomeApplianceRepair ? (int)CompanyTypeEnum.HOME_APPLIANCES_REPAIR : Model.IsSearchInsuranceContacts ? (int)CompanyTypeEnum.INSURANCE_COMPANY_CONTACT : -1))" id="removeFavorite">
                                 <img class="search-result-icon" src="~/Content/icons/139.png" />

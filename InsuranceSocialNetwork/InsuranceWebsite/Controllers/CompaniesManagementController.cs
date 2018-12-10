@@ -1316,10 +1316,20 @@ namespace InsuranceWebsite.Controllers
             m.CC.Add(new MailAddress(cc_mail));
             m.Subject = Resources.Resources.EmailCompanyRegistWelcome;
 
-            using (StreamReader reader = new StreamReader(Server.MapPath("~/Views/CompaniesManagement/EmailTemplates/RegistWelcomeTemplate.html")))
+            if(null == payment)
             {
-                m.Body = reader.ReadToEnd();
+                using (StreamReader reader = new StreamReader(Server.MapPath("~/Views/CompaniesManagement/EmailTemplates/RegistWelcomeTemplate.html")))
+                {
+                    m.Body = reader.ReadToEnd();
+                }
             }
+            else
+            {
+                using (StreamReader reader = new StreamReader(Server.MapPath("~/Views/CompaniesManagement/EmailTemplates/RegistWelcomeTemplateWithPayment.html")))
+                {
+                    m.Body = reader.ReadToEnd();
+                }
+            }            
 
             m.Body = m.Body.Replace("{NAME}", string.IsNullOrEmpty(company.BusinessName) ? company.Name : company.BusinessName); //replacing the required things
             m.Body = m.Body.Replace("{URL}", InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.APPLICATION_SITE_URL).Value);
@@ -1333,12 +1343,12 @@ namespace InsuranceWebsite.Controllers
                 m.Body = m.Body.Replace("{REFERENCE}", payment.ep_reference);
                 m.Body = m.Body.Replace("{AMOUNT}", payment.ep_value);
             }
-            else
-            {
-                m.Body = m.Body.Replace("{ENTITY}", string.Empty);
-                m.Body = m.Body.Replace("{REFERENCE}", string.Empty);
-                m.Body = m.Body.Replace("{AMOUNT}", string.Empty);
-            }
+            //else
+            //{
+            //    m.Body = m.Body.Replace("{ENTITY}", string.Empty);
+            //    m.Body = m.Body.Replace("{REFERENCE}", string.Empty);
+            //    m.Body = m.Body.Replace("{AMOUNT}", string.Empty);
+            //}
             m.IsBodyHtml = true;
 
             SmtpClient smtp = new SmtpClient(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.SMTP_HOST).Value, Int32.Parse(InsuranceBusiness.BusinessLayer.GetSystemSetting(SystemSettingsEnum.SMTP_PORT).Value))
